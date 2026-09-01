@@ -1,0 +1,32 @@
+# Local secrets (keep the documented template tracked)
+.env*
+!.env.example
+
+# Dependencies and generated Python files
+.venv/
+node_modules/
+__pycache__/
+.pytest_cache/
+coverage/
+*.tsbuildinfo
+
+# Local build/deploy outputs
+dist/
+web/dist/
+site/
+.openai/
+.wrangler/
+outputs/
+work/
+
+# SQLite transient files; data/hot.db is intentionally tracked
+*.db-shm
+*.db-wal
+
+# Editor, OS and debug files
+.DS_Store
+*.pem
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*

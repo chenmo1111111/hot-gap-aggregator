@@ -1,0 +1,8 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root { --paper:#f5f4ef; --ink:#0b1725; --muted:#66717d; --line:#d9d8d0; --card:#fffefa; --soft:#e9e8e1; --rank:#a9adb0; --header:#07111f; color-scheme:light; }
+.dark { --paper:#08111c; --ink:#ecf4f7; --muted:#94a3ae; --line:#1d2d3b; --card:#0d1a27; --soft:#162634; --rank:#496070; --header:#050b13; color-scheme:dark; }
+html { font-family: Inter, "PingFang SC", "Microsoft YaHei", system-ui, sans-serif; background:var(--paper); }
+body { margin:0; min-width:320px; }
+button, a { -webkit-tap-highlight-color:transparent; }

@@ -1,0 +1,43 @@
+name: Daily hot-list digest
+
+on:
+  schedule:
+    - cron: "0 1 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - run: python -m playwright install --with-deps chromium
+      - name: Collect and send Top 20
+        env:
+          TRANSLATOR: zhipu
+          ZHIPU_API_KEY: ${{ secrets.ZHIPU_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_BASE_URL: ${{ vars.OPENAI_BASE_URL }}
+          OPENAI_MODEL: ${{ vars.OPENAI_MODEL }}
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+          INVIDIOUS_BASE: ${{ secrets.INVIDIOUS_BASE }}
+          ENABLE_SUMMARY: "true"
+          XHS_KEYWORDS_CONFIG: config/xhs_keywords.yaml
+          INVIDIOUS_INSTANCES_CONFIG: config/invidious_instances.yaml
+          GONGKAO_WATCH_CONFIG: config/gongkao_watch.yaml
+          BARK_URL: ${{ secrets.BARK_URL }}
+          TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
+          TG_CHAT_ID: ${{ secrets.TG_CHAT_ID }}
+          SERVERCHAN_KEY: ${{ secrets.SERVERCHAN_KEY }}
+        run: python -m app.run --notify
+      - uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore(data): refresh daily digest snapshot"
+          file_pattern: "public/data/*.json data/hot.db"

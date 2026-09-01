@@ -1,0 +1,116 @@
+name: Collect, build and publish
+
+on:
+  schedule:
+    - cron: "0 */2 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: hot-gap-publish
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate deployment target
+        env:
+          DEPLOY_TARGET: ${{ vars.DEPLOY_TARGET }}
+        run: |
+          if [[ "$DEPLOY_TARGET" != "cloudflare" && "$DEPLOY_TARGET" != "github" ]]; then
+            echo "Set repository variable DEPLOY_TARGET to cloudflare or github."
+            exit 1
+          fi
+
+      - name: Checkout full history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install Python dependencies
+        run: |
+          pip install -r requirements.txt
+          python -m playwright install --with-deps chromium
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install frontend dependencies
+        run: npm ci
+
+      - name: Collect and export snapshots
+        env:
+          TRANSLATOR: zhipu
+          ZHIPU_API_KEY: ${{ secrets.ZHIPU_API_KEY }}
+          ENABLE_SUMMARY: "true"
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+          INVIDIOUS_BASE: ${{ secrets.INVIDIOUS_BASE }}
+          INVIDIOUS_INSTANCES_CONFIG: config/invidious_instances.yaml
+          TELEGRAM_CHANNELS_CONFIG: config/telegram_channels.yaml
+          XHS_KEYWORDS_CONFIG: config/xhs_keywords.yaml
+          GONGKAO_WATCH_CONFIG: config/gongkao_watch.yaml
+        run: python -m app.run
+
+      - name: Build static frontend
+        env:
+          VITE_BASE_PATH: ${{ vars.DEPLOY_TARGET == 'github' && '/hot-gap-aggregator/' || '/' }}
+        run: npm run build
+
+      - name: Assemble deployment directory
+        run: |
+          rm -rf site
+          mkdir -p site/data
+          cp -a web/dist/. site/
+          cp -a public/data/. site/data/
+
+      - name: Persist SQLite history and JSON snapshots
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/hot.db public/data
+          if git diff --cached --quiet; then
+            echo "No data changes to commit."
+          else
+            git commit -m "chore: data $(date -u +%FT%TZ) [skip ci]"
+            git push
+          fi
+
+      - name: Deploy to Cloudflare Pages
+        if: vars.DEPLOY_TARGET == 'cloudflare'
+        uses: cloudflare/wrangler-action@v4
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy site/ --project-name=hot-gap-aggregator
+
+      - name: Upload GitHub Pages artifact
+        if: vars.DEPLOY_TARGET == 'github'
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: site/
+
+  deploy-github-pages:
+    if: vars.DEPLOY_TARGET == 'github'
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
