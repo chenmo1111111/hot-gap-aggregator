@@ -76,6 +76,7 @@ jobs:
           mkdir -p site/data
           cp -a web/dist/. site/
           cp -a public/data/. site/data/
+          rm -rf site/.openai
 
       - name: Persist SQLite history and JSON snapshots
         run: |
