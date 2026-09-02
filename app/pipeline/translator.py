@@ -86,18 +86,16 @@ class Translator(ABC):
             LOGGER.warning("%s provider %s degraded: %s", kind, self.provider, exc)
         if self.fallback is not None:
             try:
-                fallback_call = self.fallback.batch_translate if kind == "translation" else self.fallback.batch_summarize
-                values = await fallback_call(missing)
-                if len(values) == len(missing):
-                    fresh = {src: (val.strip() or src) for src, val in zip(missing, values, strict=True)}
-                    # Cache under the fallback's own name, not ours: once the
-                    # primary provider recovers it should retry and win, rather
-                    # than keep serving lower-quality fallback text forever.
-                    _cache_translated(save_cache, fresh, self.fallback.provider)
-                    LOGGER.info("%s recovered via fallback %s", kind, self.fallback.provider)
-                    return fresh
+                # Call the fallback's full pipeline so its own cache + fallback
+                # chain apply (zhipu -> deepseek -> free). `missing` is already
+                # cleaned, so keys round-trip unchanged.
+                method = self.fallback.translate if kind == "translation" else self.fallback.summarize
+                fresh = await method(missing)
+                recovered = sum(1 for src, dst in fresh.items() if dst != src)
+                LOGGER.info("%s: %d/%d recovered via %s", kind, recovered, len(missing), self.fallback.provider)
+                return fresh
             except Exception as exc:  # noqa: BLE001
-                LOGGER.warning("%s fallback %s also failed: %s", kind, self.fallback.provider, exc)
+                LOGGER.warning("%s fallback chain from %s failed: %s", kind, self.fallback.provider, exc)
         return {text: text for text in missing}
 
     @abstractmethod
@@ -137,8 +135,7 @@ class OpenAICompatibleTranslator(Translator):
 
     async def _numbered_or_individual(self, texts: list[str], system: str, *, temperature: float) -> list[str]:
         if not self.api_key:
-            key_name = "ZHIPU_API_KEY" if self.provider == "zhipu" else "OPENAI_API_KEY"
-            raise RuntimeError(f"{key_name} is missing")
+            raise RuntimeError(f"{self.provider.upper()}_API_KEY is missing")
         numbered = "\n".join(f"{index + 1}. {_clean(text)}" for index, text in enumerate(texts))
         content = await self._chat(system, numbered, temperature=temperature)
         lines = [_strip_number(line) for line in content.splitlines() if line.strip()]
@@ -245,28 +242,38 @@ class NoneTranslator(Translator):
         return list(texts)
 
 
+def _deepseek(database: "Database", fallback: Translator) -> Translator:
+    key = (os.getenv("DEEPSEEK_API_KEY") or "").strip()
+    if not key:
+        return fallback
+    return OpenAICompatibleTranslator(
+        database, base_url=os.getenv("DEEPSEEK_BASE_URL") or "https://api.deepseek.com",
+        model=os.getenv("DEEPSEEK_MODEL") or "deepseek-chat", api_key=key,
+        provider="deepseek", fallback=fallback,
+    )
+
+
 def create_translator(database: "Database") -> Translator:
     provider = os.getenv("TRANSLATOR", "zhipu").strip().lower()
-    if provider == "zhipu":
+    free = FreeTranslator(database)
+    # chain: (primary) -> deepseek (if key set) -> free
+    if provider in {"zhipu", ""}:
         return OpenAICompatibleTranslator(
-            database,
-            base_url="https://open.bigmodel.cn/api/paas/v4",
+            database, base_url="https://open.bigmodel.cn/api/paas/v4",
             model=os.getenv("ZHIPU_MODEL") or "glm-4-flash",
-            api_key=os.getenv("ZHIPU_API_KEY"),
-            provider="zhipu",
-            fallback=FreeTranslator(database),
+            api_key=os.getenv("ZHIPU_API_KEY"), provider="zhipu",
+            fallback=_deepseek(database, free),
         )
+    if provider == "deepseek":
+        return _deepseek(database, free)
     if provider == "openai":
         return OpenAICompatibleTranslator(
-            database,
-            base_url=os.getenv("OPENAI_BASE_URL") or "https://api.openai.com/v1",
+            database, base_url=os.getenv("OPENAI_BASE_URL") or "https://api.openai.com/v1",
             model=os.getenv("OPENAI_MODEL") or "gpt-4o-mini",
-            api_key=os.getenv("OPENAI_API_KEY"),
-            provider="openai",
-            fallback=FreeTranslator(database),
+            api_key=os.getenv("OPENAI_API_KEY"), provider="openai", fallback=free,
         )
     if provider == "free":
-        return FreeTranslator(database)
+        return free
     if provider == "none":
         return NoneTranslator(database)
     LOGGER.warning("unknown TRANSLATOR=%s; translation disabled", provider)
