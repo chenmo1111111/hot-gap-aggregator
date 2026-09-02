@@ -1,6 +1,7 @@
 # Local secrets (keep the documented template tracked)
 .env*
 !.env.example
+!.env.server.example
 
 # Dependencies and generated Python files
 .venv/

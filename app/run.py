@@ -10,7 +10,7 @@ from datetime import UTC, datetime
 from dotenv import load_dotenv
 
 from app.collectors import (
-    BilibiliCollector, DouyinCollector, GitHubCollector, GongkaoCollector,
+    BilibiliCollector, ConfDeadlinesCollector, DouyinCollector, GitHubCollector, GongkaoCollector, NowcoderCollector,
     PapersCollector, TelegramCollector, WeiboCollector, XiaohongshuCollector, YouTubeCollector,
 )
 from app.collectors.base import BaseCollector, SourceUnavailable
@@ -54,7 +54,7 @@ async def main(send_notifications: bool = False, retranslate: bool = False) -> N
     collectors: list[BaseCollector] = [
         WeiboCollector(), BilibiliCollector(), GitHubCollector(), YouTubeCollector(),
         DouyinCollector(), TelegramCollector(), GongkaoCollector(),
-        XiaohongshuCollector(), PapersCollector(),
+        XiaohongshuCollector(), PapersCollector(), ConfDeadlinesCollector(), NowcoderCollector(),
     ]
     sources = [collector.source for collector in collectors]
     log_event("run_started", run_at=run_at, sources=sources)

@@ -1,7 +1,11 @@
 from __future__ import annotations
 
 import asyncio
+import os
 from datetime import UTC, datetime
+from pathlib import Path
+
+import yaml
 
 from app.collectors.base import BaseCollector, SourceUnavailable
 from app.collectors.gongkao_types import article_province, article_type, timeline_type
@@ -13,6 +17,9 @@ class GongkaoCollector(BaseCollector):
     article_endpoint = "https://hera-webapp.fenbi.com/api/website/article/hot/list/v3"
     timeline_endpoint = "https://market-api.fenbi.com/toolkit/api/v1/timeline/getTimeLineDetails"
     common_params = {"app": "web", "av": 100, "hav": 100, "kav": 100, "client_context_id": ""}
+
+    def __init__(self, watch_config: str | Path | None = None) -> None:
+        self.watch_config = Path(watch_config or os.getenv("GONGKAO_WATCH_CONFIG", "config/gongkao_watch.yaml"))
 
     @staticmethod
     def parse_articles(payload: dict) -> list[Item]:
@@ -33,7 +40,7 @@ class GongkaoCollector(BaseCollector):
                 published_at=_timestamp(row.get("updateTime")),
                 extra={
                     "id": article_id, "sub": "announcement", "tags": tags,
-                    "province": article_province(raw_tags), "exam_type": article_type(raw_tags),
+                    "province": article_province(raw_tags), "exam_type": article_type(raw_tags, title),
                     "startSignUpTime": info.get("enrollStartTime"), "endSignUpTime": info.get("enrollEndTime"),
                     "startWriteTime": info.get("writtenExamTime"),
                 },
@@ -61,7 +68,7 @@ class GongkaoCollector(BaseCollector):
                     "id": event_id, "sub": "timeline", "startSignUpTime": row.get("startSignUpTime"),
                     "endSignUpTime": row.get("endSignUpTime"), "startWriteTime": row.get("startWriteTime"),
                     "province": row.get("province") or "全国", "type": row.get("type"),
-                    "examType": row.get("examType"), "exam_type": timeline_type(type_code),
+                    "examType": row.get("examType"), "exam_type": timeline_type(type_code, title),
                 },
             ))
         return items
@@ -86,9 +93,20 @@ class GongkaoCollector(BaseCollector):
             items.extend(self.parse_timeline(results[1].json()))
         if not items:
             raise SourceUnavailable("; ".join(errors) or "Fenbi returned no items", status="degraded")
+        self._annotate_target_universities(items)
         for index, item in enumerate(items, 1):
             item.rank = index
         return items
+
+    def _annotate_target_universities(self, items: list[Item]) -> None:
+        if not self.watch_config.exists():
+            return
+        raw = yaml.safe_load(self.watch_config.read_text(encoding="utf-8")) or {}
+        universities = raw.get("target_universities", []) if isinstance(raw, dict) else []
+        targets = [str(name).strip() for name in universities if str(name).strip()]
+        for item in items:
+            haystack = f"{item.title} {item.summary_zh or ''}".casefold()
+            item.extra["target_university_hit"] = [name for name in targets if name.casefold() in haystack]
 
 
 def _timestamp(value: object) -> str | None:

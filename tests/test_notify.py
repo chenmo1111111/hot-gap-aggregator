@@ -31,3 +31,19 @@ def test_gongkao_node_events_are_filtered_and_deduplicated(tmp_path) -> None:
     database.mark_gongkao_events(keys)
     assert build_gongkao_events([item], database, today=today, config_path=config) == ([], [])
     database.close()
+
+
+def test_alert_exam_type_bypasses_province_filter(tmp_path) -> None:
+    config = tmp_path / "watch.yaml"
+    config.write_text("provinces: [广东]\nexam_types_alert: [选调生, 国考]\n", encoding="utf-8")
+    database = Database(tmp_path / "push.db")
+    item = Item(
+        source="gongkao", rank=1, title="江苏定向选调公告", title_zh="江苏定向选调公告",
+        url="https://example.test/selection", is_new=True,
+        extra={"id": "selection-1", "sub": "announcement", "province": "江苏", "exam_type": "选调生"},
+    )
+    lines, _ = build_gongkao_events([item], database, today=date(2026, 9, 3), config_path=config)
+    assert len(lines) == 1
+    assert lines[0].startswith("【选调预警】")
+    assert "https://example.test/selection" in lines[0]
+    database.close()

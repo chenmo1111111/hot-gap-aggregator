@@ -1,0 +1,4 @@
+# SCS 官方国考源：Actions 部署完成后再合并进静态 JSON。
+35 */2 * * * root cd /opt/hot-gap-aggregator && /opt/hot-gap-aggregator/.venv/bin/python -m app.server_run --scs >> /var/log/hot-gap-server.log 2>&1
+# 城市人才补贴正文 diff：每 12 小时。
+45 */12 * * * root cd /opt/hot-gap-aggregator && /opt/hot-gap-aggregator/.venv/bin/python -m app.server_run --city >> /var/log/hot-gap-server.log 2>&1

@@ -3,3 +3,11 @@ provinces:
   - 全国
   - 北京
   - 广东
+
+# 这些类型无论省份是否在上面的列表里都会提醒。
+exam_types_alert:
+  - 选调生
+  - 国考
+
+# 示例：- 北京大学。留空时不做学校定向标红。
+target_universities: []

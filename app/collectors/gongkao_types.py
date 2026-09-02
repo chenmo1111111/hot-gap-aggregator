@@ -2,7 +2,7 @@ from __future__ import annotations
 
 
 TYPE_LABELS = {
-    1: "国家公务员", 2: "地方公务员", 3: "选调生", 4: "事业单位",
+    1: "国考", 2: "省考", 3: "选调生", 4: "事业单位",
     5: "三支一扶", 6: "军队文职", 7: "医疗卫生", 8: "公安招警",
     9: "国企招聘", 10: "教师招聘", 11: "社区工作者", 12: "银行招聘",
     13: "农信社", 14: "国企招聘", 15: "社会招聘", 16: "事业单位",
@@ -21,18 +21,35 @@ TYPE_TAG_PRIORITY = (
 )
 
 
-def timeline_type(code: object) -> str:
+def title_type(title: object) -> str | None:
+    value = str(title or "")
+    if any(marker in value for marker in ("中央选调", "定向选调", "选调生", "选调")):
+        return "选调生"
+    if any(marker in value for marker in ("国考", "国家公务员", "中央机关及其直属机构")):
+        return "国考"
+    return None
+
+
+def timeline_type(code: object, title: object = "") -> str:
+    inferred = title_type(title)
+    if inferred:
+        return inferred
     try:
         return TYPE_LABELS.get(int(code), "其他考试")
     except (TypeError, ValueError):
         return "其他考试"
 
 
-def article_type(tags: list[dict]) -> str:
+def article_type(tags: list[dict], title: object = "") -> str:
     names = [str(tag.get("name") or "") for tag in tags if tag.get("type") == 2]
     if not names:
         names = [str(tag.get("name") or "") for tag in tags]
-    if any(any(marker in name for marker in ("国考", "省考", "公务员")) for name in names):
+    inferred = title_type(f"{title} {' '.join(names)}")
+    if inferred:
+        return inferred
+    if any("省考" in name for name in names):
+        return "省考"
+    if any("公务员" in name for name in names):
         return "公务员考试"
     if any("遴选" in name for name in names):
         return "公开遴选"

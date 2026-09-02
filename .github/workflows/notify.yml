@@ -34,11 +34,17 @@ jobs:
           INVIDIOUS_INSTANCES_CONFIG: config/invidious_instances.yaml
           GONGKAO_WATCH_CONFIG: config/gongkao_watch.yaml
           PAPERS_CONFIG: config/papers.yaml
+          CONFERENCES_CONFIG: config/conferences.yaml
+          NOWCODER_CONFIG: config/nowcoder.yaml
+          RSSHUB_BASE: ${{ secrets.RSSHUB_BASE || 'https://rsshub.app' }}
+          SCS_ENABLED: "false"
           NCBI_API_KEY: ${{ secrets.NCBI_API_KEY }}
           BARK_URL: ${{ secrets.BARK_URL }}
           TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
           TG_CHAT_ID: ${{ secrets.TG_CHAT_ID }}
           SERVERCHAN_KEY: ${{ secrets.SERVERCHAN_KEY }}
+          FEISHU_WEBHOOK: ${{ secrets.FEISHU_WEBHOOK }}
+          FEISHU_SIGN_SECRET: ${{ secrets.FEISHU_SIGN_SECRET }}
         run: python -m app.run --notify
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:

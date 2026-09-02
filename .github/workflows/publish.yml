@@ -65,6 +65,10 @@ jobs:
           XHS_KEYWORDS_CONFIG: config/xhs_keywords.yaml
           GONGKAO_WATCH_CONFIG: config/gongkao_watch.yaml
           PAPERS_CONFIG: config/papers.yaml
+          CONFERENCES_CONFIG: config/conferences.yaml
+          NOWCODER_CONFIG: config/nowcoder.yaml
+          RSSHUB_BASE: ${{ secrets.RSSHUB_BASE || 'https://rsshub.app' }}
+          SCS_ENABLED: "false"
           NCBI_API_KEY: ${{ secrets.NCBI_API_KEY }}
         run: |
           set -o pipefail

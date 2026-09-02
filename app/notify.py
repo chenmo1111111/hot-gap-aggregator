@@ -1,6 +1,9 @@
 from __future__ import annotations
 
 import asyncio
+import base64
+import hashlib
+import hmac
 import logging
 import os
 from collections.abc import Awaitable, Callable
@@ -34,17 +37,22 @@ def build_gongkao_events(
         return [], []
     raw = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
     provinces = set(raw.get("provinces", raw) if isinstance(raw, dict) else raw)
+    exam_types_alert = set(raw.get("exam_types_alert", []) if isinstance(raw, dict) else [])
     current = today or datetime.now(UTC).date()
     candidates: list[tuple[str, str]] = []
     for item in items:
         if item.source != "gongkao":
             continue
         province = str(item.extra.get("province") or "全国")
-        if provinces and province not in provinces:
+        exam_type = str(item.extra.get("exam_type") or "其他考试")
+        if provinces and province not in provinces and exam_type not in exam_types_alert:
             continue
         item_id = str(item.extra.get("id") or item.url)
-        if item.is_new and item.extra.get("sub") == "announcement":
-            candidates.append((f"{item_id}:new", f"新公告｜{province}｜{item.title_zh or item.title}"))
+        subsource = str(item.extra.get("subsource") or item.extra.get("sub") or "")
+        tag = "【选调预警】" if exam_type == "选调生" else "【国考公告】" if exam_type == "国考" or subsource == "scs" else "【公考提醒】"
+        suffix = f"｜{item.url}｜{current.isoformat()}"
+        if item.is_new and subsource in {"announcement", "scs"}:
+            candidates.append((f"{item_id}:new", f"{tag}新公告｜{province}｜{item.title_zh or item.title}{suffix}"))
         for field, days, label in (
             ("startSignUpTime", 1, "明天开始报名"),
             ("endSignUpTime", 2, "距报名截止 2 天"),
@@ -52,7 +60,7 @@ def build_gongkao_events(
         ):
             event_date = _event_date(item.extra.get(field))
             if event_date and (event_date - current).days == days:
-                candidates.append((f"{item_id}:{field}:{event_date.isoformat()}", f"{label}｜{province}｜{item.title_zh or item.title}"))
+                candidates.append((f"{item_id}:{field}:{event_date.isoformat()}", f"{tag}{label}｜{province}｜{item.title_zh or item.title}{suffix}"))
     unseen = database.unseen_gongkao_events([key for key, _ in candidates])
     return [line for key, line in candidates if key in unseen], [key for key, _ in candidates if key in unseen]
 
@@ -68,7 +76,7 @@ async def notify_top20(items: list[Item], database: Database | None = None) -> d
     providers: list[tuple[str, Callable[[], Awaitable[None]]]] = []
     bark_url = os.getenv("BARK_URL")
     telegram_token, telegram_chat = os.getenv("TG_BOT_TOKEN"), os.getenv("TG_CHAT_ID")
-    serverchan_key = os.getenv("SERVERCHAN_KEY")
+    serverchan_key, feishu_webhook = os.getenv("SERVERCHAN_KEY"), os.getenv("FEISHU_WEBHOOK")
     if bark_url:
         providers.append(("bark", lambda: _post(bark_url, json={"title": "信息差日报", "body": text, "group": "hot-gap"})))
     if telegram_token and telegram_chat:
@@ -80,6 +88,8 @@ async def notify_top20(items: list[Item], database: Database | None = None) -> d
         providers.append(("serverchan", lambda: _post(
             f"https://sctapi.ftqq.com/{serverchan_key}.send", data={"title": "信息差日报", "desp": text},
         )))
+    if feishu_webhook:
+        providers.append(("feishu", lambda: _post(feishu_webhook, json=_feishu_payload(text))))
     if not providers:
         LOGGER.info("notification skipped: no provider configured")
         return {}
@@ -94,6 +104,34 @@ async def notify_top20(items: list[Item], database: Database | None = None) -> d
     if database and event_keys and any(value == "ok" for value in status.values()):
         database.mark_gongkao_events(event_keys)
     return status
+
+
+async def notify_priority_alert(text: str, title: str = "关键期提醒") -> dict[str, str]:
+    providers: list[tuple[str, Callable[[], Awaitable[None]]]] = []
+    bark_url, feishu_webhook = os.getenv("BARK_URL"), os.getenv("FEISHU_WEBHOOK")
+    if bark_url:
+        providers.append(("bark", lambda: _post(bark_url, json={"title": title, "body": text, "group": "hot-gap"})))
+    if feishu_webhook:
+        providers.append(("feishu", lambda: _post(feishu_webhook, json=_feishu_payload(text))))
+    if not providers:
+        LOGGER.info("priority notification skipped: no Bark or Feishu provider configured")
+        return {}
+    results = await asyncio.gather(*(sender() for _, sender in providers), return_exceptions=True)
+    return {
+        name: "degraded" if isinstance(result, Exception) else "ok"
+        for (name, _), result in zip(providers, results, strict=True)
+    }
+
+
+def _feishu_payload(text: str) -> dict[str, object]:
+    payload: dict[str, object] = {"msg_type": "text", "content": {"text": text}}
+    secret = os.getenv("FEISHU_SIGN_SECRET")
+    if secret:
+        timestamp = str(int(datetime.now(UTC).timestamp()))
+        key = f"{timestamp}\n{secret}".encode("utf-8")
+        signature = base64.b64encode(hmac.new(key, digestmod=hashlib.sha256).digest()).decode()
+        payload.update({"timestamp": timestamp, "sign": signature})
+    return payload
 
 
 def _event_date(value: object) -> date | None:

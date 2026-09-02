@@ -1,0 +1,9 @@
+pages:
+  - city: 杭州
+    name: 应届生生活补贴
+    url: https://example.gov.cn/policy
+    # selector: .article-content  # 自动提取不准时再填
+  - city: 成都
+    name: 蓉漂青年人才驿站
+    url: https://example.gov.cn/policy
+check_interval_hours: 12

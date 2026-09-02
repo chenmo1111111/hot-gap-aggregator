@@ -34,6 +34,9 @@ git push -u origin main
 | `YOUTUBE_API_KEY` | 选填 | YouTube 官方 API；不填则轮询 Invidious |
 | `INVIDIOUS_BASE` | 选填 | 强制使用单个 Invidious 实例 |
 | `BARK_URL` | 选填 | Bark 推送 |
+| `FEISHU_WEBHOOK` | 选填 | 飞书自定义机器人 Webhook |
+| `FEISHU_SIGN_SECRET` | 选填 | 飞书机器人开启加签后填写 |
+| `RSSHUB_BASE` | 选填 | 自建 RSSHub；不填使用公共实例 |
 | `TG_BOT_TOKEN` | 选填 | Telegram Bot 推送 |
 | `TG_CHAT_ID` | 选填 | Telegram 目标会话 |
 | `SERVERCHAN_KEY` | 选填 | Server酱推送 |

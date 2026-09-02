@@ -53,6 +53,13 @@ class Database:
             CREATE TABLE IF NOT EXISTS gongkao_push_log (
                 event_key TEXT PRIMARY KEY, pushed_at TEXT NOT NULL
             );
+            CREATE TABLE IF NOT EXISTS watcher_states (
+                watch_key TEXT PRIMARY KEY, content_hash TEXT NOT NULL,
+                content_text TEXT NOT NULL, checked_at TEXT NOT NULL
+            );
+            CREATE TABLE IF NOT EXISTS push_log (
+                event_key TEXT PRIMARY KEY, pushed_at TEXT NOT NULL
+            );
         """)
         snapshot_columns = {row["name"] for row in self.connection.execute("PRAGMA table_info(snapshots)")}
         if "payload" not in snapshot_columns:
@@ -149,6 +156,42 @@ class Database:
         now = datetime.now(UTC).isoformat()
         self.connection.executemany(
             "INSERT OR IGNORE INTO gongkao_push_log(event_key,pushed_at) VALUES(?,?)",
+            [(key, now) for key in event_keys],
+        )
+        self.connection.commit()
+
+    def get_watcher_state(self, watch_key: str) -> dict | None:
+        row = self.connection.execute(
+            "SELECT watch_key,content_hash,content_text,checked_at FROM watcher_states WHERE watch_key=?",
+            (watch_key,),
+        ).fetchone()
+        return dict(row) if row else None
+
+    def save_watcher_state(self, watch_key: str, content_hash: str, content_text: str) -> None:
+        now = datetime.now(UTC).isoformat()
+        self.connection.execute(
+            "INSERT OR REPLACE INTO watcher_states(watch_key,content_hash,content_text,checked_at) VALUES(?,?,?,?)",
+            (watch_key, content_hash, content_text, now),
+        )
+        self.connection.commit()
+
+    def unseen_push_events(self, event_keys: list[str]) -> set[str]:
+        if not event_keys:
+            return set()
+        placeholders = ",".join("?" for _ in event_keys)
+        seen = {
+            row["event_key"] for row in self.connection.execute(
+                f"SELECT event_key FROM push_log WHERE event_key IN ({placeholders})", event_keys,
+            )
+        }
+        return set(event_keys) - seen
+
+    def mark_push_events(self, event_keys: list[str]) -> None:
+        if not event_keys:
+            return
+        now = datetime.now(UTC).isoformat()
+        self.connection.executemany(
+            "INSERT OR IGNORE INTO push_log(event_key,pushed_at) VALUES(?,?)",
             [(key, now) for key in event_keys],
         )
         self.connection.commit()

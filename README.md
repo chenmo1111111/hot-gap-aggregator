@@ -1,6 +1,6 @@
 # 信息差日报 · hot-gap-aggregator
 
-每两小时聚合微博、B站、GitHub、YouTube、抖音、Telegram、公考、小红书关键词雷达和顶刊论文，把非中文内容翻译为中文，以“先看标题、感兴趣再点开”的方式浏览。前端是无运行时外部依赖的静态 PWA；采集、SQLite 历史、趋势派生和推送由 Python 与 GitHub Actions 完成。
+每两小时聚合微博、B站、GitHub、YouTube、抖音、Telegram、公考、小红书关键词雷达、顶刊论文、会议 Deadline 和牛客热帖，把非中文内容翻译为中文，以“先看标题、感兴趣再点开”的方式浏览。前端是无运行时外部依赖的静态 PWA；通用源由 GitHub Actions 采集，国家公务员局与城市人才补贴监控在中国大陆服务器运行。
 
 ## P2 能力
 
@@ -11,6 +11,9 @@
 - 公考支持省份多选、类型筛选、四类时间节点、倒计时、34 个已验证官方入口和节点推送去重。
 - 首页置顶至少 3 个平台共同出现的聚类；每个来源单独显示正常/降级状态。
 - 顶刊论文合并 arXiv、bioRxiv/medRxiv 和 PubMed，按个人研究方向、兴趣关键词和发表时间排序。
+- 顶刊页顶部展示生信/ML 会议 Deadline；牛客通过 RSSHub best-effort 聚合并按秋招风险词和目标公司排序。
+- 国考/选调支持快捷筛选、跨省强提醒和目标高校标红；国家公务员局官方专题源在百度云交叉校验。
+- 城市人才补贴页按正文 hash 做版本 diff，只有金额、条件、窗口或名额变化才由模型判断并推送。
 
 ## 本地运行
 
@@ -72,9 +75,10 @@ python -m app.run --retranslate
 
 ### 公考
 
-- `config/gongkao_watch.yaml`：节点推送关注省份。
+- `config/gongkao_watch.yaml`：`provinces` 控制省份，`exam_types_alert` 中的国考/选调生不受省份限制，`target_universities` 用于定向选调标红。
 - `data/gongkao_official_sites.yaml`：全国 34 个官方人事考试入口。
 - `python scripts/verify_official_sites.py`：重新检查入口 HTTP 状态。
+- 国家公务员局旧首页已于 2026 年 8 月下线；服务器任务从官方专题站公开 JSON 接口动态发现当年考试 ID，每两小时补充公告、报名和大纲信息。
 
 ### 顶刊论文
 
@@ -83,13 +87,31 @@ python -m app.run --retranslate
 - bioRxiv、medRxiv、PubMed 均按最近 `lookback_days` 天采集；任一子源失败不会阻断其它子源。
 - PubMed 无需 Key 即可使用；可选 `NCBI_API_KEY` 能提高 E-utilities 速率上限。
 
+### 会议 Deadline
+
+- `config/conferences.yaml`：维护会议简称白名单。
+- YAML 首选 `huggingface/ai-deadlines`，并兼容持续更新的 CCFDDL 嵌套格式，`paperswithcode` 旧仓库作为末级回退；WikiCFP 生信 RSS 独立降级。
+- 只保留未来或过去 7 天内的 Deadline，按剩余天数升序展示在「顶刊」顶部。
+
+### 牛客热帖
+
+- `config/nowcoder.yaml`：`keywords` 放通用风险词，`companies` 填目标公司名。
+- `RSSHUB_BASE` 可切换到自建 RSSHub；公共实例不可用时只把牛客标为降级。
+
+### 城市人才补贴
+
+- 把 `config/city_subsidy.example.yaml` 中的示例替换成 2–5 个目标城市官方政策页，写入服务器的 `config/city_subsidy.yaml`。
+- 可选 `selector` 指定正文 CSS 选择器；不填时自动从 `main/article/content` 等主区域中选正文。
+- 首次运行只建立基线；之后正文变化才调用智谱/DeepSeek判断政策要素，`SKIP` 不推送。
+- 百度云安装与 cron 见 `deploy/server/README.md`，SCS 每两小时、补贴每 12 小时。
+
 ## 推送
 
 ```bash
 python -m app.run --notify
 ```
 
-支持同时配置 Bark (`BARK_URL`)、Telegram Bot (`TG_BOT_TOKEN` + `TG_CHAT_ID`) 和 Server酱 (`SERVERCHAN_KEY`)。除 Top 20 外，关注省份会触发新公告、报名前 1 天、截止前 2 天、笔试前 3 天提醒；仅在至少一个渠道发送成功后写入 `gongkao_push_log` 去重。
+支持同时配置 Bark (`BARK_URL`)、飞书自定义机器人 (`FEISHU_WEBHOOK`，开加签时再配 `FEISHU_SIGN_SECRET`)、Telegram Bot (`TG_BOT_TOKEN` + `TG_CHAT_ID`) 和 Server酱 (`SERVERCHAN_KEY`)。除 Top 20 外，关注省份或重点考试类型会触发新公告、报名前 1 天、截止前 2 天、笔试前 3 天提醒；仅在至少一个渠道发送成功后写入 push log 去重。
 
 ## 环境变量
 
@@ -104,7 +126,11 @@ python -m app.run --notify
 | `XHS_KEYWORDS_CONFIG` | 小红书关键词路径 |
 | `GONGKAO_WATCH_CONFIG` | 公考关注省份路径 |
 | `PAPERS_CONFIG` / `NCBI_API_KEY` | 论文配置路径与可选 PubMed API Key |
-| `BARK_URL` / `TG_*` / `SERVERCHAN_KEY` | 推送渠道 |
+| `CONFERENCES_CONFIG` | 关注会议白名单路径 |
+| `NOWCODER_CONFIG` / `RSSHUB_BASE` | 牛客关键词配置与 RSSHub 地址 |
+| `CITY_SUBSIDY_CONFIG` | 百度云人才补贴政策页配置 |
+| `BARK_URL` / `FEISHU_*` / `TG_*` / `SERVERCHAN_KEY` | 推送渠道 |
+| `SERVER_DATABASE` / `SERVER_SITE_DATA_DIR` | 百度云 watcher 状态库与线上 JSON 目录 |
 
 完整默认值见 `.env.example`。
 
