@@ -4,6 +4,7 @@ type HistoryPoint = { run_at: string; rank: number };
 type Item = {
   source: string; rank: number; title: string; title_zh: string; url: string;
   hot_value?: string | null; summary_zh?: string | null; thumbnail?: string | null;
+  published_at?: string | null;
   days_on_board?: number; is_new?: boolean; rank_delta?: number | 'new';
   cluster_id?: string | null; cluster_size?: number; rank_history?: HistoryPoint[];
   extra?: Record<string, unknown>;
@@ -15,7 +16,7 @@ type OfficialSite = { province: string; name: string; url: string };
 
 const sourceNames: Record<string, string> = {
   weibo: '微博', bilibili: 'B站', github: 'GitHub', youtube: 'YouTube', douyin: '抖音',
-  telegram: 'Telegram', gongkao: '公考', xiaohongshu: '小红书雷达',
+  telegram: 'Telegram', gongkao: '公考', xiaohongshu: '小红书雷达', papers: '顶刊',
 };
 
 const defaultTabs = ['all', ...Object.keys(sourceNames), 'trends'];
@@ -84,18 +85,24 @@ function Sparkline({ history = [] }: { history?: HistoryPoint[] }) {
 }
 
 function HotCard({ item, highlight, onCluster }: { item: Item; highlight?: boolean; onCluster?: (event: React.MouseEvent, item: Item) => void }) {
+  const paper = item.source === 'papers';
+  const topicHits = Array.isArray(item.extra?.topic_hit) ? item.extra.topic_hit.map(String) : [];
+  const keywordHits = Array.isArray(item.extra?.keyword_hit) ? item.extra.keyword_hit.map(String) : [];
+  const paperHighlighted = paper && (topicHits.length > 0 || keywordHits.length > 0);
   return <article role="link" tabIndex={0} onClick={() => openItem(item)} onKeyDown={(event) => event.key === 'Enter' && openItem(item)}
-    className={`group grid cursor-pointer grid-cols-[42px_1fr] gap-3 rounded-2xl border bg-[var(--card)] p-4 shadow-sm transition focus:outline-none focus:ring-2 focus:ring-cyan-400 sm:grid-cols-[58px_1fr_auto] sm:gap-5 sm:p-5 ${highlight === false ? 'border-transparent opacity-30' : 'border-[var(--line)] hover:-translate-y-0.5 hover:border-cyan-400'} ${highlight ? 'ring-2 ring-orange-400' : ''}`}>
+    className={`group grid cursor-pointer grid-cols-[42px_1fr] gap-3 rounded-2xl border bg-[var(--card)] p-4 shadow-sm transition focus:outline-none focus:ring-2 focus:ring-cyan-400 sm:grid-cols-[58px_1fr_auto] sm:gap-5 sm:p-5 ${highlight === false ? 'border-transparent opacity-30' : 'border-[var(--line)] hover:-translate-y-0.5 hover:border-cyan-400'} ${highlight ? 'ring-2 ring-orange-400' : ''} ${paperHighlighted ? 'border-l-4 border-l-amber-400' : ''}`}>
     <div className="font-mono text-2xl font-bold text-[var(--rank)]">{String(item.rank).padStart(2, '0')}</div>
     <div className="min-w-0">
       <div className="mb-2 flex flex-wrap items-center gap-2 text-[11px] font-bold">
         <span className="rounded bg-[var(--soft)] px-2 py-1">{sourceNames[item.source] ?? item.source}</span>
+        {paperHighlighted && <span className="rounded bg-amber-100 px-2 py-1 text-amber-900">🔖 方向命中</span>}
         {item.is_new && <span className="rounded bg-lime-300 px-2 py-1 text-slate-950">新</span>}
         {(item.cluster_size ?? 0) >= 2 && <button className="rounded bg-orange-100 px-2 py-1 text-orange-700" onClick={(event) => onCluster?.(event, item)}>🔥 全网 {item.cluster_size} 平台</button>}
       </div>
       <h2 className="text-lg font-extrabold leading-snug tracking-tight group-hover:text-cyan-600 sm:text-xl">{item.title_zh || item.title}</h2>
       {item.title_zh && item.title_zh !== item.title && <details className="mt-1 text-xs text-[var(--muted)]" onClick={(event) => event.stopPropagation()}><summary className="cursor-pointer truncate">原标题 · {item.title}</summary></details>}
-      {item.summary_zh && <p className="mt-2 line-clamp-2 text-sm leading-6 text-[var(--muted)]">{item.summary_zh}</p>}
+      {item.summary_zh && <p className={`mt-2 text-sm leading-6 text-[var(--muted)] ${paper ? 'line-clamp-3' : 'line-clamp-2'}`}>{item.summary_zh}</p>}
+      {paper && <div className="mt-3 flex flex-wrap items-center gap-1.5 text-[11px] text-[var(--muted)]"><span>{String(item.extra?.journal || item.extra?.field || '论文')} · {item.published_at?.slice(0, 10) || '日期待定'}</span>{topicHits.map((topic) => <span key={topic} className="rounded-full bg-amber-200 px-2 py-0.5 font-bold text-amber-900">{topic}</span>)}{keywordHits.map((keyword) => <span key={keyword} className="rounded-full bg-[var(--soft)] px-2 py-0.5">{keyword}</span>)}</div>}
     </div>
     <div className="col-start-2 flex items-center justify-between gap-4 text-xs text-[var(--muted)] sm:col-start-auto sm:flex-col sm:items-end">
       <span>{item.hot_value ? `热度 ${item.hot_value}` : '查看原文 ↗'}</span>
@@ -164,6 +171,7 @@ function App() {
   const [tabOrder, setTabOrder] = useState(loadTabOrder);
   const [hiddenTabs, setHiddenTabs] = useState(loadHiddenTabs);
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const [papersOnlyPriority, setPapersOnlyPriority] = useState(() => localStorage.getItem('papers_only_priority') === 'true');
   useEffect(() => { Promise.all([
     fetch('./data/all.json').then((r) => r.json()), fetch('./data/trends.json').then((r) => r.json()).catch(() => null),
     fetch('./data/gongkao_official_sites.json').then((r) => r.json()).catch(() => ({ sites: [] })),
@@ -178,7 +186,13 @@ function App() {
   }, [settingsOpen]);
   const state = feed?.sources?.find((source) => source.source === active);
   const unavailable = active in sourceNames && state?.status !== 'ok';
-  const items = useMemo(() => unavailable ? [] : feed?.items.filter((item) => active === 'all' || item.source === active) ?? [], [feed, active, unavailable]);
+  const items = useMemo(() => {
+    if (unavailable) return [];
+    const sourceItems = feed?.items.filter((item) => active === 'all' || item.source === active) ?? [];
+    return active === 'papers' && papersOnlyPriority
+      ? sourceItems.filter((item) => Number(item.extra?.priority_rank ?? 999) < 999)
+      : sourceItems;
+  }, [feed, active, unavailable, papersOnlyPriority]);
   const pinned = useMemo(() => { const seen = new Set<string>(); return (feed?.items ?? []).filter((item) => { if ((item.cluster_size ?? 0) < 3 || !item.cluster_id || seen.has(item.cluster_id)) return false; seen.add(item.cluster_id); return true; }); }, [feed]);
   const moveTab = (tab: string, direction: -1 | 1) => setTabOrder((current) => {
     const index = current.indexOf(tab), target = index + direction;
@@ -199,6 +213,10 @@ function App() {
     setTabOrder([...defaultTabs]);
     setHiddenTabs([]);
   };
+  const togglePapersOnlyPriority = () => setPapersOnlyPriority((current) => {
+    localStorage.setItem('papers_only_priority', String(!current));
+    return !current;
+  });
   const showCluster = (event: React.MouseEvent, item: Item) => { event.stopPropagation(); if (!item.cluster_id) return; setActive('all'); setHighlightCluster((current) => current === item.cluster_id ? null : item.cluster_id ?? null); };
   return <main className="min-h-screen bg-[var(--paper)] text-[var(--ink)] transition-colors">
     <header className="border-b border-[var(--line)] bg-[var(--header)] text-white"><div className="mx-auto max-w-6xl px-4 pb-7 pt-5 sm:px-6 sm:pb-10 sm:pt-8"><div className="flex items-center justify-between"><span className="font-mono text-[11px] tracking-[0.2em] text-cyan-300">SIGNAL / NOISE · P2</span><div className="flex items-center gap-2"><button type="button" aria-label="调整导航标签" aria-expanded={settingsOpen} className="rounded-full border border-white/20 px-3 py-1.5 text-xs transition hover:bg-white/10" onClick={() => setSettingsOpen(true)}>⚙ 设置</button><button type="button" className="rounded-full border border-white/20 px-3 py-1.5 text-xs transition hover:bg-white/10" onClick={() => setDark((value) => !value)}>{dark ? '☀ 浅色' : '◐ 深色'}</button></div></div><div className="mt-8 grid gap-5 sm:grid-cols-[1fr_auto] sm:items-end"><div><p className="mb-2 text-sm text-slate-400">看见一条热搜，也看见全网正在汇聚的信号。</p><h1 className="text-4xl font-black tracking-[-0.06em] sm:text-6xl">信息差<span className="text-cyan-300">日报</span></h1></div><div className="border-l-2 border-lime-300 pl-3 text-xs leading-5 text-slate-300"><div>{feed?.sources?.filter((source) => source.status === 'ok').length ?? 0}/{feed?.sources?.length ?? 0} 来源正常 · {feed?.sources?.filter((source) => source.status !== 'ok').length ?? 0} 降级</div><div>{feed?.generated_at ? `更新于 ${new Date(feed.generated_at).toLocaleString('zh-CN')}` : '正在同步最新信号…'}</div></div></div></div></header>
@@ -206,7 +224,7 @@ function App() {
     {settingsOpen && <div className="fixed inset-0 z-50"><button type="button" aria-label="关闭导航设置" className="absolute inset-0 h-full w-full bg-slate-950/60 backdrop-blur-sm" onClick={() => setSettingsOpen(false)} /><aside role="dialog" aria-modal="true" aria-labelledby="tab-settings-title" className="absolute inset-y-0 right-0 flex w-full max-w-md flex-col border-l border-[var(--line)] bg-[var(--card)] text-[var(--ink)] shadow-2xl"><div className="flex items-start justify-between border-b border-[var(--line)] px-5 py-5"><div><h2 id="tab-settings-title" className="text-xl font-black">导航设置</h2><p className="mt-1 text-xs text-[var(--muted)]">调整顺序，隐藏暂时不关心的标签</p></div><button type="button" aria-label="关闭" className="rounded-full bg-[var(--soft)] px-3 py-1.5 text-sm font-bold" onClick={() => setSettingsOpen(false)}>×</button></div><div className="flex-1 overflow-y-auto p-4"><div className="mb-3 flex items-center justify-between rounded-xl border border-[var(--line)] bg-[var(--paper)] px-4 py-3"><span className="font-bold">全部</span><span className="rounded-full bg-[var(--soft)] px-2.5 py-1 text-[11px] text-[var(--muted)]">固定首位</span></div><div className="grid gap-2">{tabOrder.slice(1).map((tab, index, adjustable) => { const hidden = hiddenTabs.includes(tab); return <div key={tab} className={`flex items-center gap-2 rounded-xl border border-[var(--line)] bg-[var(--paper)] px-3 py-3 ${hidden ? 'opacity-65' : ''}`}><span className="min-w-0 flex-1 truncate font-bold">{tabLabel(tab)}</span><button type="button" aria-label={`${tabLabel(tab)}上移`} disabled={index === 0} onClick={() => moveTab(tab, -1)} className="h-8 w-8 rounded-full bg-[var(--soft)] text-sm font-black disabled:cursor-not-allowed disabled:opacity-30">↑</button><button type="button" aria-label={`${tabLabel(tab)}下移`} disabled={index === adjustable.length - 1} onClick={() => moveTab(tab, 1)} className="h-8 w-8 rounded-full bg-[var(--soft)] text-sm font-black disabled:cursor-not-allowed disabled:opacity-30">↓</button><label className="flex cursor-pointer items-center gap-1.5 rounded-full bg-[var(--soft)] px-2.5 py-1.5 text-xs font-bold"><input type="checkbox" checked={!hidden} onChange={() => toggleTab(tab)} className="accent-cyan-500" /><span>{hidden ? '隐藏' : '显示'}</span></label></div>; })}</div></div><div className="border-t border-[var(--line)] p-4"><button type="button" onClick={restoreTabs} className="w-full rounded-full border border-[var(--line)] bg-[var(--paper)] px-4 py-3 text-sm font-bold transition hover:border-cyan-400">恢复默认</button></div></aside></div>}
     <section className="mx-auto max-w-6xl px-4 py-5 sm:px-6 sm:py-8">
       {active === 'all' && pinned.length > 0 && <section className="mb-9 rounded-3xl border border-orange-200 bg-gradient-to-br from-orange-50 to-amber-50 p-5 text-slate-950 dark:border-orange-900 dark:from-orange-950/30 dark:to-amber-950/20 dark:text-white"><div className="mb-4"><span className="rounded-full bg-orange-500 px-3 py-1 text-xs font-black text-white">全网都在关注</span><p className="mt-2 text-xs opacity-60">至少 3 个平台同时出现的热点信号</p></div><div className="grid gap-3 sm:grid-cols-2">{pinned.map((item) => <button key={item.cluster_id} onClick={(event) => showCluster(event, item)} className="rounded-2xl bg-white/70 p-4 text-left shadow-sm dark:bg-black/20"><b className="line-clamp-2">{item.title_zh || item.title}</b><small className="mt-2 block text-orange-600">{item.cluster_size} 个平台正在讨论 →</small></button>)}</div></section>}
-      {active === 'trends' ? <TrendView trends={trends} /> : active === 'xiaohongshu' ? <XhsView items={items} /> : active === 'gongkao' ? <GongkaoView items={items} sites={sites} /> : <><div className="mb-4 flex items-center justify-between text-xs text-[var(--muted)]"><span>{active === 'all' ? '全网信号流' : `${sourceNames[active]}热榜`}</span>{highlightCluster ? <button className="rounded-full bg-orange-100 px-3 py-1 font-bold text-orange-700" onClick={() => setHighlightCluster(null)}>正在高亮同簇 · 清除</button> : <span>{items.length} 条</span>}</div><div className="grid gap-3">{items.map((item) => <HotCard key={`${item.source}-${item.rank}-${item.url}`} item={item} onCluster={showCluster} highlight={highlightCluster ? item.cluster_id === highlightCluster : undefined} />)}{feed && items.length === 0 && <div className="rounded-2xl border border-dashed border-[var(--line)] p-12 text-center text-[var(--muted)]">{unavailable ? <><p className="font-bold text-[var(--ink)]">这个来源暂不可用</p><p className="mt-2 text-xs">{state?.error || '采集端已安全降级，不影响其它来源。'}</p></> : '这个来源暂时没有数据。'}</div>}</div></>}
+      {active === 'trends' ? <TrendView trends={trends} /> : active === 'xiaohongshu' ? <XhsView items={items} /> : active === 'gongkao' ? <GongkaoView items={items} sites={sites} /> : <><div className="mb-4 flex items-center justify-between gap-3 text-xs text-[var(--muted)]"><span>{active === 'all' ? '全网信号流' : `${sourceNames[active]}热榜`}</span>{highlightCluster ? <button className="rounded-full bg-orange-100 px-3 py-1 font-bold text-orange-700" onClick={() => setHighlightCluster(null)}>正在高亮同簇 · 清除</button> : active === 'papers' ? <div className="flex items-center gap-3"><span>{items.length} 条</span><label className="flex cursor-pointer items-center gap-1.5 rounded-full bg-[var(--soft)] px-3 py-1.5 font-bold text-[var(--ink)]"><input type="checkbox" checked={papersOnlyPriority} onChange={togglePapersOnlyPriority} className="accent-amber-500" />只看我的方向</label></div> : <span>{items.length} 条</span>}</div><div className="grid gap-3">{items.map((item) => <HotCard key={`${item.source}-${item.rank}-${item.url}`} item={item} onCluster={showCluster} highlight={highlightCluster ? item.cluster_id === highlightCluster : undefined} />)}{feed && items.length === 0 && <div className="rounded-2xl border border-dashed border-[var(--line)] p-12 text-center text-[var(--muted)]">{unavailable ? <><p className="font-bold text-[var(--ink)]">这个来源暂不可用</p><p className="mt-2 text-xs">{state?.error || '采集端已安全降级，不影响其它来源。'}</p></> : '这个来源暂时没有数据。'}</div>}</div></>}
     </section>
   </main>;
 }

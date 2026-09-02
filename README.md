@@ -1,6 +1,6 @@
 # 信息差日报 · hot-gap-aggregator
 
-每两小时聚合微博、B站、GitHub、YouTube、抖音、Telegram、公考和小红书关键词雷达，把非中文内容翻译为中文，以“先看标题、感兴趣再点开”的方式浏览。前端是无运行时外部依赖的静态 PWA；采集、SQLite 历史、趋势派生和推送由 Python 与 GitHub Actions 完成。
+每两小时聚合微博、B站、GitHub、YouTube、抖音、Telegram、公考、小红书关键词雷达和顶刊论文，把非中文内容翻译为中文，以“先看标题、感兴趣再点开”的方式浏览。前端是无运行时外部依赖的静态 PWA；采集、SQLite 历史、趋势派生和推送由 Python 与 GitHub Actions 完成。
 
 ## P2 能力
 
@@ -10,6 +10,7 @@
 - 趋势页展示上升最快、今日新晋、跌出榜单、霸榜王，普通卡片附最近 7 天手写 SVG 排名线。
 - 公考支持省份多选、类型筛选、四类时间节点、倒计时、34 个已验证官方入口和节点推送去重。
 - 首页置顶至少 3 个平台共同出现的聚类；每个来源单独显示正常/降级状态。
+- 顶刊论文合并 arXiv、bioRxiv/medRxiv 和 PubMed，按个人研究方向、兴趣关键词和发表时间排序。
 
 ## 本地运行
 
@@ -75,6 +76,13 @@ python -m app.run --retranslate
 - `data/gongkao_official_sites.yaml`：全国 34 个官方人事考试入口。
 - `python scripts/verify_official_sites.py`：重新检查入口 HTTP 状态。
 
+### 顶刊论文
+
+- `config/papers.yaml`：配置研究方向、次级关键词、arXiv 类目、bioRxiv 类目过滤和 PubMed 期刊。
+- `priority_topics` 按列表顺序分级；命中项优先于普通关键词和其它论文。
+- bioRxiv、medRxiv、PubMed 均按最近 `lookback_days` 天采集；任一子源失败不会阻断其它子源。
+- PubMed 无需 Key 即可使用；可选 `NCBI_API_KEY` 能提高 E-utilities 速率上限。
+
 ## 推送
 
 ```bash
@@ -95,6 +103,7 @@ python -m app.run --notify
 | `TELEGRAM_CHANNELS_CONFIG` | Telegram 频道清单路径 |
 | `XHS_KEYWORDS_CONFIG` | 小红书关键词路径 |
 | `GONGKAO_WATCH_CONFIG` | 公考关注省份路径 |
+| `PAPERS_CONFIG` / `NCBI_API_KEY` | 论文配置路径与可选 PubMed API Key |
 | `BARK_URL` / `TG_*` / `SERVERCHAN_KEY` | 推送渠道 |
 
 完整默认值见 `.env.example`。

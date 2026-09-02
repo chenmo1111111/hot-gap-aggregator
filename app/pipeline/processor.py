@@ -10,16 +10,16 @@ from app.pipeline.translator import Translator
 async def process_items(items: list[Item], translator: Translator) -> list[Item]:
     translation_inputs: list[str] = []
     for item in items:
-        translate_title = item.source == "youtube" or (item.source == "telegram" and item.extra.get("translate", True))
+        translate_title = item.source in {"youtube", "papers"} or (item.source == "telegram" and item.extra.get("translate", True))
         if translate_title and not is_chinese(item.title):
             translation_inputs.append(item.title)
         description = str(item.extra.get("description") or "").strip()
-        if item.source in {"youtube", "github"} and description and not is_chinese(description):
+        if item.source in {"youtube", "github", "papers"} and description and not is_chinese(description):
             translation_inputs.append(description)
 
     translations = await translator.translate(translation_inputs)
     for item in items:
-        translate_title = item.source == "youtube" or (item.source == "telegram" and item.extra.get("translate", True))
+        translate_title = item.source in {"youtube", "papers"} or (item.source == "telegram" and item.extra.get("translate", True))
         if translate_title and not is_chinese(item.title):
             item.title_zh = translations.get(item.title, item.title)
         else:
@@ -27,6 +27,8 @@ async def process_items(items: list[Item], translator: Translator) -> list[Item]
         description = str(item.extra.get("description") or "").strip()
         if description:
             item.summary_zh = translations.get(description, description)
+            if item.source == "papers":
+                item.summary_zh = item.summary_zh[:400]
 
     if os.getenv("ENABLE_SUMMARY", "true").lower() == "true":
         summary_inputs: dict[str, list[Item]] = {}

@@ -33,6 +33,8 @@ jobs:
           XHS_KEYWORDS_CONFIG: config/xhs_keywords.yaml
           INVIDIOUS_INSTANCES_CONFIG: config/invidious_instances.yaml
           GONGKAO_WATCH_CONFIG: config/gongkao_watch.yaml
+          PAPERS_CONFIG: config/papers.yaml
+          NCBI_API_KEY: ${{ secrets.NCBI_API_KEY }}
           BARK_URL: ${{ secrets.BARK_URL }}
           TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
           TG_CHAT_ID: ${{ secrets.TG_CHAT_ID }}

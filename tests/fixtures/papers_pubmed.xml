@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PubmedArticleSet>
+  <PubmedArticle>
+    <MedlineCitation>
+      <PMID>11111111</PMID>
+      <Article>
+        <ArticleTitle>Leiden refinement for <i>single-cell</i> clustering</ArticleTitle>
+        <Abstract>
+          <AbstractText Label="BACKGROUND">Cell clustering remains challenging.</AbstractText>
+          <AbstractText Label="RESULTS">Our scRNA-seq clustering method improves cell type identification.</AbstractText>
+        </Abstract>
+        <Journal>
+          <JournalIssue><PubDate><Year>2026</Year><Month>Sep</Month><Day>02</Day></PubDate></JournalIssue>
+          <Title>Nature Methods</Title>
+        </Journal>
+      </Article>
+    </MedlineCitation>
+    <PubmedData><ArticleIdList><ArticleId IdType="doi">10.1038/demo-001</ArticleId></ArticleIdList></PubmedData>
+  </PubmedArticle>
+  <PubmedArticle>
+    <MedlineCitation>
+      <PMID>22222222</PMID>
+      <Article>
+        <ArticleTitle>A foundation model for molecular discovery</ArticleTitle>
+        <Abstract><AbstractText>A large model supports biological discovery.</AbstractText></Abstract>
+        <Journal>
+          <JournalIssue><PubDate><MedlineDate>2026 Aug-Sep</MedlineDate></PubDate></JournalIssue>
+          <Title>Nature</Title>
+        </Journal>
+      </Article>
+    </MedlineCitation>
+    <PubmedData><ArticleIdList /></PubmedData>
+  </PubmedArticle>
+</PubmedArticleSet>

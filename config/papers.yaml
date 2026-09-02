@@ -1,0 +1,30 @@
+# 这三个是我的研究方向，命中的论文排最前面，按列表顺序分级
+priority_topics:
+  - name: 单细胞聚类
+    match: ["single-cell clustering", "single cell clustering", "scRNA-seq clustering",
+            "cell clustering", "cell type identification", "cell type annotation",
+            "Leiden", "Louvain", "subclustering", "cluster refinement"]
+  - name: 稀有细胞
+    match: ["rare cell", "rare cell type", "rare cell population", "rare subpopulation",
+            "rare population", "rare cell detection", "rare cell identification"]
+  - name: 生物信息
+    match: ["bioinformatics", "computational biology", "single-cell analysis",
+            "single-cell RNA sequencing", "scRNA-seq", "spatial transcriptomics",
+            "multi-omics", "single-cell multiomics", "cell atlas"]
+
+# 次级兴趣，命中排在 priority 之后、其它之前
+keywords_boost: ["LLM", "agent", "foundation model", "graph neural network",
+                 "hypergraph", "batch effect", "trajectory inference", "RNA velocity"]
+
+arxiv_categories: [q-bio.GN, q-bio.QM, q-bio.MN, cs.LG, stat.ML, cs.AI]
+biorxiv: true
+biorxiv_categories: [bioinformatics, genomics, "systems biology", "cell biology",
+                     "molecular biology", "developmental biology"]
+medrxiv: false
+pubmed_journals: ["Nature", "Science", "Cell", "Nat Methods", "Nat Biotechnol",
+                  "Nat Comput Sci", "Genome Biol", "Bioinformatics", "Nucleic Acids Res",
+                  "Cell Syst", "Nat Commun", "Brief Bioinform", "Nat Med"]
+
+lookback_days: 4
+per_subsource_limit: 20
+total_limit: 60
