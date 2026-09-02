@@ -90,7 +90,10 @@ class Translator(ABC):
                 values = await fallback_call(missing)
                 if len(values) == len(missing):
                     fresh = {src: (val.strip() or src) for src, val in zip(missing, values, strict=True)}
-                    save_cache(fresh, self.provider)  # cache under our name so next run hits
+                    # Cache under the fallback's own name, not ours: once the
+                    # primary provider recovers it should retry and win, rather
+                    # than keep serving lower-quality fallback text forever.
+                    save_cache(fresh, self.fallback.provider)
                     LOGGER.info("%s recovered via fallback %s", kind, self.fallback.provider)
                     return fresh
             except Exception as exc:  # noqa: BLE001
