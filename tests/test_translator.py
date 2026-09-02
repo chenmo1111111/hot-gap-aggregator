@@ -36,6 +36,20 @@ def test_translator_provider_none(monkeypatch, tmp_path) -> None:
     database.close()
 
 
+def test_api_key_log_does_not_expose_key_material(caplog, tmp_path) -> None:
+    database = Database(tmp_path / "redacted.db")
+    secret = "sk-sensitive-prefix-and-secret-value"
+    with caplog.at_level("INFO"):
+        OpenAICompatibleTranslator(
+            database, base_url="https://example.invalid/v1", model="test-model",
+            api_key=secret, provider="test-provider",
+        )
+    assert "test-provider key loaded" in caplog.text
+    assert secret[:8] not in caplog.text
+    assert "len=" not in caplog.text
+    database.close()
+
+
 @pytest.mark.asyncio
 async def test_summary_uses_provider_cache(tmp_path) -> None:
     database = Database(tmp_path / "summary.db")

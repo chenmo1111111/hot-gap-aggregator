@@ -120,7 +120,9 @@ class OpenAICompatibleTranslator(Translator):
         self.provider = provider
         self._last_batch_at = 0.0
         if self.api_key:
-            LOGGER.info("%s key loaded: len=%d prefix=%s", provider, len(self.api_key), self.api_key[:8])
+            # Never emit key material, even a short prefix, because Actions logs
+            # can be public when this repository is public.
+            LOGGER.info("%s key loaded", provider)
         else:
             LOGGER.warning("%s key missing (env not set)", provider)
 
