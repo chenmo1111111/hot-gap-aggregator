@@ -1,97 +1,37 @@
 {
-  "generated_at": "2026-09-02T09:09:31.946901+00:00",
+  "generated_at": "2026-09-02T12:31:05.172723+00:00",
   "source": "github",
   "status": {
     "source": "github",
     "status": "ok",
-    "item_count": 14,
-    "duration_ms": 1901,
+    "item_count": 19,
+    "duration_ms": 1950,
     "error": null,
-    "run_at": "2026-09-02T09:09:31.946901+00:00"
+    "run_at": "2026-09-02T12:31:05.172723+00:00"
   },
   "items": [
     {
       "source": "github",
       "rank": 1,
-      "title": "Gitlawb/openclaude",
-      "title_zh": "Gitlawb/openclaude",
-      "url": "https://github.com/Gitlawb/openclaude",
-      "hot_value": "80 stars today",
-      "summary_zh": "开源代理，兼容万物，随处运行。",
+      "title": "fmtlib/fmt",
+      "title_zh": "fmtlib/fmt",
+      "url": "https://github.com/fmtlib/fmt",
+      "hot_value": "3 stars today",
+      "summary_zh": "现代C++格式化库，性能与易用性兼备。",
       "thumbnail": null,
       "published_at": null,
       "extra": {
-        "description": "runs anywhere. uses anything",
-        "language": "TypeScript"
+        "description": "A modern formatting library",
+        "language": "C++"
       },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "fcaef3cb0c06",
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "8b8ee9599615",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-01T11:12:22.322724+00:00",
-          "rank": 1
-        },
-        {
-          "run_at": "2026-09-01T12:00:31.751666+00:00",
-          "rank": 1
-        },
-        {
-          "run_at": "2026-09-01T16:09:15.129507+00:00",
-          "rank": 1
-        },
-        {
-          "run_at": "2026-09-01T20:38:56.199666+00:00",
-          "rank": 1
-        },
-        {
-          "run_at": "2026-09-01T23:49:36.405838+00:00",
-          "rank": 1
-        },
-        {
-          "run_at": "2026-09-02T03:09:57.368855+00:00",
-          "rank": 1
-        },
-        {
-          "run_at": "2026-09-02T05:15:59.721124+00:00",
-          "rank": 1
-        },
-        {
-          "run_at": "2026-09-02T05:27:45.730784+00:00",
-          "rank": 1
-        },
-        {
-          "run_at": "2026-09-02T06:26:10.623169+00:00",
-          "rank": 1
-        },
-        {
-          "run_at": "2026-09-02T06:38:28.252828+00:00",
-          "rank": 1
-        },
-        {
-          "run_at": "2026-09-02T07:45:05.669605+00:00",
-          "rank": 1
-        },
-        {
-          "run_at": "2026-09-02T08:12:20.459281+00:00",
-          "rank": 1
-        },
-        {
-          "run_at": "2026-09-02T08:21:35.486354+00:00",
-          "rank": 1
-        },
-        {
-          "run_at": "2026-09-02T08:27:57.698257+00:00",
-          "rank": 1
-        },
-        {
-          "run_at": "2026-09-02T08:40:10.105008+00:00",
-          "rank": 1
-        },
-        {
-          "run_at": "2026-09-02T09:09:31.946901+00:00",
+          "run_at": "2026-09-02T12:31:05.172723+00:00",
           "rank": 1
         }
       ]
@@ -99,10 +39,218 @@
     {
       "source": "github",
       "rank": 2,
+      "title": "google-research/timesfm",
+      "title_zh": "google-research/timesfm",
+      "url": "https://github.com/google-research/timesfm",
+      "hot_value": "326 stars today",
+      "summary_zh": "时间序列预测模型，谷歌开源预训练。",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "description": "TimesFM (Time Series Foundation Model) is a pretrained time-series foundation model developed by Google Research for time-series forecasting.",
+        "language": "Python"
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "f0a4d309d779",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-02T12:31:05.172723+00:00",
+          "rank": 2
+        }
+      ]
+    },
+    {
+      "source": "github",
+      "rank": 3,
+      "title": "DietrichGebert/ponytail",
+      "title_zh": "DietrichGebert/ponytail",
+      "url": "https://github.com/DietrichGebert/ponytail",
+      "hot_value": "1,364 stars today",
+      "summary_zh": "让AI像懒程序员，少写代码更高效。",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "description": "Makes your AI agent think like the laziest senior dev in the room. The best code is the code you never wrote.",
+        "language": "JavaScript"
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "34631a444fa3",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-02T12:31:05.172723+00:00",
+          "rank": 3
+        }
+      ]
+    },
+    {
+      "source": "github",
+      "rank": 4,
+      "title": "sngyai/Sequoia-X",
+      "title_zh": "sngyai/Sequoia-X",
+      "url": "https://github.com/sngyai/Sequoia-X",
+      "hot_value": "195 stars today",
+      "summary_zh": "A股自动选股扫描，收盘推送飞书通知。",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "description": "A股自动选股系统 — 多种技术形态自动扫描，收盘后自动运行并推送飞书",
+        "language": "Python"
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "932d532898dc",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-02T12:31:05.172723+00:00",
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "source": "github",
+      "rank": 5,
+      "title": "ChromeDevTools/chrome-devtools-mcp",
+      "title_zh": "ChromeDevTools/chrome-devtools-mcp",
+      "url": "https://github.com/ChromeDevTools/chrome-devtools-mcp",
+      "hot_value": "140 stars today",
+      "summary_zh": "浏览器调试工具，赋能编码智能体。",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "description": "Chrome DevTools for coding agents",
+        "language": "TypeScript"
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "6781295904a8",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-02T12:31:05.172723+00:00",
+          "rank": 5
+        }
+      ]
+    },
+    {
+      "source": "github",
+      "rank": 6,
+      "title": "NousResearch/hermes-agent",
+      "title_zh": "NousResearch/hermes-agent",
+      "url": "https://github.com/NousResearch/hermes-agent",
+      "hot_value": "529 stars today",
+      "summary_zh": "随你成长的智能体，个性化适配。",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "description": "The agent that grows with you",
+        "language": "Python"
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "a380b0519e21",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-02T12:31:05.172723+00:00",
+          "rank": 6
+        }
+      ]
+    },
+    {
+      "source": "github",
+      "rank": 7,
+      "title": "superlinked/sie",
+      "title_zh": "superlinked/sie",
+      "url": "https://github.com/superlinked/sie",
+      "hot_value": "61 stars today",
+      "summary_zh": "开源推理服务器，支持多模型集群。",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "description": "Open-source inference server and production cluster for all the models your agent needs.",
+        "language": "Python"
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "65396b6bda97",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-02T12:31:05.172723+00:00",
+          "rank": 7
+        }
+      ]
+    },
+    {
+      "source": "github",
+      "rank": 8,
+      "title": "pacifio/atlas",
+      "title_zh": "pacifio/atlas",
+      "url": "https://github.com/pacifio/atlas",
+      "hot_value": "895 stars today",
+      "summary_zh": "多智能体源码管理，统一查询变更。",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "description": "Source control for agents. Use multiple coding agents, track their changes and query them in one place",
+        "language": "Rust"
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "e1117b943749",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-02T12:31:05.172723+00:00",
+          "rank": 8
+        }
+      ]
+    },
+    {
+      "source": "github",
+      "rank": 9,
+      "title": "zyronon/TypeWords",
+      "title_zh": "zyronon/TypeWords",
+      "url": "https://github.com/zyronon/TypeWords",
+      "hot_value": "68 stars today",
+      "summary_zh": "打字练英语，每击一步进步。",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "description": "Practice English, one strike, one step forward; 练习英语，一次敲击，一点进步；",
+        "language": "Vue"
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "2d03ad29f2dd",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-02T12:31:05.172723+00:00",
+          "rank": 9
+        }
+      ]
+    },
+    {
+      "source": "github",
+      "rank": 10,
       "title": "Imbad0202/academic-research-skills",
       "title_zh": "Imbad0202/academic-research-skills",
       "url": "https://github.com/Imbad0202/academic-research-skills",
-      "hot_value": "193 stars today",
+      "hot_value": "801 stars today",
       "summary_zh": "学术研究全流程技能包，从调研到定稿。",
       "thumbnail": null,
       "published_at": null,
@@ -112,7 +260,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": -8,
       "cluster_id": "8f79d2266e8b",
       "cluster_size": 1,
       "rank_history": [
@@ -179,793 +327,9 @@
         {
           "run_at": "2026-09-02T09:09:31.946901+00:00",
           "rank": 2
-        }
-      ]
-    },
-    {
-      "source": "github",
-      "rank": 3,
-      "title": "THU-MAIC/OpenMAIC",
-      "title_zh": "THU-MAIC/OpenMAIC",
-      "url": "https://github.com/THU-MAIC/OpenMAIC",
-      "hot_value": "3,128 stars today",
-      "summary_zh": "一键开启多智能体沉浸式互动课堂。",
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "description": "Open Multi-Agent Interactive Classroom — Get an immersive, multi-agent learning experience in just one click",
-        "language": "TypeScript"
-      },
-      "days_on_board": 3,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "d1ae8eef076d",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-08-31T13:54:41.256553+00:00",
-          "rank": 1
-        },
-        {
-          "run_at": "2026-08-31T13:56:52.670825+00:00",
-          "rank": 1
-        },
-        {
-          "run_at": "2026-08-31T13:57:45.096756+00:00",
-          "rank": 1
-        },
-        {
-          "run_at": "2026-08-31T14:01:06.945235+00:00",
-          "rank": 1
-        },
-        {
-          "run_at": "2026-09-01T07:43:12.937191+00:00",
-          "rank": 1
-        },
-        {
-          "run_at": "2026-09-01T11:12:22.322724+00:00",
-          "rank": 3
-        },
-        {
-          "run_at": "2026-09-01T12:00:31.751666+00:00",
-          "rank": 3
-        },
-        {
-          "run_at": "2026-09-01T16:09:15.129507+00:00",
-          "rank": 3
-        },
-        {
-          "run_at": "2026-09-01T20:38:56.199666+00:00",
-          "rank": 3
-        },
-        {
-          "run_at": "2026-09-01T23:49:36.405838+00:00",
-          "rank": 3
-        },
-        {
-          "run_at": "2026-09-02T03:09:57.368855+00:00",
-          "rank": 3
-        },
-        {
-          "run_at": "2026-09-02T05:15:59.721124+00:00",
-          "rank": 3
-        },
-        {
-          "run_at": "2026-09-02T05:27:45.730784+00:00",
-          "rank": 3
-        },
-        {
-          "run_at": "2026-09-02T06:26:10.623169+00:00",
-          "rank": 3
-        },
-        {
-          "run_at": "2026-09-02T06:38:28.252828+00:00",
-          "rank": 3
-        },
-        {
-          "run_at": "2026-09-02T07:45:05.669605+00:00",
-          "rank": 3
-        },
-        {
-          "run_at": "2026-09-02T08:12:20.459281+00:00",
-          "rank": 3
-        },
-        {
-          "run_at": "2026-09-02T08:21:35.486354+00:00",
-          "rank": 3
-        },
-        {
-          "run_at": "2026-09-02T08:27:57.698257+00:00",
-          "rank": 3
-        },
-        {
-          "run_at": "2026-09-02T08:40:10.105008+00:00",
-          "rank": 3
-        },
-        {
-          "run_at": "2026-09-02T09:09:31.946901+00:00",
-          "rank": 3
-        }
-      ]
-    },
-    {
-      "source": "github",
-      "rank": 4,
-      "title": "iv-org/invidious",
-      "title_zh": "iv-org/invidious",
-      "url": "https://github.com/iv-org/invidious",
-      "hot_value": "577 stars today",
-      "summary_zh": "YouTube开源替代前端，隐私友好。",
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "description": "Invidious is an alternative front-end to YouTube",
-        "language": "Crystal"
-      },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "29afde4b06fa",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-01T11:12:22.322724+00:00",
-          "rank": 4
-        },
-        {
-          "run_at": "2026-09-01T12:00:31.751666+00:00",
-          "rank": 4
-        },
-        {
-          "run_at": "2026-09-01T16:09:15.129507+00:00",
-          "rank": 4
-        },
-        {
-          "run_at": "2026-09-01T20:38:56.199666+00:00",
-          "rank": 4
-        },
-        {
-          "run_at": "2026-09-01T23:49:36.405838+00:00",
-          "rank": 4
-        },
-        {
-          "run_at": "2026-09-02T03:09:57.368855+00:00",
-          "rank": 4
-        },
-        {
-          "run_at": "2026-09-02T05:15:59.721124+00:00",
-          "rank": 4
-        },
-        {
-          "run_at": "2026-09-02T05:27:45.730784+00:00",
-          "rank": 4
-        },
-        {
-          "run_at": "2026-09-02T06:26:10.623169+00:00",
-          "rank": 4
-        },
-        {
-          "run_at": "2026-09-02T06:38:28.252828+00:00",
-          "rank": 4
-        },
-        {
-          "run_at": "2026-09-02T07:45:05.669605+00:00",
-          "rank": 4
-        },
-        {
-          "run_at": "2026-09-02T08:12:20.459281+00:00",
-          "rank": 4
-        },
-        {
-          "run_at": "2026-09-02T08:21:35.486354+00:00",
-          "rank": 4
-        },
-        {
-          "run_at": "2026-09-02T08:27:57.698257+00:00",
-          "rank": 4
-        },
-        {
-          "run_at": "2026-09-02T08:40:10.105008+00:00",
-          "rank": 4
-        },
-        {
-          "run_at": "2026-09-02T09:09:31.946901+00:00",
-          "rank": 4
-        }
-      ]
-    },
-    {
-      "source": "github",
-      "rank": 5,
-      "title": "jingyaogong/minimind",
-      "title_zh": "jingyaogong/minimind",
-      "url": "https://github.com/jingyaogong/minimind",
-      "hot_value": "1,005 stars today",
-      "summary_zh": "两小时从零训练64M参数大模型。",
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "description": "🧠 Train a 64M-parameter LLM from scratch in just 2h!",
-        "language": "Python"
-      },
-      "days_on_board": 3,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "84c8de82dc8a",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-08-31T13:54:41.256553+00:00",
-          "rank": 6
-        },
-        {
-          "run_at": "2026-08-31T13:56:52.670825+00:00",
-          "rank": 6
-        },
-        {
-          "run_at": "2026-08-31T13:57:45.096756+00:00",
-          "rank": 6
-        },
-        {
-          "run_at": "2026-08-31T14:01:06.945235+00:00",
-          "rank": 6
-        },
-        {
-          "run_at": "2026-09-01T07:43:12.937191+00:00",
-          "rank": 6
-        },
-        {
-          "run_at": "2026-09-01T11:12:22.322724+00:00",
-          "rank": 5
-        },
-        {
-          "run_at": "2026-09-01T12:00:31.751666+00:00",
-          "rank": 5
-        },
-        {
-          "run_at": "2026-09-01T16:09:15.129507+00:00",
-          "rank": 5
-        },
-        {
-          "run_at": "2026-09-01T20:38:56.199666+00:00",
-          "rank": 5
-        },
-        {
-          "run_at": "2026-09-01T23:49:36.405838+00:00",
-          "rank": 5
-        },
-        {
-          "run_at": "2026-09-02T03:09:57.368855+00:00",
-          "rank": 5
-        },
-        {
-          "run_at": "2026-09-02T05:15:59.721124+00:00",
-          "rank": 5
-        },
-        {
-          "run_at": "2026-09-02T05:27:45.730784+00:00",
-          "rank": 5
-        },
-        {
-          "run_at": "2026-09-02T06:26:10.623169+00:00",
-          "rank": 5
-        },
-        {
-          "run_at": "2026-09-02T06:38:28.252828+00:00",
-          "rank": 5
-        },
-        {
-          "run_at": "2026-09-02T07:45:05.669605+00:00",
-          "rank": 5
-        },
-        {
-          "run_at": "2026-09-02T08:12:20.459281+00:00",
-          "rank": 5
-        },
-        {
-          "run_at": "2026-09-02T08:21:35.486354+00:00",
-          "rank": 5
-        },
-        {
-          "run_at": "2026-09-02T08:27:57.698257+00:00",
-          "rank": 5
-        },
-        {
-          "run_at": "2026-09-02T08:40:10.105008+00:00",
-          "rank": 5
-        },
-        {
-          "run_at": "2026-09-02T09:09:31.946901+00:00",
-          "rank": 5
-        }
-      ]
-    },
-    {
-      "source": "github",
-      "rank": 6,
-      "title": "3b1b/manim",
-      "title_zh": "3b1b/manim",
-      "url": "https://github.com/3b1b/manim",
-      "hot_value": "86 stars today",
-      "summary_zh": "数学视频动画引擎，可视化讲解利器。",
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "description": "Animation engine for explanatory math videos",
-        "language": "Python"
-      },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "cd5d827c1f1a",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-01T11:12:22.322724+00:00",
-          "rank": 7
-        },
-        {
-          "run_at": "2026-09-01T12:00:31.751666+00:00",
-          "rank": 7
-        },
-        {
-          "run_at": "2026-09-01T16:09:15.129507+00:00",
-          "rank": 7
-        },
-        {
-          "run_at": "2026-09-01T20:38:56.199666+00:00",
-          "rank": 7
-        },
-        {
-          "run_at": "2026-09-01T23:49:36.405838+00:00",
-          "rank": 6
-        },
-        {
-          "run_at": "2026-09-02T03:09:57.368855+00:00",
-          "rank": 6
-        },
-        {
-          "run_at": "2026-09-02T05:15:59.721124+00:00",
-          "rank": 6
-        },
-        {
-          "run_at": "2026-09-02T05:27:45.730784+00:00",
-          "rank": 6
-        },
-        {
-          "run_at": "2026-09-02T06:26:10.623169+00:00",
-          "rank": 6
-        },
-        {
-          "run_at": "2026-09-02T06:38:28.252828+00:00",
-          "rank": 6
-        },
-        {
-          "run_at": "2026-09-02T07:45:05.669605+00:00",
-          "rank": 6
-        },
-        {
-          "run_at": "2026-09-02T08:12:20.459281+00:00",
-          "rank": 6
-        },
-        {
-          "run_at": "2026-09-02T08:21:35.486354+00:00",
-          "rank": 6
-        },
-        {
-          "run_at": "2026-09-02T08:27:57.698257+00:00",
-          "rank": 6
-        },
-        {
-          "run_at": "2026-09-02T08:40:10.105008+00:00",
-          "rank": 6
-        },
-        {
-          "run_at": "2026-09-02T09:09:31.946901+00:00",
-          "rank": 6
-        }
-      ]
-    },
-    {
-      "source": "github",
-      "rank": 7,
-      "title": "firecrawl/pdf-inspector",
-      "title_zh": "firecrawl/pdf-inspector",
-      "url": "https://github.com/firecrawl/pdf-inspector",
-      "hot_value": "541 stars today",
-      "summary_zh": "Rust PDF检测分类提取，智能识别扫描版。",
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "description": "Fast Rust library for PDF inspection, classification, and text extraction. Intelligently detects scanned vs text-based PDFs to enable smart routing decisions.",
-        "language": "Rust"
-      },
-      "days_on_board": 3,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "e77bef0d4dfd",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-08-31T13:54:41.256553+00:00",
-          "rank": 15
-        },
-        {
-          "run_at": "2026-08-31T13:56:52.670825+00:00",
-          "rank": 15
-        },
-        {
-          "run_at": "2026-08-31T13:57:45.096756+00:00",
-          "rank": 15
-        },
-        {
-          "run_at": "2026-08-31T14:01:06.945235+00:00",
-          "rank": 15
-        },
-        {
-          "run_at": "2026-09-01T07:43:12.937191+00:00",
-          "rank": 15
-        },
-        {
-          "run_at": "2026-09-01T11:12:22.322724+00:00",
-          "rank": 8
-        },
-        {
-          "run_at": "2026-09-01T12:00:31.751666+00:00",
-          "rank": 8
-        },
-        {
-          "run_at": "2026-09-01T16:09:15.129507+00:00",
-          "rank": 8
-        },
-        {
-          "run_at": "2026-09-01T20:38:56.199666+00:00",
-          "rank": 8
-        },
-        {
-          "run_at": "2026-09-01T23:49:36.405838+00:00",
-          "rank": 7
-        },
-        {
-          "run_at": "2026-09-02T03:09:57.368855+00:00",
-          "rank": 7
-        },
-        {
-          "run_at": "2026-09-02T05:15:59.721124+00:00",
-          "rank": 7
-        },
-        {
-          "run_at": "2026-09-02T05:27:45.730784+00:00",
-          "rank": 7
-        },
-        {
-          "run_at": "2026-09-02T06:26:10.623169+00:00",
-          "rank": 7
-        },
-        {
-          "run_at": "2026-09-02T06:38:28.252828+00:00",
-          "rank": 7
-        },
-        {
-          "run_at": "2026-09-02T07:45:05.669605+00:00",
-          "rank": 7
-        },
-        {
-          "run_at": "2026-09-02T08:12:20.459281+00:00",
-          "rank": 7
-        },
-        {
-          "run_at": "2026-09-02T08:21:35.486354+00:00",
-          "rank": 7
-        },
-        {
-          "run_at": "2026-09-02T08:27:57.698257+00:00",
-          "rank": 7
-        },
-        {
-          "run_at": "2026-09-02T08:40:10.105008+00:00",
-          "rank": 7
-        },
-        {
-          "run_at": "2026-09-02T09:09:31.946901+00:00",
-          "rank": 7
-        }
-      ]
-    },
-    {
-      "source": "github",
-      "rank": 8,
-      "title": "browser-use/video-use",
-      "title_zh": "browser-use/video-use",
-      "url": "https://github.com/browser-use/video-use",
-      "hot_value": "472 stars today",
-      "summary_zh": "用编程智能体直接编辑视频内容。",
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "description": "Edit videos with coding agents",
-        "language": "Python"
-      },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "dab878aa9365",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-01T11:12:22.322724+00:00",
-          "rank": 9
-        },
-        {
-          "run_at": "2026-09-01T12:00:31.751666+00:00",
-          "rank": 9
-        },
-        {
-          "run_at": "2026-09-01T16:09:15.129507+00:00",
-          "rank": 9
-        },
-        {
-          "run_at": "2026-09-01T20:38:56.199666+00:00",
-          "rank": 9
-        },
-        {
-          "run_at": "2026-09-01T23:49:36.405838+00:00",
-          "rank": 8
-        },
-        {
-          "run_at": "2026-09-02T03:09:57.368855+00:00",
-          "rank": 8
-        },
-        {
-          "run_at": "2026-09-02T05:15:59.721124+00:00",
-          "rank": 8
-        },
-        {
-          "run_at": "2026-09-02T05:27:45.730784+00:00",
-          "rank": 8
-        },
-        {
-          "run_at": "2026-09-02T06:26:10.623169+00:00",
-          "rank": 8
-        },
-        {
-          "run_at": "2026-09-02T06:38:28.252828+00:00",
-          "rank": 8
-        },
-        {
-          "run_at": "2026-09-02T07:45:05.669605+00:00",
-          "rank": 8
-        },
-        {
-          "run_at": "2026-09-02T08:12:20.459281+00:00",
-          "rank": 8
-        },
-        {
-          "run_at": "2026-09-02T08:21:35.486354+00:00",
-          "rank": 8
-        },
-        {
-          "run_at": "2026-09-02T08:27:57.698257+00:00",
-          "rank": 8
-        },
-        {
-          "run_at": "2026-09-02T08:40:10.105008+00:00",
-          "rank": 8
-        },
-        {
-          "run_at": "2026-09-02T09:09:31.946901+00:00",
-          "rank": 8
-        }
-      ]
-    },
-    {
-      "source": "github",
-      "rank": 9,
-      "title": "K-Dense-AI/scientific-agent-skills",
-      "title_zh": "K-Dense-AI/scientific-agent-skills",
-      "url": "https://github.com/K-Dense-AI/scientific-agent-skills",
-      "hot_value": "912 stars today",
-      "summary_zh": "科学智能体技能库，覆盖多学科数据库。",
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "description": "Turn any AI agent into an AI Scientist. The #1 Agent Skills library for science, used by 190,000+ scientists worldwide. 165 ready-to-use validated skills plus 100+ scientific databases covering biology, chemistry, medicine, and drug discovery. Compatible with Cursor, Claude Code, Codex, Pi, Antigravity, and the open Agent Skills standard.",
-        "language": "Python"
-      },
-      "days_on_board": 3,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "dc17abca205a",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-08-31T13:54:41.256553+00:00",
-          "rank": 3
-        },
-        {
-          "run_at": "2026-08-31T13:56:52.670825+00:00",
-          "rank": 3
-        },
-        {
-          "run_at": "2026-08-31T13:57:45.096756+00:00",
-          "rank": 3
-        },
-        {
-          "run_at": "2026-08-31T14:01:06.945235+00:00",
-          "rank": 3
-        },
-        {
-          "run_at": "2026-09-01T07:43:12.937191+00:00",
-          "rank": 3
-        },
-        {
-          "run_at": "2026-09-01T11:12:22.322724+00:00",
-          "rank": 10
-        },
-        {
-          "run_at": "2026-09-01T12:00:31.751666+00:00",
-          "rank": 10
-        },
-        {
-          "run_at": "2026-09-01T16:09:15.129507+00:00",
-          "rank": 10
-        },
-        {
-          "run_at": "2026-09-01T20:38:56.199666+00:00",
-          "rank": 10
-        },
-        {
-          "run_at": "2026-09-01T23:49:36.405838+00:00",
-          "rank": 9
-        },
-        {
-          "run_at": "2026-09-02T03:09:57.368855+00:00",
-          "rank": 9
-        },
-        {
-          "run_at": "2026-09-02T05:15:59.721124+00:00",
-          "rank": 9
-        },
-        {
-          "run_at": "2026-09-02T05:27:45.730784+00:00",
-          "rank": 9
-        },
-        {
-          "run_at": "2026-09-02T06:26:10.623169+00:00",
-          "rank": 9
-        },
-        {
-          "run_at": "2026-09-02T06:38:28.252828+00:00",
-          "rank": 9
-        },
-        {
-          "run_at": "2026-09-02T07:45:05.669605+00:00",
-          "rank": 9
-        },
-        {
-          "run_at": "2026-09-02T08:12:20.459281+00:00",
-          "rank": 9
-        },
-        {
-          "run_at": "2026-09-02T08:21:35.486354+00:00",
-          "rank": 9
-        },
-        {
-          "run_at": "2026-09-02T08:27:57.698257+00:00",
-          "rank": 9
-        },
-        {
-          "run_at": "2026-09-02T08:40:10.105008+00:00",
-          "rank": 9
-        },
-        {
-          "run_at": "2026-09-02T09:09:31.946901+00:00",
-          "rank": 9
-        }
-      ]
-    },
-    {
-      "source": "github",
-      "rank": 10,
-      "title": "handsomestWei/patent-disclosure-skill",
-      "title_zh": "handsomestWei/patent-disclosure-skill",
-      "url": "https://github.com/handsomestWei/patent-disclosure-skill",
-      "hot_value": "501 stars today",
-      "summary_zh": "中国专利挖掘与交底书编写辅助技能。",
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "description": "中国专利.skill：专利点挖掘与交底书（发明/实用/外观）编写，通俗解读专利，嗅探政策动向，辅助审查答复。",
-        "language": "Python"
-      },
-      "days_on_board": 3,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "4959cad313b0",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-08-31T13:54:41.256553+00:00",
-          "rank": 14
-        },
-        {
-          "run_at": "2026-08-31T13:56:52.670825+00:00",
-          "rank": 14
-        },
-        {
-          "run_at": "2026-08-31T13:57:45.096756+00:00",
-          "rank": 14
-        },
-        {
-          "run_at": "2026-08-31T14:01:06.945235+00:00",
-          "rank": 14
-        },
-        {
-          "run_at": "2026-09-01T07:43:12.937191+00:00",
-          "rank": 14
-        },
-        {
-          "run_at": "2026-09-01T11:12:22.322724+00:00",
-          "rank": 11
-        },
-        {
-          "run_at": "2026-09-01T12:00:31.751666+00:00",
-          "rank": 11
-        },
-        {
-          "run_at": "2026-09-01T16:09:15.129507+00:00",
-          "rank": 11
-        },
-        {
-          "run_at": "2026-09-01T20:38:56.199666+00:00",
-          "rank": 11
-        },
-        {
-          "run_at": "2026-09-01T23:49:36.405838+00:00",
-          "rank": 10
-        },
-        {
-          "run_at": "2026-09-02T03:09:57.368855+00:00",
-          "rank": 10
-        },
-        {
-          "run_at": "2026-09-02T05:15:59.721124+00:00",
-          "rank": 10
-        },
-        {
-          "run_at": "2026-09-02T05:27:45.730784+00:00",
-          "rank": 10
-        },
-        {
-          "run_at": "2026-09-02T06:26:10.623169+00:00",
-          "rank": 10
-        },
-        {
-          "run_at": "2026-09-02T06:38:28.252828+00:00",
-          "rank": 10
-        },
-        {
-          "run_at": "2026-09-02T07:45:05.669605+00:00",
-          "rank": 10
-        },
-        {
-          "run_at": "2026-09-02T08:12:20.459281+00:00",
-          "rank": 10
-        },
-        {
-          "run_at": "2026-09-02T08:21:35.486354+00:00",
-          "rank": 10
-        },
-        {
-          "run_at": "2026-09-02T08:27:57.698257+00:00",
-          "rank": 10
-        },
-        {
-          "run_at": "2026-09-02T08:40:10.105008+00:00",
-          "rank": 10
         },
         {
-          "run_at": "2026-09-02T09:09:31.946901+00:00",
+          "run_at": "2026-09-02T12:31:05.172723+00:00",
           "rank": 10
         }
       ]
@@ -973,182 +337,10 @@
     {
       "source": "github",
       "rank": 11,
-      "title": "VoltAgent/awesome-design-md",
-      "title_zh": "VoltAgent/awesome-design-md",
-      "url": "https://github.com/VoltAgent/awesome-design-md",
-      "hot_value": "323 stars today",
-      "summary_zh": "品牌设计系统分析，生成匹配UI。",
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "description": "A collection of DESIGN.md files analysis by popular brand design systems. Drop one into your project and let coding agents generate a matching UI.",
-        "language": null
-      },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "d26ce1a020d6",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-01T11:12:22.322724+00:00",
-          "rank": 12
-        },
-        {
-          "run_at": "2026-09-01T12:00:31.751666+00:00",
-          "rank": 12
-        },
-        {
-          "run_at": "2026-09-01T16:09:15.129507+00:00",
-          "rank": 12
-        },
-        {
-          "run_at": "2026-09-01T20:38:56.199666+00:00",
-          "rank": 12
-        },
-        {
-          "run_at": "2026-09-01T23:49:36.405838+00:00",
-          "rank": 11
-        },
-        {
-          "run_at": "2026-09-02T03:09:57.368855+00:00",
-          "rank": 11
-        },
-        {
-          "run_at": "2026-09-02T05:15:59.721124+00:00",
-          "rank": 11
-        },
-        {
-          "run_at": "2026-09-02T05:27:45.730784+00:00",
-          "rank": 11
-        },
-        {
-          "run_at": "2026-09-02T06:26:10.623169+00:00",
-          "rank": 11
-        },
-        {
-          "run_at": "2026-09-02T06:38:28.252828+00:00",
-          "rank": 11
-        },
-        {
-          "run_at": "2026-09-02T07:45:05.669605+00:00",
-          "rank": 11
-        },
-        {
-          "run_at": "2026-09-02T08:12:20.459281+00:00",
-          "rank": 11
-        },
-        {
-          "run_at": "2026-09-02T08:21:35.486354+00:00",
-          "rank": 11
-        },
-        {
-          "run_at": "2026-09-02T08:27:57.698257+00:00",
-          "rank": 11
-        },
-        {
-          "run_at": "2026-09-02T08:40:10.105008+00:00",
-          "rank": 11
-        },
-        {
-          "run_at": "2026-09-02T09:09:31.946901+00:00",
-          "rank": 11
-        }
-      ]
-    },
-    {
-      "source": "github",
-      "rank": 12,
-      "title": "averygan/reclip",
-      "title_zh": "averygan/reclip",
-      "url": "https://github.com/averygan/reclip",
-      "hot_value": "56 stars today",
-      "summary_zh": "轻量自托管视频下载器，界面简洁。",
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "description": "Download videos from almost any website. Lightweight, self-hosted media downloader with a clean web UI.",
-        "language": "HTML"
-      },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "22e58a5e588c",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-01T11:12:22.322724+00:00",
-          "rank": 13
-        },
-        {
-          "run_at": "2026-09-01T12:00:31.751666+00:00",
-          "rank": 13
-        },
-        {
-          "run_at": "2026-09-01T16:09:15.129507+00:00",
-          "rank": 13
-        },
-        {
-          "run_at": "2026-09-01T20:38:56.199666+00:00",
-          "rank": 13
-        },
-        {
-          "run_at": "2026-09-01T23:49:36.405838+00:00",
-          "rank": 12
-        },
-        {
-          "run_at": "2026-09-02T03:09:57.368855+00:00",
-          "rank": 12
-        },
-        {
-          "run_at": "2026-09-02T05:15:59.721124+00:00",
-          "rank": 12
-        },
-        {
-          "run_at": "2026-09-02T05:27:45.730784+00:00",
-          "rank": 12
-        },
-        {
-          "run_at": "2026-09-02T06:26:10.623169+00:00",
-          "rank": 12
-        },
-        {
-          "run_at": "2026-09-02T06:38:28.252828+00:00",
-          "rank": 12
-        },
-        {
-          "run_at": "2026-09-02T07:45:05.669605+00:00",
-          "rank": 12
-        },
-        {
-          "run_at": "2026-09-02T08:12:20.459281+00:00",
-          "rank": 12
-        },
-        {
-          "run_at": "2026-09-02T08:21:35.486354+00:00",
-          "rank": 12
-        },
-        {
-          "run_at": "2026-09-02T08:27:57.698257+00:00",
-          "rank": 12
-        },
-        {
-          "run_at": "2026-09-02T08:40:10.105008+00:00",
-          "rank": 12
-        },
-        {
-          "run_at": "2026-09-02T09:09:31.946901+00:00",
-          "rank": 12
-        }
-      ]
-    },
-    {
-      "source": "github",
-      "rank": 13,
       "title": "affaan-m/ECC",
       "title_zh": "affaan-m/ECC",
       "url": "https://github.com/affaan-m/ECC",
-      "hot_value": "623 stars today",
+      "hot_value": "516 stars today",
       "summary_zh": "智能体性能优化系统，强化记忆安全。",
       "thumbnail": null,
       "published_at": null,
@@ -1158,7 +350,7 @@
       },
       "days_on_board": 3,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": 2,
       "cluster_id": "9317f65b1d4f",
       "cluster_size": 1,
       "rank_history": [
@@ -1245,92 +437,366 @@
         {
           "run_at": "2026-09-02T09:09:31.946901+00:00",
           "rank": 13
+        },
+        {
+          "run_at": "2026-09-02T12:31:05.172723+00:00",
+          "rank": 11
+        }
+      ]
+    },
+    {
+      "source": "github",
+      "rank": 12,
+      "title": "protocolbuffers/protobuf",
+      "title_zh": "protocolbuffers/protobuf",
+      "url": "https://github.com/protocolbuffers/protobuf",
+      "hot_value": "16 stars today",
+      "summary_zh": "谷歌数据交换格式，跨语言标准。",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "description": "Protocol Buffers - Google's data interchange format",
+        "language": "C++"
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "9766185c5df8",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-02T12:31:05.172723+00:00",
+          "rank": 12
+        }
+      ]
+    },
+    {
+      "source": "github",
+      "rank": 13,
+      "title": "vercel-labs/portless",
+      "title_zh": "vercel-labs/portless",
+      "url": "https://github.com/vercel-labs/portless",
+      "hot_value": "69 stars today",
+      "summary_zh": "端口换稳定命名URL，人机皆宜。",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "description": "Replace port numbers with stable, named local URLs. For humans and agents.",
+        "language": "TypeScript"
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "35fcaf41faca",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-02T12:31:05.172723+00:00",
+          "rank": 13
         }
       ]
     },
     {
       "source": "github",
       "rank": 14,
-      "title": "unclecode/crawl4ai",
-      "title_zh": "unclecode/crawl4ai",
-      "url": "https://github.com/unclecode/crawl4ai",
-      "hot_value": "145 stars today",
-      "summary_zh": "开源LLM友好爬虫，轻松抓取网页。",
+      "title": "blader/humanizer",
+      "title_zh": "blader/humanizer",
+      "url": "https://github.com/blader/humanizer",
+      "hot_value": "366 stars today",
+      "summary_zh": "去除AI写作痕迹，文本更自然。",
       "thumbnail": null,
       "published_at": null,
       "extra": {
-        "description": "🚀🤖 Crawl4AI: Open-source LLM Friendly Web Crawler & Scraper. Don't be shy, join here:https://discord.gg/jP8KfhDhyN",
+        "description": "Agent skill that removes signs of AI-generated writing from text",
         "language": "Python"
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "cac036268e6c",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-02T12:31:05.172723+00:00",
+          "rank": 14
+        }
+      ]
+    },
+    {
+      "source": "github",
+      "rank": 15,
+      "title": "JuliusBrussee/caveman",
+      "title_zh": "JuliusBrussee/caveman",
+      "url": "https://github.com/JuliusBrussee/caveman",
+      "hot_value": "234 stars today",
+      "summary_zh": "用少词省65%令牌，穴居人风格。",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "description": "🪨 why use many token when few token do trick — Claude Code skill that cuts 65% of tokens by talking like caveman",
+        "language": "Go"
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "295ed2c3eede",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-02T12:31:05.172723+00:00",
+          "rank": 15
+        }
+      ]
+    },
+    {
+      "source": "github",
+      "rank": 16,
+      "title": "mattpocock/skills",
+      "title_zh": "mattpocock/skills",
+      "url": "https://github.com/mattpocock/skills",
+      "hot_value": "1,103 stars today",
+      "summary_zh": "真实工程师技能集，直接可用。",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "description": "Skills for Real Engineers. Straight from my .agents directory.",
+        "language": "Shell"
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "5963f5c06b20",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-02T12:31:05.172723+00:00",
+          "rank": 16
+        }
+      ]
+    },
+    {
+      "source": "github",
+      "rank": 17,
+      "title": "Gitlawb/openclaude",
+      "title_zh": "Gitlawb/openclaude",
+      "url": "https://github.com/Gitlawb/openclaude",
+      "hot_value": "776 stars today",
+      "summary_zh": "开源代理，兼容万物，随处运行。",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "description": "runs anywhere. uses anything",
+        "language": "TypeScript"
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "6739ff2f09ed",
+      "rank_delta": -16,
+      "cluster_id": "fcaef3cb0c06",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-01T11:12:22.322724+00:00",
-          "rank": 15
+          "rank": 1
         },
         {
           "run_at": "2026-09-01T12:00:31.751666+00:00",
-          "rank": 15
+          "rank": 1
         },
         {
           "run_at": "2026-09-01T16:09:15.129507+00:00",
-          "rank": 15
+          "rank": 1
         },
         {
           "run_at": "2026-09-01T20:38:56.199666+00:00",
-          "rank": 15
+          "rank": 1
         },
         {
           "run_at": "2026-09-01T23:49:36.405838+00:00",
-          "rank": 14
+          "rank": 1
         },
         {
           "run_at": "2026-09-02T03:09:57.368855+00:00",
-          "rank": 14
+          "rank": 1
         },
         {
           "run_at": "2026-09-02T05:15:59.721124+00:00",
-          "rank": 14
+          "rank": 1
         },
         {
           "run_at": "2026-09-02T05:27:45.730784+00:00",
-          "rank": 14
+          "rank": 1
         },
         {
           "run_at": "2026-09-02T06:26:10.623169+00:00",
-          "rank": 14
+          "rank": 1
         },
         {
           "run_at": "2026-09-02T06:38:28.252828+00:00",
-          "rank": 14
+          "rank": 1
         },
         {
           "run_at": "2026-09-02T07:45:05.669605+00:00",
-          "rank": 14
+          "rank": 1
         },
         {
           "run_at": "2026-09-02T08:12:20.459281+00:00",
-          "rank": 14
+          "rank": 1
         },
         {
           "run_at": "2026-09-02T08:21:35.486354+00:00",
-          "rank": 14
+          "rank": 1
         },
         {
           "run_at": "2026-09-02T08:27:57.698257+00:00",
-          "rank": 14
+          "rank": 1
         },
         {
           "run_at": "2026-09-02T08:40:10.105008+00:00",
-          "rank": 14
+          "rank": 1
         },
         {
           "run_at": "2026-09-02T09:09:31.946901+00:00",
-          "rank": 14
+          "rank": 1
+        },
+        {
+          "run_at": "2026-09-02T12:31:05.172723+00:00",
+          "rank": 17
+        }
+      ]
+    },
+    {
+      "source": "github",
+      "rank": 18,
+      "title": "firecrawl/pdf-inspector",
+      "title_zh": "firecrawl/pdf-inspector",
+      "url": "https://github.com/firecrawl/pdf-inspector",
+      "hot_value": "589 stars today",
+      "summary_zh": "Rust PDF检测分类提取，智能识别扫描版。",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "description": "Fast Rust library for PDF inspection, classification, and text extraction. Intelligently detects scanned vs text-based PDFs to enable smart routing decisions.",
+        "language": "Rust"
+      },
+      "days_on_board": 3,
+      "is_new": false,
+      "rank_delta": -11,
+      "cluster_id": "e77bef0d4dfd",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-08-31T13:54:41.256553+00:00",
+          "rank": 15
+        },
+        {
+          "run_at": "2026-08-31T13:56:52.670825+00:00",
+          "rank": 15
+        },
+        {
+          "run_at": "2026-08-31T13:57:45.096756+00:00",
+          "rank": 15
+        },
+        {
+          "run_at": "2026-08-31T14:01:06.945235+00:00",
+          "rank": 15
+        },
+        {
+          "run_at": "2026-09-01T07:43:12.937191+00:00",
+          "rank": 15
+        },
+        {
+          "run_at": "2026-09-01T11:12:22.322724+00:00",
+          "rank": 8
+        },
+        {
+          "run_at": "2026-09-01T12:00:31.751666+00:00",
+          "rank": 8
+        },
+        {
+          "run_at": "2026-09-01T16:09:15.129507+00:00",
+          "rank": 8
+        },
+        {
+          "run_at": "2026-09-01T20:38:56.199666+00:00",
+          "rank": 8
+        },
+        {
+          "run_at": "2026-09-01T23:49:36.405838+00:00",
+          "rank": 7
+        },
+        {
+          "run_at": "2026-09-02T03:09:57.368855+00:00",
+          "rank": 7
+        },
+        {
+          "run_at": "2026-09-02T05:15:59.721124+00:00",
+          "rank": 7
+        },
+        {
+          "run_at": "2026-09-02T05:27:45.730784+00:00",
+          "rank": 7
+        },
+        {
+          "run_at": "2026-09-02T06:26:10.623169+00:00",
+          "rank": 7
+        },
+        {
+          "run_at": "2026-09-02T06:38:28.252828+00:00",
+          "rank": 7
+        },
+        {
+          "run_at": "2026-09-02T07:45:05.669605+00:00",
+          "rank": 7
+        },
+        {
+          "run_at": "2026-09-02T08:12:20.459281+00:00",
+          "rank": 7
+        },
+        {
+          "run_at": "2026-09-02T08:21:35.486354+00:00",
+          "rank": 7
+        },
+        {
+          "run_at": "2026-09-02T08:27:57.698257+00:00",
+          "rank": 7
+        },
+        {
+          "run_at": "2026-09-02T08:40:10.105008+00:00",
+          "rank": 7
+        },
+        {
+          "run_at": "2026-09-02T09:09:31.946901+00:00",
+          "rank": 7
+        },
+        {
+          "run_at": "2026-09-02T12:31:05.172723+00:00",
+          "rank": 18
+        }
+      ]
+    },
+    {
+      "source": "github",
+      "rank": 19,
+      "title": "hugohe3/ppt-master",
+      "title_zh": "hugohe3/ppt-master",
+      "url": "https://github.com/hugohe3/ppt-master",
+      "hot_value": "349 stars today",
+      "summary_zh": "AI转原生PPT，含动画图表音频。",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "description": "AI turns documents or topics into real, native PowerPoint decks—with native shapes, transitions and animations, data-backed charts and tables on demand, audio narration from speaker notes, and support for your own .pptx templates. · by Hugo He",
+        "language": "Python"
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "c59bf36b1d92",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-02T12:31:05.172723+00:00",
+          "rank": 19
         }
       ]
     }
