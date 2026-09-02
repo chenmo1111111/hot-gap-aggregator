@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-09-02T12:31:05.172723+00:00",
+  "generated_at": "2026-09-02T14:08:11.969730+00:00",
   "source": "github",
   "status": {
     "source": "github",
     "status": "ok",
     "item_count": 19,
-    "duration_ms": 1950,
+    "duration_ms": 1967,
     "error": null,
-    "run_at": "2026-09-02T12:31:05.172723+00:00"
+    "run_at": "2026-09-02T14:08:11.969730+00:00"
   },
   "items": [
     {
@@ -25,13 +25,17 @@
         "language": "C++"
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "8b8ee9599615",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-02T12:31:05.172723+00:00",
+          "rank": 1
+        },
+        {
+          "run_at": "2026-09-02T14:08:11.969730+00:00",
           "rank": 1
         }
       ]
@@ -51,13 +55,17 @@
         "language": "Python"
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "f0a4d309d779",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-02T12:31:05.172723+00:00",
+          "rank": 2
+        },
+        {
+          "run_at": "2026-09-02T14:08:11.969730+00:00",
           "rank": 2
         }
       ]
@@ -77,13 +85,17 @@
         "language": "JavaScript"
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "34631a444fa3",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-02T12:31:05.172723+00:00",
+          "rank": 3
+        },
+        {
+          "run_at": "2026-09-02T14:08:11.969730+00:00",
           "rank": 3
         }
       ]
@@ -91,6 +103,48 @@
     {
       "source": "github",
       "rank": 4,
+      "title": "debpalash/VoiceStudio",
+      "title_zh": "debpalash/VoiceStudio",
+      "url": "https://github.com/debpalash/VoiceStudio",
+      "hot_value": "834 stars today",
+      "summary_zh": "开源本地语音克隆工具，支持646种语言，替代ElevenLabs。",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "description": "VoiceStudio is the open-source, fully-local ElevenLabs alternative — voice cloning, voice design, video dubbing, dictation, transcription & audiobook creation in 646 languages.",
+        "language": "Python"
+      },
+      "days_on_board": 2,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "bf2187938399",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-01T11:12:22.322724+00:00",
+          "rank": 6
+        },
+        {
+          "run_at": "2026-09-01T12:00:31.751666+00:00",
+          "rank": 6
+        },
+        {
+          "run_at": "2026-09-01T16:09:15.129507+00:00",
+          "rank": 6
+        },
+        {
+          "run_at": "2026-09-01T20:38:56.199666+00:00",
+          "rank": 6
+        },
+        {
+          "run_at": "2026-09-02T14:08:11.969730+00:00",
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "source": "github",
+      "rank": 5,
       "title": "sngyai/Sequoia-X",
       "title_zh": "sngyai/Sequoia-X",
       "url": "https://github.com/sngyai/Sequoia-X",
@@ -103,20 +157,24 @@
         "language": "Python"
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": -1,
       "cluster_id": "932d532898dc",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-02T12:31:05.172723+00:00",
           "rank": 4
+        },
+        {
+          "run_at": "2026-09-02T14:08:11.969730+00:00",
+          "rank": 5
         }
       ]
     },
     {
       "source": "github",
-      "rank": 5,
+      "rank": 6,
       "title": "ChromeDevTools/chrome-devtools-mcp",
       "title_zh": "ChromeDevTools/chrome-devtools-mcp",
       "url": "https://github.com/ChromeDevTools/chrome-devtools-mcp",
@@ -129,20 +187,24 @@
         "language": "TypeScript"
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": -1,
       "cluster_id": "6781295904a8",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-02T12:31:05.172723+00:00",
           "rank": 5
+        },
+        {
+          "run_at": "2026-09-02T14:08:11.969730+00:00",
+          "rank": 6
         }
       ]
     },
     {
       "source": "github",
-      "rank": 6,
+      "rank": 7,
       "title": "NousResearch/hermes-agent",
       "title_zh": "NousResearch/hermes-agent",
       "url": "https://github.com/NousResearch/hermes-agent",
@@ -155,20 +217,24 @@
         "language": "Python"
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": -1,
       "cluster_id": "a380b0519e21",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-02T12:31:05.172723+00:00",
           "rank": 6
+        },
+        {
+          "run_at": "2026-09-02T14:08:11.969730+00:00",
+          "rank": 7
         }
       ]
     },
     {
       "source": "github",
-      "rank": 7,
+      "rank": 8,
       "title": "superlinked/sie",
       "title_zh": "superlinked/sie",
       "url": "https://github.com/superlinked/sie",
@@ -181,20 +247,24 @@
         "language": "Python"
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": -1,
       "cluster_id": "65396b6bda97",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-02T12:31:05.172723+00:00",
           "rank": 7
+        },
+        {
+          "run_at": "2026-09-02T14:08:11.969730+00:00",
+          "rank": 8
         }
       ]
     },
     {
       "source": "github",
-      "rank": 8,
+      "rank": 9,
       "title": "pacifio/atlas",
       "title_zh": "pacifio/atlas",
       "url": "https://github.com/pacifio/atlas",
@@ -207,20 +277,24 @@
         "language": "Rust"
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": -1,
       "cluster_id": "e1117b943749",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-02T12:31:05.172723+00:00",
           "rank": 8
+        },
+        {
+          "run_at": "2026-09-02T14:08:11.969730+00:00",
+          "rank": 9
         }
       ]
     },
     {
       "source": "github",
-      "rank": 9,
+      "rank": 10,
       "title": "zyronon/TypeWords",
       "title_zh": "zyronon/TypeWords",
       "url": "https://github.com/zyronon/TypeWords",
@@ -233,20 +307,24 @@
         "language": "Vue"
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": -1,
       "cluster_id": "2d03ad29f2dd",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-02T12:31:05.172723+00:00",
           "rank": 9
+        },
+        {
+          "run_at": "2026-09-02T14:08:11.969730+00:00",
+          "rank": 10
         }
       ]
     },
     {
       "source": "github",
-      "rank": 10,
+      "rank": 11,
       "title": "Imbad0202/academic-research-skills",
       "title_zh": "Imbad0202/academic-research-skills",
       "url": "https://github.com/Imbad0202/academic-research-skills",
@@ -260,7 +338,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -8,
+      "rank_delta": -1,
       "cluster_id": "8f79d2266e8b",
       "cluster_size": 1,
       "rank_history": [
@@ -331,12 +409,16 @@
         {
           "run_at": "2026-09-02T12:31:05.172723+00:00",
           "rank": 10
+        },
+        {
+          "run_at": "2026-09-02T14:08:11.969730+00:00",
+          "rank": 11
         }
       ]
     },
     {
       "source": "github",
-      "rank": 11,
+      "rank": 12,
       "title": "affaan-m/ECC",
       "title_zh": "affaan-m/ECC",
       "url": "https://github.com/affaan-m/ECC",
@@ -350,7 +432,7 @@
       },
       "days_on_board": 3,
       "is_new": false,
-      "rank_delta": 2,
+      "rank_delta": -1,
       "cluster_id": "9317f65b1d4f",
       "cluster_size": 1,
       "rank_history": [
@@ -441,12 +523,16 @@
         {
           "run_at": "2026-09-02T12:31:05.172723+00:00",
           "rank": 11
+        },
+        {
+          "run_at": "2026-09-02T14:08:11.969730+00:00",
+          "rank": 12
         }
       ]
     },
     {
       "source": "github",
-      "rank": 12,
+      "rank": 13,
       "title": "protocolbuffers/protobuf",
       "title_zh": "protocolbuffers/protobuf",
       "url": "https://github.com/protocolbuffers/protobuf",
@@ -459,20 +545,24 @@
         "language": "C++"
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": -1,
       "cluster_id": "9766185c5df8",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-02T12:31:05.172723+00:00",
           "rank": 12
+        },
+        {
+          "run_at": "2026-09-02T14:08:11.969730+00:00",
+          "rank": 13
         }
       ]
     },
     {
       "source": "github",
-      "rank": 13,
+      "rank": 14,
       "title": "vercel-labs/portless",
       "title_zh": "vercel-labs/portless",
       "url": "https://github.com/vercel-labs/portless",
@@ -485,20 +575,24 @@
         "language": "TypeScript"
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": -1,
       "cluster_id": "35fcaf41faca",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-02T12:31:05.172723+00:00",
           "rank": 13
+        },
+        {
+          "run_at": "2026-09-02T14:08:11.969730+00:00",
+          "rank": 14
         }
       ]
     },
     {
       "source": "github",
-      "rank": 14,
+      "rank": 15,
       "title": "blader/humanizer",
       "title_zh": "blader/humanizer",
       "url": "https://github.com/blader/humanizer",
@@ -511,20 +605,24 @@
         "language": "Python"
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": -1,
       "cluster_id": "cac036268e6c",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-02T12:31:05.172723+00:00",
           "rank": 14
+        },
+        {
+          "run_at": "2026-09-02T14:08:11.969730+00:00",
+          "rank": 15
         }
       ]
     },
     {
       "source": "github",
-      "rank": 15,
+      "rank": 16,
       "title": "JuliusBrussee/caveman",
       "title_zh": "JuliusBrussee/caveman",
       "url": "https://github.com/JuliusBrussee/caveman",
@@ -537,20 +635,24 @@
         "language": "Go"
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": -1,
       "cluster_id": "295ed2c3eede",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-02T12:31:05.172723+00:00",
           "rank": 15
+        },
+        {
+          "run_at": "2026-09-02T14:08:11.969730+00:00",
+          "rank": 16
         }
       ]
     },
     {
       "source": "github",
-      "rank": 16,
+      "rank": 17,
       "title": "mattpocock/skills",
       "title_zh": "mattpocock/skills",
       "url": "https://github.com/mattpocock/skills",
@@ -563,20 +665,24 @@
         "language": "Shell"
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": -1,
       "cluster_id": "5963f5c06b20",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-02T12:31:05.172723+00:00",
           "rank": 16
+        },
+        {
+          "run_at": "2026-09-02T14:08:11.969730+00:00",
+          "rank": 17
         }
       ]
     },
     {
       "source": "github",
-      "rank": 17,
+      "rank": 18,
       "title": "Gitlawb/openclaude",
       "title_zh": "Gitlawb/openclaude",
       "url": "https://github.com/Gitlawb/openclaude",
@@ -590,7 +696,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -16,
+      "rank_delta": -1,
       "cluster_id": "fcaef3cb0c06",
       "cluster_size": 1,
       "rank_history": [
@@ -661,12 +767,16 @@
         {
           "run_at": "2026-09-02T12:31:05.172723+00:00",
           "rank": 17
+        },
+        {
+          "run_at": "2026-09-02T14:08:11.969730+00:00",
+          "rank": 18
         }
       ]
     },
     {
       "source": "github",
-      "rank": 18,
+      "rank": 19,
       "title": "firecrawl/pdf-inspector",
       "title_zh": "firecrawl/pdf-inspector",
       "url": "https://github.com/firecrawl/pdf-inspector",
@@ -680,7 +790,7 @@
       },
       "days_on_board": 3,
       "is_new": false,
-      "rank_delta": -11,
+      "rank_delta": -1,
       "cluster_id": "e77bef0d4dfd",
       "cluster_size": 1,
       "rank_history": [
@@ -771,31 +881,9 @@
         {
           "run_at": "2026-09-02T12:31:05.172723+00:00",
           "rank": 18
-        }
-      ]
-    },
-    {
-      "source": "github",
-      "rank": 19,
-      "title": "hugohe3/ppt-master",
-      "title_zh": "hugohe3/ppt-master",
-      "url": "https://github.com/hugohe3/ppt-master",
-      "hot_value": "349 stars today",
-      "summary_zh": "AI转原生PPT，含动画图表音频。",
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "description": "AI turns documents or topics into real, native PowerPoint decks—with native shapes, transitions and animations, data-backed charts and tables on demand, audio narration from speaker notes, and support for your own .pptx templates. · by Hugo He",
-        "language": "Python"
-      },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
-      "cluster_id": "c59bf36b1d92",
-      "cluster_size": 1,
-      "rank_history": [
+        },
         {
-          "run_at": "2026-09-02T12:31:05.172723+00:00",
+          "run_at": "2026-09-02T14:08:11.969730+00:00",
           "rank": 19
         }
       ]
