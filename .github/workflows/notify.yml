@@ -7,7 +7,6 @@ on:
 
 permissions:
   contents: write
-  models: read
 
 jobs:
   notify:
@@ -23,7 +22,6 @@ jobs:
       - name: Collect and send Top 20
         env:
           TRANSLATOR: ${{ vars.TRANSLATOR || 'auto' }}
-          GH_MODELS_TOKEN: ${{ secrets.GH_MODELS_TOKEN || github.token }}
           ZHIPU_API_KEY: ${{ secrets.ZHIPU_API_KEY }}
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}

@@ -258,17 +258,16 @@ def _wrap(database: "Database", *, base_url: str, model_env: str, model_default:
 
 
 # One layer per provider, each keyed by its env var. Ordered worst -> best so the
-# outermost (best/most reachable) is tried first; missing keys are skipped.
+# outermost (tried first) is the most reachable; layers without a key are skipped.
+# From GitHub Actions (US): deepseek reaches api.deepseek.com; zhipu's
+# open.bigmodel.cn is effectively unreachable and stays only as a local option.
 _LAYERS = [
     dict(base_url="https://open.bigmodel.cn/api/paas/v4", model_env="ZHIPU_MODEL",
          model_default="glm-4-flash", env="ZHIPU_API_KEY", provider="zhipu"),
-    dict(base_url=os.getenv("DEEPSEEK_BASE_URL") or "https://api.deepseek.com", model_env="DEEPSEEK_MODEL",
-         model_default="deepseek-chat", env="DEEPSEEK_API_KEY", provider="deepseek"),
     dict(base_url=os.getenv("OPENAI_BASE_URL") or "https://api.openai.com/v1", model_env="OPENAI_MODEL",
          model_default="gpt-4o-mini", env="OPENAI_API_KEY", provider="openai"),
-    # GitHub Models: reachable from GitHub Actions, free, no separate signup.
-    dict(base_url=os.getenv("GH_MODELS_BASE_URL") or "https://models.github.ai/inference", model_env="GH_MODELS_MODEL",
-         model_default="openai/gpt-4o-mini", env="GH_MODELS_TOKEN", provider="github"),
+    dict(base_url=os.getenv("DEEPSEEK_BASE_URL") or "https://api.deepseek.com", model_env="DEEPSEEK_MODEL",
+         model_default="deepseek-chat", env="DEEPSEEK_API_KEY", provider="deepseek"),
 ]
 
 
@@ -276,10 +275,10 @@ def create_translator(database: "Database") -> Translator:
     provider = os.getenv("TRANSLATOR", "auto").strip().lower()
     chain: Translator = FreeTranslator(database)
     for layer in _LAYERS:
-        key = os.getenv(layer["env"]) or (os.getenv("GITHUB_TOKEN") if layer["env"] == "GH_MODELS_TOKEN" else None)
         chain = _wrap(
             database, base_url=layer["base_url"], model_env=layer["model_env"],
-            model_default=layer["model_default"], key=key, provider=layer["provider"], fallback=chain,
+            model_default=layer["model_default"], key=os.getenv(layer["env"]),
+            provider=layer["provider"], fallback=chain,
         )
     if provider in {"auto", ""}:
         return chain
