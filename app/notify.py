@@ -7,7 +7,7 @@ import hmac
 import logging
 import os
 from collections.abc import Awaitable, Callable
-from datetime import UTC, date, datetime
+from datetime import date, datetime, timezone
 from pathlib import Path
 
 import httpx
@@ -17,6 +17,7 @@ from app.models import Item
 from app.store.database import Database
 
 LOGGER = logging.getLogger(__name__)
+UTC = timezone.utc
 
 
 def build_top20(items: list[Item]) -> str:

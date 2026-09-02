@@ -5,7 +5,7 @@ import hashlib
 import logging
 import os
 from collections.abc import Awaitable, Callable
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -19,6 +19,7 @@ from app.store.database import Database
 
 
 LOGGER = logging.getLogger(__name__)
+UTC = timezone.utc
 POLICY_PROMPT = """以下是某城市人才补贴政策页的旧版和新版。判断补贴金额、申领条件（学历/年龄/社保/落户）、申领时间窗口、名额有没有变化。有变化输出一句话说明“现在还能不能领、金额多少、截止什么时候”；没有输出 SKIP。
 
 城市：{city}

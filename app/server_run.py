@@ -6,7 +6,7 @@ import json
 import logging
 import os
 import time
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 from pathlib import Path
 
 from dotenv import load_dotenv
@@ -19,6 +19,7 @@ from app.watchers.city_subsidy import CitySubsidyWatcher
 
 
 LOGGER = logging.getLogger("hot-gap-server")
+UTC = timezone.utc
 
 
 def _write_json(path: Path, payload: dict) -> None:

@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import re
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 
 from app.collectors.base import BaseCollector, SourceUnavailable
 from app.models import Item
@@ -11,6 +11,7 @@ SCS_CONSTANTS_URL = "http://dl.scs.gov.cn/pp/gkweb/core/web/ui/js/core/core-cons
 SCS_ARTICLES_URL = "http://dl.scs.gov.cn/api/gkhome/article/{exam_id}"
 SCS_DETAIL_BASE = "http://bm.scs.gov.cn/pp/gkweb/core/web/ui/business/article/articledetail.html"
 IMPORTANT_MARKERS = ("公告", "报名", "大纲")
+UTC = timezone.utc
 
 
 class SCSCollector(BaseCollector):
