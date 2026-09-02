@@ -133,22 +133,26 @@ class OpenAICompatibleTranslator(Translator):
         lines = await self._numbered_or_individual(descriptions, SUMMARY_PROMPT, temperature=0.2)
         return [line[:40] for line in lines]
 
+    chunk_size = 40
+
     async def _numbered_or_individual(self, texts: list[str], system: str, *, temperature: float) -> list[str]:
         if not self.api_key:
             raise RuntimeError(f"{self.provider.upper()}_API_KEY is missing")
-        numbered = "\n".join(f"{index + 1}. {_clean(text)}" for index, text in enumerate(texts))
-        content = await self._chat(system, numbered, temperature=temperature)
-        lines = [_strip_number(line) for line in content.splitlines() if line.strip()]
-        if len(lines) == len(texts):
-            return lines
-        # The model wrapped or merged lines - fall back to one request per item.
-        LOGGER.info("%s: batch line count %d != %d, retrying per item", self.provider, len(lines), len(texts))
-        results: list[str] = []
-        for text in texts:
-            reply = await self._chat(system, _clean(text), temperature=temperature)
-            first = next((_strip_number(line) for line in reply.splitlines() if line.strip()), text)
-            results.append(first)
-        return results
+        out: list[str] = []
+        for start in range(0, len(texts), self.chunk_size):
+            chunk = texts[start:start + self.chunk_size]
+            numbered = "\n".join(f"{i + 1}. {_clean(text)}" for i, text in enumerate(chunk))
+            content = await self._chat(system, numbered, temperature=temperature)
+            lines = [_strip_number(line) for line in content.splitlines() if line.strip()]
+            if len(lines) == len(chunk):
+                out.extend(lines)
+                continue
+            # The model wrapped or merged lines - fall back to one request per item.
+            LOGGER.info("%s: chunk line count %d != %d, retrying per item", self.provider, len(lines), len(chunk))
+            for text in chunk:
+                reply = await self._chat(system, _clean(text), temperature=temperature)
+                out.append(next((_strip_number(line) for line in reply.splitlines() if line.strip()), text))
+        return out
 
     async def _chat(self, system: str, user: str, *, temperature: float) -> str:
         elapsed = time.monotonic() - self._last_batch_at
@@ -242,42 +246,55 @@ class NoneTranslator(Translator):
         return list(texts)
 
 
-def _deepseek(database: "Database", fallback: Translator) -> Translator:
-    key = (os.getenv("DEEPSEEK_API_KEY") or "").strip()
+def _wrap(database: "Database", *, base_url: str, model_env: str, model_default: str,
+          key: str | None, provider: str, fallback: Translator) -> Translator:
+    key = (key or "").strip()
     if not key:
         return fallback
     return OpenAICompatibleTranslator(
-        database, base_url=os.getenv("DEEPSEEK_BASE_URL") or "https://api.deepseek.com",
-        model=os.getenv("DEEPSEEK_MODEL") or "deepseek-chat", api_key=key,
-        provider="deepseek", fallback=fallback,
+        database, base_url=base_url, model=os.getenv(model_env) or model_default,
+        api_key=key, provider=provider, fallback=fallback,
     )
 
 
+# One layer per provider, each keyed by its env var. Ordered worst -> best so the
+# outermost (best/most reachable) is tried first; missing keys are skipped.
+_LAYERS = [
+    dict(base_url="https://open.bigmodel.cn/api/paas/v4", model_env="ZHIPU_MODEL",
+         model_default="glm-4-flash", env="ZHIPU_API_KEY", provider="zhipu"),
+    dict(base_url=os.getenv("DEEPSEEK_BASE_URL") or "https://api.deepseek.com", model_env="DEEPSEEK_MODEL",
+         model_default="deepseek-chat", env="DEEPSEEK_API_KEY", provider="deepseek"),
+    dict(base_url=os.getenv("OPENAI_BASE_URL") or "https://api.openai.com/v1", model_env="OPENAI_MODEL",
+         model_default="gpt-4o-mini", env="OPENAI_API_KEY", provider="openai"),
+    # GitHub Models: reachable from GitHub Actions, free, no separate signup.
+    dict(base_url=os.getenv("GH_MODELS_BASE_URL") or "https://models.github.ai/inference", model_env="GH_MODELS_MODEL",
+         model_default="openai/gpt-4o-mini", env="GH_MODELS_TOKEN", provider="github"),
+]
+
+
 def create_translator(database: "Database") -> Translator:
-    provider = os.getenv("TRANSLATOR", "zhipu").strip().lower()
-    free = FreeTranslator(database)
-    # chain: (primary) -> deepseek (if key set) -> free
-    if provider in {"zhipu", ""}:
-        return OpenAICompatibleTranslator(
-            database, base_url="https://open.bigmodel.cn/api/paas/v4",
-            model=os.getenv("ZHIPU_MODEL") or "glm-4-flash",
-            api_key=os.getenv("ZHIPU_API_KEY"), provider="zhipu",
-            fallback=_deepseek(database, free),
+    provider = os.getenv("TRANSLATOR", "auto").strip().lower()
+    chain: Translator = FreeTranslator(database)
+    for layer in _LAYERS:
+        key = os.getenv(layer["env"]) or (os.getenv("GITHUB_TOKEN") if layer["env"] == "GH_MODELS_TOKEN" else None)
+        chain = _wrap(
+            database, base_url=layer["base_url"], model_env=layer["model_env"],
+            model_default=layer["model_default"], key=key, provider=layer["provider"], fallback=chain,
         )
-    if provider == "deepseek":
-        return _deepseek(database, free)
-    if provider == "openai":
-        return OpenAICompatibleTranslator(
-            database, base_url=os.getenv("OPENAI_BASE_URL") or "https://api.openai.com/v1",
-            model=os.getenv("OPENAI_MODEL") or "gpt-4o-mini",
-            api_key=os.getenv("OPENAI_API_KEY"), provider="openai", fallback=free,
-        )
-    if provider == "free":
-        return free
+    if provider in {"auto", ""}:
+        return chain
     if provider == "none":
         return NoneTranslator(database)
-    LOGGER.warning("unknown TRANSLATOR=%s; translation disabled", provider)
-    return NoneTranslator(database)
+    if provider == "free":
+        return FreeTranslator(database)
+    # Force one provider as the entry point; it still falls back down the chain.
+    node: Translator | None = chain
+    while node is not None:
+        if getattr(node, "provider", None) == provider:
+            return node
+        node = getattr(node, "fallback", None)
+    LOGGER.warning("TRANSLATOR=%s has no key configured; using auto chain", provider)
+    return chain
 
 
 def _cache_translated(save_cache, mapping: dict[str, str], provider: str) -> None:
