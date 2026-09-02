@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-09-02T19:15:05.327909+00:00",
+  "generated_at": "2026-09-02T22:24:21.398262+00:00",
   "source": "conf_deadlines",
   "status": {
     "source": "conf_deadlines",
     "status": "ok",
     "item_count": 1,
-    "duration_ms": 3135,
+    "duration_ms": 2905,
     "error": null,
-    "run_at": "2026-09-02T19:15:05.327909+00:00"
+    "run_at": "2026-09-02T22:24:21.398262+00:00"
   },
   "items": [
     {
@@ -30,13 +30,17 @@
         "location": "San Francisco, CA, USA"
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "452d7cc39ac2",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-02T19:15:05.327909+00:00",
+          "rank": 1
+        },
+        {
+          "run_at": "2026-09-02T22:24:21.398262+00:00",
           "rank": 1
         }
       ]
