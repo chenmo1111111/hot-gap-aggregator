@@ -80,7 +80,7 @@ class Translator(ABC):
             if len(values) != len(missing):
                 raise ValueError(f"provider returned {len(values)} results for {len(missing)} inputs")
             fresh = {src: (val.strip() or src) for src, val in zip(missing, values, strict=True)}
-            save_cache(fresh, self.provider)
+            _cache_translated(save_cache, fresh, self.provider)
             return fresh
         except Exception as exc:  # noqa: BLE001 - degrade, never crash the run
             LOGGER.warning("%s provider %s degraded: %s", kind, self.provider, exc)
@@ -93,7 +93,7 @@ class Translator(ABC):
                     # Cache under the fallback's own name, not ours: once the
                     # primary provider recovers it should retry and win, rather
                     # than keep serving lower-quality fallback text forever.
-                    save_cache(fresh, self.fallback.provider)
+                    _cache_translated(save_cache, fresh, self.fallback.provider)
                     LOGGER.info("%s recovered via fallback %s", kind, self.fallback.provider)
                     return fresh
             except Exception as exc:  # noqa: BLE001
@@ -185,34 +185,57 @@ class OpenAICompatibleTranslator(Translator):
 
 
 class FreeTranslator(Translator):
+    """Keyless fallback translation.
+
+    Tries the MyMemory API (a real endpoint, tolerant of datacenter IPs) and
+    then Google's public endpoint. One request per text with limited
+    concurrency; a failure leaves that text unchanged rather than aborting the
+    batch, and untranslated items are not cached so they retry next run.
+    """
+
     provider = "free"
+    mymemory = "https://api.mymemory.translated.net/get"
+    google = "https://translate.googleapis.com/translate_a/single"
+    concurrency = 4
 
     async def batch_translate(self, texts: list[str]) -> list[str]:
-        return await asyncio.to_thread(self._translate_sync, texts)
+        cleaned = [_clean(text) for text in texts]
+        gate = asyncio.Semaphore(self.concurrency)
+        async with httpx.AsyncClient(timeout=20, headers={"User-Agent": "Mozilla/5.0"}) as client:
+            async def one(text: str) -> str:
+                async with gate:
+                    return await self._translate_one(client, text)
+            return list(await asyncio.gather(*(one(text) for text in cleaned)))
 
     async def batch_summarize(self, descriptions: list[str]) -> list[str]:
-        # No LLM here - a Chinese translation of the description is the summary.
-        translated = await asyncio.to_thread(self._translate_sync, descriptions)
-        return [line[:40] for line in translated]
+        return [line[:40] for line in await self.batch_translate(descriptions)]
 
-    @staticmethod
-    def _translate_sync(texts: list[str]) -> list[str]:
-        import translators as ts
+    async def _translate_one(self, client: httpx.AsyncClient, text: str) -> str:
+        for attempt in (self._via_mymemory, self._via_google):
+            try:
+                result = await attempt(client, text)
+                if result and result != text:
+                    return result
+            except (httpx.HTTPError, ValueError, IndexError, TypeError, KeyError):
+                continue
+        return text
 
-        results: list[str] = []
-        for text in texts:
-            last_error: Exception | None = None
-            for engine in ("google", "bing"):
-                try:
-                    translated = ts.translate_text(_clean(text), translator=engine, to_language="zh")
-                    if translated:
-                        results.append(str(translated))
-                        break
-                except Exception as exc:  # noqa: BLE001
-                    last_error = exc
-            else:
-                raise RuntimeError(f"Google and Bing both failed: {last_error}")
-        return results
+    async def _via_mymemory(self, client: httpx.AsyncClient, text: str) -> str:
+        response = await client.get(self.mymemory, params={"q": text[:500], "langpair": "en|zh-CN"})
+        response.raise_for_status()
+        payload = response.json()
+        if int(payload.get("responseStatus", 0)) != 200:
+            return ""
+        translated = str(payload.get("responseData", {}).get("translatedText") or "")
+        return "" if "MYMEMORY WARNING" in translated.upper() else translated.strip()
+
+    async def _via_google(self, client: httpx.AsyncClient, text: str) -> str:
+        response = await client.get(self.google, params={
+            "client": "gtx", "sl": "auto", "tl": "zh-CN", "dt": "t", "q": text,
+        })
+        response.raise_for_status()
+        segments = response.json()[0] or []
+        return "".join(str(segment[0]) for segment in segments if segment and segment[0]).strip()
 
 
 class NoneTranslator(Translator):
@@ -248,6 +271,14 @@ def create_translator(database: "Database") -> Translator:
         return NoneTranslator(database)
     LOGGER.warning("unknown TRANSLATOR=%s; translation disabled", provider)
     return NoneTranslator(database)
+
+
+def _cache_translated(save_cache, mapping: dict[str, str], provider: str) -> None:
+    """Persist only rows that actually changed - an identity result means the
+    provider failed for that item, so it should be retried on the next run."""
+    changed = {src: dst for src, dst in mapping.items() if dst != src}
+    if changed:
+        save_cache(changed, provider)
 
 
 def _clean(text: str) -> str:
