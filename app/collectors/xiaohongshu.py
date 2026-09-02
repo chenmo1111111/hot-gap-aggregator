@@ -79,11 +79,15 @@ class XiaohongshuCollector(BaseCollector):
                 for keyword in keywords:
                     try:
                         url = f"https://www.xiaohongshu.com/search_result?keyword={quote(keyword)}&source=web_explore_feed"
-                        await page.goto(url, wait_until="domcontentloaded", timeout=30_000)
-                        await page.wait_for_selector(".note-item", timeout=30_000)
+                        await page.goto(url, wait_until="domcontentloaded", timeout=20_000)
+                        if "login" in page.url:  # datacenter IPs get bounced to a login wall
+                            raise RuntimeError("bounced to login wall (needs a logged-in session)")
+                        await page.wait_for_selector(".note-item", timeout=12_000)
                         items.extend(self.parse_html(await page.content(), keyword))
                     except Exception as exc:
-                        errors.append(f"{keyword}: {exc}")
+                        errors.append(f"{keyword}: {str(exc).splitlines()[0]}")
+                        if "login wall" in str(exc):
+                            break  # all keywords will hit the same wall - stop wasting time
                 await browser.close()
         except Exception as exc:
             errors.append(str(exc))
