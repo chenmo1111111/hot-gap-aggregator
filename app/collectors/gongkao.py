@@ -29,7 +29,7 @@ class GongkaoCollector(BaseCollector):
                 source="gongkao", rank=index, title=title, title_zh=title,
                 url=f"https://hera-webapp.fenbi.com/api/website/article/detail?deviceType=3&id={article_id}&app=web&av=100&hav=100&kav=100&client_context_id=",
                 hot_value=str(info.get("timeStatus")) if info.get("timeStatus") is not None else None,
-                summary_zh=str(row.get("preface") or "").strip() or None,
+                summary_zh=" ".join(str(row.get("digest") or row.get("preface") or "").split()).strip() or None,
                 published_at=_timestamp(row.get("updateTime")),
                 extra={
                     "id": article_id, "sub": "announcement", "tags": tags,

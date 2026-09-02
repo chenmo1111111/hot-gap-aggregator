@@ -21,7 +21,7 @@ jobs:
       - run: python -m playwright install --with-deps chromium
       - name: Collect and send Top 20
         env:
-          TRANSLATOR: zhipu
+          TRANSLATOR: ${{ vars.TRANSLATOR || 'free' }}
           ZHIPU_API_KEY: ${{ secrets.ZHIPU_API_KEY }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           OPENAI_BASE_URL: ${{ vars.OPENAI_BASE_URL }}

@@ -54,7 +54,7 @@ jobs:
 
       - name: Collect and export snapshots
         env:
-          TRANSLATOR: zhipu
+          TRANSLATOR: ${{ vars.TRANSLATOR || 'free' }}
           ZHIPU_API_KEY: ${{ secrets.ZHIPU_API_KEY }}
           ENABLE_SUMMARY: "true"
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
