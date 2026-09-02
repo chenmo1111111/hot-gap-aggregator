@@ -118,9 +118,13 @@ class OpenAICompatibleTranslator(Translator):
         super().__init__(database, fallback=fallback)
         self.base_url = base_url.rstrip("/")
         self.model = model
-        self.api_key = api_key
+        self.api_key = (api_key or "").strip() or None
         self.provider = provider
         self._last_batch_at = 0.0
+        if self.api_key:
+            LOGGER.info("%s key loaded: len=%d prefix=%s", provider, len(self.api_key), self.api_key[:8])
+        else:
+            LOGGER.warning("%s key missing (env not set)", provider)
 
     async def batch_translate(self, texts: list[str]) -> list[str]:
         return await self._numbered_or_individual(texts, SYSTEM_PROMPT, temperature=0.1)
