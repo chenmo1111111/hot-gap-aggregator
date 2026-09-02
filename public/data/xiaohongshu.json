@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-09-02T08:12:20.459281+00:00",
+  "generated_at": "2026-09-02T08:21:35.486354+00:00",
   "source": "xiaohongshu",
   "status": {
     "source": "xiaohongshu",
     "status": "degraded",
     "item_count": 0,
-    "duration_ms": 129366,
-    "error": "XHS keyword radar failed: 人工智能: Page.wait_for_selector: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator(\".note-item\") to be visible\n    - waiting for \"https://www.xiaohongshu.com/search_result?keyword=%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD&source=web_explore_feed&type=51\" navigation to finish...\n    - navigated to \"http://www.xiaohongshu.com/search_result/?keyword=%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD&source=web_explore_feed&type=51\"\n    - waiting for \"https://www.xiaohongshu.com/search",
-    "run_at": "2026-09-02T08:12:20.459281+00:00"
+    "duration_ms": 129524,
+    "error": "XHS keyword radar failed: 人工智能: Page.wait_for_selector: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator(\".note-item\") to be visible\n    - waiting for \"https://www.xiaohongshu.com/search_result?keyword=%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD&source=web_explore_feed&type=51\" navigation to finish...\n    2 × navigated to \"http://www.xiaohongshu.com/search_result?keyword=%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD&source=web_explore_feed&type=51\"\n      - waiting for \"http://www.xiaohongshu.com/webs",
+    "run_at": "2026-09-02T08:21:35.486354+00:00"
   },
   "items": []
 }
