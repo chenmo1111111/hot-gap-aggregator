@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import asyncio
 import os
-from datetime import UTC, datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 import yaml
@@ -10,6 +10,8 @@ from selectolax.parser import HTMLParser
 
 from app.collectors.base import BaseCollector, SourceUnavailable
 from app.models import Item
+
+UTC = timezone.utc
 
 MAX_AGE_DAYS = 5
 PER_CHANNEL_LIMIT = 6

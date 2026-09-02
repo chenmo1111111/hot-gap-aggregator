@@ -5,7 +5,7 @@ import argparse
 import json
 import logging
 import time
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 
 from dotenv import load_dotenv
 
@@ -21,6 +21,8 @@ from app.pipeline.processor import process_items
 from app.pipeline.trends import export_trends
 from app.pipeline.translator import create_translator
 from app.store.database import Database
+
+UTC = timezone.utc
 from app.store.exporter import export_json
 
 LOGGER = logging.getLogger("hot-gap")

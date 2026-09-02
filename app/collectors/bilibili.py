@@ -1,9 +1,11 @@
 from __future__ import annotations
 
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 
 from app.collectors.base import BaseCollector
 from app.models import Item
+
+UTC = timezone.utc
 
 
 class BilibiliCollector(BaseCollector):

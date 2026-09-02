@@ -5,7 +5,7 @@ import html
 import os
 import re
 import xml.etree.ElementTree as ET
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 from email.utils import parsedate_to_datetime
 from pathlib import Path
 from typing import Any
@@ -14,6 +14,8 @@ import yaml
 
 from app.collectors.base import BaseCollector, SourceUnavailable
 from app.models import Item
+
+UTC = timezone.utc
 
 
 def _plain(value: object) -> str:

@@ -2,13 +2,15 @@ from __future__ import annotations
 
 import asyncio
 import os
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 from pathlib import Path
 
 import yaml
 
 from app.collectors.base import BaseCollector, SourceUnavailable
 from app.models import Item
+
+UTC = timezone.utc
 
 
 class YouTubeCollector(BaseCollector):

@@ -5,7 +5,7 @@ import logging
 import os
 import re
 import xml.etree.ElementTree as ET
-from datetime import UTC, date, datetime, timedelta
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
 
@@ -13,6 +13,8 @@ import yaml
 
 from app.collectors.base import BaseCollector, SourceUnavailable
 from app.models import Item
+
+UTC = timezone.utc
 
 LOGGER = logging.getLogger(__name__)
 ATOM = "http://www.w3.org/2005/Atom"

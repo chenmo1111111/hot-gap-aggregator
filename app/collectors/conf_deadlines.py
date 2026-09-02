@@ -6,7 +6,7 @@ import math
 import os
 import re
 import xml.etree.ElementTree as ET
-from datetime import UTC, datetime, timedelta, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
@@ -15,6 +15,8 @@ import yaml
 
 from app.collectors.base import BaseCollector, SourceUnavailable
 from app.models import Item
+
+UTC = timezone.utc
 
 
 AI_DEADLINE_URLS = (

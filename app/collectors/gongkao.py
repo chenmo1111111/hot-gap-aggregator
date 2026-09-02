@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import asyncio
 import os
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 from pathlib import Path
 
 import yaml
@@ -10,6 +10,8 @@ import yaml
 from app.collectors.base import BaseCollector, SourceUnavailable
 from app.collectors.gongkao_types import article_province, article_type, timeline_type
 from app.models import Item
+
+UTC = timezone.utc
 
 
 class GongkaoCollector(BaseCollector):
