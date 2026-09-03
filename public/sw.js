@@ -1,4 +1,4 @@
-const CACHE = 'hot-gap-v3';
+const CACHE = 'hot-gap-v4';
 const SHELL = ['./', './manifest.webmanifest', './favicon.svg'];
 
 self.addEventListener('install', (event) => {
@@ -15,11 +15,8 @@ self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
   const isData = new URL(event.request.url).pathname.includes('/data/');
   if (isData) {
-    event.respondWith(fetch(event.request).then((response) => {
-      const copy = response.clone();
-      caches.open(CACHE).then((cache) => cache.put(event.request, copy));
-      return response;
-    }).catch(() => caches.match(event.request)));
+    // Authenticated feeds must never survive logout in the service-worker cache.
+    event.respondWith(fetch(event.request, { cache: 'no-store' }));
     return;
   }
   event.respondWith(caches.match(event.request).then((cached) => cached || fetch(event.request)));

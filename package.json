@@ -6,7 +6,8 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
-    "lint": "eslint web/src"
+    "lint": "eslint web/src",
+    "test:web": "vitest run --environment jsdom"
   },
   "dependencies": {
     "react": "19.2.6",
@@ -15,14 +16,18 @@
   "devDependencies": {
     "@eslint/js": "9.39.4",
     "@tailwindcss/postcss": "4.2.1",
+    "@testing-library/jest-dom": "^7.0.1",
+    "@testing-library/react": "^16.3.3",
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
     "@vitejs/plugin-react": "6.0.2",
     "eslint": "9.39.4",
+    "jsdom": "^30.0.1",
     "tailwindcss": "4.2.1",
     "typescript": "5.9.3",
     "typescript-eslint": "8.46.2",
-    "vite": "8.2.2"
+    "vite": "8.2.2",
+    "vitest": "^4.1.11"
   },
   "type": "module"
 }

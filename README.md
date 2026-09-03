@@ -17,6 +17,7 @@
 - 国考/选调支持快捷筛选、跨省强提醒和目标高校标红；国家公务员局官方专题源在百度云交叉校验。
 - 百度云每 12 小时监听目标地区人社局公告；标题命中补贴关键词的新条目即时预警。另对 3 个核心政策页做正文 hash diff，只有金额、条件、窗口或名额变化才由模型判断并推送。
 - 百度云每 6 小时监听黑龙江、辽宁、河北、天津、山东官方选调公告；东北林业大学/东北林大/NEFU 命中项最高优先级单独推送，并合入公考「选调生」筛选。
+- 多用户账号系统通过签名 HttpOnly Cookie 保护线上数据，每个账号的导航、主题与筛选偏好可跨设备同步；管理员可在设置面板建号、删号和重置密码。
 
 ## 本地运行
 
@@ -31,11 +32,15 @@ python -m playwright install chromium
 copy .env.example .env
 
 python -m app.run
+# 另一个终端启动账号 API（需先在 .env 配 ADMIN_USER、ADMIN_PASSWORD、SESSION_SECRET）
+uvicorn sync.app:app --host 127.0.0.1 --port 8787
 npm install
 npm run dev
 ```
 
-采集产物写入 `public/data/*.json`，前端直接读取，不需要 Python Web 服务。
+采集产物仍写入 `public/data/*.json`；线上由 Nginx 鉴权后提供，账号与偏好 API 由轻量 Python 服务负责。
+线上账号与 Nginx 部署见 [`DEPLOY_AUTH.md`](DEPLOY_AUTH.md)。本地 Vite 会把 `/api`
+代理到 `127.0.0.1:8787`。
 
 ## 智谱翻译与摘要
 
