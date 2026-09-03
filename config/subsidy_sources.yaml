@@ -12,6 +12,7 @@ list_pages:
   - region: 河北省
     url: https://rst.hebei.gov.cn/rsmhapi/door/homeMenu
     format: hebei_home_menu
+    legacy_tls: true
     detail_url_template: https://rst.hebei.gov.cn/pageWarp?isId={id}&id=1
   - region: 辽宁省
     url: https://rst.ln.gov.cn/rst/zxzx/gsgg/index.shtml

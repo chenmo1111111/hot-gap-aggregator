@@ -6,6 +6,7 @@ import json
 import logging
 import os
 import re
+import ssl
 from collections.abc import Awaitable, Callable
 from datetime import datetime, timezone
 from pathlib import Path
@@ -173,7 +174,7 @@ class SubsidyWatcher:
 
     async def check_list_page(self, page: dict[str, Any], keywords: list[str]) -> dict[str, str]:
         region, url = str(page.get("region") or ""), str(page["url"])
-        response = await self._fetch_response(url)
+        response = await self._fetch_response(url, legacy_tls=True) if page.get("legacy_tls") else await self._fetch_response(url)
         if str(page.get("format") or "") == "hebei_home_menu":
             payload = response.json() if isinstance(response, httpx.Response) else json.loads(str(response))
             template = str(page.get("detail_url_template") or "https://rst.hebei.gov.cn/pageWarp?isId={id}&id=1")
@@ -265,10 +266,14 @@ class SubsidyWatcher:
             "date": published or created[:10], "summary": detail, "message": message, "created_at": created,
         }
 
-    async def _fetch_response(self, url: str) -> httpx.Response:
+    async def _fetch_response(self, url: str, *, legacy_tls: bool = False) -> httpx.Response:
         last_error: Exception | None = None
         headers = {"User-Agent": "Mozilla/5.0 (compatible; hot-gap-policy-watcher/1.0)"}
-        async with httpx.AsyncClient(timeout=self.timeout, follow_redirects=True, headers=headers) as client:
+        verify: bool | ssl.SSLContext = True
+        if legacy_tls:
+            verify = ssl.create_default_context()
+            verify.set_ciphers("DEFAULT:@SECLEVEL=1")
+        async with httpx.AsyncClient(timeout=self.timeout, follow_redirects=True, headers=headers, verify=verify) as client:
             for attempt in range(self.retries + 1):
                 try:
                     response = await client.get(url)
