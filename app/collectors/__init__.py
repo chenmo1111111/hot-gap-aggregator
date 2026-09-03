@@ -1,6 +1,7 @@
 from .bilibili import BilibiliCollector
 from .conf_deadlines import ConfDeadlinesCollector
 from .douyin import DouyinCollector
+from .feeds import FeedsCollector
 from .github import GitHubCollector
 from .gongkao import GongkaoCollector
 from .job_radar import JobRadarCollector
@@ -12,6 +13,6 @@ from .xiaohongshu import XiaohongshuCollector
 from .youtube import YouTubeCollector
 
 __all__ = [
-    "BilibiliCollector", "ConfDeadlinesCollector", "DouyinCollector", "GitHubCollector", "GongkaoCollector", "JobRadarCollector", "NowcoderCollector",
+    "BilibiliCollector", "ConfDeadlinesCollector", "DouyinCollector", "FeedsCollector", "GitHubCollector", "GongkaoCollector", "JobRadarCollector", "NowcoderCollector",
     "PapersCollector", "TelegramCollector", "WeiboCollector", "XiaohongshuCollector", "YouTubeCollector",
 ]

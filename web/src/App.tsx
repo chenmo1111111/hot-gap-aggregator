@@ -17,13 +17,14 @@ type OfficialSite = { province: string; name: string; url: string };
 type AlertItem = { id: string; tag: string; region: string; type: string; title: string; url: string; date: string; summary?: string; created_at: string };
 type AlertFeed = { generated_at: string; items: AlertItem[] };
 type Quicklink = { name: string; url: string };
+type SourceFeed = { generated_at: string; source: string; status: SourceState; items: Item[] };
 type SessionUser = { username: string; is_admin: boolean };
 type AdminUser = SessionUser & { id: number; created_at: string };
 
 const sourceNames: Record<string, string> = {
   weibo: '微博', bilibili: 'B站', github: 'GitHub', youtube: 'YouTube', douyin: '抖音',
   telegram: 'Telegram', gongkao: '公考', xiaohongshu: '小红书雷达', papers: '顶刊',
-  nowcoder: '牛客', jobs: '岗位', qiuzhao: '秋招', alerts: '预警',
+  nowcoder: '牛客', jobs: '岗位', ai: 'AI动态', tools: '工具更新', qiuzhao: '秋招', alerts: '预警',
 };
 const itemSourceName = (source: string) => source === 'conf_deadlines' ? '会议 Deadline' : sourceNames[source] ?? source;
 
@@ -84,7 +85,7 @@ function Sparkline({ history = [] }: { history?: HistoryPoint[] }) {
 }
 
 function HotCard({ item, highlight, onCluster }: { item: Item; highlight?: boolean; onCluster?: (event: React.MouseEvent, item: Item) => void }) {
-  const paper = item.source === 'papers';
+  const paper = item.source === 'papers' || (item.source === 'feed' && item.extra?.tab === 'papers');
   const topicHits = Array.isArray(item.extra?.topic_hit) ? item.extra.topic_hit.map(String) : [];
   const keywordHits = Array.isArray(item.extra?.keyword_hit) ? item.extra.keyword_hit.map(String) : [];
   const paperHighlighted = paper && (topicHits.length > 0 || keywordHits.length > 0);
@@ -93,7 +94,8 @@ function HotCard({ item, highlight, onCluster }: { item: Item; highlight?: boole
     <div className="font-mono text-2xl font-bold text-[var(--rank)]">{String(item.rank).padStart(2, '0')}</div>
     <div className="min-w-0">
       <div className="mb-2 flex flex-wrap items-center gap-2 text-[11px] font-bold">
-        <span className="rounded bg-[var(--soft)] px-2 py-1">{itemSourceName(item.source)}</span>
+        <span className="rounded bg-[var(--soft)] px-2 py-1">{item.source === 'feed' ? String(item.extra?.feed_name || 'RSSHub') : itemSourceName(item.source)}</span>
+        {item.source === 'feed' && <span className="rounded bg-cyan-100 px-2 py-1 text-cyan-900">feed</span>}
         {paperHighlighted && <span className="rounded bg-amber-100 px-2 py-1 text-amber-900">🔖 方向命中</span>}
         {item.is_new && <span className="rounded bg-lime-300 px-2 py-1 text-slate-950">新</span>}
         {(item.cluster_size ?? 0) >= 2 && <button className="rounded bg-orange-100 px-2 py-1 text-orange-700" onClick={(event) => onCluster?.(event, item)}>🔥 全网 {item.cluster_size} 平台</button>}
@@ -170,9 +172,17 @@ function DeadlineBoard({ items, state }: { items: Item[]; state?: SourceState })
 }
 
 function PapersView({ items, deadlines, deadlineState, onlyPriority, onToggle, unavailable, error, onCluster }: { items: Item[]; deadlines: Item[]; deadlineState?: SourceState; onlyPriority: boolean; onToggle: () => void; unavailable: boolean; error?: string | null; onCluster: (event: React.MouseEvent, item: Item) => void }) {
-  const tier = (item: Item) => String(item.extra?.tier || (['arxiv', 'biorxiv', 'medrxiv'].includes(String(item.extra?.subsource)) ? '预印本' : '英文顶刊'));
-  const sections: Array<[string, string]> = [['英文顶刊', 'PubMed 正刊'], ['中文核心', 'Crossref · 中文核心期刊'], ['预印本', 'arXiv + bioRxiv']];
+  const tier = (item: Item) => item.source === 'feed' ? 'RSSHub' : String(item.extra?.tier || (['arxiv', 'biorxiv', 'medrxiv'].includes(String(item.extra?.subsource)) ? '预印本' : '英文顶刊'));
+  const sections: Array<[string, string]> = [['英文顶刊', 'PubMed 正刊'], ['中文核心', 'Crossref · 中文核心期刊'], ['预印本', 'arXiv + bioRxiv'], ['RSSHub', 'Nature / Science / HF 每日论文等订阅源']];
   return <><DeadlineBoard items={deadlines} state={deadlineState} /><div className="mb-5 flex items-center justify-between gap-3 text-xs text-[var(--muted)]"><span>论文雷达 · 按研究方向与算法关键词排序</span><div className="flex items-center gap-3"><span>{items.length} 条</span><label className="flex cursor-pointer items-center gap-1.5 rounded-full bg-[var(--soft)] px-3 py-1.5 font-bold text-[var(--ink)]"><input type="checkbox" checked={onlyPriority} onChange={onToggle} className="accent-amber-500" />只看我的方向</label></div></div><div className="grid gap-9">{sections.map(([name, subtitle]) => { const entries = items.filter((item) => tier(item) === name); return <section key={name}><div className="mb-3 flex items-end justify-between"><div><h2 className="text-xl font-black">{name}</h2><p className="text-xs text-[var(--muted)]">{subtitle}</p></div><span className="font-mono text-xs text-[var(--muted)]">{entries.length}</span></div><div className="grid gap-3">{entries.map((item) => <HotCard key={`${item.rank}-${item.url}`} item={item} onCluster={onCluster} />)}{entries.length === 0 && items.length > 0 && <p className="rounded-xl border border-dashed border-[var(--line)] p-4 text-xs text-[var(--muted)]">当前没有{name}条目</p>}</div></section>; })}{items.length === 0 && <div className="rounded-2xl border border-dashed border-[var(--line)] p-12 text-center text-[var(--muted)]">{unavailable ? <><p className="font-bold text-[var(--ink)]">这个来源暂不可用</p><p className="mt-2 text-xs">{error || '采集端已安全降级，不影响其它来源。'}</p></> : '当前筛选下暂无论文。'}</div>}</div></>;
+}
+
+function AiView({ items, unavailable, error }: { items: Item[]; unavailable: boolean; error?: string | null }) {
+  return <section><div className="mb-5 flex items-end justify-between"><div><h2 className="text-2xl font-black">AI动态</h2><p className="mt-1 text-xs text-[var(--muted)]">机器之心、量子位、PaperWeekly 等订阅源</p></div><span className="font-mono text-xs text-[var(--muted)]">{items.length}</span></div><div className="grid gap-3">{items.map((item) => <a key={item.url} href={item.url} target="_blank" rel="noreferrer" className="rounded-2xl border border-[var(--line)] bg-[var(--card)] p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-cyan-400"><div className="flex flex-wrap items-center justify-between gap-2 text-xs text-[var(--muted)]"><b className="rounded bg-[var(--soft)] px-2 py-1 text-[var(--ink)]">{String(item.extra?.feed_name || 'RSSHub')}</b><time>{item.published_at ? new Date(item.published_at).toLocaleString('zh-CN') : '时间待定'}</time></div><h3 className="mt-3 text-lg font-black leading-snug">{item.title_zh || item.title}</h3>{item.summary_zh && <p className="mt-2 line-clamp-3 text-sm leading-6 text-[var(--muted)]">{item.summary_zh}</p>}<small className="mt-3 block font-bold text-cyan-600">查看原文 ↗</small></a>)}{items.length === 0 && <div className="rounded-2xl border border-dashed border-[var(--line)] p-12 text-center text-[var(--muted)]">{unavailable ? <><p className="font-bold text-[var(--ink)]">RSSHub 暂不可用</p><p className="mt-2 text-xs">{error || '未配置或订阅路由暂时失败，不影响其它来源。'}</p></> : '暂时没有 AI 动态。'}</div>}</div></section>;
+}
+
+function ToolsView({ items, unavailable, error }: { items: Item[]; unavailable: boolean; error?: string | null }) {
+  return <section><div className="mb-5 flex items-end justify-between"><div><h2 className="text-2xl font-black">工具更新</h2><p className="mt-1 text-xs text-[var(--muted)]">常用科研工具的新版本与 release notes</p></div><span className="font-mono text-xs text-[var(--muted)]">{items.length}</span></div><div className="overflow-hidden rounded-2xl border border-[var(--line)] bg-[var(--card)]">{items.map((item, index) => <a key={item.url} href={item.url} target="_blank" rel="noreferrer" className={`grid gap-2 p-4 transition hover:bg-[var(--soft)] sm:grid-cols-[140px_1fr_auto] sm:items-center ${index ? 'border-t border-[var(--line)]' : ''}`}><b className="text-sm text-cyan-600">{String(item.extra?.feed_name || '工具更新').replace(/\s*发版$/, '')}</b><span className="min-w-0"><strong className="block truncate text-sm">{item.title_zh || item.title}</strong>{item.summary_zh && <small className="mt-1 block line-clamp-2 text-[var(--muted)]">{item.summary_zh}</small>}</span><time className="text-xs text-[var(--muted)]">{item.published_at?.slice(0, 10) || '日期待定'} · release ↗</time></a>)}{items.length === 0 && <div className="p-12 text-center text-[var(--muted)]">{unavailable ? <><p className="font-bold text-[var(--ink)]">RSSHub 暂不可用</p><p className="mt-2 text-xs">{error || '未配置或订阅路由暂时失败，不影响其它来源。'}</p></> : '暂时没有工具更新。'}</div>}</div></section>;
 }
 
 function JobsView({ items, quicklinks, unavailable, error }: { items: Item[]; quicklinks: Quicklink[]; unavailable: boolean; error?: string | null }) {
@@ -339,15 +349,33 @@ function App() {
         const response = await fetch(url, { credentials: 'include', cache: 'no-store' });
         return response.ok ? response.json() as Promise<T> : fallback;
       };
-      const [nextFeed, nextTrends, nextSites, nextAlerts, nextJobLinks, remoteSettings] = await Promise.all([
+      const emptySourceFeed = (source: string): SourceFeed => ({ generated_at: '', source, status: { source, status: 'not_run', item_count: 0 }, items: [] });
+      const [nextFeed, nextAi, nextTools, nextPapers, nextJobs, nextTrends, nextSites, nextAlerts, nextJobLinks, remoteSettings] = await Promise.all([
         readJson<Feed>('/data/all.json', { generated_at: '', items: [] }),
+        readJson<SourceFeed>('/data/ai.json', emptySourceFeed('ai')),
+        readJson<SourceFeed>('/data/tools.json', emptySourceFeed('tools')),
+        readJson<SourceFeed>('/data/papers.json', emptySourceFeed('papers')),
+        readJson<SourceFeed>('/data/jobs.json', emptySourceFeed('jobs')),
         readJson<Trends | null>('/data/trends.json', null),
         readJson<{ sites: OfficialSite[] }>('/data/gongkao_official_sites.json', { sites: [] }),
         readJson<AlertFeed>('/data/alerts.json', { generated_at: '', items: [] }),
         readJson<{ items: Quicklink[] }>('/data/job_quicklinks.json', { items: [] }),
         readJson<{ prefs: Prefs; updated_at: string | null } | null>('/api/settings', null),
       ]);
-      setFeed(nextFeed); setTrends(nextTrends); setSites(nextSites.sites); setAlerts(nextAlerts); setJobQuicklinks(nextJobLinks.items);
+      const additions = [
+        ...nextAi.items, ...nextTools.items,
+        ...nextPapers.items.filter((item) => item.source === 'feed'),
+        ...nextJobs.items.filter((item) => item.source === 'feed'),
+      ];
+      const seenItems = new Set<string>();
+      const mergedItems = [...nextFeed.items, ...additions].filter((item) => {
+        const key = `${item.source}\0${item.url}`;
+        if (seenItems.has(key)) return false;
+        seenItems.add(key); return true;
+      });
+      const sourceStates = new Map((nextFeed.sources ?? []).map((entry) => [entry.source, entry]));
+      for (const extraFeed of [nextAi, nextTools, nextPapers, nextJobs]) sourceStates.set(extraFeed.source, extraFeed.status);
+      setFeed({ ...nextFeed, items: mergedItems, sources: [...sourceStates.values()] }); setTrends(nextTrends); setSites(nextSites.sites); setAlerts(nextAlerts); setJobQuicklinks(nextJobLinks.items);
       const localPrefs = loadPrefs();
       const merged = remoteSettings ? deepMergePrefs(localPrefs, remoteSettings.prefs) : localPrefs;
       savePrefs(merged); setPrefs(merged); setSettingsUpdatedAt(remoteSettings?.updated_at ?? null); setPrefsReady(true);
@@ -417,10 +445,14 @@ function App() {
   const deadlineState = feed?.sources?.find((source) => source.source === 'conf_deadlines');
   const deadlines = feed?.items.filter((item) => item.source === 'conf_deadlines') ?? [];
   const unavailable = active in sourceNames && !['alerts', 'qiuzhao'].includes(active) && state?.status !== 'ok';
-  const sourceItems = unavailable ? [] : feed?.items.filter((item) => active === 'all' || item.source === active) ?? [];
+  const matchesTab = (item: Item, tab: string) => tab === 'all'
+    ? item.source !== 'feed' || item.extra?.tab === 'hot'
+    : item.source === tab || (item.source === 'feed' && item.extra?.tab === tab);
+  const sourceItems = unavailable ? [] : feed?.items.filter((item) => matchesTab(item, active)) ?? [];
   const items = active === 'papers' && papersOnlyPriority ? sourceItems.filter((item) => Number(item.extra?.priority_rank ?? 999) < 999) : sourceItems;
   const seen = new Set<string>();
-  const pinned = (feed?.items ?? []).filter((item) => { if ((item.cluster_size ?? 0) < 3 || !item.cluster_id || seen.has(item.cluster_id)) return false; seen.add(item.cluster_id); return true; });
+  const allItems = (feed?.items ?? []).filter((item) => matchesTab(item, 'all'));
+  const pinned = allItems.filter((item) => { if ((item.cluster_size ?? 0) < 3 || !item.cluster_id || seen.has(item.cluster_id)) return false; seen.add(item.cluster_id); return true; });
   const moveTab = (tab: string, direction: -1 | 1) => {
     const index = tabOrder.indexOf(tab), target = index + direction;
     if (index < 1 || target < 1 || target >= tabOrder.length) return;
@@ -432,11 +464,11 @@ function App() {
   const showCluster = (event: React.MouseEvent, item: Item) => { event.stopPropagation(); if (!item.cluster_id) return; setActive('all'); setHighlightCluster((current) => current === item.cluster_id ? null : item.cluster_id ?? null); };
   return <main className="min-h-screen bg-[var(--paper)] text-[var(--ink)] transition-colors">
     <header className="border-b border-[var(--line)] bg-[var(--header)] text-white"><div className="mx-auto max-w-6xl px-4 pb-7 pt-5 sm:px-6 sm:pb-10 sm:pt-8"><div className="flex flex-wrap items-center justify-between gap-3"><span className="font-mono text-[11px] tracking-[0.2em] text-cyan-300">SIGNAL / NOISE · P2</span><div className="flex flex-wrap items-center justify-end gap-2"><span className="rounded-full bg-white/10 px-3 py-1.5 text-xs">{user?.username}{user?.is_admin ? ' · 管理员' : ''}</span><button type="button" aria-label="调整导航标签" aria-expanded={settingsOpen} className="rounded-full border border-white/20 px-3 py-1.5 text-xs transition hover:bg-white/10" onClick={() => setSettingsOpen(true)}>⚙ 设置</button><button type="button" className="rounded-full border border-white/20 px-3 py-1.5 text-xs transition hover:bg-white/10" onClick={() => updatePrefs({ theme: dark ? 'light' : 'dark' })}>{dark ? '☀ 浅色' : '◐ 深色'}</button><button type="button" onClick={() => void logout()} className="rounded-full border border-white/20 px-3 py-1.5 text-xs transition hover:bg-white/10">退出</button></div></div><div className="mt-8 grid gap-5 sm:grid-cols-[1fr_auto] sm:items-end"><div><p className="mb-2 text-sm text-slate-400">看见一条热搜，也看见全网正在汇聚的信号。</p><h1 className="text-4xl font-black tracking-[-0.06em] sm:text-6xl">信息差<span className="text-cyan-300">日报</span></h1></div><div className="border-l-2 border-lime-300 pl-3 text-xs leading-5 text-slate-300"><div>{feed?.sources?.filter((source) => source.status === 'ok').length ?? 0}/{feed?.sources?.length ?? 0} 来源正常 · {feed?.sources?.filter((source) => source.status !== 'ok').length ?? 0} 降级</div><div>{feed?.generated_at ? `更新于 ${new Date(feed.generated_at).toLocaleString('zh-CN')}` : '正在同步最新信号…'}</div></div></div></div></header>
-    <nav className="sticky top-0 z-10 overflow-x-auto border-b border-[var(--line)] bg-[var(--paper)]/95 backdrop-blur"><div className="mx-auto flex max-w-6xl gap-1 px-4 py-3 sm:px-6">{tabOrder.filter((tab) => !hiddenTabs.includes(tab)).map((tab) => { const tabState = feed?.sources?.find((source) => source.source === tab); return <button key={tab} onClick={() => { setActive(tab); setHighlightCluster(null); }} className={`flex items-center gap-1.5 whitespace-nowrap rounded-full px-4 py-2 text-sm font-bold ${active === tab ? 'bg-[var(--ink)] text-[var(--paper)]' : 'text-[var(--muted)] hover:bg-[var(--soft)]'}`}>{tab === 'all' ? `全部 ${feed?.items.length ?? ''}` : tabLabel(tab)}{tab === 'alerts' && hasUnreadAlerts && <span aria-label="有未读预警" className="h-2 w-2 animate-pulse rounded-full bg-red-500" />}{tabState && <span title={tabState.status} className={`h-1.5 w-1.5 rounded-full ${tabState.status === 'ok' ? 'bg-emerald-400' : 'bg-orange-400'}`} />}</button>; })}</div></nav>
+    <nav className="sticky top-0 z-10 overflow-x-auto border-b border-[var(--line)] bg-[var(--paper)]/95 backdrop-blur"><div className="mx-auto flex max-w-6xl gap-1 px-4 py-3 sm:px-6">{tabOrder.filter((tab) => !hiddenTabs.includes(tab)).map((tab) => { const tabState = feed?.sources?.find((source) => source.source === tab); return <button key={tab} onClick={() => { setActive(tab); setHighlightCluster(null); }} className={`flex items-center gap-1.5 whitespace-nowrap rounded-full px-4 py-2 text-sm font-bold ${active === tab ? 'bg-[var(--ink)] text-[var(--paper)]' : 'text-[var(--muted)] hover:bg-[var(--soft)]'}`}>{tab === 'all' ? `全部 ${allItems.length}` : tabLabel(tab)}{tab === 'alerts' && hasUnreadAlerts && <span aria-label="有未读预警" className="h-2 w-2 animate-pulse rounded-full bg-red-500" />}{tabState && <span title={tabState.status} className={`h-1.5 w-1.5 rounded-full ${tabState.status === 'ok' ? 'bg-emerald-400' : 'bg-orange-400'}`} />}</button>; })}</div></nav>
     {settingsOpen && <div className="fixed inset-0 z-50"><button type="button" aria-label="关闭导航设置" className="absolute inset-0 h-full w-full bg-slate-950/60 backdrop-blur-sm" onClick={() => setSettingsOpen(false)} /><aside role="dialog" aria-modal="true" aria-labelledby="tab-settings-title" className="absolute inset-y-0 right-0 flex w-full max-w-md flex-col border-l border-[var(--line)] bg-[var(--card)] text-[var(--ink)] shadow-2xl"><div className="flex items-start justify-between border-b border-[var(--line)] px-5 py-5"><div><h2 id="tab-settings-title" className="text-xl font-black">导航设置</h2><p className="mt-1 text-xs text-[var(--muted)]">{syncing ? '正在同步…' : settingsUpdatedAt ? `已同步 · 上次 ${new Date(settingsUpdatedAt).toLocaleString('zh-CN')}` : '偏好保存在本机，服务恢复后会自动同步'}</p></div><button type="button" aria-label="关闭" className="rounded-full bg-[var(--soft)] px-3 py-1.5 text-sm font-bold" onClick={() => setSettingsOpen(false)}>×</button></div><div className="flex-1 overflow-y-auto p-4"><div className="mb-3 flex items-center justify-between rounded-xl border border-[var(--line)] bg-[var(--paper)] px-4 py-3"><span className="font-bold">全部</span><span className="rounded-full bg-[var(--soft)] px-2.5 py-1 text-[11px] text-[var(--muted)]">固定首位</span></div><div className="grid gap-2">{tabOrder.slice(1).map((tab, index, adjustable) => { const hidden = hiddenTabs.includes(tab); return <div key={tab} className={`flex items-center gap-2 rounded-xl border border-[var(--line)] bg-[var(--paper)] px-3 py-3 ${hidden ? 'opacity-65' : ''}`}><span className="min-w-0 flex-1 truncate font-bold">{tabLabel(tab)}</span><button type="button" aria-label={`${tabLabel(tab)}上移`} disabled={index === 0} onClick={() => moveTab(tab, -1)} className="h-8 w-8 rounded-full bg-[var(--soft)] text-sm font-black disabled:cursor-not-allowed disabled:opacity-30">↑</button><button type="button" aria-label={`${tabLabel(tab)}下移`} disabled={index === adjustable.length - 1} onClick={() => moveTab(tab, 1)} className="h-8 w-8 rounded-full bg-[var(--soft)] text-sm font-black disabled:cursor-not-allowed disabled:opacity-30">↓</button><label className="flex cursor-pointer items-center gap-1.5 rounded-full bg-[var(--soft)] px-2.5 py-1.5 text-xs font-bold"><input type="checkbox" checked={!hidden} onChange={() => toggleTab(tab)} className="accent-cyan-500" /><span>{hidden ? '隐藏' : '显示'}</span></label></div>; })}</div><button type="button" onClick={restoreTabs} className="mt-4 w-full rounded-full border border-[var(--line)] bg-[var(--paper)] px-4 py-3 text-sm font-bold transition hover:border-cyan-400">恢复默认</button>{user?.is_admin && <AdminPanel />}</div></aside></div>}
     <section className="mx-auto max-w-6xl px-4 py-5 sm:px-6 sm:py-8">
       {active === 'all' && pinned.length > 0 && <section className="mb-9 rounded-3xl border border-orange-200 bg-gradient-to-br from-orange-50 to-amber-50 p-5 text-slate-950 dark:border-orange-900 dark:from-orange-950/30 dark:to-amber-950/20 dark:text-white"><div className="mb-4"><span className="rounded-full bg-orange-500 px-3 py-1 text-xs font-black text-white">全网都在关注</span><p className="mt-2 text-xs opacity-60">至少 3 个平台同时出现的热点信号</p></div><div className="grid gap-3 sm:grid-cols-2">{pinned.map((item) => <button key={item.cluster_id} onClick={(event) => showCluster(event, item)} className="rounded-2xl bg-white/70 p-4 text-left shadow-sm dark:bg-black/20"><b className="line-clamp-2">{item.title_zh || item.title}</b><small className="mt-2 block text-orange-600">{item.cluster_size} 个平台正在讨论 →</small></button>)}</div></section>}
-      {active === 'trends' ? <TrendView trends={trends} /> : active === 'alerts' ? <AlertsView feed={alerts} /> : active === 'xiaohongshu' ? <XhsView items={items} /> : active === 'gongkao' ? <GongkaoView items={items} sites={sites} provinces={gongkaoProvinces} onProvincesChange={(next) => updatePrefs({ gongkao_provinces: next })} /> : active === 'papers' ? <PapersView items={items} deadlines={deadlines} deadlineState={deadlineState} onlyPriority={papersOnlyPriority} onToggle={() => updatePrefs({ papers_only_priority: !papersOnlyPriority })} unavailable={unavailable} error={state?.error} onCluster={showCluster} /> : active === 'jobs' ? <JobsView items={items} quicklinks={jobQuicklinks} unavailable={unavailable} error={state?.error} /> : active === 'qiuzhao' ? <QiuzhaoLinks /> : <><div className="mb-4 flex items-center justify-between gap-3 text-xs text-[var(--muted)]"><span>{active === 'all' ? '全网信号流' : `${sourceNames[active]}热榜`}</span>{highlightCluster ? <button className="rounded-full bg-orange-100 px-3 py-1 font-bold text-orange-700" onClick={() => setHighlightCluster(null)}>正在高亮同簇 · 清除</button> : <span>{items.length} 条</span>}</div><div className="grid gap-3">{items.map((item) => <HotCard key={`${item.source}-${item.rank}-${item.url}`} item={item} onCluster={showCluster} highlight={highlightCluster ? item.cluster_id === highlightCluster : undefined} />)}{feed && items.length === 0 && <div className="rounded-2xl border border-dashed border-[var(--line)] p-12 text-center text-[var(--muted)]">{unavailable ? <><p className="font-bold text-[var(--ink)]">这个来源暂不可用</p><p className="mt-2 text-xs">{state?.error || '采集端已安全降级，不影响其它来源。'}</p></> : '这个来源暂时没有数据。'}</div>}</div></>}
+      {active === 'trends' ? <TrendView trends={trends} /> : active === 'alerts' ? <AlertsView feed={alerts} /> : active === 'xiaohongshu' ? <XhsView items={items} /> : active === 'gongkao' ? <GongkaoView items={items} sites={sites} provinces={gongkaoProvinces} onProvincesChange={(next) => updatePrefs({ gongkao_provinces: next })} /> : active === 'papers' ? <PapersView items={items} deadlines={deadlines} deadlineState={deadlineState} onlyPriority={papersOnlyPriority} onToggle={() => updatePrefs({ papers_only_priority: !papersOnlyPriority })} unavailable={unavailable} error={state?.error} onCluster={showCluster} /> : active === 'jobs' ? <JobsView items={items} quicklinks={jobQuicklinks} unavailable={unavailable} error={state?.error} /> : active === 'ai' ? <AiView items={items} unavailable={unavailable} error={state?.error} /> : active === 'tools' ? <ToolsView items={items} unavailable={unavailable} error={state?.error} /> : active === 'qiuzhao' ? <QiuzhaoLinks /> : <><div className="mb-4 flex items-center justify-between gap-3 text-xs text-[var(--muted)]"><span>{active === 'all' ? '全网信号流' : `${sourceNames[active]}热榜`}</span>{highlightCluster ? <button className="rounded-full bg-orange-100 px-3 py-1 font-bold text-orange-700" onClick={() => setHighlightCluster(null)}>正在高亮同簇 · 清除</button> : <span>{items.length} 条</span>}</div><div className="grid gap-3">{items.map((item) => <HotCard key={`${item.source}-${item.rank}-${item.url}`} item={item} onCluster={showCluster} highlight={highlightCluster ? item.cluster_id === highlightCluster : undefined} />)}{feed && items.length === 0 && <div className="rounded-2xl border border-dashed border-[var(--line)] p-12 text-center text-[var(--muted)]">{unavailable ? <><p className="font-bold text-[var(--ink)]">这个来源暂不可用</p><p className="mt-2 text-xs">{state?.error || '采集端已安全降级，不影响其它来源。'}</p></> : '这个来源暂时没有数据。'}</div>}</div></>}
     </section>
   </main>;
 }

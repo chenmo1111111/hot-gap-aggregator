@@ -70,7 +70,9 @@ jobs:
           CONFERENCES_CONFIG: config/conferences.yaml
           NOWCODER_CONFIG: config/nowcoder.yaml
           JOB_RADAR_CONFIG: config/job_radar.yaml
-          RSSHUB_BASE: ${{ secrets.RSSHUB_BASE || 'https://rsshub.app' }}
+          RSSHUB_BASE: ${{ secrets.RSSHUB_BASE }}
+          RSSHUB_KEY: ${{ secrets.RSSHUB_KEY }}
+          FEEDS_CONFIG: config/feeds.yaml
           SCS_ENABLED: "false"
           NCBI_API_KEY: ${{ secrets.NCBI_API_KEY }}
         run: |

@@ -1,6 +1,6 @@
 # 信息差日报 · hot-gap-aggregator
 
-每两小时聚合微博、B站、GitHub、YouTube、抖音、Telegram、公考、小红书关键词雷达、论文、岗位、会议 Deadline 和牛客热帖，把非中文内容翻译为中文，以“先看标题、感兴趣再点开”的方式浏览。前端是无运行时外部依赖的静态 PWA；通用源由 GitHub Actions 采集，国家公务员局、五省选调与城市人才补贴监控在中国大陆服务器运行。
+每两小时聚合微博、B站、GitHub、YouTube、抖音、Telegram、公考、小红书关键词雷达、论文、岗位、会议 Deadline、牛客热帖和可配置 RSSHub feeds，把非中文内容翻译为中文，以“先看标题、感兴趣再点开”的方式浏览。前端是无运行时外部依赖的静态 PWA；通用源由 GitHub Actions 采集，国家公务员局、五省选调与城市人才补贴监控在中国大陆服务器运行。
 
 ## P2 能力
 
@@ -14,6 +14,7 @@
 - 中文核心通过 Crossref 按 7 个已核对 ISSN 采集，顶刊页按英文顶刊、中文核心、预印本分区。
 - 岗位雷达逐关键词查询腾讯与字节的单细胞/AI4Science 职位，同名岗位合并，另提供 BioMap、深势、晶泰和华为官网直达。
 - 顶刊页顶部展示生信/ML 会议 Deadline；牛客通过 RSSHub best-effort 聚合并按秋招风险词和目标公司排序。
+- 通用 RSSHub 采集器只需修改 `config/feeds.yaml` 即可增加来源，并按全部、AI动态、顶刊、工具更新和岗位自动分流。
 - 国考/选调支持快捷筛选、跨省强提醒和目标高校标红；国家公务员局官方专题源在百度云交叉校验。
 - 百度云每 12 小时监听目标地区人社局公告；标题命中补贴关键词的新条目即时预警。另对 3 个核心政策页做正文 hash diff，只有金额、条件、窗口或名额变化才由模型判断并推送。
 - 百度云每 6 小时监听黑龙江、辽宁、河北、天津、山东官方选调公告；东北林业大学/东北林大/NEFU 命中项最高优先级单独推送，并合入公考「选调生」筛选。
@@ -113,6 +114,11 @@ python -m app.run --retranslate
 - `config/nowcoder.yaml`：`keywords` 放通用风险词，`companies` 填目标公司名。
 - `RSSHUB_BASE` 可切换到自建 RSSHub；公共实例不可用时只把牛客标为降级。
 
+### 通用 RSSHub feeds
+
+- `config/feeds.yaml` 配置路由、目标 Tab、翻译开关与单路由条数；一个路由失败不会影响其它来源。
+- `RSSHUB_BASE` 未配置时通用 feed 采集器直接跳过。自建 Vercel RSSHub 与 GitHub Secrets 配置见 [`DEPLOY_RSSHUB.md`](DEPLOY_RSSHUB.md)。
+
 ### 人社局公告与人才补贴
 
 - `config/subsidy_sources.yaml`：沈阳、石家庄、天津、德州、山东、河北、辽宁官方人社公告源，以及沈阳生活/购房、石家庄安家补贴核心政策页。
@@ -149,7 +155,8 @@ python -m app.run --notify
 | `GONGKAO_WATCH_CONFIG` | 公考关注省份、城市和考试类型路径 |
 | `PAPERS_CONFIG` / `NCBI_API_KEY` / `CROSSREF_MAILTO` | 论文配置、可选 PubMed Key 与 Crossref 联系邮箱 |
 | `CONFERENCES_CONFIG` | 关注会议白名单路径 |
-| `NOWCODER_CONFIG` / `RSSHUB_BASE` | 牛客关键词配置与 RSSHub 地址 |
+| `NOWCODER_CONFIG` | 牛客关键词配置 |
+| `FEEDS_CONFIG` / `RSSHUB_BASE` / `RSSHUB_KEY` | 通用 feed 配置、私有 RSSHub 地址与访问密钥 |
 | `JOB_RADAR_CONFIG` | 岗位关键词与公司直达配置 |
 | `SUBSIDY_SOURCES_CONFIG` | 百度云人社公告与补贴政策页配置 |
 | `XUANDIAO_SOURCES_CONFIG` | 百度云五省选调公告配置 |

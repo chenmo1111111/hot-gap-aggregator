@@ -91,7 +91,7 @@ class NowcoderCollector(BaseCollector):
     async def fetch(self) -> list[Item]:
         config = self.load_config()
         keywords = [str(value).strip() for value in [*config.get("keywords", []), *config.get("companies", [])] if str(value).strip()]
-        base = os.getenv("RSSHUB_BASE", str(config.get("rsshub_base") or "https://rsshub.app")).rstrip("/")
+        base = (os.getenv("RSSHUB_BASE") or str(config.get("rsshub_base") or "https://rsshub.app")).rstrip("/")
         routes = [str(route).strip() for route in config.get("routes", ["/nowcoder/discuss/2"]) if str(route).strip()]
         results = await asyncio.gather(
             *(self.request(f"{base}/{route.lstrip('/')}", headers={"Accept": "application/rss+xml,application/xml"}) for route in routes),

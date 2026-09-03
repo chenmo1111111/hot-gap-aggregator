@@ -9,6 +9,10 @@ const json = (body: unknown, status = 200) => new Response(JSON.stringify(body),
 
 const dataResponse = (url: string) => {
   if (url.endsWith('/data/all.json')) return json({ generated_at: '2026-09-03T00:00:00Z', sources: [], items: [] });
+  if (url.endsWith('/data/ai.json')) return json({ generated_at: '', source: 'ai', status: { source: 'ai', status: 'ok', item_count: 1 }, items: [{ source: 'feed', rank: 1, title: '新的 AI 研究动态', title_zh: '新的 AI 研究动态', url: 'https://example.test/ai', summary_zh: '来自机器之心的摘要', published_at: '2026-09-03T00:00:00Z', extra: { tab: 'ai', feed_name: '机器之心' } }] });
+  if (url.endsWith('/data/tools.json')) return json({ generated_at: '', source: 'tools', status: { source: 'tools', status: 'ok', item_count: 1 }, items: [{ source: 'feed', rank: 1, title: 'scanpy 1.12.0', title_zh: 'scanpy 1.12.0', url: 'https://example.test/tool', summary_zh: '性能优化', published_at: '2026-09-02T00:00:00Z', extra: { tab: 'tools', feed_name: 'scanpy 发版' } }] });
+  if (url.endsWith('/data/papers.json')) return json({ generated_at: '', source: 'papers', status: { source: 'papers', status: 'ok', item_count: 0 }, items: [] });
+  if (url.endsWith('/data/jobs.json')) return json({ generated_at: '', source: 'jobs', status: { source: 'jobs', status: 'ok', item_count: 0 }, items: [] });
   if (url.endsWith('/data/trends.json')) return json({ generated_at: '', rising: [], new_today: [], dropped: [], longest_on_board: [] });
   if (url.endsWith('/data/gongkao_official_sites.json')) return json({ sites: [] });
   if (url.endsWith('/data/alerts.json')) return json({ generated_at: '', items: [] });
@@ -72,5 +76,24 @@ describe('authenticated app bootstrap', () => {
     fireEvent.click(screen.getByRole('button', { name: '调整导航标签' }));
     expect(await screen.findByText('用户管理')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: '创建账号' })).toBeInTheDocument();
+  });
+
+  it('renders RSSHub AI and tool entries in their logical tabs', async () => {
+    const fetchMock = vi.fn(async (input: RequestInfo | URL) => {
+      const url = String(input);
+      if (url === '/api/me') return json({ username: 'reader', is_admin: false });
+      if (url === '/api/settings') return json({ prefs: {}, updated_at: null });
+      return dataResponse(url) ?? json({}, 404);
+    });
+    vi.stubGlobal('fetch', fetchMock);
+
+    render(<App />);
+    await screen.findByText('reader');
+    fireEvent.click(screen.getByRole('button', { name: 'AI动态' }));
+    expect(await screen.findByText('新的 AI 研究动态')).toBeInTheDocument();
+    expect(screen.getByText('机器之心')).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: '工具更新' }));
+    expect(await screen.findByText('scanpy 1.12.0')).toBeInTheDocument();
+    expect(screen.getByText('性能优化')).toBeInTheDocument();
   });
 });
