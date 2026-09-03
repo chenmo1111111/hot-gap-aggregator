@@ -13,7 +13,8 @@ priority_topics:
             "multi-omics", "single-cell multiomics", "cell atlas"]
 
 keywords_boost: ["LLM", "agent", "foundation model", "graph neural network",
-                 "hypergraph", "batch effect", "trajectory inference", "RNA velocity"]
+                 "hypergraph", "batch effect", "trajectory inference", "RNA velocity",
+                 "clustering", "representation learning", "graph", "contrastive", "benchmark"]
 
 arxiv_categories: [q-bio.GN, q-bio.QM, q-bio.MN, cs.LG, stat.ML, cs.AI]
 biorxiv: true
@@ -23,6 +24,16 @@ medrxiv: false
 pubmed_journals: ["Nature", "Science", "Cell", "Nat Methods", "Nat Biotechnol",
                   "Nat Comput Sci", "Genome Biol", "Bioinformatics", "Nucleic Acids Res",
                   "Cell Syst", "Nat Commun", "Brief Bioinform", "Nat Med"]
+
+journals_by_issn:
+  - {name: 生物信息学, issn: "1672-5565"}
+  - {name: 遗传, issn: "0253-9772"}
+  - {name: "遗传学报(JGG)", issn: "1673-8527"}
+  - {name: 生物工程学报, issn: "1000-3061"}
+  - {name: "中国科学:生命科学", issn: "1674-7232"}
+  - {name: 计算机学报, issn: "0254-4164"}
+  - {name: 软件学报, issn: "1000-9825"}
+crossref_lookback_days: 45
 
 lookback_days: 4
 per_subsource_limit: 20

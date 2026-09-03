@@ -1,0 +1,11 @@
+# 官方来源优先级按列表顺序：黑龙江 > 辽宁 > 河北 > 天津 > 山东。
+# 这些站点已从百度云连通性验证；单站改版/失败会独立降级。
+list_pages:
+  - {region: 黑龙江, url: "https://gongxuan.ljxfw.gov.cn/xds-prod/web/announcement/listInfo", format: hlj_api}
+  - {region: 辽宁, url: "https://www.lnrsks.com/html/kaoshidongtai/gwy_zhaokaogonggao/"}
+  - {region: 河北, url: "https://www.hebpta.com.cn:8090/door/search?title=%E9%80%89%E8%B0%83&pageNum=1&pageSize=50", format: hebei_search}
+  - {region: 天津, url: "https://www.tj.gov.cn/zwgk/zfxxgkzl/fdzdgknr/zkly/"}
+  - {region: 山东, url: "https://www.dtdjzx.gov.cn/"}
+title_keywords: [选调, 定向选调, 选调生, 定向招录, 急需紧缺]
+my_universities: [东北林业大学, 东北林大, NEFU]
+check_interval_hours: 6

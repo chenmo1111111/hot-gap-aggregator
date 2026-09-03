@@ -60,6 +60,45 @@ def test_pubmed_fixture_maps_articles_abstract_and_dates() -> None:
     assert items[1].extra["dedupe_key"] == "pubmed:22222222"
 
 
+def test_crossref_fixture_keeps_journal_articles_and_cleans_jats() -> None:
+    items = PapersCollector.parse_crossref(fixture_json("papers_crossref.json"), "生物信息学", "1672-5565")
+    assert len(items) == 2
+    assert items[0].extra["tier"] == "中文核心"
+    assert items[0].extra["description"] == "A benchmark for rare cell detection."
+    assert items[0].published_at == "2026-09-01"
+    assert items[1].extra["description"] == ""
+
+
+@pytest.mark.asyncio
+async def test_crossref_queries_each_issn_and_survives_one_failure(monkeypatch, tmp_path) -> None:
+    config_path = tmp_path / "papers.yaml"
+    config_path.write_text(
+        "journals_by_issn:\n  - {name: 生物信息学, issn: '1672-5565'}\n"
+        "  - {name: 遗传, issn: '0253-9772'}\ncrossref_lookback_days: 45\n",
+        encoding="utf-8",
+    )
+    collector = PapersCollector(config_path, today=date(2026, 9, 3))
+    calls: list[dict] = []
+
+    class Response:
+        def json(self):
+            return fixture_json("papers_crossref.json")
+
+    async def request(_url, **kwargs):
+        calls.append(kwargs["params"])
+        if "0253-9772" in kwargs["params"]["filter"]:
+            raise RuntimeError("one journal unavailable")
+        return Response()
+
+    monkeypatch.setenv("CROSSREF_MAILTO", "reader@example.test")
+    monkeypatch.setattr(collector, "request", request)
+    items = await collector._fetch_crossref(collector.load_config())
+    assert len(items) == 2
+    assert len(calls) == 2
+    assert calls[0]["mailto"] == "reader@example.test"
+    assert "from-pub-date:2026-07-20" in calls[0]["filter"]
+
+
 @pytest.mark.asyncio
 async def test_pubmed_makes_search_then_fetch_and_passes_optional_key(monkeypatch, tmp_path) -> None:
     config_path = tmp_path / "papers.yaml"

@@ -2,3 +2,5 @@
 35 */2 * * * root cd /opt/hot-gap-aggregator && /opt/hot-gap-aggregator/.venv/bin/python -m app.server_run --scs >> /var/log/hot-gap-server.log 2>&1
 # 人社局公告 + 核心补贴政策页 diff：每 12 小时。
 45 */12 * * * root cd /opt/hot-gap-aggregator && /opt/hot-gap-aggregator/.venv/bin/python -m app.server_run --subsidy >> /var/log/hot-gap-server.log 2>&1
+# 五省选调生官方公告：每 6 小时，黑龙江优先。
+15 */6 * * * root cd /opt/hot-gap-aggregator && /opt/hot-gap-aggregator/.venv/bin/python -m app.server_run --xuandiao >> /var/log/hot-gap-server.log 2>&1

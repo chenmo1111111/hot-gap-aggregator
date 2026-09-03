@@ -1,0 +1,27 @@
+{
+  "message": {
+    "items": [
+      {
+        "type": "journal-article",
+        "title": ["Single-cell clustering benchmark for rare populations"],
+        "DOI": "10.1000/cn-core-001",
+        "published": {"date-parts": [[2026, 9, 1]]},
+        "abstract": "<jats:p>A <jats:bold>benchmark</jats:bold> for rare cell detection.</jats:p>",
+        "container-title": ["生物信息学"]
+      },
+      {
+        "type": "journal-article",
+        "title": ["没有摘要的中文论文"],
+        "DOI": "10.1000/cn-core-002",
+        "published": {"date-parts": [[2026, 8]]},
+        "container-title": ["遗传"]
+      },
+      {
+        "type": "proceedings-article",
+        "title": ["Should be filtered"],
+        "DOI": "10.1000/nope",
+        "published": {"date-parts": [[2026, 9, 2]]}
+      }
+    ]
+  }
+}

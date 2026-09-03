@@ -129,7 +129,7 @@ async def notify_priority_alert(text: str, title: str = "关键期提醒") -> di
 
 
 async def notify_subsidy_alert(alert: dict[str, str]) -> dict[str, str]:
-    """Send subsidy alerts to exactly one configured provider, in priority order."""
+    """Send critical watcher alerts to exactly one configured provider, in priority order."""
     feishu_webhook, bark_url = os.getenv("FEISHU_WEBHOOK"), os.getenv("BARK_URL")
     try:
         if feishu_webhook:
@@ -137,7 +137,7 @@ async def notify_subsidy_alert(alert: dict[str, str]) -> dict[str, str]:
             return {"feishu": "ok"}
         if bark_url:
             await _post(bark_url, json={
-                "title": f"补贴预警·{alert.get('region', '')}",
+                "title": f"{alert.get('category_label', '补贴预警')}·{alert.get('region', '')}",
                 "body": alert.get("message", ""), "group": "hot-gap",
             })
             return {"bark": "ok"}
@@ -166,7 +166,7 @@ def _feishu_card_payload(alert: dict[str, str]) -> dict[str, object]:
     payload: dict[str, object] = {
         "msg_type": "interactive",
         "card": {
-            "header": {"template": "orange", "title": {"tag": "plain_text", "content": f"补贴预警 · {region}"}},
+            "header": {"template": "red" if alert.get("priority") == "highest" else "orange", "title": {"tag": "plain_text", "content": f"{alert.get('category_label', '补贴预警')} · {region}"}},
             "elements": [
                 {"tag": "div", "text": {"tag": "lark_md", "content": f"**{title}**\n{detail}"}},
                 {"tag": "action", "actions": [{"tag": "button", "text": {"tag": "plain_text", "content": "查看原文"}, "url": alert.get("url", ""), "type": "primary"}]},

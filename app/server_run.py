@@ -16,6 +16,7 @@ from app.models import Item
 from app.notify import build_gongkao_events, notify_priority_alert
 from app.store.database import Database
 from app.watchers.subsidy_watch import SubsidyWatcher
+from app.watchers.xuandiao_watch import XuandiaoWatcher
 
 
 LOGGER = logging.getLogger("hot-gap-server")
@@ -64,6 +65,52 @@ def merge_scs_into_site(data_dir: str | Path, items: list[Item], generated_at: s
     _write_json(all_path, all_payload)
 
 
+def merge_xuandiao_into_site(
+    data_dir: str | Path, items: list[Item], generated_at: str, preserve_regions: set[str] | None = None,
+) -> None:
+    target = Path(data_dir)
+    all_path, gongkao_path = target / "all.json", target / "gongkao.json"
+    if not all_path.exists() or not gongkao_path.exists():
+        raise FileNotFoundError(f"deployed JSON is missing under {target}")
+    all_payload = json.loads(all_path.read_text(encoding="utf-8"))
+    gongkao_payload = json.loads(gongkao_path.read_text(encoding="utf-8"))
+    official = [item.to_dict() for item in items]
+    preserved = [
+        item for item in gongkao_payload.get("items", [])
+        if item.get("extra", {}).get("subsource") == "xuandiao"
+        and str(item.get("extra", {}).get("province") or "") in (preserve_regions or set())
+    ]
+    previous_gongkao = [
+        item for item in gongkao_payload.get("items", [])
+        if item.get("extra", {}).get("subsource") != "xuandiao"
+    ]
+    combined = official + preserved + previous_gongkao
+    for rank, item in enumerate(combined, 1):
+        item["rank"] = rank
+    gongkao_payload.update({"generated_at": generated_at, "items": combined})
+    if isinstance(gongkao_payload.get("status"), dict):
+        gongkao_payload["status"]["item_count"] = len(combined)
+        gongkao_payload["status"]["server_xuandiao"] = "ok"
+    preserved_all = [
+        item for item in all_payload.get("items", [])
+        if item.get("extra", {}).get("subsource") == "xuandiao"
+        and str(item.get("extra", {}).get("province") or "") in (preserve_regions or set())
+    ]
+    other_items = [
+        item for item in all_payload.get("items", [])
+        if item.get("extra", {}).get("subsource") != "xuandiao"
+    ]
+    all_payload["items"] = other_items + official + preserved_all
+    all_payload["server_generated_at"] = generated_at
+    for status in all_payload.get("sources", []):
+        if status.get("source") == "gongkao":
+            status["item_count"] = len(combined)
+            status["server_xuandiao"] = "ok"
+            break
+    _write_json(gongkao_path, gongkao_payload)
+    _write_json(all_path, all_payload)
+
+
 async def run_scs(database: Database, data_dir: str | Path) -> dict[str, object]:
     started = time.perf_counter()
     collector = SCSCollector()
@@ -84,7 +131,23 @@ async def run_scs(database: Database, data_dir: str | Path) -> dict[str, object]
         return {"status": "degraded", "error": str(exc)}
 
 
-async def main(run_scs_job: bool = False, run_subsidy_job: bool = False) -> None:
+async def run_xuandiao(database: Database, data_dir: str | Path) -> dict[str, object]:
+    watcher = XuandiaoWatcher(database)
+    try:
+        result = await watcher.run()
+        reports = result.get("list_pages", [])
+        degraded_regions = {str(row.get("region") or "") for row in reports if row.get("status") == "degraded"}
+        if reports and len(degraded_regions) == len(reports):
+            return {"status": "degraded", "item_count": 0, **result}
+        run_at = datetime.now(UTC).isoformat()
+        merge_xuandiao_into_site(data_dir, watcher.latest_items, run_at, degraded_regions)
+        return {"status": "ok", "item_count": len(watcher.latest_items), **result}
+    except Exception as exc:
+        LOGGER.warning("xuandiao watcher degraded: %s", exc)
+        return {"status": "degraded", "error": str(exc)}
+
+
+async def main(run_scs_job: bool = False, run_subsidy_job: bool = False, run_xuandiao_job: bool = False) -> None:
     load_dotenv()
     logging.basicConfig(level=logging.INFO, format="%(message)s")
     database = Database(os.getenv("SERVER_DATABASE", "data/server.db"))
@@ -94,6 +157,8 @@ async def main(run_scs_job: bool = False, run_subsidy_job: bool = False) -> None
             output["scs"] = await run_scs(database, os.getenv("SERVER_SITE_DATA_DIR", "/var/www/hot-gap/data"))
         if run_subsidy_job:
             output["subsidy_watch"] = await SubsidyWatcher(database).run()
+        if run_xuandiao_job:
+            output["xuandiao_watch"] = await run_xuandiao(database, os.getenv("SERVER_SITE_DATA_DIR", "/var/www/hot-gap/data"))
         LOGGER.info(json.dumps({"event": "server_jobs_finished", **output}, ensure_ascii=False))
     finally:
         database.close()
@@ -104,5 +169,6 @@ if __name__ == "__main__":
     parser.add_argument("--scs", action="store_true", help="collect the official national civil-service notices")
     parser.add_argument("--subsidy", action="store_true", help="check HRSS notice lists and core subsidy policy pages")
     parser.add_argument("--city", action="store_true", help="deprecated alias for --subsidy")
+    parser.add_argument("--xuandiao", action="store_true", help="check official selection-graduate notice lists")
     arguments = parser.parse_args()
-    asyncio.run(main(run_scs_job=arguments.scs, run_subsidy_job=arguments.subsidy or arguments.city))
+    asyncio.run(main(run_scs_job=arguments.scs, run_subsidy_job=arguments.subsidy or arguments.city, run_xuandiao_job=arguments.xuandiao))

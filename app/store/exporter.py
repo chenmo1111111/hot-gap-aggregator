@@ -41,3 +41,10 @@ def export_json(database: Database, generated_at: str, sources: list[str], outpu
         (target / "gongkao_official_sites.json").write_text(
             json.dumps({"verified": True, "sites": sites}, ensure_ascii=False, indent=2), encoding="utf-8",
         )
+    jobs_path = Path("config/job_radar.yaml")
+    if jobs_path.exists():
+        jobs_config = yaml.safe_load(jobs_path.read_text(encoding="utf-8")) or {}
+        quicklinks = jobs_config.get("companies_quicklink", []) if isinstance(jobs_config, dict) else []
+        (target / "job_quicklinks.json").write_text(
+            json.dumps({"items": quicklinks}, ensure_ascii=False, indent=2), encoding="utf-8",
+        )

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import asyncio
+import html
 import logging
 import os
 import re
@@ -50,6 +51,7 @@ class PapersCollector(BaseCollector):
     biorxiv_endpoint = "https://api.biorxiv.org/details"
     pubmed_search_endpoint = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi"
     pubmed_fetch_endpoint = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi"
+    crossref_endpoint = "https://api.crossref.org/works"
 
     def __init__(self, config_path: str | Path | None = None, *, today: date | None = None) -> None:
         self.config_path = Path(config_path or os.getenv("PAPERS_CONFIG", "config/papers.yaml"))
@@ -83,6 +85,7 @@ class PapersCollector(BaseCollector):
                 published_at=published_at,
                 extra={
                     "subsource": "arxiv", "field": field, "doi": doi,
+                    "tier": "预印本",
                     "description": abstract, "identifier": arxiv_id,
                     "dedupe_key": f"doi:{doi}" if doi else f"arxiv:{arxiv_id.lower()}",
                 },
@@ -109,6 +112,7 @@ class PapersCollector(BaseCollector):
                 url=f"https://doi.org/{doi}", published_at=str(row.get("date") or "") or None,
                 extra={
                     "subsource": server, "field": category or None, "doi": doi,
+                    "tier": "预印本",
                     "description": abstract, "dedupe_key": f"doi:{doi}",
                 },
             ))
@@ -142,8 +146,53 @@ class PapersCollector(BaseCollector):
                 url=f"https://pubmed.ncbi.nlm.nih.gov/{pmid}/", published_at=published_at,
                 extra={
                     "subsource": "pubmed", "journal": journal or None, "doi": doi,
+                    "tier": "英文顶刊",
                     "description": abstract, "identifier": pmid,
                     "dedupe_key": f"doi:{doi}" if doi else f"pubmed:{pmid}",
+                },
+            ))
+        return items
+
+    @staticmethod
+    def _plain_jats(value: str | None) -> str:
+        if not value:
+            return ""
+        return " ".join(html.unescape(re.sub(r"<[^>]+>", " ", value)).split())
+
+    @staticmethod
+    def _crossref_date(row: dict[str, Any]) -> str | None:
+        for field in ("published", "published-online", "published-print", "issued"):
+            parts = row.get(field, {}).get("date-parts", []) if isinstance(row.get(field), dict) else []
+            if not parts or not isinstance(parts[0], list) or not parts[0]:
+                continue
+            values = [int(value) for value in parts[0][:3]]
+            try:
+                return date(values[0], values[1] if len(values) > 1 else 1, values[2] if len(values) > 2 else 1).isoformat()
+            except (TypeError, ValueError):
+                continue
+        return None
+
+    @staticmethod
+    def parse_crossref(payload: dict[str, Any], configured_name: str, issn: str) -> list[Item]:
+        items: list[Item] = []
+        message = payload.get("message", {}) if isinstance(payload, dict) else {}
+        for row in message.get("items", []) if isinstance(message, dict) else []:
+            if not isinstance(row, dict) or row.get("type") != "journal-article":
+                continue
+            titles = row.get("title") or []
+            title = " ".join(str(titles[0] if isinstance(titles, list) and titles else titles).split())
+            doi = _normalise_doi(str(row.get("DOI") or ""))
+            if not title or not doi:
+                continue
+            containers = row.get("container-title") or []
+            journal = " ".join(str(containers[0] if isinstance(containers, list) and containers else configured_name).split())
+            abstract = PapersCollector._plain_jats(str(row.get("abstract") or ""))
+            items.append(Item(
+                source="papers", rank=0, title=title, title_zh=title,
+                url=f"https://doi.org/{doi}", published_at=PapersCollector._crossref_date(row),
+                extra={
+                    "subsource": "crossref", "tier": "中文核心", "journal": journal or configured_name,
+                    "issn": issn, "doi": doi, "description": abstract, "dedupe_key": f"doi:{doi}",
                 },
             ))
         return items
@@ -220,6 +269,37 @@ class PapersCollector(BaseCollector):
         }, headers={"Accept": "application/xml"})
         return self.parse_pubmed(fetched.text)
 
+    async def _fetch_crossref(self, config: dict[str, Any]) -> list[Item]:
+        journals = [row for row in config.get("journals_by_issn", []) if isinstance(row, dict)]
+        if not journals:
+            return []
+        end = self.today or datetime.now(UTC).date()
+        start = end - timedelta(days=max(1, int(config.get("crossref_lookback_days", 45))))
+        mailto = str(os.getenv("CROSSREF_MAILTO") or config.get("crossref_mailto") or "").strip()
+        items: list[Item] = []
+        errors: list[str] = []
+        for journal in journals:
+            name, issn = str(journal.get("name") or "").strip(), str(journal.get("issn") or "").strip()
+            if not name or not issn:
+                continue
+            params = {
+                "filter": f"issn:{issn},from-pub-date:{start.isoformat()},until-pub-date:{end.isoformat()}",
+                "sort": "published", "order": "desc", "rows": 40,
+                "select": "title,DOI,published,abstract,container-title,type",
+            }
+            if mailto:
+                params["mailto"] = mailto
+            try:
+                response = await self.request(self.crossref_endpoint, params=params, headers={"Accept": "application/json"})
+                items.extend(self.parse_crossref(response.json(), name, issn))
+            except Exception as exc:  # each journal is isolated from the rest of Crossref
+                errors.append(f"{name}({issn}): {exc}")
+        if not items and errors:
+            raise SourceUnavailable("Crossref failed: " + "; ".join(errors), status="degraded")
+        if errors:
+            LOGGER.warning("papers Crossref partial failure: %s", "; ".join(errors))
+        return items
+
     @staticmethod
     def _annotate_matches(item: Item, config: dict[str, Any]) -> None:
         haystack = f"{item.title} {item.extra.get('description') or ''}".casefold()
@@ -266,6 +346,8 @@ class PapersCollector(BaseCollector):
             jobs.append(("medrxiv", self._fetch_preprints("medrxiv", config)))
         if config.get("pubmed_journals"):
             jobs.append(("pubmed", self._fetch_pubmed(config)))
+        if config.get("journals_by_issn"):
+            jobs.append(("crossref", self._fetch_crossref(config)))
         if not jobs:
             raise SourceUnavailable("Papers config has no enabled subsources", status="degraded")
 

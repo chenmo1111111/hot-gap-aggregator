@@ -1,6 +1,6 @@
 # 信息差日报 · hot-gap-aggregator
 
-每两小时聚合微博、B站、GitHub、YouTube、抖音、Telegram、公考、小红书关键词雷达、顶刊论文、会议 Deadline 和牛客热帖，把非中文内容翻译为中文，以“先看标题、感兴趣再点开”的方式浏览。前端是无运行时外部依赖的静态 PWA；通用源由 GitHub Actions 采集，国家公务员局与城市人才补贴监控在中国大陆服务器运行。
+每两小时聚合微博、B站、GitHub、YouTube、抖音、Telegram、公考、小红书关键词雷达、论文、岗位、会议 Deadline 和牛客热帖，把非中文内容翻译为中文，以“先看标题、感兴趣再点开”的方式浏览。前端是无运行时外部依赖的静态 PWA；通用源由 GitHub Actions 采集，国家公务员局、五省选调与城市人才补贴监控在中国大陆服务器运行。
 
 ## P2 能力
 
@@ -11,9 +11,12 @@
 - 公考支持省份多选、类型筛选、四类时间节点、倒计时、34 个已验证官方入口和节点推送去重。
 - 首页置顶至少 3 个平台共同出现的聚类；每个来源单独显示正常/降级状态。
 - 顶刊论文合并 arXiv、bioRxiv/medRxiv 和 PubMed，按个人研究方向、兴趣关键词和发表时间排序。
+- 中文核心通过 Crossref 按 7 个已核对 ISSN 采集，顶刊页按英文顶刊、中文核心、预印本分区。
+- 岗位雷达逐关键词查询腾讯与字节的单细胞/AI4Science 职位，同名岗位合并，另提供 BioMap、深势、晶泰和华为官网直达。
 - 顶刊页顶部展示生信/ML 会议 Deadline；牛客通过 RSSHub best-effort 聚合并按秋招风险词和目标公司排序。
 - 国考/选调支持快捷筛选、跨省强提醒和目标高校标红；国家公务员局官方专题源在百度云交叉校验。
 - 百度云每 12 小时监听目标地区人社局公告；标题命中补贴关键词的新条目即时预警。另对 3 个核心政策页做正文 hash diff，只有金额、条件、窗口或名额变化才由模型判断并推送。
+- 百度云每 6 小时监听黑龙江、辽宁、河北、天津、山东官方选调公告；东北林业大学/东北林大/NEFU 命中项最高优先级单独推送，并合入公考「选调生」筛选。
 
 ## 本地运行
 
@@ -86,6 +89,13 @@ python -m app.run --retranslate
 - `priority_topics` 按列表顺序分级；命中项优先于普通关键词和其它论文。
 - bioRxiv、medRxiv、PubMed 均按最近 `lookback_days` 天采集；任一子源失败不会阻断其它子源。
 - PubMed 无需 Key 即可使用；可选 `NCBI_API_KEY` 能提高 E-utilities 速率上限。
+- `journals_by_issn` 是 Crossref 中文核心清单，窗口默认 45 天；只保留 `journal-article`，无摘要也保留标题。可选 `CROSSREF_MAILTO` 用于 Crossref polite pool 联系邮箱。
+
+### 单细胞 / AI4Science 岗位
+
+- `config/job_radar.yaml` 维护关键词、每词上限与无接口公司的官网直达。
+- 腾讯 JSON API 与字节 JSON API 各自重试、独立降级；字节站的浏览器签名/风控可能返回 405，此时腾讯结果和直达按钮仍可用。
+- 去重键为岗位名 + 公司；同一职位命中多个关键词会合并关键词并优先展示。
 
 ### 会议 Deadline
 
@@ -105,6 +115,12 @@ python -m app.run --retranslate
 - 政策页正文变化后调用智谱/DeepSeek判断金额、条件、窗口和名额；模型返回 `SKIP` 时不提醒。
 - 推送严格按飞书 → Bark 选一个渠道；都未配置时写入线上 `data/alerts.json`，前端「预警」标签显示未读红点。服务器发布会保留该文件。
 - 百度云安装与 cron 见 `deploy/server/README.md`，SCS 每两小时、补贴监听每 12 小时。
+
+### 五省选调公告
+
+- `config/xuandiao_sources.yaml` 使用五个官方页面，顺序即黑龙江 > 辽宁 > 河北 > 天津 > 山东的优先级。
+- 首次运行只建立 `(region, url)` 基线；之后新公告推送并写入公考 JSON，`extra.subsource=xuandiao`。
+- 标题命中 `东北林业大学`、`东北林大` 或 `NEFU` 时标红并使用最高优先级飞书卡片；单站故障不会影响其它省份。
 
 ## 推送
 
@@ -126,10 +142,12 @@ python -m app.run --notify
 | `TELEGRAM_CHANNELS_CONFIG` | Telegram 频道清单路径 |
 | `XHS_KEYWORDS_CONFIG` | 小红书关键词路径 |
 | `GONGKAO_WATCH_CONFIG` | 公考关注省份、城市和考试类型路径 |
-| `PAPERS_CONFIG` / `NCBI_API_KEY` | 论文配置路径与可选 PubMed API Key |
+| `PAPERS_CONFIG` / `NCBI_API_KEY` / `CROSSREF_MAILTO` | 论文配置、可选 PubMed Key 与 Crossref 联系邮箱 |
 | `CONFERENCES_CONFIG` | 关注会议白名单路径 |
 | `NOWCODER_CONFIG` / `RSSHUB_BASE` | 牛客关键词配置与 RSSHub 地址 |
+| `JOB_RADAR_CONFIG` | 岗位关键词与公司直达配置 |
 | `SUBSIDY_SOURCES_CONFIG` | 百度云人社公告与补贴政策页配置 |
+| `XUANDIAO_SOURCES_CONFIG` | 百度云五省选调公告配置 |
 | `BARK_URL` / `FEISHU_*` / `TG_*` / `SERVERCHAN_KEY` | 推送渠道 |
 | `SERVER_DATABASE` / `SERVER_SITE_DATA_DIR` | 百度云 watcher 状态库与线上 JSON 目录 |
 
