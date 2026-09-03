@@ -85,7 +85,7 @@ class FeedsCollector(BaseCollector):
         if parsed.bozo and not parsed.entries:
             raise ValueError(f"invalid feed: {parsed.bozo_exception}")
         name = str(feed.get("name") or "RSSHub").strip()
-        route = str(feed.get("route") or "").strip()
+        route = str(feed.get("route") or feed.get("url") or "").strip()
         tab = str(feed.get("tab") or "hot").strip().casefold()
         if tab not in ALLOWED_TABS:
             raise ValueError(f"unsupported feed tab: {tab}")
@@ -125,28 +125,40 @@ class FeedsCollector(BaseCollector):
 
     async def fetch(self) -> list[Item]:
         base = os.getenv("RSSHUB_BASE", "").strip().rstrip("/")
-        if not base:
-            raise SourceUnavailable("RSSHUB_BASE not configured; generic feeds skipped", status="skipped")
         key = os.getenv("RSSHUB_KEY", "").strip()
         feeds = self.load_config()
         valid: list[dict[str, Any]] = []
         for feed in feeds:
+            direct_url = str(feed.get("url") or "").strip()
             route = str(feed.get("route") or "").strip()
-            if not route or "<待填" in route:
+            configured = direct_url or route
+            if not configured or "<待填" in configured:
                 LOGGER.warning("feed %s skipped: route is not configured", feed.get("name") or route)
+                continue
+            if direct_url and not direct_url.startswith(("https://", "http://")):
+                LOGGER.warning("feed %s skipped: direct URL must be HTTP(S)", feed.get("name") or direct_url)
+                continue
+            if route and not direct_url and not base:
+                LOGGER.warning("feed %s skipped: RSSHUB_BASE is not configured", feed.get("name") or route)
                 continue
             valid.append(feed)
         if not valid:
-            raise SourceUnavailable("No configured RSSHub feed routes", status="skipped")
+            raise SourceUnavailable("No configured RSSHub or direct feed routes", status="skipped")
 
         async def one(feed: dict[str, Any]) -> tuple[dict[str, Any], bytes]:
-            route = str(feed["route"])
-            params: dict[str, object] = {"limit": max(1, int(feed.get("limit", 20)))}
-            if key:
-                params["key"] = key
+            direct_url = str(feed.get("url") or "").strip()
+            route = str(feed.get("route") or "").strip()
+            target = direct_url or f"{base}/{route.lstrip('/')}"
+            request_kwargs: dict[str, Any] = {
+                "headers": {"Accept": "application/atom+xml,application/rss+xml,application/xml,text/xml"},
+            }
+            if not direct_url:
+                params: dict[str, object] = {"limit": max(1, int(feed.get("limit", 20)))}
+                if key:
+                    params["key"] = key
+                request_kwargs["params"] = params
             response = await self.request(
-                f"{base}/{route.lstrip('/')}", params=params,
-                headers={"Accept": "application/atom+xml,application/rss+xml,application/xml,text/xml"},
+                target, **request_kwargs,
             )
             return feed, response.content
 

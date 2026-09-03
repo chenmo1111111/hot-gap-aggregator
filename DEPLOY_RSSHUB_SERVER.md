@@ -57,7 +57,7 @@ printf 'LOADED_KEY_LENGTH=%s\n' "${#RSSHUB_ACCESS_KEY}"
 docker run -d --name rsshub --restart unless-stopped \
   -p 127.0.0.1:1200:1200 --memory=350m --memory-swap=350m \
   -e NODE_ENV=production -e CACHE_EXPIRE=7200 -e ACCESS_KEY="$RSSHUB_ACCESS_KEY" \
-  diygod/rsshub
+  ghcr.io/diygod/rsshub:latest
 ```
 
 等待约 20 秒后检查：
@@ -82,7 +82,7 @@ docker rm -f rsshub
 docker run -d --name rsshub --restart unless-stopped \
   -p 127.0.0.1:1200:1200 --memory=450m --memory-swap=700m \
   -e NODE_ENV=production -e CACHE_EXPIRE=7200 -e ACCESS_KEY="$RSSHUB_ACCESS_KEY" \
-  diygod/rsshub
+  ghcr.io/diygod/rsshub:latest
 ```
 
 再次运行上面的四条检查命令。若仍反复重启，停止部署并保留日志，不要继续增加内存或干预 gongkao。
@@ -95,7 +95,7 @@ docker run -d --name rsshub --restart unless-stopped \
 HTTP_STATUS="$(curl -sS --get \
   --data-urlencode "key=${RSSHUB_ACCESS_KEY}" \
   -o /tmp/rsshub-test.xml -w '%{http_code}' \
-  'http://127.0.0.1:1200/zhihu/hotlist')"
+  'http://127.0.0.1:1200/zhihu/hot')"
 printf 'HTTP_STATUS=%s\n' "$HTTP_STATUS"
 if grep -Eq '<rss([ >])|<feed([ >])|<item([ >])|<entry([ >])' /tmp/rsshub-test.xml; then
   echo 'RSS_XML_OK'
@@ -174,9 +174,9 @@ sudo nano "$NGINX_SITE"
 `proxy_pass` 末尾的 `/` 不能删。它负责去掉外部请求的 `/rsshub/` 前缀：
 
 ```text
-https://域名/rsshub/zhihu/hotlist
+https://域名/rsshub/zhihu/hot
                  ↓
-http://127.0.0.1:1200/zhihu/hotlist
+http://127.0.0.1:1200/zhihu/hot
 ```
 
 保存后先测试，只有同时出现 `syntax is ok` 和 `test is successful` 才能 reload：
@@ -204,7 +204,7 @@ GONGKAO_DOMAIN='<备案域名，不含 https://>'
 HTTP_STATUS="$(curl -sS --get \
   --data-urlencode "key=${RSSHUB_ACCESS_KEY}" \
   -o /tmp/rsshub-public-test.xml -w '%{http_code}' \
-  "https://${GONGKAO_DOMAIN}/rsshub/zhihu/hotlist")"
+  "https://${GONGKAO_DOMAIN}/rsshub/zhihu/hot")"
 printf 'HTTP_STATUS=%s\n' "$HTTP_STATUS"
 if grep -Eq '<rss([ >])|<feed([ >])|<item([ >])|<entry([ >])' /tmp/rsshub-public-test.xml; then
   echo 'RSS_XML_OK'
@@ -273,13 +273,13 @@ RSSHub 镜像及其层可能占用约 1.5 GB，应定期关注 `df -h /`。不�
 确认 `/root/.rsshub_access_key` 仍存在，然后只更新 RSSHub 自己：
 
 ```bash
-docker pull diygod/rsshub
+docker pull ghcr.io/diygod/rsshub:latest
 RSSHUB_ACCESS_KEY="$(tr -d '\r\n' < /root/.rsshub_access_key)"
 docker rm -f rsshub
 docker run -d --name rsshub --restart unless-stopped \
   -p 127.0.0.1:1200:1200 --memory=350m --memory-swap=350m \
   -e NODE_ENV=production -e CACHE_EXPIRE=7200 -e ACCESS_KEY="$RSSHUB_ACCESS_KEY" \
-  diygod/rsshub
+  ghcr.io/diygod/rsshub:latest
 ```
 
 更新后重新执行步骤 2 的健康检查和步骤 3、4.4 的内外网验证。如果历史上发生过 OOM，应沿用 `--memory=450m --memory-swap=700m` 的限额。

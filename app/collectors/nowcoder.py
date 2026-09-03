@@ -92,9 +92,13 @@ class NowcoderCollector(BaseCollector):
         config = self.load_config()
         keywords = [str(value).strip() for value in [*config.get("keywords", []), *config.get("companies", [])] if str(value).strip()]
         base = (os.getenv("RSSHUB_BASE") or str(config.get("rsshub_base") or "https://rsshub.app")).rstrip("/")
-        routes = [str(route).strip() for route in config.get("routes", ["/nowcoder/discuss/2"]) if str(route).strip()]
+        routes = [str(route).strip() for route in config.get("routes", ["/nowcoder/hots/2"]) if str(route).strip()]
+        key = os.getenv("RSSHUB_KEY", "").strip()
+        request_kwargs: dict[str, Any] = {"headers": {"Accept": "application/rss+xml,application/xml"}}
+        if key:
+            request_kwargs["params"] = {"key": key}
         results = await asyncio.gather(
-            *(self.request(f"{base}/{route.lstrip('/')}", headers={"Accept": "application/rss+xml,application/xml"}) for route in routes),
+            *(self.request(f"{base}/{route.lstrip('/')}", **request_kwargs) for route in routes),
             return_exceptions=True,
         )
         successes = 0
@@ -102,7 +106,7 @@ class NowcoderCollector(BaseCollector):
         merged: list[Item] = []
         for route, result in zip(routes, results, strict=True):
             if isinstance(result, BaseException):
-                errors.append(f"{route}: {result}")
+                errors.append(f"{route}: {str(result).replace(key, '[redacted]') if key else result}")
                 continue
             try:
                 merged.extend(self.parse(result.text, keywords))

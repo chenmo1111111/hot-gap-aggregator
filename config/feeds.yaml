@@ -1,19 +1,17 @@
 # RSSHUB_BASE and RSSHUB_KEY are environment variables. Never put the key here.
 feeds:
   # tab: hot=全部流 / ai=AI动态 / papers=顶刊 / tools=工具更新 / jobs=岗位
-  - {name: 知乎热榜, route: "/zhihu/hotlist", tab: hot, translate: false, limit: 20}
-  - {name: 机器之心, route: "/jiqizhixin", tab: ai, translate: false, limit: 15}
-  - {name: 量子位, route: "/qbitai", tab: ai, translate: false, limit: 15}
-  - {name: PaperWeekly, route: "/paperweekly", tab: ai, translate: false, limit: 10}
-  - {name: HF每日论文, route: "/huggingface/daily-papers", tab: papers, translate: true, limit: 20}
-  - {name: Nature, route: "/nature/research/nature", tab: papers, translate: true, limit: 15}
-  - {name: Nature Methods, route: "/nature/research/nmeth", tab: papers, translate: true, limit: 15}
-  - {name: Nature Comput Sci, route: "/nature/research/natcomputsci", tab: papers, translate: true, limit: 10}
-  - {name: Science, route: "/science/current/science", tab: papers, translate: true, limit: 15}
-  - {name: "Scholar:单细胞大模型", route: "/google-scholar/scholar/single-cell%20foundation%20model", tab: papers, translate: true, limit: 15}
-  # Replace <待填magazine_id> with the numeric ID from the journal page on x-mol.com.
-  - {name: "X-MOL 生物信息学", route: "/x-mol/paper/0/<待填magazine_id>", tab: papers, translate: false, limit: 15}
-  - {name: "scanpy 发版", route: "/github/release/scverse/scanpy", tab: tools, translate: true, limit: 5}
-  - {name: "seurat 发版", route: "/github/release/satijalab/seurat", tab: tools, translate: true, limit: 5}
-  - {name: "scvi-tools 发版", route: "/github/release/scverse/scvi-tools", tab: tools, translate: true, limit: 5}
-  - {name: 实习僧算法岗, route: "/shixiseng/interns/keyword/%E7%AE%97%E6%B3%95", tab: jobs, translate: false, limit: 15}
+  - {name: 知乎热榜, route: "/zhihu/hot", tab: hot, translate: false, limit: 20}
+  - {name: 量子位, route: "/qbitai/category/%E8%B5%84%E8%AE%AF", tab: ai, translate: false, limit: 15}
+  - {name: 36Kr 热榜, route: "/36kr/hot-list", tab: ai, translate: false, limit: 15}
+  - {name: 爱范儿, route: "/ifanr/index", tab: ai, translate: false, limit: 15}
+  - {name: IT之家, route: "/ithome/it", tab: ai, translate: false, limit: 15}
+  - {name: 少数派, route: "/sspai/index", tab: tools, translate: false, limit: 15}
+  # Heavy RSSHub journal routes time out on the 2 GB server, so use publishers' official feeds.
+  - {name: Nature, url: "https://www.nature.com/nature.rss", tab: papers, translate: true, limit: 15}
+  - {name: Nature Methods, url: "https://www.nature.com/nmeth.rss", tab: papers, translate: true, limit: 15}
+  # GitHub recommends its official Atom feeds for repository releases.
+  - {name: "scanpy 发版", url: "https://github.com/scverse/scanpy/releases.atom", tab: tools, translate: true, limit: 5}
+  - {name: "seurat 发版", url: "https://github.com/satijalab/seurat/releases.atom", tab: tools, translate: true, limit: 5}
+  - {name: "scvi-tools 发版", url: "https://github.com/scverse/scvi-tools/releases.atom", tab: tools, translate: true, limit: 5}
+  # X-MOL stays disabled until a numeric magazine_id is confirmed from its journal URL.

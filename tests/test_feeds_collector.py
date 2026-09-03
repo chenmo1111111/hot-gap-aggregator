@@ -20,7 +20,7 @@ def fixture(name: str) -> bytes:
 
 def test_parses_rss_atom_html_dates_and_tab_groups() -> None:
     zhihu = FeedsCollector.parse(fixture("feeds_zhihu.xml"), {
-        "name": "知乎热榜", "route": "/zhihu/hotlist", "tab": "hot", "translate": False, "limit": 20,
+        "name": "知乎热榜", "route": "/zhihu/hot", "tab": "hot", "translate": False, "limit": 20,
     })
     nature = FeedsCollector.parse(fixture("feeds_nature.xml"), {
         "name": "Nature", "route": "/nature/research/nature", "tab": "papers", "translate": True, "limit": 15,
@@ -43,7 +43,7 @@ async def test_fetch_survives_one_feed_failure_deduplicates_and_redacts_key(monk
     config = tmp_path / "feeds.yaml"
     config.write_text("""
 feeds:
-  - {name: 知乎, route: /zhihu/hotlist, tab: hot, translate: false, limit: 20}
+  - {name: 知乎, route: /zhihu/hot, tab: hot, translate: false, limit: 20}
   - {name: Nature, route: /nature/research/nature, tab: papers, translate: true, limit: 15}
   - {name: 坏路由, route: /broken/secret, tab: ai, translate: false, limit: 10}
   - {name: 待配置, route: /x-mol/paper/0/<待填magazine_id>, tab: papers, translate: false, limit: 10}
@@ -71,11 +71,35 @@ feeds:
 
 
 @pytest.mark.asyncio
-async def test_missing_base_skips_without_network(monkeypatch, tmp_path) -> None:
+async def test_direct_feed_works_without_rsshub_base(monkeypatch, tmp_path) -> None:
+    config = tmp_path / "feeds.yaml"
+    config.write_text("""
+feeds:
+  - {name: scanpy, url: "https://github.com/scverse/scanpy/releases.atom", tab: tools, translate: true, limit: 5}
+""", encoding="utf-8")
+    collector = FeedsCollector(config)
+
+    class Response:
+        content = fixture("feeds_github_release.xml")
+
+    async def request(url: str, **kwargs):
+        assert url == "https://github.com/scverse/scanpy/releases.atom"
+        assert "params" not in kwargs
+        return Response()
+
+    monkeypatch.delenv("RSSHUB_BASE", raising=False)
+    monkeypatch.setattr(collector, "request", request)
+    items = await collector.fetch()
+    assert len(items) == 1
+    assert items[0].extra["route"] == "https://github.com/scverse/scanpy/releases.atom"
+
+
+@pytest.mark.asyncio
+async def test_no_configured_feeds_skips_without_network(monkeypatch, tmp_path) -> None:
     config = tmp_path / "feeds.yaml"
     config.write_text("feeds: []\n", encoding="utf-8")
     monkeypatch.delenv("RSSHUB_BASE", raising=False)
-    with pytest.raises(SourceUnavailable, match="not configured") as captured:
+    with pytest.raises(SourceUnavailable, match="No configured RSSHub or direct feed routes") as captured:
         await FeedsCollector(config).fetch()
     assert captured.value.status == "skipped"
 

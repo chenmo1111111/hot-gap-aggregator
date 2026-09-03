@@ -19,15 +19,17 @@ def test_nowcoder_rss_fixture_prioritizes_keyword_hits() -> None:
 @pytest.mark.asyncio
 async def test_nowcoder_fetch_sorts_hits_before_newer_plain_post(monkeypatch, tmp_path) -> None:
     config = tmp_path / "nowcoder.yaml"
-    config.write_text("routes: [/nowcoder/discuss/2]\nkeywords: [秋招, offer, 变卦]\n", encoding="utf-8")
+    config.write_text("routes: [/nowcoder/hots/2]\nkeywords: [秋招, offer, 变卦]\n", encoding="utf-8")
     collector = NowcoderCollector(config)
 
     class Response:
         text = FIXTURE.read_text(encoding="utf-8")
 
-    async def request(_url: str, **_kwargs):
+    async def request(_url: str, **kwargs):
+        assert kwargs["params"]["key"] == "fixture-secret"
         return Response()
 
+    monkeypatch.setenv("RSSHUB_KEY", "fixture-secret")
     monkeypatch.setattr(collector, "request", request)
     items = await collector.fetch()
     assert [item.url.rsplit("/", 1)[-1] for item in items] == ["1001", "1002"]
@@ -37,7 +39,7 @@ async def test_nowcoder_fetch_sorts_hits_before_newer_plain_post(monkeypatch, tm
 @pytest.mark.asyncio
 async def test_nowcoder_degrades_when_rsshub_fails(monkeypatch, tmp_path) -> None:
     config = tmp_path / "nowcoder.yaml"
-    config.write_text("routes: [/nowcoder/discuss/2]\n", encoding="utf-8")
+    config.write_text("routes: [/nowcoder/hots/2]\n", encoding="utf-8")
     collector = NowcoderCollector(config)
 
     async def request(_url: str, **_kwargs):
