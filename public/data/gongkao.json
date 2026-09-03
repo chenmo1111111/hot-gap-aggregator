@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-09-03T19:20:03.996706+00:00",
+  "generated_at": "2026-09-03T22:45:57.285881+00:00",
   "source": "gongkao",
   "status": {
     "source": "gongkao",
     "status": "ok",
     "item_count": 100,
-    "duration_ms": 1918,
+    "duration_ms": 2254,
     "error": null,
-    "run_at": "2026-09-03T19:20:03.996706+00:00"
+    "run_at": "2026-09-03T22:45:57.285881+00:00"
   },
   "items": [
     {
@@ -49,10 +49,6 @@
       "cluster_id": "7f5466188a7e",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-08-31T13:57:45.096756+00:00",
-          "rank": 12
-        },
         {
           "run_at": "2026-08-31T14:01:06.945235+00:00",
           "rank": 12
@@ -168,6 +164,10 @@
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
           "rank": 1
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 1
         }
       ]
     },
@@ -202,7 +202,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": 0,
       "cluster_id": "f1878dc4737d",
       "cluster_size": 1,
       "rank_history": [
@@ -241,6 +241,10 @@
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
           "rank": 2
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 2
         }
       ]
     },
@@ -275,7 +279,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": 0,
       "cluster_id": "f6d2db0d82a4",
       "cluster_size": 1,
       "rank_history": [
@@ -313,6 +317,10 @@
         },
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
+          "rank": 3
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
           "rank": 3
         }
       ]
@@ -356,13 +364,17 @@
         "city_focus_hit": []
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "53e73582b247",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
+          "rank": 4
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
           "rank": 4
         }
       ]
@@ -397,13 +409,17 @@
         "city_focus_hit": []
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "95d719e444e1",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
+          "rank": 5
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
           "rank": 5
         }
       ]
@@ -480,12 +496,59 @@
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
           "rank": 6
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 6
         }
       ]
     },
     {
       "source": "gongkao",
       "rank": 7,
+      "title": "KeepChippingForward燕东微2027校园招聘启动会——北京电控集成电路制造有限责任公司",
+      "title_zh": "KeepChippingForward燕东微2027校园招聘启动会——北京电控集成电路制造有限责任公司",
+      "url": "https://hera-webapp.fenbi.com/api/website/article/detail?deviceType=3&id=468836800286722&app=web&av=100&hav=100&kav=100&client_context_id=",
+      "hot_value": "正在报名",
+      "summary_zh": "招考人数：500 报名时间：2026.09.04-2026.10.04",
+      "thumbnail": null,
+      "published_at": "2026-09-03T21:23:05+00:00",
+      "extra": {
+        "id": 468836800286722,
+        "sub": "announcement",
+        "tags": [
+          "北京",
+          "北京市",
+          "四川",
+          "国企",
+          "2026",
+          "国央企正式",
+          "北京电控集成电路制造有限责任公司",
+          "大兴区"
+        ],
+        "province": "北京",
+        "exam_type": "国企",
+        "startSignUpTime": 1788451200000,
+        "endSignUpTime": 1791043200000,
+        "startWriteTime": null,
+        "target_university_hit": [],
+        "city_focus_hit": []
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "9e495de2665d",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 7
+        }
+      ]
+    },
+    {
+      "source": "gongkao",
+      "rank": 8,
       "title": "四川路桥2027届高校毕业生招聘",
       "title_zh": "四川路桥2027届高校毕业生招聘",
       "url": "https://hera-webapp.fenbi.com/api/website/article/detail?deviceType=3&id=468819713218560&app=web&av=100&hav=100&kav=100&client_context_id=",
@@ -515,7 +578,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": -1,
       "cluster_id": "92f16d9712fe",
       "cluster_size": 1,
       "rank_history": [
@@ -534,12 +597,16 @@
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
           "rank": 7
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 8
         }
       ]
     },
     {
       "source": "gongkao",
-      "rank": 8,
+      "rank": 9,
       "title": "厦门钨业集团-厦门金鹭2027届校园招聘",
       "title_zh": "厦门钨业集团-厦门金鹭2027届校园招聘",
       "url": "https://hera-webapp.fenbi.com/api/website/article/detail?deviceType=3&id=468823083865088&app=web&av=100&hav=100&kav=100&client_context_id=",
@@ -573,7 +640,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": -1,
       "cluster_id": "0ac68dc4a3e0",
       "cluster_size": 1,
       "rank_history": [
@@ -592,12 +659,16 @@
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
           "rank": 8
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 9
         }
       ]
     },
     {
       "source": "gongkao",
-      "rank": 9,
+      "rank": 10,
       "title": "成都市2026年养老服务管理专员公开招募的公告",
       "title_zh": "成都市2026年养老服务管理专员公开招募的公告",
       "url": "https://hera-webapp.fenbi.com/api/website/article/detail?deviceType=3&id=468797524037632&app=web&av=100&hav=100&kav=100&client_context_id=",
@@ -625,7 +696,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": -1,
       "cluster_id": "5aecbbe5686c",
       "cluster_size": 1,
       "rank_history": [
@@ -644,56 +715,9 @@
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
           "rank": 9
-        }
-      ]
-    },
-    {
-      "source": "gongkao",
-      "rank": 10,
-      "title": "2026年榆林市教育、卫生领域高层次人才引进公告",
-      "title_zh": "2026年榆林市教育、卫生领域高层次人才引进公告",
-      "url": "https://hera-webapp.fenbi.com/api/website/article/detail?deviceType=3&id=468802438454272&app=web&av=100&hav=100&kav=100&client_context_id=",
-      "hot_value": "正在报名",
-      "summary_zh": "招考人数：240 报名时间：2026.09.02 18:00-2026.10.20 18:00",
-      "thumbnail": null,
-      "published_at": "2026-09-02T09:27:33+00:00",
-      "extra": {
-        "id": 468802438454272,
-        "sub": "announcement",
-        "tags": [
-          "陕西",
-          "榆林市",
-          "事业单位",
-          "教师",
-          "医疗",
-          "2026",
-          "行政事业编",
-          "有编制"
-        ],
-        "province": "陕西",
-        "exam_type": "事业单位",
-        "startSignUpTime": 1788278400000,
-        "endSignUpTime": 1791972000000,
-        "startWriteTime": null,
-        "target_university_hit": [],
-        "city_focus_hit": []
-      },
-      "days_on_board": 1,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "6a39b0390b2a",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-03T14:10:41.812376+00:00",
-          "rank": 10
         },
         {
-          "run_at": "2026-09-03T14:38:19.864140+00:00",
-          "rank": 10
-        },
-        {
-          "run_at": "2026-09-03T19:20:03.996706+00:00",
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
           "rank": 10
         }
       ]
@@ -831,6 +855,10 @@
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
           "rank": 11
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 11
         }
       ]
     },
@@ -871,10 +899,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-08-31T13:57:45.096756+00:00",
-          "rank": 11
-        },
-        {
           "run_at": "2026-08-31T14:01:06.945235+00:00",
           "rank": 11
         },
@@ -988,6 +1012,10 @@
         },
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
+          "rank": 12
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
           "rank": 12
         }
       ]
@@ -1028,10 +1056,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-08-31T13:57:45.096756+00:00",
-          "rank": 13
-        },
-        {
           "run_at": "2026-08-31T14:01:06.945235+00:00",
           "rank": 13
         },
@@ -1145,6 +1169,10 @@
         },
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
+          "rank": 13
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
           "rank": 13
         }
       ]
@@ -1185,10 +1213,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-08-31T13:57:45.096756+00:00",
-          "rank": 14
-        },
-        {
           "run_at": "2026-08-31T14:01:06.945235+00:00",
           "rank": 14
         },
@@ -1302,6 +1326,10 @@
         },
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
+          "rank": 14
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
           "rank": 14
         }
       ]
@@ -1344,10 +1372,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-08-31T13:57:45.096756+00:00",
-          "rank": 15
-        },
-        {
           "run_at": "2026-08-31T14:01:06.945235+00:00",
           "rank": 15
         },
@@ -1461,6 +1485,10 @@
         },
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
+          "rank": 15
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
           "rank": 15
         }
       ]
@@ -1499,10 +1527,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-08-31T13:57:45.096756+00:00",
-          "rank": 6
-        },
-        {
           "run_at": "2026-08-31T14:01:06.945235+00:00",
           "rank": 6
         },
@@ -1616,6 +1640,10 @@
         },
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
+          "rank": 16
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
           "rank": 16
         }
       ]
@@ -1657,10 +1685,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-08-31T13:57:45.096756+00:00",
-          "rank": 17
-        },
-        {
           "run_at": "2026-08-31T14:01:06.945235+00:00",
           "rank": 17
         },
@@ -1774,6 +1798,10 @@
         },
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
+          "rank": 17
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
           "rank": 17
         }
       ]
@@ -1813,10 +1841,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-08-31T13:57:45.096756+00:00",
-          "rank": 16
-        },
-        {
           "run_at": "2026-08-31T14:01:06.945235+00:00",
           "rank": 16
         },
@@ -1930,6 +1954,10 @@
         },
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
+          "rank": 18
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
           "rank": 18
         }
       ]
@@ -1970,10 +1998,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-08-31T13:57:45.096756+00:00",
-          "rank": 25
-        },
-        {
           "run_at": "2026-08-31T14:01:06.945235+00:00",
           "rank": 25
         },
@@ -2087,6 +2111,10 @@
         },
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
+          "rank": 19
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
           "rank": 19
         }
       ]
@@ -2232,6 +2260,10 @@
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
           "rank": 20
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 20
         }
       ]
     },
@@ -2274,10 +2306,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-08-31T13:57:45.096756+00:00",
-          "rank": 20
-        },
-        {
           "run_at": "2026-08-31T14:01:06.945235+00:00",
           "rank": 20
         },
@@ -2391,6 +2419,10 @@
         },
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
+          "rank": 21
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
           "rank": 21
         }
       ]
@@ -2430,10 +2462,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-08-31T13:57:45.096756+00:00",
-          "rank": 19
-        },
-        {
           "run_at": "2026-08-31T14:01:06.945235+00:00",
           "rank": 19
         },
@@ -2547,6 +2575,10 @@
         },
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
+          "rank": 22
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
           "rank": 22
         }
       ]
@@ -2642,10 +2674,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-08-31T13:57:45.096756+00:00",
-          "rank": 21
-        },
-        {
           "run_at": "2026-08-31T14:01:06.945235+00:00",
           "rank": 21
         },
@@ -2759,6 +2787,10 @@
         },
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
+          "rank": 23
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
           "rank": 23
         }
       ]
@@ -2798,10 +2830,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-08-31T13:57:45.096756+00:00",
-          "rank": 22
-        },
-        {
           "run_at": "2026-08-31T14:01:06.945235+00:00",
           "rank": 22
         },
@@ -2915,6 +2943,10 @@
         },
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
+          "rank": 24
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
           "rank": 24
         }
       ]
@@ -2992,10 +3024,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-08-31T13:57:45.096756+00:00",
-          "rank": 24
-        },
-        {
           "run_at": "2026-08-31T14:01:06.945235+00:00",
           "rank": 24
         },
@@ -3109,6 +3137,10 @@
         },
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
+          "rank": 25
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
           "rank": 25
         }
       ]
@@ -3144,14 +3176,10 @@
       },
       "days_on_board": 4,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": 0,
       "cluster_id": "aae912f39f67",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-08-31T13:57:45.096756+00:00",
-          "rank": 31
-        },
         {
           "run_at": "2026-08-31T14:01:06.945235+00:00",
           "rank": 31
@@ -3266,6 +3294,10 @@
         },
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
+          "rank": 26
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
           "rank": 26
         }
       ]
@@ -3330,14 +3362,10 @@
       },
       "days_on_board": 4,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": 0,
       "cluster_id": "c9ee768dd685",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-08-31T13:57:45.096756+00:00",
-          "rank": 23
-        },
         {
           "run_at": "2026-08-31T14:01:06.945235+00:00",
           "rank": 23
@@ -3453,6 +3481,10 @@
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
           "rank": 27
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 27
         }
       ]
     },
@@ -3491,10 +3523,6 @@
       "cluster_id": "5195bfc48c38",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-08-31T13:57:45.096756+00:00",
-          "rank": 7
-        },
         {
           "run_at": "2026-08-31T14:01:06.945235+00:00",
           "rank": 7
@@ -3610,6 +3638,10 @@
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
           "rank": 28
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 28
         }
       ]
     },
@@ -3649,10 +3681,6 @@
       "cluster_id": "d9c5b635e2e5",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-08-31T13:57:45.096756+00:00",
-          "rank": 26
-        },
         {
           "run_at": "2026-08-31T14:01:06.945235+00:00",
           "rank": 26
@@ -3767,6 +3795,10 @@
         },
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
+          "rank": 29
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
           "rank": 29
         }
       ]
@@ -3808,10 +3840,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-08-31T13:57:45.096756+00:00",
-          "rank": 28
-        },
-        {
           "run_at": "2026-08-31T14:01:06.945235+00:00",
           "rank": 28
         },
@@ -3925,6 +3953,10 @@
         },
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
+          "rank": 30
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
           "rank": 30
         }
       ]
@@ -3967,10 +3999,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-08-31T13:57:45.096756+00:00",
-          "rank": 33
-        },
-        {
           "run_at": "2026-08-31T14:01:06.945235+00:00",
           "rank": 33
         },
@@ -4084,6 +4112,10 @@
         },
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
+          "rank": 31
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
           "rank": 31
         }
       ]
@@ -4122,10 +4154,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-08-31T13:57:45.096756+00:00",
-          "rank": 34
-        },
-        {
           "run_at": "2026-08-31T14:01:06.945235+00:00",
           "rank": 34
         },
@@ -4239,6 +4267,10 @@
         },
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
+          "rank": 32
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
           "rank": 32
         }
       ]
@@ -4323,10 +4355,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-08-31T13:57:45.096756+00:00",
-          "rank": 35
-        },
-        {
           "run_at": "2026-08-31T14:01:06.945235+00:00",
           "rank": 35
         },
@@ -4440,6 +4468,10 @@
         },
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
+          "rank": 33
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
           "rank": 33
         }
       ]
@@ -4591,6 +4623,10 @@
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
           "rank": 34
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 34
         }
       ]
     },
@@ -4639,10 +4675,6 @@
       "cluster_id": "c603b25f6fa3",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-08-31T13:57:45.096756+00:00",
-          "rank": 42
-        },
         {
           "run_at": "2026-08-31T14:01:06.945235+00:00",
           "rank": 42
@@ -4757,6 +4789,10 @@
         },
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
+          "rank": 35
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
           "rank": 35
         }
       ]
@@ -4833,10 +4869,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-08-31T13:57:45.096756+00:00",
-          "rank": 39
-        },
-        {
           "run_at": "2026-08-31T14:01:06.945235+00:00",
           "rank": 39
         },
@@ -4950,6 +4982,10 @@
         },
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
+          "rank": 36
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
           "rank": 36
         }
       ]
@@ -4993,10 +5029,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-08-31T13:57:45.096756+00:00",
-          "rank": 46
-        },
-        {
           "run_at": "2026-08-31T14:01:06.945235+00:00",
           "rank": 46
         },
@@ -5111,6 +5143,10 @@
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
           "rank": 37
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 37
         }
       ]
     },
@@ -5150,10 +5186,6 @@
       "cluster_id": "8f1d7d183845",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-08-31T13:57:45.096756+00:00",
-          "rank": 38
-        },
         {
           "run_at": "2026-08-31T14:01:06.945235+00:00",
           "rank": 38
@@ -5269,6 +5301,10 @@
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
           "rank": 38
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 38
         }
       ]
     },
@@ -5307,10 +5343,6 @@
       "cluster_id": "182022ce731d",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-08-31T13:57:45.096756+00:00",
-          "rank": 45
-        },
         {
           "run_at": "2026-08-31T14:01:06.945235+00:00",
           "rank": 45
@@ -5425,6 +5457,10 @@
         },
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
+          "rank": 39
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
           "rank": 39
         }
       ]
@@ -5465,10 +5501,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-08-31T13:57:45.096756+00:00",
-          "rank": 40
-        },
-        {
           "run_at": "2026-08-31T14:01:06.945235+00:00",
           "rank": 40
         },
@@ -5582,6 +5614,10 @@
         },
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
+          "rank": 40
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
           "rank": 40
         }
       ]
@@ -5710,6 +5746,10 @@
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
           "rank": 41
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 41
         }
       ]
     },
@@ -5815,6 +5855,10 @@
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
           "rank": 42
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 42
         }
       ]
     },
@@ -5849,7 +5893,7 @@
       },
       "days_on_board": 3,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": 0,
       "cluster_id": "256ede84bba2",
       "cluster_size": 1,
       "rank_history": [
@@ -5952,6 +5996,10 @@
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
           "rank": 43
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 43
         }
       ]
     },
@@ -5994,14 +6042,10 @@
       },
       "days_on_board": 4,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": 0,
       "cluster_id": "d6760f090626",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-08-31T13:57:45.096756+00:00",
-          "rank": 44
-        },
         {
           "run_at": "2026-08-31T14:01:06.945235+00:00",
           "rank": 44
@@ -6116,6 +6160,10 @@
         },
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
+          "rank": 44
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
           "rank": 44
         }
       ]
@@ -6265,6 +6313,10 @@
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
           "rank": 45
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 45
         }
       ]
     },
@@ -6403,6 +6455,10 @@
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
           "rank": 46
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 46
         }
       ]
     },
@@ -6440,7 +6496,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 2,
+      "rank_delta": 0,
       "cluster_id": "ba1a2fac59ab",
       "cluster_size": 1,
       "rank_history": [
@@ -6470,6 +6526,10 @@
         },
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
+          "rank": 47
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
           "rank": 47
         }
       ]
@@ -6510,10 +6570,6 @@
       "cluster_id": "520cd7b249af",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-08-31T13:57:45.096756+00:00",
-          "rank": 48
-        },
         {
           "run_at": "2026-08-31T14:01:06.945235+00:00",
           "rank": 48
@@ -6629,6 +6685,10 @@
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
           "rank": 48
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 48
         }
       ]
     },
@@ -6665,14 +6725,10 @@
       },
       "days_on_board": 4,
       "is_new": false,
-      "rank_delta": -2,
+      "rank_delta": 0,
       "cluster_id": "e4f260fefe39",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-08-31T13:57:45.096756+00:00",
-          "rank": 47
-        },
         {
           "run_at": "2026-08-31T14:01:06.945235+00:00",
           "rank": 47
@@ -6787,6 +6843,10 @@
         },
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
+          "rank": 49
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
           "rank": 49
         }
       ]
@@ -6952,12 +7012,121 @@
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
           "rank": 50
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 50
         }
       ]
     },
     {
       "source": "gongkao",
       "rank": 51,
+      "title": "芯碁微装招聘简章——合肥芯碁微电子装备股份有限公司",
+      "title_zh": "芯碁微装招聘简章——合肥芯碁微电子装备股份有限公司",
+      "url": "https://www.fenbi.com/page/kaoshidetail/895920",
+      "hot_value": null,
+      "summary_zh": "（待定 至 待定 报名，待定 笔试）",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "id": 895920,
+        "sub": "timeline",
+        "startSignUpTime": null,
+        "endSignUpTime": null,
+        "startWriteTime": null,
+        "province": "安徽",
+        "type": 20,
+        "examType": 20,
+        "exam_type": "校园招聘",
+        "target_university_hit": [],
+        "city_focus_hit": []
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "f2c0db4a5c88",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 51
+        }
+      ]
+    },
+    {
+      "source": "gongkao",
+      "rank": 52,
+      "title": "KeepChippingForward燕东微2027校园招聘启动会——北京电控集成电路制造有限责任公司",
+      "title_zh": "KeepChippingForward燕东微2027校园招聘启动会——北京电控集成电路制造有限责任公司",
+      "url": "https://www.fenbi.com/page/kaoshidetail/895917",
+      "hot_value": null,
+      "summary_zh": "（待定 至 待定 报名，待定 笔试）",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "id": 895917,
+        "sub": "timeline",
+        "startSignUpTime": null,
+        "endSignUpTime": null,
+        "startWriteTime": null,
+        "province": "四川",
+        "type": 9,
+        "examType": 9,
+        "exam_type": "国企招聘",
+        "target_university_hit": [],
+        "city_focus_hit": []
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "9e495de2665d",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 52
+        }
+      ]
+    },
+    {
+      "source": "gongkao",
+      "rank": 53,
+      "title": "深圳市星晓火教育素养教师（年薪30万起）-星火教育2027届校园招聘————深圳市星晓火教育科技有限公司",
+      "title_zh": "深圳市星晓火教育素养教师（年薪30万起）-星火教育2027届校园招聘————深圳市星晓火教育科技有限公司",
+      "url": "https://www.fenbi.com/page/kaoshidetail/895911",
+      "hot_value": null,
+      "summary_zh": "（待定 至 待定 报名，待定 笔试）",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "id": 895911,
+        "sub": "timeline",
+        "startSignUpTime": null,
+        "endSignUpTime": null,
+        "startWriteTime": null,
+        "province": "广东",
+        "type": 10,
+        "examType": 10,
+        "exam_type": "教师招聘",
+        "target_university_hit": [],
+        "city_focus_hit": []
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "ec4ba9f2e0d2",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 53
+        }
+      ]
+    },
+    {
+      "source": "gongkao",
+      "rank": 54,
       "title": "平安科技2027届全球校园招聘————平安科技（深圳）有限公司",
       "title_zh": "平安科技2027届全球校园招聘————平安科技（深圳）有限公司",
       "url": "https://www.fenbi.com/page/kaoshidetail/895887",
@@ -6979,20 +7148,24 @@
         "city_focus_hit": []
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": -3,
       "cluster_id": "f4c062ef5362",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
           "rank": 51
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 54
         }
       ]
     },
     {
       "source": "gongkao",
-      "rank": 52,
+      "rank": 55,
       "title": "上杭县通贤中心小学招聘2026年秋季语文、英语代课教师公告",
       "title_zh": "上杭县通贤中心小学招聘2026年秋季语文、英语代课教师公告",
       "url": "https://www.fenbi.com/page/kaoshidetail/895835",
@@ -7015,7 +7188,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": -3,
       "cluster_id": "4ccd46ffc3db",
       "cluster_size": 1,
       "rank_history": [
@@ -7030,12 +7203,16 @@
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
           "rank": 52
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 55
         }
       ]
     },
     {
       "source": "gongkao",
-      "rank": 53,
+      "rank": 56,
       "title": "【美丽中国2027级支教项目老师招募——来支教做彼此成长的关键角色————北京立德未来助学公益基金会】",
       "title_zh": "【美丽中国2027级支教项目老师招募——来支教做彼此成长的关键角色————北京立德未来助学公益基金会】",
       "url": "https://www.fenbi.com/page/kaoshidetail/895801",
@@ -7058,7 +7235,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": -3,
       "cluster_id": "c48916a84209",
       "cluster_size": 1,
       "rank_history": [
@@ -7077,12 +7254,16 @@
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
           "rank": 53
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 56
         }
       ]
     },
     {
       "source": "gongkao",
-      "rank": 54,
+      "rank": 57,
       "title": "中国水利水电第八工程局有限公司2027届秋季招聘启事",
       "title_zh": "中国水利水电第八工程局有限公司2027届秋季招聘启事",
       "url": "https://www.fenbi.com/page/kaoshidetail/895711",
@@ -7105,7 +7286,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": -3,
       "cluster_id": "2496462d67e0",
       "cluster_size": 1,
       "rank_history": [
@@ -7124,12 +7305,16 @@
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
           "rank": 54
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 57
         }
       ]
     },
     {
       "source": "gongkao",
-      "rank": 55,
+      "rank": 58,
       "title": "广东保伦电子股份有限公司itc2027届招聘信息",
       "title_zh": "广东保伦电子股份有限公司itc2027届招聘信息",
       "url": "https://www.fenbi.com/page/kaoshidetail/895552",
@@ -7152,7 +7337,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": -3,
       "cluster_id": "b965b4667888",
       "cluster_size": 1,
       "rank_history": [
@@ -7171,12 +7356,16 @@
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
           "rank": 55
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 58
         }
       ]
     },
     {
       "source": "gongkao",
-      "rank": 56,
+      "rank": 59,
       "title": "四川易景智能终端有限公司招聘简章",
       "title_zh": "四川易景智能终端有限公司招聘简章",
       "url": "https://www.fenbi.com/page/kaoshidetail/895493",
@@ -7199,7 +7388,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": -3,
       "cluster_id": "d1d14a738c2e",
       "cluster_size": 1,
       "rank_history": [
@@ -7218,12 +7407,16 @@
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
           "rank": 56
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 59
         }
       ]
     },
     {
       "source": "gongkao",
-      "rank": 57,
+      "rank": 60,
       "title": "厦门市大同中学顶岗教师、非编校医招聘简章",
       "title_zh": "厦门市大同中学顶岗教师、非编校医招聘简章",
       "url": "https://www.fenbi.com/page/kaoshidetail/895241",
@@ -7246,7 +7439,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": -3,
       "cluster_id": "0c1e7ace9709",
       "cluster_size": 1,
       "rank_history": [
@@ -7269,12 +7462,16 @@
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
           "rank": 57
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 60
         }
       ]
     },
     {
       "source": "gongkao",
-      "rank": 58,
+      "rank": 61,
       "title": "东山岛职业中专学校2026年秋季招聘教学教师方案",
       "title_zh": "东山岛职业中专学校2026年秋季招聘教学教师方案",
       "url": "https://www.fenbi.com/page/kaoshidetail/895238",
@@ -7297,7 +7494,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": -3,
       "cluster_id": "73524225074f",
       "cluster_size": 1,
       "rank_history": [
@@ -7320,12 +7517,16 @@
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
           "rank": 58
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 61
         }
       ]
     },
     {
       "source": "gongkao",
-      "rank": 59,
+      "rank": 62,
       "title": "柏楚电子2027届秋季校园招聘",
       "title_zh": "柏楚电子2027届秋季校园招聘",
       "url": "https://www.fenbi.com/page/kaoshidetail/895184",
@@ -7348,7 +7549,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": -3,
       "cluster_id": "d1fea05fc8c5",
       "cluster_size": 1,
       "rank_history": [
@@ -7371,12 +7572,16 @@
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
           "rank": 59
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 62
         }
       ]
     },
     {
       "source": "gongkao",
-      "rank": 60,
+      "rank": 63,
       "title": "厦门钨业集团-厦门金鹭2027届校园招聘",
       "title_zh": "厦门钨业集团-厦门金鹭2027届校园招聘",
       "url": "https://www.fenbi.com/page/kaoshidetail/895168",
@@ -7399,7 +7604,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": -3,
       "cluster_id": "0ac68dc4a3e0",
       "cluster_size": 1,
       "rank_history": [
@@ -7422,12 +7627,16 @@
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
           "rank": 60
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 63
         }
       ]
     },
     {
       "source": "gongkao",
-      "rank": 61,
+      "rank": 64,
       "title": "康方生物2026年秋季校园招聘",
       "title_zh": "康方生物2026年秋季校园招聘",
       "url": "https://www.fenbi.com/page/kaoshidetail/895157",
@@ -7450,7 +7659,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": -3,
       "cluster_id": "88fa3e9e02d0",
       "cluster_size": 1,
       "rank_history": [
@@ -7473,12 +7682,16 @@
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
           "rank": 61
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 64
         }
       ]
     },
     {
       "source": "gongkao",
-      "rank": 62,
+      "rank": 65,
       "title": "华康洁净2027“松苗计划”校园招聘正式开启",
       "title_zh": "华康洁净2027“松苗计划”校园招聘正式开启",
       "url": "https://www.fenbi.com/page/kaoshidetail/895100",
@@ -7501,7 +7714,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": -3,
       "cluster_id": "9d52e252b399",
       "cluster_size": 1,
       "rank_history": [
@@ -7528,12 +7741,16 @@
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
           "rank": 62
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 65
         }
       ]
     },
     {
       "source": "gongkao",
-      "rank": 63,
+      "rank": 66,
       "title": "2026年水口中学公开招聘编外教师公告",
       "title_zh": "2026年水口中学公开招聘编外教师公告",
       "url": "https://www.fenbi.com/page/kaoshidetail/894988",
@@ -7556,7 +7773,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": -3,
       "cluster_id": "df3830767b74",
       "cluster_size": 1,
       "rank_history": [
@@ -7587,12 +7804,16 @@
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
           "rank": 63
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 66
         }
       ]
     },
     {
       "source": "gongkao",
-      "rank": 64,
+      "rank": 67,
       "title": "贵州磷化（集团）有限责任公司2026年社会招聘公告",
       "title_zh": "贵州磷化（集团）有限责任公司2026年社会招聘公告",
       "url": "https://www.fenbi.com/page/kaoshidetail/894893",
@@ -7615,7 +7836,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": -3,
       "cluster_id": "6b6900999c86",
       "cluster_size": 1,
       "rank_history": [
@@ -7646,12 +7867,16 @@
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
           "rank": 64
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 67
         }
       ]
     },
     {
       "source": "gongkao",
-      "rank": 65,
+      "rank": 68,
       "title": "中联重科（安徽）智能物流装备有限公司招聘简章",
       "title_zh": "中联重科（安徽）智能物流装备有限公司招聘简章",
       "url": "https://www.fenbi.com/page/kaoshidetail/894850",
@@ -7674,7 +7899,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": -3,
       "cluster_id": "6a2c7c72b262",
       "cluster_size": 1,
       "rank_history": [
@@ -7705,12 +7930,16 @@
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
           "rank": 65
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 68
         }
       ]
     },
     {
       "source": "gongkao",
-      "rank": 66,
+      "rank": 69,
       "title": "海口市卫生健康委员会2026年公开招聘政府办社区卫生服务中心事业编制人员公告（第1号）",
       "title_zh": "海口市卫生健康委员会2026年公开招聘政府办社区卫生服务中心事业编制人员公告（第1号）",
       "url": "https://www.fenbi.com/page/kaoshidetail/894800",
@@ -7733,7 +7962,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": -3,
       "cluster_id": "cb4b2e7aef40",
       "cluster_size": 1,
       "rank_history": [
@@ -7764,12 +7993,16 @@
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
           "rank": 66
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 69
         }
       ]
     },
     {
       "source": "gongkao",
-      "rank": 67,
+      "rank": 70,
       "title": "北海市第三中学公开招聘顶岗教师控制数人员公告",
       "title_zh": "北海市第三中学公开招聘顶岗教师控制数人员公告",
       "url": "https://www.fenbi.com/page/kaoshidetail/894790",
@@ -7792,7 +8025,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": -3,
       "cluster_id": "6248c96b615c",
       "cluster_size": 1,
       "rank_history": [
@@ -7823,12 +8056,16 @@
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
           "rank": 67
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 70
         }
       ]
     },
     {
       "source": "gongkao",
-      "rank": 68,
+      "rank": 71,
       "title": "2026年北海市第十一中学公开招聘顶岗教师控制数人员公告",
       "title_zh": "2026年北海市第十一中学公开招聘顶岗教师控制数人员公告",
       "url": "https://www.fenbi.com/page/kaoshidetail/894785",
@@ -7851,7 +8088,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": -3,
       "cluster_id": "b79593ca7465",
       "cluster_size": 1,
       "rank_history": [
@@ -7882,12 +8119,16 @@
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
           "rank": 68
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 71
         }
       ]
     },
     {
       "source": "gongkao",
-      "rank": 69,
+      "rank": 72,
       "title": "2026年北海市北海中学顶岗教师控制数人员招聘公告",
       "title_zh": "2026年北海市北海中学顶岗教师控制数人员招聘公告",
       "url": "https://www.fenbi.com/page/kaoshidetail/894783",
@@ -7910,7 +8151,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": -3,
       "cluster_id": "668b3ecc8da5",
       "cluster_size": 1,
       "rank_history": [
@@ -7941,12 +8182,16 @@
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
           "rank": 69
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 72
         }
       ]
     },
     {
       "source": "gongkao",
-      "rank": 70,
+      "rank": 73,
       "title": "2026年北京市第八中学北海实验学校公开招聘顶岗教师控制数人员公告",
       "title_zh": "2026年北京市第八中学北海实验学校公开招聘顶岗教师控制数人员公告",
       "url": "https://www.fenbi.com/page/kaoshidetail/894782",
@@ -7969,7 +8214,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": -3,
       "cluster_id": "3e89271fda1c",
       "cluster_size": 1,
       "rank_history": [
@@ -8000,12 +8245,16 @@
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
           "rank": 70
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 73
         }
       ]
     },
     {
       "source": "gongkao",
-      "rank": 71,
+      "rank": 74,
       "title": "四川路桥2027届高校毕业生招聘",
       "title_zh": "四川路桥2027届高校毕业生招聘",
       "url": "https://www.fenbi.com/page/kaoshidetail/894781",
@@ -8028,7 +8277,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": -3,
       "cluster_id": "92f16d9712fe",
       "cluster_size": 1,
       "rank_history": [
@@ -8047,12 +8296,16 @@
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
           "rank": 71
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 74
         }
       ]
     },
     {
       "source": "gongkao",
-      "rank": 72,
+      "rank": 75,
       "title": "赣州市就业之家最新招聘信息【117期】",
       "title_zh": "赣州市就业之家最新招聘信息【117期】",
       "url": "https://www.fenbi.com/page/kaoshidetail/894530",
@@ -8075,7 +8328,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": -3,
       "cluster_id": "14ed850fb17a",
       "cluster_size": 1,
       "rank_history": [
@@ -8106,12 +8359,16 @@
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
           "rank": 72
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 75
         }
       ]
     },
     {
       "source": "gongkao",
-      "rank": 73,
+      "rank": 76,
       "title": "2026芯碁微装招聘简章",
       "title_zh": "2026芯碁微装招聘简章",
       "url": "https://www.fenbi.com/page/kaoshidetail/894450",
@@ -8134,7 +8391,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": -3,
       "cluster_id": "b9fb7e0eedaf",
       "cluster_size": 1,
       "rank_history": [
@@ -8165,12 +8422,16 @@
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
           "rank": 73
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 76
         }
       ]
     },
     {
       "source": "gongkao",
-      "rank": 74,
+      "rank": 77,
       "title": "【校园招聘】金徽酒股份有限公司",
       "title_zh": "【校园招聘】金徽酒股份有限公司",
       "url": "https://www.fenbi.com/page/kaoshidetail/894400",
@@ -8193,7 +8454,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": -3,
       "cluster_id": "4bf3b50fb4d0",
       "cluster_size": 1,
       "rank_history": [
@@ -8212,12 +8473,16 @@
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
           "rank": 74
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 77
         }
       ]
     },
     {
       "source": "gongkao",
-      "rank": 75,
+      "rank": 78,
       "title": "2026“新兴向蓉”成都高新区天府人才行动暨天府软件园2026年秋季人才招聘成都天府软件园有限公司",
       "title_zh": "2026“新兴向蓉”成都高新区天府人才行动暨天府软件园2026年秋季人才招聘成都天府软件园有限公司",
       "url": "https://www.fenbi.com/page/kaoshidetail/894356",
@@ -8240,7 +8505,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": -3,
       "cluster_id": "abef417ec45a",
       "cluster_size": 1,
       "rank_history": [
@@ -8271,12 +8536,16 @@
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
           "rank": 75
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 78
         }
       ]
     },
     {
       "source": "gongkao",
-      "rank": 76,
+      "rank": 79,
       "title": "湖北商贸学院中西面点工艺实践课程教师招聘公告",
       "title_zh": "湖北商贸学院中西面点工艺实践课程教师招聘公告",
       "url": "https://www.fenbi.com/page/kaoshidetail/894350",
@@ -8299,7 +8568,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": -3,
       "cluster_id": "9435863bec40",
       "cluster_size": 1,
       "rank_history": [
@@ -8330,12 +8599,16 @@
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
           "rank": 76
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 79
         }
       ]
     },
     {
       "source": "gongkao",
-      "rank": 77,
+      "rank": 80,
       "title": "西昌市教育和体育局西昌市人力资源和社会保障局关于2026年公开招募增量政策性岗位工作人员的公告",
       "title_zh": "西昌市教育和体育局西昌市人力资源和社会保障局关于2026年公开招募增量政策性岗位工作人员的公告",
       "url": "https://www.fenbi.com/page/kaoshidetail/894267",
@@ -8358,7 +8631,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": -3,
       "cluster_id": "9a804c92aca0",
       "cluster_size": 1,
       "rank_history": [
@@ -8389,12 +8662,16 @@
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
           "rank": 77
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 80
         }
       ]
     },
     {
       "source": "gongkao",
-      "rank": 78,
+      "rank": 81,
       "title": "化隆县职业技术学校2026年公开招聘专任教师公告",
       "title_zh": "化隆县职业技术学校2026年公开招聘专任教师公告",
       "url": "https://www.fenbi.com/page/kaoshidetail/894121",
@@ -8417,7 +8694,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": -3,
       "cluster_id": "e474f2bdde2e",
       "cluster_size": 1,
       "rank_history": [
@@ -8464,12 +8741,16 @@
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
           "rank": 78
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 81
         }
       ]
     },
     {
       "source": "gongkao",
-      "rank": 79,
+      "rank": 82,
       "title": "2026年榆林市教育、卫生领域高层次人才引进公告",
       "title_zh": "2026年榆林市教育、卫生领域高层次人才引进公告",
       "url": "https://www.fenbi.com/page/kaoshidetail/893982",
@@ -8492,7 +8773,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": -3,
       "cluster_id": "6a39b0390b2a",
       "cluster_size": 1,
       "rank_history": [
@@ -8543,12 +8824,16 @@
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
           "rank": 79
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 82
         }
       ]
     },
     {
       "source": "gongkao",
-      "rank": 80,
+      "rank": 83,
       "title": "青云谱区特殊教育学校招聘派遣制教师和生活阿姨",
       "title_zh": "青云谱区特殊教育学校招聘派遣制教师和生活阿姨",
       "url": "https://www.fenbi.com/page/kaoshidetail/893888",
@@ -8571,7 +8856,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": -3,
       "cluster_id": "bdee9b0626a5",
       "cluster_size": 1,
       "rank_history": [
@@ -8642,12 +8927,16 @@
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
           "rank": 80
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 83
         }
       ]
     },
     {
       "source": "gongkao",
-      "rank": 81,
+      "rank": 84,
       "title": "成都市2026年养老服务管理专员公开招募的公告",
       "title_zh": "成都市2026年养老服务管理专员公开招募的公告",
       "url": "https://www.fenbi.com/page/kaoshidetail/893590",
@@ -8670,7 +8959,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": -3,
       "cluster_id": "5aecbbe5686c",
       "cluster_size": 1,
       "rank_history": [
@@ -8757,12 +9046,16 @@
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
           "rank": 81
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 84
         }
       ]
     },
     {
       "source": "gongkao",
-      "rank": 82,
+      "rank": 85,
       "title": "颍上县江山实验高级中学招聘简章",
       "title_zh": "颍上县江山实验高级中学招聘简章",
       "url": "https://www.fenbi.com/page/kaoshidetail/893586",
@@ -8785,7 +9078,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": -3,
       "cluster_id": "7424f26aa3ec",
       "cluster_size": 1,
       "rank_history": [
@@ -8872,12 +9165,16 @@
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
           "rank": 82
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 85
         }
       ]
     },
     {
       "source": "gongkao",
-      "rank": 83,
+      "rank": 86,
       "title": "中国科学院长春光学精密机械与物理研究所人才派遣人员招聘启事",
       "title_zh": "中国科学院长春光学精密机械与物理研究所人才派遣人员招聘启事",
       "url": "https://www.fenbi.com/page/kaoshidetail/893550",
@@ -8900,7 +9197,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": -3,
       "cluster_id": "fde52b4bef0c",
       "cluster_size": 1,
       "rank_history": [
@@ -8987,12 +9284,16 @@
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
           "rank": 83
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 86
         }
       ]
     },
     {
       "source": "gongkao",
-      "rank": 84,
+      "rank": 87,
       "title": "福耀集团2027届秋季校园招聘简章",
       "title_zh": "福耀集团2027届秋季校园招聘简章",
       "url": "https://www.fenbi.com/page/kaoshidetail/893426",
@@ -9015,7 +9316,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": -3,
       "cluster_id": "9efe2cdf77a5",
       "cluster_size": 1,
       "rank_history": [
@@ -9106,12 +9407,16 @@
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
           "rank": 84
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 87
         }
       ]
     },
     {
       "source": "gongkao",
-      "rank": 85,
+      "rank": 88,
       "title": "芗城区2026年公开补充选聘中学国企教师公告",
       "title_zh": "芗城区2026年公开补充选聘中学国企教师公告",
       "url": "https://www.fenbi.com/page/kaoshidetail/893392",
@@ -9134,7 +9439,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": -3,
       "cluster_id": "eb04dcbbe8af",
       "cluster_size": 1,
       "rank_history": [
@@ -9225,12 +9530,16 @@
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
           "rank": 85
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 88
         }
       ]
     },
     {
       "source": "gongkao",
-      "rank": 86,
+      "rank": 89,
       "title": "2026年北京市相关企事业单位招聘科研助理岗位信息（第五批）",
       "title_zh": "2026年北京市相关企事业单位招聘科研助理岗位信息（第五批）",
       "url": "https://www.fenbi.com/page/kaoshidetail/893290",
@@ -9253,7 +9562,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": -3,
       "cluster_id": "bb7305fc4461",
       "cluster_size": 1,
       "rank_history": [
@@ -9344,12 +9653,16 @@
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
           "rank": 86
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 89
         }
       ]
     },
     {
       "source": "gongkao",
-      "rank": 87,
+      "rank": 90,
       "title": "浪潮集团有限公司2027年校园招聘",
       "title_zh": "浪潮集团有限公司2027年校园招聘",
       "url": "https://www.fenbi.com/page/kaoshidetail/893269",
@@ -9372,7 +9685,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": -3,
       "cluster_id": "46f1a85d47e3",
       "cluster_size": 1,
       "rank_history": [
@@ -9463,12 +9776,16 @@
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
           "rank": 87
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 90
         }
       ]
     },
     {
       "source": "gongkao",
-      "rank": 88,
+      "rank": 91,
       "title": "淄博工贸学校公开招聘专业教师公告",
       "title_zh": "淄博工贸学校公开招聘专业教师公告",
       "url": "https://www.fenbi.com/page/kaoshidetail/893153",
@@ -9491,7 +9808,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": -3,
       "cluster_id": "49e7afade439",
       "cluster_size": 1,
       "rank_history": [
@@ -9582,12 +9899,16 @@
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
           "rank": 88
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 91
         }
       ]
     },
     {
       "source": "gongkao",
-      "rank": 89,
+      "rank": 92,
       "title": "中国华电集团有限公司浙江分公司2027年校园招聘",
       "title_zh": "中国华电集团有限公司浙江分公司2027年校园招聘",
       "url": "https://www.fenbi.com/page/kaoshidetail/893135",
@@ -9610,7 +9931,7 @@
       },
       "days_on_board": 3,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": -3,
       "cluster_id": "c5e2120d0161",
       "cluster_size": 1,
       "rank_history": [
@@ -9713,12 +10034,16 @@
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
           "rank": 89
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 92
         }
       ]
     },
     {
       "source": "gongkao",
-      "rank": 90,
+      "rank": 93,
       "title": "中国一汽2027全球校园招聘",
       "title_zh": "中国一汽2027全球校园招聘",
       "url": "https://www.fenbi.com/page/kaoshidetail/893132",
@@ -9741,7 +10066,7 @@
       },
       "days_on_board": 3,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": -3,
       "cluster_id": "2c30e759ad21",
       "cluster_size": 1,
       "rank_history": [
@@ -9844,12 +10169,16 @@
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
           "rank": 90
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 93
         }
       ]
     },
     {
       "source": "gongkao",
-      "rank": 91,
+      "rank": 94,
       "title": "临沧市2026年度下半年事业单位公开招聘工作人员公告",
       "title_zh": "临沧市2026年度下半年事业单位公开招聘工作人员公告",
       "url": "https://www.fenbi.com/page/kaoshidetail/893100",
@@ -9872,7 +10201,7 @@
       },
       "days_on_board": 3,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": -3,
       "cluster_id": "2e47f50cdc72",
       "cluster_size": 1,
       "rank_history": [
@@ -9975,12 +10304,16 @@
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
           "rank": 91
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 94
         }
       ]
     },
     {
       "source": "gongkao",
-      "rank": 92,
+      "rank": 95,
       "title": "漳州一中古雷港分校公开招聘3人公告",
       "title_zh": "漳州一中古雷港分校公开招聘3人公告",
       "url": "https://www.fenbi.com/page/kaoshidetail/893084",
@@ -10003,7 +10336,7 @@
       },
       "days_on_board": 3,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": -3,
       "cluster_id": "c24e7b699875",
       "cluster_size": 1,
       "rank_history": [
@@ -10106,12 +10439,16 @@
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
           "rank": 92
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 95
         }
       ]
     },
     {
       "source": "gongkao",
-      "rank": 93,
+      "rank": 96,
       "title": "重庆市大足区香国小学2026年秋临聘教师招聘启事",
       "title_zh": "重庆市大足区香国小学2026年秋临聘教师招聘启事",
       "url": "https://www.fenbi.com/page/kaoshidetail/893080",
@@ -10134,7 +10471,7 @@
       },
       "days_on_board": 3,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": -3,
       "cluster_id": "3db1d390bc4f",
       "cluster_size": 1,
       "rank_history": [
@@ -10237,12 +10574,16 @@
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
           "rank": 93
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 96
         }
       ]
     },
     {
       "source": "gongkao",
-      "rank": 94,
+      "rank": 97,
       "title": "漳浦县2026年公开招聘国企编制中学教师补充招聘方案",
       "title_zh": "漳浦县2026年公开招聘国企编制中学教师补充招聘方案",
       "url": "https://www.fenbi.com/page/kaoshidetail/893077",
@@ -10265,7 +10606,7 @@
       },
       "days_on_board": 3,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": -3,
       "cluster_id": "6fa1cc2c70e6",
       "cluster_size": 1,
       "rank_history": [
@@ -10368,12 +10709,16 @@
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
           "rank": 94
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 97
         }
       ]
     },
     {
       "source": "gongkao",
-      "rank": 95,
+      "rank": 98,
       "title": "甘肃省白银市2026年事业单位公开招聘工作人员公告",
       "title_zh": "甘肃省白银市2026年事业单位公开招聘工作人员公告",
       "url": "https://www.fenbi.com/page/kaoshidetail/893055",
@@ -10396,7 +10741,7 @@
       },
       "days_on_board": 3,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": -3,
       "cluster_id": "6c490b28091c",
       "cluster_size": 1,
       "rank_history": [
@@ -10503,12 +10848,16 @@
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
           "rank": 95
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 98
         }
       ]
     },
     {
       "source": "gongkao",
-      "rank": 96,
+      "rank": 99,
       "title": "张掖市2026年事业单位公开招聘工作人员公告",
       "title_zh": "张掖市2026年事业单位公开招聘工作人员公告",
       "url": "https://www.fenbi.com/page/kaoshidetail/892999",
@@ -10531,7 +10880,7 @@
       },
       "days_on_board": 3,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": -3,
       "cluster_id": "2f8d0eb2c016",
       "cluster_size": 1,
       "rank_history": [
@@ -10642,12 +10991,16 @@
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
           "rank": 96
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 99
         }
       ]
     },
     {
       "source": "gongkao",
-      "rank": 97,
+      "rank": 100,
       "title": "中国机械科学研究总院集团2027届校园招聘",
       "title_zh": "中国机械科学研究总院集团2027届校园招聘",
       "url": "https://www.fenbi.com/page/kaoshidetail/892954",
@@ -10670,7 +11023,7 @@
       },
       "days_on_board": 3,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": -3,
       "cluster_id": "9d81f0037fab",
       "cluster_size": 1,
       "rank_history": [
@@ -10781,406 +11134,9 @@
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
           "rank": 97
-        }
-      ]
-    },
-    {
-      "source": "gongkao",
-      "rank": 98,
-      "title": "合肥市人力资源服务有限公司2026年常态化招聘派遣制任务型教师公告",
-      "title_zh": "合肥市人力资源服务有限公司2026年常态化招聘派遣制任务型教师公告",
-      "url": "https://www.fenbi.com/page/kaoshidetail/892915",
-      "hot_value": null,
-      "summary_zh": "（待定 至 待定 报名，待定 笔试）",
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "id": 892915,
-        "sub": "timeline",
-        "startSignUpTime": null,
-        "endSignUpTime": null,
-        "startWriteTime": null,
-        "province": "安徽",
-        "type": 10,
-        "examType": 10,
-        "exam_type": "教师招聘",
-        "target_university_hit": [],
-        "city_focus_hit": []
-      },
-      "days_on_board": 3,
-      "is_new": false,
-      "rank_delta": -1,
-      "cluster_id": "8e3e5a053dde",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-01T11:12:22.322724+00:00",
-          "rank": 55
-        },
-        {
-          "run_at": "2026-09-01T12:00:31.751666+00:00",
-          "rank": 56
-        },
-        {
-          "run_at": "2026-09-01T16:09:15.129507+00:00",
-          "rank": 60
-        },
-        {
-          "run_at": "2026-09-01T20:38:56.199666+00:00",
-          "rank": 60
-        },
-        {
-          "run_at": "2026-09-01T23:49:36.405838+00:00",
-          "rank": 60
-        },
-        {
-          "run_at": "2026-09-02T03:09:57.368855+00:00",
-          "rank": 74
-        },
-        {
-          "run_at": "2026-09-02T05:15:59.721124+00:00",
-          "rank": 79
-        },
-        {
-          "run_at": "2026-09-02T05:27:45.730784+00:00",
-          "rank": 79
-        },
-        {
-          "run_at": "2026-09-02T06:26:10.623169+00:00",
-          "rank": 76
-        },
-        {
-          "run_at": "2026-09-02T06:38:28.252828+00:00",
-          "rank": 77
-        },
-        {
-          "run_at": "2026-09-02T07:45:05.669605+00:00",
-          "rank": 75
-        },
-        {
-          "run_at": "2026-09-02T08:12:20.459281+00:00",
-          "rank": 70
-        },
-        {
-          "run_at": "2026-09-02T08:21:35.486354+00:00",
-          "rank": 70
-        },
-        {
-          "run_at": "2026-09-02T08:27:57.698257+00:00",
-          "rank": 70
-        },
-        {
-          "run_at": "2026-09-02T08:40:10.105008+00:00",
-          "rank": 70
-        },
-        {
-          "run_at": "2026-09-02T09:09:31.946901+00:00",
-          "rank": 71
-        },
-        {
-          "run_at": "2026-09-02T12:31:05.172723+00:00",
-          "rank": 73
-        },
-        {
-          "run_at": "2026-09-02T14:08:11.969730+00:00",
-          "rank": 73
-        },
-        {
-          "run_at": "2026-09-02T19:15:05.327909+00:00",
-          "rank": 73
-        },
-        {
-          "run_at": "2026-09-02T22:24:21.398262+00:00",
-          "rank": 73
-        },
-        {
-          "run_at": "2026-09-03T05:22:12.489468+00:00",
-          "rank": 99
-        },
-        {
-          "run_at": "2026-09-03T06:33:29.828752+00:00",
-          "rank": 98
-        },
-        {
-          "run_at": "2026-09-03T13:21:21.222481+00:00",
-          "rank": 97
-        },
-        {
-          "run_at": "2026-09-03T14:10:41.812376+00:00",
-          "rank": 97
-        },
-        {
-          "run_at": "2026-09-03T14:38:19.864140+00:00",
-          "rank": 97
-        },
-        {
-          "run_at": "2026-09-03T19:20:03.996706+00:00",
-          "rank": 98
-        }
-      ]
-    },
-    {
-      "source": "gongkao",
-      "rank": 99,
-      "title": "北京市海淀区永泰小学招聘公告",
-      "title_zh": "北京市海淀区永泰小学招聘公告",
-      "url": "https://www.fenbi.com/page/kaoshidetail/892905",
-      "hot_value": null,
-      "summary_zh": "（待定 至 待定 报名，待定 笔试）",
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "id": 892905,
-        "sub": "timeline",
-        "startSignUpTime": null,
-        "endSignUpTime": null,
-        "startWriteTime": null,
-        "province": "北京",
-        "type": 10,
-        "examType": 10,
-        "exam_type": "教师招聘",
-        "target_university_hit": [],
-        "city_focus_hit": []
-      },
-      "days_on_board": 3,
-      "is_new": false,
-      "rank_delta": -1,
-      "cluster_id": "af77914077ee",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-01T11:12:22.322724+00:00",
-          "rank": 56
-        },
-        {
-          "run_at": "2026-09-01T12:00:31.751666+00:00",
-          "rank": 57
-        },
-        {
-          "run_at": "2026-09-01T16:09:15.129507+00:00",
-          "rank": 61
-        },
-        {
-          "run_at": "2026-09-01T20:38:56.199666+00:00",
-          "rank": 61
-        },
-        {
-          "run_at": "2026-09-01T23:49:36.405838+00:00",
-          "rank": 61
-        },
-        {
-          "run_at": "2026-09-02T03:09:57.368855+00:00",
-          "rank": 75
-        },
-        {
-          "run_at": "2026-09-02T05:15:59.721124+00:00",
-          "rank": 80
-        },
-        {
-          "run_at": "2026-09-02T05:27:45.730784+00:00",
-          "rank": 80
-        },
-        {
-          "run_at": "2026-09-02T06:26:10.623169+00:00",
-          "rank": 77
-        },
-        {
-          "run_at": "2026-09-02T06:38:28.252828+00:00",
-          "rank": 78
-        },
-        {
-          "run_at": "2026-09-02T07:45:05.669605+00:00",
-          "rank": 76
-        },
-        {
-          "run_at": "2026-09-02T08:12:20.459281+00:00",
-          "rank": 71
-        },
-        {
-          "run_at": "2026-09-02T08:21:35.486354+00:00",
-          "rank": 71
-        },
-        {
-          "run_at": "2026-09-02T08:27:57.698257+00:00",
-          "rank": 71
-        },
-        {
-          "run_at": "2026-09-02T08:40:10.105008+00:00",
-          "rank": 71
-        },
-        {
-          "run_at": "2026-09-02T09:09:31.946901+00:00",
-          "rank": 72
-        },
-        {
-          "run_at": "2026-09-02T12:31:05.172723+00:00",
-          "rank": 74
-        },
-        {
-          "run_at": "2026-09-02T14:08:11.969730+00:00",
-          "rank": 74
-        },
-        {
-          "run_at": "2026-09-02T19:15:05.327909+00:00",
-          "rank": 74
-        },
-        {
-          "run_at": "2026-09-02T22:24:21.398262+00:00",
-          "rank": 74
-        },
-        {
-          "run_at": "2026-09-03T05:22:12.489468+00:00",
-          "rank": 100
-        },
-        {
-          "run_at": "2026-09-03T06:33:29.828752+00:00",
-          "rank": 99
-        },
-        {
-          "run_at": "2026-09-03T13:21:21.222481+00:00",
-          "rank": 98
-        },
-        {
-          "run_at": "2026-09-03T14:10:41.812376+00:00",
-          "rank": 98
-        },
-        {
-          "run_at": "2026-09-03T14:38:19.864140+00:00",
-          "rank": 98
-        },
-        {
-          "run_at": "2026-09-03T19:20:03.996706+00:00",
-          "rank": 99
-        }
-      ]
-    },
-    {
-      "source": "gongkao",
-      "rank": 100,
-      "title": "中国太平保险集团2026年秋季校园招聘公告",
-      "title_zh": "中国太平保险集团2026年秋季校园招聘公告",
-      "url": "https://www.fenbi.com/page/kaoshidetail/892772",
-      "hot_value": null,
-      "summary_zh": "（待定 至 待定 报名，待定 笔试）",
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "id": 892772,
-        "sub": "timeline",
-        "startSignUpTime": null,
-        "endSignUpTime": null,
-        "startWriteTime": null,
-        "province": "全国",
-        "type": 9,
-        "examType": 9,
-        "exam_type": "国企招聘",
-        "target_university_hit": [],
-        "city_focus_hit": []
-      },
-      "days_on_board": 3,
-      "is_new": false,
-      "rank_delta": -1,
-      "cluster_id": "3344b3ec9804",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-01T11:12:22.322724+00:00",
-          "rank": 57
-        },
-        {
-          "run_at": "2026-09-01T12:00:31.751666+00:00",
-          "rank": 58
-        },
-        {
-          "run_at": "2026-09-01T16:09:15.129507+00:00",
-          "rank": 62
-        },
-        {
-          "run_at": "2026-09-01T20:38:56.199666+00:00",
-          "rank": 62
-        },
-        {
-          "run_at": "2026-09-01T23:49:36.405838+00:00",
-          "rank": 62
-        },
-        {
-          "run_at": "2026-09-02T03:09:57.368855+00:00",
-          "rank": 76
-        },
-        {
-          "run_at": "2026-09-02T05:15:59.721124+00:00",
-          "rank": 81
-        },
-        {
-          "run_at": "2026-09-02T05:27:45.730784+00:00",
-          "rank": 81
-        },
-        {
-          "run_at": "2026-09-02T06:26:10.623169+00:00",
-          "rank": 78
-        },
-        {
-          "run_at": "2026-09-02T06:38:28.252828+00:00",
-          "rank": 79
-        },
-        {
-          "run_at": "2026-09-02T07:45:05.669605+00:00",
-          "rank": 77
-        },
-        {
-          "run_at": "2026-09-02T08:12:20.459281+00:00",
-          "rank": 72
-        },
-        {
-          "run_at": "2026-09-02T08:21:35.486354+00:00",
-          "rank": 72
-        },
-        {
-          "run_at": "2026-09-02T08:27:57.698257+00:00",
-          "rank": 72
-        },
-        {
-          "run_at": "2026-09-02T08:40:10.105008+00:00",
-          "rank": 72
-        },
-        {
-          "run_at": "2026-09-02T09:09:31.946901+00:00",
-          "rank": 73
-        },
-        {
-          "run_at": "2026-09-02T12:31:05.172723+00:00",
-          "rank": 75
-        },
-        {
-          "run_at": "2026-09-02T14:08:11.969730+00:00",
-          "rank": 75
-        },
-        {
-          "run_at": "2026-09-02T19:15:05.327909+00:00",
-          "rank": 75
-        },
-        {
-          "run_at": "2026-09-02T22:24:21.398262+00:00",
-          "rank": 75
-        },
-        {
-          "run_at": "2026-09-03T06:33:29.828752+00:00",
-          "rank": 100
-        },
-        {
-          "run_at": "2026-09-03T13:21:21.222481+00:00",
-          "rank": 99
-        },
-        {
-          "run_at": "2026-09-03T14:10:41.812376+00:00",
-          "rank": 99
-        },
-        {
-          "run_at": "2026-09-03T14:38:19.864140+00:00",
-          "rank": 99
         },
         {
-          "run_at": "2026-09-03T19:20:03.996706+00:00",
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
           "rank": 100
         }
       ]
