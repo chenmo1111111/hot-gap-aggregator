@@ -1,74 +1,18 @@
 {
-  "generated_at": "2026-09-03T09:00:07.774956+00:00",
+  "generated_at": "2026-09-03T13:21:21.222481+00:00",
   "source": "papers",
   "status": {
     "source": "papers",
     "status": "ok",
     "item_count": 60,
-    "duration_ms": 13861,
+    "duration_ms": 4619,
     "error": null,
-    "run_at": "2026-09-03T09:00:07.774956+00:00"
+    "run_at": "2026-09-03T13:21:21.222481+00:00"
   },
   "items": [
     {
       "source": "papers",
       "rank": 1,
-      "title": "COBRA: Cell-type-specific Orthogonal Batch effect Removal Algorithm in single cell RNA-sequencing data.",
-      "title_zh": "COBRA：单细胞RNA测序数据中细胞类型特异性正交批次效应去除算法。",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42684056/",
-      "hot_value": null,
-      "summary_zh": "单细胞RNA测序（scRNA-seq）能够高分辨率分析细胞异质性，但批次效应仍是数据整合中的关键挑战。现有批次校正方法通常假设批次效应在不同细胞类型间均匀，在降维空间中操作可能导致生物信息丢失，且需要大量计算资源。这里我们介绍COBRA，一种基于线性模型的批次校正方法，显式调整细胞类型特异性批次效应。通过将批次相关参数与生物变量正交化，COBRA去除技术伪影，同时保留有意义的转录差异。当细胞类型注释不可用时，COBRA实现迭代聚类算法来估计伪细胞类型，同时考虑批次效应。COBRA保留完整基因表达矩阵，确保下游分析无缝整合。我们在模拟和真实数据集（包括2型糖尿病和COVID-19数据集）上评估了COBRA。COBRA在批次混合效率、生物组结构保留和差异表达基因检测准确性方面表现更优。COBRA可在https://github.com/wonlab-healthstat/COBRA免费获取。复",
-      "thumbnail": null,
-      "published_at": "2026-09-02",
-      "extra": {
-        "subsource": "pubmed",
-        "journal": "Bioinformatics (Oxford, England)",
-        "doi": "10.1093/bioinformatics/btag660",
-        "tier": "英文顶刊",
-        "description": "Single-cell RNA sequencing (scRNA-seq) enables high-resolution profiling of cellular heterogeneity, yet batch effects remain a critical challenge in data integration. Existing batch correction methods often assume homogeneous batch effect across cell types, operate in reduced-dimensional space leading to potential loss of biological information, and require extensive computational resources. Here, we introduce COBRA, a linear model-based batch correction method that explicitly adjusts cell-type-specific batch effect. By orthogonalizing batch-associated parameters with respect to biological variables, COBRA removes technical artifacts while preserving biologically meaningful transcriptional differences. When cell type annotations are unavailable, COBRA implements an iterative clustering algorithm to estimate pseudo-cell types while accounting for batch effects. COBRA retains the full gene expression matrix, ensuring seamless integration for downstream analyses. We evaluated COBRA across simulated and real-world datasets, including type 2 diabetes and COVID-19 datasets. COBRA outperformed in terms of batch mixing efficiency, preservation of biological group structure, and accuracy of differentially expressed gene detection. COBRA is freely available at https://github.com/wonlab-healthstat/COBRA. The code to reproduce the analyses is archived at Zenodo (https://doi.org/10.5281/zenodo.19891355). Supplementary data are available at Bioinformatics online.",
-        "identifier": "42684056",
-        "dedupe_key": "doi:10.1093/bioinformatics/btag660",
-        "topic_hit": [
-          "单细胞聚类",
-          "生物信息"
-        ],
-        "priority_rank": 0,
-        "keyword_hit": [
-          "batch effect",
-          "clustering"
-        ]
-      },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "8ecb626ee8ee",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-02T19:15:05.327909+00:00",
-          "rank": 1
-        },
-        {
-          "run_at": "2026-09-02T22:24:21.398262+00:00",
-          "rank": 1
-        },
-        {
-          "run_at": "2026-09-03T05:22:12.489468+00:00",
-          "rank": 1
-        },
-        {
-          "run_at": "2026-09-03T06:33:29.828752+00:00",
-          "rank": 1
-        },
-        {
-          "run_at": "2026-09-03T09:00:07.774956+00:00",
-          "rank": 1
-        }
-      ]
-    },
-    {
-      "source": "papers",
-      "rank": 2,
       "title": "Uncovering Cellular Resolution in scRNAseq via Unbiased Cell and Gene Network Analysis",
       "title_zh": "通过无偏细胞和基因网络分析揭示scRNAseq中的细胞分辨率",
       "url": "http://arxiv.org/abs/2608.22982v1",
@@ -97,7 +41,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": 1,
       "cluster_id": "fdb9bda42835",
       "cluster_size": 1,
       "rank_history": [
@@ -120,12 +64,16 @@
         {
           "run_at": "2026-09-03T09:00:07.774956+00:00",
           "rank": 2
+        },
+        {
+          "run_at": "2026-09-03T13:21:21.222481+00:00",
+          "rank": 1
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 3,
+      "rank": 2,
       "title": "PopPert: Population-level Joint-Distribution Modeling for Single-Cell Perturbation Prediction",
       "title_zh": "PopPert：单细胞扰动预测的群体水平联合分布建模",
       "url": "http://arxiv.org/abs/2609.01357v1",
@@ -151,7 +99,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": 1,
       "cluster_id": "caa352dea638",
       "cluster_size": 1,
       "rank_history": [
@@ -174,59 +122,16 @@
         {
           "run_at": "2026-09-03T09:00:07.774956+00:00",
           "rank": 3
+        },
+        {
+          "run_at": "2026-09-03T13:21:21.222481+00:00",
+          "rank": 2
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 4,
-      "title": "AResKGLM: a graph-grounded language-model framework for interpretable multi-hop antimicrobial resistance reasoning.",
-      "title_zh": "AResKGLM：一种图接地语言模型框架，用于可解释的多跳抗菌素耐药性推理。",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42685265/",
-      "hot_value": null,
-      "summary_zh": "抗菌素耐药性（AMR）威胁着微生物学和微生物组生物信息学，因为耐药表型由基因、移动遗传元件和跨微生物群落的功能环境之间的相互作用塑造。优先考虑耐药决定因素需要模型在连接基因、蛋白质、通路、药物和微生物表型的知识图谱（KG）上进行推理。现有的基于图的方法将这些证据压缩为标量分数，而大型语言模型可以产生不基于结构化证据的解释。我们开发了 AResKGLM（抗菌素耐药性知识图谱语言模型），一种图接地语言模型框架，用于可解释的微生物 AMR 生物信息学，它将广度优先搜索检索的多跳路径和每个实体的生物医学描述序列化为结构化的上下文-路径-问题提示。Llama-3-8B 和 DeepSeek-R1-7B 使用 QLoRA 进行适配，以产生二元链接预测和简洁的推理轨迹。在 KIDs 基准上，AResKGLM（Llama-3-8B）实现了 F1 = 0.8482，优于 KG-BERT（0.7213）、NB",
-      "thumbnail": null,
-      "published_at": "2026-09-01",
-      "extra": {
-        "subsource": "pubmed",
-        "journal": "Briefings in bioinformatics",
-        "doi": "10.1093/bib/bbag456",
-        "tier": "英文顶刊",
-        "description": "Antimicrobial resistance (AMR) threatens microbiology and microbiome bioinformatics because resistance phenotypes are shaped by interactions among genes, mobile genetic elements, and functional environments across microbial communities. Prioritizing resistance determinants requires models that reason across knowledge graphs (KGs) linking genes, proteins, pathways, drugs, and microbial phenotypes. Existing graph-based methods compress this evidence into scalar scores, whereas large language models can produce explanations not grounded in structured evidence. We developed AResKGLM (Antimicrobial Resistance Knowledge Graph Language Model), a graph-grounded language-model framework for interpretable microbial AMR bioinformatics that serializes breadth-first-search-retrieved multi-hop paths and per-entity biomedical descriptions into a structured Context-Path-Question prompt. Llama-3-8B and DeepSeek-R1-7B are adapted with QLoRA to produce binary link predictions and concise reasoning traces. On the KIDs benchmark, AResKGLM (Llama-3-8B) achieved F1 = 0.8482, outperforming KG-BERT (0.7213), NBFNet (0.5260), and ULTRA (0.2541) (paired Wilcoxon $p = 1.2 \\times 10^{-7}$). Its advantage increased with reasoning depth: F1 decreased from 0.9197 at 2 hops to 0.8148 at 6 hops, whereas KG-BERT dropped from 0.8110 to 0.6716. Counterfactual path corruption produced an apparent F1 of 0.000, mechanically forced by the probe label assignment; the operative diagnostic is the per-sample flip rate (0.04-0.16), consistent with sensitivity to supplied biological evidence rather than reliance on pretrained priors alone. Cross-species evaluation yielded F1 = 0.81-0.88 with Matthews correlation coefficient (MCC) = 0.35-0.54 on Mycobacterium tuberculosis, Pseudomonas aeruginosa, and Staphylococcus aureus. Temporal ranking of 81 post-2022 gene-drug associations achieved Precision@20 = 100% and AUC-PR = 0.855. AResKGLM offers an interpretable, reproducible framework for multi-hop AMR reasoning, linking candidate prioritization with mechanism-oriented hypothesis generation.",
-        "identifier": "42685265",
-        "dedupe_key": "doi:10.1093/bib/bbag456",
-        "topic_hit": [
-          "生物信息"
-        ],
-        "priority_rank": 2,
-        "keyword_hit": [
-          "graph",
-          "benchmark"
-        ]
-      },
-      "days_on_board": 1,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "89124a9a4ebc",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-03T05:22:12.489468+00:00",
-          "rank": 4
-        },
-        {
-          "run_at": "2026-09-03T06:33:29.828752+00:00",
-          "rank": 4
-        },
-        {
-          "run_at": "2026-09-03T09:00:07.774956+00:00",
-          "rank": 4
-        }
-      ]
-    },
-    {
-      "source": "papers",
-      "rank": 5,
+      "rank": 3,
       "title": "Dynamic Hierarchical Interleaved Bloom Filter: An Updatable Index for Large-Scale Fast Sequence Search",
       "title_zh": "动态分层交错布隆过滤器：用于大规模快速序列搜索的可更新索引",
       "url": "https://doi.org/10.64898/2026.08.26.747224",
@@ -251,7 +156,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": 2,
       "cluster_id": "81b232f6719a",
       "cluster_size": 1,
       "rank_history": [
@@ -266,12 +171,16 @@
         {
           "run_at": "2026-09-03T09:00:07.774956+00:00",
           "rank": 5
+        },
+        {
+          "run_at": "2026-09-03T13:21:21.222481+00:00",
+          "rank": 3
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 6,
+      "rank": 4,
       "title": "Learning Interpretable Tumor Microenvironment Representations by Fitting Pan-Cancer Cell State-Niche Correlation",
       "title_zh": "通过拟合泛癌细胞状态-生态位相关性学习可解释的肿瘤微环境表示",
       "url": "http://arxiv.org/abs/2608.26208v1",
@@ -299,7 +208,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": 2,
       "cluster_id": "d60e5fdf96ab",
       "cluster_size": 1,
       "rank_history": [
@@ -322,12 +231,16 @@
         {
           "run_at": "2026-09-03T09:00:07.774956+00:00",
           "rank": 6
+        },
+        {
+          "run_at": "2026-09-03T13:21:21.222481+00:00",
+          "rank": 4
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 7,
+      "rank": 5,
       "title": "BixBench3: Benchmarking AI agents on research-study-scale computational biology tasks",
       "title_zh": "BixBench3：在完整研究规模计算生物学任务上基准测试AI代理",
       "url": "http://arxiv.org/abs/2608.25286v1",
@@ -355,7 +268,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": 2,
       "cluster_id": "4ffcc290d0c9",
       "cluster_size": 1,
       "rank_history": [
@@ -378,12 +291,16 @@
         {
           "run_at": "2026-09-03T09:00:07.774956+00:00",
           "rank": 7
+        },
+        {
+          "run_at": "2026-09-03T13:21:21.222481+00:00",
+          "rank": 5
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 8,
+      "rank": 6,
       "title": "TracingFlow: A Simulation-Free Trajectory Inference Framework Based on Second-Order Dynamics",
       "title_zh": "TracingFlow：基于二阶动力学的无模拟轨迹推断框架",
       "url": "http://arxiv.org/abs/2608.21070v1",
@@ -409,7 +326,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": 2,
       "cluster_id": "c5b417d8bef7",
       "cluster_size": 1,
       "rank_history": [
@@ -432,12 +349,16 @@
         {
           "run_at": "2026-09-03T09:00:07.774956+00:00",
           "rank": 8
+        },
+        {
+          "run_at": "2026-09-03T13:21:21.222481+00:00",
+          "rank": 6
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 9,
+      "rank": 7,
       "title": "scDNM-VAE enables directly inspectable deep clustering of single-cell RNA-seq data through signed dendritic gating",
       "title_zh": "scDNM-VAE：通过符号树突门控实现单细胞RNA-seq数据的直接可检查深度聚类",
       "url": "http://arxiv.org/abs/2608.17228v1",
@@ -464,7 +385,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": 2,
       "cluster_id": "94823f2deee4",
       "cluster_size": 1,
       "rank_history": [
@@ -487,12 +408,16 @@
         {
           "run_at": "2026-09-03T09:00:07.774956+00:00",
           "rank": 9
+        },
+        {
+          "run_at": "2026-09-03T13:21:21.222481+00:00",
+          "rank": 7
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 10,
+      "rank": 8,
       "title": "Static analysis-guided agentic AI translation enables Rust as a full stack bioinformatics language",
       "title_zh": "静态分析引导的代理AI翻译使Rust成为全栈生物信息学语言",
       "url": "http://arxiv.org/abs/2608.13029v1",
@@ -518,7 +443,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": 2,
       "cluster_id": "6938d7e53e75",
       "cluster_size": 1,
       "rank_history": [
@@ -541,12 +466,16 @@
         {
           "run_at": "2026-09-03T09:00:07.774956+00:00",
           "rank": 10
+        },
+        {
+          "run_at": "2026-09-03T13:21:21.222481+00:00",
+          "rank": 8
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 11,
+      "rank": 9,
       "title": "CosMAP: Contrastive Manifold Approximation and Projection for Dimensionality Reduction of Omics and Genealogical Data",
       "title_zh": "CosMAP：用于组学和谱系数据降维的对比流形逼近与投影",
       "url": "http://arxiv.org/abs/2608.11269v1",
@@ -573,7 +502,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": 2,
       "cluster_id": "2f6705ea626b",
       "cluster_size": 1,
       "rank_history": [
@@ -596,12 +525,16 @@
         {
           "run_at": "2026-09-03T09:00:07.774956+00:00",
           "rank": 11
+        },
+        {
+          "run_at": "2026-09-03T13:21:21.222481+00:00",
+          "rank": 9
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 12,
+      "rank": 10,
       "title": "Idea Search: Guiding Tree Search with Ideas to Explore Diverse Scientific Methods",
       "title_zh": "Idea Search：用想法引导树搜索以探索多样科学方法",
       "url": "http://arxiv.org/abs/2608.08958v1",
@@ -627,7 +560,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": 2,
       "cluster_id": "17e1381b7db5",
       "cluster_size": 1,
       "rank_history": [
@@ -650,12 +583,16 @@
         {
           "run_at": "2026-09-03T09:00:07.774956+00:00",
           "rank": 12
+        },
+        {
+          "run_at": "2026-09-03T13:21:21.222481+00:00",
+          "rank": 10
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 13,
+      "rank": 11,
       "title": "VOICE: A Vision-Omics Foundation Model Integrating Direct and Retrieval-Based Prediction of In-situ Single-Cell Gene Expression",
       "title_zh": "VOICE：一种整合直接与检索式原位单细胞基因表达预测的视觉-组学基础模型",
       "url": "http://arxiv.org/abs/2608.08366v1",
@@ -682,7 +619,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": 2,
       "cluster_id": "cde926246260",
       "cluster_size": 1,
       "rank_history": [
@@ -705,104 +642,16 @@
         {
           "run_at": "2026-09-03T09:00:07.774956+00:00",
           "rank": 13
+        },
+        {
+          "run_at": "2026-09-03T13:21:21.222481+00:00",
+          "rank": 11
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 14,
-      "title": "Tabula Sapiens 2.0: A comprehensive transcriptomic atlas of human cell types.",
-      "title_zh": "Tabula Sapiens 2.0：人类细胞类型的全面转录组图谱。",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42685689/",
-      "hot_value": null,
-      "summary_zh": "Tabula Sapiens 是一个参考人类细胞图谱，包含来自超过二十多个器官和组织的单细胞转录组数据。在这里，我们报告了 Tabula Sapiens 2.0，其中包括来自九名新捐赠者的数据，细胞数量翻倍，并新增了四种组织。这些新数据包括四名捐赠者贡献了多个器官，从而提供了一个独特的数据集，其中遗传背景、年龄和表观遗传效应得到控制。我们展示了 Tabula Sapiens 数据在基因调控和衰老等不同领域的应用。Tabula Sapiens 包含几乎所有人类转录因子的转录本，从而为几乎每个人类转录因子提供了推定的细胞类型特异性，并深入了解了它们潜在的调控作用。我们还分析了表达与细胞衰老相关的经典基因的细胞转录组，揭示了衰老的异质性和上下文依赖性，并为衰老相关通路提供了新假设。",
-      "thumbnail": null,
-      "published_at": "2026-09-02",
-      "extra": {
-        "subsource": "pubmed",
-        "journal": "Cell",
-        "doi": "10.1016/j.cell.2026.08.010",
-        "tier": "英文顶刊",
-        "description": "The Tabula Sapiens is a reference human cell atlas containing single-cell transcriptomic data from more than two dozen organs and tissues. Here, we report Tabula Sapiens 2.0, which includes data from nine new donors, doubles the number of cells, and adds four new tissues. These new data include four donors with multiple organs contributed, thus providing a unique dataset in which genetic background, age, and epigenetic effects are controlled for. We illustrate applications of the Tabula Sapiens data in areas as diverse as gene regulation and aging. The Tabula Sapiens contains transcripts from nearly all human transcription factors, thereby providing putative cell-type specificity for nearly every human transcription factor and insights into their potential regulatory roles. We also analyze the transcriptomes of cells expressing canonical genes relating to cellular senescence, revealing the heterogeneity and context-dependent nature of senescence and providing new hypotheses into senescence-associated pathways.",
-        "identifier": "42685689",
-        "dedupe_key": "doi:10.1016/j.cell.2026.08.010",
-        "topic_hit": [
-          "生物信息"
-        ],
-        "priority_rank": 2,
-        "keyword_hit": []
-      },
-      "days_on_board": 1,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "1722a3beebbd",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-03T06:33:29.828752+00:00",
-          "rank": 14
-        },
-        {
-          "run_at": "2026-09-03T09:00:07.774956+00:00",
-          "rank": 14
-        }
-      ]
-    },
-    {
-      "source": "papers",
-      "rank": 15,
-      "title": "sortscore: Sort-seq MAVE scoring and visualization using Python.",
-      "title_zh": "sortscore：使用Python进行Sort-seq MAVE评分与可视化。",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42684039/",
-      "hot_value": null,
-      "summary_zh": "越来越多的工具支持分析由多重变异效应检测（MAVE）产生的大型变异文库。使用荧光报告基因和荧光激活细胞分选测序（FACS-seq或Sort-seq）的实验可粗略量化特定变异对转录活性等表型的影响。现有Sort-seq数据生物信息学工具大致分为两类：一类建模基因型-表型景观以推断潜在变异表型，另一类直接从实验分箱计数估计个体变异分数。在第二类中，sortscore提供直接从观测计数计算的活动分数，无需拟合模型，并在已知分箱中位数时保留原始实验尺度。我们介绍sortscore，一个Python包，整合标准Sort-seq评分方法及跨分选样本、不同分选时间的技术重复、以及平铺实验中寡核苷酸的归一化。它还提供便捷的热图可视化。该软件用于分析转录因子GLI2的DMS实验。这项工作旨在降低入门门槛，为Sort-seq细胞功能检测评分提供清晰起点，将文档完善且可复现的数据分析协议推广至更广泛采用MAVE",
-      "thumbnail": null,
-      "published_at": "2026-09-02",
-      "extra": {
-        "subsource": "pubmed",
-        "journal": "Bioinformatics (Oxford, England)",
-        "doi": "10.1093/bioinformatics/btag664",
-        "tier": "英文顶刊",
-        "description": "A growing number of tools enable the analysis of large variant libraries produced by multiplexed assays of variant effects (MAVEs). Experiments using fluorescent reporters and fluorescence-activated cell sorting sequencing (FACS-seq or Sort-seq) can coarsely quantify a given variant's impact on phenotypes such as transcription activity. Existing bioinformatics tools for Sort-seq data broadly fall into two categories: methods that model a genotype-phenotype landscape to infer latent variant phenotypes, and methods that directly estimate individual variant scores from experimental binned counts. Within this second category, sortscore provides an activity score computed directly from observed counts without fitting a model, retaining the original experimental scale when bin median values are known.We present sortscore, a python package that incorporates a standard Sort-seq scoring method and normalization across sorted samples, technical replicates from separate sort times, and across oligos in tiled experiments. It also provides convenient heatmap visualizations. This software was used to analyze DMS experiments for the transcription factor GLI2. This work seeks to lower the barrier to entry and provide a clear starting point for scoring Sort-seq cell-based functional assays. This extends the availability of well-documented and reproducible data analysis protocols to a wider community employing MAVE techniques. The package can be downloaded from PyPI using the pip installer. The code is also freely accessible and available for reuse through a Public GitHub repository (MIT License). Installation instructions, documentation, and tutorials are accessible at the sortscore GitHub repository: https://github.com/dbaldridge-lab/sortscore. A snapshot of the code and data is available on Zenodo: https://doi.org/10.5281/zenodo.22119031. Supplementary figures are available at Bioinformatics online.",
-        "identifier": "42684039",
-        "dedupe_key": "doi:10.1093/bioinformatics/btag664",
-        "topic_hit": [
-          "生物信息"
-        ],
-        "priority_rank": 2,
-        "keyword_hit": []
-      },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "9a5f4cfe754c",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-02T19:15:05.327909+00:00",
-          "rank": 10
-        },
-        {
-          "run_at": "2026-09-02T22:24:21.398262+00:00",
-          "rank": 10
-        },
-        {
-          "run_at": "2026-09-03T05:22:12.489468+00:00",
-          "rank": 14
-        },
-        {
-          "run_at": "2026-09-03T06:33:29.828752+00:00",
-          "rank": 15
-        },
-        {
-          "run_at": "2026-09-03T09:00:07.774956+00:00",
-          "rank": 15
-        }
-      ]
-    },
-    {
-      "source": "papers",
-      "rank": 16,
+      "rank": 12,
       "title": "Ten simple rules for non-visual, reproducible and accessible bioinformatics",
       "title_zh": "非视觉、可复现和可访问生物信息学的十条简单规则",
       "url": "http://arxiv.org/abs/2608.14400v2",
@@ -826,7 +675,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": 4,
       "cluster_id": "0c6af3b8928f",
       "cluster_size": 1,
       "rank_history": [
@@ -849,12 +698,16 @@
         {
           "run_at": "2026-09-03T09:00:07.774956+00:00",
           "rank": 16
+        },
+        {
+          "run_at": "2026-09-03T13:21:21.222481+00:00",
+          "rank": 12
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 17,
+      "rank": 13,
       "title": "Discriminative World Models for Web Agents",
       "title_zh": "用于 Web 代理的判别性世界模型",
       "url": "http://arxiv.org/abs/2609.02885v1",
@@ -879,7 +732,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": 4,
       "cluster_id": "1e24f2844aa0",
       "cluster_size": 1,
       "rank_history": [
@@ -894,12 +747,16 @@
         {
           "run_at": "2026-09-03T09:00:07.774956+00:00",
           "rank": 17
+        },
+        {
+          "run_at": "2026-09-03T13:21:21.222481+00:00",
+          "rank": 13
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 18,
+      "rank": 14,
       "title": "Graph Machine: Towards Better Pretraining via Edges",
       "title_zh": "图机器：通过边实现更好的预训练",
       "url": "http://arxiv.org/abs/2609.02881v1",
@@ -923,7 +780,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": 4,
       "cluster_id": "a5cab1f48749",
       "cluster_size": 1,
       "rank_history": [
@@ -938,12 +795,16 @@
         {
           "run_at": "2026-09-03T09:00:07.774956+00:00",
           "rank": 18
+        },
+        {
+          "run_at": "2026-09-03T13:21:21.222481+00:00",
+          "rank": 14
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 19,
+      "rank": 15,
       "title": "GRADSOLVE: fast exact gradients for ODE ensembles on GPUs",
       "title_zh": "GRADSOLVE：GPU 上 ODE 集成的快速精确梯度",
       "url": "http://arxiv.org/abs/2609.02876v1",
@@ -967,7 +828,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": 4,
       "cluster_id": "c8f4e4904569",
       "cluster_size": 1,
       "rank_history": [
@@ -982,12 +843,16 @@
         {
           "run_at": "2026-09-03T09:00:07.774956+00:00",
           "rank": 19
+        },
+        {
+          "run_at": "2026-09-03T13:21:21.222481+00:00",
+          "rank": 15
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 20,
+      "rank": 16,
       "title": "Towards Trustworthy Autonomous Robots: An Explainable AI-Based Decision Framework",
       "title_zh": "迈向可信自主机器人：基于可解释 AI 的决策框架",
       "url": "http://arxiv.org/abs/2609.02861v1",
@@ -1011,7 +876,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": 4,
       "cluster_id": "d7a2d55c8918",
       "cluster_size": 1,
       "rank_history": [
@@ -1026,12 +891,16 @@
         {
           "run_at": "2026-09-03T09:00:07.774956+00:00",
           "rank": 20
+        },
+        {
+          "run_at": "2026-09-03T13:21:21.222481+00:00",
+          "rank": 16
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 21,
+      "rank": 17,
       "title": "The Implications of Linguistic Illegibility for LLM Security",
       "title_zh": "语言不可读性对 LLM 安全的影响",
       "url": "http://arxiv.org/abs/2609.02852v1",
@@ -1055,7 +924,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": 4,
       "cluster_id": "b1319cef3e57",
       "cluster_size": 1,
       "rank_history": [
@@ -1070,12 +939,16 @@
         {
           "run_at": "2026-09-03T09:00:07.774956+00:00",
           "rank": 21
+        },
+        {
+          "run_at": "2026-09-03T13:21:21.222481+00:00",
+          "rank": 17
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 22,
+      "rank": 18,
       "title": "AI Contextual Measurement for Recovering Individual and Group-Level Effects: Validation Against Survey Measures and an Occupational Application",
       "title_zh": "AI 上下文测量用于恢复个体和群体级效应：针对调查测量的验证和职业应用",
       "url": "http://arxiv.org/abs/2609.02821v1",
@@ -1100,7 +973,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": 4,
       "cluster_id": "efe6616f4c6b",
       "cluster_size": 1,
       "rank_history": [
@@ -1115,12 +988,16 @@
         {
           "run_at": "2026-09-03T09:00:07.774956+00:00",
           "rank": 22
+        },
+        {
+          "run_at": "2026-09-03T13:21:21.222481+00:00",
+          "rank": 18
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 23,
+      "rank": 19,
       "title": "Cliff: Learning Process Rewards from the First Mistake",
       "title_zh": "Cliff：从第一个错误学习过程奖励",
       "url": "http://arxiv.org/abs/2609.02817v1",
@@ -1144,7 +1021,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": 4,
       "cluster_id": "a3d87859f171",
       "cluster_size": 1,
       "rank_history": [
@@ -1159,227 +1036,124 @@
         {
           "run_at": "2026-09-03T09:00:07.774956+00:00",
           "rank": 23
+        },
+        {
+          "run_at": "2026-09-03T13:21:21.222481+00:00",
+          "rank": 19
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 24,
-      "title": "Mapping the combinatorial coding between olfactory receptors and perception with deep learning.",
-      "title_zh": "用深度学习绘制嗅觉受体与感知之间的组合编码。",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42685697/",
+      "rank": 20,
+      "title": "Robust inference and correlates from genetic associations with personality.",
+      "title_zh": "遗传关联与人格的稳健推断和相关性",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42686911/",
       "hot_value": null,
-      "summary_zh": "与视觉和听觉相比，嗅觉仍未被充分理解。其核心是信息流，其中气味分子激活嗅觉受体（ORs）的子集，受体激活的组合编码不同的感知。然而，预测分子-OR 相互作用并将其与感知联系起来仍然困难。在这里，我们开发了 MolOR，一种将气味映射到其 OR 激活谱然后预测其气味感知的方法。利用分子图神经网络和受体蛋白语言模型嵌入之间的交叉注意力，我们预测 OR 激活，并且尽管结合和感知数据集之间没有分子重叠，通过使用预测的 OR 谱作为辅助特征改善了感知预测。共享感知的结构多样分子显示出相似的预测 OR 谱，模型区分了人类亚基因组中的编码 OR 和假基因。这可能有助于发现孤儿 OR 的配体以及设计具有所需感知质量的气味剂。",
+      "summary_zh": "人格特质描述人们在思考、感受和行为上的稳定差异，以及他们如何互动和体验社交和物理环境1,2。关于DNA与人格特质关联的许多问题仍未解答，如稳健性、泛化性以及其作用的生物和社会途径。这里我们元分析46个队列的数据，涵盖611,037至114万参与者，具有欧洲和非洲类似基因组，进行大五人格特质（外向性、宜人性、尽责性、神经质和开放性）的全基因组关联研究（GWAS），以及最多50,725名参与者的家庭内GWAS。我们识别出1,260个与人格相关的先导遗传变异，包括824个新变异3。常见遗传变异解释各特质测量方差的4.8-9.3%，在典型测量可靠性的工具中解释9.3-13.3%。人格的遗传关联在地理、报告者（自我与亲近他人）、年龄组和测量工具间高度一致但不完全相同，且近期历史中配偶相似性极小。与其他许多社会和行为特质不同4,5，家庭内GWAS和多基因指数分析表明，人格的遗传关联受共享家庭环境的混杂",
       "thumbnail": null,
       "published_at": "2026-09-02",
       "extra": {
         "subsource": "pubmed",
-        "journal": "Cell systems",
-        "doi": "10.1016/j.cels.2026.101711",
+        "journal": "Nature",
+        "doi": "10.1038/s41586-026-10992-9",
         "tier": "英文顶刊",
-        "description": "The sense of smell remains poorly understood compared with vision and audition. At its core is an information flow in which odorant molecules activate subsets of olfactory receptors (ORs) and combinations of receptor activations encode distinct percepts. However, predicting molecule-OR interactions, and linking them to perception, remains difficult. Here, we develop MolOR, an approach that maps odorants to their OR-activation profiles and then predicts their odor percepts. Using cross-attention between a graph neural network over molecules and protein-language-model embeddings of receptors, we predict OR activation and-despite no molecular overlap between binding and percept datasets-improve percept prediction by using predicted OR profiles as auxiliary features. Structurally diverse molecules sharing a percept show similar predicted OR profiles, and the model distinguishes protein-coding ORs from pseudogenes across the human subgenome. This may aid the discovery of ligands for orphan ORs and the design of odorants with desired perceptual qualities.",
-        "identifier": "42685697",
-        "dedupe_key": "doi:10.1016/j.cels.2026.101711",
+        "description": "Personality traits describe stable differences in how people think, feel and behave, and how they interact with and experience their social and physical environments1,2. Many questions remain unanswered about associations between DNA and personality traits, such as their robustness, their generalizability and the biological and social pathways through which they act. Here we meta-analyse data across 46 cohorts comprising 611,037 to 1.14 million participants with European-like and African-like genomes for genome-wide association studies (GWAS) of the Big Five personality traits (extraversion, agreeableness, conscientiousness, neuroticism and openness to experience), and data from up to 50,725 participants for within-family GWAS. We identify 1,260 lead genetic variants associated with personality, including 824 novel variants3. Common genetic variants explain a moderate 4.8-9.3% of the variance in measures of each trait, and 9.3-13.3% among instruments with typical measurement reliability. Genetic associations with personality are highly consistent but not identical across geography, reporter (self versus close other), age group and measurement instrument, and we find minimal spousal assortment for personality in recent history. In contrast to many other social and behavioural traits4,5, within-family GWAS and polygenic index analyses indicate that genetic associations with personality are minimally confounded by the shared family environment. Polygenic prediction, genetic correlation and Mendelian randomization analyses indicate that personality traits have widespread, potentially causal associations with consequential behaviours and life outcomes. Overall, we find that the genetic architecture of personality is robustly generalizable, minimally confounded and widely relevant to human experience.",
+        "identifier": "42686911",
+        "dedupe_key": "doi:10.1038/s41586-026-10992-9",
         "topic_hit": [],
         "priority_rank": 999,
         "keyword_hit": [
-          "graph neural network",
           "graph"
         ]
       },
       "days_on_board": 1,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "85a8d110a7c9",
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "020fa9256c31",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-03T06:33:29.828752+00:00",
-          "rank": 24
-        },
-        {
-          "run_at": "2026-09-03T09:00:07.774956+00:00",
-          "rank": 24
+          "run_at": "2026-09-03T13:21:21.222481+00:00",
+          "rank": 20
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 25,
-      "title": "DNAmBERT: a transformer-based model for non-invasive cancer diagnosis using DNA sequence and methylation data.",
-      "title_zh": "DNAmBERT：一种基于 Transformer 的模型，用于使用 DNA 序列和甲基化数据进行非侵入性癌症诊断。",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42685313/",
+      "rank": 21,
+      "title": "Late-life semaglutide treatment slows ageing and extends lifespan in female mice.",
+      "title_zh": "晚年使用semaglutide治疗减缓衰老并延长雌性小鼠寿命",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42686906/",
       "hot_value": null,
-      "summary_zh": "DNA 甲基化改变是癌症的早期和稳定标志，代表使用循环无细胞 DNA（cfDNA）进行非侵入性检测的有前途的生物标志物。然而，当前计算方法通常分别建模 DNA 序列和甲基化特征，难以捕捉异质性、低信号液体活检数据中复杂的读取级甲基化架构。在这里，我们介绍了 DNAmBERT，一个基于 Transformer 的深度学习框架，设计用于联合建模 cfDNA 甲基化测序数据中的 DNA 序列上下文和读取级甲基化单倍型结构。DNAmBERT 使用统一表示和掩码语言建模目标集成 k-mer 编码的 DNA 序列与甲基化单倍型令牌，通过自注意力实现序列-表观遗传依赖的上下文感知学习。我们在多个 cfDNA 甲基化平台（RRBS、cfRRBS 和 cfMethyl-seq）和癌症类型（包括结直肠癌、肺腺癌和肝细胞癌）上评估了 DNAmBERT。在二元分类任务中，模型跨平台实现了高性能（AUC 高达 0.",
+      "summary_zh": "药理学上的胰高血糖素样肽-1受体（GLP-1R）激活减少食物摄入，是2型糖尿病和肥胖的有效疗法1。GLP-1药物的使用揭示了超出血糖和体重控制的多种有益效应2-5，但对其多效性效应的基础知之甚少。这里，用GLP-1R激动剂semaglutide治疗20个月大的雌性C57BL/6小鼠3个月，改善生理功能、减弱衰老标志并调节营养传感器和保守的遗传衰老调节因子。持续治疗延长小鼠寿命。这些效应与热量限制的关键特征平行，热量限制是一种减缓衰老、延长寿命并缓解广泛衰老相关疾病的饮食干预6。在与匹配热量限制的直接比较纵向研究中，semaglutide治疗保持基线功能，并通过减弱年龄相关衰退重现热量限制的许多功能益处，同时在探索驱动力、空间记忆和血糖控制方面产生高于基线的改善和比热量限制更有利的轨迹。总之，这些发现表明，晚年启动的GLP-1R激活减缓衰老并延长雌性小鼠寿命，支持其作为热量限制模拟物的功能，",
+      "thumbnail": null,
+      "published_at": "2026-09-02",
+      "extra": {
+        "subsource": "pubmed",
+        "journal": "Nature",
+        "doi": "10.1038/s41586-026-10940-7",
+        "tier": "英文顶刊",
+        "description": "Pharmacological glucagon-like peptide-1 receptor (GLP-1R) activation reduces food intake and is an effective therapy for type 2 diabetes and obesity1. The use of GLP-1 medicines has revealed pleiotropic beneficial effects beyond glucose and weight control2-5, but little is known about the underlying basis of the pleiotropic effects. Here, treatment of 20-month-old female C57BL/6 mice with the GLP-1R agonist semaglutide for 3 months improved physiological function, attenuated hallmarks of ageing and modulated nutrient sensors and conserved genetic regulators of ageing. Continued treatment extended mouse lifespan. These effects parallel key features of calorie restriction, a dietary intervention that slows ageing, extends lifespan and alleviates a wide spectrum of ageing-associated diseases6. In a longitudinal study in direct comparison to matched calorie restriction, semaglutide treatment preserved baseline function and recapitulated many functional benefits of calorie restriction by attenuating age-associated decline, while also producing improvements above baseline and more favourable trajectories than calorie restriction in exploratory drive, spatial memory and glucose control. Together, these findings demonstrate that GLP-1R activation initiated late in life slows ageing and extends lifespan in female mice, supporting its function as a calorie restriction mimetic and providing a mechanistic framework that may help to explain its broad beneficial effects while revealing effects beyond those attributable to reduced calorie intake.",
+        "identifier": "42686906",
+        "dedupe_key": "doi:10.1038/s41586-026-10940-7",
+        "topic_hit": [],
+        "priority_rank": 999,
+        "keyword_hit": [
+          "LLM"
+        ]
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "c48474cca34f",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-03T13:21:21.222481+00:00",
+          "rank": 21
+        }
+      ]
+    },
+    {
+      "source": "papers",
+      "rank": 22,
+      "title": "Explainable deep learning improves human mental models of self-driving cars.",
+      "title_zh": "可解释深度学习提升人类对自动驾驶汽车的心智模型。",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42687026/",
+      "hot_value": null,
+      "summary_zh": "自动驾驶汽车越来越依赖深度神经网络实现类人驾驶1-3。这些黑箱规划器的不透明性使得准确预测其何时失效颇具挑战4-6，可能带来灾难性后果7-9。尽管解释这些系统的研究激增，但大多局限于模拟或玩具设置，因真实部署困难10,11，这些技术的实际效用未知。这里，我们引入概念包装网络（CW-Net），一种忠实解释基于机器学习规划器行为的方法，将其推理因果锚定在人类可理解概念上而不牺牲性能。我们在真实自动驾驶汽车上部署CW-Net，显示所得解释改善人类驾驶员对车辆的心智模型，使其更好预测其行为，尤其在意外情境中。这证明集成于自动驾驶汽车的可解释深度学习在现实部署环境中既可理解又有用。我们预期方法可应用于其他安全关键系统，如自主无人机和机器人外科医生，以及其他架构，如端到端学习系统和视觉-语言-动作模型。总体，研究建立部署验证的可解释性路径，助力自主代理更透明安全。",
       "thumbnail": null,
       "published_at": "2026-09-01",
       "extra": {
         "subsource": "pubmed",
-        "journal": "Briefings in bioinformatics",
-        "doi": "10.1093/bib/bbag455",
+        "journal": "Nature",
+        "doi": "10.1038/s41586-026-10950-5",
         "tier": "英文顶刊",
-        "description": "DNA methylation alterations are early and stable hallmarks of cancer and represent promising biomarkers for non-invasive detection using circulating cell-free DNA (cfDNA). However, current computational approaches often model DNA sequence and methylation features separately and struggle to capture complex read-level methylation architecture in heterogeneous, low-signal liquid biopsy data. Here, we present DNAmBERT, a Transformer-based deep learning framework designed to jointly model DNA sequence context and read-level methylation haplotype structure from cfDNA methylation sequencing data. DNAmBERT integrates k-mer-encoded DNA sequences with methylation haplotype tokens using a unified representation and masked language modelling objective, enabling context-aware learning of sequence-epigenetic dependencies through self-attention. We evaluated DNAmBERT across multiple cfDNA methylation platforms (RRBS, cfRRBS, and cfMethyl-seq) and cancer types, including colorectal cancer, lung adenocarcinoma and hepatocellular carcinoma. In binary classification tasks, the model achieved high performance across platforms (AUC up to 0.99-1.00) and outperformed conventional machine learning and existing deep learning approaches. Aggregation of read-level predictions enabled quantitative tumour probability estimation at the sample level. Beyond binary detection, DNAmBERT supported multi-cancer and stage-aware classification, including early-stage disease, with multiclass AUC values up to 0.99. The framework further demonstrated effective cross-cancer transfer learning, maintaining robust performance under limited data availability. These results indicate that integrated sequence-haplotype representation learning provides an accurate and scalable approach for cfDNA-based multi-cancer detection.",
-        "identifier": "42685313",
-        "dedupe_key": "doi:10.1093/bib/bbag455",
+        "description": "Self-driving cars increasingly rely on deep neural networks to achieve human-like driving1-3. The opacity of these black-box planners makes it challenging to accurately anticipate when they will fail4-6, with potentially catastrophic consequences7-9. Although research into interpreting these systems has surged, most of it is confined to simulations or toy setups because of the difficulty of real-world deployment10,11, leaving the practical utility of these techniques unknown. Here, we introduce the Concept-Wrapper Network (CW-Net), a method for faithfully explaining the behaviour of machine-learning-based planners that causally grounds their reasoning in human-interpretable concepts without sacrificing performance. We deploy CW-Net on a real self-driving car and show that the resulting explanations improve the human driver's mental model of the vehicle, allowing them to better predict its behaviour, particularly in surprising situations. This demonstrates that explainable deep learning integrated into self-driving cars can be both understandable and useful in a realistic deployment setting. We anticipate our method could be applied to other safety-critical systems, such as autonomous drones and robotic surgeons, as well as to other architectures, such as end-to-end learning systems and vision-language-action models. Overall, our study establishes a deployment-validated pathway to interpretability for autonomous agents, which could help make them more transparent and safe.",
+        "identifier": "42687026",
+        "dedupe_key": "doi:10.1038/s41586-026-10950-5",
         "topic_hit": [],
         "priority_rank": 999,
         "keyword_hit": [
-          "LLM",
-          "representation learning"
+          "agent"
         ]
       },
       "days_on_board": 1,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "653b439cbf23",
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "8b76c6f8369f",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-03T05:22:12.489468+00:00",
-          "rank": 23
-        },
-        {
-          "run_at": "2026-09-03T06:33:29.828752+00:00",
-          "rank": 25
-        },
-        {
-          "run_at": "2026-09-03T09:00:07.774956+00:00",
-          "rank": 25
+          "run_at": "2026-09-03T13:21:21.222481+00:00",
+          "rank": 22
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 26,
-      "title": "Benchmarking methods for extracting microbial signal from host-dominated metatranscriptomes.",
-      "title_zh": "从宿主主导的宏转录组中提取微生物信号的基准测试方法。",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42685266/",
-      "hot_value": null,
-      "summary_zh": "最初为人类转录组分析生成的人类 RNA 测序（RNA-seq）数据绝大多数由宿主序列主导，但它们通常包含一小部分非人类读取，可用于微生物检测。当此类数据集被重新用于二次微生物组导向分析时，提取和准确分类这种弱微生物信号在技术上具有挑战性，目前不存在即用型流程。在本研究中，我们评估了过滤宿主读取和分类宿主主导 RNA 测序数据中微生物转录物的计算策略。我们比较了类似于先前研究中使用的基于组装的微生物易位方法与最先进的免组装方法，并使用反映低微生物丰度的模拟数据集评估其各自的优势和局限性。我们的结果表明，基于组装的方法产生准确的分类学预测，但在低读取深度下挣扎，而免组装方法在稀疏设置中更稳健，但以降低精度为代价。为了利用两种方法的互补性，我们提出了一种集成基于组装和免组装分类的混合流程。在模拟数据上，这种混合策略比任一方法单独使用都改善了微生物分类性能。应用于真实人类宏转录组数据集（在微生物易",
-      "thumbnail": null,
-      "published_at": "2026-09-01",
-      "extra": {
-        "subsource": "pubmed",
-        "journal": "Briefings in bioinformatics",
-        "doi": "10.1093/bib/bbag454",
-        "tier": "英文顶刊",
-        "description": "Human RNA sequencing (RNA-seq) data originally generated for human transcriptome profiling are overwhelmingly dominated by host sequences, yet they often contain a small fraction of non-human reads that can be exploited for microbial detection. When such datasets are repurposed for secondary microbiome-oriented analyses, extracting and accurately classifying this weak microbial signal becomes technically challenging, and no ready-to-use pipeline currently exists. In this study, we evaluate computational strategies for filtering host reads and classifying microbial transcripts in host-dominated RNA sequencing data. We compare assembly-based approaches similar to those used in a previous study focusing on microbial translocation with state-of-the-art assembly-free methods, and assess their respective strengths and limitations using simulated datasets reflecting low microbial abundance. Our results show that assembly-based methods yield accurate taxonomic predictions but struggle at low read depth, whereas assembly-free methods are more robust in sparse settings at the cost of reduced precision. To leverage the complementarity of both approaches, we propose a hybrid pipeline that integrates assembly-based and assembly-free classification. On simulated data, this hybrid strategy improves microbial classification performance compared with either approach alone. Application to a real human metatranscriptomic dataset analyzed in a microbial translocation context illustrates the broader microbial signal captured by the hybrid approach, despite intrinsic challenges related to the absence of reliable ground truth and the risk of host read misclassification. Our work provides a framework for extracting microbial signals from host-dominated human metatranscriptomes, enabling the reuse of existing transcriptomic datasets for microbiome-related analyses, including but not limited to microbial translocation studies.",
-        "identifier": "42685266",
-        "dedupe_key": "doi:10.1093/bib/bbag454",
-        "topic_hit": [],
-        "priority_rank": 999,
-        "keyword_hit": [
-          "benchmark"
-        ]
-      },
-      "days_on_board": 1,
-      "is_new": false,
-      "rank_delta": 1,
-      "cluster_id": "1bbd7a6c09b5",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-03T05:22:12.489468+00:00",
-          "rank": 25
-        },
-        {
-          "run_at": "2026-09-03T06:33:29.828752+00:00",
-          "rank": 27
-        },
-        {
-          "run_at": "2026-09-03T09:00:07.774956+00:00",
-          "rank": 26
-        }
-      ]
-    },
-    {
-      "source": "papers",
-      "rank": 27,
-      "title": "Evaluation of peak alignment performance of commercial and open-source tools for GC×GC-MS based non-targeted screening.",
-      "title_zh": "商业和开源工具用于 GC×GC-MS 非靶向筛查的峰对齐性能评估。",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42685267/",
-      "hot_value": null,
-      "summary_zh": "全面二维气相色谱-质谱联用（GC × GC-MS）是分析复杂混合物的强大工具，但其广泛使用受限于缺乏稳健且透明的样本间峰对齐工作流程。商业解决方案通常依赖专有算法，而用户友好的开源替代品仍然稀缺。在这里，我们介绍了 jAligner4GCxGC，一个新的开源 Julia 包，用于样本间 GC × GC-MS 峰对齐，并在实际 GC × GC-MS 数据处理工作流程中对其性能与 Guineu（开源）和 ChromaTOF Sync 2D（商业）进行基准测试。该包执行数据预处理、对齐和后处理，包括特征合并、库搜索和化合物数据检索。三个室内灰尘样本，包括认证参考物质，添加了 >150 种参考化合物，浓度分别为 0.5、5.0 和 50 pg/μl，并使用针对每个应用优化的工作流程进行分析。性能基于正确对齐的添加化合物回收率和工作流程处理时间进行评估。由于软件包在峰检测和预处理方面不同，涉及 Sy",
-      "thumbnail": null,
-      "published_at": "2026-09-01",
-      "extra": {
-        "subsource": "pubmed",
-        "journal": "Briefings in bioinformatics",
-        "doi": "10.1093/bib/bbag458",
-        "tier": "英文顶刊",
-        "description": "Comprehensive two-dimensional gas chromatography-mass spectrometry (GC × GC-MS) is a powerful tool for analysing complex mixtures, but its wide use is limited by the lack of robust and transparent inter-sample peak alignment workflows. Commercial solutions often rely on proprietary algorithms, while user-friendly open-source alternatives remain scarce. Here, we introduce jAligner4GCxGC, a new open-access Julia package for inter-sample GC × GC-MS peak alignment and benchmark its performance within practical GC × GC-MS data processing workflows against Guineu (open-source) and ChromaTOF Sync 2D (commercial). The package performs data preprocessing, alignment, and postprocessing including feature merging, library searching, and compound data retrieval. Three indoor dust samples, including certified reference material, were spiked with >150 reference compounds at concentrations of 0.5, 5.0, and 50 pg/μl and analysed using workflows optimized for each application. Performance was evaluated based on recovery of correctly aligned spiked compounds and workflow processing time. Because the software packages differ in peak detection and preprocessing, comparisons involving Sync 2D should be interpreted at workflow rather than alignment algorithm level. At 50 pg/μl, Guineu and jAligner4GCxGC detected 94% and 92% of compounds, respectively, outperforming Sync 2D (82%). At 5 and 0.5 pg/μl, Sync 2D detected the highest proportions (79% and 71%), whereas Guineu and jAligner4GCxGC performed identically (68% and 33%). Alignment-related processing required seconds for Guineu, 4 min for jAligner4GCxGC, and 9 min for Sync 2D. However, Sync 2D provided the quickest end-to-end workflow. These results highlight practical trade-offs between commercial and open-source workflows and demonstrate that jAligner4GCxGC provides a transparent and reproducible solution for GC × GC-MS peak alignment.",
-        "identifier": "42685267",
-        "dedupe_key": "doi:10.1093/bib/bbag458",
-        "topic_hit": [],
-        "priority_rank": 999,
-        "keyword_hit": [
-          "graph",
-          "benchmark"
-        ]
-      },
-      "days_on_board": 1,
-      "is_new": false,
-      "rank_delta": -1,
-      "cluster_id": "4bccfcfcfee6",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-03T05:22:12.489468+00:00",
-          "rank": 24
-        },
-        {
-          "run_at": "2026-09-03T06:33:29.828752+00:00",
-          "rank": 26
-        },
-        {
-          "run_at": "2026-09-03T09:00:07.774956+00:00",
-          "rank": 27
-        }
-      ]
-    },
-    {
-      "source": "papers",
-      "rank": 28,
-      "title": "Correction: MS-ConTab: multi-scale contrastive learning of mutation signatures for Pan-Cancer representation and stratification.",
-      "title_zh": "更正：MS-ConTab：用于泛癌表示和分层的多尺度突变特征对比学习。",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42686224/",
-      "hot_value": null,
-      "summary_zh": null,
-      "thumbnail": null,
-      "published_at": "2026-08-31",
-      "extra": {
-        "subsource": "pubmed",
-        "journal": "Bioinformatics (Oxford, England)",
-        "doi": "10.1093/bioinformatics/btag650",
-        "tier": "英文顶刊",
-        "description": "",
-        "identifier": "42686224",
-        "dedupe_key": "doi:10.1093/bioinformatics/btag650",
-        "topic_hit": [],
-        "priority_rank": 999,
-        "keyword_hit": [
-          "contrastive"
-        ]
-      },
-      "days_on_board": 1,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "aae25960b077",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-03T06:33:29.828752+00:00",
-          "rank": 28
-        },
-        {
-          "run_at": "2026-09-03T09:00:07.774956+00:00",
-          "rank": 28
-        }
-      ]
-    },
-    {
-      "source": "papers",
-      "rank": 29,
+      "rank": 23,
       "title": "Suppressing Primer-Driven Nonspecific Amplification in LAMP Using TrueLAMP",
       "title_zh": "使用 TrueLAMP 抑制 LAMP 中引物驱动的非特异性扩增",
       "url": "https://doi.org/10.1101/2025.10.23.684253",
@@ -1402,7 +1176,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": 6,
       "cluster_id": "ced105daf7f4",
       "cluster_size": 1,
       "rank_history": [
@@ -1417,12 +1191,16 @@
         {
           "run_at": "2026-09-03T09:00:07.774956+00:00",
           "rank": 29
+        },
+        {
+          "run_at": "2026-09-03T13:21:21.222481+00:00",
+          "rank": 23
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 30,
+      "rank": 24,
       "title": "The first chromosome-scale genome assembly of Blumeria graminis f. sp. avenae provides insights into genome evolution and host specialization",
       "title_zh": "第一个染色体级基因组组装燕麦白粉病菌（Blumeria graminis f. sp. avenae）提供了基因组进化和宿主特化的见解",
       "url": "https://doi.org/10.64898/2026.08.28.747853",
@@ -1446,7 +1224,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": 6,
       "cluster_id": "ca338d798880",
       "cluster_size": 1,
       "rank_history": [
@@ -1461,12 +1239,16 @@
         {
           "run_at": "2026-09-03T09:00:07.774956+00:00",
           "rank": 30
+        },
+        {
+          "run_at": "2026-09-03T13:21:21.222481+00:00",
+          "rank": 24
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 31,
+      "rank": 25,
       "title": "RegimeFormer: A Large Protein Model of Global Perturbation Regimes",
       "title_zh": "RegimeFormer：全局扰动机制的大型蛋白质模型",
       "url": "https://doi.org/10.64898/2026.08.26.747182",
@@ -1489,7 +1271,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": 6,
       "cluster_id": "ca533d275a79",
       "cluster_size": 1,
       "rank_history": [
@@ -1504,12 +1286,16 @@
         {
           "run_at": "2026-09-03T09:00:07.774956+00:00",
           "rank": 31
+        },
+        {
+          "run_at": "2026-09-03T13:21:21.222481+00:00",
+          "rank": 25
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 32,
+      "rank": 26,
       "title": "PhageTransformer - scalable and accurate host assignments for bacteriophages",
       "title_zh": "PhageTransformer - 噬菌体的可扩展和准确宿主分配",
       "url": "https://doi.org/10.64898/2026.08.29.748026",
@@ -1532,7 +1318,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": 6,
       "cluster_id": "a01460019e49",
       "cluster_size": 1,
       "rank_history": [
@@ -1547,43 +1333,247 @@
         {
           "run_at": "2026-09-03T09:00:07.774956+00:00",
           "rank": 32
+        },
+        {
+          "run_at": "2026-09-03T13:21:21.222481+00:00",
+          "rank": 26
+        }
+      ]
+    },
+    {
+      "source": "papers",
+      "rank": 27,
+      "title": "Machine learning interprets genome sequences to map possible microbial symbionts.",
+      "title_zh": "机器学习解读基因组序列以映射潜在微生物共生体。",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42687045/",
+      "hot_value": null,
+      "summary_zh": null,
+      "thumbnail": null,
+      "published_at": "2026-09-02",
+      "extra": {
+        "subsource": "pubmed",
+        "journal": "Nature biotechnology",
+        "doi": "10.1038/s41587-026-03212-2",
+        "tier": "英文顶刊",
+        "description": "",
+        "identifier": "42687045",
+        "dedupe_key": "doi:10.1038/s41587-026-03212-2",
+        "topic_hit": [],
+        "priority_rank": 999,
+        "keyword_hit": []
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "651144181750",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-03T13:21:21.222481+00:00",
+          "rank": 27
+        }
+      ]
+    },
+    {
+      "source": "papers",
+      "rank": 28,
+      "title": "Engineered genomic attachment sites for site-specific recombinases enable high-efficiency integration in plants and human cells.",
+      "title_zh": "工程化位点特异性重组酶基因组附着位点实现植物和人类细胞高效整合。",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42687044/",
+      "hot_value": null,
+      "summary_zh": "这里我们开发DNA中心策略，通过理性工程化嵌合附着位点优化位点特异性重组。高活性att变体增强Bxb1介导整合效率于人类细胞和植物。其中，工程化attB(V111)位点在HEK293T细胞达51.9%整合效率（较野生型attB 1.7倍），水稻原生质体35.6%（较野生型4.4倍）。与Bxb1催化域工程化单蛋白突变体配对时，优化系统在人类细胞中实现CD19嵌合抗原受体盒31%和鸟氨酸转氨甲酰酶表达盒25%靶向整合效率。水稻中，这些工程化变体使5.8 kb抗除草剂盒整合至靶基因组位点，稳定整合检测于24%再生植株。牛津纳米孔长读长测序编辑植株显示完整精确插入和高特异性。编辑幼苗繁殖至T1植株确认可遗传编辑至后代。此方法提供安全、广泛适用的重组酶基因组编辑途径。",
+      "thumbnail": null,
+      "published_at": "2026-09-02",
+      "extra": {
+        "subsource": "pubmed",
+        "journal": "Nature biotechnology",
+        "doi": "10.1038/s41587-026-03294-y",
+        "tier": "英文顶刊",
+        "description": "Here we developed a DNA-centric strategy for optimizing site-specific recombination by rationally engineering chimeric attachment sites. The high-activity att variants enhance Bxb1-mediated integration efficiency in human cells and plants. Among these att variants, the engineered attB(V111) site achieved 51.9% integration efficiency in HEK293T cells (1.7-fold versus wild-type attB) and 35.6% in rice protoplasts (4.4-fold versus wild-type attB). When paired with an engineered single protein mutant in the Bxb1 catalytic domain, the optimized system achieved targeted integration efficiencies of 31% for a CD19 chimeric antigen receptor cassette and 25% for an ornithine transcarbamylase expression cassette in human cells. In rice, these engineered variants enabled integration of a 5.8 kb herbicide-resistance cassette at a targeted genomic locus, with stable integration detected in 24% of regenerated plants. Oxford Nanopore-based long-read sequencing of edited plants reveals complete and precise insertion with high specificity. Propagation of edited seedlings to T1 plants confirms heritable editing to future generations. This approach provides a safe, broadly applicable approach for recombinase-based genome editing.",
+        "identifier": "42687044",
+        "dedupe_key": "doi:10.1038/s41587-026-03294-y",
+        "topic_hit": [],
+        "priority_rank": 999,
+        "keyword_hit": []
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "3c7ba9e7a057",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-03T13:21:21.222481+00:00",
+          "rank": 28
+        }
+      ]
+    },
+    {
+      "source": "papers",
+      "rank": 29,
+      "title": "Human stewardship in the age of organoids.",
+      "title_zh": "类器官时代的人类管理。",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42687014/",
+      "hot_value": null,
+      "summary_zh": null,
+      "thumbnail": null,
+      "published_at": "2026-09-02",
+      "extra": {
+        "subsource": "pubmed",
+        "journal": "Nature methods",
+        "doi": "10.1038/s41592-026-03228-1",
+        "tier": "英文顶刊",
+        "description": "",
+        "identifier": "42687014",
+        "dedupe_key": "doi:10.1038/s41592-026-03228-1",
+        "topic_hit": [],
+        "priority_rank": 999,
+        "keyword_hit": []
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "cf3424014f3f",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-03T13:21:21.222481+00:00",
+          "rank": 29
+        }
+      ]
+    },
+    {
+      "source": "papers",
+      "rank": 30,
+      "title": "Author Correction: Endocannabinoids facilitate reward engagement through retrograde gain control.",
+      "title_zh": "作者更正：内源性大麻素通过逆行增益控制促进奖赏参与。",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42686915/",
+      "hot_value": null,
+      "summary_zh": null,
+      "thumbnail": null,
+      "published_at": "2026-09-02",
+      "extra": {
+        "subsource": "pubmed",
+        "journal": "Nature",
+        "doi": "10.1038/s41586-026-11104-3",
+        "tier": "英文顶刊",
+        "description": "",
+        "identifier": "42686915",
+        "dedupe_key": "doi:10.1038/s41586-026-11104-3",
+        "topic_hit": [],
+        "priority_rank": 999,
+        "keyword_hit": []
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "da380af9579c",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-03T13:21:21.222481+00:00",
+          "rank": 30
+        }
+      ]
+    },
+    {
+      "source": "papers",
+      "rank": 31,
+      "title": "Retraction Note: Warming accelerates global drought severity.",
+      "title_zh": "撤稿说明：变暖加速全球干旱严重性。",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42686914/",
+      "hot_value": null,
+      "summary_zh": null,
+      "thumbnail": null,
+      "published_at": "2026-09-02",
+      "extra": {
+        "subsource": "pubmed",
+        "journal": "Nature",
+        "doi": "10.1038/s41586-026-11027-z",
+        "tier": "英文顶刊",
+        "description": "",
+        "identifier": "42686914",
+        "dedupe_key": "doi:10.1038/s41586-026-11027-z",
+        "topic_hit": [],
+        "priority_rank": 999,
+        "keyword_hit": []
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "dd5bba0fe19b",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-03T13:21:21.222481+00:00",
+          "rank": 31
+        }
+      ]
+    },
+    {
+      "source": "papers",
+      "rank": 32,
+      "title": "Author Correction: Signalling thresholds and negative B-cell selection in acute lymphoblastic leukaemia.",
+      "title_zh": "作者更正：急性淋巴细胞白血病中信号阈值和阴性B细胞选择。",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42686913/",
+      "hot_value": null,
+      "summary_zh": null,
+      "thumbnail": null,
+      "published_at": "2026-09-02",
+      "extra": {
+        "subsource": "pubmed",
+        "journal": "Nature",
+        "doi": "10.1038/s41586-026-11080-8",
+        "tier": "英文顶刊",
+        "description": "",
+        "identifier": "42686913",
+        "dedupe_key": "doi:10.1038/s41586-026-11080-8",
+        "topic_hit": [],
+        "priority_rank": 999,
+        "keyword_hit": []
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "7a451c7b91de",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-03T13:21:21.222481+00:00",
+          "rank": 32
         }
       ]
     },
     {
       "source": "papers",
       "rank": 33,
-      "title": "High-throughput cell-free profiling of SARS-CoV-2 RBD variants enables rapid and quantitative in vitro affinity landscape mapping.",
-      "title_zh": "高通量无细胞分析 SARS-CoV-2 RBD 变体，实现快速定量体外亲和力图谱绘制。",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42685698/",
+      "title": "Functional chimeric mRNAs encode proteins in mammalian immunity.",
+      "title_zh": "功能性嵌合mRNA编码哺乳动物免疫蛋白。",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42686912/",
       "hot_value": null,
-      "summary_zh": "SARS-CoV-2 变体继续威胁公共卫生，需要研究受体结合域（RBD）突变对抗体逃逸的累积和上位效应。我们提出了一种结合无细胞蛋白质合成和微流控的高通量平台，用于量化大量 RBD 三重突变体（覆盖野生型和 Omicron 之间的进化空间）对两种治疗性抗体和一种工程结合剂的亲和力。通过快速体外基因组装和无细胞合成，我们表达了518个 RBD 变体，并获得31,740个定量亲和力测量值，生成了三个全面的结合能量图谱。这种方法实现了快速大规模体外亲和力分析和基于机器学习的预测，为研究新兴变体提供了宝贵工具。",
+      "summary_zh": "单个哺乳动物mRNA和蛋白质通常被认为源自单一基因组位点，异构体多样性通过pre-mRNA顺式剪接产生。远处基因mRNA能否经历反式剪接形成功能相关嵌合转录本仍不清楚。这里我们开发管道，结合长读长直接RNA测序与非靶向和靶向验证，识别巨噬细胞中嵌合转录本。染色质构象捕获研究显示炎症诱导染色体间DNA相互作用，定位亲本基因邻近以促进嵌合mRNA形成。值得注意的是，我们识别编码蛋白嵌合mRNA，代表成孔蛋白gasdermin D（GSDMD）1,2与Tmem106a移码翻译C端域融合（Gsdmd-Tmem106a）于小鼠。我们显示炎症小体启动上调Gsdmd-Tmem106a，蛋白定位于质膜。炎症小体激活后，GSDMD-TMEM106A直接与经典GSDMD N端相互作用，加速增强孔形成和IL-1β释放。最后，我们显示GSDMD-TMEM106A平衡体内宿主防御和免疫病理：其缺失保护免受致死性脓毒",
       "thumbnail": null,
       "published_at": "2026-09-02",
       "extra": {
         "subsource": "pubmed",
-        "journal": "Cell systems",
-        "doi": "10.1016/j.cels.2026.101713",
+        "journal": "Nature",
+        "doi": "10.1038/s41586-026-10982-x",
         "tier": "英文顶刊",
-        "description": "SARS-CoV-2 variants continue to threaten public health, necessitating the study of cumulative and epistatic effects of receptor-binding domain (RBD) mutations on antibody evasion. We present a high-throughput platform combining cell-free protein synthesis and microfluidics to quantify the affinity of a large number of RBD triplet mutants covering the evolutionary space between the wild type and Omicron against two therapeutic antibodies and one engineered binder. Using rapid in vitro gene assembly and cell-free synthesis, we expressed 518 RBD variants and obtained 31,740 quantitative affinity measurements to generate three comprehensive binding energy landscapes. This approach enables rapid and large-scale in vitro affinity profiling and machine-learning-based predictions, providing a valuable tool for studying emerging variants.",
-        "identifier": "42685698",
-        "dedupe_key": "doi:10.1016/j.cels.2026.101713",
+        "description": "Individual mammalian mRNAs and proteins are typically believed to originate from single genomic loci, with isoform diversity arising through cis-splicing of pre-mRNA. Whether mRNA from distant genes can undergo trans-splicing to generate functionally relevant chimeric transcripts has remained unclear. Here we develop a pipeline combining long-read direct RNA sequencing with non-targeted and targeted validation to identify chimeric transcripts in macrophages. Chromatin conformation capture studies reveal that inflammation induces interchromosomal DNA interactions, positioning parent genes proximally to facilitate the formation of chimeric mRNA. Notably, we identify a protein-coding chimeric mRNA representing a fusion between the pore-forming protein gasdermin D (GSDMD)1,2 and a C-terminal domain translated out of frame from Tmem106a (Gsdmd-Tmem106a) in mice. We show that inflammasome priming upregulates Gsdmd-Tmem106a, with the protein localizing to the plasma membrane. After activation of the inflammasome, GSDMD-TMEM106A directly interacts with canonical GSDMD N termini to accelerate and enhance pore formation and IL-1β release. Finally, we show that GSDMD-TMEM106A balances host defence and immunopathology in vivo: its loss protects against lethal sepsis but compromises antibacterial defence, whereas overexpression enhances host protection while increasing sepsis lethality. We establish that protein-coding chimeric mRNAs formed by regulated transcript fusion events are operative during inflammation and immunity.",
+        "identifier": "42686912",
+        "dedupe_key": "doi:10.1038/s41586-026-10982-x",
         "topic_hit": [],
         "priority_rank": 999,
         "keyword_hit": []
       },
       "days_on_board": 1,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "b75030b65c57",
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "04f2e18a2b5e",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-03T06:33:29.828752+00:00",
-          "rank": 33
-        },
-        {
-          "run_at": "2026-09-03T09:00:07.774956+00:00",
+          "run_at": "2026-09-03T13:21:21.222481+00:00",
           "rank": 33
         }
       ]
@@ -1591,37 +1581,33 @@
     {
       "source": "papers",
       "rank": 34,
-      "title": "Genome-wide chromatin recording resolves dynamic cell state changes.",
-      "title_zh": "全基因组染色质记录解析动态细胞状态变化。",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42685696/",
+      "title": "The nutritional value of invertebrate aquatic foods.",
+      "title_zh": "无脊椎水生食物营养价值。",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42686910/",
       "hot_value": null,
-      "summary_zh": "理解细胞的染色质状态如何影响其未来行为是整个生物学中的主要挑战。然而，大多数染色质分析方法仅限于终点测定。在这里，我们提出了 LagTag，一种在同一哺乳动物细胞中恢复早期和终点染色质状态的方法。在这种方法中，细菌腺嘌呤甲基转移酶融合的瞬时活性记录了早期时间点染色质相关蛋白的 DNA 结合谱。随后的标签化和测序从腺嘌呤甲基化谱中恢复早期染色质谱，以及内源染色质相关蛋白的终点谱。我们验证了 LagTag 谱与小鼠和人类细胞中既定方法的结果一致。然后，我们将 LagTag 应用于记录和恢复小鼠胚胎干细胞分化过程中的动态染色质状态转变，捕获同一细胞群体中分化前和分化后时间点的转录特征。LagTag 因此为时间分辨染色质分析提供了基础。本论文的透明同行评审过程记录包含在补充信息中。",
+      "summary_zh": "全球大部分人口微量营养素摄入不足1，导致经济和人类健康级联不利影响2。水生无脊椎动物是多样、生产性和社会生态重要食物3,4，但其对人类营养贡献常被忽视5。这里，结合水产养殖生产、捕捞渔业和营养组成数据，我们量化水生无脊椎动物对全球营养供应贡献。此外，因无脊椎动物营养信息稀疏，使用物种特异性性状数据，我们开发预测模型估计SeaLifeBase（全球海洋非鱼类物种数据库）注册超50,000种无脊椎动物营养含量。我们显示水生无脊椎动物异常营养密集，当前生产供应超50亿人维生素B12和硒年需求当量；超10亿人铜、omega-3脂肪酸、碘和锌；超1亿人维生素B2和B3、铁、锰和镁等营养。营养组成因分类群、消费模式（如身体部位和加工形式）及环境和生活史因素（如栖息地或热制度）而异。总体，若生态可持续性实现且社会经济和食物系统障碍（如食品安全、获取、可负担性、文化接受度和生物利用度）不阻碍无脊椎动物消费",
       "thumbnail": null,
       "published_at": "2026-09-02",
       "extra": {
         "subsource": "pubmed",
-        "journal": "Cell systems",
-        "doi": "10.1016/j.cels.2026.101717",
+        "journal": "Nature",
+        "doi": "10.1038/s41586-026-10908-7",
         "tier": "英文顶刊",
-        "description": "Understanding how the chromatin state of a cell influences its future behavior is a major challenge throughout biology. However, most chromatin profiling methods are limited to endpoint assays. Here, we present LagTag, a method for recovery of earlier and endpoint chromatin states in the same mammalian cells. In this approach, transient activity of bacterial adenine methyltransferase fusions records the DNA-binding profiles of chromatin-associated proteins of interest at earlier time points. Subsequent tagmentation and sequencing recover the earlier chromatin profile from adenine methylation profiles, alongside endpoint profiles of endogenous chromatin-associated proteins. We verified that LagTag profiles aligned with those from established methods in mouse and human cells. We then applied LagTag to record and recover dynamic chromatin state transitions during mouse embryonic stem cell differentiation, capturing transcriptional signatures from pre- and post-differentiation time points within the same cell population. LagTag thus provides a foundation for temporally resolved chromatin profiling. A record of this paper's transparent peer review process is included in the supplemental information.",
-        "identifier": "42685696",
-        "dedupe_key": "doi:10.1016/j.cels.2026.101717",
+        "description": "Most of the global population has inadequate micronutrient intake1, leading to cascading adverse effects on economies and human health2. Aquatic invertebrates are a diverse, productive and socioecologically important food3,4, yet their contribution to human nutrition is frequently overlooked5. Here, combining aquaculture production, capture fisheries and nutrient composition data, we quantify the contribution of aquatic invertebrates to global nutrient supplies. Furthermore, as nutrient information for invertebrates is sparse, using species-specific trait data, we develop a predictive model to estimate the nutrient content of over 50,000 invertebrate species registered in SeaLifeBase, a global database focused on marine non-fish species. We show aquatic invertebrates are exceptionally nutrient dense, with current aquatic invertebrate production supplying the equivalent annual requirement for over 5 billion people in terms of vitamin B12 and selenium; over 1 billion people for copper, omega 3 fatty acids, iodine and zinc; and over 100 million people for nutrients such as vitamins B2 and B3, iron, manganese and magnesium. Nutrient composition differs among taxonomic groups, consumption patterns (for example, body parts and processing form), and environmental and life-history factors such as the habitat or thermal regime the species lives in. Overall, provided that ecological sustainability is attained and socioeconomic and food-system barriers (such as food safety, access, affordability, cultural acceptance and bioavailability) do not prevent invertebrate consumption and nutrient uptake, our study highlights the potential benefits of integrating aquatic invertebrates into dietary portfolios across global societies, mainstreaming their nutritional importance in development projects, sustainability assessments and food policy.",
+        "identifier": "42686910",
+        "dedupe_key": "doi:10.1038/s41586-026-10908-7",
         "topic_hit": [],
         "priority_rank": 999,
         "keyword_hit": []
       },
       "days_on_board": 1,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "148890aa072f",
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "da6e4bb4a16b",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-03T06:33:29.828752+00:00",
-          "rank": 34
-        },
-        {
-          "run_at": "2026-09-03T09:00:07.774956+00:00",
+          "run_at": "2026-09-03T13:21:21.222481+00:00",
           "rank": 34
         }
       ]
@@ -1629,49 +1615,33 @@
     {
       "source": "papers",
       "rank": 35,
-      "title": "Identifying expanding TCR clonotypes with a longitudinal Bayesian mixture model and their associations with cancer patient prognosis, metastasis-directed therapy, and VJ gene enrichment.",
-      "title_zh": "使用纵向贝叶斯混合模型识别扩增TCR克隆型及其与癌症患者预后、转移定向治疗和VJ基因富集的关联。",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42684031/",
+      "title": "Intracellular complement factor H protects neurons during CNS inflammation.",
+      "title_zh": "细胞内补体因子H在CNS炎症期间保护神经元。",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42686909/",
       "hot_value": null,
-      "summary_zh": "近年来，检查T细胞受体（TCR）克隆性已成为理解癌症及其干预免疫反应的一种方式。这些分析的一个方面是确定哪些受体因外源扰动（如治疗干预）而统计显著扩增或收缩。我们表征了此类分析中常用的Fisher精确检验方法，并提出一种无需配对、患者内比较的替代公式。我们开发这种灵活的贝叶斯纵向混合模型，适应可变长度患者随访并处理缺失数据，不因结构实用性省略估计中的数据。一旦克隆被模型分为动态（扩增或收缩）和静态类别，可将其计数或其他特征与疾病状态、干预、基线生物标志物和患者预后关联。我们将这些发展应用于接受随机转移定向治疗或未接受的前列腺癌患者队列。我们的分析显示，转移定向治疗（MDT）患者中克隆扩增显著增加，且与后期进展相关，无论独立或MDT分层内。使用我们开发的高维惩罚对数线性模型分析受体基序和VJ基因富集组合，也提示扩增克隆的独特生物学特征，无论是否由MDT诱导。R/STAN中的示例模型实现可在d",
+      "summary_zh": "神经退行性变是多发性硬化（MS）残疾主要驱动因素，MS是最常见中枢神经系统（CNS）慢性炎症疾病1。视网膜神经节细胞（RGCs），眼中异质神经元群体，在MS中退化，提供研究神经元亚型特异性炎症损伤韧性模型2。然而，差异脆弱性背后神经元内在机制仍不清楚。这里我们识别神经元中细胞内补体因子H（CFH）神经保护作用。使用来自MS供体和对照个体RGCs单核RNA测序分析，我们发现CFH表达与RGC退化内在韧性强相关。机制上，CFH在视网膜和其他CNS神经元中响应炎症和氧化应激诱导，限制活性氧积累和脂质过氧化。CFH定位于内质网，神经元铁死亡期间脂质过氧化主要位点。其保护活性依赖C端SCR20域，独立于CFH分泌，且在补体成分C3缺失时保留。这些发现揭示CFH在神经元中非经典细胞内功能。总之，结果识别CFH为小鼠和人类CNS神经元韧性关键介质，提供炎症性神经退行性变机制见解，对MS治疗和更广泛神经保",
       "thumbnail": null,
       "published_at": "2026-09-02",
       "extra": {
         "subsource": "pubmed",
-        "journal": "Bioinformatics (Oxford, England)",
-        "doi": "10.1093/bioinformatics/btag659",
+        "journal": "Nature",
+        "doi": "10.1038/s41586-026-10981-y",
         "tier": "英文顶刊",
-        "description": "Examination of T cell receptor (TCR) clonality has become a way of understanding immunologic response to cancer and its interventions in recent years. An aspect of these analyses is determining which receptors expand or contract statistically significantly as a function of an exogenous perturbation such as therapeutic intervention. We characterize the commonly used Fisher's exact test approach for such analyses and propose an alternative formulation that does not necessitate pairwise, within-patient comparisons. We develop this flexible Bayesian longitudinal mixture model that accommodates variable length patient followup and handles missingness where present, not omitting data in estimation because of structural practicalities. Once clones are partitioned by the model into dynamic (expanding or contracting) and static categories, one can associate their counts or other characteristics with disease state, interventions, baseline biomarkers, and patient prognosis. We apply these developments to a cohort of prostate cancer patients who underwent randomized metastasis-directed therapy or not. Our analyses reveal a significant increase in clonal expansions among metastasis-directed therapy (MDT) patients and their association with later progressions both independent and within strata of MDT. Analysis of receptor motifs and VJ gene enrichment combinations using a high-dimensional penalized log-linear model we develop also suggests distinct biological characteristics of expanding clones, with and without inducement by MDT. An example model implementation in R/STAN is available at doi.org/10.5281/zenodo.21209546. Supplementary material includes simulation results, longitudinal mixture model component derivation, HLA typing analysis, and stability selection for the VJ gene family.",
-        "identifier": "42684031",
-        "dedupe_key": "doi:10.1093/bioinformatics/btag659",
+        "description": "Neurodegeneration is a major driver of disability in multiple sclerosis (MS), the most common chronic inflammatory disease of the central nervous system (CNS)1. Retinal ganglion cells (RGCs), a heterogeneous neuronal population in the eye, undergo degeneration in MS and provide a model to study neuronal subtype-specific resilience to inflammatory injury2. However, the neuron-intrinsic mechanisms underlying differential vulnerability remain unclear. Here we identify a neuroprotective role for intracellular complement factor H (CFH) in neurons. Using single-nucleus RNA-sequencing analysis of RGCs from donors with MS and control individuals, we found that CFH expression was strongly correlated with intrinsic resilience to RGC degeneration. Mechanistically, CFH was induced in retinal and other CNS neurons in response to inflammatory and oxidative stress, where it limited reactive oxygen species accumulation and lipid peroxidation. CFH localized to the endoplasmic reticulum, a major site of lipid peroxidation during neuronal ferroptosis. Its protective activity was dependent on its C-terminal SCR20 domain, was independent of CFH secretion and was preserved in the absence of complement component C3. These findings reveal a non-canonical intracellular function of CFH in neurons. Together, our results identify CFH as a key mediator of neuronal resilience across the CNS in mice and humans and provide mechanistic insight into inflammatory neurodegeneration with implications for MS therapy and neuroprotection more broadly.",
+        "identifier": "42686909",
+        "dedupe_key": "doi:10.1038/s41586-026-10981-y",
         "topic_hit": [],
         "priority_rank": 999,
         "keyword_hit": []
       },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "f3ad9fd496b2",
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "a7cd88b1e0fe",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-02T19:15:05.327909+00:00",
-          "rank": 24
-        },
-        {
-          "run_at": "2026-09-02T22:24:21.398262+00:00",
-          "rank": 24
-        },
-        {
-          "run_at": "2026-09-03T05:22:12.489468+00:00",
-          "rank": 30
-        },
-        {
-          "run_at": "2026-09-03T06:33:29.828752+00:00",
-          "rank": 35
-        },
-        {
-          "run_at": "2026-09-03T09:00:07.774956+00:00",
+          "run_at": "2026-09-03T13:21:21.222481+00:00",
           "rank": 35
         }
       ]
@@ -1679,49 +1649,33 @@
     {
       "source": "papers",
       "rank": 36,
-      "title": "Author Correction: Activating mutations in CSF1R and additional receptor tyrosine kinases in histiocytic neoplasms.",
-      "title_zh": "作者更正：组织细胞肿瘤中CSF1R及其他受体酪氨酸激酶的激活突变。",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42680954/",
+      "title": "Creating bottom-up RNA transfer vehicles from synthetic protein assemblies.",
+      "title_zh": "从合成蛋白组装创建自下而上RNA转移载体。",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42686908/",
       "hot_value": null,
-      "summary_zh": null,
+      "summary_zh": "进化引导生物系统填充生态位，病毒是此原则最成功例子之一。病毒进化数十亿年高效转移遗传信息。尽管病毒高度多样，多数在衣壳大小和形状上趋同显著相似1,2。相反，蛋白质设计生成模型能创建自然界缺失蛋白架构3-5。这里我们研究人工智能设计蛋白组装能否功能化构建独立于进化轨迹的核酸运输载体。通过结合天然蛋白域与合成蛋白组装，我们创建超100种自下而上RNA转移载体，具有独特大小和形状。这些载体RNA转移效率超越广泛使用递送载体数个数量级。此外，我们证明其趋向性可通过整合计算设计肽结合剂编程，并用于递送治疗相关货物RNA至广泛细胞模型。我们显示一种载体在小鼠体内生物分布近单细胞分辨率，确认其安全性，并用于杜氏肌营养不良基因编辑治疗策略于患者衍生细胞和猪。工作展示生成式人工智能创建蛋白如何用于理性工程化RNA运输系统，克服天然蛋白多样性限制实现所需特性。",
       "thumbnail": null,
-      "published_at": "2026-09-01",
+      "published_at": "2026-09-02",
       "extra": {
         "subsource": "pubmed",
-        "journal": "Nature medicine",
-        "doi": "10.1038/s41591-026-04613-1",
+        "journal": "Nature",
+        "doi": "10.1038/s41586-026-10952-3",
         "tier": "英文顶刊",
-        "description": "",
-        "identifier": "42680954",
-        "dedupe_key": "doi:10.1038/s41591-026-04613-1",
+        "description": "Evolution guides biological systems to populate ecological niches, with viruses among the most successful examples of this principle. Viruses evolved over billions of years to efficiently transfer genetic information. Although viruses are highly diverse, most have converged towards remarkable similarity in the size and shape of their capsids1,2. By contrast, generative models for protein design enable the creation of protein architectures that are absent from nature3-5. Here we investigate whether protein assemblies designed by artificial intelligence can be functionalized to construct nucleic acid transport vehicles that are independent of evolutionary trajectories. By combining natural protein domains with synthetic protein assemblies, we create more than 100 bottom-up RNA transfer vehicles with unique sizes and shapes. These vehicles surpass the RNA transfer efficiency of widely used delivery vehicles by several orders of magnitude. In addition, we demonstrate that their tropism can be programmed by incorporation of computationally designed peptide binders and use them to deliver therapeutically relevant cargo RNAs into a wide range of cellular models. We show the in vivo biodistribution of one of these vehicles in a mouse at near-single-cell resolution, confirm its safety, and use it to perform a gene-editing treatment strategy for Duchenne muscular dystrophy in patient-derived cells and a pig. Our work demonstrates how proteins created by generative artificial intelligence can be harnessed for the rational engineering of RNA transport systems with the desired properties by overcoming the limitations of natural protein diversity.",
+        "identifier": "42686908",
+        "dedupe_key": "doi:10.1038/s41586-026-10952-3",
         "topic_hit": [],
         "priority_rank": 999,
         "keyword_hit": []
       },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "2bf4fa493cd0",
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "df3fa9c889ea",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-02T19:15:05.327909+00:00",
-          "rank": 25
-        },
-        {
-          "run_at": "2026-09-02T22:24:21.398262+00:00",
-          "rank": 25
-        },
-        {
-          "run_at": "2026-09-03T05:22:12.489468+00:00",
-          "rank": 31
-        },
-        {
-          "run_at": "2026-09-03T06:33:29.828752+00:00",
-          "rank": 36
-        },
-        {
-          "run_at": "2026-09-03T09:00:07.774956+00:00",
+          "run_at": "2026-09-03T13:21:21.222481+00:00",
           "rank": 36
         }
       ]
@@ -1729,49 +1683,33 @@
     {
       "source": "papers",
       "rank": 37,
-      "title": "Altered oligodendrocyte function promotes cognitive decline in aging.",
-      "title_zh": "少突胶质细胞功能改变促进衰老中的认知衰退。",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42680953/",
+      "title": "3D epigenome of glial cell types in developing human cortex.",
+      "title_zh": "发育中人类皮层胶质细胞类型3D表观基因组。",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42686907/",
       "hot_value": null,
-      "summary_zh": null,
+      "summary_zh": "人类皮层复杂异质，发育期间广泛扩张1,2。我们先前神经发生研究，包括放射状胶质（RG）、中间祖细胞、兴奋性神经元和中间神经元，显示染色质环化支撑谱系特异性基因转录调控，阐明非编码遗传变异如何通过细胞类型特异性基因调控贡献神经精神疾病3。RG在通过神经发生和胶质发生生成细胞多样性中关键作用，可进一步分类为心室RG（vRG）和外RG（oRG）4,5。鉴于其在皮层发育重要性，我们对中孕期人类新皮层四种主要胶质群体（包括vRG、oRG、少突胶质前体细胞和小胶质细胞）进行综合三维（3D）表观基因组分析。通过整合基因表达、染色质可及性、DNA甲基化和3D染色质相互作用，我们识别细胞类型特异性候选顺式调控元件（cCREs）并用转基因小鼠胚胎验证其调控功能。使用机器学习，我们优先化112个精神分裂症风险变体于胶质cCREs，并进一步确认预测vRG增强子破坏由rs4449074风险等位基因体内介导。最后，o",
       "thumbnail": null,
-      "published_at": "2026-09-01",
+      "published_at": "2026-09-02",
       "extra": {
         "subsource": "pubmed",
-        "journal": "Nature medicine",
-        "doi": "10.1038/s41591-026-04630-0",
+        "journal": "Nature",
+        "doi": "10.1038/s41586-026-10987-6",
         "tier": "英文顶刊",
-        "description": "",
-        "identifier": "42680953",
-        "dedupe_key": "doi:10.1038/s41591-026-04630-0",
+        "description": "The human cortex is complex and heterogeneous, undergoing extensive expansion during development1,2. Our prior study of neurogenesis, including radial glia (RG), intermediate progenitor cells, excitatory neurons and interneurons demonstrated that chromatin looping underlies transcriptional regulation for lineage-specific genes, shedding light on how non-coding genetic variants contribute to neuropsychiatric disorders by means of cell-type-specific gene regulation3. RG have a crucial role in generating cellular diversity through both neurogenesis and gliogenesis and can be further classified into ventricular RG (vRG) and outer RG (oRG)4,5. Given their significance in cortical development, we conducted a comprehensive three-dimensional (3D) epigenomic analysis of four main glial populations, including vRG, oRG, oligodendrocyte precursor cells and microglia, from the mid-gestational human neocortex. By integrating gene expression, chromatin accessibility, DNA methylation and 3D chromatin interactions, we identified cell-type-specific candidate cis-regulatory elements (cCREs) and validated their regulatory function using transgenic mouse embryos. Using machine learning, we prioritized 112 schizophrenia risk variants within glia cCREs and further confirmed the predicted vRG enhancer disruption by the rs4449074 risk allele in vivo. Finally, oRG cCREs are enriched for human accelerated regions compared with other cCREs and a subset of human accelerated regions show activity differences from their chimpanzee orthologues that interact with genes involved in neuronal development. Our findings advance the understanding of human-specific gene regulation during corticogenesis.",
+        "identifier": "42686907",
+        "dedupe_key": "doi:10.1038/s41586-026-10987-6",
         "topic_hit": [],
         "priority_rank": 999,
         "keyword_hit": []
       },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "b234c73e0f9d",
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "fa7b0c82d4a3",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-02T19:15:05.327909+00:00",
-          "rank": 26
-        },
-        {
-          "run_at": "2026-09-02T22:24:21.398262+00:00",
-          "rank": 26
-        },
-        {
-          "run_at": "2026-09-03T05:22:12.489468+00:00",
-          "rank": 32
-        },
-        {
-          "run_at": "2026-09-03T06:33:29.828752+00:00",
-          "rank": 37
-        },
-        {
-          "run_at": "2026-09-03T09:00:07.774956+00:00",
+          "run_at": "2026-09-03T13:21:21.222481+00:00",
           "rank": 37
         }
       ]
@@ -1779,49 +1717,33 @@
     {
       "source": "papers",
       "rank": 38,
-      "title": "Isthmin-2 is a first-trimester predictor of preeclampsia and fetal growth restriction.",
-      "title_zh": "Isthmin-2是子痫前期和胎儿生长受限的孕早期预测因子。",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42680952/",
+      "title": "Atmospheric CH4 plateau sustained by NOx emission rise and southward shift.",
+      "title_zh": "大气CH4平台期由NOx排放上升和南移维持。",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42686905/",
       "hot_value": null,
-      "summary_zh": "子痫前期和胎儿生长受限（FGR）是全球发病率和死亡率的主要原因。两种疾病均与子宫外滋养层（EVT）侵袭受损相关。我们在前瞻性妊娠队列（妊娠结局预测研究）中对孕约12周母体血清进行蛋白质组学分析。此处我们显示，低母体血清isthmin-2（ISM2）是孕早期子痫前期或FGR的最强蛋白质信号（2904个中）。我们在两个独立队列（妊娠结局预测研究2和改善母体妊娠及儿童结局研究）中验证该关联。ISM2蛋白和mRNA几乎仅在胎盘中产生，且在胎盘内，ISM2 mRNA在EVT中高度富集。在培养人滋养层干细胞中敲低ISM2深刻抑制EVT侵袭。相反，在缺乏内源ISM2的细胞系（HEK293细胞）中表达ISM2促进迁移。我们得出结论，ISM2可能因果参与滋养层侵袭失败的早期病理生理，且该蛋白及其相关通路是预测和预防子痫前期及FGR的潜在靶点。",
+      "summary_zh": "甲烷显示大气增长率年代际变异性1。1990年代，大气甲烷增长相对1980年代放缓，主要归因于人为排放稳定或下降2-7。相反，2000年代初经济扩张8导致人为甲烷排放增加9。然而，预期大气甲烷浓度上升未被全球监测网络检测1。相反，1999至2006年间几乎无大气甲烷增长1。多种假说被提出解释此甲烷平台期10-13，但根本原因仍不确定3。这里我们结合模型模拟与甲烷和同位素观测，归因平台期于2000-2006年相对1999年1.4 ± 0.4%羟基自由基（OH）增加，主要发生在热带。我们发现热带OH增强主要由全球氮氧化物（NOx）排放上升和空间再分布驱动，向发展中国家和海洋转移，由热带国家经济增长和全球贸易扩张相关航运排放增加推动14,15。这些变化导致2000-2006年全球甲烷损失放大2.2 ± 0.7%，2006年相对1999年3.7 ± 1.3%，2000-2006年增强相当于同期人为甲",
       "thumbnail": null,
-      "published_at": "2026-09-01",
+      "published_at": "2026-09-02",
       "extra": {
         "subsource": "pubmed",
-        "journal": "Nature medicine",
-        "doi": "10.1038/s41591-026-04573-6",
+        "journal": "Nature",
+        "doi": "10.1038/s41586-026-10983-w",
         "tier": "英文顶刊",
-        "description": "Preeclampsia and fetal growth restriction (FGR) are major causes of global morbidity and mortality. Both conditions are associated with impaired invasion of the uterus by extravillous trophoblast (EVT). We performed proteomics in maternal serum obtained at ~12 weeks of gestational age in a prospective pregnancy cohort (Pregnancy Outcome Prediction Study). Here we show that low maternal serum isthmin-2 (ISM2) was the strongest protein signal (out of 2,904) in the first trimester of pregnancy for preeclampsia or FGR. We validated the association in two independent cohorts (Pregnancy Outcome Prediction Study 2 and Improving Maternal Pregnancy And Child ouTcomes study). ISM2 protein and mRNA are almost exclusively produced in the placenta, and, within the placenta, ISM2 mRNA is highly enriched in EVT. Knocking down ISM2 in cultured human trophoblast stem cells profoundly inhibited EVT invasion. Conversely, expressing ISM2 in a cell line lacking endogenous ISM2 (HEK293 cells) promoted migration. We conclude that ISM2 may be causally involved in the early pathophysiology of failed trophoblast invasion and that the protein and its associated pathways are potential targets for the prediction and prevention of preeclampsia and FGR.",
-        "identifier": "42680952",
-        "dedupe_key": "doi:10.1038/s41591-026-04573-6",
+        "description": "Methane exhibits decadal variability in atmospheric growth rates1. During the 1990s, atmospheric methane growth slowed relative to the 1980s, largely attributed to the stabilization or decline in anthropogenic emissions2-7. By contrast, economic expansion in the early 2000s (ref. 8) led to an increase in anthropogenic methane emissions9. The anticipated rise in atmospheric methane concentrations, however, was not detected by global monitoring networks1. Instead, almost no atmospheric methane growth was observed between 1999 and 2006 (ref. 1). Several hypotheses have been proposed to explain this methane plateau10-13, but the underlying causes remain uncertain3. Here we combine model simulations with methane and isotopic observations and attribute the plateau to a 1.4 ± 0.4% hydroxyl radical (OH) increase during 2000-2006 relative to 1999, mostly occurring in the tropics. We find that the tropical OH enhancement was primarily driven by a global rise and spatial redistribution of nitrogen oxides (NOx) emissions towards developing regions and the oceans, spurred by economic growth in tropical countries and increased shipping emissions linked to global trade expansion14,15. These changes led to an amplified global methane loss of 2.2 ± 0.7% during 2000-2006 and 3.7 ± 1.3% in 2006 relative to 1999, with the 2000-2006 enhancement equivalent to 136% [90%, 184%] of the contemporaneous anthropogenic methane emission growth, thereby sustaining the observed methane plateau.",
+        "identifier": "42686905",
+        "dedupe_key": "doi:10.1038/s41586-026-10983-w",
         "topic_hit": [],
         "priority_rank": 999,
         "keyword_hit": []
       },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "d8c3a0e7eb53",
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "baac1d6d4d4a",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-02T19:15:05.327909+00:00",
-          "rank": 27
-        },
-        {
-          "run_at": "2026-09-02T22:24:21.398262+00:00",
-          "rank": 27
-        },
-        {
-          "run_at": "2026-09-03T05:22:12.489468+00:00",
-          "rank": 33
-        },
-        {
-          "run_at": "2026-09-03T06:33:29.828752+00:00",
-          "rank": 38
-        },
-        {
-          "run_at": "2026-09-03T09:00:07.774956+00:00",
+          "run_at": "2026-09-03T13:21:21.222481+00:00",
           "rank": 38
         }
       ]
@@ -1829,49 +1751,33 @@
     {
       "source": "papers",
       "rank": 39,
-      "title": "Antifungal therapy improves microbiome dynamics in inflammatory bowel disease.",
-      "title_zh": "抗真菌治疗改善炎症性肠病中的微生物组动态。",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42680951/",
+      "title": "Probing far-from-equilibrium dynamics of electrical double layers.",
+      "title_zh": "探测远离平衡电双层动力学。",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42686904/",
       "hot_value": null,
-      "summary_zh": "肠道真菌失调已牵涉炎症性肠病（IBD），但靶向IBD肠道真菌组的策略仍未探索。此处我们利用观察结果，即白色念珠菌菌株在伴有轻度口腔鹅口疮（由念珠菌过度生长引起的病症）的IBD患者中于口腔和肠道间共享，设计前瞻性观察研究，比较口服抗真菌治疗（漱口吐弃制霉菌素；口服制霉菌素真菌靶向（ORNT）；n=18）与口胃肠抗真菌治疗（氟康唑；胃肠和口服氟康唑真菌靶向（GIFT）；n=35）。在53名轻中度溃疡性结肠炎或克罗恩病患者中，氟康唑（而非制霉菌素）有效减少肠道念珠菌负担并重塑肠道真菌群落组成。氟康唑治疗伴随细菌多样性增加、短链脂肪酸产生菌群扩增、抗炎微生物代谢物恢复及跨王国微生物网络的持久转变。这些微生物组和代谢组变化与改善疾病活动指数及8周随访期内疾病进展风险降低一致。这些发现证明基于真菌组患者分层的可行性，提供靶向抗真菌治疗可重塑IBD肠道微生物群的证据，并为在真菌相关疾病表现患者中实施抗真",
+      "summary_zh": "带电固液界面是生物1和电化学系统2-4能量和物质转换核心，其中强局域电场控制反应动力学5-9。然而，在涉及快速电荷转移和远离平衡动力学的现实电催化条件下，电双层（EDL）分子结构和演化仍知之甚少。经典EDL模型，在平衡和非反应条件下推导，无法捕捉反应界面出现的界面过程10-16。这里我们开发集成实验-计算框架直接解析析氢反应（HER）下EDL动力学。化学稳定纳米结构Pt膜电极使高灵敏度、时间分辨表面增强红外吸收光谱（SEIRAS）在增加过电位下实现，而机器学习分子动力学（MLMD）捕捉纳秒时间尺度界面电荷波动和溶剂动力学。此组合方法揭示内层非线性两阶段演化，增强局域电场。时间分辨光谱进一步揭示循环电位调制期间界面水不可逆重构。这些发现显示离子和界面水在远离平衡条件下异步响应，建立定量分子框架理解静电势变化、离子界面电致伸缩17-19、电解质效应20-24和能量转换技术理性电解质设计。",
       "thumbnail": null,
-      "published_at": "2026-09-01",
+      "published_at": "2026-09-02",
       "extra": {
         "subsource": "pubmed",
-        "journal": "Nature medicine",
-        "doi": "10.1038/s41591-026-04616-y",
+        "journal": "Nature",
+        "doi": "10.1038/s41586-026-10986-7",
         "tier": "英文顶刊",
-        "description": "Gut fungal dysbiosis has been implicated in inflammatory bowel disease (IBD), yet strategies for targeting the gut mycobiota in IBD remain unexplored. Here we leveraged the observation that Candida albicans strains are shared between the oral cavity and gut in patients with IBD with mild oral thrush, a condition caused by Candida overgrowth, to design a prospective observational study comparing oral antifungal therapy (swish-and-spit nystatin; oral nystatin fungal targeting (ORNT); n = 18) with orogastrointestinal antifungal therapy (fluconazole; gastrointestinal and oral fluconazole fungal targeting (GIFT); n = 35). Among 53 patients with mild-to-moderate ulcerative colitis or Crohn's disease, fluconazole, but not nystatin, effectively reduced intestinal Candida burden and reshaped gut fungal-community composition. Fluconazole treatment was accompanied by increased bacterial diversity, expansion of short-chain fatty-acid-producing taxa, restoration of anti-inflammatory microbial metabolites and durable shifts in cross-kingdom microbial networks. These microbiome and metabolomic changes coincided with improved disease activity indices and a decreased risk of disease progression over the 8-week follow-up period. These findings demonstrate the feasibility of mycobiome-based patient stratification, provide evidence that targeted antifungal therapy can reshape the intestinal microbiota in IBD and establish a framework for implementing antifungal cotherapy in patients with fungal-associated disease manifestations.",
-        "identifier": "42680951",
-        "dedupe_key": "doi:10.1038/s41591-026-04616-y",
+        "description": "Electrified solid-liquid interfaces are central to energy and matter conversion in biological1 and electrochemical systems2-4, in which intense local electric fields govern reaction kinetics5-9. Yet, under realistic electrocatalytic conditions involving rapid charge transfer and far-from-equilibrium dynamics, the molecular structure and evolution of the electrical double layer (EDL) remain poorly understood. Classical EDL models, derived under equilibrium and non-reactive conditions, cannot capture the interfacial processes emerging at reactive interfaces10-16. Here we develop an integrated experimental-computational framework to directly resolve EDL dynamics under the hydrogen evolution reaction (HER). Chemically stable nanostructured Pt film electrodes enable high-sensitivity, time-resolved surface-enhanced infrared absorption spectroscopy (SEIRAS) at increased overpotentials, whereas machine-learning molecular dynamics (MLMD) captures interfacial charge fluctuations and solvent dynamics over nanosecond timescales. This combined approach reveals a nonlinear, two-phase evolution of the inner layer that intensifies the local electric field. Time-resolved spectra further uncover irreversible restructuring of interfacial water during cyclic potential modulation. These findings show that ions and interfacial water respond asynchronously under the condition far from equilibrium, establishing a quantitative molecular framework for understanding electrostatic potential variations, interfacial electrostriction of ions17-19, electrolyte effects20-24 and rational electrolyte design for energy conversion technologies.",
+        "identifier": "42686904",
+        "dedupe_key": "doi:10.1038/s41586-026-10986-7",
         "topic_hit": [],
         "priority_rank": 999,
         "keyword_hit": []
       },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "845345bf56e6",
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "3636568bfce2",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-02T19:15:05.327909+00:00",
-          "rank": 28
-        },
-        {
-          "run_at": "2026-09-02T22:24:21.398262+00:00",
-          "rank": 28
-        },
-        {
-          "run_at": "2026-09-03T05:22:12.489468+00:00",
-          "rank": 34
-        },
-        {
-          "run_at": "2026-09-03T06:33:29.828752+00:00",
-          "rank": 39
-        },
-        {
-          "run_at": "2026-09-03T09:00:07.774956+00:00",
+          "run_at": "2026-09-03T13:21:21.222481+00:00",
           "rank": 39
         }
       ]
@@ -1879,49 +1785,33 @@
     {
       "source": "papers",
       "rank": 40,
-      "title": "Atezolizumab in early triple-negative breast cancer: the randomized phase 3 NSABP B-59/GeparDouze trial.",
-      "title_zh": "Atezolizumab用于早期三阴性乳腺癌：随机3期NSABP B-59/GeparDouze试验。",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42680950/",
+      "title": "Structure and operating principles of a monkeypox virus replisome.",
+      "title_zh": "猴痘病毒复制体结构和操作原理。",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42686903/",
       "hot_value": null,
-      "summary_zh": "三阴性乳腺癌（TNBC）是侵袭性亚型，具有激活的肿瘤免疫微环境。多中心、跨国、双盲NSABP B-59/GeparDouze试验评估在II-III期TNBC中，将atezolizumab（atezo）（773名随机患者）或安慰剂（777名）添加至序贯紫杉烷-卡铂-蒽环类新辅助化疗的效果。添加atezo未显著改善主要终点无事件生存期（EFS）（HR，0.80（95% CI，0.062-1.03）；分层log-rank P = 0.083，4年EFS率差异3.3%）。总生存期HR为0.86（95% CI，0.62-1.19），4年获益0.7%。预设亚组分析提示EFS异质性，临床淋巴结受累患者中atezo获益（P交互=0.039）。治疗出现不良事件≥3级报告于75.3%（atezo）对比73.4%（安慰剂），免疫相关不良事件报告于27.6%（atezo）对比11.4%（安慰剂）。新辅助阶段共19",
+      "summary_zh": "痘病毒是双链DNA病毒，基因组大。其中，猴痘病毒（MPXV）已造成世界卫生组织宣布两次近期公共卫生紧急事件1。MPXV聚合酶含三个亚基——催化亚基（F8）和异二聚体加工因子（A22和E4）。病毒聚合酶必须与六聚体解旋酶-引发酶（E5）协调活动以启动病毒基因组复制2。尽管MPXV E5（参考文献3,4）和聚合酶5-7单独结构可用，它们如何组装成功能复制体仍不清楚。单独时，E5处于自抑制构象且解旋酶活性很弱3,4，解旋酶激活机制不明。这里我们使用冷冻电镜确定DNA结合MPXV复制体结构，包含聚合酶全酶（F8、A22和E4）和E5解旋酶六聚体。我们显示复制体组装期间，E5经历大规模构象变化，允许其两个引发酶域与聚合酶F8拇指和A22亚基相互作用。生化分析和单分子实验揭示此E5构象变化与解旋酶激活耦合并增强引发酶活性。总之，这些发现识别重要病毒病原体DNA复制期间协调解旋酶和聚合酶活动的基本机制。",
       "thumbnail": null,
-      "published_at": "2026-09-01",
+      "published_at": "2026-09-02",
       "extra": {
         "subsource": "pubmed",
-        "journal": "Nature medicine",
-        "doi": "10.1038/s41591-026-04565-6",
+        "journal": "Nature",
+        "doi": "10.1038/s41586-026-10937-2",
         "tier": "英文顶刊",
-        "description": "Triple-negative breast cancer (TNBC) is an aggressive subtype with an activated tumor immune microenvironment. The multicenter, multinational, double-blinded NSABP B-59/GeparDouze trial evaluated the addition of atezolizumab (atezo) (773 patients randomized) or placebo (777 patients) to sequential taxane-carboplatin-anthracycline-based neoadjuvant chemotherapy in stage II-III TNBC. The addition of atezo did not significantly improve the primary endpoint of event-free survival (EFS) (HR, 0.80 (95% CI, 0.062-1.03); stratified log-rank P = 0.083, 4-year EFS rates difference 3.3%). The HR for overall survival was 0.86 (95% CI, 0.62-1.19), with a 4-year benefit of 0.7%. Prespecified subgroup analyses suggested heterogeneity in EFS, with benefit of atezo in patients presenting with clinical lymph node involvement (Pinteraction = 0.039). Treatment-emergent adverse events with grades ≥3 were reported in 75.3% (atezo) versus 73.4% (placebo), and immune-related adverse events were reported in 27.6% (atezo) versus 11.4% (placebo). A total of 196 (25.5%) patients discontinued atezo and 143 (18.8%) patients discontinued placebo in the neoadjuvant phase. In an exploratory mRNA-based subset analysis, patients with basal-like immune-activated tumors may have benefited from atezo. TNBC subtyping to identify basal-like immune-activated tumors and quantification of tumor-infiltrating lymphocytes to identify tumors with high tumor-infiltrating lymphocyte counts could be a promising strategy to identify patients who benefit from the addition of immune checkpoint inhibitors to neoadjuvant chemotherapy. ClinicalTrials.gov registration: NCT03281954 .",
-        "identifier": "42680950",
-        "dedupe_key": "doi:10.1038/s41591-026-04565-6",
+        "description": "Poxviruses are double-stranded DNA viruses with large genomes. Among them, monkeypox virus (MPXV) has been responsible for two recent public health emergencies as declared by the World Health Organization1. The MPXV polymerase comprises three subunits-a catalytic subunit (F8) and a heterodimeric processivity factor (A22 and E4). The viral polymerase must coordinate activities with the hexameric helicase-primase (E5) to initiate replication of the viral genome2. Although structures of MPXV E5 (refs. 3,4) and the polymerase5-7 in isolation are available, how they assemble into a functional replisome remains unclear. In isolation, E5 is in an autoinhibited conformation and has very weak helicase activity3,4, and the mechanism for helicase activation is unclear. Here we used cryo-electron microscopy to determine the structures of DNA-bound MPXV replisomes comprising the polymerase holoenzyme (F8, A22 and E4) and the E5 helicase hexamer. We show that, during replisome assembly, E5 undergoes large-scale conformational changes that allow two of its primase domains to interact with the polymerase F8 thumb and A22 subunit. Biochemical assays and single-molecule experiments reveal that this E5 conformational change is coupled to helicase activation and enhances primase activity. Taken together, these findings identify fundamental mechanisms governing coordinated helicase and polymerase activities during DNA replication for an important class of viral pathogens.",
+        "identifier": "42686903",
+        "dedupe_key": "doi:10.1038/s41586-026-10937-2",
         "topic_hit": [],
         "priority_rank": 999,
         "keyword_hit": []
       },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "9672ad8ca8de",
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "23b6c38e0b8d",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-02T19:15:05.327909+00:00",
-          "rank": 29
-        },
-        {
-          "run_at": "2026-09-02T22:24:21.398262+00:00",
-          "rank": 29
-        },
-        {
-          "run_at": "2026-09-03T05:22:12.489468+00:00",
-          "rank": 35
-        },
-        {
-          "run_at": "2026-09-03T06:33:29.828752+00:00",
-          "rank": 40
-        },
-        {
-          "run_at": "2026-09-03T09:00:07.774956+00:00",
+          "run_at": "2026-09-03T13:21:21.222481+00:00",
           "rank": 40
         }
       ]
@@ -1929,49 +1819,33 @@
     {
       "source": "papers",
       "rank": 41,
-      "title": "China's regulatory innovation for new biomedical technologies.",
-      "title_zh": "中国对新兴生物医药技术的监管创新。",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42680896/",
+      "title": "Connectome analysis of a cerebellum-like circuit for sensory prediction.",
+      "title_zh": "感觉预测小脑样回路连接组分析。",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42686902/",
       "hot_value": null,
-      "summary_zh": null,
+      "summary_zh": "许多学习形式，如学习环境模型或运动技能，依赖广泛分布于细胞类型和网络阶段的突触可塑性。理解这种分布式可塑性功能是神经科学核心挑战1-5。这里我们使用连接组学映射电鱼小脑样结构6,7中取消可预测感觉反应的多层持续学习形式底层细胞类型和突触连接。分析显示抑制性和去抑制性感觉输入通路满足指导突触可塑性理论要求8,9，网络阶段间结构化突触连接解决信用分配问题，结构化递归连接加速感觉预测和取消。电生理记录约束计算模型显示此突触连接如何确保多个可塑性位点合作克服各自限制，实现快速、准确和噪声鲁棒取消。总体，这些发现强调连接组学与细胞类型特异性生理记录和计算建模结合潜力，用于解码神经回路学习。",
       "thumbnail": null,
-      "published_at": "2026-09-01",
+      "published_at": "2026-09-02",
       "extra": {
         "subsource": "pubmed",
         "journal": "Nature",
-        "doi": "10.1038/d41586-026-02737-5",
+        "doi": "10.1038/s41586-026-10690-6",
         "tier": "英文顶刊",
-        "description": "",
-        "identifier": "42680896",
-        "dedupe_key": "doi:10.1038/d41586-026-02737-5",
+        "description": "Many forms of learning, for example, learning a model of the environment or a motor skill, rely on synaptic plasticity that is widely distributed across cell types and network stages. Understanding how this distributed plasticity functions is a central challenge in neuroscience1-5. Here we use connectomics to map the cell types and synaptic connections underlying a form of multi-layer continual learning that cancels predictable sensory responses in a cerebellum-like structure in electric fish6,7. Our analysis shows inhibitory and disinhibitory sensory input pathways that fulfil theoretical requirements for instructing synaptic plasticity8,9, structured synaptic connectivity between network stages that solves a credit assignment problem and structured recurrent connectivity that accelerates sensory prediction and cancellation. A computational model constrained by electrophysiological recordings shows how this synaptic connectivity ensures that multiple sites of plasticity cooperate to overcome their individual limitations, resulting in cancellation that is fast, accurate and robust to noise. Overall, these findings highlight the potential of connectomics, in combination with cell-type-specific physiological recordings and computational modelling, for deciphering learning in neural circuits.",
+        "identifier": "42686902",
+        "dedupe_key": "doi:10.1038/s41586-026-10690-6",
         "topic_hit": [],
         "priority_rank": 999,
         "keyword_hit": []
       },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "fde53767ee4e",
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "070452fc425a",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-02T19:15:05.327909+00:00",
-          "rank": 30
-        },
-        {
-          "run_at": "2026-09-02T22:24:21.398262+00:00",
-          "rank": 30
-        },
-        {
-          "run_at": "2026-09-03T05:22:12.489468+00:00",
-          "rank": 36
-        },
-        {
-          "run_at": "2026-09-03T06:33:29.828752+00:00",
-          "rank": 41
-        },
-        {
-          "run_at": "2026-09-03T09:00:07.774956+00:00",
+          "run_at": "2026-09-03T13:21:21.222481+00:00",
           "rank": 41
         }
       ]
@@ -1979,49 +1853,33 @@
     {
       "source": "papers",
       "rank": 42,
-      "title": "Europe should adapt, not copy, China's practical PhD.",
-      "title_zh": "欧洲应借鉴而非照搬中国的实用型博士培养模式。",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42680895/",
+      "title": "Rewiring the ribosome to translate proteins encoded in its own RNA.",
+      "title_zh": "重连核糖体翻译其自身RNA编码蛋白。",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42686901/",
       "hot_value": null,
-      "summary_zh": null,
+      "summary_zh": "细胞蛋白质合成依赖核糖体和mRNA随机相遇，限制翻译机制优化以生产单一蛋白——生物技术关键需求。潜在解决方案是将蛋白编码序列整合至核糖体本身，使核糖体致力于合成单一多肽。此类整合可行性也能解决RNA世界模型长期挑战：解释早期蛋白质合成如何在组件稀缺和差组织下可靠功能1。核糖体能否翻译其自身核糖体RNA（rRNA）仍不清楚。这里我们显示细菌核糖体能合成其自身RNA编码蛋白。我们通过将蛋白编码序列附加至16S rRNA工程化嵌合信使-核糖体RNA（mrRNA）。杂交mrRNA组装成小核糖体亚基，与大亚基结合形成Ribo-M，能翻译mrRNA编码蛋白的核糖体。翻译被损害小亚基功能突变或抗生素消除，证明mrRNA翻译由组装于嵌合mrRNA核糖体顺式进行。将mrRNA整合至带拴系亚基核糖体产生Ribo-TM，其中编码、解码和肽合成统一于单一RNA支架。这些发现确立核糖体体内外翻译自身rRNA机制可行",
       "thumbnail": null,
-      "published_at": "2026-09-01",
+      "published_at": "2026-09-02",
       "extra": {
         "subsource": "pubmed",
         "journal": "Nature",
-        "doi": "10.1038/d41586-026-02736-6",
+        "doi": "10.1038/s41586-026-10962-1",
         "tier": "英文顶刊",
-        "description": "",
-        "identifier": "42680895",
-        "dedupe_key": "doi:10.1038/d41586-026-02736-6",
+        "description": "Cellular protein synthesis relies on random encounters between ribosomes and mRNAs, limiting optimization of the translation machinery for production of a single protein-a key need in biotechnology. One potential solution is integrating the protein-coding sequence into the ribosome itself, thereby committing the ribosome to synthesis of a single polypeptide. The feasibility of such integration could also address a long-standing challenge in RNA world models: explaining how early protein synthesis could function reliably despite the scarcity and poor organization of its components1. Whether a ribosome can translate its own ribosomal RNA (rRNA) has remained unclear. Here we show that bacterial ribosomes can synthesize proteins encoded within their own RNA. We engineered a chimeric messenger-ribosomal RNA (mrRNA) by appending a protein-coding sequence to 16S rRNA. The hybrid mrRNA assembles into a small ribosomal subunit that binds to the large subunit to form Ribo-M, a ribosome capable of translating mrRNA-encoded proteins. Translation is abolished by mutations or antibiotics that impair the function of the small subunit, demonstrating that mrRNA translation is carried out in cis by ribosomes assembled on the chimeric mrRNA. Incorporating mrRNA into a ribosome with tethered subunits yielded Ribo-TM, in which encoding, decoding and peptide synthesis are united within a single RNA scaffold. These findings establish the mechanistic feasibility of a ribosome translating its own rRNA in vivo and in vitro, offering a versatile platform for orthogonal protein production and insights into the origin of translation.",
+        "identifier": "42686901",
+        "dedupe_key": "doi:10.1038/s41586-026-10962-1",
         "topic_hit": [],
         "priority_rank": 999,
         "keyword_hit": []
       },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "3313e7519882",
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "5d212f5f4bb3",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-02T19:15:05.327909+00:00",
-          "rank": 31
-        },
-        {
-          "run_at": "2026-09-02T22:24:21.398262+00:00",
-          "rank": 31
-        },
-        {
-          "run_at": "2026-09-03T05:22:12.489468+00:00",
-          "rank": 37
-        },
-        {
-          "run_at": "2026-09-03T06:33:29.828752+00:00",
-          "rank": 42
-        },
-        {
-          "run_at": "2026-09-03T09:00:07.774956+00:00",
+          "run_at": "2026-09-03T13:21:21.222481+00:00",
           "rank": 42
         }
       ]
@@ -2029,49 +1887,33 @@
     {
       "source": "papers",
       "rank": 43,
-      "title": "When AI does science, who is accountable for mistakes?",
-      "title_zh": "AI搞科研时，出错谁负责？",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42680894/",
+      "title": "Pines grow faster and are more drought resilient in the Southern Hemisphere.",
+      "title_zh": "南半球松树生长更快且更耐旱。",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42686900/",
       "hot_value": null,
-      "summary_zh": null,
+      "summary_zh": "干旱诱导针叶树死亡是全球关切1，然而原产北半球针叶树在南半球大规模种植，似乎未显示与其原生范围相同程度生长下降或死亡。使用标准化树木年轮学调查于四大洲192个地点，我们发现北半球针叶树在南半球生长快达四倍，且比原生范围同种更耐旱和恢复，表明非本地种群对非生物胁迫响应根本不同。非本地范围针叶树非结构性碳水化合物浓度更高，通常与耐旱相关2,3，δ13C值更低，与光合作用气孔限制较低一致。总之，更高非结构性碳水化合物浓度、更低δ13C值和更高茎生长速率均指向非本地范围针叶树更高净碳同化。高生长速率与耐旱性矛盾组合强调将生态进化历史整合至生态理论重要性，对评估造林作为全球碳汇最终作用相关。",
       "thumbnail": null,
-      "published_at": "2026-09-01",
+      "published_at": "2026-09-02",
       "extra": {
         "subsource": "pubmed",
         "journal": "Nature",
-        "doi": "10.1038/d41586-026-02735-7",
+        "doi": "10.1038/s41586-026-10969-8",
         "tier": "英文顶刊",
-        "description": "",
-        "identifier": "42680894",
-        "dedupe_key": "doi:10.1038/d41586-026-02735-7",
+        "description": "Drought-induced conifer mortality is a global concern1, yet conifers native to the Northern Hemisphere that have been planted at massive scales in the Southern Hemisphere do not appear to show the same magnitude of growth decline or mortality as in their native ranges. Using a standardized dendrochronological survey at 192 sites across four continents, we find that Northern Hemisphere conifers grow up to four times faster in the Southern Hemisphere and are also more resistant and resilient to drought than conspecifics in native ranges, suggesting that non-native populations respond fundamentally different to abiotic stress. Conifers in non-native ranges had higher concentrations of non-structural carbohydrates, commonly associated with drought tolerance2,3, and lower δ13C values, consistent with lower stomatal limitations on photosynthesis. In sum, higher concentrations of non-structural carbohydrate, lower δ13C values and higher stem growth rates all point towards higher net carbon assimilation by conifers in non-native ranges. This paradoxical combination of high growth rates yet resilience to drought emphasizes the importance of integrating eco-evolutionary history into ecological theory and is relevant for assessing the ultimate role of afforestation as global carbon sinks.",
+        "identifier": "42686900",
+        "dedupe_key": "doi:10.1038/s41586-026-10969-8",
         "topic_hit": [],
         "priority_rank": 999,
         "keyword_hit": []
       },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "75667ff796b5",
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "287f7b6fbbdc",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-02T19:15:05.327909+00:00",
-          "rank": 32
-        },
-        {
-          "run_at": "2026-09-02T22:24:21.398262+00:00",
-          "rank": 32
-        },
-        {
-          "run_at": "2026-09-03T05:22:12.489468+00:00",
-          "rank": 38
-        },
-        {
-          "run_at": "2026-09-03T06:33:29.828752+00:00",
-          "rank": 43
-        },
-        {
-          "run_at": "2026-09-03T09:00:07.774956+00:00",
+          "run_at": "2026-09-03T13:21:21.222481+00:00",
           "rank": 43
         }
       ]
@@ -2115,6 +1957,10 @@
         {
           "run_at": "2026-09-03T09:00:07.774956+00:00",
           "rank": 44
+        },
+        {
+          "run_at": "2026-09-03T13:21:21.222481+00:00",
+          "rank": 44
         }
       ]
     },
@@ -2141,13 +1987,17 @@
         "keyword_hit": []
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "a78cd0b829d7",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-03T09:00:07.774956+00:00",
+          "rank": 45
+        },
+        {
+          "run_at": "2026-09-03T13:21:21.222481+00:00",
           "rank": 45
         }
       ]
@@ -2175,7 +2025,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": 0,
       "cluster_id": "8bd22807118f",
       "cluster_size": 1,
       "rank_history": [
@@ -2189,6 +2039,10 @@
         },
         {
           "run_at": "2026-09-03T09:00:07.774956+00:00",
+          "rank": 46
+        },
+        {
+          "run_at": "2026-09-03T13:21:21.222481+00:00",
           "rank": 46
         }
       ]
@@ -2216,7 +2070,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": 0,
       "cluster_id": "9d4f03df7241",
       "cluster_size": 1,
       "rank_history": [
@@ -2230,6 +2084,10 @@
         },
         {
           "run_at": "2026-09-03T09:00:07.774956+00:00",
+          "rank": 47
+        },
+        {
+          "run_at": "2026-09-03T13:21:21.222481+00:00",
           "rank": 47
         }
       ]
@@ -2257,7 +2115,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": 0,
       "cluster_id": "607fe3d15e35",
       "cluster_size": 1,
       "rank_history": [
@@ -2271,6 +2129,10 @@
         },
         {
           "run_at": "2026-09-03T09:00:07.774956+00:00",
+          "rank": 48
+        },
+        {
+          "run_at": "2026-09-03T13:21:21.222481+00:00",
           "rank": 48
         }
       ]
@@ -2298,7 +2160,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": 0,
       "cluster_id": "af7fb7b26a11",
       "cluster_size": 1,
       "rank_history": [
@@ -2312,6 +2174,10 @@
         },
         {
           "run_at": "2026-09-03T09:00:07.774956+00:00",
+          "rank": 49
+        },
+        {
+          "run_at": "2026-09-03T13:21:21.222481+00:00",
           "rank": 49
         }
       ]
@@ -2339,7 +2205,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": 0,
       "cluster_id": "18ae0a68a5a8",
       "cluster_size": 1,
       "rank_history": [
@@ -2353,6 +2219,10 @@
         },
         {
           "run_at": "2026-09-03T09:00:07.774956+00:00",
+          "rank": 50
+        },
+        {
+          "run_at": "2026-09-03T13:21:21.222481+00:00",
           "rank": 50
         }
       ]
@@ -2381,7 +2251,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": 0,
       "cluster_id": "383791878033",
       "cluster_size": 1,
       "rank_history": [
@@ -2395,6 +2265,10 @@
         },
         {
           "run_at": "2026-09-03T09:00:07.774956+00:00",
+          "rank": 51
+        },
+        {
+          "run_at": "2026-09-03T13:21:21.222481+00:00",
           "rank": 51
         }
       ]
@@ -2423,7 +2297,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": 0,
       "cluster_id": "59159b209efd",
       "cluster_size": 1,
       "rank_history": [
@@ -2437,6 +2311,10 @@
         },
         {
           "run_at": "2026-09-03T09:00:07.774956+00:00",
+          "rank": 52
+        },
+        {
+          "run_at": "2026-09-03T13:21:21.222481+00:00",
           "rank": 52
         }
       ]
@@ -2465,7 +2343,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": 0,
       "cluster_id": "e95b7dc517b1",
       "cluster_size": 1,
       "rank_history": [
@@ -2479,6 +2357,10 @@
         },
         {
           "run_at": "2026-09-03T09:00:07.774956+00:00",
+          "rank": 53
+        },
+        {
+          "run_at": "2026-09-03T13:21:21.222481+00:00",
           "rank": 53
         }
       ]
@@ -2507,7 +2389,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": 0,
       "cluster_id": "69062e108ef4",
       "cluster_size": 1,
       "rank_history": [
@@ -2521,6 +2403,10 @@
         },
         {
           "run_at": "2026-09-03T09:00:07.774956+00:00",
+          "rank": 54
+        },
+        {
+          "run_at": "2026-09-03T13:21:21.222481+00:00",
           "rank": 54
         }
       ]
@@ -2549,7 +2435,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": 0,
       "cluster_id": "c04ea55a5e53",
       "cluster_size": 1,
       "rank_history": [
@@ -2563,6 +2449,10 @@
         },
         {
           "run_at": "2026-09-03T09:00:07.774956+00:00",
+          "rank": 55
+        },
+        {
+          "run_at": "2026-09-03T13:21:21.222481+00:00",
           "rank": 55
         }
       ]
@@ -2591,7 +2481,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": 0,
       "cluster_id": "6a57cd4dd880",
       "cluster_size": 1,
       "rank_history": [
@@ -2605,6 +2495,10 @@
         },
         {
           "run_at": "2026-09-03T09:00:07.774956+00:00",
+          "rank": 56
+        },
+        {
+          "run_at": "2026-09-03T13:21:21.222481+00:00",
           "rank": 56
         }
       ]
@@ -2633,7 +2527,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": 0,
       "cluster_id": "81175a05c6d5",
       "cluster_size": 1,
       "rank_history": [
@@ -2647,6 +2541,10 @@
         },
         {
           "run_at": "2026-09-03T09:00:07.774956+00:00",
+          "rank": 57
+        },
+        {
+          "run_at": "2026-09-03T13:21:21.222481+00:00",
           "rank": 57
         }
       ]
@@ -2675,7 +2573,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": 0,
       "cluster_id": "65194185ea3b",
       "cluster_size": 1,
       "rank_history": [
@@ -2689,6 +2587,10 @@
         },
         {
           "run_at": "2026-09-03T09:00:07.774956+00:00",
+          "rank": 58
+        },
+        {
+          "run_at": "2026-09-03T13:21:21.222481+00:00",
           "rank": 58
         }
       ]
@@ -2717,7 +2619,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": 0,
       "cluster_id": "b91ad51c74b4",
       "cluster_size": 1,
       "rank_history": [
@@ -2731,6 +2633,10 @@
         },
         {
           "run_at": "2026-09-03T09:00:07.774956+00:00",
+          "rank": 59
+        },
+        {
+          "run_at": "2026-09-03T13:21:21.222481+00:00",
           "rank": 59
         }
       ]
@@ -2759,7 +2665,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": 0,
       "cluster_id": "9788778301c2",
       "cluster_size": 1,
       "rank_history": [
@@ -2773,6 +2679,10 @@
         },
         {
           "run_at": "2026-09-03T09:00:07.774956+00:00",
+          "rank": 60
+        },
+        {
+          "run_at": "2026-09-03T13:21:21.222481+00:00",
           "rank": 60
         }
       ]
