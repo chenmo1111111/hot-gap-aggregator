@@ -2,7 +2,8 @@ name: Collect, build and publish
 
 on:
   schedule:
-    - cron: "0 */2 * * *"
+    # Avoid GitHub Actions' peak load at the top of every hour.
+    - cron: "17 */2 * * *"
   workflow_dispatch:
 
 permissions:
