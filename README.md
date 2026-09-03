@@ -13,7 +13,7 @@
 - 顶刊论文合并 arXiv、bioRxiv/medRxiv 和 PubMed，按个人研究方向、兴趣关键词和发表时间排序。
 - 顶刊页顶部展示生信/ML 会议 Deadline；牛客通过 RSSHub best-effort 聚合并按秋招风险词和目标公司排序。
 - 国考/选调支持快捷筛选、跨省强提醒和目标高校标红；国家公务员局官方专题源在百度云交叉校验。
-- 城市人才补贴页按正文 hash 做版本 diff，只有金额、条件、窗口或名额变化才由模型判断并推送。
+- 百度云每 12 小时监听目标地区人社局公告；标题命中补贴关键词的新条目即时预警。另对 3 个核心政策页做正文 hash diff，只有金额、条件、窗口或名额变化才由模型判断并推送。
 
 ## 本地运行
 
@@ -98,12 +98,13 @@ python -m app.run --retranslate
 - `config/nowcoder.yaml`：`keywords` 放通用风险词，`companies` 填目标公司名。
 - `RSSHUB_BASE` 可切换到自建 RSSHub；公共实例不可用时只把牛客标为降级。
 
-### 城市人才补贴
+### 人社局公告与人才补贴
 
-- 把 `config/city_subsidy.example.yaml` 中的示例替换成 2–5 个目标城市官方政策页，写入服务器的 `config/city_subsidy.yaml`。
-- 可选 `selector` 指定正文 CSS 选择器；不填时自动从 `main/article/content` 等主区域中选正文。
-- 首次运行只建立基线；之后正文变化才调用智谱/DeepSeek判断政策要素，`SKIP` 不推送。
-- 百度云安装与 cron 见 `deploy/server/README.md`，SCS 每两小时、补贴每 12 小时。
+- `config/subsidy_sources.yaml`：沈阳、石家庄、天津、德州、山东、河北、辽宁官方人社公告源，以及沈阳生活/购房、石家庄安家补贴核心政策页。
+- 公告按 `(region, url)` 去重；首次运行只建立基线，之后标题命中关键词的新条目才提醒。
+- 政策页正文变化后调用智谱/DeepSeek判断金额、条件、窗口和名额；模型返回 `SKIP` 时不提醒。
+- 推送严格按飞书 → Bark 选一个渠道；都未配置时写入线上 `data/alerts.json`，前端「预警」标签显示未读红点。服务器发布会保留该文件。
+- 百度云安装与 cron 见 `deploy/server/README.md`，SCS 每两小时、补贴监听每 12 小时。
 
 ## 推送
 
@@ -111,7 +112,7 @@ python -m app.run --retranslate
 python -m app.run --notify
 ```
 
-支持同时配置 Bark (`BARK_URL`)、飞书自定义机器人 (`FEISHU_WEBHOOK`，开加签时再配 `FEISHU_SIGN_SECRET`)、Telegram Bot (`TG_BOT_TOKEN` + `TG_CHAT_ID`) 和 Server酱 (`SERVERCHAN_KEY`)。除 Top 20 外，关注省份或重点考试类型会触发新公告、报名前 1 天、截止前 2 天、笔试前 3 天提醒；仅在至少一个渠道发送成功后写入 push log 去重。
+支持配置 Bark (`BARK_URL`)、飞书自定义机器人 (`FEISHU_WEBHOOK`，开加签时再配 `FEISHU_SIGN_SECRET`)、Telegram Bot (`TG_BOT_TOKEN` + `TG_CHAT_ID`) 和 Server酱 (`SERVERCHAN_KEY`)。公考中，关注省份、重点考试类型或标题命中 `cities_focus` 任一条件都会触发新公告、报名前 1 天、截止前 2 天、笔试前 3 天提醒；仅在至少一个渠道发送成功后写入 push log 去重。
 
 ## 环境变量
 
@@ -124,11 +125,11 @@ python -m app.run --notify
 | `INVIDIOUS_INSTANCES_CONFIG` | Invidious 实例清单路径 |
 | `TELEGRAM_CHANNELS_CONFIG` | Telegram 频道清单路径 |
 | `XHS_KEYWORDS_CONFIG` | 小红书关键词路径 |
-| `GONGKAO_WATCH_CONFIG` | 公考关注省份路径 |
+| `GONGKAO_WATCH_CONFIG` | 公考关注省份、城市和考试类型路径 |
 | `PAPERS_CONFIG` / `NCBI_API_KEY` | 论文配置路径与可选 PubMed API Key |
 | `CONFERENCES_CONFIG` | 关注会议白名单路径 |
 | `NOWCODER_CONFIG` / `RSSHUB_BASE` | 牛客关键词配置与 RSSHub 地址 |
-| `CITY_SUBSIDY_CONFIG` | 百度云人才补贴政策页配置 |
+| `SUBSIDY_SOURCES_CONFIG` | 百度云人社公告与补贴政策页配置 |
 | `BARK_URL` / `FEISHU_*` / `TG_*` / `SERVERCHAN_KEY` | 推送渠道 |
 | `SERVER_DATABASE` / `SERVER_SITE_DATA_DIR` | 百度云 watcher 状态库与线上 JSON 目录 |
 

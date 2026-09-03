@@ -39,6 +39,7 @@ def build_gongkao_events(
     raw = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
     provinces = set(raw.get("provinces", raw) if isinstance(raw, dict) else raw)
     exam_types_alert = set(raw.get("exam_types_alert", []) if isinstance(raw, dict) else [])
+    cities_focus = [str(city).strip() for city in (raw.get("cities_focus", []) if isinstance(raw, dict) else []) if str(city).strip()]
     current = today or datetime.now(UTC).date()
     candidates: list[tuple[str, str]] = []
     for item in items:
@@ -46,12 +47,15 @@ def build_gongkao_events(
             continue
         province = str(item.extra.get("province") or "全国")
         exam_type = str(item.extra.get("exam_type") or "其他考试")
-        if provinces and province not in provinces and exam_type not in exam_types_alert:
+        haystack = f"{item.title} {item.title_zh or ''} {item.summary_zh or ''}".casefold()
+        city_hits = [city for city in cities_focus if city.casefold() in haystack]
+        if provinces and province not in provinces and exam_type not in exam_types_alert and not city_hits:
             continue
         item_id = str(item.extra.get("id") or item.url)
         subsource = str(item.extra.get("subsource") or item.extra.get("sub") or "")
         tag = "【选调预警】" if exam_type == "选调生" else "【国考公告】" if exam_type == "国考" or subsource == "scs" else "【公考提醒】"
-        suffix = f"｜{item.url}｜{current.isoformat()}"
+        city_label = f"｜重点城市：{'、'.join(city_hits)}" if city_hits else ""
+        suffix = f"{city_label}｜{item.url}｜{current.isoformat()}"
         if item.is_new and subsource in {"announcement", "scs"}:
             candidates.append((f"{item_id}:new", f"{tag}新公告｜{province}｜{item.title_zh or item.title}{suffix}"))
         for field, days, label in (
@@ -124,8 +128,52 @@ async def notify_priority_alert(text: str, title: str = "关键期提醒") -> di
     }
 
 
+async def notify_subsidy_alert(alert: dict[str, str]) -> dict[str, str]:
+    """Send subsidy alerts to exactly one configured provider, in priority order."""
+    feishu_webhook, bark_url = os.getenv("FEISHU_WEBHOOK"), os.getenv("BARK_URL")
+    try:
+        if feishu_webhook:
+            await _post(feishu_webhook, json=_feishu_card_payload(alert))
+            return {"feishu": "ok"}
+        if bark_url:
+            await _post(bark_url, json={
+                "title": f"补贴预警·{alert.get('region', '')}",
+                "body": alert.get("message", ""), "group": "hot-gap",
+            })
+            return {"bark": "ok"}
+    except Exception as exc:
+        provider = "feishu" if feishu_webhook else "bark"
+        LOGGER.warning("subsidy notification provider %s failed: %s", provider, exc)
+        return {provider: "degraded"}
+    return {}
+
+
 def _feishu_payload(text: str) -> dict[str, object]:
     payload: dict[str, object] = {"msg_type": "text", "content": {"text": text}}
+    secret = os.getenv("FEISHU_SIGN_SECRET")
+    if secret:
+        timestamp = str(int(datetime.now(UTC).timestamp()))
+        key = f"{timestamp}\n{secret}".encode("utf-8")
+        signature = base64.b64encode(hmac.new(key, digestmod=hashlib.sha256).digest()).decode()
+        payload.update({"timestamp": timestamp, "sign": signature})
+    return payload
+
+
+def _feishu_card_payload(alert: dict[str, str]) -> dict[str, object]:
+    region = alert.get("region", "")
+    title = alert.get("title", "补贴信息更新")
+    detail = alert.get("summary") or f"{alert.get('type', '公告')} · {alert.get('date', '')}"
+    payload: dict[str, object] = {
+        "msg_type": "interactive",
+        "card": {
+            "header": {"template": "orange", "title": {"tag": "plain_text", "content": f"补贴预警 · {region}"}},
+            "elements": [
+                {"tag": "div", "text": {"tag": "lark_md", "content": f"**{title}**\n{detail}"}},
+                {"tag": "action", "actions": [{"tag": "button", "text": {"tag": "plain_text", "content": "查看原文"}, "url": alert.get("url", ""), "type": "primary"}]},
+                {"tag": "note", "elements": [{"tag": "plain_text", "content": alert.get("created_at", "")}]},
+            ],
+        },
+    }
     secret = os.getenv("FEISHU_SIGN_SECRET")
     if secret:
         timestamp = str(int(datetime.now(UTC).timestamp()))

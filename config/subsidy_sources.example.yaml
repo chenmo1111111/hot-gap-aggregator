@@ -1,0 +1,14 @@
+# 复制为 subsidy_sources.yaml 后可增删地区；单站失败不会影响其它站。
+list_pages:
+  - region: 沈阳市
+    url: https://rsj.shenyang.gov.cn/xwzx/tzgg/
+  - region: 石家庄市
+    url: https://rsj.sjz.gov.cn/columns/fa354001-476c-4fb3-9469-f5f4e6321878/index.html
+
+policy_pages:
+  - region: 沈阳市
+    name: 高校毕业生就业创业生活补贴细则
+    url: https://rsj.shenyang.gov.cn/zwxx/fdzdgknr/zcjd/202206/t20220621_3305478.html
+
+title_keywords: [补贴, 毕业生, 青年人才, 安家, 购房, 租房, 落户, 过渡期, 申领, 人才绿卡, 生活补贴, 社保补贴]
+check_interval_hours: 12

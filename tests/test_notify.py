@@ -1,6 +1,9 @@
 from datetime import date, timedelta
 
+import pytest
+
 from app.models import Item
+from app import notify
 from app.notify import build_gongkao_events, build_top20
 from app.store.database import Database
 
@@ -47,3 +50,37 @@ def test_alert_exam_type_bypasses_province_filter(tmp_path) -> None:
     assert lines[0].startswith("【选调预警】")
     assert "https://example.test/selection" in lines[0]
     database.close()
+
+
+def test_focus_city_bypasses_province_filter(tmp_path) -> None:
+    config = tmp_path / "watch.yaml"
+    config.write_text("provinces: [山东]\ncities_focus: [德州, 石家庄]\nexam_types_alert: []\n", encoding="utf-8")
+    database = Database(tmp_path / "push.db")
+    item = Item(
+        source="gongkao", rank=1, title="石家庄市事业单位考试公告", title_zh="石家庄市事业单位考试公告",
+        url="https://example.test/sjz", is_new=True,
+        extra={"id": "sjz-1", "sub": "announcement", "province": "河北", "exam_type": "事业单位"},
+    )
+    lines, _ = build_gongkao_events([item], database, today=date(2026, 9, 3), config_path=config)
+    assert len(lines) == 1
+    assert "重点城市：石家庄" in lines[0]
+    database.close()
+
+
+@pytest.mark.asyncio
+async def test_subsidy_alert_prefers_feishu_card(monkeypatch) -> None:
+    calls: list[tuple[str, dict]] = []
+
+    async def post(url: str, **kwargs: object) -> None:
+        calls.append((url, kwargs["json"]))
+
+    monkeypatch.setenv("FEISHU_WEBHOOK", "https://feishu.test/hook")
+    monkeypatch.setenv("BARK_URL", "https://bark.test/push")
+    monkeypatch.setattr(notify, "_post", post)
+    status = await notify.notify_subsidy_alert({
+        "region": "沈阳市", "title": "生活补贴申领公告", "url": "https://example.test/notice",
+        "type": "公告", "date": "2026-09-03", "created_at": "2026-09-03T00:00:00Z", "message": "预警",
+    })
+    assert status == {"feishu": "ok"}
+    assert len(calls) == 1
+    assert calls[0][1]["msg_type"] == "interactive"

@@ -95,20 +95,27 @@ class GongkaoCollector(BaseCollector):
             items.extend(self.parse_timeline(results[1].json()))
         if not items:
             raise SourceUnavailable("; ".join(errors) or "Fenbi returned no items", status="degraded")
-        self._annotate_target_universities(items)
+        self._annotate_watch_targets(items)
         for index, item in enumerate(items, 1):
             item.rank = index
         return items
 
-    def _annotate_target_universities(self, items: list[Item]) -> None:
+    def _annotate_watch_targets(self, items: list[Item]) -> None:
         if not self.watch_config.exists():
             return
         raw = yaml.safe_load(self.watch_config.read_text(encoding="utf-8")) or {}
         universities = raw.get("target_universities", []) if isinstance(raw, dict) else []
+        cities = raw.get("cities_focus", []) if isinstance(raw, dict) else []
         targets = [str(name).strip() for name in universities if str(name).strip()]
+        city_targets = [str(name).strip() for name in cities if str(name).strip()]
         for item in items:
             haystack = f"{item.title} {item.summary_zh or ''}".casefold()
             item.extra["target_university_hit"] = [name for name in targets if name.casefold() in haystack]
+            item.extra["city_focus_hit"] = [name for name in city_targets if name.casefold() in haystack]
+
+    # Kept for callers/tests written against the older method name.
+    def _annotate_target_universities(self, items: list[Item]) -> None:
+        self._annotate_watch_targets(items)
 
 
 def _timestamp(value: object) -> str | None:

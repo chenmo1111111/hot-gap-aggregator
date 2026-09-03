@@ -17,12 +17,16 @@ cp deploy/server/hot-gap-jobs.cron /etc/cron.d/hot-gap-jobs
 chmod 644 /etc/cron.d/hot-gap-jobs
 ```
 
-在 `.env` 中填写真实的城市 URL、智谱 Key、Bark 或飞书 Webhook 后，可手动验证：
+`config/subsidy_sources.yaml` 已包含目标地区的官方公告栏目和 3 个核心政策页。
+如需政策正文变化由模型判断，在 `.env` 填 `ZHIPU_API_KEY` 或 `DEEPSEEK_API_KEY`。
+推送优先用飞书，其次 Bark；两者都不填则写入网站的 `data/alerts.json`。
+
+手动验证：
 
 ```bash
 .venv/bin/python -m app.server_run --scs
-.venv/bin/python -m app.server_run --city
+.venv/bin/python -m app.server_run --subsidy
 ```
 
-首次补贴检查只建立基线，不发送通知。服务器日志为
+首次公告和政策页检查只建立基线，不发送通知。服务器日志为
 `/var/log/hot-gap-server.log`。

@@ -15,7 +15,7 @@ from app.collectors.scs import SCSCollector
 from app.models import Item
 from app.notify import build_gongkao_events, notify_priority_alert
 from app.store.database import Database
-from app.watchers.city_subsidy import CitySubsidyWatcher
+from app.watchers.subsidy_watch import SubsidyWatcher
 
 
 LOGGER = logging.getLogger("hot-gap-server")
@@ -84,7 +84,7 @@ async def run_scs(database: Database, data_dir: str | Path) -> dict[str, object]
         return {"status": "degraded", "error": str(exc)}
 
 
-async def main(run_scs_job: bool = False, run_city_job: bool = False) -> None:
+async def main(run_scs_job: bool = False, run_subsidy_job: bool = False) -> None:
     load_dotenv()
     logging.basicConfig(level=logging.INFO, format="%(message)s")
     database = Database(os.getenv("SERVER_DATABASE", "data/server.db"))
@@ -92,8 +92,8 @@ async def main(run_scs_job: bool = False, run_city_job: bool = False) -> None:
     try:
         if run_scs_job:
             output["scs"] = await run_scs(database, os.getenv("SERVER_SITE_DATA_DIR", "/var/www/hot-gap/data"))
-        if run_city_job:
-            output["city_subsidy"] = await CitySubsidyWatcher(database).run()
+        if run_subsidy_job:
+            output["subsidy_watch"] = await SubsidyWatcher(database).run()
         LOGGER.info(json.dumps({"event": "server_jobs_finished", **output}, ensure_ascii=False))
     finally:
         database.close()
@@ -102,6 +102,7 @@ async def main(run_scs_job: bool = False, run_city_job: bool = False) -> None:
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Run mainland-only hot-gap jobs")
     parser.add_argument("--scs", action="store_true", help="collect the official national civil-service notices")
-    parser.add_argument("--city", action="store_true", help="check configured city subsidy pages")
+    parser.add_argument("--subsidy", action="store_true", help="check HRSS notice lists and core subsidy policy pages")
+    parser.add_argument("--city", action="store_true", help="deprecated alias for --subsidy")
     arguments = parser.parse_args()
-    asyncio.run(main(run_scs_job=arguments.scs, run_city_job=arguments.city))
+    asyncio.run(main(run_scs_job=arguments.scs, run_subsidy_job=arguments.subsidy or arguments.city))
