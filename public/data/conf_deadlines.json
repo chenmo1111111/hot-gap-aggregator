@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-09-02T22:24:21.398262+00:00",
+  "generated_at": "2026-09-03T05:22:12.489468+00:00",
   "source": "conf_deadlines",
   "status": {
     "source": "conf_deadlines",
     "status": "ok",
     "item_count": 1,
-    "duration_ms": 2905,
+    "duration_ms": 2817,
     "error": null,
-    "run_at": "2026-09-02T22:24:21.398262+00:00"
+    "run_at": "2026-09-03T05:22:12.489468+00:00"
   },
   "items": [
     {
@@ -29,7 +29,7 @@
         "full_name": "International Conference on Learning Representations",
         "location": "San Francisco, CA, USA"
       },
-      "days_on_board": 1,
+      "days_on_board": 2,
       "is_new": false,
       "rank_delta": 0,
       "cluster_id": "452d7cc39ac2",
@@ -41,6 +41,10 @@
         },
         {
           "run_at": "2026-09-02T22:24:21.398262+00:00",
+          "rank": 1
+        },
+        {
+          "run_at": "2026-09-03T05:22:12.489468+00:00",
           "rank": 1
         }
       ]
