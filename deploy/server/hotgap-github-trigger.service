@@ -1,0 +1,16 @@
+[Unit]
+Description=Trigger hot-gap-aggregator GitHub publish workflow
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+DynamicUser=true
+RuntimeDirectory=hotgap-trigger
+RuntimeDirectoryMode=0700
+EnvironmentFile=/etc/hot-gap/github-trigger.env
+ExecStart=/usr/local/sbin/hotgap-github-trigger
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=strict

@@ -2,8 +2,9 @@ name: Collect, build and publish
 
 on:
   schedule:
-    # Avoid GitHub Actions' peak load at the top of every hour.
-    - cron: "17 */2 * * *"
+    # Daily safety net. The primary three-hour schedule is triggered by the
+    # Baidu Cloud systemd timer, avoiding GitHub schedule delays.
+    - cron: "17 2 * * *"
   workflow_dispatch:
 
 permissions:

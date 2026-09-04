@@ -1,0 +1,10 @@
+[Unit]
+Description=Trigger hot-gap-aggregator publish every three hours
+
+[Timer]
+OnCalendar=*-*-* 00/3:43:00 Asia/Shanghai
+Persistent=true
+Unit=hotgap-github-trigger.service
+
+[Install]
+WantedBy=timers.target

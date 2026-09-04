@@ -35,3 +35,14 @@ chmod 644 /etc/cron.d/hot-gap-jobs
 
 首次补贴/选调公告和政策页检查只建立基线，不发送通知。服务器日志为
 `/var/log/hot-gap-server.log`。
+
+## GitHub Actions 定时触发
+
+`hotgap-github-trigger`、对应的 service 和 timer 会每 3 小时请求 GitHub
+运行一次 `publish.yml`。采集与构建仍在 GitHub 执行，百度云只发送一个很小的
+HTTPS 请求，不占用小程序的计算资源。GitHub 工作流自身每天保留一次定时运行，
+用作令牌失效或百度云临时不可用时的兜底。
+
+真实令牌不能提交到仓库。把 `github-trigger.env.example` 复制到服务器的
+`/etc/hot-gap/github-trigger.env`，权限设为 `0600`；令牌使用仅限本仓库、
+具有 `Actions: Read and write` 权限的 fine-grained token。

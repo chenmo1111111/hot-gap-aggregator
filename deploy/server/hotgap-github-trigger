@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+: "${GITHUB_TOKEN:?GITHUB_TOKEN is required}"
+
+GITHUB_REPOSITORY="${GITHUB_REPOSITORY:-chenmo1111111/hot-gap-aggregator}"
+GITHUB_WORKFLOW="${GITHUB_WORKFLOW:-publish.yml}"
+GITHUB_REF="${GITHUB_REF:-main}"
+
+exec 9>/run/hotgap-trigger/trigger.lock
+if ! flock -n 9; then
+  echo "hot-gap workflow dispatch is already running; skipping"
+  exit 0
+fi
+
+response_file="$(mktemp)"
+trap 'rm -f "$response_file"' EXIT
+
+http_status="$({
+  curl --silent --show-error \
+    --output "$response_file" \
+    --write-out '%{http_code}' \
+    --request POST \
+    --connect-timeout 10 \
+    --max-time 30 \
+    --retry 2 \
+    --retry-all-errors \
+    --header 'Accept: application/vnd.github+json' \
+    --header "Authorization: Bearer ${GITHUB_TOKEN}" \
+    --header 'X-GitHub-Api-Version: 2022-11-28' \
+    "https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/workflows/${GITHUB_WORKFLOW}/dispatches" \
+    --data "{\"ref\":\"${GITHUB_REF}\"}"
+} || true)"
+
+if [[ "$http_status" == "204" ]]; then
+  echo "GitHub workflow dispatched: ${GITHUB_REPOSITORY}/${GITHUB_WORKFLOW}@${GITHUB_REF}"
+  exit 0
+fi
+
+echo "GitHub workflow dispatch failed with HTTP ${http_status}" >&2
+sed -E 's/(token|secret|authorization)[^,}]*/\1=REDACTED/Ig' "$response_file" >&2
+exit 1
