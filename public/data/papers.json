@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-09-04T02:35:41.728138+00:00",
+  "generated_at": "2026-09-04T02:51:41.206031+00:00",
   "source": "papers",
   "status": {
     "source": "papers",
     "status": "ok",
     "item_count": 60,
-    "duration_ms": 156110,
+    "duration_ms": 165702,
     "error": null,
-    "run_at": "2026-09-04T02:35:41.728138+00:00"
+    "run_at": "2026-09-04T02:51:41.206031+00:00"
   },
   "items": [
     {
@@ -40,13 +40,17 @@
         ]
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "8e2a39fe6515",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-04T02:35:41.728138+00:00",
+          "rank": 1
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
           "rank": 1
         }
       ]
@@ -89,6 +93,10 @@
         {
           "run_at": "2026-09-04T02:35:41.728138+00:00",
           "rank": 2
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 2
         }
       ]
     },
@@ -120,13 +128,17 @@
         ]
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "b93cca3dde8f",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-04T02:35:41.728138+00:00",
+          "rank": 3
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
           "rank": 3
         }
       ]
@@ -159,13 +171,17 @@
         ]
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "b43c83bec621",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-04T02:35:41.728138+00:00",
+          "rank": 4
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
           "rank": 4
         }
       ]
@@ -198,13 +214,17 @@
         ]
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "b8913c251b92",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-04T02:35:41.728138+00:00",
+          "rank": 5
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
           "rank": 5
         }
       ]
@@ -212,6 +232,43 @@
     {
       "source": "papers",
       "rank": 6,
+      "title": "Bayes-Optimal BER and AUC: Estimation and Evaluation of Estimators",
+      "title_zh": "贝叶斯最优 BER 和 AUC：估计与评估方法",
+      "url": "http://arxiv.org/abs/2609.02304v1",
+      "hot_value": null,
+      "summary_zh": "机器学习中的一个基本量是任何模型在给定任务上能达到的最优性能。估计这个量能让我们区分误差中不可约的部分和模型本身的缺陷，从而知道还有多少改进空间。近期研究表明，在二分类中可以通过软标签估计贝叶斯误差（或等价的最优准确率）。然而，在类别严重不平衡或标注有噪声的情况下，准确率往往不是好的性能指标，此时平衡错误率（BER）和 ROC 曲线下面积（AUC）更合适。我们通过两项互补贡献来解决这一空白。(i) 估计。我们提出了基于软标签的最优 BER 和 AUC 估计器。首先考虑已知真实软标签和类别先验的干净场景，然后将估计器扩展到更现实的场景，即类别先验未知，且观测到的软标签被未知的保序变换（可能随后加性噪声）破坏。在后一种场景中，我们通过带辅助硬标签的等渗回归近似恢复干净软标签，用硬标签的截断均值估计类别先验，并为所得插件估计器推导出有限样本误差界。(ii) 评估。由于真实数据上最优值不可观测，评",
+      "thumbnail": null,
+      "published_at": "2026-09-02T08:49:23Z",
+      "extra": {
+        "subsource": "arxiv",
+        "field": "cs.LG",
+        "doi": null,
+        "tier": "预印本",
+        "mode": "filter",
+        "description": "A fundamental quantity in machine learning is the optimal performance achievable by any model on a given task. Estimating this quantity allows us to distinguish the irreducible part of the error from a deficiency of the model, telling us how much room for improvement remains. Recent work has shown that the Bayes error, or equivalently the optimal accuracy, can be estimated from soft labels in binary classification. However, accuracy is often a poor summary of performance in settings with severe class imbalance or noisy annotations, where metrics such as the balanced error rate (BER) and the area under the ROC curve (AUC) are more appropriate. We address this gap with two complementary contributions. (i) Estimation. We propose soft-label-based estimators for the optimal BER and AUC. We first consider the clean setting in which true soft labels and the class prior are known, and then extend the estimators to a more realistic setting in which the class prior is unknown and the observed soft labels are corrupted by an unknown order-preserving transformation, possibly followed by additive noise. In the latter setting, we approximately recover the clean soft labels via isotonic regression with auxiliary hard labels, estimate the class prior with a clipped mean of the hard labels, and derive finite-sample error bounds for the resulting plug-in estimators. (ii) Evaluation. Since the optimum is unobservable on real datasets, evaluating any such estimator is itself nontrivial. We extend the FeeBee framework, originally proposed for evaluating Bayes-error estimators, to the optimal BER and AUC. The resulting procedure provides practical evaluation scores without requiring knowledge of the optimum, and applies to any estimator of the optimal BER or AUC, not only our proposed ones. Experiments on synthetic and real-world datasets validate both the estimators and the evaluation procedure.",
+        "identifier": "2609.02304",
+        "dedupe_key": "arxiv:2609.02304",
+        "topic_hit": [
+          "稀有细胞"
+        ],
+        "priority_rank": 1,
+        "keyword_hit": []
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "0c186c9ebfbf",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 6
+        }
+      ]
+    },
+    {
+      "source": "papers",
+      "rank": 7,
       "title": "AResKGLM: a graph-grounded language-model framework for interpretable multi-hop antimicrobial resistance reasoning",
       "title_zh": "AResKGLM：一种图接地语言模型框架，用于可解释的多跳抗菌素耐药性推理",
       "url": "https://doi.org/10.1093/bib/bbag456",
@@ -237,20 +294,24 @@
         ]
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": -1,
       "cluster_id": "89124a9a4ebc",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-04T02:35:41.728138+00:00",
           "rank": 6
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 7
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 7,
+      "rank": 8,
       "title": "ASPIRE: Accurate alternative splicing prediction from limited RNA sequencing data and a minimal gene set",
       "title_zh": "ASPIRE：从有限RNA测序数据和最小基因集进行准确的可变剪接预测",
       "url": "https://doi.org/10.1371/journal.pcbi.1014725",
@@ -276,20 +337,24 @@
         ]
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": -1,
       "cluster_id": "a63b88dc1d4e",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-04T02:35:41.728138+00:00",
           "rank": 7
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 8
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 8,
+      "rank": 9,
       "title": "iDCF: Interpretable deconvolution of cell fractions via biologically-informed deep learning using scRNA-seq data",
       "title_zh": "iDCF：通过生物信息深度学习和scRNA-seq数据进行细胞分数的可解释反卷积",
       "url": "https://doi.org/10.1371/journal.pcbi.1014727",
@@ -316,20 +381,24 @@
         ]
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": -1,
       "cluster_id": "bd528d98601e",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-04T02:35:41.728138+00:00",
           "rank": 8
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 9
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 9,
+      "rank": 10,
       "title": "Multi-task deep learning for risk stratification and shared molecular architecture of cardiometabolic multimorbidity under fragmented multi-omics",
       "title_zh": "多任务深度学习用于碎片化多组学下心脏代谢多发病的风险分层和共享分子架构",
       "url": "https://doi.org/10.1186/s12859-026-06614-w",
@@ -356,20 +425,24 @@
         ]
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": -1,
       "cluster_id": "3386f62c4e9b",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-04T02:35:41.728138+00:00",
           "rank": 9
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 10
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 10,
+      "rank": 11,
       "title": "AlignMarkers: an original pipeline for placing molecular markers on physical sequences",
       "title_zh": "AlignMarkers：一种将分子标记定位到物理序列上的原创流程",
       "url": "https://doi.org/10.1186/s12859-026-06582-1",
@@ -395,20 +468,61 @@
         ]
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": -1,
       "cluster_id": "593f0b109aef",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-04T02:35:41.728138+00:00",
           "rank": 10
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 11
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 11,
+      "rank": 12,
+      "title": "Bioinfoysis Technical Report",
+      "title_zh": "Bioinfoysis 技术报告",
+      "url": "http://arxiv.org/abs/2609.03871v1",
+      "hot_value": null,
+      "summary_zh": "大型语言模型智能体在生物信息学中显示出潜力，但现有系统大多侧重于生成最终答案，将规划、工具使用和代码执行视为临时交互。这种设计不适合长周期生物信息学任务，因为结论必须与支持它们的数据、计算和中间证据保持关联。我们引入 \\textbf{Bioinfoysis}，一个多智能体框架，将每个请求表示为持久的、基于工件的分析运行。Bioinfoysis 结合全局规划与逐步、证据驱动的重新规划：规划器维护可执行的检查清单，并根据每次工作执行后返回的结构化交接来修订待处理步骤。这些交接将中间结果绑定到其负责智能体、检查清单步骤和计划生成，防止重新规划后过时证据被静默重用。受控运行时在生成的脚本、表格和图形用于下游分析或报告之前对其进行验证，而角色特定上下文、持久记忆和受管理的生物信息学技能支持在长分析轨迹中可靠执行。我们在 BixBench 和 LAB-Bench 2 的两个问答轨道上评估 Bioinf",
+      "thumbnail": null,
+      "published_at": "2026-09-03T13:59:00Z",
+      "extra": {
+        "subsource": "arxiv",
+        "field": "cs.AI",
+        "doi": null,
+        "tier": "预印本",
+        "mode": "filter",
+        "description": "Large language model agents have shown promise in bioinformatics, but most existing systems focus primarily on producing final answers, treating planning, tool use, and code execution as transient interactions. This design is poorly suited to long-horizon bioinformatics tasks, where conclusions must remain connected to the data, computations, and intermediate evidence that support them. We introduce \\textbf{Bioinfoysis}, a multi-agent harness that represents each request as a persistent, artifact-grounded analysis run. Bioinfoysis combines global planning with step-wise, evidence-driven replanning: the planner maintains an executable checklist and revises pending steps using structured handoffs returned after each worker execution. These handoffs bind intermediate results to their responsible agent, checklist step, and plan generation, preventing stale evidence from being silently reused after replanning. A controlled runtime validates generated scripts, tables, and figures before they are used in downstream analysis or reporting, while role-specific context, persistent memory, and governed bioinformatics skills support reliable execution over long analysis trajectories. We evaluate Bioinfoysis on BixBench and two question-answering tracks of LAB-Bench 2. On BixBench, Bioinfoysis achieves state-of-the-art accuracy of 82.4\\%. Across four underlying language models, Bioinfoysis increases average accuracy from 27.81\\% to 64.13\\% on SeqQA2 and from 3.13\\% to 31.25\\% on DbQA2. These results demonstrate that reliable bioinformatics automation depends not only on model capability, but also on the harness that governs planning, execution, memory, and evidence flow. We hope that the emergence of Bioinfoysis will play a driving and leading role in the development of the bioinformatics community. Our demo website can be seen in https://report.bioinfoysis.com/.",
+        "identifier": "2609.03871",
+        "dedupe_key": "arxiv:2609.03871",
+        "topic_hit": [
+          "生物信息"
+        ],
+        "priority_rank": 2,
+        "keyword_hit": []
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "74581bacfdd2",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 12
+        }
+      ]
+    },
+    {
+      "source": "papers",
+      "rank": 13,
       "title": "Topological potentials guiding protein self-assembly",
       "title_zh": "拓扑势引导蛋白质自组装",
       "url": "https://doi.org/10.1371/journal.pcbi.1014709",
@@ -432,20 +546,24 @@
         "keyword_hit": []
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": -2,
       "cluster_id": "d1da7bf5dcd8",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-04T02:35:41.728138+00:00",
           "rank": 11
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 13
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 12,
+      "rank": 14,
       "title": "Amplification bias in sequencing-based spatial transcriptomics: sources, mechanisms, impacts, and mitigation strategies.",
       "title_zh": "基于测序的空间转录组学中的扩增偏差：来源、机制、影响及缓解策略",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42691151/",
@@ -470,7 +588,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": -2,
       "cluster_id": "7b9687d132e1",
       "cluster_size": 1,
       "rank_history": [
@@ -481,12 +599,16 @@
         {
           "run_at": "2026-09-04T02:35:41.728138+00:00",
           "rank": 12
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 14
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 13,
+      "rank": 15,
       "title": "Model Context Protocol: The unexpected catalyst of a bioinformatics interoperability revolution",
       "title_zh": "模型上下文协议：生物信息学互操作性革命的意外催化剂",
       "url": "https://doi.org/10.1371/journal.pcbi.1014543",
@@ -510,20 +632,24 @@
         "keyword_hit": []
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": -2,
       "cluster_id": "1b8ec5a2725a",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-04T02:35:41.728138+00:00",
           "rank": 13
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 15
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 14,
+      "rank": 16,
       "title": "Integrated multi-omics reveals epigenetic regulation of beef color by the HMOX2 gene",
       "title_zh": "整合多组学揭示HMOX2基因对牛肉颜色的表观遗传调控",
       "url": "https://doi.org/10.1186/s12864-026-13308-3",
@@ -547,20 +673,24 @@
         "keyword_hit": []
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": -2,
       "cluster_id": "b6b3e2a2356a",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-04T02:35:41.728138+00:00",
           "rank": 14
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 16
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 15,
+      "rank": 17,
       "title": "Systematic multivariate analysis of chromatin complex dependencies reveals Set1C/COMPASS as a melanoma-enriched epigenetic vulnerability",
       "title_zh": "染色质复合物依赖性的系统多变量分析揭示Set1C/COMPASS作为黑色素瘤富集的表观遗传脆弱性",
       "url": "https://doi.org/10.1371/journal.pcbi.1014018",
@@ -584,20 +714,24 @@
         "keyword_hit": []
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": -2,
       "cluster_id": "ea1fbaff9a3d",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-04T02:35:41.728138+00:00",
           "rank": 15
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 17
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 16,
+      "rank": 18,
       "title": "Integrated multi-omics analysis dissects hepatocyte states and genetic regulation of hepatic metabolism in pigs",
       "title_zh": "整合多组学分析解析猪肝细胞状态和肝代谢的遗传调控",
       "url": "https://doi.org/10.1186/s12864-026-13267-9",
@@ -621,20 +755,24 @@
         "keyword_hit": []
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": -2,
       "cluster_id": "9ec8df2bf081",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-04T02:35:41.728138+00:00",
           "rank": 16
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 18
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 17,
+      "rank": 19,
       "title": "The multi-omics fallacy in microbiome science",
       "title_zh": "微生物组科学中的多组学谬误",
       "url": "https://doi.org/10.1371/journal.pcbi.1014700",
@@ -658,87 +796,17 @@
         "keyword_hit": []
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": -2,
       "cluster_id": "680375e793a0",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-04T02:35:41.728138+00:00",
           "rank": 17
-        }
-      ]
-    },
-    {
-      "source": "papers",
-      "rank": 18,
-      "title": "Gaugefixer: overcoming parameter non-identifiability in models of sequence-function relationships",
-      "title_zh": "Gaugefixer：克服序列-功能关系模型中的参数不可识别性",
-      "url": "https://doi.org/10.1186/s12859-026-06605-x",
-      "hot_value": null,
-      "summary_zh": "摘要 背景 序列-功能关系的数学模型广泛用于计算生物学。解释这些模型时的一个关键挑战是，许多不同模型参数选择可编码相同序列-功能关系。这些模糊性称为“规范自由度”，必须在参数值可被有意义解释前移除。这样做需要对参数值施加额外数学约束，过程称为“固定规范”。我们最近开发了数学方法，用于固定一大类常用模型的规范。这些方法最直接的计算实现通常不切实际，因为它需要投影矩阵，其大小随参数数量二次方缩放。结果 在此我们介绍GaugeFixer，一个Python包，利用规范固定投影的数学结构实现计算时间的对数线性缩放和内存使用的线性缩放。GaugeFixer因此比标准矩阵乘法需要少数量级的时间和内存，并能在几秒内固定具有数百万参数的模型的规范。为展示其实用性，我们用GaugeFixer分析细菌翻译起始的经验适应度景观。该分析揭示相对于起始密码子不同位置的核糖体结合偏好有显著相似性（但也有精细尺度差异），",
-      "thumbnail": null,
-      "published_at": "2026-08-22",
-      "extra": {
-        "subsource": "crossref",
-        "tier": "英文顶刊",
-        "journal": "BMC Bioinformatics",
-        "mode": "all",
-        "issn": "1471-2105",
-        "doi": "10.1186/s12859-026-06605-x",
-        "description": "Abstract Background Mathematical models of sequence-function relationships are widely used in computational biology. A key challenge when interpreting these models is that many different choices for model parameters can encode the same sequence-function relationship. These ambiguities, called “gauge freedoms,” must be removed before parameter values can be meaningfully interpreted. Doing this requires imposing additional mathematical constraints on parameter values, a process called “fixing the gauge.” We recently developed mathematical methods for fixing the gauge of a large class of commonly used models. The most direct computational implementation of these methods is often impractical, however, because it requires a projection matrix whose size scales quadratically with the number of parameters. Results Here we introduce GaugeFixer, a Python package that exploits the mathematical structure of gauge-fixing projections to achieve log-linear scaling in computation time and linear scaling in memory usage. GaugeFixer thus requires orders of magnitude less time and memory than standard matrix multiplication, and can fix the gauge of models having millions of parameters in seconds. To demonstrate its utility, we used GaugeFixer to analyze an empirical fitness landscape for translation initiation in bacteria. This analysis revealed striking similarities (but also fine-scale differences) in ribosome-binding preferences at different positions relative to the start codon, thereby aiding the interpretation of this otherwise unwieldy landscape. Conclusions GaugeFixer thus fills an important gap in the computational tools available for interpreting quantitative models of sequence-function relationships.",
-        "dedupe_key": "doi:10.1186/s12859-026-06605-x",
-        "topic_hit": [
-          "生物信息"
-        ],
-        "priority_rank": 2,
-        "keyword_hit": []
-      },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
-      "cluster_id": "dc776b1cc7ad",
-      "cluster_size": 1,
-      "rank_history": [
+        },
         {
-          "run_at": "2026-09-04T02:35:41.728138+00:00",
-          "rank": 18
-        }
-      ]
-    },
-    {
-      "source": "papers",
-      "rank": 19,
-      "title": "Epigenetic multi-omics reveals the molecular regulatory mechanism underlying liver cold resistance in Hezuo pigs",
-      "title_zh": "表观遗传多组学揭示合作猪肝脏耐冷性的分子调控机制",
-      "url": "https://doi.org/10.1186/s12864-026-13152-5",
-      "hot_value": null,
-      "summary_zh": null,
-      "thumbnail": null,
-      "published_at": "2026-08-22",
-      "extra": {
-        "subsource": "crossref",
-        "tier": "英文顶刊",
-        "journal": "BMC Genomics",
-        "mode": "filter",
-        "issn": "1471-2164",
-        "doi": "10.1186/s12864-026-13152-5",
-        "description": "",
-        "dedupe_key": "doi:10.1186/s12864-026-13152-5",
-        "topic_hit": [
-          "生物信息"
-        ],
-        "priority_rank": 2,
-        "keyword_hit": []
-      },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
-      "cluster_id": "94d31f78864b",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-04T02:35:41.728138+00:00",
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
           "rank": 19
         }
       ]
@@ -746,22 +814,22 @@
     {
       "source": "papers",
       "rank": 20,
-      "title": "SnRNA-seq of skeletal muscles reveals the cellular and molecular landscapes for meat quality and locomotor of Mongolian cattle",
-      "title_zh": "骨骼肌的snRNA-seq揭示蒙古牛肉质和运动能力的细胞和分子景观",
-      "url": "https://doi.org/10.1186/s12864-026-13226-4",
+      "title": "MFDB: a comprehensive database for marine fish functional genomics and evolutionary genomics",
+      "title_zh": "MFDB：海洋鱼类功能基因组学和进化基因组学综合数据库",
+      "url": "https://doi.org/10.1093/nar/gkag844",
       "hot_value": null,
-      "summary_zh": null,
+      "summary_zh": "摘要 海洋鱼类是生物多样性保护和社会经济可持续性的重要贡献者。尽管近年来海洋鱼类物种的基因组和多组学数据集呈指数级增长，但其系统整合仍未充分探索，阻碍了对基因调控和生物系统的全面研究。为弥补这一空白，我们开发了海洋鱼类数据库（MFDB；http://marinefishdb.cn），这是首个专门为海洋硬骨鱼设计的整合基因组学平台。MFDB 汇集了 89 个物种的分散多组学资源，涵盖基因组组装、系统发育重建、共线性图谱、泛基因集、基因结构、功能注释、表达谱和进化基因家族分析。MFDB 还提供专门的分析模块，包括组织特异性基因共表达网络、谱系定义核心基因库和宏观共线性驱动的染色体进化模型。该平台具有直观且可编程的界面，支持多尺度查询、跨组学数据挖掘和多维生物相互作用动态可视化。这些功能共同使用户能够解读基因组元件如何通过多层调控级联协调表型结果。通过将快速扩展的组学数据集与稳健的分析流程整合，",
       "thumbnail": null,
-      "published_at": "2026-08-19",
+      "published_at": "2026-08-24",
       "extra": {
         "subsource": "crossref",
         "tier": "英文顶刊",
-        "journal": "BMC Genomics",
+        "journal": "Nucleic Acids Research",
         "mode": "filter",
-        "issn": "1471-2164",
-        "doi": "10.1186/s12864-026-13226-4",
-        "description": "",
-        "dedupe_key": "doi:10.1186/s12864-026-13226-4",
+        "issn": "1362-4962",
+        "doi": "10.1093/nar/gkag844",
+        "description": "Abstract Marine fishes are important contributors to biodiversity conservation and socioeconomic sustainability. While genomic and multi-omics datasets for marine fish species have expanded exponentially in recent years, their systematic integration remains underexplored, hindering comprehensive investigations into gene regulation and biological systems. To bridge this gap, we developed the Marine Fish Database (MFDB; http://marinefishdb.cn), the first integrative genomics platform specifically designed for marine teleosts. MFDB compiles fragmented multi-omics resources across 89 species, encompassing genome assemblies, phylogenomic reconstructions, collinearity maps, pan gene sets, gene architectures, functional annotations, expression profiles, and evolutionary gene family analyses. MFDB further delivers specialized analytical modules, including tissue-specific gene co-expression networks, lineage-defining core gene repertoires, and macrosynteny-driven chromosomal evolution models. The platform features an intuitive and programmable interface, enabling multiscale queries, cross-omics data mining, and dynamic visualization of multidimensional biological interactions. These functionalities collectively empower users to decipher how genomic elements orchestrate phenotypic outcomes through multi-layered regulatory cascades. By integrating rapidly expanding omics datasets with robust analytical pipelines, MFDB establishes a scalable framework to accelerate hypothesis-driven discoveries in marine fish biology, evolutionary adaptation, and ecological resilience research, and further provides an easy-to-operate information platform for the molecular breeding of marine fish species.",
+        "dedupe_key": "doi:10.1093/nar/gkag844",
         "topic_hit": [
           "生物信息"
         ],
@@ -771,11 +839,11 @@
       "days_on_board": 1,
       "is_new": true,
       "rank_delta": "new",
-      "cluster_id": "a234db240f9a",
+      "cluster_id": "7380bdad4f07",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-04T02:35:41.728138+00:00",
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
           "rank": 20
         }
       ]
@@ -783,6 +851,80 @@
     {
       "source": "papers",
       "rank": 21,
+      "title": "PCRD-seq: proximity crosslinking-induced RNA depletion sequencing for low-input chromatin-associated transcriptome profiling",
+      "title_zh": "PCRD-seq：用于低输入染色质相关转录组谱分析的交联诱导 RNA 去除测序",
+      "url": "https://doi.org/10.1093/nar/gkag853",
+      "hot_value": null,
+      "summary_zh": "摘要 染色质相关 RNA（caRNA）在调控染色质组织和转录中发挥关键作用，凸显了研究它们的重要性。邻近标记已成为一种有前景且多功能的技术，用于高时空分辨率分析 caRNA。尽管邻近标记技术强大，但传统方法依赖复杂、高输入的富集流程，这严重限制了其广泛实际应用。在这里，我们开发了一种简单、无富集的 caRNA 分析策略：邻近交联诱导 RNA 去除测序（PCRD-seq）。该方法利用靶向染色质区域的光敏剂 HoeDBF 产生的单线态氧诱导染色质与其周围 RNA 之间的邻近交联。这种邻近交联阻碍了常规 TRIzol 提取过程中 caRNA 的释放，从而导致这些 RNA 的特异性去除。该方法成功应用于研究 U1 小核 RNA（snRNA）在 RNA 染色质保留中的作用，以及两种转移能力相反的卵巢癌细胞系之间染色质相关转录组的差异。此外，我们的 PCRD-seq 在分析核纤层相关 RNA 方面显示",
+      "thumbnail": null,
+      "published_at": "2026-08-24",
+      "extra": {
+        "subsource": "crossref",
+        "tier": "英文顶刊",
+        "journal": "Nucleic Acids Research",
+        "mode": "filter",
+        "issn": "1362-4962",
+        "doi": "10.1093/nar/gkag853",
+        "description": "Abstract Chromatin-associated RNAs (caRNAs) play critical roles in regulating chromatin organization and transcription, underscoring the importance of their study. Proximity labeling has emerged as a promising and versatile technique for profiling caRNAs with high spatiotemporal resolution. While being a powerful technique, traditional proximity labeling methods depend on complex, high-input enrichment protocols, which significantly limit their wide practical application. Here, we developed a straightforward, enrichment-free caRNA profiling strategy: proximity crosslinking-induced RNA depletion sequencing (PCRD-seq). This approach leverages the proximity crosslinking between chromatin and its surrounding RNAs induced by singlet oxygen generated by HoeDBF, a photosensitizer targeting chromatin region. The proximity crosslinking hinders the release of caRNAs during routine TRIzol extraction, consequently leading to a specific depletion of these RNAs. This method was successfully applied to investigate the role of U1 small nuclear RNA (snRNA) in RNA chromatin retention and the differences in chromatin-associated transcriptomes between two ovarian cancer cell lines with opposite metastatic capability. Moreover, our PCRD-seq exhibits potential in profiling nuclear lamina-associated RNAs, which paves the way for its application to profile RNAs associated with other chromatin subdomains. The minimal cell input and simple workflow render PCRD-seq a transformative tool for wide applications.",
+        "dedupe_key": "doi:10.1093/nar/gkag853",
+        "topic_hit": [
+          "生物信息"
+        ],
+        "priority_rank": 2,
+        "keyword_hit": []
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "4b90b79edd12",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 21
+        }
+      ]
+    },
+    {
+      "source": "papers",
+      "rank": 22,
+      "title": "Synergistic interaction between the macrophage polarizing signals IL-4 and IFNγ is controlled by the STAT6/STAT1/IRF1 axis",
+      "title_zh": "巨噬细胞极化信号 IL-4 和 IFNγ 之间的协同相互作用受 STAT6/STAT1/IRF1 轴控制",
+      "url": "https://doi.org/10.1093/nar/gkag825",
+      "hot_value": null,
+      "summary_zh": "摘要 IFNγ 和 IL-4 是典型的 Th1 和 Th2 细胞因子，通常诱导相反的巨噬细胞极化。除了在病理环境中频繁共存和相互拮抗外，也可能存在协同串扰，这仍有待定义。通过整合转录组学、表观基因组学和基于 CRISPR 的分析，我们发现 IL-4 和 IFNγ 共同暴露导致小鼠巨噬细胞处于中间极化状态，并伴随一组协同激活的基因。我们表明这种协同激活由 STAT6 和 STAT1 在具有显著 H3K27Ac 积累的调控区域共结合介导，并依赖于 BRD4 辅因子。删除任一 STAT 因子或破坏其结合基序都会消除协同转录反应。我们的数据支持一个模型，即一种细胞因子诱导的染色质开放性促进了相反细胞因子激活的 STAT 转录因子（TF）的结合，从而促成协同基因激活。我们进一步表明，IRF1 是一种 IFNγ 诱导的 TF，其表达在 IL-4 存在下持续存在，对该程序的很大一部分是必不可少的。重要的",
+      "thumbnail": null,
+      "published_at": "2026-08-24",
+      "extra": {
+        "subsource": "crossref",
+        "tier": "英文顶刊",
+        "journal": "Nucleic Acids Research",
+        "mode": "filter",
+        "issn": "1362-4962",
+        "doi": "10.1093/nar/gkag825",
+        "description": "Abstract IFNγ and IL-4, the canonical Th1 and Th2 cytokines, typically induce opposing macrophage polarization. Beyond their frequent coexistence and mutual antagonism in pathological settings, a synergistic crosstalk may also exist and remains to be defined. Through integrated transcriptomic, epigenomic, and CRISPR-based analyses, we identify that co-exposure to IL-4 and IFNγ results in an intermediate macrophage polarization state in murine macrophages, associated with a cohort of synergistically activated genes. We show that this synergistic activation is mediated by co-binding of STAT6 and STAT1 at regulatory regions marked with pronounced H3K27Ac accumulation and is dependent on the BRD4 cofactor. Deletion of either STAT factor or disruption of their binding motifs abolishes the synergistic transcriptional response. Our data support a model in which chromatin openness induced by one cytokine facilitates binding of the opposing cytokine-activated STAT transcription factor (TF), contributing to synergistic gene activation. We further show that IRF1, an IFNγ-induced TF whose expression persists in the presence of IL-4, is indispensable for a substantial subset of this program. Importantly, single-cell RNA sequencing of the PyMT murine breast cancer model reveals an in vivo tumor-associated macrophage subset showing STAT1 and STAT6 activation and is enriched for the synergistic gene signature.",
+        "dedupe_key": "doi:10.1093/nar/gkag825",
+        "topic_hit": [
+          "生物信息"
+        ],
+        "priority_rank": 2,
+        "keyword_hit": []
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "87c60e734fcf",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 22
+        }
+      ]
+    },
+    {
+      "source": "papers",
+      "rank": 23,
       "title": "Headroom-Drift Replay: A Primitive for Principled Replay Control in GRPO",
       "title_zh": "Headroom-Drift Replay：GRPO中原则性重放控制的原语",
       "url": "http://arxiv.org/abs/2609.03941v1",
@@ -806,20 +948,62 @@
         ]
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": -2,
       "cluster_id": "94d73de521e5",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-04T02:35:41.728138+00:00",
           "rank": 21
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 23
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 22,
+      "rank": 24,
+      "title": "Towards Numerical TOHTN Planning with SMT-based HTN-SAT Encoding",
+      "title_zh": "基于 SMT 的 HTN-SAT 编码实现数值 TOHTN 规划",
+      "url": "http://arxiv.org/abs/2609.03938v1",
+      "hot_value": null,
+      "summary_zh": "尽管 HTN 规划近年来受到广泛关注，但对数值推理的支持仍然非常有限。在本文中，我们研究了数值全序 HTN（TOHTN）规划，并展示了如何将标准的基于 SAT 的编码自然扩展为 SMT 以处理数值流。此外，我们引入了一个数值 TOHTN 规划基准套件，为该设置中的评估提供了第一个共同基础。实验结果表明，这种简单编码已经构成了一个有竞争力的基线。这项工作为更富表现力的 HTN 规划方法开辟了道路。",
+      "thumbnail": null,
+      "published_at": "2026-09-03T14:44:37Z",
+      "extra": {
+        "subsource": "arxiv",
+        "field": "cs.AI",
+        "doi": null,
+        "tier": "预印本",
+        "mode": "filter",
+        "description": "While HTN planning has received significant attention in recent years, support for numerical reasoning remains very limited. In this paper, we investigate numerical Totally-Ordered HTN (TOHTN) planning and show how standard SAT-based encodings can be naturally extended with SMT to handle numeric fluents. In addition, we introduce a benchmark suite for numerical TOHTN planning, providing a first common basis for evaluation in this setting. Experimental results show that this simple encoding already constitutes a competitive baseline. This work opens the way to more expressive approaches to HTN planning.",
+        "identifier": "2609.03938",
+        "dedupe_key": "arxiv:2609.03938",
+        "topic_hit": [],
+        "priority_rank": 999,
+        "keyword_hit": [
+          "benchmark",
+          "attention"
+        ]
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "d8c703d80621",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 24
+        }
+      ]
+    },
+    {
+      "source": "papers",
+      "rank": 25,
       "title": "RATL: Learning from Retrieved Residuals for Robust Multivariate Time-Series Forecasting",
       "title_zh": "RATL：从检索残差学习用于稳健多变量时间序列预测",
       "url": "http://arxiv.org/abs/2609.03937v1",
@@ -843,20 +1027,101 @@
         ]
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": -3,
       "cluster_id": "9e24b1c2c1b7",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-04T02:35:41.728138+00:00",
           "rank": 22
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 25
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 23,
+      "rank": 26,
+      "title": "Lose the Order, Keep the Hierarchy: Deordering HTN Plans",
+      "title_zh": "去掉顺序，保留层次：HTN 计划的去序化",
+      "url": "http://arxiv.org/abs/2609.03912v1",
+      "hot_value": null,
+      "summary_zh": "层次任务网络（HTN）规划是一种基于任务分解的强大规划形式。尽管大多数文献研究了计划生成，但对计划后优化的关注相对较少。特别是，计划去序化在经典规划中已被广泛研究，但在 HTN 设置中仍未得到充分研究。计划去序化移除计划中动作之间不必要的排序约束，同时保持计划有效。在本文中，我们通过扩展两种已建立的经典规划计划去序化技术来考虑层次分解约束，从而使其适应 HTN 设置。我们在 IPC 2023 部分序 HTN 基准上评估了我们提出的方法，并将它们与直接生成部分序计划的 HTN 规划器 Optiplan 进行比较。结果显示，我们的两种实现在排序约束数量上都有显著减少。尽管我们也观察到关键路径长度减少，但改进不太明显。",
+      "thumbnail": null,
+      "published_at": "2026-09-03T14:27:58Z",
+      "extra": {
+        "subsource": "arxiv",
+        "field": "cs.AI",
+        "doi": null,
+        "tier": "预印本",
+        "mode": "filter",
+        "description": "Hierarchical Task Network (HTN) planning is a powerful planning formalism based on task decomposition. Although most of the literature studied plan generation, comparatively less attention has been paid to post-plan optimization. In particular, plan deordering has been extensively studied in classical planning but remains under-researched in the HTN setting. Plan deordering removes unnecessary ordering constraints between actions in a plan whilst keeping the plan valid. In this paper, we adapt two established plan deordering techniques from classical planning by extending the techniques to account for hierarchical decomposition constraints. We evaluate our proposed approaches on the IPC 2023 Partial-Order HTN benchmarks and we compare them against Optiplan, an HTN planner that generates partially ordered plans directly. Our results show a substantial reduction in number of ordering constraints in both our implementations. Although we also observe a reduction in critical path length, the improvements are less pronounced.",
+        "identifier": "2609.03912",
+        "dedupe_key": "arxiv:2609.03912",
+        "topic_hit": [],
+        "priority_rank": 999,
+        "keyword_hit": [
+          "benchmark",
+          "attention"
+        ]
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "1a351e569010",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 26
+        }
+      ]
+    },
+    {
+      "source": "papers",
+      "rank": 27,
+      "title": "Xiaomi-TabLDM: A Tabular Foundation Model Technical Report",
+      "title_zh": "Xiaomi-TabLDM：表格基础模型技术报告",
+      "url": "http://arxiv.org/abs/2609.03880v1",
+      "hot_value": null,
+      "summary_zh": "我们介绍了 Xiaomi-TabLDM，一个用于通过上下文学习进行分类和回归的表格大数据基础模型，无需任务特定微调即可提供卓越的预测准确性。该模型仅在由结构因果模型（SCM）生成的合成数据上预训练，实现了更灵活的上下文利用和更高效的能力扩展。i) 新的性能标准。跨基准的强回归性能：Xiaomi-TabLDM 在 OpenML-CTR23 上排名第一，在 TALENT、TabArena 和 BCCO 的回归中排名第二，展示了在四个互补基准套件上持续强劲的回归性能。良好的性能-效率权衡：Xiaomi-TabLDM 结合了强预测性能和显著更低的计算成本。例如，在 TabArena 回归中，它实现了第二高的 Elo，同时比排名第一的 TabFM 少用 82% 的训练时间和 68% 的预测时间。ii) 大规模合成预训练。Xiaomi-TabLDM 扩展了用于预训练的合成表格数据的覆盖范围和多样性。我",
+      "thumbnail": null,
+      "published_at": "2026-09-03T14:06:41Z",
+      "extra": {
+        "subsource": "arxiv",
+        "field": "cs.AI",
+        "doi": null,
+        "tier": "预印本",
+        "mode": "filter",
+        "description": "We introduce Xiaomi-TabLDM, a tabular large data foundation model for classification and regression via in-context learning, which delivers superior prediction accuracy without requiring task-specific fine-tuning. Pretrained exclusively on synthetic data generated from structural causal models (SCMs), our model enables more flexible context utilization and more efficient capacity scaling. i) A new performance standard. Strong regression performance across benchmarks: Xiaomi-TabLDM ranks 1st on OpenML-CTR23 and 2nd on regression across TALENT, TabArena, and BCCO, demonstrating consistently strong regression performance across four complementary benchmark suites. Favorable performance--efficiency trade-off: Xiaomi-TabLDM combines strong predictive performance with substantially lower computational cost. For example, on TabArena regression, it achieves the second-highest Elo while using 82% less training time and 68% less prediction time than the top-ranked TabFM. ii) Large-scale synthetic pretraining. Xiaomi-TabLDM expands the coverage and diversity of synthetic tabular data used for pretraining. We also adopt a three-stage training strategy together with dual-stream feature grouping, lightweight Attention Residual, and sparse Mixture-of-Experts, enabling Xiaomi-TabLDM to learn richer feature interactions and expert specialization across diverse tabular tasks. iii) Test-time scaling. Xiaomi-TabLDM further extends tabular prediction through test-time compute scaling, where allocating additional computation at inference time consistently improves predictive performance over the base model.",
+        "identifier": "2609.03880",
+        "dedupe_key": "arxiv:2609.03880",
+        "topic_hit": [],
+        "priority_rank": 999,
+        "keyword_hit": [
+          "foundation model",
+          "benchmark",
+          "attention"
+        ]
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "328b60169916",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 27
+        }
+      ]
+    },
+    {
+      "source": "papers",
+      "rank": 28,
       "title": "Differentiable Interval Bottlenecks for Interpretable Anomaly Detection in Numerical Data",
       "title_zh": "可微区间瓶颈用于数值数据的可解释异常检测",
       "url": "http://arxiv.org/abs/2609.03878v1",
@@ -882,20 +1147,61 @@
         ]
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": -5,
       "cluster_id": "969bca2e898d",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-04T02:35:41.728138+00:00",
           "rank": 23
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 28
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 24,
+      "rank": 29,
+      "title": "STAIR (STructure Aware Information Retriever): A novel dataset and LLM based retriever for document structure augmentation",
+      "title_zh": "STAIR（结构感知信息检索器）：用于文档结构增强的新数据集和基于 LLM 的检索器",
+      "url": "http://arxiv.org/abs/2609.03874v1",
+      "hot_value": null,
+      "summary_zh": "检索增强生成（RAG）是使用大型语言模型（LLM）生成准确且无幻觉答案的关键组件。LLM 在处理长上下文方面正在改进，但仍存在“中间迷失”问题。因此，精确准确的检索很重要。当前检索器将长上下文分块为基于长度的可管理块——在此过程中丢弃了语料库中丰富且信息丰富的语义全局结构。我们引入了一种新颖的检索系统 STAIR，使 LLM 能够利用语料库中的全局结构（如目录（ToC））来高效存储和从其模型参数中检索信息。我们使用微调的可微搜索索引（DSI）系统进行的彻底和仔细的消融研究表明，ToC 有助于构建低幻觉（低于 0.05%）的生成式信息检索（IR）系统，并且可以泛化到训练样本非常少的示例。为了进一步研究这种基于 ToC 的检索新方向，我们发布了 SearchTome——一个从 6 个不同领域的 18 本书创建的多样化基准，以促进这一新方向的研究。STAIR 在 SearchTome 上实现了 ",
+      "thumbnail": null,
+      "published_at": "2026-09-03T14:02:53Z",
+      "extra": {
+        "subsource": "arxiv",
+        "field": "cs.AI",
+        "doi": null,
+        "tier": "预印本",
+        "mode": "filter",
+        "description": "Retrieval Augmented Generation (RAG) is a key component for generating accurate and hallucination free answers using Large Language Models (LLMs). LLMs are improving at handling long context, but still suffer from \"lost in the middle\" problem. Thus, precise and accurate retrieval is important. Current retrievers chunk long context into length-based manageable chunks - in the process throwing away rich and informative semantic global structure in the corpus. We introduce a novel retrieval system STAIR that empowers an LLM to exploit global structure in a corpus such as a Table of Contents (ToC) to efficiently store and retrieve information from its model parameters. Our thorough and careful ablation studies with a finetuned Differentiable Search Index (DSI) system show that ToC helps build a low hallucination (less than 0.05%) generative Information Retrieval (IR) system and can generalize to examples where very few training samples are available. To further research in this novel direction of ToC based retrieval we release SearchTome - a diverse benchmark created from 18 books across 6 diverse domains to further research in this novel direction. STAIR achieves a high Recall@1 score of 82.6% on SearchTome as compared to DSI (76.9%), where the difference is found to be statistically significant. STAIR easily beats other strong baselines such as BM25 (59.5%), DPR (68.7%) and out-of-the-box Mistral (13.8%).",
+        "identifier": "2609.03874",
+        "dedupe_key": "arxiv:2609.03874",
+        "topic_hit": [],
+        "priority_rank": 999,
+        "keyword_hit": [
+          "benchmark"
+        ]
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "27ec83d52cf0",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 29
+        }
+      ]
+    },
+    {
+      "source": "papers",
+      "rank": 30,
       "title": "High-Dimensional Learning Dynamics of Attention-Indexed Models",
       "title_zh": "注意力索引模型的高维学习动态",
       "url": "http://arxiv.org/abs/2609.03858v1",
@@ -920,20 +1226,24 @@
         ]
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": -6,
       "cluster_id": "d60d26a871cd",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-04T02:35:41.728138+00:00",
           "rank": 24
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 30
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 25,
+      "rank": 31,
       "title": "Pushing the (Decision) Boundaries: Dynamically Calibrating Differentially Private Noise to Explainability in Federated Learning",
       "title_zh": "推动（决策）边界：动态校准差分隐私噪声到联邦学习中的可解释性",
       "url": "http://arxiv.org/abs/2609.03851v1",
@@ -957,20 +1267,24 @@
         ]
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": -6,
       "cluster_id": "7983ef723274",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-04T02:35:41.728138+00:00",
           "rank": 25
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 31
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 26,
+      "rank": 32,
       "title": "Flip, Don't Shuffle: Watermarking LLMs at the Speed of Inference",
       "title_zh": "翻转，不要洗牌：在推理速度下水印LLM",
       "url": "http://arxiv.org/abs/2609.03844v1",
@@ -994,20 +1308,24 @@
         ]
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": -6,
       "cluster_id": "a72d2a70cf49",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-04T02:35:41.728138+00:00",
           "rank": 26
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 32
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 27,
+      "rank": 33,
       "title": "Multi-step Proximal Policy Improvement in Offline Reinforcement Learning",
       "title_zh": "离线强化学习中的多步近端策略改进",
       "url": "http://arxiv.org/abs/2609.03842v1",
@@ -1031,20 +1349,24 @@
         ]
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": -6,
       "cluster_id": "f06417f1f778",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-04T02:35:41.728138+00:00",
           "rank": 27
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 33
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 28,
+      "rank": 34,
       "title": "Semantic Bayesian World Models",
       "title_zh": "语义贝叶斯世界模型",
       "url": "http://arxiv.org/abs/2609.03834v1",
@@ -1068,238 +1390,17 @@
         ]
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": -6,
       "cluster_id": "7fc89dc22b6e",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-04T02:35:41.728138+00:00",
           "rank": 28
-        }
-      ]
-    },
-    {
-      "source": "papers",
-      "rank": 29,
-      "title": "When Vision Meets Graphs: A Survey on Graph Reasoning and Learning",
-      "title_zh": "当视觉遇见图：图推理与学习综述",
-      "url": "http://arxiv.org/abs/2609.03816v1",
-      "hot_value": null,
-      "summary_zh": "图是支撑自然和社会科学中许多问题的基本数据结构。在过去十年中，图神经网络（GNN）主导了图机器学习，并得到坚实理论基础的支持。然而，科学家通常通过视觉理解图结构：化学家阅读分子图，社会科学家检查网络可视化。尽管图可视化已有数十年工作，大多数图学习管道仍将图纯粹视为符号结构，很少利用图的视觉形式。我们认为，在强大的视觉和视觉语言模型时代，这一差距值得重新关注。本综述首次系统概述了我们称之为“视觉遇见图”的新兴领域，该领域将图的视觉描绘视为推理和学习的一等输入。我们将现有工作组织为三个方向。视觉用于图推理研究模型如何利用图的视觉描绘来理解结构并执行多步推理。视觉用于图学习探索视觉特征如何补充或增强图编码器，超越消息传递的已知局限。科学图研究采用标准化描绘约定的领域，这些约定支持推理和学习。我们的目标是阐明当前方法能做什么和不能做什么，并勾勒出通往像科学家一样感知和推理图的基础模型的路径。",
-      "thumbnail": null,
-      "published_at": "2026-09-03T13:19:22Z",
-      "extra": {
-        "subsource": "arxiv",
-        "field": "cs.SI",
-        "doi": null,
-        "tier": "预印本",
-        "mode": "filter",
-        "description": "Graphs are a fundamental data structure underlying many problems in the natural and social sciences. Over the past decade, Graph Neural Networks (GNNs) have dominated graph machine learning, supported by solid theoretical foundations. Yet scientists often understand graph structure through vision: chemists read molecular diagrams and social scientists inspect network visualizations. Despite decades of work on graph visualization, most graph learning pipelines still treat graphs purely as symbolic structures, rarely leveraging the visual form of graphs. We argue that this gap deserves renewed attention in the era of powerful vision and vision-language models. This survey provides a first systematic overview of the emerging area we term vision meets graphs, which treats visual depictions of graphs as first-class inputs for reasoning and learning. We organize existing work into three threads. Vision for Graph Reasoning studies how models can use visual depictions of graphs to understand structure and carry out multi-step reasoning. Vision for Graph Learning explores how visual features can complement or augment graph encoders beyond known limitations of message passing. Scientific Graphs examines domains where standardized depiction conventions support both reasoning and learning. Our goal is to clarify what current methods can and cannot do, and to outline a path toward foundation models that perceive and reason about graphs as scientists do.",
-        "identifier": "2609.03816",
-        "dedupe_key": "arxiv:2609.03816",
-        "topic_hit": [],
-        "priority_rank": 999,
-        "keyword_hit": [
-          "graph neural network",
-          "GNN",
-          "foundation model",
-          "attention"
-        ]
-      },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
-      "cluster_id": "5ab08e322b69",
-      "cluster_size": 1,
-      "rank_history": [
+        },
         {
-          "run_at": "2026-09-04T02:35:41.728138+00:00",
-          "rank": 29
-        }
-      ]
-    },
-    {
-      "source": "papers",
-      "rank": 30,
-      "title": "A Peer-Relative Representation Learning Framework for Energy Inefficiency Identification in Mobile Network Sites",
-      "title_zh": "用于移动网络站点能效低效识别的同行相对表示学习框架",
-      "url": "http://arxiv.org/abs/2609.03809v1",
-      "hot_value": null,
-      "summary_zh": "能耗是移动网络运营商最大的运营支出项目之一，然而站点级能效低效问题，如故障冷却控制器、空闲无线电设备和寄生辅助负载，往往未被检测到，因为不存在真实能效低效标签，且历史测量可能已包含嵌入的低效。本研究提出一种无监督的同行相对方法，基于相似结构和运营特征的站点应表现出可比能耗的前提。为捕捉这些关系，引入一种新颖的能耗感知最小失真嵌入（MDE）公式，该公式通过基于能量的排斥机制扩展标准MDE目标。这鼓励相对于可比同行能耗异常高的站点在嵌入空间中从其局部邻域位移。所得低维表示同时保留结构相似性并编码能耗相关偏差，从而通过同行相对比较识别潜在低效站点。导出的异常分数为优先进行现场调查提供实用机制，使移动网络运营商能将工程资源集中在最可能产生节能效果的站点上。实验结果表明，所提方法优于传统异常检测基线，并为移动网络大规模能效优化提供稳健基础。",
-      "thumbnail": null,
-      "published_at": "2026-09-03T13:14:13Z",
-      "extra": {
-        "subsource": "arxiv",
-        "field": "cs.LG",
-        "doi": null,
-        "tier": "预印本",
-        "mode": "filter",
-        "description": "Energy consumption is one of the largest operational expenditure items for mobile network operators, yet site-level energy inefficiencies such as faulty cooling controllers, idle radio equipment, and parasitic auxiliary loads often remain undetected because no ground-truth inefficiency labels exist and historical measurements may already contain embedded inefficiencies. This study proposes an unsupervised peer-relative approach based on the premise that sites with similar structural and operational characteristics should exhibit comparable energy consumption. To capture these relationships, a novel energy-aware Minimum Distortion Embedding (MDE) formulation is introduced that extends the standard MDE objective with an energy-based repulsion mechanism. This encourages sites with anomalously high energy consumption relative to comparable peers to become displaced from their local neighbourhoods in the embedding space. The resulting low-dimensional representation simultaneously preserves structural similarity and encodes energy-related deviations, enabling the identification of potentially inefficient sites through peer-relative comparison. The derived anomaly scores provide a practical mechanism for prioritising field investigations, allowing mobile network operators to focus engineering resources on sites most likely to yield energy savings. Experimental results demonstrate that the proposed approach outperforms conventional anomaly detection baselines and provides a robust foundation for large-scale energy-efficiency optimisation in mobile networks.",
-        "identifier": "2609.03809",
-        "dedupe_key": "arxiv:2609.03809",
-        "topic_hit": [],
-        "priority_rank": 999,
-        "keyword_hit": [
-          "representation learning"
-        ]
-      },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
-      "cluster_id": "4a2c8711dfc8",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-04T02:35:41.728138+00:00",
-          "rank": 30
-        }
-      ]
-    },
-    {
-      "source": "papers",
-      "rank": 31,
-      "title": "Landmark-Based Discrimination of Injury-Associated Athlete-Sessions from Minute-Resolution Multimodal Football Monitoring Data",
-      "title_zh": "基于界标从分钟分辨率多模态足球监测数据判别损伤相关运动员会话",
-      "url": "http://arxiv.org/abs/2609.03790v1",
-      "hot_value": null,
-      "summary_zh": "运动员监测数据可能在比赛或训练会话中逐分钟记录，而损伤信息可能仅指示整个会话是否与损伤相关。这产生建模问题：将会话级标签分配给每一分钟将暗示损伤状态在每个确切时间已知，尽管会话内损伤发作未知。我们的新颖之处是固定界标、每运动员会话一个表示的公式，直接解决此不匹配。我们不标记每一分钟，而是在每个界标处使用截至该点观察到的信息为每个运动员会话构建一个表示。这保持目标在会话级别，避免无支持的分钟级损伤监督。界标是同一会话内的固定时间点，如10、20或30分钟。在每个界标处，我们评估整个会话是否与损伤相关或非相关，并检查随着更多会话内信息可用，判别如何变化。使用2020 SoccerMon数据，我们分析来自48名精英女子足球运动员的3,743个运动员会话，包括来自五名运动员的22个损伤相关会话。我们评估会话前、累积、动态和组合表示，使用运动员不相交验证、运动员聚类自助不确定性、共同队列敏感性分析、",
-      "thumbnail": null,
-      "published_at": "2026-09-03T13:00:23Z",
-      "extra": {
-        "subsource": "arxiv",
-        "field": "cs.LG",
-        "doi": null,
-        "tier": "预印本",
-        "mode": "filter",
-        "description": "Athlete monitoring data may be recorded minute by minute throughout a match or training session, while injury information may only indicate whether the entire session was injury-associated. This creates a modelling problem: assigning the same session-level label to every minute would imply that injury status is known at each exact time, even though within-session injury onset is unknown. Our novelty is a fixed-landmark, one-representation-per-athlete-session formulation that directly addresses this mismatch. Instead of labelling every minute, we construct one representation per athlete-session at each landmark using information observed up to that point. This keeps the target at the session level and avoids unsupported minute-level injury supervision. A landmark is a fixed time point within the same session, such as 10, 20, or 30 minutes. At each landmark, we assess whether the whole session is injury-associated or non-injury-associated and examine how discrimination changes as more within-session information becomes available. Using 2020 SoccerMon data, we analyse 3,743 athlete-sessions from 48 elite women's football athletes, including 22 injury-associated sessions from five athletes. We evaluate pre-session, cumulative, dynamic, and combined representations with athlete-disjoint validation, athlete-cluster bootstrap uncertainty, common-cohort sensitivity analysis, alternative negative-athlete fold allocations, equal-athlete weighting, and Logistic Regression, Random Forest, and XGBoost benchmarks. Primary CUM+DYN Logistic Regression yields ROC-AUC 0.367-0.607 and PR-AUC 0.0080-0.0150 across landmarks, with wide uncertainty. PRE-containing representations show higher point estimates at several landmarks but remain uncertain.",
-        "identifier": "2609.03790",
-        "dedupe_key": "arxiv:2609.03790",
-        "topic_hit": [],
-        "priority_rank": 999,
-        "keyword_hit": [
-          "benchmark"
-        ]
-      },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
-      "cluster_id": "6e59724e2d77",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-04T02:35:41.728138+00:00",
-          "rank": 31
-        }
-      ]
-    },
-    {
-      "source": "papers",
-      "rank": 32,
-      "title": "Genetic Algorithms for Tractable Bayesian Network Fusion via Pre-Fusion Edge Pruning",
-      "title_zh": "用于通过融合前边剪枝实现可处理贝叶斯网络融合的遗传算法",
-      "url": "http://arxiv.org/abs/2609.03724v1",
-      "hot_value": null,
-      "summary_zh": "贝叶斯网络（BN）融合将多个输入网络组合成单一结构，平衡依赖保留与计算可处理性。虽然无限制融合保留所有依赖，但通常导致具有高树宽的过度复杂网络，影响推理可扩展性。有限融合通过剪枝边控制树宽缓解此问题，但存在过拟合输入特定噪声和遗漏原始BN依赖的风险。本文引入共识框架，优先考虑输入网络间的共享结构，同时强制树宽约束，确保良好共识。我们提出具有高级初始化、专门算子和定制适应度函数的遗传算法。此外，我们调整现有方法以适应此问题，并实现贪婪基线用于基准测试和进一步优化。在合成和真实BN上的实验显示所提遗传算法优于调整方法和贪婪基线。",
-      "thumbnail": null,
-      "published_at": "2026-09-03T11:55:48Z",
-      "extra": {
-        "subsource": "arxiv",
-        "field": "cs.NE",
-        "doi": "10.1145/3712256.3726333",
-        "tier": "预印本",
-        "mode": "filter",
-        "description": "Bayesian Network (BN) fusion combines multiple input networks into a single structure, balancing dependency preservation with computational tractability. While unrestricted fusion retains all dependencies, it often results in overly complex networks with high treewidth, which affects inference scalability. Limited fusion mitigates this by pruning edges to control treewidth but risks overfitting to input-specific noise and omitting dependencies from the original BNs. This paper introduces a consensus framework that prioritizes shared structures among input networks while enforcing treewidth constraints, ensuring a good consensus. We propose genetic algorithms with advanced initialization, specialized operators, and a tailored fitness function. Additionally, we adapt existing methods to this problem and implement greedy baselines for benchmarking and further optimization. Experiments on synthetic and real-world BNs show the superiority of the proposed genetic algorithms over the adapted methods and greedy baselines.",
-        "identifier": "2609.03724",
-        "dedupe_key": "doi:10.1145/3712256.3726333",
-        "topic_hit": [],
-        "priority_rank": 999,
-        "keyword_hit": [
-          "benchmark"
-        ]
-      },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
-      "cluster_id": "1d7a28690cd1",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-04T02:35:41.728138+00:00",
-          "rank": 32
-        }
-      ]
-    },
-    {
-      "source": "papers",
-      "rank": 33,
-      "title": "Resolution-Aware Experimental Design under Partial Identifiability",
-      "title_zh": "部分可识别性下的分辨率感知实验设计",
-      "url": "http://arxiv.org/abs/2609.03686v1",
-      "hot_value": null,
-      "summary_zh": "实验设计通常被框架化为选择预期提供最多信息的实验。然而，在部分可识别性下，持续存在的干扰不确定性可能使相同观测携带不同结构含义。我们引入分辨率感知实验设计（RAED），通过可实现的预期非空结构候选集最小化来选择实验，并受假排除控制约束。我们证明精确的交叉干扰混叠分离：实验可能因结构和全潜信息增益、平均分类和干扰边缘化信息量而被偏好，同时具有任意更差的真实结构分辨率。RAED在真实复合Blackwell比较下仍保留预期排序。为使此标准可操作，我们开发基于学习分数的实现，具有有限样本干扰平均和正尾校准，并刻画罕见尾样本复杂度障碍。在约束感知下，两个地下流基准表现出真实的RAED与预期信息增益（EIG）实验选择分歧，在WCA中具有最清晰和最大的保留分辨率差异。在河流基准中，尾保护改变所选物理实验，主要将硬区域假排除替换为显式模糊。在机制甲烷氧化基准中，前瞻性指定的5%假排除容差也为尾敏感干扰风险",
-      "thumbnail": null,
-      "published_at": "2026-09-03T11:23:10Z",
-      "extra": {
-        "subsource": "arxiv",
-        "field": "cs.LG",
-        "doi": null,
-        "tier": "预印本",
-        "mode": "filter",
-        "description": "Experimental design is commonly framed as choosing the experiment expected to provide the most information. Under partial identifiability however, persistent nuisance uncertainty can make the same observation carry different structural meanings. We introduce Resolution-Aware Experimental Design (RAED), which selects an experiment by the smallest expected nonempty structural candidate set achievable subject to false-exclusion control. We prove an exact cross-nuisance aliasing separation: an experiment can be preferred by structural and full-latent information gain, average classification, and nuisance-marginalized informativeness while having arbitrarily poorer valid structural resolution. RAED nevertheless preserves the expected ordering under a genuine composite Blackwell comparison. To make this criterion operational, we develop a learned score-based implementation with finite-sample nuisance-average and positive-tail calibration, and characterize a rare-tail sample-complexity obstruction. Under constrained sensing, two subsurface-flow benchmarks exhibit genuine RAED--expected-information-gain (EIG) experiment-selection disagreements, with the clearest and largest held-out resolution differences in WCA. In a fluvial benchmark, tail protection changes the selected physical experiment and replaces hard-region false exclusions primarily with explicit ambiguity. In a mechanistic methane-oxidation benchmark, a prospectively specified 5\\% false-exclusion tolerance also yields a nontrivial finite-sample population guarantee for tail-sensitive nuisance risk, with 95\\% joint confidence across all three structural families.",
-        "identifier": "2609.03686",
-        "dedupe_key": "arxiv:2609.03686",
-        "topic_hit": [],
-        "priority_rank": 999,
-        "keyword_hit": [
-          "benchmark"
-        ]
-      },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
-      "cluster_id": "b0fa5c9ad4ad",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-04T02:35:41.728138+00:00",
-          "rank": 33
-        }
-      ]
-    },
-    {
-      "source": "papers",
-      "rank": 34,
-      "title": "Understanding Autonomous Driving Datasets by Describing Differences between Image Subsets in Natural Language",
-      "title_zh": "通过自然语言描述图像子集间差异理解自动驾驶数据集",
-      "url": "http://arxiv.org/abs/2609.03677v1",
-      "hot_value": null,
-      "summary_zh": "理解大规模自动驾驶数据集的组成对安全性、鲁棒性和跨域可靠操作至关重要。例如，位置间的域偏移可能导致操作环境与训练数据不对齐，导致潜在危险的性能下降。然而，现有数据分析管道主要依赖元数据、预定义标签或手动检查，提供有限语义洞察或不可扩展。本文研究集差异描述：给定两个图像子集，目标是生成描述目标集与参考集差异的自然语言假设。基于两阶段公式，我们通过聚焦于目标检测导出的对象中心补丁将方法适应自动驾驶，这简化聚合并允许将差异归因于特定对象实例或类别。为在域内评估此设置，我们引入新基准AD-Diff Bench。低浓度实验评估集差异描述方法对稀疏、真实世界差异的适用性。我们将实验限制在开放权重模型以支持可复现性和易部署性。所提基准和分析为自动驾驶数据集的实际、人类可解释数据集内省提供一步。我们的实现和基准数据集可在https://github.com/KIT-MRT/AD-Diff获取。",
-      "thumbnail": null,
-      "published_at": "2026-09-03T11:15:23Z",
-      "extra": {
-        "subsource": "arxiv",
-        "field": "cs.CV",
-        "doi": null,
-        "tier": "预印本",
-        "mode": "filter",
-        "description": "Understanding the composition of large-scale autonomous driving datasets is essential for safety, robustness, and reliable operation across domains. For example, domain shift between locations could lead to the operating environment being misaligned with the training data, resulting in potentially dangerous performance degradation. Yet, existing data analysis pipelines largely rely on metadata, predefined labels, or manual inspection, which provide limited semantic insight or do not scale. This paper studies set difference captioning: given two subsets of images, the goal is to produce a natural-language hypothesis describing differences between the target and reference set. Building on a two-stage formulation, we adapt the method to autonomous driving by focusing on object-centric patches derived from object detection, which simplifies aggregation and enables attribution of differences to specific object instances or categories. To evaluate this setting in-domain, we introduce a new benchmark, AD-Diff Bench. Low-concentration experiments assess the suitability of set-difference-captioning approaches to sparse, real-world differences. We restrict our experiments to open-weight models to support reproducibility and ease of deployment. The proposed benchmark and analysis provide a step towards practical, human-interpretable dataset introspection for autonomous driving datasets. Our implementation and benchmark dataset are available at https://github.com/KIT-MRT/AD-Diff",
-        "identifier": "2609.03677",
-        "dedupe_key": "arxiv:2609.03677",
-        "topic_hit": [],
-        "priority_rank": 999,
-        "keyword_hit": [
-          "benchmark"
-        ]
-      },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
-      "cluster_id": "7d6acb4924e3",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-04T02:35:41.728138+00:00",
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
           "rank": 34
         }
       ]
@@ -1307,22 +1408,22 @@
     {
       "source": "papers",
       "rank": 35,
-      "title": "Local Updates, Global Learning (LUGL): Playing Games with non-incremental Learners",
-      "title_zh": "局部更新，全局学习（LUGL）：与非增量学习者玩游戏",
-      "url": "http://arxiv.org/abs/2609.03660v1",
+      "title": "The impact of phase information for few-shot fine-grained image classification",
+      "title_zh": "相位信息对少样本细粒度图像分类的影响",
+      "url": "http://arxiv.org/abs/2609.03829v1",
       "hot_value": null,
-      "summary_zh": "神经网络（NN）在RL中的主导地位部分归因于其增量学习能力，自然适合自博弈训练在线、非平稳特性。然而，梯度提升树如LightGBM被广泛认为是监督学习中表格数据的当前最优，通常在准确性和效率上优于NN。游戏状态本质上是表格化的——离散动作、分类卡牌身份、结构化棋盘位置——使其成为基于树方法的理想候选。我们引入LUGL（局部更新，全局学习），一种将数据收集与模型拟合解耦的框架，使非增量学习者如GBT能在RL设置中操作，否则它们会因分布偏移而失败。LUGL在局部更新阶段（代理玩自博弈游戏并在有限表中累积表格更新，如Q值、V值、策略或遗憾值）和全局学习阶段（表用于训练函数逼近器，泛化到未见状态，然后表重置）之间交替。我们在四个标准完美信息游戏（井字棋、四子棋、黑白棋和六子棋）和五个不完美信息游戏（Kuhn扑克、Leduc德州扑克、吹牛骰子、Goofspiel和Flop5德州扑克）中测试方法，并显",
+      "summary_zh": "少样本细粒度图像分类（FSFGIC）旨在使用有限的标记示例对相似图像进行分类。这项工作强调了相位信息在捕获图像内结构关系中的关键但未充分利用的作用。本研究引入了一种新颖的即插即用幅度-相位集成（API）模块，有效结合局部和全局频率幅度和相位信息以获得更全面的特征描述符。此外，提出了一种专用网络，名为 PSF-Net，用于自适应融合基于相位的空间和频率信息以进行 FSFGIC。设计的 PSF-Net 可以轻松集成到标准的情节训练架构中，进行端到端从头训练。在五个公共数据集上的广泛实验表明，该方法优于现有最先进基准。",
       "thumbnail": null,
-      "published_at": "2026-09-03T10:58:09Z",
+      "published_at": "2026-09-03T13:28:07Z",
       "extra": {
         "subsource": "arxiv",
-        "field": "cs.LG",
-        "doi": "10.1109/tg.2026.3728111",
+        "field": "cs.CV",
+        "doi": null,
         "tier": "预印本",
         "mode": "filter",
-        "description": "The dominance of Neural Networks (NNs) in RL is partially due to their incremental learning capability, which naturally suits the online, non-stationary nature of self-play training. However, gradient-boosted trees like LightGBM are widely recognised as the state of the art for tabular data in supervised learning, often outperforming NNs in accuracy and efficiency. Game states are inherently tabular---discrete actions, categorical card identities, structured board positions---which makes them an ideal candidate for tree-based methods. We introduce LUGL (Local Updates, Global Learning), a framework that decouples data collection from model fitting, enabling non-incremental learners such as GBTs to operate in RL settings where they would otherwise fail due to distributional shift. LUGL alternates between a local updates phase, where the agent plays self-play games and accumulates tabular updates (Q-values, V-values, policies, or regret values) in a finite table, and a global learning phase, where the table is used to train a function approximator that generalises to unseen states before the table is reset. We test our approach in four standard perfect-information games (Tic-tac-toe, Connect-4, Othello, and Hex) and five imperfect-information games (Kuhn's poker, Leduc Hold'em, Liar's Dice, Goofspiel, and Flop5 Hold'em), and show that our results are competitive with or superior to DQN and DeepCFR. Our experiments demonstrate that the community's strong bias towards NNs in game-playing may be unwarranted, since LightGBM-based agents achieve competitive or superior performance across all tested benchmarks.",
-        "identifier": "2609.03660",
-        "dedupe_key": "doi:10.1109/tg.2026.3728111",
+        "description": "Few-shot fine-grained image classification (FSFGIC) aims to classify similar images with limited labeled examples. This work highlights the critical yet underutilized role of phase information in capturing structural relationships within an image. This study introduces a novel plug-and-play amplitude-phase integration (API) module that effectively combines local and global frequency amplitude and phase information for obtaining more comprehensive feature descriptors. Additionally, a dedicated network, named PSF-Net, is proposed that adaptively fuses phase-based spatial and frequency information for FSFGIS. The designed PSF-Net can be easily integrated into standard episodic training architectures for end-to-end training from scratch. Extensive experiments on five public datasets demonstrate that the method outperforms existing state-of-the-art benchmarks.",
+        "identifier": "2609.03829",
+        "dedupe_key": "arxiv:2609.03829",
         "topic_hit": [],
         "priority_rank": 999,
         "keyword_hit": [
@@ -1332,11 +1433,11 @@
       "days_on_board": 1,
       "is_new": true,
       "rank_delta": "new",
-      "cluster_id": "dcc25eba0b58",
+      "cluster_id": "7a1b2c50a1d4",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-04T02:35:41.728138+00:00",
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
           "rank": 35
         }
       ]
@@ -1367,13 +1468,17 @@
         ]
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "7157e4e654d2",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-04T02:35:41.728138+00:00",
+          "rank": 36
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
           "rank": 36
         }
       ]
@@ -1403,13 +1508,17 @@
         ]
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "f8b37d12e148",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-04T02:35:41.728138+00:00",
+          "rank": 37
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
           "rank": 37
         }
       ]
@@ -1433,13 +1542,17 @@
         "dedupe_key": "https://www.nature.com/articles/d41586-026-02739-3"
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "4ec0f5d93124",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-04T02:35:41.728138+00:00",
+          "rank": 18
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
           "rank": 18
         }
       ]
@@ -1464,7 +1577,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -7,
+      "rank_delta": 0,
       "cluster_id": "1814ef6d75ba",
       "cluster_size": 1,
       "rank_history": [
@@ -1478,6 +1591,10 @@
         },
         {
           "run_at": "2026-09-04T02:35:41.728138+00:00",
+          "rank": 50
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
           "rank": 50
         }
       ]
@@ -1502,7 +1619,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -7,
+      "rank_delta": 0,
       "cluster_id": "4c8527ee2ce8",
       "cluster_size": 1,
       "rank_history": [
@@ -1524,6 +1641,10 @@
         },
         {
           "run_at": "2026-09-04T02:35:41.728138+00:00",
+          "rank": 51
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
           "rank": 51
         }
       ]
@@ -1548,7 +1669,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -7,
+      "rank_delta": 0,
       "cluster_id": "ee3cab3e6180",
       "cluster_size": 1,
       "rank_history": [
@@ -1562,6 +1683,10 @@
         },
         {
           "run_at": "2026-09-04T02:35:41.728138+00:00",
+          "rank": 52
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
           "rank": 52
         }
       ]
@@ -1586,7 +1711,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -7,
+      "rank_delta": 0,
       "cluster_id": "75d1a75512ac",
       "cluster_size": 1,
       "rank_history": [
@@ -1600,6 +1725,10 @@
         },
         {
           "run_at": "2026-09-04T02:35:41.728138+00:00",
+          "rank": 53
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
           "rank": 53
         }
       ]
@@ -1624,7 +1753,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -7,
+      "rank_delta": 0,
       "cluster_id": "fd691535ea7d",
       "cluster_size": 1,
       "rank_history": [
@@ -1638,6 +1767,10 @@
         },
         {
           "run_at": "2026-09-04T02:35:41.728138+00:00",
+          "rank": 54
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
           "rank": 54
         }
       ]
@@ -1662,7 +1795,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -7,
+      "rank_delta": 0,
       "cluster_id": "e57d9a252591",
       "cluster_size": 1,
       "rank_history": [
@@ -1684,6 +1817,10 @@
         },
         {
           "run_at": "2026-09-04T02:35:41.728138+00:00",
+          "rank": 55
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
           "rank": 55
         }
       ]
@@ -1708,7 +1845,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -6,
+      "rank_delta": 0,
       "cluster_id": "afb3f96ab909",
       "cluster_size": 1,
       "rank_history": [
@@ -1730,6 +1867,10 @@
         },
         {
           "run_at": "2026-09-04T02:35:41.728138+00:00",
+          "rank": 71
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
           "rank": 71
         }
       ]
@@ -1754,7 +1895,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -6,
+      "rank_delta": 0,
       "cluster_id": "94bb6c1c2d49",
       "cluster_size": 1,
       "rank_history": [
@@ -1776,6 +1917,10 @@
         },
         {
           "run_at": "2026-09-04T02:35:41.728138+00:00",
+          "rank": 72
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
           "rank": 72
         }
       ]
@@ -1800,7 +1945,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -6,
+      "rank_delta": 0,
       "cluster_id": "e663b5728ace",
       "cluster_size": 1,
       "rank_history": [
@@ -1822,6 +1967,10 @@
         },
         {
           "run_at": "2026-09-04T02:35:41.728138+00:00",
+          "rank": 73
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
           "rank": 73
         }
       ]
@@ -1846,7 +1995,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -6,
+      "rank_delta": 0,
       "cluster_id": "972528fdedff",
       "cluster_size": 1,
       "rank_history": [
@@ -1868,6 +2017,10 @@
         },
         {
           "run_at": "2026-09-04T02:35:41.728138+00:00",
+          "rank": 74
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
           "rank": 74
         }
       ]
@@ -1892,7 +2045,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -6,
+      "rank_delta": 0,
       "cluster_id": "942eea9e603b",
       "cluster_size": 1,
       "rank_history": [
@@ -1914,6 +2067,10 @@
         },
         {
           "run_at": "2026-09-04T02:35:41.728138+00:00",
+          "rank": 75
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
           "rank": 75
         }
       ]
@@ -1938,7 +2095,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -6,
+      "rank_delta": 0,
       "cluster_id": "d90a3b9b5d15",
       "cluster_size": 1,
       "rank_history": [
@@ -1960,6 +2117,10 @@
         },
         {
           "run_at": "2026-09-04T02:35:41.728138+00:00",
+          "rank": 76
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
           "rank": 76
         }
       ]
@@ -1984,7 +2145,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -6,
+      "rank_delta": 0,
       "cluster_id": "ecf2b8339e31",
       "cluster_size": 1,
       "rank_history": [
@@ -2006,6 +2167,10 @@
         },
         {
           "run_at": "2026-09-04T02:35:41.728138+00:00",
+          "rank": 77
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
           "rank": 77
         }
       ]
@@ -2030,7 +2195,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -6,
+      "rank_delta": 0,
       "cluster_id": "ed6b22cb36d0",
       "cluster_size": 1,
       "rank_history": [
@@ -2052,6 +2217,10 @@
         },
         {
           "run_at": "2026-09-04T02:35:41.728138+00:00",
+          "rank": 78
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
           "rank": 78
         }
       ]
@@ -2076,7 +2245,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -6,
+      "rank_delta": 0,
       "cluster_id": "41dfb4e39fbd",
       "cluster_size": 1,
       "rank_history": [
@@ -2098,6 +2267,10 @@
         },
         {
           "run_at": "2026-09-04T02:35:41.728138+00:00",
+          "rank": 79
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
           "rank": 79
         }
       ]
@@ -2122,7 +2295,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -5,
+      "rank_delta": 0,
       "cluster_id": "42605f54035b",
       "cluster_size": 1,
       "rank_history": [
@@ -2144,6 +2317,10 @@
         },
         {
           "run_at": "2026-09-04T02:35:41.728138+00:00",
+          "rank": 80
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
           "rank": 80
         }
       ]
@@ -2168,7 +2345,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": 0,
       "cluster_id": "546d718906a7",
       "cluster_size": 1,
       "rank_history": [
@@ -2190,6 +2367,10 @@
         },
         {
           "run_at": "2026-09-04T02:35:41.728138+00:00",
+          "rank": 90
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
           "rank": 90
         }
       ]
@@ -2237,6 +2418,10 @@
         {
           "run_at": "2026-09-04T02:35:41.728138+00:00",
           "rank": 92
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 92
         }
       ]
     },
@@ -2282,6 +2467,10 @@
         },
         {
           "run_at": "2026-09-04T02:35:41.728138+00:00",
+          "rank": 93
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
           "rank": 93
         }
       ]
@@ -2329,6 +2518,10 @@
         {
           "run_at": "2026-09-04T02:35:41.728138+00:00",
           "rank": 94
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 94
         }
       ]
     },
@@ -2375,6 +2568,10 @@
         {
           "run_at": "2026-09-04T02:35:41.728138+00:00",
           "rank": 95
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 95
         }
       ]
     },
@@ -2420,6 +2617,10 @@
         },
         {
           "run_at": "2026-09-04T02:35:41.728138+00:00",
+          "rank": 97
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
           "rank": 97
         }
       ]
