@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-09-03T22:45:57.285881+00:00",
+  "generated_at": "2026-09-04T02:35:41.728138+00:00",
   "source": "conf_deadlines",
   "status": {
     "source": "conf_deadlines",
     "status": "ok",
-    "item_count": 1,
-    "duration_ms": 3593,
+    "item_count": 2,
+    "duration_ms": 4540,
     "error": null,
-    "run_at": "2026-09-03T22:45:57.285881+00:00"
+    "run_at": "2026-09-04T02:35:41.728138+00:00"
   },
   "items": [
     {
@@ -29,7 +29,7 @@
         "full_name": "International Conference on Learning Representations",
         "location": "San Francisco, CA, USA"
       },
-      "days_on_board": 2,
+      "days_on_board": 3,
       "is_new": false,
       "rank_delta": 0,
       "cluster_id": "452d7cc39ac2",
@@ -74,6 +74,41 @@
         {
           "run_at": "2026-09-03T22:45:57.285881+00:00",
           "rank": 1
+        },
+        {
+          "run_at": "2026-09-04T02:35:41.728138+00:00",
+          "rank": 1
+        }
+      ]
+    },
+    {
+      "source": "conf_deadlines",
+      "rank": 2,
+      "title": "CVPR 2027 截止",
+      "title_zh": "CVPR 2027 截止",
+      "url": "https://cvpr.thecvf.com/Conferences/2027",
+      "hot_value": "距截止 75 天",
+      "summary_zh": "IEEE/CVF Conference on Computer Vision and Pattern Recognition · Seattle, WA, United States · 官网",
+      "thumbnail": null,
+      "published_at": "2026-11-17T11:59:00+00:00",
+      "extra": {
+        "subsource": "ai-deadlines",
+        "conference": "CVPR",
+        "deadline": "2026-11-17T11:59:00+00:00",
+        "days_left": 75,
+        "link": "https://cvpr.thecvf.com/Conferences/2027",
+        "full_name": "IEEE/CVF Conference on Computer Vision and Pattern Recognition",
+        "location": "Seattle, WA, United States"
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "02b7349cee7a",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-04T02:35:41.728138+00:00",
+          "rank": 2
         }
       ]
     }
