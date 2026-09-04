@@ -16,6 +16,7 @@ const dataResponse = (url: string) => {
     { source: 'papers', rank: 1, title: 'Rare cell clustering', title_zh: '稀有细胞聚类', url: 'https://example.test/preprint', published_at: '2026-09-03', extra: { tier: '预印本', subsource: 'biorxiv', topic_hit: ['稀有细胞'], keyword_hit: ['GNN'] } },
     { source: 'papers', rank: 2, title: '核心论文', title_zh: '核心论文', url: 'https://example.test/core', published_at: '2026-09-02', extra: { tier: '中文核心', subsource: 'crossref', journal: '计算机应用' } },
     { source: 'feed', rank: 3, title: 'Nature paper', title_zh: 'Nature 论文', url: 'https://example.test/nature', published_at: '2026-09-01', extra: { tab: 'papers', feed_name: 'Nature' } },
+    { source: 'papers', rank: 4, title: 'BIB paper', title_zh: 'BIB 论文', url: 'https://example.test/bib', published_at: '2026-09-04', extra: { tier: '英文顶刊', subsource: 'crossref', journal: 'Briefings in bioinformatics', keyword_hit: ['benchmark'] } },
   ] });
   if (url.endsWith('/data/jobs.json')) return json({ generated_at: '', source: 'jobs', status: { source: 'jobs', status: 'ok', item_count: 0 }, items: [] });
   if (url.endsWith('/data/trends.json')) return json({ generated_at: '', rising: [], new_today: [], dropped: [], longest_on_board: [] });
@@ -145,6 +146,7 @@ describe('authenticated app bootstrap', () => {
         items: [
           { source: 'papers', rank: 1, title: 'Rare cell clustering', title_zh: '稀有细胞聚类', url: 'https://example.test/preprint', published_at: '2026-09-03', extra: { tier: '预印本', subsource: 'biorxiv', topic_hit: ['稀有细胞'], keyword_hit: ['GNN'] } },
           { source: 'papers', rank: 2, title: '核心论文', title_zh: '核心论文', url: 'https://example.test/core', published_at: '2026-09-02', extra: { tier: '中文核心', subsource: 'crossref', journal: '计算机应用' } },
+          { source: 'papers', rank: 3, title: 'BIB paper', title_zh: 'BIB 论文', url: 'https://example.test/bib', published_at: '2026-09-04', extra: { tier: '英文顶刊', subsource: 'crossref', journal: 'Briefings in bioinformatics', keyword_hit: ['benchmark'] } },
         ],
       });
       return dataResponse(url) ?? json({}, 404);
@@ -163,5 +165,40 @@ describe('authenticated app bootstrap', () => {
     expect(screen.getByText('稀有细胞')).toBeInTheDocument();
     expect(screen.getByText('GNN')).toBeInTheDocument();
     expect(screen.getByText('Nature 论文')).toBeInTheDocument();
+    expect(screen.getByText('期刊 · Briefings in Bioinformatics (BIB)')).toBeInTheDocument();
+
+    fireEvent.change(screen.getByLabelText('期刊筛选'), { target: { value: 'Briefings in bioinformatics' } });
+    expect(screen.getByText('BIB 论文')).toBeInTheDocument();
+    expect(screen.queryByText('核心论文')).not.toBeInTheDocument();
+    expect(screen.queryByText('稀有细胞聚类')).not.toBeInTheDocument();
+  });
+
+  it('keeps hot-list items before utility sources in the all tab', async () => {
+    const fetchMock = vi.fn(async (input: RequestInfo | URL) => {
+      const url = String(input);
+      if (url === '/api/me') return json({ username: 'reader', is_admin: false });
+      if (url === '/api/settings') return json({ prefs: {}, updated_at: null });
+      if (url.endsWith('/data/all.json')) return json({
+        generated_at: '2026-09-04T00:00:00Z',
+        sources: [{ source: 'weibo', status: 'ok', item_count: 1 }, { source: 'gongkao', status: 'ok', item_count: 1 }],
+        items: [
+          { source: 'weibo', rank: 1, title: '微博第一热搜', title_zh: '微博第一热搜', url: 'https://example.test/hot' },
+          { source: 'gongkao', rank: 1, title: '粉笔考试公告', title_zh: '粉笔考试公告', url: 'https://example.test/gongkao', extra: { subsource: 'fenbi' } },
+        ],
+      });
+      if (url.endsWith('/data/server-gongkao.json')) return json({
+        generated_at: '2026-09-04T00:00:00Z', source: 'gongkao_official',
+        status: { source: 'gongkao_official', status: 'ok', item_count: 1 },
+        items: [{ source: 'gongkao', rank: 1, title: '官方选调公告', title_zh: '官方选调公告', url: 'https://example.test/official', extra: { subsource: 'xuandiao' } }],
+      });
+      return dataResponse(url) ?? json({}, 404);
+    });
+    vi.stubGlobal('fetch', fetchMock);
+
+    render(<App />);
+    await screen.findByText('reader');
+    const text = document.body.textContent || '';
+    expect(text.indexOf('微博第一热搜')).toBeLessThan(text.indexOf('官方选调公告'));
+    expect(text.indexOf('官方选调公告')).toBeLessThan(text.indexOf('粉笔考试公告'));
   });
 });

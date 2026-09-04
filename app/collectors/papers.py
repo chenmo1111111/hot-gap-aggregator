@@ -114,9 +114,9 @@ class PapersCollector(BaseCollector):
                 extra={
                     "subsource": server, "field": category or None, "doi": doi,
                     "tier": "预印本",
-                    # A category match alone is intentionally not enough for bioRxiv:
-                    # broad biology categories must also hit a configured topic/keyword.
-                    "mode": "filter",
+                    # The category whitelist already removes unrelated bioRxiv
+                    # papers. Topic and keyword matches control ranking, not survival.
+                    "mode": "all" if server == "biorxiv" and allowed else "filter",
                     "description": abstract, "dedupe_key": f"doi:{doi}",
                 },
             ))

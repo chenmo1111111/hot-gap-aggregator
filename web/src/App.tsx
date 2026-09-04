@@ -51,8 +51,11 @@ const mergeServerGongkao = (feed: Feed, officialFeed: ServerGongkaoFeed): Feed =
   // A previous release wrote official rows into all.json directly. Drop those
   // stale copies and let the server-owned sidecar be authoritative for them.
   const ciItems = feed.items.filter((item) => !['scs', 'xuandiao'].includes(String(item.extra?.subsource || '')));
+  const firstGongkaoIndex = ciItems.findIndex((item) => item.source === 'gongkao');
+  const itemsWithOfficial = [...ciItems];
+  itemsWithOfficial.splice(firstGongkaoIndex < 0 ? itemsWithOfficial.length : firstGongkaoIndex, 0, ...officialItems);
   const seen = new Set<string>();
-  const mergedItems = [...officialItems, ...ciItems].filter((item) => {
+  const mergedItems = itemsWithOfficial.filter((item) => {
     const key = `${item.source}\0${item.url.trim().replace(/\/$/, '').toLowerCase()}`;
     if (seen.has(key)) return false;
     seen.add(key);
@@ -73,6 +76,34 @@ const mergeServerGongkao = (feed: Feed, officialFeed: ServerGongkaoFeed): Feed =
     items: mergedItems,
   };
 };
+
+const paperTier = (item: Item) => item.source === 'feed'
+  ? '英文顶刊'
+  : String(item.extra?.tier || (['arxiv', 'biorxiv', 'medrxiv'].includes(String(item.extra?.subsource)) ? '预印本' : '英文顶刊'));
+
+const paperVenue = (item: Item) => {
+  const journal = String(item.extra?.journal || '').trim();
+  if (journal) return journal;
+  if (item.source === 'feed') return String(item.extra?.feed_name || '期刊订阅');
+  const subsource = String(item.extra?.subsource || '');
+  return ({ arxiv: 'arXiv', biorxiv: 'bioRxiv', medrxiv: 'medRxiv', pubmed: 'PubMed', crossref: 'Crossref' } as Record<string, string>)[subsource]
+    || String(item.extra?.field || '论文来源');
+};
+
+const paperVenueLabel = (venue: string) => /^briefings in bioinformatics$/i.test(venue.trim())
+  ? 'Briefings in Bioinformatics (BIB)'
+  : venue;
+
+const hotSourceOrder = ['weibo', 'bilibili', 'douyin', 'youtube', 'github', 'telegram', 'nowcoder', 'feed'];
+const sortAllItems = (items: Item[]) => items.map((item, index) => ({ item, index })).sort((left, right) => {
+  const leftHot = hotSourceOrder.includes(left.item.source) && (left.item.source !== 'feed' || left.item.extra?.tab === 'hot');
+  const rightHot = hotSourceOrder.includes(right.item.source) && (right.item.source !== 'feed' || right.item.extra?.tab === 'hot');
+  if (leftHot !== rightHot) return leftHot ? -1 : 1;
+  const rankDifference = (Number(left.item.rank) || Number.MAX_SAFE_INTEGER) - (Number(right.item.rank) || Number.MAX_SAFE_INTEGER);
+  if (rankDifference) return rankDifference;
+  const sourceDifference = hotSourceOrder.indexOf(left.item.source) - hotSourceOrder.indexOf(right.item.source);
+  return sourceDifference || left.index - right.index;
+}).map(({ item }) => item);
 
 const openItem = (item: Item) => window.open(item.url, '_blank', 'noopener,noreferrer');
 const day = (value: unknown) => {
@@ -118,6 +149,8 @@ function Sparkline({ history = [] }: { history?: HistoryPoint[] }) {
 function HotCard({ item, highlight, onCluster }: { item: Item; highlight?: boolean; onCluster?: (event: React.MouseEvent, item: Item) => void }) {
   const paper = item.source === 'papers' || (item.source === 'feed' && item.extra?.tab === 'papers');
   const paperSource = item.source === 'feed' ? String(item.extra?.feed_name || '期刊订阅') : ({ arxiv: 'arXiv', biorxiv: 'bioRxiv', medrxiv: 'medRxiv', pubmed: 'PubMed', crossref: 'Crossref' } as Record<string, string>)[String(item.extra?.subsource)] || '论文';
+  const venue = paperVenueLabel(paperVenue(item));
+  const preprint = paper && paperTier(item) === '预印本';
   const topicHits = Array.isArray(item.extra?.topic_hit) ? item.extra.topic_hit.map(String) : [];
   const keywordHits = Array.isArray(item.extra?.keyword_hit) ? item.extra.keyword_hit.map(String) : [];
   const paperHighlighted = paper && (topicHits.length > 0 || keywordHits.length > 0);
@@ -135,7 +168,7 @@ function HotCard({ item, highlight, onCluster }: { item: Item; highlight?: boole
       <h2 className="break-words text-lg font-extrabold leading-snug tracking-tight group-hover:text-cyan-600 sm:text-xl">{item.title_zh || item.title}</h2>
       {item.title_zh && item.title_zh !== item.title && <details className="mt-1 text-xs text-[var(--muted)]" onClick={(event) => event.stopPropagation()}><summary className="cursor-pointer truncate">原标题 · {item.title}</summary></details>}
       {item.summary_zh && <p className={`mt-2 break-words text-sm leading-6 text-[var(--muted)] ${paper ? 'line-clamp-3' : 'line-clamp-2'}`}>{item.summary_zh}</p>}
-      {paper && <div className="mt-3 flex min-w-0 max-w-full flex-wrap items-center gap-1.5 text-[11px] text-[var(--muted)]"><span className="min-w-0 break-words">{String(item.extra?.journal || item.extra?.field || '论文')} · {item.published_at?.slice(0, 10) || '日期待定'}</span>{topicHits.map((topic) => <span key={topic} className="max-w-full break-words rounded-full bg-amber-200 px-2 py-0.5 font-bold text-amber-900">{topic}</span>)}{keywordHits.map((keyword) => <span key={keyword} className="max-w-full break-words rounded-full bg-[var(--soft)] px-2 py-0.5">{keyword}</span>)}</div>}
+      {paper && <div className="mt-3 flex min-w-0 max-w-full flex-wrap items-center gap-1.5 text-[11px] text-[var(--muted)]"><b className="min-w-0 break-words text-[var(--ink)]">{preprint ? '平台' : '期刊'} · {venue}</b>{preprint && Boolean(item.extra?.field) && <span>领域 · {String(item.extra?.field)}</span>}<span>· {item.published_at?.slice(0, 10) || '日期待定'}</span>{topicHits.map((topic) => <span key={topic} className="max-w-full break-words rounded-full bg-amber-200 px-2 py-0.5 font-bold text-amber-900">{topic}</span>)}{keywordHits.map((keyword) => <span key={keyword} className="max-w-full break-words rounded-full bg-[var(--soft)] px-2 py-0.5">{keyword}</span>)}</div>}
     </div>
     <div className="col-start-2 flex items-center justify-between gap-4 text-xs text-[var(--muted)] sm:col-start-auto sm:flex-col sm:items-end">
       <span>{item.hot_value ? item.source === 'conf_deadlines' ? item.hot_value : `热度 ${item.hot_value}` : '查看原文 ↗'}</span>
@@ -204,9 +237,17 @@ function DeadlineBoard({ items, state }: { items: Item[]; state?: SourceState })
 }
 
 function PapersView({ items, deadlines, deadlineState, onlyPriority, onToggle, unavailable, error, onCluster }: { items: Item[]; deadlines: Item[]; deadlineState?: SourceState; onlyPriority: boolean; onToggle: () => void; unavailable: boolean; error?: string | null; onCluster: (event: React.MouseEvent, item: Item) => void }) {
-  const tier = (item: Item) => item.source === 'feed' ? '英文顶刊' : String(item.extra?.tier || (['arxiv', 'biorxiv', 'medrxiv'].includes(String(item.extra?.subsource)) ? '预印本' : '英文顶刊'));
+  const [venueFilter, setVenueFilter] = useState('all');
+  const venueCounts = useMemo(() => items.reduce<Map<string, number>>((counts, item) => {
+    const venue = paperVenue(item);
+    counts.set(venue, (counts.get(venue) ?? 0) + 1);
+    return counts;
+  }, new Map()), [items]);
+  const venues = useMemo(() => [...venueCounts.keys()].sort((left, right) => paperVenueLabel(left).localeCompare(paperVenueLabel(right), 'zh-CN')), [venueCounts]);
+  useEffect(() => { if (venueFilter !== 'all' && !venueCounts.has(venueFilter)) setVenueFilter('all'); }, [venueCounts, venueFilter]);
+  const visibleItems = venueFilter === 'all' ? items : items.filter((item) => paperVenue(item) === venueFilter);
   const sections: Array<[string, string]> = [['英文顶刊', 'PubMed / Crossref / Nature 订阅'], ['中文核心', 'Crossref · 中文核心期刊'], ['预印本', 'arXiv + bioRxiv · 默认展开']];
-  return <div className="w-full min-w-0 max-w-full"><DeadlineBoard items={deadlines} state={deadlineState} /><div className="mb-5 flex min-w-0 flex-col items-start gap-3 text-xs text-[var(--muted)] sm:flex-row sm:items-center sm:justify-between"><span className="break-words">论文雷达 · 按研究方向与算法关键词排序</span><div className="flex max-w-full flex-wrap items-center gap-3"><span className="whitespace-nowrap">{items.length} 条</span><label className="flex max-w-full cursor-pointer items-center gap-1.5 rounded-full bg-[var(--soft)] px-3 py-1.5 font-bold text-[var(--ink)]"><input type="checkbox" checked={onlyPriority} onChange={onToggle} className="shrink-0 accent-amber-500" /><span>只看我的方向</span></label></div></div><div className="grid min-w-0 gap-9">{sections.map(([name, subtitle]) => { const entries = items.filter((item) => tier(item) === name); const emptyMessage = name === '中文核心' ? '当前时间窗没有命中研究方向的 Crossref 记录；中文期刊元数据更新较慢，系统会继续自动检查。' : `当前没有${name}条目`; return <section key={name} className="min-w-0"><div className="mb-3 flex min-w-0 items-end justify-between gap-3"><div className="min-w-0"><h2 className="text-xl font-black">{name}</h2><p className="break-words text-xs text-[var(--muted)]">{subtitle}</p></div><span className="shrink-0 font-mono text-xs text-[var(--muted)]">{entries.length}</span></div><div className="grid min-w-0 gap-3">{entries.map((item) => <HotCard key={`${item.rank}-${item.url}`} item={item} onCluster={onCluster} />)}{entries.length === 0 && items.length > 0 && <p className="rounded-xl border border-dashed border-[var(--line)] p-4 text-xs text-[var(--muted)]">{emptyMessage}</p>}</div></section>; })}{items.length === 0 && <div className="rounded-2xl border border-dashed border-[var(--line)] p-12 text-center text-[var(--muted)]">{unavailable ? <><p className="font-bold text-[var(--ink)]">这个来源暂不可用</p><p className="mt-2 text-xs">{error || '采集端已安全降级，不影响其它来源。'}</p></> : '当前筛选下暂无论文。'}</div>}</div></div>;
+  return <div className="w-full min-w-0 max-w-full"><DeadlineBoard items={deadlines} state={deadlineState} /><div className="mb-5 flex min-w-0 flex-col items-start gap-3 text-xs text-[var(--muted)] sm:flex-row sm:items-center sm:justify-between"><span className="break-words">论文雷达 · 按研究方向与算法关键词排序</span><div className="flex max-w-full flex-wrap items-center gap-3"><span className="whitespace-nowrap">{visibleItems.length}{visibleItems.length !== items.length ? ` / ${items.length}` : ''} 条</span><label className="flex items-center gap-2 font-bold text-[var(--ink)]"><span className="whitespace-nowrap">期刊筛选</span><select aria-label="期刊筛选" value={venueFilter} onChange={(event) => setVenueFilter(event.target.value)} className="max-w-[220px] rounded-full border border-[var(--line)] bg-[var(--card)] px-3 py-1.5 text-xs"><option value="all">全部期刊与平台</option>{venues.map((venue) => <option key={venue} value={venue}>{paperVenueLabel(venue)}（{venueCounts.get(venue)}）</option>)}</select></label><label className="flex max-w-full cursor-pointer items-center gap-1.5 rounded-full bg-[var(--soft)] px-3 py-1.5 font-bold text-[var(--ink)]"><input type="checkbox" checked={onlyPriority} onChange={onToggle} className="shrink-0 accent-amber-500" /><span>只看我的方向</span></label></div></div><div className="grid min-w-0 gap-9">{sections.map(([name, subtitle]) => { const entries = visibleItems.filter((item) => paperTier(item) === name); const emptyMessage = venueFilter !== 'all' ? `${paperVenueLabel(venueFilter)} 没有${name}条目` : name === '中文核心' ? '当前时间窗没有命中研究方向的 Crossref 记录；中文期刊元数据更新较慢，系统会继续自动检查。' : `当前没有${name}条目`; return <section key={name} className="min-w-0"><div className="mb-3 flex min-w-0 items-end justify-between gap-3"><div className="min-w-0"><h2 className="text-xl font-black">{name}</h2><p className="break-words text-xs text-[var(--muted)]">{subtitle}</p></div><span className="shrink-0 font-mono text-xs text-[var(--muted)]">{entries.length}</span></div><div className="grid min-w-0 gap-3">{entries.map((item) => <HotCard key={`${item.rank}-${item.url}`} item={item} onCluster={onCluster} />)}{entries.length === 0 && visibleItems.length > 0 && <p className="rounded-xl border border-dashed border-[var(--line)] p-4 text-xs text-[var(--muted)]">{emptyMessage}</p>}</div></section>; })}{visibleItems.length === 0 && <div className="rounded-2xl border border-dashed border-[var(--line)] p-12 text-center text-[var(--muted)]">{unavailable ? <><p className="font-bold text-[var(--ink)]">这个来源暂不可用</p><p className="mt-2 text-xs">{error || '采集端已安全降级，不影响其它来源。'}</p></> : '当前筛选下暂无论文。'}</div>}</div></div>;
 }
 
 function AiView({ items, unavailable, error }: { items: Item[]; unavailable: boolean; error?: string | null }) {
@@ -483,7 +524,9 @@ function App() {
     ? item.source !== 'feed' || item.extra?.tab === 'hot'
     : item.source === tab || (item.source === 'feed' && item.extra?.tab === tab);
   const sourceItems = unavailable ? [] : feed?.items.filter((item) => matchesTab(item, active)) ?? [];
-  const items = active === 'papers' && papersOnlyPriority ? sourceItems.filter((item) => Number(item.extra?.priority_rank ?? 999) < 999) : sourceItems;
+  const items = active === 'papers' && papersOnlyPriority
+    ? sourceItems.filter((item) => Number(item.extra?.priority_rank ?? 999) < 999)
+    : active === 'all' ? sortAllItems(sourceItems) : sourceItems;
   const seen = new Set<string>();
   const allItems = (feed?.items ?? []).filter((item) => matchesTab(item, 'all'));
   const pinned = allItems.filter((item) => { if ((item.cluster_size ?? 0) < 3 || !item.cluster_id || seen.has(item.cluster_id)) return false; seen.add(item.cluster_id); return true; });

@@ -41,7 +41,18 @@ def test_biorxiv_fixture_filters_categories() -> None:
     assert [item.extra["field"] for item in items] == ["bioinformatics", "developmental biology"]
     assert items[0].url == "https://doi.org/10.1101/2026.09.02.111111"
     assert all(item.extra["subsource"] == "biorxiv" for item in items)
-    assert all(item.extra["mode"] == "filter" for item in items)
+    assert all(item.extra["mode"] == "all" for item in items)
+
+
+def test_allowed_biorxiv_category_survives_without_keyword_match() -> None:
+    items = PapersCollector.parse_preprints(
+        fixture_json("papers_biorxiv.json"), "biorxiv", {"bioinformatics"},
+    )
+    assert len(items) == 1
+    PapersCollector._annotate_matches(items[0], {"priority_topics": [], "keywords_boost": ["not present"]})
+    assert items[0].extra["topic_hit"] == []
+    assert items[0].extra["keyword_hit"] == []
+    assert PapersCollector._keep_relevant(items[0]) is True
 
 
 def test_medrxiv_uses_same_json_mapping_without_biorxiv_filter() -> None:
