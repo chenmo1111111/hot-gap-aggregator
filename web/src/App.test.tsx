@@ -9,6 +9,7 @@ const json = (body: unknown, status = 200) => new Response(JSON.stringify(body),
 
 const dataResponse = (url: string) => {
   if (url.endsWith('/data/all.json')) return json({ generated_at: '2026-09-03T00:00:00Z', sources: [], items: [] });
+  if (url.endsWith('/data/server-gongkao.json')) return json({ generated_at: '', source: 'gongkao_official', status: { source: 'gongkao_official', status: 'not_run', item_count: 0 }, items: [] });
   if (url.endsWith('/data/ai.json')) return json({ generated_at: '', source: 'ai', status: { source: 'ai', status: 'ok', item_count: 1 }, items: [{ source: 'feed', rank: 1, title: '新的 AI 研究动态', title_zh: '新的 AI 研究动态', url: 'https://example.test/ai', summary_zh: '来自机器之心的摘要', published_at: '2026-09-03T00:00:00Z', extra: { tab: 'ai', feed_name: '机器之心' } }] });
   if (url.endsWith('/data/tools.json')) return json({ generated_at: '', source: 'tools', status: { source: 'tools', status: 'ok', item_count: 1 }, items: [{ source: 'feed', rank: 1, title: 'scanpy 1.12.0', title_zh: 'scanpy 1.12.0', url: 'https://example.test/tool', summary_zh: '性能优化', published_at: '2026-09-02T00:00:00Z', extra: { tab: 'tools', feed_name: 'scanpy 发版' } }] });
   if (url.endsWith('/data/papers.json')) return json({ generated_at: '', source: 'papers', status: { source: 'papers', status: 'ok', item_count: 3 }, items: [
@@ -99,6 +100,38 @@ describe('authenticated app bootstrap', () => {
     fireEvent.click(screen.getByRole('button', { name: '工具更新' }));
     expect(await screen.findByText('scanpy 1.12.0')).toBeInTheDocument();
     expect(screen.getByText('性能优化')).toBeInTheDocument();
+  });
+
+  it('merges server-owned official notices with Fenbi without overwriting either side', async () => {
+    const fetchMock = vi.fn(async (input: RequestInfo | URL) => {
+      const url = String(input);
+      if (url === '/api/me') return json({ username: 'reader', is_admin: false });
+      if (url === '/api/settings') return json({ prefs: {}, updated_at: null });
+      if (url.endsWith('/data/all.json')) return json({
+        generated_at: '2026-09-03T00:00:00Z',
+        sources: [{ source: 'gongkao', status: 'degraded', item_count: 1, error: 'Fenbi temporarily unavailable' }],
+        items: [{ source: 'gongkao', rank: 1, title: '粉笔时间线', title_zh: '粉笔时间线', url: 'https://fenbi.test/1', extra: { subsource: 'timeline', exam_type: '省考', province: '山东' } }],
+      });
+      if (url.endsWith('/data/server-gongkao.json')) return json({
+        generated_at: '2026-09-04T00:00:00Z', source: 'gongkao_official',
+        status: { source: 'gongkao_official', status: 'ok', item_count: 2 },
+        items: [
+          { source: 'gongkao', rank: 1, title: '中央机关公告', title_zh: '中央机关公告', url: 'https://scs.test/1', extra: { subsource: 'scs', exam_type: '国考', province: '全国' } },
+          { source: 'gongkao', rank: 2, title: '黑龙江选调公告', title_zh: '黑龙江选调公告', url: 'https://xuandiao.test/1', extra: { subsource: 'xuandiao', exam_type: '选调生', province: '黑龙江' } },
+        ],
+      });
+      return dataResponse(url) ?? json({}, 404);
+    });
+    vi.stubGlobal('fetch', fetchMock);
+
+    render(<App />);
+    await screen.findByText('reader');
+    fireEvent.click(screen.getByRole('button', { name: '公考' }));
+    expect(await screen.findByText('中央机关公告')).toBeInTheDocument();
+    expect(screen.getByText('黑龙江选调公告')).toBeInTheDocument();
+    expect(screen.getByText('粉笔时间线')).toBeInTheDocument();
+    expect(screen.getByText('国家公务员局')).toBeInTheDocument();
+    expect(screen.getByText('官方选调')).toBeInTheDocument();
   });
 
   it('renders papers in three expanded sections with source and match chips', async () => {

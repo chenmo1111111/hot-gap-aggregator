@@ -149,8 +149,9 @@ jobs:
           printf '%s\n' "$SSH_KEY" > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
           ssh-keyscan -p "$SSH_PORT" -H "$SSH_HOST" >> ~/.ssh/known_hosts 2>/dev/null || true
-          # alerts.json is generated and persisted by the Baidu server watcher.
-          rsync -az --delete --exclude='data/alerts.json' -e "ssh -i ~/.ssh/deploy_key -p $SSH_PORT -o StrictHostKeyChecking=accept-new" \
+          # These files are generated and persisted by mainland-only server jobs.
+          # Excluding the wildcard also protects future server-owned sidecars.
+          rsync -az --delete --exclude='data/alerts.json' --exclude='data/server-*.json' -e "ssh -i ~/.ssh/deploy_key -p $SSH_PORT -o StrictHostKeyChecking=accept-new" \
             site/ "$SSH_USER@$SSH_HOST:$SSH_PATH/"
           echo "Deployed $(du -sh site | cut -f1) to $SSH_HOST:$SSH_PATH"
 

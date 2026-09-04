@@ -301,7 +301,10 @@ class PapersCollector(BaseCollector):
         if not journals:
             return []
         end = self.today or datetime.now(UTC).date()
-        start = end - timedelta(days=max(1, int(config.get("crossref_lookback_days", 45))))
+        default_lookback = max(1, int(config.get("crossref_lookback_days", 45)))
+        tier_lookbacks = config.get("crossref_lookback_days_by_tier", {})
+        if not isinstance(tier_lookbacks, dict):
+            tier_lookbacks = {}
         mailto = str(os.getenv("CROSSREF_MAILTO") or config.get("crossref_mailto") or "").strip()
         items: list[Item] = []
         errors: list[str] = []
@@ -311,6 +314,8 @@ class PapersCollector(BaseCollector):
                 continue
             tier = str(journal.get("tier") or "中文核心").strip() or "中文核心"
             mode = "all" if str(journal.get("mode") or "filter").casefold() == "all" else "filter"
+            lookback_days = max(1, int(journal.get("lookback_days") or tier_lookbacks.get(tier) or default_lookback))
+            start = end - timedelta(days=lookback_days)
             params = {
                 "filter": f"issn:{issn},from-pub-date:{start.isoformat()},until-pub-date:{end.isoformat()}",
                 "sort": "published", "order": "desc", "rows": 40,
@@ -401,7 +406,17 @@ class PapersCollector(BaseCollector):
                 self._annotate_matches(item, config)
                 if self._keep_relevant(item):
                     relevant.append(item)
-            merged.extend(sorted(relevant, key=self._sort_key)[:per_limit])
+            if subsource == "crossref":
+                # Crossref carries both English and Chinese journal tiers. A
+                # single shared limit lets high-volume English journals evict
+                # every Chinese-core result before the final tier selection.
+                by_tier: dict[str, list[Item]] = {}
+                for item in relevant:
+                    by_tier.setdefault(str(item.extra.get("tier") or "英文顶刊"), []).append(item)
+                for tier_items in by_tier.values():
+                    merged.extend(sorted(tier_items, key=self._sort_key)[:per_limit])
+            else:
+                merged.extend(sorted(relevant, key=self._sort_key)[:per_limit])
 
         if successful_subsources == 0:
             raise SourceUnavailable("All papers subsources failed: " + "; ".join(errors), status="degraded")
@@ -417,7 +432,27 @@ class PapersCollector(BaseCollector):
             seen.add(key)
             deduplicated.append(item)
         total_limit = max(1, int(config.get("total_limit", 45)))
-        output = deduplicated[:total_limit]
+        per_tier_limit = max(1, int(config.get("per_tier_limit", per_limit)))
+        tier_order = ("英文顶刊", "中文核心", "预印本")
+        selected: list[Item] = []
+        selected_keys: set[str] = set()
+        for tier in tier_order:
+            tier_items = [item for item in deduplicated if str(item.extra.get("tier") or "英文顶刊") == tier]
+            for item in tier_items[:per_tier_limit]:
+                key = str(item.extra.get("dedupe_key") or item.url).casefold()
+                if key not in selected_keys:
+                    selected.append(item)
+                    selected_keys.add(key)
+        # Unknown tiers and overflow can fill unused capacity without taking
+        # away the reserved space for the three visible frontend sections.
+        for item in deduplicated:
+            if len(selected) >= total_limit:
+                break
+            key = str(item.extra.get("dedupe_key") or item.url).casefold()
+            if key not in selected_keys:
+                selected.append(item)
+                selected_keys.add(key)
+        output = selected[:total_limit]
         for rank, item in enumerate(output, 1):
             item.rank = rank
         return output

@@ -67,8 +67,14 @@ journals_by_issn:
   - {name: PLoS Computational Biology, issn: "1553-7358", tier: 英文顶刊, mode: all}
   - {name: Patterns, issn: "2666-3899", tier: 英文顶刊, mode: filter}
 # Nature 系列的 Crossref 元数据常无 abstract；后续可加 Nature RSS 补摘要，本期保留标题。
+# 中文期刊向 Crossref 登记元数据通常比英文刊慢。分层时间窗既能保留
+# 英文刊的新鲜度，也能避免中文核心因 45 天无登记而长期空白。
 crossref_lookback_days: 45
+crossref_lookback_days_by_tier:
+  中文核心: 365
+  英文顶刊: 45
 
 lookback_days: 4
 per_subsource_limit: 20
+per_tier_limit: 20
 total_limit: 60

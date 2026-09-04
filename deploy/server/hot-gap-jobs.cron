@@ -1,4 +1,4 @@
-# SCS 官方国考源：Actions 部署完成后再合并进静态 JSON。
+# SCS 官方国考源：写入 Actions 不会覆盖的 server-gongkao.json sidecar。
 35 */2 * * * root cd /opt/hot-gap-aggregator && /opt/hot-gap-aggregator/.venv/bin/python -m app.server_run --scs >> /var/log/hot-gap-server.log 2>&1
 # 人社局公告 + 核心补贴政策页 diff：每 12 小时。
 45 */12 * * * root cd /opt/hot-gap-aggregator && /opt/hot-gap-aggregator/.venv/bin/python -m app.server_run --subsidy >> /var/log/hot-gap-server.log 2>&1

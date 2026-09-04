@@ -21,6 +21,7 @@ from app.watchers.xuandiao_watch import XuandiaoWatcher
 
 LOGGER = logging.getLogger("hot-gap-server")
 UTC = timezone.utc
+SERVER_GONGKAO_FILENAME = "server-gongkao.json"
 
 
 def _write_json(path: Path, payload: dict) -> None:
@@ -29,86 +30,97 @@ def _write_json(path: Path, payload: dict) -> None:
     temporary.replace(path)
 
 
-def merge_scs_into_site(data_dir: str | Path, items: list[Item], generated_at: str) -> None:
+def _load_server_gongkao(target: Path) -> dict:
+    """Load the server-owned sidecar without ever taking ownership of CI output."""
+    sidecar_path = target / SERVER_GONGKAO_FILENAME
+    if sidecar_path.exists():
+        try:
+            payload = json.loads(sidecar_path.read_text(encoding="utf-8"))
+            if isinstance(payload, dict):
+                return payload
+        except (OSError, json.JSONDecodeError):
+            LOGGER.warning("Ignoring invalid %s; a fresh sidecar will be written", sidecar_path)
+
+    # One-time compatibility migration for servers that used the old in-place
+    # merger. This reads official rows only; it never rewrites all.json or
+    # gongkao.json, which remain exclusively owned by the GitHub deployment.
+    legacy_items: list[dict] = []
+    gongkao_path = target / "gongkao.json"
+    if gongkao_path.exists():
+        try:
+            deployed = json.loads(gongkao_path.read_text(encoding="utf-8"))
+            legacy_items = [
+                row for row in deployed.get("items", [])
+                if isinstance(row, dict)
+                and row.get("extra", {}).get("subsource") in {"scs", "xuandiao"}
+            ]
+        except (OSError, json.JSONDecodeError):
+            LOGGER.warning("Could not inspect legacy official gongkao rows under %s", target)
+    return {"generated_at": "", "source": "gongkao_official", "subsources": {}, "items": legacy_items}
+
+
+def _merge_server_gongkao(
+    data_dir: str | Path,
+    items: list[Item],
+    generated_at: str,
+    subsource: str,
+    preserve_regions: set[str] | None = None,
+) -> None:
     target = Path(data_dir)
-    all_path, gongkao_path = target / "all.json", target / "gongkao.json"
-    if not all_path.exists() or not gongkao_path.exists():
-        raise FileNotFoundError(f"deployed JSON is missing under {target}")
-    all_payload = json.loads(all_path.read_text(encoding="utf-8"))
-    gongkao_payload = json.loads(gongkao_path.read_text(encoding="utf-8"))
-    official = [item.to_dict() for item in items]
+    target.mkdir(parents=True, exist_ok=True)
+    payload = _load_server_gongkao(target)
+    incoming = [item.to_dict() for item in items]
+    preserved: list[dict] = []
+    for row in payload.get("items", []):
+        if not isinstance(row, dict):
+            continue
+        row_subsource = row.get("extra", {}).get("subsource")
+        if row_subsource != subsource:
+            preserved.append(row)
+            continue
+        if preserve_regions and str(row.get("extra", {}).get("province") or "") in preserve_regions:
+            preserved.append(row)
 
-    previous_gongkao = [
-        item for item in gongkao_payload.get("items", [])
-        if item.get("extra", {}).get("subsource") != "scs"
-    ]
-    combined = official + previous_gongkao
-    for rank, item in enumerate(combined, 1):
-        item["rank"] = rank
-    gongkao_payload.update({"generated_at": generated_at, "items": combined})
-    if isinstance(gongkao_payload.get("status"), dict):
-        gongkao_payload["status"]["item_count"] = len(combined)
-        gongkao_payload["status"]["server_scs"] = "ok"
+    combined: list[dict] = []
+    seen_urls: set[str] = set()
+    for row in incoming + preserved:
+        url = str(row.get("url") or "").strip().rstrip("/").casefold()
+        if url and url in seen_urls:
+            continue
+        if url:
+            seen_urls.add(url)
+        combined.append(row)
+    for rank, row in enumerate(combined, 1):
+        row["rank"] = rank
 
-    other_items = [
-        item for item in all_payload.get("items", [])
-        if item.get("extra", {}).get("subsource") != "scs"
-    ]
-    all_payload["items"] = other_items + official
-    all_payload["server_generated_at"] = generated_at
-    for status in all_payload.get("sources", []):
-        if status.get("source") == "gongkao":
-            status["item_count"] = len(combined)
-            status["server_scs"] = "ok"
-            break
-    _write_json(gongkao_path, gongkao_payload)
-    _write_json(all_path, all_payload)
+    subsources = payload.get("subsources") if isinstance(payload.get("subsources"), dict) else {}
+    subsources[subsource] = {
+        "status": "ok",
+        "item_count": sum(
+            1 for row in combined if row.get("extra", {}).get("subsource") == subsource
+        ),
+        "updated_at": generated_at,
+    }
+    output = {
+        "generated_at": generated_at,
+        "source": "gongkao_official",
+        "status": {
+            "source": "gongkao_official", "status": "ok", "item_count": len(combined),
+        },
+        "subsources": subsources,
+        "items": combined,
+    }
+    _write_json(target / SERVER_GONGKAO_FILENAME, output)
+
+
+def merge_scs_into_site(data_dir: str | Path, items: list[Item], generated_at: str) -> None:
+    _merge_server_gongkao(data_dir, items, generated_at, "scs")
 
 
 def merge_xuandiao_into_site(
     data_dir: str | Path, items: list[Item], generated_at: str, preserve_regions: set[str] | None = None,
 ) -> None:
-    target = Path(data_dir)
-    all_path, gongkao_path = target / "all.json", target / "gongkao.json"
-    if not all_path.exists() or not gongkao_path.exists():
-        raise FileNotFoundError(f"deployed JSON is missing under {target}")
-    all_payload = json.loads(all_path.read_text(encoding="utf-8"))
-    gongkao_payload = json.loads(gongkao_path.read_text(encoding="utf-8"))
-    official = [item.to_dict() for item in items]
-    preserved = [
-        item for item in gongkao_payload.get("items", [])
-        if item.get("extra", {}).get("subsource") == "xuandiao"
-        and str(item.get("extra", {}).get("province") or "") in (preserve_regions or set())
-    ]
-    previous_gongkao = [
-        item for item in gongkao_payload.get("items", [])
-        if item.get("extra", {}).get("subsource") != "xuandiao"
-    ]
-    combined = official + preserved + previous_gongkao
-    for rank, item in enumerate(combined, 1):
-        item["rank"] = rank
-    gongkao_payload.update({"generated_at": generated_at, "items": combined})
-    if isinstance(gongkao_payload.get("status"), dict):
-        gongkao_payload["status"]["item_count"] = len(combined)
-        gongkao_payload["status"]["server_xuandiao"] = "ok"
-    preserved_all = [
-        item for item in all_payload.get("items", [])
-        if item.get("extra", {}).get("subsource") == "xuandiao"
-        and str(item.get("extra", {}).get("province") or "") in (preserve_regions or set())
-    ]
-    other_items = [
-        item for item in all_payload.get("items", [])
-        if item.get("extra", {}).get("subsource") != "xuandiao"
-    ]
-    all_payload["items"] = other_items + official + preserved_all
-    all_payload["server_generated_at"] = generated_at
-    for status in all_payload.get("sources", []):
-        if status.get("source") == "gongkao":
-            status["item_count"] = len(combined)
-            status["server_xuandiao"] = "ok"
-            break
-    _write_json(gongkao_path, gongkao_payload)
-    _write_json(all_path, all_payload)
+    _merge_server_gongkao(data_dir, items, generated_at, "xuandiao", preserve_regions)
 
 
 async def run_scs(database: Database, data_dir: str | Path) -> dict[str, object]:

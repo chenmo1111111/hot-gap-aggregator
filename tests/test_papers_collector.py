@@ -111,6 +111,33 @@ async def test_crossref_queries_each_issn_and_survives_one_failure(monkeypatch, 
 
 
 @pytest.mark.asyncio
+async def test_crossref_uses_tier_specific_lookback(monkeypatch, tmp_path) -> None:
+    config_path = tmp_path / "papers.yaml"
+    config_path.write_text("""
+journals_by_issn:
+  - {name: 生物信息学, issn: '1672-5565', tier: 中文核心, mode: all}
+  - {name: BMC Bioinformatics, issn: '1471-2105', tier: 英文顶刊, mode: all}
+crossref_lookback_days: 45
+crossref_lookback_days_by_tier: {中文核心: 365, 英文顶刊: 45}
+""", encoding="utf-8")
+    collector = PapersCollector(config_path, today=date(2026, 9, 3))
+    filters: list[str] = []
+
+    class Response:
+        def json(self):
+            return {"message": {"items": []}}
+
+    async def request(_url, **kwargs):
+        filters.append(kwargs["params"]["filter"])
+        return Response()
+
+    monkeypatch.setattr(collector, "request", request)
+    await collector._fetch_crossref(collector.load_config())
+    assert "from-pub-date:2025-09-03" in filters[0]
+    assert "from-pub-date:2026-07-20" in filters[1]
+
+
+@pytest.mark.asyncio
 async def test_pubmed_makes_search_then_fetch_and_passes_optional_key(monkeypatch, tmp_path) -> None:
     config_path = tmp_path / "papers.yaml"
     config_path.write_text(
@@ -214,6 +241,39 @@ total_limit: 2
     assert [item.rank for item in items] == [1, 2]
     assert items[0].extra["topic_hit"] == ["单细胞聚类"]
     assert items[1].extra["priority_rank"] == 1
+
+
+@pytest.mark.asyncio
+async def test_fetch_reserves_each_visible_paper_tier(monkeypatch, tmp_path) -> None:
+    config_path = tmp_path / "papers.yaml"
+    config_path.write_text("""
+keywords_boost: [relevant]
+journals_by_issn:
+  - {name: English, issn: '1111-1111', tier: 英文顶刊}
+  - {name: Chinese, issn: '2222-2222', tier: 中文核心}
+per_subsource_limit: 2
+per_tier_limit: 2
+total_limit: 4
+""", encoding="utf-8")
+    collector = PapersCollector(config_path)
+
+    def paper(name: str, tier: str, day_value: int) -> Item:
+        return Item(
+            source="papers", rank=0, title=f"relevant {name}", title_zh="", url=f"https://example.test/{name}",
+            published_at=f"2026-09-{day_value:02d}",
+            extra={"subsource": "crossref", "tier": tier, "mode": "filter", "description": "", "dedupe_key": name},
+        )
+
+    async def crossref(_config):
+        return [
+            paper("en-1", "英文顶刊", 4), paper("en-2", "英文顶刊", 3), paper("en-3", "英文顶刊", 2),
+            paper("cn-1", "中文核心", 1),
+        ]
+
+    monkeypatch.setattr(collector, "_fetch_crossref", crossref)
+    items = await collector.fetch()
+    assert [item.extra["tier"] for item in items] == ["英文顶刊", "英文顶刊", "中文核心"]
+    assert items[-1].title == "relevant cn-1"
 
 
 @pytest.mark.asyncio

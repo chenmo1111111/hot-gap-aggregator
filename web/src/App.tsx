@@ -18,6 +18,7 @@ type AlertItem = { id: string; tag: string; region: string; type: string; title:
 type AlertFeed = { generated_at: string; items: AlertItem[] };
 type Quicklink = { name: string; url: string };
 type SourceFeed = { generated_at: string; source: string; status: SourceState; items: Item[] };
+type ServerGongkaoFeed = SourceFeed & { subsources?: Record<string, { status: string; item_count: number; updated_at: string }> };
 type SessionUser = { username: string; is_admin: boolean };
 type AdminUser = SessionUser & { id: number; created_at: string };
 
@@ -41,6 +42,36 @@ const tabOrderFromPrefs = (prefs: Prefs) => {
 const hiddenTabsFromPrefs = (prefs: Prefs) => {
   const allowed = new Set(defaultTabs.slice(1));
   return [...new Set(prefStringArray(prefs, 'tab_hidden').filter((tab) => allowed.has(tab)))];
+};
+
+const mergeServerGongkao = (feed: Feed, officialFeed: ServerGongkaoFeed): Feed => {
+  const officialItems = officialFeed.items.filter((item) => item.source === 'gongkao');
+  if (officialItems.length === 0) return feed;
+
+  // A previous release wrote official rows into all.json directly. Drop those
+  // stale copies and let the server-owned sidecar be authoritative for them.
+  const ciItems = feed.items.filter((item) => !['scs', 'xuandiao'].includes(String(item.extra?.subsource || '')));
+  const seen = new Set<string>();
+  const mergedItems = [...officialItems, ...ciItems].filter((item) => {
+    const key = `${item.source}\0${item.url.trim().replace(/\/$/, '').toLowerCase()}`;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+  const gongkaoCount = mergedItems.filter((item) => item.source === 'gongkao').length;
+  const sources = [...(feed.sources ?? [])];
+  const gongkaoIndex = sources.findIndex((source) => source.source === 'gongkao');
+  if (gongkaoIndex >= 0) sources[gongkaoIndex] = {
+    ...sources[gongkaoIndex],
+    status: officialFeed.status.status === 'ok' ? 'ok' : sources[gongkaoIndex].status,
+    item_count: gongkaoCount,
+  };
+  else sources.push({ source: 'gongkao', status: officialFeed.status.status, item_count: gongkaoCount });
+  return {
+    ...feed,
+    sources,
+    items: mergedItems,
+  };
 };
 
 const openItem = (item: Item) => window.open(item.url, '_blank', 'noopener,noreferrer');
@@ -175,7 +206,7 @@ function DeadlineBoard({ items, state }: { items: Item[]; state?: SourceState })
 function PapersView({ items, deadlines, deadlineState, onlyPriority, onToggle, unavailable, error, onCluster }: { items: Item[]; deadlines: Item[]; deadlineState?: SourceState; onlyPriority: boolean; onToggle: () => void; unavailable: boolean; error?: string | null; onCluster: (event: React.MouseEvent, item: Item) => void }) {
   const tier = (item: Item) => item.source === 'feed' ? '英文顶刊' : String(item.extra?.tier || (['arxiv', 'biorxiv', 'medrxiv'].includes(String(item.extra?.subsource)) ? '预印本' : '英文顶刊'));
   const sections: Array<[string, string]> = [['英文顶刊', 'PubMed / Crossref / Nature 订阅'], ['中文核心', 'Crossref · 中文核心期刊'], ['预印本', 'arXiv + bioRxiv · 默认展开']];
-  return <div className="w-full min-w-0 max-w-full"><DeadlineBoard items={deadlines} state={deadlineState} /><div className="mb-5 flex min-w-0 flex-col items-start gap-3 text-xs text-[var(--muted)] sm:flex-row sm:items-center sm:justify-between"><span className="break-words">论文雷达 · 按研究方向与算法关键词排序</span><div className="flex max-w-full flex-wrap items-center gap-3"><span className="whitespace-nowrap">{items.length} 条</span><label className="flex max-w-full cursor-pointer items-center gap-1.5 rounded-full bg-[var(--soft)] px-3 py-1.5 font-bold text-[var(--ink)]"><input type="checkbox" checked={onlyPriority} onChange={onToggle} className="shrink-0 accent-amber-500" /><span>只看我的方向</span></label></div></div><div className="grid min-w-0 gap-9">{sections.map(([name, subtitle]) => { const entries = items.filter((item) => tier(item) === name); return <section key={name} className="min-w-0"><div className="mb-3 flex min-w-0 items-end justify-between gap-3"><div className="min-w-0"><h2 className="text-xl font-black">{name}</h2><p className="break-words text-xs text-[var(--muted)]">{subtitle}</p></div><span className="shrink-0 font-mono text-xs text-[var(--muted)]">{entries.length}</span></div><div className="grid min-w-0 gap-3">{entries.map((item) => <HotCard key={`${item.rank}-${item.url}`} item={item} onCluster={onCluster} />)}{entries.length === 0 && items.length > 0 && <p className="rounded-xl border border-dashed border-[var(--line)] p-4 text-xs text-[var(--muted)]">当前没有{name}条目</p>}</div></section>; })}{items.length === 0 && <div className="rounded-2xl border border-dashed border-[var(--line)] p-12 text-center text-[var(--muted)]">{unavailable ? <><p className="font-bold text-[var(--ink)]">这个来源暂不可用</p><p className="mt-2 text-xs">{error || '采集端已安全降级，不影响其它来源。'}</p></> : '当前筛选下暂无论文。'}</div>}</div></div>;
+  return <div className="w-full min-w-0 max-w-full"><DeadlineBoard items={deadlines} state={deadlineState} /><div className="mb-5 flex min-w-0 flex-col items-start gap-3 text-xs text-[var(--muted)] sm:flex-row sm:items-center sm:justify-between"><span className="break-words">论文雷达 · 按研究方向与算法关键词排序</span><div className="flex max-w-full flex-wrap items-center gap-3"><span className="whitespace-nowrap">{items.length} 条</span><label className="flex max-w-full cursor-pointer items-center gap-1.5 rounded-full bg-[var(--soft)] px-3 py-1.5 font-bold text-[var(--ink)]"><input type="checkbox" checked={onlyPriority} onChange={onToggle} className="shrink-0 accent-amber-500" /><span>只看我的方向</span></label></div></div><div className="grid min-w-0 gap-9">{sections.map(([name, subtitle]) => { const entries = items.filter((item) => tier(item) === name); const emptyMessage = name === '中文核心' ? '当前时间窗没有命中研究方向的 Crossref 记录；中文期刊元数据更新较慢，系统会继续自动检查。' : `当前没有${name}条目`; return <section key={name} className="min-w-0"><div className="mb-3 flex min-w-0 items-end justify-between gap-3"><div className="min-w-0"><h2 className="text-xl font-black">{name}</h2><p className="break-words text-xs text-[var(--muted)]">{subtitle}</p></div><span className="shrink-0 font-mono text-xs text-[var(--muted)]">{entries.length}</span></div><div className="grid min-w-0 gap-3">{entries.map((item) => <HotCard key={`${item.rank}-${item.url}`} item={item} onCluster={onCluster} />)}{entries.length === 0 && items.length > 0 && <p className="rounded-xl border border-dashed border-[var(--line)] p-4 text-xs text-[var(--muted)]">{emptyMessage}</p>}</div></section>; })}{items.length === 0 && <div className="rounded-2xl border border-dashed border-[var(--line)] p-12 text-center text-[var(--muted)]">{unavailable ? <><p className="font-bold text-[var(--ink)]">这个来源暂不可用</p><p className="mt-2 text-xs">{error || '采集端已安全降级，不影响其它来源。'}</p></> : '当前筛选下暂无论文。'}</div>}</div></div>;
 }
 
 function AiView({ items, unavailable, error }: { items: Item[]; unavailable: boolean; error?: string | null }) {
@@ -351,8 +382,9 @@ function App() {
         return response.ok ? response.json() as Promise<T> : fallback;
       };
       const emptySourceFeed = (source: string): SourceFeed => ({ generated_at: '', source, status: { source, status: 'not_run', item_count: 0 }, items: [] });
-      const [nextFeed, nextAi, nextTools, nextPapers, nextJobs, nextTrends, nextSites, nextAlerts, nextJobLinks, remoteSettings] = await Promise.all([
+      const [baseFeed, nextServerGongkao, nextAi, nextTools, nextPapers, nextJobs, nextTrends, nextSites, nextAlerts, nextJobLinks, remoteSettings] = await Promise.all([
         readJson<Feed>('/data/all.json', { generated_at: '', items: [] }),
+        readJson<ServerGongkaoFeed>('/data/server-gongkao.json', { ...emptySourceFeed('gongkao_official'), subsources: {} }),
         readJson<SourceFeed>('/data/ai.json', emptySourceFeed('ai')),
         readJson<SourceFeed>('/data/tools.json', emptySourceFeed('tools')),
         readJson<SourceFeed>('/data/papers.json', emptySourceFeed('papers')),
@@ -363,6 +395,7 @@ function App() {
         readJson<{ items: Quicklink[] }>('/data/job_quicklinks.json', { items: [] }),
         readJson<{ prefs: Prefs; updated_at: string | null } | null>('/api/settings', null),
       ]);
+      const nextFeed = mergeServerGongkao(baseFeed, nextServerGongkao);
       const additions = [
         ...nextAi.items, ...nextTools.items,
         ...nextPapers.items.filter((item) => item.source === 'feed'),

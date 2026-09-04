@@ -23,7 +23,9 @@ chmod 644 /etc/cron.d/hot-gap-jobs
 
 `config/xuandiao_sources.yaml` 监听黑龙江、辽宁、河北、天津、山东五省官方页面，
 每 6 小时运行；命中东北林业大学/东北林大/NEFU 的公告会最高优先级单独推送，
-并合入线上 `gongkao.json`，可在公考页用「选调生」筛选。
+并写入服务器独占的 `data/server-gongkao.json`，可在公考页用「选调生」筛选。
+前端在登录后把该文件与 GitHub 生成的粉笔数据合并；发布工作流永久排除
+`data/server-*.json`，因此后续部署不会再覆盖国家公务员局和各省选调公告。
 
 手动验证：
 
@@ -31,6 +33,17 @@ chmod 644 /etc/cron.d/hot-gap-jobs
 .venv/bin/python -m app.server_run --scs
 .venv/bin/python -m app.server_run --subsidy
 .venv/bin/python -m app.server_run --xuandiao
+```
+
+检查服务端数据是否完整：
+
+```bash
+python3 - <<'PY'
+import json
+p = json.load(open('/var/www/hot-gap/data/server-gongkao.json', encoding='utf-8'))
+print(p['generated_at'], p['status'])
+print({key: value['item_count'] for key, value in p.get('subsources', {}).items()})
+PY
 ```
 
 首次补贴/选调公告和政策页检查只建立基线，不发送通知。服务器日志为
