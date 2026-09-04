@@ -1,105 +1,18 @@
 {
-  "generated_at": "2026-09-04T05:15:01.664932+00:00",
+  "generated_at": "2026-09-04T06:28:15.690114+00:00",
   "source": "papers",
   "status": {
     "source": "papers",
     "status": "ok",
-    "item_count": 66,
-    "duration_ms": 18667,
+    "item_count": 68,
+    "duration_ms": 15279,
     "error": null,
-    "run_at": "2026-09-04T05:15:01.664932+00:00"
+    "run_at": "2026-09-04T06:28:15.690114+00:00"
   },
   "items": [
     {
       "source": "papers",
       "rank": 1,
-      "title": "Subcellularly Resolved Single-Cell Embedding Learning with Transcriptomic data, Protein Structure and Localization Information",
-      "title_zh": "利用转录组数据、蛋白质结构和定位信息进行亚细胞分辨率的单细胞嵌入学习",
-      "url": "http://arxiv.org/abs/2609.02344v1",
-      "hot_value": null,
-      "summary_zh": "现有的细胞嵌入方法主要依赖转录组或蛋白质组测量，将每个细胞视为一个整体实体，从而忽略了单个分子的亚细胞定位。此外，它们很少整合蛋白质结构信息，尽管结构在决定分子相互作用和功能方面起着根本作用。在这项工作中，我们提出了一种多模态框架，通过联合利用RNA表达谱、蛋白质序列表示和蛋白质结构信息来学习亚细胞分辨率的细胞嵌入。具体来说，我们采用交叉注意力架构来整合转录组、序列和结构模态，并在不同的亚细胞区室中建模它们的相互作用。生成的嵌入通过精细的亚细胞组织来表示每个细胞，捕获分子表达模式和相关蛋白质的功能特性。通过在亚细胞分辨率下学习细胞表示，我们的框架保留了空间组织的生物信息，同时整合了跨多个分子水平的互补信号。据我们所知，这是第一个在统一跨模态学习范式中，通过联合整合转录组信息、蛋白质序列表示和蛋白质结构知识来生成亚细胞分辨率细胞嵌入的框架。",
-      "thumbnail": null,
-      "published_at": "2026-09-02T09:20:48Z",
-      "extra": {
-        "subsource": "arxiv",
-        "field": "q-bio.GN",
-        "doi": null,
-        "tier": "预印本",
-        "mode": "all",
-        "description": "Existing cell embedding methods predominantly rely on transcriptomic or proteomic measurements and represent each cell as a holistic entity, thereby overlooking the subcellular localization of individual molecules. Moreover, they rarely incorporate protein structural information, despite its fundamental role in determining molecular interactions and functions. In this work, we propose a multimodal framework for learning subcellularly resolved cell embeddings by jointly leveraging RNA expression profiles, protein sequence representations, and protein structural information. Specifically, we employ a cross-attention architecture to integrate transcriptomic, sequence, and structural modalities and model their interactions within distinct subcellular compartments. The resulting embeddings represent each cell through its fine-grained subcellular organization, capturing both molecular expression patterns and the functional properties of the associated proteins. By learning cell representations at subcellular resolution, our framework preserves spatially organized biological information while integrating complementary signals across multiple molecular levels. To the best of our knowledge, this is the first framework that produces subcellularly resolved cell embeddings by jointly incorporating transcriptomic information, protein sequence representations, and protein structural knowledge within a unified cross-modal learning paradigm.",
-        "identifier": "2609.02344",
-        "dedupe_key": "arxiv:2609.02344",
-        "topic_hit": [
-          "单细胞聚类"
-        ],
-        "priority_rank": 0,
-        "keyword_hit": [
-          "attention"
-        ]
-      },
-      "days_on_board": 1,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "3d97e0af7e92",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-04T04:46:19.195629+00:00",
-          "rank": 1
-        },
-        {
-          "run_at": "2026-09-04T05:15:01.664932+00:00",
-          "rank": 1
-        }
-      ]
-    },
-    {
-      "source": "papers",
-      "rank": 2,
-      "title": "Confounder-Aware Feature Correction for Single-Cell Batch Integration",
-      "title_zh": "用于单细胞批次整合的混杂因素感知特征校正",
-      "url": "http://arxiv.org/abs/2608.28849v1",
-      "hot_value": null,
-      "summary_zh": "批次整合是单细胞基因组学中的一个核心预处理步骤，其中跨实验、供体和方案收集的数据集必须在普遍的技术批次效应下进行组合。领先的整合方法产生共享的低维嵌入，这丢弃了校正后的基因表达值，而下游差异表达、生物标志物和其他分析依赖于这些值。确实保留基因的特征空间（表达校正）方法通常对齐批次的边际表达分布，从而在批次间细胞类型组成不同时，即批次效应和生物信号混杂时，有抹除真实生物变异的风险。我们将单细胞批次整合重新定义为混杂域适应，并应用ConDo，一种在给定细胞类型注释的情况下匹配条件表达分布而非边际分布的方法。为了将ConDo的成对源到目标适配器扩展到多批次设置，我们引入了一种凝聚性兼容图整合器：批次作为节点，当它们共享一种细胞类型时连接，我们通过拟合一个ConDo适配器，贪心地合并每个得分最高的邻居到不断增长的参考中。在Open Problems批次整合基准上，ConDo是最强的特征空间整合器，",
-      "thumbnail": null,
-      "published_at": "2026-08-28T20:41:24Z",
-      "extra": {
-        "subsource": "arxiv",
-        "field": "q-bio.GN",
-        "doi": null,
-        "tier": "预印本",
-        "mode": "all",
-        "description": "Batch integration is a central preprocessing step in single-cell genomics, where datasets collected across experiments, donors, and protocols must be combined despite pervasive technical batch effects. The leading integration methods produce a shared low-dimensional embedding, which discards the corrected gene-expression values that downstream differential-expression, biomarker, and other analyses depend on. The feature-space (expression-correcting) methods that do preserve genes typically align the marginal expression distributions of batches and thereby risk erasing genuine biological variation whenever cell-type composition differs across batches, i.e. whenever batch effect and biological signal are confounded. We recast single-cell batch integration as confounded domain adaptation and apply ConDo, a method that matches conditional expression distributions given the cell-type annotation rather than marginal distributions. To extend ConDo's pairwise source-to-target adapter to the many-batch setting, we introduce an agglomerative compatibility-graph integrator: batches are nodes connected when they share a cell type, and we greedily merge each best-scoring neighbor into a growing reference by fitting one ConDo adapter. On the Open Problems Batch Integration Benchmark, ConDo is the strongest feature-space integrator, ranking first among feature methods on five of six datasets. Furthermore, it is competitive with or better than deep embedding methods on the overall score, ranking first across all methods on four of six datasets while returning corrected expression rather than an opaque embedding.",
-        "identifier": "2608.28849",
-        "dedupe_key": "arxiv:2608.28849",
-        "topic_hit": [
-          "单细胞聚类",
-          "生物信息"
-        ],
-        "priority_rank": 0,
-        "keyword_hit": [
-          "benchmark"
-        ]
-      },
-      "days_on_board": 1,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "32414c80238f",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-04T04:46:19.195629+00:00",
-          "rank": 2
-        },
-        {
-          "run_at": "2026-09-04T05:15:01.664932+00:00",
-          "rank": 2
-        }
-      ]
-    },
-    {
-      "source": "papers",
-      "rank": 3,
       "title": "scGPA: an LLM-assisted workflow for directional virtual gene perturbation analysis from single-cell transcriptomes",
       "title_zh": "scGPA：一种LLM辅助工作流，用于从单细胞转录组进行定向虚拟基因扰动分析",
       "url": "https://doi.org/10.1186/s12864-026-13270-0",
@@ -128,7 +41,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": 2,
       "cluster_id": "8e2a39fe6515",
       "cluster_size": 1,
       "rank_history": [
@@ -147,12 +60,1160 @@
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
           "rank": 3
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 1
+        }
+      ]
+    },
+    {
+      "source": "papers",
+      "rank": 2,
+      "title": "Balanced DNA interpolation improves learning of genetic distance-informed embeddings in plants",
+      "title_zh": "平衡DNA插值改善植物中遗传距离信息嵌入的学习",
+      "url": "https://doi.org/10.1371/journal.pcbi.1014722",
+      "hot_value": null,
+      "summary_zh": "在分类学研究中，基于系统发育树和结构的遗传数据分析正越来越多地被基于机器学习的识别和表示学习所补充。虽然训练最先进的机器学习模型所需的DNA数据量往往超过生物学研究中实际能收集和测序的量，但样本数量可以通过数据增强人为扩展。遗传数据增强通常指引入随机碱基变异、易位和反向互补。这些增强没有考虑种群和物种的内在结构，可能模糊遗传数据集中实体间的界限。在此，我们提出DNAInterpolator，一种基于给定数据集中DNA序列插值的方法，提供了一种邻域引导的随机突变替代方案。我们使用四个开花植物数据集和一个训练用于预测配对样本间遗传距离的人工神经网络测试了插值作为增强技术。为解决训练数据集中距离分布不均的问题，我们检查了通过筛选插值序列来平衡距离分布的效果。我们发现平衡有助于模型捕获整个距离范围内的遗传距离，通过增强分布中代表性不足区域的性能。我们的新方法利用了分类学DNA数据集在现代机器学习应",
+      "thumbnail": null,
+      "published_at": "2026-09-03",
+      "extra": {
+        "subsource": "crossref",
+        "tier": "英文顶刊",
+        "journal": "PLOS Computational Biology",
+        "mode": "all",
+        "issn": "1553-7358",
+        "doi": "10.1371/journal.pcbi.1014722",
+        "description": "In taxonomic research, traditional phylogenetic tree- and structure-based analyses of genetic data are increasingly complemented by machine-learning-based identification and representation learning. Although the amount of DNA data needed to train state-of-the-art machine learning models often exceeds what can realistically be collected and sequenced in biological studies, the number of samples can be extended artificially through data augmentation. Genetic data augmentation usually refers to the introduction of random base variations, translocations, and reverse complementing. These augmentations do not take into account the inherent structures of populations and species, potentially blurring the lines between entities within genetic datasets. Here, we propose DNAInterpolator, an approach based on interpolation of DNA sequences within a given dataset that presents a neighbor-guided alternative to random mutations. We tested interpolation as an augmentation technique using four flowering plant datasets and an artificial neural network trained to predict genetic distances between paired samples. To address unequally distributed distances within our training datasets, we examined the effect of balancing the distance distribution by curating interpolated sequences. We found that balancing helps models capture genetic distances across the full distance range by strengthening performance in underrepresented regions of the distribution. Our new approach leverages the potential of taxonomic DNA datasets for modern machine learning applications.",
+        "dedupe_key": "doi:10.1371/journal.pcbi.1014722",
+        "topic_hit": [
+          "稀有细胞"
+        ],
+        "priority_rank": 1,
+        "keyword_hit": [
+          "representation learning"
+        ]
+      },
+      "days_on_board": 1,
+      "is_new": false,
+      "rank_delta": 6,
+      "cluster_id": "b93cca3dde8f",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-04T02:35:41.728138+00:00",
+          "rank": 3
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 3
+        },
+        {
+          "run_at": "2026-09-04T04:46:19.195629+00:00",
+          "rank": 8
+        },
+        {
+          "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 8
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 2
+        }
+      ]
+    },
+    {
+      "source": "papers",
+      "rank": 3,
+      "title": "Speeding up taxonomy in the digital age: A deep learning approach for identifying cryptic freshwater snails",
+      "title_zh": "数字时代加速分类学：一种识别隐秘淡水蜗牛的深度学习方法",
+      "url": "https://doi.org/10.1371/journal.pcbi.1014733",
+      "hot_value": null,
+      "summary_zh": "隐秘物种复合体给生物学家带来根本性挑战，因为物种表现出极小的形态差异，需要整合形态学、遗传学和生物地理学进行识别。在此，我们提出一种深度学习方法，支持淡水蜗牛属Radomaniola（水蜗牛科）的物种识别，这是一个来自巴尔干半岛的形态隐秘群体。我们的方法通过结合壳图像、形态测量和采集地点元数据，并可选地加入系统发育信息，模拟了专家分类学家的整合工作流程。尽管仅用不到700个标本、跨越20个视觉相似且类别大小严重不平衡的物种进行训练，系统仍实现了高识别性能。仔细控制虚假相关性，例如由地点特定成像条件或过于精确的地理元数据引起的相关性，对于确保网络学习生物学有意义的特征至关重要。在所有实验中，整合多种数据类型并联合优化有意义的嵌入和分类，始终优于仅图像和仅分类的基线。在训练期间见过的采集地点标本上，我们实现了宏平均F1分数0.93。尽管在来自未采样地点的标本上评估时降至低至0.14，但通过用2",
+      "thumbnail": null,
+      "published_at": "2026-09-02",
+      "extra": {
+        "subsource": "crossref",
+        "tier": "英文顶刊",
+        "journal": "PLOS Computational Biology",
+        "mode": "all",
+        "issn": "1553-7358",
+        "doi": "10.1371/journal.pcbi.1014733",
+        "description": "Cryptic species complexes pose fundamental challenges to biologists, as species exhibit minimal morphological differences that require integrating morphology, genetics, and biogeography for identification. Here, we present a deep learning approach to support species identification in the freshwater snail genus Radomaniola (Hydrobiidae), a morphologically cryptic group from the Balkans. Our approach mirrors the integrative workflow of expert taxonomists by combining shell images, morphometric measurements, and collection‑site metadata, with optional phylogenetic information. Despite being trained on fewer than 700 specimens across 20 visually similar species with strongly imbalanced class sizes, the system achieved high identification performance. Careful control of spurious correlations, such as those arising from site‑specific imaging conditions or overly precise geographic metadata, was essential to ensure that the network learned biologically meaningful features. Across all experiments, integrating multiple data types and jointly optimizing meaningful embeddings and classification consistently improved performance over image‑only and classification‑only baselines. On specimens from collection sites seen during training we achieved a macro-averaged F1 score of 0.93. Even though this dropped as low as 0.14 when evaluating on specimens from previously unsampled localities, it could be rapidly recovered by retraining with 2–3 newly labeled specimens. Additionally, model top-3 accuracy stayed consistently above 80% in all settings. These results show that relatively lightweight deep learning models can provide practical decision support in real taxonomic workflows.",
+        "dedupe_key": "doi:10.1371/journal.pcbi.1014733",
+        "topic_hit": [
+          "稀有细胞"
+        ],
+        "priority_rank": 1,
+        "keyword_hit": [
+          "deep learning"
+        ]
+      },
+      "days_on_board": 1,
+      "is_new": false,
+      "rank_delta": 6,
+      "cluster_id": "b43c83bec621",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-04T02:35:41.728138+00:00",
+          "rank": 4
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 4
+        },
+        {
+          "run_at": "2026-09-04T04:46:19.195629+00:00",
+          "rank": 9
+        },
+        {
+          "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 9
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 3
         }
       ]
     },
     {
       "source": "papers",
       "rank": 4,
+      "title": "GPCR-GO: Relation-aware graph learning for predicting Gene Ontology terms of G protein-coupled receptors",
+      "title_zh": "GPCR-GO：关系感知图学习预测G蛋白偶联受体的基因本体术语",
+      "url": "https://doi.org/10.1371/journal.pcbi.1014718",
+      "hot_value": null,
+      "summary_zh": "G蛋白偶联受体（GPCR）是核心膜受体和主要治疗靶点。然而，预测GPCR功能仍然困难，因为实验注释的受体稀缺，功能标签呈长尾分布，且结构信息仍未充分利用。在此，我们提出GPCR-GO，一种关系感知异构图注意力框架，整合结构相似性与蛋白质-蛋白质相互作用（PPI）。GPCR-GO使用蛋白质二级结构词典（DSSP）将三维蛋白质结构转化为残基级结构描述符，聚合这些描述符为蛋白质级结构向量，并使用所得向量定义结构相似性边。该框架构建了一个异构图，通过PPI边、结构相似性边、GO层级边和已审阅的蛋白质-GO注释连接蛋白质和基因本体（GO）术语。关系感知图注意力聚合互补生物信号，而图分解、硬负挖掘和半监督学习在稀疏监督和类别不平衡下改善学习。在保留的GPCR测试分割上，GPCR-GO优于现有方法，在生物过程（BP）、细胞组分（CC）和分子功能（MF）上分别达到F分数（Fmax）0.514、0.767和",
+      "thumbnail": null,
+      "published_at": "2026-08-28",
+      "extra": {
+        "subsource": "crossref",
+        "tier": "英文顶刊",
+        "journal": "PLOS Computational Biology",
+        "mode": "all",
+        "issn": "1553-7358",
+        "doi": "10.1371/journal.pcbi.1014718",
+        "description": "G protein-coupled receptors (GPCRs) are central membrane receptors and major therapeutic targets. However, predicting GPCR function remains difficult because experimentally annotated receptors are scarce, functional labels follow a long-tailed distribution, and structural information remains underused. Here, we present GPCR-GO, a relation-aware heterogeneous graph attention framework that integrates structural similarity with protein-protein interactions (PPIs). GPCR-GO uses the Dictionary of Protein Secondary Structure (DSSP) to transform three-dimensional protein structures into residue-level structural descriptors, aggregates these descriptors into protein-level structural vectors, and uses the resulting vectors to define structural-similarity edges. The framework builds a heterogeneous graph linking proteins and Gene Ontology (GO) terms through PPI edges, structural-similarity edges, GO hierarchy edges, and reviewed protein–GO annotations. Relation-aware graph attention aggregates complementary biological signals, whereas graph decomposition, hard negative mining, and semi-supervised learning improve learning under sparse supervision and class imbalance. On the held-out GPCR test split, GPCR-GO outperforms existing methods and achieves F-score (Fmax) values of 0.514, 0.767, and 0.631 on biological process (BP), cellular component (CC), and molecular function (MF), respectively. These results show that structure-derived relations complement curated annotation and support accurate GPCR function prediction under limited supervision.",
+        "dedupe_key": "doi:10.1371/journal.pcbi.1014718",
+        "topic_hit": [
+          "稀有细胞"
+        ],
+        "priority_rank": 1,
+        "keyword_hit": [
+          "attention"
+        ]
+      },
+      "days_on_board": 1,
+      "is_new": false,
+      "rank_delta": 6,
+      "cluster_id": "b8913c251b92",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-04T02:35:41.728138+00:00",
+          "rank": 5
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 5
+        },
+        {
+          "run_at": "2026-09-04T04:46:19.195629+00:00",
+          "rank": 10
+        },
+        {
+          "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 10
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "source": "papers",
+      "rank": 5,
+      "title": "ASPIRE: Accurate alternative splicing prediction from limited RNA sequencing data and a minimal gene set",
+      "title_zh": "ASPIRE：从有限RNA测序数据和最小基因集进行准确的可变剪接预测",
+      "url": "https://doi.org/10.1371/journal.pcbi.1014725",
+      "hot_value": null,
+      "summary_zh": "可变剪接是增加蛋白质多样性并调节真核生物关键细胞过程的基本生物机制。剪接失调与多种疾病相关，包括癌症、神经疾病和自身免疫疾病。准确预测剪接指标如剪接百分比（PSI）因此对理解剪接调控和改善疾病特征化至关重要。然而，现有方法通常需要高测序深度，因此不适合低覆盖设置如单细胞RNA测序，其中稀疏读数计数限制可靠剪接分析。在此，我们提出ASPIRE（从有限RNA测序进行准确剪接预测），一种深度学习框架，从低深度RNA-seq基因表达数据预测可变剪接指标。ASPIRE从有限读数覆盖的基因表达谱推断PSI值，并整合嵌入式特征选择机制，识别与剪接调控相关的少量信息性基因子集。这种设计实现准确预测，同时减少对广泛测序的依赖，并减轻无关或弱信息基因引入的噪声。通过关注生物学有意义的特征，包括RNA结合蛋白，ASPIRE即使在单细胞转录组学典型条件下也保持强预测性能。我们证明ASPIRE在一系列测序深度（包括",
+      "thumbnail": null,
+      "published_at": "2026-08-28",
+      "extra": {
+        "subsource": "crossref",
+        "tier": "英文顶刊",
+        "journal": "PLOS Computational Biology",
+        "mode": "all",
+        "issn": "1553-7358",
+        "doi": "10.1371/journal.pcbi.1014725",
+        "description": "Alternative splicing is a fundamental biological mechanism that increases protein diversity and regulates critical cellular processes across eukaryotes. Dysregulation of splicing is implicated in a wide range of diseases, including cancer, neurological disorders, and autoimmune conditions. Accurate prediction of splicing metrics such as percent spliced in (PSI) is therefore essential for understanding splicing regulation and improving disease characterization. However, existing approaches typically require high sequencing depth and are thus poorly suited for low-coverage settings such as single-cell RNA sequencing, where sparse read counts limit reliable splicing analysis. Here, we present ASPIRE (Accurate Splicing Prediction from Limited RNA Sequencing), a deep learning framework for predicting alternative splicing metrics from low-depth RNA-seq gene expression data. ASPIRE infers PSI values from gene expression profiles with limited read coverage and incorporates an embedded feature selection mechanism that identifies a minimal, informative subset of genes relevant to splicing regulation. This design enables accurate prediction while reducing reliance on extensive sequencing and mitigating noise introduced by irrelevant or weakly informative genes. By focusing on biologically meaningful features, including RNA-binding proteins, ASPIRE maintains strong predictive performance even under conditions typical of single-cell transcriptomics. We demonstrate that ASPIRE accurately predicts PSI values across a range of sequencing depths, including those characteristic of single-cell RNA-seq, and performs comparably to or better than existing methods in both simulated and real datasets. By enabling robust expression-based splicing inference from sparse data, ASPIRE facilitates the study of alternative splicing at cellular resolution and provides a practical framework for investigating splicing regulation in development, disease, and heterogeneous cell populations.",
+        "dedupe_key": "doi:10.1371/journal.pcbi.1014725",
+        "topic_hit": [
+          "生物信息"
+        ],
+        "priority_rank": 2,
+        "keyword_hit": [
+          "deep learning"
+        ]
+      },
+      "days_on_board": 1,
+      "is_new": false,
+      "rank_delta": 9,
+      "cluster_id": "a63b88dc1d4e",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-04T02:35:41.728138+00:00",
+          "rank": 7
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 8
+        },
+        {
+          "run_at": "2026-09-04T04:46:19.195629+00:00",
+          "rank": 14
+        },
+        {
+          "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 14
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 5
+        }
+      ]
+    },
+    {
+      "source": "papers",
+      "rank": 6,
+      "title": "iDCF: Interpretable deconvolution of cell fractions via biologically-informed deep learning using scRNA-seq data",
+      "title_zh": "iDCF：通过生物信息深度学习和scRNA-seq数据进行细胞分数的可解释反卷积",
+      "url": "https://doi.org/10.1371/journal.pcbi.1014727",
+      "hot_value": null,
+      "summary_zh": "精确解析复杂组织内的细胞异质性对于从批量转录组谱中解读疾病病因至关重要。虽然计算反卷积提供可扩展替代方案，但当前深度学习方法主要作为“黑箱”运行，忽视生物定律的结构约束。这种对纯数据驱动特征提取的依赖常产生生物学不一致的预测和有限的机制可解释性。iDCF（可解释细胞分数反卷积）是一种新框架，将生物拓扑强制到深度神经网络上。iDCF架构采用双流设计，协同标准深度网络与由途径定义和蛋白质-蛋白质相互作用（PPI）网络显式掩蔽的基于知识的稀疏神经网络（KSNN）。在全面基准测试中，iDCF达到顶级性能，在准确性和稳健性上始终排名于最先进方法中。iDCF整合SHapley加性解释（SHAP）框架，弥合计算推断与生物直觉间的差距。模型决策逻辑由既定生物机制而非虚假统计相关性主导，验证其可靠性。跨临床背景验证，包括阿尔茨海默病、卵巢癌和糖尿病，证明iDCF恢复疾病相关细胞动态的能力。iDCF为反卷积细",
+      "thumbnail": null,
+      "published_at": "2026-08-27",
+      "extra": {
+        "subsource": "crossref",
+        "tier": "英文顶刊",
+        "journal": "PLOS Computational Biology",
+        "mode": "all",
+        "issn": "1553-7358",
+        "doi": "10.1371/journal.pcbi.1014727",
+        "description": "Precise resolution of cellular heterogeneity within complex tissues is fundamental to deciphering disease etiologies from bulk transcriptomic profiles. While computational deconvolution offers a scalable alternative, current deep learning methods predominantly operate as “black boxes,” neglecting the structural constraints of biological laws. This reliance on purely data-driven feature extraction often yields biologically incoherent predictions and limited mechanistic interpretability. iDCF ( I nterpretable D econvolution of C ell F ractions) is a novel framework that enforces biological topology onto deep neural networks. The iDCF architecture employs a dual-stream design, synergizing a standard deep network with a knowledge-based sparse neural network (KSNN) explicitly masked by pathway definitions and protein-protein interaction (PPI) networks. In comprehensive benchmarks, iDCF achieves top-tier performance, consistently ranking among state-of-the-art methods in accuracy and robustness. iDCF integrates the SHapley Additive exPlanations (SHAP) framework, bridging the gap between computational inference and biological intuition. The model’s decision logic is governed by established biological mechanisms rather than spurious statistical correlations, validating its reliability. Validations across clinical contexts, including Alzheimer’s disease, ovarian cancer, and diabetes, demonstrate iDCF’s ability to recover disease-relevant cellular dynamics. iDCF offers a high-performance, interpretable, and biologically grounded tool for deconvolving cell-type proportions, facilitating deeper insights into tissue heterogeneity in health and disease.",
+        "dedupe_key": "doi:10.1371/journal.pcbi.1014727",
+        "topic_hit": [
+          "生物信息"
+        ],
+        "priority_rank": 2,
+        "keyword_hit": [
+          "deep learning",
+          "benchmark"
+        ]
+      },
+      "days_on_board": 1,
+      "is_new": false,
+      "rank_delta": 9,
+      "cluster_id": "bd528d98601e",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-04T02:35:41.728138+00:00",
+          "rank": 8
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 9
+        },
+        {
+          "run_at": "2026-09-04T04:46:19.195629+00:00",
+          "rank": 15
+        },
+        {
+          "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 15
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 6
+        }
+      ]
+    },
+    {
+      "source": "papers",
+      "rank": 7,
+      "title": "Multi-task deep learning for risk stratification and shared molecular architecture of cardiometabolic multimorbidity under fragmented multi-omics",
+      "title_zh": "多任务深度学习用于碎片化多组学下心脏代谢多发病的风险分层和共享分子架构",
+      "url": "https://doi.org/10.1186/s12859-026-06614-w",
+      "hot_value": null,
+      "summary_zh": "摘要 心脏代谢多发病（CMM）反映互连生理网络的系统性失败，然而基于宏观临床表型的当前风险分层方法留下大量未解决的分子残余风险。虽然多组学整合提供捕获这种潜在脆弱性的手段，但其人群规模应用受限于蛋白质组和代谢组数据的普遍碎片化和非重叠可用性。在此，我们开发多组学感知器用于生存（MOP-Surv），一种深度学习框架，设计通过动态注意力掩蔽和多任务生存学习适应不完整多组学谱而无需插补。应用于297,067名英国生物银行参与者，MOP-Surv在六个心脏代谢终点实现一致风险分层，并提供适度增量预测价值。超越预测，MOP-Surv识别跨终点预后关联的层级结构，并突出包括GDF15、EDA2R和WFDC2在内的简约生物标志物集，在多样疾病轨迹中具有一致预后相关性。因此，MOP-Surv为整合碎片化多组学数据提供实用方法，以表征心脏代谢结果中的共享预后模式。",
+      "thumbnail": null,
+      "published_at": "2026-08-24",
+      "extra": {
+        "subsource": "crossref",
+        "tier": "英文顶刊",
+        "journal": "BMC Bioinformatics",
+        "mode": "all",
+        "issn": "1471-2105",
+        "doi": "10.1186/s12859-026-06614-w",
+        "description": "Abstract Cardiometabolic multimorbidity (CMM) reflects a systemic failure of interconnected physiological networks, yet current risk stratification approaches based on macroscopic clinical phenotypes leave substantial molecular residual risk unresolved. Although multi-omics integration offers a means to capture this latent vulnerability, its population-scale application is limited by pervasive fragmentation and non-overlapping availability of proteomic and metabolomic data. Here, we develop the Multi-Omics Perceiver for Survival (MOP-Surv), a deep learning framework designed to accommodate incomplete multi-omics profiles without imputation through dynamic attention masking and multi-task survival learning. Applied to 297,067 UK Biobank participants, MOP-Surv achieved consistent risk stratification across six cardiometabolic endpoints and provided modest incremental predictive value. Beyond prediction, MOP-Surv identified a hierarchical structure of cross-endpoint prognostic associations and highlighted a parsimonious set of biomarkers including GDF15, EDA2R, and WFDC2 with consistent prognostic relevance across diverse disease trajectories. Therefore MOP-Surv provides a practical approach for integrating fragmented multi-omics data to characterize shared prognostic patterns across cardiometabolic outcomes.",
+        "dedupe_key": "doi:10.1186/s12859-026-06614-w",
+        "topic_hit": [
+          "生物信息"
+        ],
+        "priority_rank": 2,
+        "keyword_hit": [
+          "deep learning",
+          "attention"
+        ]
+      },
+      "days_on_board": 1,
+      "is_new": false,
+      "rank_delta": 10,
+      "cluster_id": "3386f62c4e9b",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-04T02:35:41.728138+00:00",
+          "rank": 9
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 10
+        },
+        {
+          "run_at": "2026-09-04T04:46:19.195629+00:00",
+          "rank": 17
+        },
+        {
+          "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 17
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 7
+        }
+      ]
+    },
+    {
+      "source": "papers",
+      "rank": 8,
+      "title": "AlignMarkers: an original pipeline for placing molecular markers on physical sequences",
+      "title_zh": "AlignMarkers：一种将分子标记定位到物理序列上的原创流程",
+      "url": "https://doi.org/10.1186/s12859-026-06582-1",
+      "hot_value": null,
+      "summary_zh": "摘要 背景 基因组测序和组装的持续进展，加上长读长基因组序列和高品质分子标记（基于单核苷酸多态性（SNP）和插入缺失（indel））的日益丰富资源，要求准确方法轻松、精确且即时地确定跨基因组版本的标记位置。这对基因分型阵列开发和更新等应用尤为重要。然而，现有工具通常需要分子标记的相关参考基因组，且当无此类参考基因组时，需额外适应来映射这些标记的短上下文序列。为克服这些限制，我们的目标是开发原创流程。结果 AlignMarkers是一个稳健的生物信息学流程，设计使用序列比对准确地将分子标记放置在基因组组装上，无需参考基因组上初始位置信息。它也能操作基于坐标的文件进行类似liftover的分析，在无法生成基因组间比对时提供替代方案。它接受多种输入文件格式（VCF、BED、FASTA、CSV），并优化用于≥100碱基对的序列。当仅提供坐标时，检索上下文序列，然后使用Minimap2比对到目标基因",
+      "thumbnail": null,
+      "published_at": "2026-08-06",
+      "extra": {
+        "subsource": "crossref",
+        "tier": "英文顶刊",
+        "journal": "BMC Bioinformatics",
+        "mode": "all",
+        "issn": "1471-2105",
+        "doi": "10.1186/s12859-026-06582-1",
+        "description": "Abstract Background Continuous progress in genome sequencing and assembly, coupled with the growing availability of massive resources of long-read genomic sequences and high-quality molecular markers, based on single nucleotide polymorphisms (SNPs) and insertions-deletions (indels), demands accurate methods to easily, accurately and readily determine marker positions across genome versions. This is particularly important for applications such as development and updating of genotyping array. However, existing tools often require an associated reference genome for the molecular markers and additional adaptations are needed to map the short context sequences of these markers when no such reference genome is available. To overcome these limitations, our aim was to develop an original pipeline. Results AlignMarkers is a robust bioinformatics pipeline designed to accurately place molecular markers on genome assemblies without requiring information on initial positions on a reference genome, using sequence alignment. It can also operate on coordinate-based files to perform liftover-like analyses, providing an alternative when genome-to-genome alignments could not be generated. It accepts multiple input file formats (VCF, BED, FASTA, CSV) and is optimized for sequences of ≥ 100 base pairs. Context sequences are retrieved, when only coordinates are provided, and then aligned to target genomes using Minimap2, followed by a stringent filtering process ensuring alignment uniqueness, high sequence identity, and verification of the expected nucleotide. AlignMarkers is built with Nextflow and Python and integrates established tools such as Minimap2, Samtools, and Bedtools. It generates comprehensive reports and visualizations to facilitate result interpretation. We evaluated AlignMarkers using 80,000 randomly selected positions across the version 2 Pisum sativum genome assembly of cultivar Cameor, showing that increasing flanking sequence length improves placement accuracy and reduces multimapping, especially in repeat-rich regions. We further benchmarked AlignMarkers on 100,000 Solanum lycopersicum SNPs and indels against CrossMap and bcftools/liftover, showing high concordance in the outputs of all tools. These results demonstrate the robustness and reliability of the pipeline when used with different marker resources. Conclusion AlignMarkers is a reliable and user-friendly solution for transferring marker positions. It supports multiple applications and facilitates the management of large sets of molecular markers for various purposes, including the construction of genotyping platforms.",
+        "dedupe_key": "doi:10.1186/s12859-026-06582-1",
+        "topic_hit": [
+          "生物信息"
+        ],
+        "priority_rank": 2,
+        "keyword_hit": [
+          "benchmark"
+        ]
+      },
+      "days_on_board": 1,
+      "is_new": false,
+      "rank_delta": 13,
+      "cluster_id": "593f0b109aef",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-04T02:35:41.728138+00:00",
+          "rank": 10
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 11
+        },
+        {
+          "run_at": "2026-09-04T04:46:19.195629+00:00",
+          "rank": 21
+        },
+        {
+          "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 21
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 8
+        }
+      ]
+    },
+    {
+      "source": "papers",
+      "rank": 9,
+      "title": "Topological potentials guiding protein self-assembly",
+      "title_zh": "拓扑势引导蛋白质自组装",
+      "url": "https://doi.org/10.1371/journal.pcbi.1014709",
+      "hot_value": null,
+      "summary_zh": "将分子构建块模拟组装成功能复合物是计算生物学和材料科学的核心。由短程非极性相互作用驱动的蛋白质组装模拟原则上能达到其生物学正确结构，但崎岖能量景观常将模拟困在非功能局部最小值。我们引入长程拓扑势，通过加权总持久性量化，并将其与形态测量方法结合用于溶剂化自由能。在四个蛋白质系统中，这种组合将组装成功率提高多达十六倍，并在否则失败的情况下实现组装。与先前基于拓扑的方法不同，我们的方法使用拓扑度量作为主动能量偏置而非描述工具。仅依赖原子几何，该方法原则上扩展到其他自组装系统，提供克服分子模拟中动力学障碍的通用策略。",
+      "thumbnail": null,
+      "published_at": "2026-09-03",
+      "extra": {
+        "subsource": "crossref",
+        "tier": "英文顶刊",
+        "journal": "PLOS Computational Biology",
+        "mode": "all",
+        "issn": "1553-7358",
+        "doi": "10.1371/journal.pcbi.1014709",
+        "description": "The simulated assembly of molecular building blocks into functional complexes is central to computational biology and materials science. Protein-assembly simulations, driven by short-range nonpolar interactions, can in principle reach their biologically correct structures, but rugged energy landscapes often trap simulations in non-functional local minima. We introduce a long-range topological potential, quantified by weighted total persistence, and combine it with the morphometric approach to solvation free energy. Across four protein systems, this combination increases assembly success rates by up to sixteen-fold and enables assembly in cases that otherwise fail. Unlike previous topology-based approaches, our method uses topological measures as an active energetic bias rather than a descriptive tool. Depending only on atom geometry, the method extends in principle to other self-assembling systems, offering a general strategy for overcoming kinetic barriers in molecular simulations.",
+        "dedupe_key": "doi:10.1371/journal.pcbi.1014709",
+        "topic_hit": [
+          "生物信息"
+        ],
+        "priority_rank": 2,
+        "keyword_hit": []
+      },
+      "days_on_board": 1,
+      "is_new": false,
+      "rank_delta": 13,
+      "cluster_id": "d1da7bf5dcd8",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-04T02:35:41.728138+00:00",
+          "rank": 11
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 13
+        },
+        {
+          "run_at": "2026-09-04T04:46:19.195629+00:00",
+          "rank": 22
+        },
+        {
+          "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 22
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 9
+        }
+      ]
+    },
+    {
+      "source": "papers",
+      "rank": 10,
+      "title": "Model Context Protocol: The unexpected catalyst of a bioinformatics interoperability revolution",
+      "title_zh": "模型上下文协议：生物信息学互操作性革命的意外催化剂",
+      "url": "https://doi.org/10.1371/journal.pcbi.1014543",
+      "hot_value": null,
+      "summary_zh": null,
+      "thumbnail": null,
+      "published_at": "2026-08-31",
+      "extra": {
+        "subsource": "crossref",
+        "tier": "英文顶刊",
+        "journal": "PLOS Computational Biology",
+        "mode": "all",
+        "issn": "1553-7358",
+        "doi": "10.1371/journal.pcbi.1014543",
+        "description": "",
+        "dedupe_key": "doi:10.1371/journal.pcbi.1014543",
+        "topic_hit": [
+          "生物信息"
+        ],
+        "priority_rank": 2,
+        "keyword_hit": []
+      },
+      "days_on_board": 1,
+      "is_new": false,
+      "rank_delta": 14,
+      "cluster_id": "1b8ec5a2725a",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-04T02:35:41.728138+00:00",
+          "rank": 13
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 15
+        },
+        {
+          "run_at": "2026-09-04T04:46:19.195629+00:00",
+          "rank": 24
+        },
+        {
+          "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 24
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 10
+        }
+      ]
+    },
+    {
+      "source": "papers",
+      "rank": 11,
+      "title": "Integrated multi-omics reveals epigenetic regulation of beef color by the HMOX2 gene",
+      "title_zh": "整合多组学揭示HMOX2基因对牛肉颜色的表观遗传调控",
+      "url": "https://doi.org/10.1186/s12864-026-13308-3",
+      "hot_value": null,
+      "summary_zh": "摘要 背景 肉色是决定消费者购买决策的主要鲜肉品质属性。基于我们先前发现散栏饲养牛产生比拴系饲养牛更深的半腱肌（较低CIE L*），我们旨在阐明这种饲养系统诱导的肉色亮度差异的分子机制。方法 新疆褐牛被分配到拴系或散栏饲养组，其日常身体活动通过智能项圈连续量化。采用整合多组学策略，结合转录组学、非靶向代谢组学和简化代表性亚硫酸盐测序，描绘浅色和深色肉色表型牛间的差异。关键候选基因通过实时定量PCR、蛋白质印迹和亚硫酸盐扩增子测序进一步验证。结果 我们的分析显示，经历受限运动（3.61小时/天对比6.76小时/天）和较差动物福利条件的拴系牛，与散栏牛相比显示显著转录变化。具体而言，与血红素氧化（HMOX1和HMOX2）和错误折叠蛋白结合（DNAJB9）相关的基因显著上调，而与趋化因子活性（CCL21和CXCL10）相关的基因下调。此外，胰岛素抵抗途径基因（IRS2、PPARGC1A和SOCS",
+      "thumbnail": null,
+      "published_at": "2026-08-27",
+      "extra": {
+        "subsource": "crossref",
+        "tier": "英文顶刊",
+        "journal": "BMC Genomics",
+        "mode": "filter",
+        "issn": "1471-2164",
+        "doi": "10.1186/s12864-026-13308-3",
+        "description": "Abstract Background Meat color is a primary fresh meat quality attribute that governs consumer purchase decisions. Building on our prior findings that loose housing cattle produce darker semitendinosus muscle (lower CIE L*) than do tie stalls cattle, we aimed to elucidate the molecular mechanisms underlying this housing system-induced variation in meat color lightness. Methods Xinjiang Brown bulls were allocated to tie stalls or loose housing groups, and their daily physical activity was continuously quantified using smart collars. An integrated multi-omics strategy, combining transcriptomics, nontargeted metabolomics, and reduced representation bisulfite sequencing, was employed to profile differences between cattle with light and dark meat color phenotypes. Key candidate genes were further validated using real-time quantitative PCR, western blotting, and bisulfite amplicon sequencing. Results Our analyses revealed that tie stalls cattle, which experience restricted exercise (3.61 h/day vs. 6.76 h/day) and inferior animal welfare conditions, showed significant transcriptional changes compared with loose housing cattle. Specifically, genes associated with heme oxidation ( HMOX1 and HMOX2 ) and misfolded protein binding ( DNAJB9 ) were significantly upregulated, whereas those related to chemokine activity ( CCL21 and CXCL10 ) were downregulated. Furthermore, insulin resistance pathway genes ( IRS2 , PPARGC1A , and SOCS3 ) were upregulated and key exercise-responsive pathways, including cGMP-PKG, Notch, calcium, and PPAR signaling, were downregulated in tie stalls cattle. Metabolomics revealed that biliverdin was a critical metabolite whose abundance was negatively correlated with the expression of HMOX1 and HMOX2 . Critically, we detected and validated that HMOX2 was significantly hypermethylated in tie stalls cattle. Conclusions Our findings support an epigenetic regulatory mechanism whereby restricted activity and suboptimal welfare conditions in tie stalls housing induce HMOX2 hypermethylation, which upregulates its transcription and HO-2 protein expression, accelerates heme degradation, and ultimately increases meat color lightness. This pathway represents one important mechanism underlying housing system-related beef color variation, and HMOX2 may serve as a candidate biomarker for meat quality optimization.",
+        "dedupe_key": "doi:10.1186/s12864-026-13308-3",
+        "topic_hit": [
+          "生物信息"
+        ],
+        "priority_rank": 2,
+        "keyword_hit": []
+      },
+      "days_on_board": 1,
+      "is_new": false,
+      "rank_delta": 14,
+      "cluster_id": "b6b3e2a2356a",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-04T02:35:41.728138+00:00",
+          "rank": 14
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 16
+        },
+        {
+          "run_at": "2026-09-04T04:46:19.195629+00:00",
+          "rank": 25
+        },
+        {
+          "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 25
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 11
+        }
+      ]
+    },
+    {
+      "source": "papers",
+      "rank": 12,
+      "title": "Systematic multivariate analysis of chromatin complex dependencies reveals Set1C/COMPASS as a melanoma-enriched epigenetic vulnerability",
+      "title_zh": "染色质复合物依赖性的系统多变量分析揭示Set1C/COMPASS作为黑色素瘤富集的表观遗传脆弱性",
+      "url": "https://doi.org/10.1371/journal.pcbi.1014018",
+      "hot_value": null,
+      "summary_zh": "表观遗传失调是癌症的常见特征。它产生源于对维持恶性转录状态的染色质机制增加依赖的脆弱性。虽然许多染色质调节因子广泛需要用于细胞活力，但其他在跨不同致癌设置、组织谱系和分化状态的情境依赖方式中起作用。此外，染色质调节因子常在多亚基复合物内运作；因此，表观遗传脆弱性从协调复合物活性中涌现。在此，我们整合来自人类癌细胞系的大规模遗传依赖性图谱与精选表观遗传复合物注释，进行跨癌症谱系的复合物水平表观遗传依赖性的系统多变量分析。我们的分析揭示依赖性常聚类于功能相关的染色质复合物中，且生物学相关的癌症类型（如血液恶性肿瘤）共享相似依赖性模式，与共享潜在表观遗传需求一致。聚焦黑色素瘤，我们识别多种富集的表观遗传复合物依赖性，包括先前与复发性遗传改变或黑色素细胞谱系调控相关的复合物，以及涉及H3K4甲基转移酶复合物Set1C/COMPASS的先前未识别脆弱性。这种依赖性不限于特定黑色素瘤分化状态，但CXX",
+      "thumbnail": null,
+      "published_at": "2026-08-27",
+      "extra": {
+        "subsource": "crossref",
+        "tier": "英文顶刊",
+        "journal": "PLOS Computational Biology",
+        "mode": "all",
+        "issn": "1553-7358",
+        "doi": "10.1371/journal.pcbi.1014018",
+        "description": "Epigenetic dysregulation is a common feature of cancer. It creates vulnerabilities arising from an increased reliance on chromatin-based mechanisms that sustain malignant transcriptional states. While many chromatin regulators are broadly required for cellular viability, others function in a context-dependent manner across distinct oncogenic settings, tissue lineages, and differentiation states. Moreover, chromatin regulators often operate within multi-subunit complexes; thus, epigenetic vulnerabilities emerge from coordinated complex activities. Here, we integrate large-scale genetic dependency maps from human cancer cell lines with curated epigenetic complex annotations to perform a systematic, multivariate analysis of complex-level epigenetic dependencies across cancer lineages. Our analysis reveals that dependencies frequently cluster among functionally related chromatin complexes and that biologically related cancer types (e.g., hematologic malignancies) share similar dependency patterns, consistent with shared underlying epigenetic requirements. Focusing on melanoma, we identify multiple enriched epigenetic complex dependencies, including complexes previously associated with recurrent genetic alterations or melanocyte lineage regulation, as well as a previously unrecognized vulnerability involving the H3K4 methyltransferase complex Set1C/COMPASS. This dependency is not restricted to a specific melanoma differentiation state, but genetic depletion of CXXC1 (a critical complex-specific subunit) suggests that CXXC1-dependent melanoma cells require Set1C/COMPASS activity to maintain global H3K4 trimethylation (H3K4me3) and proliferation. Integrative modeling links Set1C/COMPASS dependency to MYC- and E2F-driven transcriptional programs, which are suppressed upon complex inhibition. Together, this work combines integrative, multivariate analysis of lineage-enriched epigenetic dependencies with genetic perturbation, transcriptional profiling, and single-cell analysis to uncover an enriched epigenetic dependency on Set1C/COMPASS in melanoma cells.",
+        "dedupe_key": "doi:10.1371/journal.pcbi.1014018",
+        "topic_hit": [
+          "生物信息"
+        ],
+        "priority_rank": 2,
+        "keyword_hit": []
+      },
+      "days_on_board": 1,
+      "is_new": false,
+      "rank_delta": 14,
+      "cluster_id": "ea1fbaff9a3d",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-04T02:35:41.728138+00:00",
+          "rank": 15
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 17
+        },
+        {
+          "run_at": "2026-09-04T04:46:19.195629+00:00",
+          "rank": 26
+        },
+        {
+          "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 26
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 12
+        }
+      ]
+    },
+    {
+      "source": "papers",
+      "rank": 13,
+      "title": "Integrated multi-omics analysis dissects hepatocyte states and genetic regulation of hepatic metabolism in pigs",
+      "title_zh": "整合多组学分析解析猪肝细胞状态和肝代谢的遗传调控",
+      "url": "https://doi.org/10.1186/s12864-026-13267-9",
+      "hot_value": null,
+      "summary_zh": "摘要 肝代谢受多组织环境和细胞异质性影响，然而肝脏特异性代谢功能的细胞基础和遗传调控机制仍不完全理解。猪在肝脏结构、生理功能和代谢特征上与人类高度相似，使其成为研究肝代谢调控的重要大动物模型。在本研究中，我们整合来自300个肝、脾和血样本的批量RNA-seq数据与肝scRNA-seq数据，在组织、细胞和遗传层面特征化猪肝代谢调控。多组织转录组分析识别主要与代谢和合成功能相关的肝富集基因集，突出猪肝在多组织背景下的功能特化。在单细胞分辨率下，肝细胞进一步解析为两个主要亚型。功能注释、轨迹分析和细胞间通讯分析进一步显示这两个肝细胞亚型显示不同功能特征：Hepatocytes_Metabolic富集脂质代谢和核心肝途径，而Hepatocytes_Immune更密切关联免疫相关微环境调控。为研究肝组织细胞异质性的遗传基础，我们将估计的细胞类型比例纳入细胞类型相互作用eQTL模型。该分析识别跨肝细胞",
+      "thumbnail": null,
+      "published_at": "2026-08-25",
+      "extra": {
+        "subsource": "crossref",
+        "tier": "英文顶刊",
+        "journal": "BMC Genomics",
+        "mode": "filter",
+        "issn": "1471-2164",
+        "doi": "10.1186/s12864-026-13267-9",
+        "description": "Abstract Hepatic metabolism is influenced by both the multi-tissue environment and cellular heterogeneity, yet the cellular basis and genetic regulatory mechanisms underlying liver-specific metabolic functions remain incompletely understood. Pigs share high similarity with humans in liver structure, physiological function, and metabolic characteristics, making them an important large-animal model for studying hepatic metabolic regulation. In this study, we integrated bulk RNA-seq data from 300 liver, spleen, and blood samples with liver scRNA-seq data to characterize pig hepatic metabolic regulation across tissue, cellular, and genetic layers. Multi-tissue transcriptomic analysis identified liver-enriched gene sets mainly associated with metabolic and synthetic functions, highlighting the functional specialization of the pig liver in a multi-tissue context. At single-cell resolution, hepatocytes were further resolved into two major subtypes. Functional annotation, trajectory analysis, and cell–cell communication analysis further showed that these two hepatocyte subtypes displayed distinct functional features: Hepatocytes_Metabolic was enriched for lipid metabolism and core hepatic pathways, whereas Hepatocytes_Immune was more closely associated with immune-related microenvironmental regulation. To investigate the genetic basis of cellular heterogeneity in liver tissue, we incorporated estimated cell-type proportions into cell-type interaction eQTL models. This analysis identified 6,313 ct-ieGenes across liver cell populations, with Hepatocytes_Metabolic showing the largest number of ieGenes (3,404), indicating that the proportion of this metabolic hepatocyte subtype provides an important cellular context for resolving heterogeneity in hepatic genetic regulation. Colocalization analysis further linked ct-ieQTL signals in Hepatocytes_Metabolic to liver-related biochemical and lipid traits, including gamma-glutamyl transferase and cholesterol-related traits. Cross-species analysis showed that pig hepatocytes were transcriptionally closer to human hepatocytes than to mouse hepatocytes, and pig–human conserved hepatocyte genes were mainly enriched in lipid metabolism-related functions. Overall, this study provides a multi-level framework for understanding pig hepatic metabolic regulation and suggests that Hepatocytes_Metabolic represents an important cellular context linking liver metabolic function, cell-composition-associated genetic regulation, and liver-related complex traits.",
+        "dedupe_key": "doi:10.1186/s12864-026-13267-9",
+        "topic_hit": [
+          "生物信息"
+        ],
+        "priority_rank": 2,
+        "keyword_hit": []
+      },
+      "days_on_board": 1,
+      "is_new": false,
+      "rank_delta": 14,
+      "cluster_id": "9ec8df2bf081",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-04T02:35:41.728138+00:00",
+          "rank": 16
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 18
+        },
+        {
+          "run_at": "2026-09-04T04:46:19.195629+00:00",
+          "rank": 27
+        },
+        {
+          "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 27
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 13
+        }
+      ]
+    },
+    {
+      "source": "papers",
+      "rank": 14,
+      "title": "The multi-omics fallacy in microbiome science",
+      "title_zh": "微生物组科学中的多组学谬误",
+      "url": "https://doi.org/10.1371/journal.pcbi.1014700",
+      "hot_value": null,
+      "summary_zh": null,
+      "thumbnail": null,
+      "published_at": "2026-08-25",
+      "extra": {
+        "subsource": "crossref",
+        "tier": "英文顶刊",
+        "journal": "PLOS Computational Biology",
+        "mode": "all",
+        "issn": "1553-7358",
+        "doi": "10.1371/journal.pcbi.1014700",
+        "description": "",
+        "dedupe_key": "doi:10.1371/journal.pcbi.1014700",
+        "topic_hit": [
+          "生物信息"
+        ],
+        "priority_rank": 2,
+        "keyword_hit": []
+      },
+      "days_on_board": 1,
+      "is_new": false,
+      "rank_delta": 14,
+      "cluster_id": "680375e793a0",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-04T02:35:41.728138+00:00",
+          "rank": 17
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 19
+        },
+        {
+          "run_at": "2026-09-04T04:46:19.195629+00:00",
+          "rank": 28
+        },
+        {
+          "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 28
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 14
+        }
+      ]
+    },
+    {
+      "source": "papers",
+      "rank": 15,
+      "title": "MFDB: a comprehensive database for marine fish functional genomics and evolutionary genomics",
+      "title_zh": "MFDB：海洋鱼类功能基因组学和进化基因组学综合数据库",
+      "url": "https://doi.org/10.1093/nar/gkag844",
+      "hot_value": null,
+      "summary_zh": "摘要 海洋鱼类是生物多样性保护和社会经济可持续性的重要贡献者。尽管近年来海洋鱼类物种的基因组和多组学数据集呈指数级增长，但其系统整合仍未充分探索，阻碍了对基因调控和生物系统的全面研究。为弥补这一空白，我们开发了海洋鱼类数据库（MFDB；http://marinefishdb.cn），这是首个专门为海洋硬骨鱼设计的整合基因组学平台。MFDB 汇集了 89 个物种的分散多组学资源，涵盖基因组组装、系统发育重建、共线性图谱、泛基因集、基因结构、功能注释、表达谱和进化基因家族分析。MFDB 还提供专门的分析模块，包括组织特异性基因共表达网络、谱系定义核心基因库和宏观共线性驱动的染色体进化模型。该平台具有直观且可编程的界面，支持多尺度查询、跨组学数据挖掘和多维生物相互作用动态可视化。这些功能共同使用户能够解读基因组元件如何通过多层调控级联协调表型结果。通过将快速扩展的组学数据集与稳健的分析流程整合，",
+      "thumbnail": null,
+      "published_at": "2026-08-24",
+      "extra": {
+        "subsource": "crossref",
+        "tier": "英文顶刊",
+        "journal": "Nucleic Acids Research",
+        "mode": "filter",
+        "issn": "1362-4962",
+        "doi": "10.1093/nar/gkag844",
+        "description": "Abstract Marine fishes are important contributors to biodiversity conservation and socioeconomic sustainability. While genomic and multi-omics datasets for marine fish species have expanded exponentially in recent years, their systematic integration remains underexplored, hindering comprehensive investigations into gene regulation and biological systems. To bridge this gap, we developed the Marine Fish Database (MFDB; http://marinefishdb.cn), the first integrative genomics platform specifically designed for marine teleosts. MFDB compiles fragmented multi-omics resources across 89 species, encompassing genome assemblies, phylogenomic reconstructions, collinearity maps, pan gene sets, gene architectures, functional annotations, expression profiles, and evolutionary gene family analyses. MFDB further delivers specialized analytical modules, including tissue-specific gene co-expression networks, lineage-defining core gene repertoires, and macrosynteny-driven chromosomal evolution models. The platform features an intuitive and programmable interface, enabling multiscale queries, cross-omics data mining, and dynamic visualization of multidimensional biological interactions. These functionalities collectively empower users to decipher how genomic elements orchestrate phenotypic outcomes through multi-layered regulatory cascades. By integrating rapidly expanding omics datasets with robust analytical pipelines, MFDB establishes a scalable framework to accelerate hypothesis-driven discoveries in marine fish biology, evolutionary adaptation, and ecological resilience research, and further provides an easy-to-operate information platform for the molecular breeding of marine fish species.",
+        "dedupe_key": "doi:10.1093/nar/gkag844",
+        "topic_hit": [
+          "生物信息"
+        ],
+        "priority_rank": 2,
+        "keyword_hit": []
+      },
+      "days_on_board": 1,
+      "is_new": false,
+      "rank_delta": 14,
+      "cluster_id": "7380bdad4f07",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 20
+        },
+        {
+          "run_at": "2026-09-04T04:46:19.195629+00:00",
+          "rank": 29
+        },
+        {
+          "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 29
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 15
+        }
+      ]
+    },
+    {
+      "source": "papers",
+      "rank": 16,
+      "title": "PCRD-seq: proximity crosslinking-induced RNA depletion sequencing for low-input chromatin-associated transcriptome profiling",
+      "title_zh": "PCRD-seq：用于低输入染色质相关转录组谱分析的交联诱导 RNA 去除测序",
+      "url": "https://doi.org/10.1093/nar/gkag853",
+      "hot_value": null,
+      "summary_zh": "摘要 染色质相关 RNA（caRNA）在调控染色质组织和转录中发挥关键作用，凸显了研究它们的重要性。邻近标记已成为一种有前景且多功能的技术，用于高时空分辨率分析 caRNA。尽管邻近标记技术强大，但传统方法依赖复杂、高输入的富集流程，这严重限制了其广泛实际应用。在这里，我们开发了一种简单、无富集的 caRNA 分析策略：邻近交联诱导 RNA 去除测序（PCRD-seq）。该方法利用靶向染色质区域的光敏剂 HoeDBF 产生的单线态氧诱导染色质与其周围 RNA 之间的邻近交联。这种邻近交联阻碍了常规 TRIzol 提取过程中 caRNA 的释放，从而导致这些 RNA 的特异性去除。该方法成功应用于研究 U1 小核 RNA（snRNA）在 RNA 染色质保留中的作用，以及两种转移能力相反的卵巢癌细胞系之间染色质相关转录组的差异。此外，我们的 PCRD-seq 在分析核纤层相关 RNA 方面显示",
+      "thumbnail": null,
+      "published_at": "2026-08-24",
+      "extra": {
+        "subsource": "crossref",
+        "tier": "英文顶刊",
+        "journal": "Nucleic Acids Research",
+        "mode": "filter",
+        "issn": "1362-4962",
+        "doi": "10.1093/nar/gkag853",
+        "description": "Abstract Chromatin-associated RNAs (caRNAs) play critical roles in regulating chromatin organization and transcription, underscoring the importance of their study. Proximity labeling has emerged as a promising and versatile technique for profiling caRNAs with high spatiotemporal resolution. While being a powerful technique, traditional proximity labeling methods depend on complex, high-input enrichment protocols, which significantly limit their wide practical application. Here, we developed a straightforward, enrichment-free caRNA profiling strategy: proximity crosslinking-induced RNA depletion sequencing (PCRD-seq). This approach leverages the proximity crosslinking between chromatin and its surrounding RNAs induced by singlet oxygen generated by HoeDBF, a photosensitizer targeting chromatin region. The proximity crosslinking hinders the release of caRNAs during routine TRIzol extraction, consequently leading to a specific depletion of these RNAs. This method was successfully applied to investigate the role of U1 small nuclear RNA (snRNA) in RNA chromatin retention and the differences in chromatin-associated transcriptomes between two ovarian cancer cell lines with opposite metastatic capability. Moreover, our PCRD-seq exhibits potential in profiling nuclear lamina-associated RNAs, which paves the way for its application to profile RNAs associated with other chromatin subdomains. The minimal cell input and simple workflow render PCRD-seq a transformative tool for wide applications.",
+        "dedupe_key": "doi:10.1093/nar/gkag853",
+        "topic_hit": [
+          "生物信息"
+        ],
+        "priority_rank": 2,
+        "keyword_hit": []
+      },
+      "days_on_board": 1,
+      "is_new": false,
+      "rank_delta": 14,
+      "cluster_id": "4b90b79edd12",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 21
+        },
+        {
+          "run_at": "2026-09-04T04:46:19.195629+00:00",
+          "rank": 30
+        },
+        {
+          "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 30
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 16
+        }
+      ]
+    },
+    {
+      "source": "papers",
+      "rank": 17,
+      "title": "Synergistic interaction between the macrophage polarizing signals IL-4 and IFNγ is controlled by the STAT6/STAT1/IRF1 axis",
+      "title_zh": "巨噬细胞极化信号 IL-4 和 IFNγ 之间的协同相互作用受 STAT6/STAT1/IRF1 轴控制",
+      "url": "https://doi.org/10.1093/nar/gkag825",
+      "hot_value": null,
+      "summary_zh": "摘要 IFNγ 和 IL-4 是典型的 Th1 和 Th2 细胞因子，通常诱导相反的巨噬细胞极化。除了在病理环境中频繁共存和相互拮抗外，也可能存在协同串扰，这仍有待定义。通过整合转录组学、表观基因组学和基于 CRISPR 的分析，我们发现 IL-4 和 IFNγ 共同暴露导致小鼠巨噬细胞处于中间极化状态，并伴随一组协同激活的基因。我们表明这种协同激活由 STAT6 和 STAT1 在具有显著 H3K27Ac 积累的调控区域共结合介导，并依赖于 BRD4 辅因子。删除任一 STAT 因子或破坏其结合基序都会消除协同转录反应。我们的数据支持一个模型，即一种细胞因子诱导的染色质开放性促进了相反细胞因子激活的 STAT 转录因子（TF）的结合，从而促成协同基因激活。我们进一步表明，IRF1 是一种 IFNγ 诱导的 TF，其表达在 IL-4 存在下持续存在，对该程序的很大一部分是必不可少的。重要的",
+      "thumbnail": null,
+      "published_at": "2026-08-24",
+      "extra": {
+        "subsource": "crossref",
+        "tier": "英文顶刊",
+        "journal": "Nucleic Acids Research",
+        "mode": "filter",
+        "issn": "1362-4962",
+        "doi": "10.1093/nar/gkag825",
+        "description": "Abstract IFNγ and IL-4, the canonical Th1 and Th2 cytokines, typically induce opposing macrophage polarization. Beyond their frequent coexistence and mutual antagonism in pathological settings, a synergistic crosstalk may also exist and remains to be defined. Through integrated transcriptomic, epigenomic, and CRISPR-based analyses, we identify that co-exposure to IL-4 and IFNγ results in an intermediate macrophage polarization state in murine macrophages, associated with a cohort of synergistically activated genes. We show that this synergistic activation is mediated by co-binding of STAT6 and STAT1 at regulatory regions marked with pronounced H3K27Ac accumulation and is dependent on the BRD4 cofactor. Deletion of either STAT factor or disruption of their binding motifs abolishes the synergistic transcriptional response. Our data support a model in which chromatin openness induced by one cytokine facilitates binding of the opposing cytokine-activated STAT transcription factor (TF), contributing to synergistic gene activation. We further show that IRF1, an IFNγ-induced TF whose expression persists in the presence of IL-4, is indispensable for a substantial subset of this program. Importantly, single-cell RNA sequencing of the PyMT murine breast cancer model reveals an in vivo tumor-associated macrophage subset showing STAT1 and STAT6 activation and is enriched for the synergistic gene signature.",
+        "dedupe_key": "doi:10.1093/nar/gkag825",
+        "topic_hit": [
+          "生物信息"
+        ],
+        "priority_rank": 2,
+        "keyword_hit": []
+      },
+      "days_on_board": 1,
+      "is_new": false,
+      "rank_delta": 14,
+      "cluster_id": "87c60e734fcf",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 22
+        },
+        {
+          "run_at": "2026-09-04T04:46:19.195629+00:00",
+          "rank": 31
+        },
+        {
+          "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 31
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 17
+        }
+      ]
+    },
+    {
+      "source": "papers",
+      "rank": 18,
+      "title": "Gaugefixer: overcoming parameter non-identifiability in models of sequence-function relationships",
+      "title_zh": "Gaugefixer：克服序列-功能关系模型中的参数不可识别性",
+      "url": "https://doi.org/10.1186/s12859-026-06605-x",
+      "hot_value": null,
+      "summary_zh": "摘要 背景 序列-功能关系的数学模型广泛用于计算生物学。解释这些模型时的一个关键挑战是，许多不同模型参数选择可编码相同序列-功能关系。这些模糊性称为“规范自由度”，必须在参数值可被有意义解释前移除。这样做需要对参数值施加额外数学约束，过程称为“固定规范”。我们最近开发了数学方法，用于固定一大类常用模型的规范。这些方法最直接的计算实现通常不切实际，因为它需要投影矩阵，其大小随参数数量二次方缩放。结果 在此我们介绍GaugeFixer，一个Python包，利用规范固定投影的数学结构实现计算时间的对数线性缩放和内存使用的线性缩放。GaugeFixer因此比标准矩阵乘法需要少数量级的时间和内存，并能在几秒内固定具有数百万参数的模型的规范。为展示其实用性，我们用GaugeFixer分析细菌翻译起始的经验适应度景观。该分析揭示相对于起始密码子不同位置的核糖体结合偏好有显著相似性（但也有精细尺度差异），",
+      "thumbnail": null,
+      "published_at": "2026-08-22",
+      "extra": {
+        "subsource": "crossref",
+        "tier": "英文顶刊",
+        "journal": "BMC Bioinformatics",
+        "mode": "all",
+        "issn": "1471-2105",
+        "doi": "10.1186/s12859-026-06605-x",
+        "description": "Abstract Background Mathematical models of sequence-function relationships are widely used in computational biology. A key challenge when interpreting these models is that many different choices for model parameters can encode the same sequence-function relationship. These ambiguities, called “gauge freedoms,” must be removed before parameter values can be meaningfully interpreted. Doing this requires imposing additional mathematical constraints on parameter values, a process called “fixing the gauge.” We recently developed mathematical methods for fixing the gauge of a large class of commonly used models. The most direct computational implementation of these methods is often impractical, however, because it requires a projection matrix whose size scales quadratically with the number of parameters. Results Here we introduce GaugeFixer, a Python package that exploits the mathematical structure of gauge-fixing projections to achieve log-linear scaling in computation time and linear scaling in memory usage. GaugeFixer thus requires orders of magnitude less time and memory than standard matrix multiplication, and can fix the gauge of models having millions of parameters in seconds. To demonstrate its utility, we used GaugeFixer to analyze an empirical fitness landscape for translation initiation in bacteria. This analysis revealed striking similarities (but also fine-scale differences) in ribosome-binding preferences at different positions relative to the start codon, thereby aiding the interpretation of this otherwise unwieldy landscape. Conclusions GaugeFixer thus fills an important gap in the computational tools available for interpreting quantitative models of sequence-function relationships.",
+        "dedupe_key": "doi:10.1186/s12859-026-06605-x",
+        "topic_hit": [
+          "生物信息"
+        ],
+        "priority_rank": 2,
+        "keyword_hit": []
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "dc776b1cc7ad",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-04T02:35:41.728138+00:00",
+          "rank": 18
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 18
+        }
+      ]
+    },
+    {
+      "source": "papers",
+      "rank": 19,
+      "title": "Epigenetic multi-omics reveals the molecular regulatory mechanism underlying liver cold resistance in Hezuo pigs",
+      "title_zh": "表观遗传多组学揭示合作猪肝脏耐冷性的分子调控机制",
+      "url": "https://doi.org/10.1186/s12864-026-13152-5",
+      "hot_value": null,
+      "summary_zh": null,
+      "thumbnail": null,
+      "published_at": "2026-08-22",
+      "extra": {
+        "subsource": "crossref",
+        "tier": "英文顶刊",
+        "journal": "BMC Genomics",
+        "mode": "filter",
+        "issn": "1471-2164",
+        "doi": "10.1186/s12864-026-13152-5",
+        "description": "",
+        "dedupe_key": "doi:10.1186/s12864-026-13152-5",
+        "topic_hit": [
+          "生物信息"
+        ],
+        "priority_rank": 2,
+        "keyword_hit": []
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "94d31f78864b",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-04T02:35:41.728138+00:00",
+          "rank": 19
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 19
+        }
+      ]
+    },
+    {
+      "source": "papers",
+      "rank": 20,
+      "title": "SnRNA-seq of skeletal muscles reveals the cellular and molecular landscapes for meat quality and locomotor of Mongolian cattle",
+      "title_zh": "骨骼肌的snRNA-seq揭示蒙古牛肉质和运动能力的细胞和分子景观",
+      "url": "https://doi.org/10.1186/s12864-026-13226-4",
+      "hot_value": null,
+      "summary_zh": null,
+      "thumbnail": null,
+      "published_at": "2026-08-19",
+      "extra": {
+        "subsource": "crossref",
+        "tier": "英文顶刊",
+        "journal": "BMC Genomics",
+        "mode": "filter",
+        "issn": "1471-2164",
+        "doi": "10.1186/s12864-026-13226-4",
+        "description": "",
+        "dedupe_key": "doi:10.1186/s12864-026-13226-4",
+        "topic_hit": [
+          "生物信息"
+        ],
+        "priority_rank": 2,
+        "keyword_hit": []
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "a234db240f9a",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-04T02:35:41.728138+00:00",
+          "rank": 20
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 20
+        }
+      ]
+    },
+    {
+      "source": "papers",
+      "rank": 21,
+      "title": "Beyond radiogenomics: advancing imaging integration and multi-omics horizons in cancer precision medicine",
+      "title_zh": "超越放射基因组学：推进影像整合与多组学视野在癌症精准医学中的应用",
+      "url": "https://doi.org/10.1016/j.jgg.2026.07.003",
+      "hot_value": null,
+      "summary_zh": null,
+      "thumbnail": null,
+      "published_at": "2026-07-01",
+      "extra": {
+        "subsource": "crossref",
+        "tier": "中文核心",
+        "journal": "Journal of Genetics and Genomics",
+        "mode": "filter",
+        "issn": "1673-8527",
+        "doi": "10.1016/j.jgg.2026.07.003",
+        "description": "",
+        "dedupe_key": "doi:10.1016/j.jgg.2026.07.003",
+        "topic_hit": [
+          "生物信息"
+        ],
+        "priority_rank": 2,
+        "keyword_hit": []
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "324c9bd85a8a",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 21
+        }
+      ]
+    },
+    {
+      "source": "papers",
+      "rank": 22,
+      "title": "Technique and Application of Deep Learning-based EEG Denoising",
+      "title_zh": "基于深度学习的脑电去噪技术与应用",
+      "url": "https://doi.org/10.3724/j.pibb.2026.0229",
+      "hot_value": null,
+      "summary_zh": null,
+      "thumbnail": null,
+      "published_at": "2026-08-01",
+      "extra": {
+        "subsource": "crossref",
+        "tier": "中文核心",
+        "journal": "Progress in Biochemistry and Biophysics",
+        "mode": "filter",
+        "issn": "1000-3282",
+        "doi": "10.3724/j.pibb.2026.0229",
+        "description": "",
+        "dedupe_key": "doi:10.3724/j.pibb.2026.0229",
+        "topic_hit": [],
+        "priority_rank": 999,
+        "keyword_hit": [
+          "deep learning"
+        ]
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "94a534adfec7",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 22
+        }
+      ]
+    },
+    {
+      "source": "papers",
+      "rank": 23,
+      "title": "Subcellularly Resolved Single-Cell Embedding Learning with Transcriptomic data, Protein Structure and Localization Information",
+      "title_zh": "利用转录组数据、蛋白质结构和定位信息进行亚细胞分辨率的单细胞嵌入学习",
+      "url": "http://arxiv.org/abs/2609.02344v1",
+      "hot_value": null,
+      "summary_zh": "现有的细胞嵌入方法主要依赖转录组或蛋白质组测量，将每个细胞视为一个整体实体，从而忽略了单个分子的亚细胞定位。此外，它们很少整合蛋白质结构信息，尽管结构在决定分子相互作用和功能方面起着根本作用。在这项工作中，我们提出了一种多模态框架，通过联合利用RNA表达谱、蛋白质序列表示和蛋白质结构信息来学习亚细胞分辨率的细胞嵌入。具体来说，我们采用交叉注意力架构来整合转录组、序列和结构模态，并在不同的亚细胞区室中建模它们的相互作用。生成的嵌入通过精细的亚细胞组织来表示每个细胞，捕获分子表达模式和相关蛋白质的功能特性。通过在亚细胞分辨率下学习细胞表示，我们的框架保留了空间组织的生物信息，同时整合了跨多个分子水平的互补信号。据我们所知，这是第一个在统一跨模态学习范式中，通过联合整合转录组信息、蛋白质序列表示和蛋白质结构知识来生成亚细胞分辨率细胞嵌入的框架。",
+      "thumbnail": null,
+      "published_at": "2026-09-02T09:20:48Z",
+      "extra": {
+        "subsource": "arxiv",
+        "field": "q-bio.GN",
+        "doi": null,
+        "tier": "预印本",
+        "mode": "all",
+        "description": "Existing cell embedding methods predominantly rely on transcriptomic or proteomic measurements and represent each cell as a holistic entity, thereby overlooking the subcellular localization of individual molecules. Moreover, they rarely incorporate protein structural information, despite its fundamental role in determining molecular interactions and functions. In this work, we propose a multimodal framework for learning subcellularly resolved cell embeddings by jointly leveraging RNA expression profiles, protein sequence representations, and protein structural information. Specifically, we employ a cross-attention architecture to integrate transcriptomic, sequence, and structural modalities and model their interactions within distinct subcellular compartments. The resulting embeddings represent each cell through its fine-grained subcellular organization, capturing both molecular expression patterns and the functional properties of the associated proteins. By learning cell representations at subcellular resolution, our framework preserves spatially organized biological information while integrating complementary signals across multiple molecular levels. To the best of our knowledge, this is the first framework that produces subcellularly resolved cell embeddings by jointly incorporating transcriptomic information, protein sequence representations, and protein structural knowledge within a unified cross-modal learning paradigm.",
+        "identifier": "2609.02344",
+        "dedupe_key": "arxiv:2609.02344",
+        "topic_hit": [
+          "单细胞聚类"
+        ],
+        "priority_rank": 0,
+        "keyword_hit": [
+          "attention"
+        ]
+      },
+      "days_on_board": 1,
+      "is_new": false,
+      "rank_delta": -22,
+      "cluster_id": "3d97e0af7e92",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-04T04:46:19.195629+00:00",
+          "rank": 1
+        },
+        {
+          "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 1
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 23
+        }
+      ]
+    },
+    {
+      "source": "papers",
+      "rank": 24,
+      "title": "Confounder-Aware Feature Correction for Single-Cell Batch Integration",
+      "title_zh": "用于单细胞批次整合的混杂因素感知特征校正",
+      "url": "http://arxiv.org/abs/2608.28849v1",
+      "hot_value": null,
+      "summary_zh": "批次整合是单细胞基因组学中的一个核心预处理步骤，其中跨实验、供体和方案收集的数据集必须在普遍的技术批次效应下进行组合。领先的整合方法产生共享的低维嵌入，这丢弃了校正后的基因表达值，而下游差异表达、生物标志物和其他分析依赖于这些值。确实保留基因的特征空间（表达校正）方法通常对齐批次的边际表达分布，从而在批次间细胞类型组成不同时，即批次效应和生物信号混杂时，有抹除真实生物变异的风险。我们将单细胞批次整合重新定义为混杂域适应，并应用ConDo，一种在给定细胞类型注释的情况下匹配条件表达分布而非边际分布的方法。为了将ConDo的成对源到目标适配器扩展到多批次设置，我们引入了一种凝聚性兼容图整合器：批次作为节点，当它们共享一种细胞类型时连接，我们通过拟合一个ConDo适配器，贪心地合并每个得分最高的邻居到不断增长的参考中。在Open Problems批次整合基准上，ConDo是最强的特征空间整合器，",
+      "thumbnail": null,
+      "published_at": "2026-08-28T20:41:24Z",
+      "extra": {
+        "subsource": "arxiv",
+        "field": "q-bio.GN",
+        "doi": null,
+        "tier": "预印本",
+        "mode": "all",
+        "description": "Batch integration is a central preprocessing step in single-cell genomics, where datasets collected across experiments, donors, and protocols must be combined despite pervasive technical batch effects. The leading integration methods produce a shared low-dimensional embedding, which discards the corrected gene-expression values that downstream differential-expression, biomarker, and other analyses depend on. The feature-space (expression-correcting) methods that do preserve genes typically align the marginal expression distributions of batches and thereby risk erasing genuine biological variation whenever cell-type composition differs across batches, i.e. whenever batch effect and biological signal are confounded. We recast single-cell batch integration as confounded domain adaptation and apply ConDo, a method that matches conditional expression distributions given the cell-type annotation rather than marginal distributions. To extend ConDo's pairwise source-to-target adapter to the many-batch setting, we introduce an agglomerative compatibility-graph integrator: batches are nodes connected when they share a cell type, and we greedily merge each best-scoring neighbor into a growing reference by fitting one ConDo adapter. On the Open Problems Batch Integration Benchmark, ConDo is the strongest feature-space integrator, ranking first among feature methods on five of six datasets. Furthermore, it is competitive with or better than deep embedding methods on the overall score, ranking first across all methods on four of six datasets while returning corrected expression rather than an opaque embedding.",
+        "identifier": "2608.28849",
+        "dedupe_key": "arxiv:2608.28849",
+        "topic_hit": [
+          "单细胞聚类",
+          "生物信息"
+        ],
+        "priority_rank": 0,
+        "keyword_hit": [
+          "benchmark"
+        ]
+      },
+      "days_on_board": 1,
+      "is_new": false,
+      "rank_delta": -22,
+      "cluster_id": "32414c80238f",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-04T04:46:19.195629+00:00",
+          "rank": 2
+        },
+        {
+          "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 2
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 24
+        }
+      ]
+    },
+    {
+      "source": "papers",
+      "rank": 25,
       "title": "Uncovering Cellular Resolution in scRNAseq via Unbiased Cell and Gene Network Analysis",
       "title_zh": "通过无偏细胞和基因网络分析揭示scRNAseq中的细胞分辨率",
       "url": "http://arxiv.org/abs/2608.22982v1",
@@ -180,7 +1241,7 @@
       },
       "days_on_board": 3,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": -21,
       "cluster_id": "fdb9bda42835",
       "cluster_size": 1,
       "rank_history": [
@@ -231,12 +1292,16 @@
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
           "rank": 4
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 25
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 5,
+      "rank": 26,
       "title": "Beyond Gene Reconstruction: Learning Cell Representations through Complementary Transcriptomic Views",
       "title_zh": "超越基因重建：通过互补转录组视图学习细胞表示",
       "url": "http://arxiv.org/abs/2608.00985v1",
@@ -264,7 +1329,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": -21,
       "cluster_id": "d0e08f2bfc3b",
       "cluster_size": 1,
       "rank_history": [
@@ -275,53 +1340,16 @@
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
           "rank": 5
-        }
-      ]
-    },
-    {
-      "source": "papers",
-      "rank": 6,
-      "title": "Correction to: scAnno: a deconvolution strategy-based automatic cell type annotation tool for single-cell RNA-sequencing data sets",
-      "title_zh": "更正：scAnno：一种基于反卷积策略的单细胞RNA测序数据集自动细胞类型注释工具",
-      "url": "https://doi.org/10.1093/bib/bbag462",
-      "hot_value": null,
-      "summary_zh": null,
-      "thumbnail": null,
-      "published_at": "2026-09-01",
-      "extra": {
-        "subsource": "crossref",
-        "tier": "英文顶刊",
-        "journal": "Briefings in Bioinformatics",
-        "mode": "filter",
-        "issn": "1477-4054",
-        "doi": "10.1093/bib/bbag462",
-        "description": "",
-        "dedupe_key": "doi:10.1093/bib/bbag462",
-        "topic_hit": [
-          "单细胞聚类"
-        ],
-        "priority_rank": 0,
-        "keyword_hit": []
-      },
-      "days_on_board": 1,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "850fbe258d06",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-04T04:46:19.195629+00:00",
-          "rank": 6
         },
         {
-          "run_at": "2026-09-04T05:15:01.664932+00:00",
-          "rank": 6
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 26
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 7,
+      "rank": 27,
       "title": "Ten simple rules for non-visual, reproducible and accessible bioinformatics",
       "title_zh": "非视觉、可复现和可访问生物信息学的十条简单规则",
       "url": "http://arxiv.org/abs/2608.14400v2",
@@ -347,7 +1375,7 @@
       },
       "days_on_board": 3,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": -20,
       "cluster_id": "0c6af3b8928f",
       "cluster_size": 1,
       "rank_history": [
@@ -398,165 +1426,16 @@
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
           "rank": 7
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 27
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 8,
-      "title": "Balanced DNA interpolation improves learning of genetic distance-informed embeddings in plants",
-      "title_zh": "平衡DNA插值改善植物中遗传距离信息嵌入的学习",
-      "url": "https://doi.org/10.1371/journal.pcbi.1014722",
-      "hot_value": null,
-      "summary_zh": "在分类学研究中，基于系统发育树和结构的遗传数据分析正越来越多地被基于机器学习的识别和表示学习所补充。虽然训练最先进的机器学习模型所需的DNA数据量往往超过生物学研究中实际能收集和测序的量，但样本数量可以通过数据增强人为扩展。遗传数据增强通常指引入随机碱基变异、易位和反向互补。这些增强没有考虑种群和物种的内在结构，可能模糊遗传数据集中实体间的界限。在此，我们提出DNAInterpolator，一种基于给定数据集中DNA序列插值的方法，提供了一种邻域引导的随机突变替代方案。我们使用四个开花植物数据集和一个训练用于预测配对样本间遗传距离的人工神经网络测试了插值作为增强技术。为解决训练数据集中距离分布不均的问题，我们检查了通过筛选插值序列来平衡距离分布的效果。我们发现平衡有助于模型捕获整个距离范围内的遗传距离，通过增强分布中代表性不足区域的性能。我们的新方法利用了分类学DNA数据集在现代机器学习应",
-      "thumbnail": null,
-      "published_at": "2026-09-03",
-      "extra": {
-        "subsource": "crossref",
-        "tier": "英文顶刊",
-        "journal": "PLOS Computational Biology",
-        "mode": "all",
-        "issn": "1553-7358",
-        "doi": "10.1371/journal.pcbi.1014722",
-        "description": "In taxonomic research, traditional phylogenetic tree- and structure-based analyses of genetic data are increasingly complemented by machine-learning-based identification and representation learning. Although the amount of DNA data needed to train state-of-the-art machine learning models often exceeds what can realistically be collected and sequenced in biological studies, the number of samples can be extended artificially through data augmentation. Genetic data augmentation usually refers to the introduction of random base variations, translocations, and reverse complementing. These augmentations do not take into account the inherent structures of populations and species, potentially blurring the lines between entities within genetic datasets. Here, we propose DNAInterpolator, an approach based on interpolation of DNA sequences within a given dataset that presents a neighbor-guided alternative to random mutations. We tested interpolation as an augmentation technique using four flowering plant datasets and an artificial neural network trained to predict genetic distances between paired samples. To address unequally distributed distances within our training datasets, we examined the effect of balancing the distance distribution by curating interpolated sequences. We found that balancing helps models capture genetic distances across the full distance range by strengthening performance in underrepresented regions of the distribution. Our new approach leverages the potential of taxonomic DNA datasets for modern machine learning applications.",
-        "dedupe_key": "doi:10.1371/journal.pcbi.1014722",
-        "topic_hit": [
-          "稀有细胞"
-        ],
-        "priority_rank": 1,
-        "keyword_hit": [
-          "representation learning"
-        ]
-      },
-      "days_on_board": 1,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "b93cca3dde8f",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-04T02:35:41.728138+00:00",
-          "rank": 3
-        },
-        {
-          "run_at": "2026-09-04T02:51:41.206031+00:00",
-          "rank": 3
-        },
-        {
-          "run_at": "2026-09-04T04:46:19.195629+00:00",
-          "rank": 8
-        },
-        {
-          "run_at": "2026-09-04T05:15:01.664932+00:00",
-          "rank": 8
-        }
-      ]
-    },
-    {
-      "source": "papers",
-      "rank": 9,
-      "title": "Speeding up taxonomy in the digital age: A deep learning approach for identifying cryptic freshwater snails",
-      "title_zh": "数字时代加速分类学：一种识别隐秘淡水蜗牛的深度学习方法",
-      "url": "https://doi.org/10.1371/journal.pcbi.1014733",
-      "hot_value": null,
-      "summary_zh": "隐秘物种复合体给生物学家带来根本性挑战，因为物种表现出极小的形态差异，需要整合形态学、遗传学和生物地理学进行识别。在此，我们提出一种深度学习方法，支持淡水蜗牛属Radomaniola（水蜗牛科）的物种识别，这是一个来自巴尔干半岛的形态隐秘群体。我们的方法通过结合壳图像、形态测量和采集地点元数据，并可选地加入系统发育信息，模拟了专家分类学家的整合工作流程。尽管仅用不到700个标本、跨越20个视觉相似且类别大小严重不平衡的物种进行训练，系统仍实现了高识别性能。仔细控制虚假相关性，例如由地点特定成像条件或过于精确的地理元数据引起的相关性，对于确保网络学习生物学有意义的特征至关重要。在所有实验中，整合多种数据类型并联合优化有意义的嵌入和分类，始终优于仅图像和仅分类的基线。在训练期间见过的采集地点标本上，我们实现了宏平均F1分数0.93。尽管在来自未采样地点的标本上评估时降至低至0.14，但通过用2",
-      "thumbnail": null,
-      "published_at": "2026-09-02",
-      "extra": {
-        "subsource": "crossref",
-        "tier": "英文顶刊",
-        "journal": "PLOS Computational Biology",
-        "mode": "all",
-        "issn": "1553-7358",
-        "doi": "10.1371/journal.pcbi.1014733",
-        "description": "Cryptic species complexes pose fundamental challenges to biologists, as species exhibit minimal morphological differences that require integrating morphology, genetics, and biogeography for identification. Here, we present a deep learning approach to support species identification in the freshwater snail genus Radomaniola (Hydrobiidae), a morphologically cryptic group from the Balkans. Our approach mirrors the integrative workflow of expert taxonomists by combining shell images, morphometric measurements, and collection‑site metadata, with optional phylogenetic information. Despite being trained on fewer than 700 specimens across 20 visually similar species with strongly imbalanced class sizes, the system achieved high identification performance. Careful control of spurious correlations, such as those arising from site‑specific imaging conditions or overly precise geographic metadata, was essential to ensure that the network learned biologically meaningful features. Across all experiments, integrating multiple data types and jointly optimizing meaningful embeddings and classification consistently improved performance over image‑only and classification‑only baselines. On specimens from collection sites seen during training we achieved a macro-averaged F1 score of 0.93. Even though this dropped as low as 0.14 when evaluating on specimens from previously unsampled localities, it could be rapidly recovered by retraining with 2–3 newly labeled specimens. Additionally, model top-3 accuracy stayed consistently above 80% in all settings. These results show that relatively lightweight deep learning models can provide practical decision support in real taxonomic workflows.",
-        "dedupe_key": "doi:10.1371/journal.pcbi.1014733",
-        "topic_hit": [
-          "稀有细胞"
-        ],
-        "priority_rank": 1,
-        "keyword_hit": [
-          "deep learning"
-        ]
-      },
-      "days_on_board": 1,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "b43c83bec621",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-04T02:35:41.728138+00:00",
-          "rank": 4
-        },
-        {
-          "run_at": "2026-09-04T02:51:41.206031+00:00",
-          "rank": 4
-        },
-        {
-          "run_at": "2026-09-04T04:46:19.195629+00:00",
-          "rank": 9
-        },
-        {
-          "run_at": "2026-09-04T05:15:01.664932+00:00",
-          "rank": 9
-        }
-      ]
-    },
-    {
-      "source": "papers",
-      "rank": 10,
-      "title": "GPCR-GO: Relation-aware graph learning for predicting Gene Ontology terms of G protein-coupled receptors",
-      "title_zh": "GPCR-GO：关系感知图学习预测G蛋白偶联受体的基因本体术语",
-      "url": "https://doi.org/10.1371/journal.pcbi.1014718",
-      "hot_value": null,
-      "summary_zh": "G蛋白偶联受体（GPCR）是核心膜受体和主要治疗靶点。然而，预测GPCR功能仍然困难，因为实验注释的受体稀缺，功能标签呈长尾分布，且结构信息仍未充分利用。在此，我们提出GPCR-GO，一种关系感知异构图注意力框架，整合结构相似性与蛋白质-蛋白质相互作用（PPI）。GPCR-GO使用蛋白质二级结构词典（DSSP）将三维蛋白质结构转化为残基级结构描述符，聚合这些描述符为蛋白质级结构向量，并使用所得向量定义结构相似性边。该框架构建了一个异构图，通过PPI边、结构相似性边、GO层级边和已审阅的蛋白质-GO注释连接蛋白质和基因本体（GO）术语。关系感知图注意力聚合互补生物信号，而图分解、硬负挖掘和半监督学习在稀疏监督和类别不平衡下改善学习。在保留的GPCR测试分割上，GPCR-GO优于现有方法，在生物过程（BP）、细胞组分（CC）和分子功能（MF）上分别达到F分数（Fmax）0.514、0.767和",
-      "thumbnail": null,
-      "published_at": "2026-08-28",
-      "extra": {
-        "subsource": "crossref",
-        "tier": "英文顶刊",
-        "journal": "PLOS Computational Biology",
-        "mode": "all",
-        "issn": "1553-7358",
-        "doi": "10.1371/journal.pcbi.1014718",
-        "description": "G protein-coupled receptors (GPCRs) are central membrane receptors and major therapeutic targets. However, predicting GPCR function remains difficult because experimentally annotated receptors are scarce, functional labels follow a long-tailed distribution, and structural information remains underused. Here, we present GPCR-GO, a relation-aware heterogeneous graph attention framework that integrates structural similarity with protein-protein interactions (PPIs). GPCR-GO uses the Dictionary of Protein Secondary Structure (DSSP) to transform three-dimensional protein structures into residue-level structural descriptors, aggregates these descriptors into protein-level structural vectors, and uses the resulting vectors to define structural-similarity edges. The framework builds a heterogeneous graph linking proteins and Gene Ontology (GO) terms through PPI edges, structural-similarity edges, GO hierarchy edges, and reviewed protein–GO annotations. Relation-aware graph attention aggregates complementary biological signals, whereas graph decomposition, hard negative mining, and semi-supervised learning improve learning under sparse supervision and class imbalance. On the held-out GPCR test split, GPCR-GO outperforms existing methods and achieves F-score (Fmax) values of 0.514, 0.767, and 0.631 on biological process (BP), cellular component (CC), and molecular function (MF), respectively. These results show that structure-derived relations complement curated annotation and support accurate GPCR function prediction under limited supervision.",
-        "dedupe_key": "doi:10.1371/journal.pcbi.1014718",
-        "topic_hit": [
-          "稀有细胞"
-        ],
-        "priority_rank": 1,
-        "keyword_hit": [
-          "attention"
-        ]
-      },
-      "days_on_board": 1,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "b8913c251b92",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-04T02:35:41.728138+00:00",
-          "rank": 5
-        },
-        {
-          "run_at": "2026-09-04T02:51:41.206031+00:00",
-          "rank": 5
-        },
-        {
-          "run_at": "2026-09-04T04:46:19.195629+00:00",
-          "rank": 10
-        },
-        {
-          "run_at": "2026-09-04T05:15:01.664932+00:00",
-          "rank": 10
-        }
-      ]
-    },
-    {
-      "source": "papers",
-      "rank": 11,
+      "rank": 28,
       "title": "Bayes-Optimal BER and AUC: Estimation and Evaluation of Estimators",
       "title_zh": "贝叶斯最优 BER 和 AUC：估计与评估方法",
       "url": "http://arxiv.org/abs/2609.02304v1",
@@ -581,7 +1460,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": -17,
       "cluster_id": "0c186c9ebfbf",
       "cluster_size": 1,
       "rank_history": [
@@ -596,12 +1475,16 @@
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
           "rank": 11
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 28
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 12,
+      "rank": 29,
       "title": "PopPert: Population-level Joint-Distribution Modeling for Single-Cell Perturbation Prediction",
       "title_zh": "PopPert：单细胞扰动预测的群体水平联合分布建模",
       "url": "http://arxiv.org/abs/2609.01357v1",
@@ -628,7 +1511,7 @@
       },
       "days_on_board": 3,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": -17,
       "cluster_id": "caa352dea638",
       "cluster_size": 1,
       "rank_history": [
@@ -679,166 +1562,16 @@
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
           "rank": 12
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 29
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 13,
-      "title": "AResKGLM: a graph-grounded language-model framework for interpretable multi-hop antimicrobial resistance reasoning",
-      "title_zh": "AResKGLM：一种图接地语言模型框架，用于可解释的多跳抗菌素耐药性推理",
-      "url": "https://doi.org/10.1093/bib/bbag456",
-      "hot_value": null,
-      "summary_zh": "摘要 抗菌素耐药性（AMR）威胁微生物学和微生物组生物信息学，因为耐药表型由微生物群落中基因、移动遗传元件和功能环境间的相互作用塑造。优先排序耐药决定因素需要模型跨知识图谱（KG）推理，连接基因、蛋白质、途径、药物和微生物表型。现有基于图的方法将这些证据压缩为标量分数，而大型语言模型能产生不基于结构化证据的解释。我们开发了AResKGLM（抗菌素耐药性知识图谱语言模型），一种图接地语言模型框架，用于可解释的微生物AMR生物信息学，将广度优先搜索检索的多跳路径和每实体生物医学描述序列化为结构化上下文-路径-问题提示。Llama-3-8B和DeepSeek-R1-7B通过QLoRA适应，产生二元链接预测和简洁推理轨迹。在KIDs基准上，AResKGLM（Llama-3-8B）达到F1=0.8482，优于KG-BERT（0.7213）、NBFNet（0.5260）和ULTRA（0.2541）（配",
-      "thumbnail": null,
-      "published_at": "2026-09-01",
-      "extra": {
-        "subsource": "crossref",
-        "tier": "英文顶刊",
-        "journal": "Briefings in Bioinformatics",
-        "mode": "filter",
-        "issn": "1477-4054",
-        "doi": "10.1093/bib/bbag456",
-        "description": "Abstract Antimicrobial resistance (AMR) threatens microbiology and microbiome bioinformatics because resistance phenotypes are shaped by interactions among genes, mobile genetic elements, and functional environments across microbial communities. Prioritizing resistance determinants requires models that reason across knowledge graphs (KGs) linking genes, proteins, pathways, drugs, and microbial phenotypes. Existing graph-based methods compress this evidence into scalar scores, whereas large language models can produce explanations not grounded in structured evidence. We developed AResKGLM (Antimicrobial Resistance Knowledge Graph Language Model), a graph-grounded language-model framework for interpretable microbial AMR bioinformatics that serializes breadth-first-search-retrieved multi-hop paths and per-entity biomedical descriptions into a structured Context–Path–Question prompt. Llama-3-8B and DeepSeek-R1-7B are adapted with QLoRA to produce binary link predictions and concise reasoning traces. On the KIDs benchmark, AResKGLM (Llama-3-8B) achieved F1 = 0.8482, outperforming KG-BERT (0.7213), NBFNet (0.5260), and ULTRA (0.2541) (paired Wilcoxon $p = 1.2 \\times 10^{-7}$). Its advantage increased with reasoning depth: F1 decreased from 0.9197 at 2 hops to 0.8148 at 6 hops, whereas KG-BERT dropped from 0.8110 to 0.6716. Counterfactual path corruption produced an apparent F1 of 0.000, mechanically forced by the probe label assignment; the operative diagnostic is the per-sample flip rate (0.04–0.16), consistent with sensitivity to supplied biological evidence rather than reliance on pretrained priors alone. Cross-species evaluation yielded F1 = 0.81–0.88 with Matthews correlation coefficient (MCC) = 0.35–0.54 on Mycobacterium tuberculosis, Pseudomonas aeruginosa, and Staphylococcus aureus. Temporal ranking of 81 post-2022 gene–drug associations achieved Precision@20 = 100% and AUC-PR = 0.855. AResKGLM offers an interpretable, reproducible framework for multi-hop AMR reasoning, linking candidate prioritization with mechanism-oriented hypothesis generation.",
-        "dedupe_key": "doi:10.1093/bib/bbag456",
-        "topic_hit": [
-          "生物信息"
-        ],
-        "priority_rank": 2,
-        "keyword_hit": [
-          "benchmark"
-        ]
-      },
-      "days_on_board": 1,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "89124a9a4ebc",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-04T02:35:41.728138+00:00",
-          "rank": 6
-        },
-        {
-          "run_at": "2026-09-04T02:51:41.206031+00:00",
-          "rank": 7
-        },
-        {
-          "run_at": "2026-09-04T04:46:19.195629+00:00",
-          "rank": 13
-        },
-        {
-          "run_at": "2026-09-04T05:15:01.664932+00:00",
-          "rank": 13
-        }
-      ]
-    },
-    {
-      "source": "papers",
-      "rank": 14,
-      "title": "ASPIRE: Accurate alternative splicing prediction from limited RNA sequencing data and a minimal gene set",
-      "title_zh": "ASPIRE：从有限RNA测序数据和最小基因集进行准确的可变剪接预测",
-      "url": "https://doi.org/10.1371/journal.pcbi.1014725",
-      "hot_value": null,
-      "summary_zh": "可变剪接是增加蛋白质多样性并调节真核生物关键细胞过程的基本生物机制。剪接失调与多种疾病相关，包括癌症、神经疾病和自身免疫疾病。准确预测剪接指标如剪接百分比（PSI）因此对理解剪接调控和改善疾病特征化至关重要。然而，现有方法通常需要高测序深度，因此不适合低覆盖设置如单细胞RNA测序，其中稀疏读数计数限制可靠剪接分析。在此，我们提出ASPIRE（从有限RNA测序进行准确剪接预测），一种深度学习框架，从低深度RNA-seq基因表达数据预测可变剪接指标。ASPIRE从有限读数覆盖的基因表达谱推断PSI值，并整合嵌入式特征选择机制，识别与剪接调控相关的少量信息性基因子集。这种设计实现准确预测，同时减少对广泛测序的依赖，并减轻无关或弱信息基因引入的噪声。通过关注生物学有意义的特征，包括RNA结合蛋白，ASPIRE即使在单细胞转录组学典型条件下也保持强预测性能。我们证明ASPIRE在一系列测序深度（包括",
-      "thumbnail": null,
-      "published_at": "2026-08-28",
-      "extra": {
-        "subsource": "crossref",
-        "tier": "英文顶刊",
-        "journal": "PLOS Computational Biology",
-        "mode": "all",
-        "issn": "1553-7358",
-        "doi": "10.1371/journal.pcbi.1014725",
-        "description": "Alternative splicing is a fundamental biological mechanism that increases protein diversity and regulates critical cellular processes across eukaryotes. Dysregulation of splicing is implicated in a wide range of diseases, including cancer, neurological disorders, and autoimmune conditions. Accurate prediction of splicing metrics such as percent spliced in (PSI) is therefore essential for understanding splicing regulation and improving disease characterization. However, existing approaches typically require high sequencing depth and are thus poorly suited for low-coverage settings such as single-cell RNA sequencing, where sparse read counts limit reliable splicing analysis. Here, we present ASPIRE (Accurate Splicing Prediction from Limited RNA Sequencing), a deep learning framework for predicting alternative splicing metrics from low-depth RNA-seq gene expression data. ASPIRE infers PSI values from gene expression profiles with limited read coverage and incorporates an embedded feature selection mechanism that identifies a minimal, informative subset of genes relevant to splicing regulation. This design enables accurate prediction while reducing reliance on extensive sequencing and mitigating noise introduced by irrelevant or weakly informative genes. By focusing on biologically meaningful features, including RNA-binding proteins, ASPIRE maintains strong predictive performance even under conditions typical of single-cell transcriptomics. We demonstrate that ASPIRE accurately predicts PSI values across a range of sequencing depths, including those characteristic of single-cell RNA-seq, and performs comparably to or better than existing methods in both simulated and real datasets. By enabling robust expression-based splicing inference from sparse data, ASPIRE facilitates the study of alternative splicing at cellular resolution and provides a practical framework for investigating splicing regulation in development, disease, and heterogeneous cell populations.",
-        "dedupe_key": "doi:10.1371/journal.pcbi.1014725",
-        "topic_hit": [
-          "生物信息"
-        ],
-        "priority_rank": 2,
-        "keyword_hit": [
-          "deep learning"
-        ]
-      },
-      "days_on_board": 1,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "a63b88dc1d4e",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-04T02:35:41.728138+00:00",
-          "rank": 7
-        },
-        {
-          "run_at": "2026-09-04T02:51:41.206031+00:00",
-          "rank": 8
-        },
-        {
-          "run_at": "2026-09-04T04:46:19.195629+00:00",
-          "rank": 14
-        },
-        {
-          "run_at": "2026-09-04T05:15:01.664932+00:00",
-          "rank": 14
-        }
-      ]
-    },
-    {
-      "source": "papers",
-      "rank": 15,
-      "title": "iDCF: Interpretable deconvolution of cell fractions via biologically-informed deep learning using scRNA-seq data",
-      "title_zh": "iDCF：通过生物信息深度学习和scRNA-seq数据进行细胞分数的可解释反卷积",
-      "url": "https://doi.org/10.1371/journal.pcbi.1014727",
-      "hot_value": null,
-      "summary_zh": "精确解析复杂组织内的细胞异质性对于从批量转录组谱中解读疾病病因至关重要。虽然计算反卷积提供可扩展替代方案，但当前深度学习方法主要作为“黑箱”运行，忽视生物定律的结构约束。这种对纯数据驱动特征提取的依赖常产生生物学不一致的预测和有限的机制可解释性。iDCF（可解释细胞分数反卷积）是一种新框架，将生物拓扑强制到深度神经网络上。iDCF架构采用双流设计，协同标准深度网络与由途径定义和蛋白质-蛋白质相互作用（PPI）网络显式掩蔽的基于知识的稀疏神经网络（KSNN）。在全面基准测试中，iDCF达到顶级性能，在准确性和稳健性上始终排名于最先进方法中。iDCF整合SHapley加性解释（SHAP）框架，弥合计算推断与生物直觉间的差距。模型决策逻辑由既定生物机制而非虚假统计相关性主导，验证其可靠性。跨临床背景验证，包括阿尔茨海默病、卵巢癌和糖尿病，证明iDCF恢复疾病相关细胞动态的能力。iDCF为反卷积细",
-      "thumbnail": null,
-      "published_at": "2026-08-27",
-      "extra": {
-        "subsource": "crossref",
-        "tier": "英文顶刊",
-        "journal": "PLOS Computational Biology",
-        "mode": "all",
-        "issn": "1553-7358",
-        "doi": "10.1371/journal.pcbi.1014727",
-        "description": "Precise resolution of cellular heterogeneity within complex tissues is fundamental to deciphering disease etiologies from bulk transcriptomic profiles. While computational deconvolution offers a scalable alternative, current deep learning methods predominantly operate as “black boxes,” neglecting the structural constraints of biological laws. This reliance on purely data-driven feature extraction often yields biologically incoherent predictions and limited mechanistic interpretability. iDCF ( I nterpretable D econvolution of C ell F ractions) is a novel framework that enforces biological topology onto deep neural networks. The iDCF architecture employs a dual-stream design, synergizing a standard deep network with a knowledge-based sparse neural network (KSNN) explicitly masked by pathway definitions and protein-protein interaction (PPI) networks. In comprehensive benchmarks, iDCF achieves top-tier performance, consistently ranking among state-of-the-art methods in accuracy and robustness. iDCF integrates the SHapley Additive exPlanations (SHAP) framework, bridging the gap between computational inference and biological intuition. The model’s decision logic is governed by established biological mechanisms rather than spurious statistical correlations, validating its reliability. Validations across clinical contexts, including Alzheimer’s disease, ovarian cancer, and diabetes, demonstrate iDCF’s ability to recover disease-relevant cellular dynamics. iDCF offers a high-performance, interpretable, and biologically grounded tool for deconvolving cell-type proportions, facilitating deeper insights into tissue heterogeneity in health and disease.",
-        "dedupe_key": "doi:10.1371/journal.pcbi.1014727",
-        "topic_hit": [
-          "生物信息"
-        ],
-        "priority_rank": 2,
-        "keyword_hit": [
-          "deep learning",
-          "benchmark"
-        ]
-      },
-      "days_on_board": 1,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "bd528d98601e",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-04T02:35:41.728138+00:00",
-          "rank": 8
-        },
-        {
-          "run_at": "2026-09-04T02:51:41.206031+00:00",
-          "rank": 9
-        },
-        {
-          "run_at": "2026-09-04T04:46:19.195629+00:00",
-          "rank": 15
-        },
-        {
-          "run_at": "2026-09-04T05:15:01.664932+00:00",
-          "rank": 15
-        }
-      ]
-    },
-    {
-      "source": "papers",
-      "rank": 16,
+      "rank": 30,
       "title": "Learning Interpretable Tumor Microenvironment Representations by Fitting Pan-Cancer Cell State-Niche Correlation",
       "title_zh": "通过拟合泛癌细胞状态-生态位相关性学习可解释的肿瘤微环境表示",
       "url": "http://arxiv.org/abs/2608.26208v1",
@@ -866,7 +1599,7 @@
       },
       "days_on_board": 3,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": -14,
       "cluster_id": "d60e5fdf96ab",
       "cluster_size": 1,
       "rank_history": [
@@ -917,64 +1650,16 @@
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
           "rank": 16
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 30
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 17,
-      "title": "Multi-task deep learning for risk stratification and shared molecular architecture of cardiometabolic multimorbidity under fragmented multi-omics",
-      "title_zh": "多任务深度学习用于碎片化多组学下心脏代谢多发病的风险分层和共享分子架构",
-      "url": "https://doi.org/10.1186/s12859-026-06614-w",
-      "hot_value": null,
-      "summary_zh": "摘要 心脏代谢多发病（CMM）反映互连生理网络的系统性失败，然而基于宏观临床表型的当前风险分层方法留下大量未解决的分子残余风险。虽然多组学整合提供捕获这种潜在脆弱性的手段，但其人群规模应用受限于蛋白质组和代谢组数据的普遍碎片化和非重叠可用性。在此，我们开发多组学感知器用于生存（MOP-Surv），一种深度学习框架，设计通过动态注意力掩蔽和多任务生存学习适应不完整多组学谱而无需插补。应用于297,067名英国生物银行参与者，MOP-Surv在六个心脏代谢终点实现一致风险分层，并提供适度增量预测价值。超越预测，MOP-Surv识别跨终点预后关联的层级结构，并突出包括GDF15、EDA2R和WFDC2在内的简约生物标志物集，在多样疾病轨迹中具有一致预后相关性。因此，MOP-Surv为整合碎片化多组学数据提供实用方法，以表征心脏代谢结果中的共享预后模式。",
-      "thumbnail": null,
-      "published_at": "2026-08-24",
-      "extra": {
-        "subsource": "crossref",
-        "tier": "英文顶刊",
-        "journal": "BMC Bioinformatics",
-        "mode": "all",
-        "issn": "1471-2105",
-        "doi": "10.1186/s12859-026-06614-w",
-        "description": "Abstract Cardiometabolic multimorbidity (CMM) reflects a systemic failure of interconnected physiological networks, yet current risk stratification approaches based on macroscopic clinical phenotypes leave substantial molecular residual risk unresolved. Although multi-omics integration offers a means to capture this latent vulnerability, its population-scale application is limited by pervasive fragmentation and non-overlapping availability of proteomic and metabolomic data. Here, we develop the Multi-Omics Perceiver for Survival (MOP-Surv), a deep learning framework designed to accommodate incomplete multi-omics profiles without imputation through dynamic attention masking and multi-task survival learning. Applied to 297,067 UK Biobank participants, MOP-Surv achieved consistent risk stratification across six cardiometabolic endpoints and provided modest incremental predictive value. Beyond prediction, MOP-Surv identified a hierarchical structure of cross-endpoint prognostic associations and highlighted a parsimonious set of biomarkers including GDF15, EDA2R, and WFDC2 with consistent prognostic relevance across diverse disease trajectories. Therefore MOP-Surv provides a practical approach for integrating fragmented multi-omics data to characterize shared prognostic patterns across cardiometabolic outcomes.",
-        "dedupe_key": "doi:10.1186/s12859-026-06614-w",
-        "topic_hit": [
-          "生物信息"
-        ],
-        "priority_rank": 2,
-        "keyword_hit": [
-          "deep learning",
-          "attention"
-        ]
-      },
-      "days_on_board": 1,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "3386f62c4e9b",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-04T02:35:41.728138+00:00",
-          "rank": 9
-        },
-        {
-          "run_at": "2026-09-04T02:51:41.206031+00:00",
-          "rank": 10
-        },
-        {
-          "run_at": "2026-09-04T04:46:19.195629+00:00",
-          "rank": 17
-        },
-        {
-          "run_at": "2026-09-04T05:15:01.664932+00:00",
-          "rank": 17
-        }
-      ]
-    },
-    {
-      "source": "papers",
-      "rank": 18,
+      "rank": 31,
       "title": "scDNM-VAE enables directly inspectable deep clustering of single-cell RNA-seq data through signed dendritic gating",
       "title_zh": "scDNM-VAE：通过符号树突门控实现单细胞RNA-seq数据的直接可检查深度聚类",
       "url": "http://arxiv.org/abs/2608.17228v1",
@@ -1003,7 +1688,7 @@
       },
       "days_on_board": 3,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": -13,
       "cluster_id": "94823f2deee4",
       "cluster_size": 1,
       "rank_history": [
@@ -1054,12 +1739,16 @@
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
           "rank": 18
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 31
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 19,
+      "rank": 32,
       "title": "CosMAP: Contrastive Manifold Approximation and Projection for Dimensionality Reduction of Omics and Genealogical Data",
       "title_zh": "CosMAP：用于组学和谱系数据降维的对比流形逼近与投影",
       "url": "http://arxiv.org/abs/2608.11269v1",
@@ -1086,7 +1775,7 @@
       },
       "days_on_board": 3,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": -13,
       "cluster_id": "2f6705ea626b",
       "cluster_size": 1,
       "rank_history": [
@@ -1137,12 +1826,16 @@
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
           "rank": 19
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 32
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 20,
+      "rank": 33,
       "title": "VOICE: A Vision-Omics Foundation Model Integrating Direct and Retrieval-Based Prediction of In-situ Single-Cell Gene Expression",
       "title_zh": "VOICE：一种整合直接与检索式原位单细胞基因表达预测的视觉-组学基础模型",
       "url": "http://arxiv.org/abs/2608.08366v1",
@@ -1170,7 +1863,7 @@
       },
       "days_on_board": 3,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": -13,
       "cluster_id": "cde926246260",
       "cluster_size": 1,
       "rank_history": [
@@ -1221,533 +1914,16 @@
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
           "rank": 20
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 33
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 21,
-      "title": "AlignMarkers: an original pipeline for placing molecular markers on physical sequences",
-      "title_zh": "AlignMarkers：一种将分子标记定位到物理序列上的原创流程",
-      "url": "https://doi.org/10.1186/s12859-026-06582-1",
-      "hot_value": null,
-      "summary_zh": "摘要 背景 基因组测序和组装的持续进展，加上长读长基因组序列和高品质分子标记（基于单核苷酸多态性（SNP）和插入缺失（indel））的日益丰富资源，要求准确方法轻松、精确且即时地确定跨基因组版本的标记位置。这对基因分型阵列开发和更新等应用尤为重要。然而，现有工具通常需要分子标记的相关参考基因组，且当无此类参考基因组时，需额外适应来映射这些标记的短上下文序列。为克服这些限制，我们的目标是开发原创流程。结果 AlignMarkers是一个稳健的生物信息学流程，设计使用序列比对准确地将分子标记放置在基因组组装上，无需参考基因组上初始位置信息。它也能操作基于坐标的文件进行类似liftover的分析，在无法生成基因组间比对时提供替代方案。它接受多种输入文件格式（VCF、BED、FASTA、CSV），并优化用于≥100碱基对的序列。当仅提供坐标时，检索上下文序列，然后使用Minimap2比对到目标基因",
-      "thumbnail": null,
-      "published_at": "2026-08-06",
-      "extra": {
-        "subsource": "crossref",
-        "tier": "英文顶刊",
-        "journal": "BMC Bioinformatics",
-        "mode": "all",
-        "issn": "1471-2105",
-        "doi": "10.1186/s12859-026-06582-1",
-        "description": "Abstract Background Continuous progress in genome sequencing and assembly, coupled with the growing availability of massive resources of long-read genomic sequences and high-quality molecular markers, based on single nucleotide polymorphisms (SNPs) and insertions-deletions (indels), demands accurate methods to easily, accurately and readily determine marker positions across genome versions. This is particularly important for applications such as development and updating of genotyping array. However, existing tools often require an associated reference genome for the molecular markers and additional adaptations are needed to map the short context sequences of these markers when no such reference genome is available. To overcome these limitations, our aim was to develop an original pipeline. Results AlignMarkers is a robust bioinformatics pipeline designed to accurately place molecular markers on genome assemblies without requiring information on initial positions on a reference genome, using sequence alignment. It can also operate on coordinate-based files to perform liftover-like analyses, providing an alternative when genome-to-genome alignments could not be generated. It accepts multiple input file formats (VCF, BED, FASTA, CSV) and is optimized for sequences of ≥ 100 base pairs. Context sequences are retrieved, when only coordinates are provided, and then aligned to target genomes using Minimap2, followed by a stringent filtering process ensuring alignment uniqueness, high sequence identity, and verification of the expected nucleotide. AlignMarkers is built with Nextflow and Python and integrates established tools such as Minimap2, Samtools, and Bedtools. It generates comprehensive reports and visualizations to facilitate result interpretation. We evaluated AlignMarkers using 80,000 randomly selected positions across the version 2 Pisum sativum genome assembly of cultivar Cameor, showing that increasing flanking sequence length improves placement accuracy and reduces multimapping, especially in repeat-rich regions. We further benchmarked AlignMarkers on 100,000 Solanum lycopersicum SNPs and indels against CrossMap and bcftools/liftover, showing high concordance in the outputs of all tools. These results demonstrate the robustness and reliability of the pipeline when used with different marker resources. Conclusion AlignMarkers is a reliable and user-friendly solution for transferring marker positions. It supports multiple applications and facilitates the management of large sets of molecular markers for various purposes, including the construction of genotyping platforms.",
-        "dedupe_key": "doi:10.1186/s12859-026-06582-1",
-        "topic_hit": [
-          "生物信息"
-        ],
-        "priority_rank": 2,
-        "keyword_hit": [
-          "benchmark"
-        ]
-      },
-      "days_on_board": 1,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "593f0b109aef",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-04T02:35:41.728138+00:00",
-          "rank": 10
-        },
-        {
-          "run_at": "2026-09-04T02:51:41.206031+00:00",
-          "rank": 11
-        },
-        {
-          "run_at": "2026-09-04T04:46:19.195629+00:00",
-          "rank": 21
-        },
-        {
-          "run_at": "2026-09-04T05:15:01.664932+00:00",
-          "rank": 21
-        }
-      ]
-    },
-    {
-      "source": "papers",
-      "rank": 22,
-      "title": "Topological potentials guiding protein self-assembly",
-      "title_zh": "拓扑势引导蛋白质自组装",
-      "url": "https://doi.org/10.1371/journal.pcbi.1014709",
-      "hot_value": null,
-      "summary_zh": "将分子构建块模拟组装成功能复合物是计算生物学和材料科学的核心。由短程非极性相互作用驱动的蛋白质组装模拟原则上能达到其生物学正确结构，但崎岖能量景观常将模拟困在非功能局部最小值。我们引入长程拓扑势，通过加权总持久性量化，并将其与形态测量方法结合用于溶剂化自由能。在四个蛋白质系统中，这种组合将组装成功率提高多达十六倍，并在否则失败的情况下实现组装。与先前基于拓扑的方法不同，我们的方法使用拓扑度量作为主动能量偏置而非描述工具。仅依赖原子几何，该方法原则上扩展到其他自组装系统，提供克服分子模拟中动力学障碍的通用策略。",
-      "thumbnail": null,
-      "published_at": "2026-09-03",
-      "extra": {
-        "subsource": "crossref",
-        "tier": "英文顶刊",
-        "journal": "PLOS Computational Biology",
-        "mode": "all",
-        "issn": "1553-7358",
-        "doi": "10.1371/journal.pcbi.1014709",
-        "description": "The simulated assembly of molecular building blocks into functional complexes is central to computational biology and materials science. Protein-assembly simulations, driven by short-range nonpolar interactions, can in principle reach their biologically correct structures, but rugged energy landscapes often trap simulations in non-functional local minima. We introduce a long-range topological potential, quantified by weighted total persistence, and combine it with the morphometric approach to solvation free energy. Across four protein systems, this combination increases assembly success rates by up to sixteen-fold and enables assembly in cases that otherwise fail. Unlike previous topology-based approaches, our method uses topological measures as an active energetic bias rather than a descriptive tool. Depending only on atom geometry, the method extends in principle to other self-assembling systems, offering a general strategy for overcoming kinetic barriers in molecular simulations.",
-        "dedupe_key": "doi:10.1371/journal.pcbi.1014709",
-        "topic_hit": [
-          "生物信息"
-        ],
-        "priority_rank": 2,
-        "keyword_hit": []
-      },
-      "days_on_board": 1,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "d1da7bf5dcd8",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-04T02:35:41.728138+00:00",
-          "rank": 11
-        },
-        {
-          "run_at": "2026-09-04T02:51:41.206031+00:00",
-          "rank": 13
-        },
-        {
-          "run_at": "2026-09-04T04:46:19.195629+00:00",
-          "rank": 22
-        },
-        {
-          "run_at": "2026-09-04T05:15:01.664932+00:00",
-          "rank": 22
-        }
-      ]
-    },
-    {
-      "source": "papers",
-      "rank": 23,
-      "title": "Amplification bias in sequencing-based spatial transcriptomics: sources, mechanisms, impacts, and mitigation strategies",
-      "title_zh": "基于测序的空间转录组中的扩增偏差：来源、机制、影响和缓解策略",
-      "url": "https://doi.org/10.1093/bib/bbag465",
-      "hot_value": null,
-      "summary_zh": "摘要 空间转录组学（ST）已成为在空间组织背景下分析基因表达的有力方法；然而，其定量准确性仍受到复杂文库制备过程中引入的扩增偏差的严重影响。这些偏差在多个阶段出现并在整个实验流程中累积，扭曲转录本丰度，降低检测灵敏度，并最终混淆下游空间分析。本综述系统分析了ST中的扩增偏差。我们研究了输入模板、寡核苷酸组分特性、酶学性质和实验条件如何共同导致扩增偏差，并讨论了这些因素如何在流程中传播以在数据中产生系统性扭曲。我们进一步回顾并批判性比较了现有的缓解策略，涵盖实验优化和计算方法，并提出了一个实用的决策框架，用于根据平台类型、样本质量和RNA输入水平选择扩增偏差缓解策略。最后，我们概述了关键挑战和未来方向，强调需要联合考虑实验设计和计算建模的集成解决方案。这项工作为提高ST中的数据保真度和解释提供了实用指导。",
-      "thumbnail": null,
-      "published_at": "2026-09-01",
-      "extra": {
-        "subsource": "crossref",
-        "tier": "英文顶刊",
-        "journal": "Briefings in Bioinformatics",
-        "mode": "filter",
-        "issn": "1477-4054",
-        "doi": "10.1093/bib/bbag465",
-        "description": "Abstract Spatial transcriptomics (ST) has emerged as a powerful approach for profiling gene expression in spatial tissue context; yet, its quantitative accuracy remains substantially compromised by amplification bias introduced during the complex library preparation process. These biases arise at multiple stages and accumulate throughout the experimental workflow, distorting transcript abundance, reducing detection sensitivity, and ultimately confounding downstream spatial analyses. This review systematically analyzes amplification bias in ST. We examine how input templates, oligonucleotide components characteristics, enzymatic properties, and experimental conditions collectively contribute to amplification bias, and discuss how these factors propagate through the workflow to generate systematic distortions in data. We further review and critically compare existing strategies for mitigation, encompassing both experimental optimizations and computational approaches and propose a practical decision framework for selecting amplification-bias mitigation strategies according to platform type, sample quality, and RNA input levels. Finally, we outline key challenges and future directions, emphasizing the need for integrative solutions that jointly consider experimental design and computational modeling. This work provides practical guidance for improving data fidelity and interpretation in ST.",
-        "dedupe_key": "doi:10.1093/bib/bbag465",
-        "topic_hit": [
-          "生物信息"
-        ],
-        "priority_rank": 2,
-        "keyword_hit": []
-      },
-      "days_on_board": 1,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "f3a7b099c00e",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-04T04:46:19.195629+00:00",
-          "rank": 23
-        },
-        {
-          "run_at": "2026-09-04T05:15:01.664932+00:00",
-          "rank": 23
-        }
-      ]
-    },
-    {
-      "source": "papers",
-      "rank": 24,
-      "title": "Model Context Protocol: The unexpected catalyst of a bioinformatics interoperability revolution",
-      "title_zh": "模型上下文协议：生物信息学互操作性革命的意外催化剂",
-      "url": "https://doi.org/10.1371/journal.pcbi.1014543",
-      "hot_value": null,
-      "summary_zh": null,
-      "thumbnail": null,
-      "published_at": "2026-08-31",
-      "extra": {
-        "subsource": "crossref",
-        "tier": "英文顶刊",
-        "journal": "PLOS Computational Biology",
-        "mode": "all",
-        "issn": "1553-7358",
-        "doi": "10.1371/journal.pcbi.1014543",
-        "description": "",
-        "dedupe_key": "doi:10.1371/journal.pcbi.1014543",
-        "topic_hit": [
-          "生物信息"
-        ],
-        "priority_rank": 2,
-        "keyword_hit": []
-      },
-      "days_on_board": 1,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "1b8ec5a2725a",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-04T02:35:41.728138+00:00",
-          "rank": 13
-        },
-        {
-          "run_at": "2026-09-04T02:51:41.206031+00:00",
-          "rank": 15
-        },
-        {
-          "run_at": "2026-09-04T04:46:19.195629+00:00",
-          "rank": 24
-        },
-        {
-          "run_at": "2026-09-04T05:15:01.664932+00:00",
-          "rank": 24
-        }
-      ]
-    },
-    {
-      "source": "papers",
-      "rank": 25,
-      "title": "Integrated multi-omics reveals epigenetic regulation of beef color by the HMOX2 gene",
-      "title_zh": "整合多组学揭示HMOX2基因对牛肉颜色的表观遗传调控",
-      "url": "https://doi.org/10.1186/s12864-026-13308-3",
-      "hot_value": null,
-      "summary_zh": "摘要 背景 肉色是决定消费者购买决策的主要鲜肉品质属性。基于我们先前发现散栏饲养牛产生比拴系饲养牛更深的半腱肌（较低CIE L*），我们旨在阐明这种饲养系统诱导的肉色亮度差异的分子机制。方法 新疆褐牛被分配到拴系或散栏饲养组，其日常身体活动通过智能项圈连续量化。采用整合多组学策略，结合转录组学、非靶向代谢组学和简化代表性亚硫酸盐测序，描绘浅色和深色肉色表型牛间的差异。关键候选基因通过实时定量PCR、蛋白质印迹和亚硫酸盐扩增子测序进一步验证。结果 我们的分析显示，经历受限运动（3.61小时/天对比6.76小时/天）和较差动物福利条件的拴系牛，与散栏牛相比显示显著转录变化。具体而言，与血红素氧化（HMOX1和HMOX2）和错误折叠蛋白结合（DNAJB9）相关的基因显著上调，而与趋化因子活性（CCL21和CXCL10）相关的基因下调。此外，胰岛素抵抗途径基因（IRS2、PPARGC1A和SOCS",
-      "thumbnail": null,
-      "published_at": "2026-08-27",
-      "extra": {
-        "subsource": "crossref",
-        "tier": "英文顶刊",
-        "journal": "BMC Genomics",
-        "mode": "filter",
-        "issn": "1471-2164",
-        "doi": "10.1186/s12864-026-13308-3",
-        "description": "Abstract Background Meat color is a primary fresh meat quality attribute that governs consumer purchase decisions. Building on our prior findings that loose housing cattle produce darker semitendinosus muscle (lower CIE L*) than do tie stalls cattle, we aimed to elucidate the molecular mechanisms underlying this housing system-induced variation in meat color lightness. Methods Xinjiang Brown bulls were allocated to tie stalls or loose housing groups, and their daily physical activity was continuously quantified using smart collars. An integrated multi-omics strategy, combining transcriptomics, nontargeted metabolomics, and reduced representation bisulfite sequencing, was employed to profile differences between cattle with light and dark meat color phenotypes. Key candidate genes were further validated using real-time quantitative PCR, western blotting, and bisulfite amplicon sequencing. Results Our analyses revealed that tie stalls cattle, which experience restricted exercise (3.61 h/day vs. 6.76 h/day) and inferior animal welfare conditions, showed significant transcriptional changes compared with loose housing cattle. Specifically, genes associated with heme oxidation ( HMOX1 and HMOX2 ) and misfolded protein binding ( DNAJB9 ) were significantly upregulated, whereas those related to chemokine activity ( CCL21 and CXCL10 ) were downregulated. Furthermore, insulin resistance pathway genes ( IRS2 , PPARGC1A , and SOCS3 ) were upregulated and key exercise-responsive pathways, including cGMP-PKG, Notch, calcium, and PPAR signaling, were downregulated in tie stalls cattle. Metabolomics revealed that biliverdin was a critical metabolite whose abundance was negatively correlated with the expression of HMOX1 and HMOX2 . Critically, we detected and validated that HMOX2 was significantly hypermethylated in tie stalls cattle. Conclusions Our findings support an epigenetic regulatory mechanism whereby restricted activity and suboptimal welfare conditions in tie stalls housing induce HMOX2 hypermethylation, which upregulates its transcription and HO-2 protein expression, accelerates heme degradation, and ultimately increases meat color lightness. This pathway represents one important mechanism underlying housing system-related beef color variation, and HMOX2 may serve as a candidate biomarker for meat quality optimization.",
-        "dedupe_key": "doi:10.1186/s12864-026-13308-3",
-        "topic_hit": [
-          "生物信息"
-        ],
-        "priority_rank": 2,
-        "keyword_hit": []
-      },
-      "days_on_board": 1,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "b6b3e2a2356a",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-04T02:35:41.728138+00:00",
-          "rank": 14
-        },
-        {
-          "run_at": "2026-09-04T02:51:41.206031+00:00",
-          "rank": 16
-        },
-        {
-          "run_at": "2026-09-04T04:46:19.195629+00:00",
-          "rank": 25
-        },
-        {
-          "run_at": "2026-09-04T05:15:01.664932+00:00",
-          "rank": 25
-        }
-      ]
-    },
-    {
-      "source": "papers",
-      "rank": 26,
-      "title": "Systematic multivariate analysis of chromatin complex dependencies reveals Set1C/COMPASS as a melanoma-enriched epigenetic vulnerability",
-      "title_zh": "染色质复合物依赖性的系统多变量分析揭示Set1C/COMPASS作为黑色素瘤富集的表观遗传脆弱性",
-      "url": "https://doi.org/10.1371/journal.pcbi.1014018",
-      "hot_value": null,
-      "summary_zh": "表观遗传失调是癌症的常见特征。它产生源于对维持恶性转录状态的染色质机制增加依赖的脆弱性。虽然许多染色质调节因子广泛需要用于细胞活力，但其他在跨不同致癌设置、组织谱系和分化状态的情境依赖方式中起作用。此外，染色质调节因子常在多亚基复合物内运作；因此，表观遗传脆弱性从协调复合物活性中涌现。在此，我们整合来自人类癌细胞系的大规模遗传依赖性图谱与精选表观遗传复合物注释，进行跨癌症谱系的复合物水平表观遗传依赖性的系统多变量分析。我们的分析揭示依赖性常聚类于功能相关的染色质复合物中，且生物学相关的癌症类型（如血液恶性肿瘤）共享相似依赖性模式，与共享潜在表观遗传需求一致。聚焦黑色素瘤，我们识别多种富集的表观遗传复合物依赖性，包括先前与复发性遗传改变或黑色素细胞谱系调控相关的复合物，以及涉及H3K4甲基转移酶复合物Set1C/COMPASS的先前未识别脆弱性。这种依赖性不限于特定黑色素瘤分化状态，但CXX",
-      "thumbnail": null,
-      "published_at": "2026-08-27",
-      "extra": {
-        "subsource": "crossref",
-        "tier": "英文顶刊",
-        "journal": "PLOS Computational Biology",
-        "mode": "all",
-        "issn": "1553-7358",
-        "doi": "10.1371/journal.pcbi.1014018",
-        "description": "Epigenetic dysregulation is a common feature of cancer. It creates vulnerabilities arising from an increased reliance on chromatin-based mechanisms that sustain malignant transcriptional states. While many chromatin regulators are broadly required for cellular viability, others function in a context-dependent manner across distinct oncogenic settings, tissue lineages, and differentiation states. Moreover, chromatin regulators often operate within multi-subunit complexes; thus, epigenetic vulnerabilities emerge from coordinated complex activities. Here, we integrate large-scale genetic dependency maps from human cancer cell lines with curated epigenetic complex annotations to perform a systematic, multivariate analysis of complex-level epigenetic dependencies across cancer lineages. Our analysis reveals that dependencies frequently cluster among functionally related chromatin complexes and that biologically related cancer types (e.g., hematologic malignancies) share similar dependency patterns, consistent with shared underlying epigenetic requirements. Focusing on melanoma, we identify multiple enriched epigenetic complex dependencies, including complexes previously associated with recurrent genetic alterations or melanocyte lineage regulation, as well as a previously unrecognized vulnerability involving the H3K4 methyltransferase complex Set1C/COMPASS. This dependency is not restricted to a specific melanoma differentiation state, but genetic depletion of CXXC1 (a critical complex-specific subunit) suggests that CXXC1-dependent melanoma cells require Set1C/COMPASS activity to maintain global H3K4 trimethylation (H3K4me3) and proliferation. Integrative modeling links Set1C/COMPASS dependency to MYC- and E2F-driven transcriptional programs, which are suppressed upon complex inhibition. Together, this work combines integrative, multivariate analysis of lineage-enriched epigenetic dependencies with genetic perturbation, transcriptional profiling, and single-cell analysis to uncover an enriched epigenetic dependency on Set1C/COMPASS in melanoma cells.",
-        "dedupe_key": "doi:10.1371/journal.pcbi.1014018",
-        "topic_hit": [
-          "生物信息"
-        ],
-        "priority_rank": 2,
-        "keyword_hit": []
-      },
-      "days_on_board": 1,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "ea1fbaff9a3d",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-04T02:35:41.728138+00:00",
-          "rank": 15
-        },
-        {
-          "run_at": "2026-09-04T02:51:41.206031+00:00",
-          "rank": 17
-        },
-        {
-          "run_at": "2026-09-04T04:46:19.195629+00:00",
-          "rank": 26
-        },
-        {
-          "run_at": "2026-09-04T05:15:01.664932+00:00",
-          "rank": 26
-        }
-      ]
-    },
-    {
-      "source": "papers",
-      "rank": 27,
-      "title": "Integrated multi-omics analysis dissects hepatocyte states and genetic regulation of hepatic metabolism in pigs",
-      "title_zh": "整合多组学分析解析猪肝细胞状态和肝代谢的遗传调控",
-      "url": "https://doi.org/10.1186/s12864-026-13267-9",
-      "hot_value": null,
-      "summary_zh": "摘要 肝代谢受多组织环境和细胞异质性影响，然而肝脏特异性代谢功能的细胞基础和遗传调控机制仍不完全理解。猪在肝脏结构、生理功能和代谢特征上与人类高度相似，使其成为研究肝代谢调控的重要大动物模型。在本研究中，我们整合来自300个肝、脾和血样本的批量RNA-seq数据与肝scRNA-seq数据，在组织、细胞和遗传层面特征化猪肝代谢调控。多组织转录组分析识别主要与代谢和合成功能相关的肝富集基因集，突出猪肝在多组织背景下的功能特化。在单细胞分辨率下，肝细胞进一步解析为两个主要亚型。功能注释、轨迹分析和细胞间通讯分析进一步显示这两个肝细胞亚型显示不同功能特征：Hepatocytes_Metabolic富集脂质代谢和核心肝途径，而Hepatocytes_Immune更密切关联免疫相关微环境调控。为研究肝组织细胞异质性的遗传基础，我们将估计的细胞类型比例纳入细胞类型相互作用eQTL模型。该分析识别跨肝细胞",
-      "thumbnail": null,
-      "published_at": "2026-08-25",
-      "extra": {
-        "subsource": "crossref",
-        "tier": "英文顶刊",
-        "journal": "BMC Genomics",
-        "mode": "filter",
-        "issn": "1471-2164",
-        "doi": "10.1186/s12864-026-13267-9",
-        "description": "Abstract Hepatic metabolism is influenced by both the multi-tissue environment and cellular heterogeneity, yet the cellular basis and genetic regulatory mechanisms underlying liver-specific metabolic functions remain incompletely understood. Pigs share high similarity with humans in liver structure, physiological function, and metabolic characteristics, making them an important large-animal model for studying hepatic metabolic regulation. In this study, we integrated bulk RNA-seq data from 300 liver, spleen, and blood samples with liver scRNA-seq data to characterize pig hepatic metabolic regulation across tissue, cellular, and genetic layers. Multi-tissue transcriptomic analysis identified liver-enriched gene sets mainly associated with metabolic and synthetic functions, highlighting the functional specialization of the pig liver in a multi-tissue context. At single-cell resolution, hepatocytes were further resolved into two major subtypes. Functional annotation, trajectory analysis, and cell–cell communication analysis further showed that these two hepatocyte subtypes displayed distinct functional features: Hepatocytes_Metabolic was enriched for lipid metabolism and core hepatic pathways, whereas Hepatocytes_Immune was more closely associated with immune-related microenvironmental regulation. To investigate the genetic basis of cellular heterogeneity in liver tissue, we incorporated estimated cell-type proportions into cell-type interaction eQTL models. This analysis identified 6,313 ct-ieGenes across liver cell populations, with Hepatocytes_Metabolic showing the largest number of ieGenes (3,404), indicating that the proportion of this metabolic hepatocyte subtype provides an important cellular context for resolving heterogeneity in hepatic genetic regulation. Colocalization analysis further linked ct-ieQTL signals in Hepatocytes_Metabolic to liver-related biochemical and lipid traits, including gamma-glutamyl transferase and cholesterol-related traits. Cross-species analysis showed that pig hepatocytes were transcriptionally closer to human hepatocytes than to mouse hepatocytes, and pig–human conserved hepatocyte genes were mainly enriched in lipid metabolism-related functions. Overall, this study provides a multi-level framework for understanding pig hepatic metabolic regulation and suggests that Hepatocytes_Metabolic represents an important cellular context linking liver metabolic function, cell-composition-associated genetic regulation, and liver-related complex traits.",
-        "dedupe_key": "doi:10.1186/s12864-026-13267-9",
-        "topic_hit": [
-          "生物信息"
-        ],
-        "priority_rank": 2,
-        "keyword_hit": []
-      },
-      "days_on_board": 1,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "9ec8df2bf081",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-04T02:35:41.728138+00:00",
-          "rank": 16
-        },
-        {
-          "run_at": "2026-09-04T02:51:41.206031+00:00",
-          "rank": 18
-        },
-        {
-          "run_at": "2026-09-04T04:46:19.195629+00:00",
-          "rank": 27
-        },
-        {
-          "run_at": "2026-09-04T05:15:01.664932+00:00",
-          "rank": 27
-        }
-      ]
-    },
-    {
-      "source": "papers",
-      "rank": 28,
-      "title": "The multi-omics fallacy in microbiome science",
-      "title_zh": "微生物组科学中的多组学谬误",
-      "url": "https://doi.org/10.1371/journal.pcbi.1014700",
-      "hot_value": null,
-      "summary_zh": null,
-      "thumbnail": null,
-      "published_at": "2026-08-25",
-      "extra": {
-        "subsource": "crossref",
-        "tier": "英文顶刊",
-        "journal": "PLOS Computational Biology",
-        "mode": "all",
-        "issn": "1553-7358",
-        "doi": "10.1371/journal.pcbi.1014700",
-        "description": "",
-        "dedupe_key": "doi:10.1371/journal.pcbi.1014700",
-        "topic_hit": [
-          "生物信息"
-        ],
-        "priority_rank": 2,
-        "keyword_hit": []
-      },
-      "days_on_board": 1,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "680375e793a0",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-04T02:35:41.728138+00:00",
-          "rank": 17
-        },
-        {
-          "run_at": "2026-09-04T02:51:41.206031+00:00",
-          "rank": 19
-        },
-        {
-          "run_at": "2026-09-04T04:46:19.195629+00:00",
-          "rank": 28
-        },
-        {
-          "run_at": "2026-09-04T05:15:01.664932+00:00",
-          "rank": 28
-        }
-      ]
-    },
-    {
-      "source": "papers",
-      "rank": 29,
-      "title": "MFDB: a comprehensive database for marine fish functional genomics and evolutionary genomics",
-      "title_zh": "MFDB：海洋鱼类功能基因组学和进化基因组学综合数据库",
-      "url": "https://doi.org/10.1093/nar/gkag844",
-      "hot_value": null,
-      "summary_zh": "摘要 海洋鱼类是生物多样性保护和社会经济可持续性的重要贡献者。尽管近年来海洋鱼类物种的基因组和多组学数据集呈指数级增长，但其系统整合仍未充分探索，阻碍了对基因调控和生物系统的全面研究。为弥补这一空白，我们开发了海洋鱼类数据库（MFDB；http://marinefishdb.cn），这是首个专门为海洋硬骨鱼设计的整合基因组学平台。MFDB 汇集了 89 个物种的分散多组学资源，涵盖基因组组装、系统发育重建、共线性图谱、泛基因集、基因结构、功能注释、表达谱和进化基因家族分析。MFDB 还提供专门的分析模块，包括组织特异性基因共表达网络、谱系定义核心基因库和宏观共线性驱动的染色体进化模型。该平台具有直观且可编程的界面，支持多尺度查询、跨组学数据挖掘和多维生物相互作用动态可视化。这些功能共同使用户能够解读基因组元件如何通过多层调控级联协调表型结果。通过将快速扩展的组学数据集与稳健的分析流程整合，",
-      "thumbnail": null,
-      "published_at": "2026-08-24",
-      "extra": {
-        "subsource": "crossref",
-        "tier": "英文顶刊",
-        "journal": "Nucleic Acids Research",
-        "mode": "filter",
-        "issn": "1362-4962",
-        "doi": "10.1093/nar/gkag844",
-        "description": "Abstract Marine fishes are important contributors to biodiversity conservation and socioeconomic sustainability. While genomic and multi-omics datasets for marine fish species have expanded exponentially in recent years, their systematic integration remains underexplored, hindering comprehensive investigations into gene regulation and biological systems. To bridge this gap, we developed the Marine Fish Database (MFDB; http://marinefishdb.cn), the first integrative genomics platform specifically designed for marine teleosts. MFDB compiles fragmented multi-omics resources across 89 species, encompassing genome assemblies, phylogenomic reconstructions, collinearity maps, pan gene sets, gene architectures, functional annotations, expression profiles, and evolutionary gene family analyses. MFDB further delivers specialized analytical modules, including tissue-specific gene co-expression networks, lineage-defining core gene repertoires, and macrosynteny-driven chromosomal evolution models. The platform features an intuitive and programmable interface, enabling multiscale queries, cross-omics data mining, and dynamic visualization of multidimensional biological interactions. These functionalities collectively empower users to decipher how genomic elements orchestrate phenotypic outcomes through multi-layered regulatory cascades. By integrating rapidly expanding omics datasets with robust analytical pipelines, MFDB establishes a scalable framework to accelerate hypothesis-driven discoveries in marine fish biology, evolutionary adaptation, and ecological resilience research, and further provides an easy-to-operate information platform for the molecular breeding of marine fish species.",
-        "dedupe_key": "doi:10.1093/nar/gkag844",
-        "topic_hit": [
-          "生物信息"
-        ],
-        "priority_rank": 2,
-        "keyword_hit": []
-      },
-      "days_on_board": 1,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "7380bdad4f07",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-04T02:51:41.206031+00:00",
-          "rank": 20
-        },
-        {
-          "run_at": "2026-09-04T04:46:19.195629+00:00",
-          "rank": 29
-        },
-        {
-          "run_at": "2026-09-04T05:15:01.664932+00:00",
-          "rank": 29
-        }
-      ]
-    },
-    {
-      "source": "papers",
-      "rank": 30,
-      "title": "PCRD-seq: proximity crosslinking-induced RNA depletion sequencing for low-input chromatin-associated transcriptome profiling",
-      "title_zh": "PCRD-seq：用于低输入染色质相关转录组谱分析的交联诱导 RNA 去除测序",
-      "url": "https://doi.org/10.1093/nar/gkag853",
-      "hot_value": null,
-      "summary_zh": "摘要 染色质相关 RNA（caRNA）在调控染色质组织和转录中发挥关键作用，凸显了研究它们的重要性。邻近标记已成为一种有前景且多功能的技术，用于高时空分辨率分析 caRNA。尽管邻近标记技术强大，但传统方法依赖复杂、高输入的富集流程，这严重限制了其广泛实际应用。在这里，我们开发了一种简单、无富集的 caRNA 分析策略：邻近交联诱导 RNA 去除测序（PCRD-seq）。该方法利用靶向染色质区域的光敏剂 HoeDBF 产生的单线态氧诱导染色质与其周围 RNA 之间的邻近交联。这种邻近交联阻碍了常规 TRIzol 提取过程中 caRNA 的释放，从而导致这些 RNA 的特异性去除。该方法成功应用于研究 U1 小核 RNA（snRNA）在 RNA 染色质保留中的作用，以及两种转移能力相反的卵巢癌细胞系之间染色质相关转录组的差异。此外，我们的 PCRD-seq 在分析核纤层相关 RNA 方面显示",
-      "thumbnail": null,
-      "published_at": "2026-08-24",
-      "extra": {
-        "subsource": "crossref",
-        "tier": "英文顶刊",
-        "journal": "Nucleic Acids Research",
-        "mode": "filter",
-        "issn": "1362-4962",
-        "doi": "10.1093/nar/gkag853",
-        "description": "Abstract Chromatin-associated RNAs (caRNAs) play critical roles in regulating chromatin organization and transcription, underscoring the importance of their study. Proximity labeling has emerged as a promising and versatile technique for profiling caRNAs with high spatiotemporal resolution. While being a powerful technique, traditional proximity labeling methods depend on complex, high-input enrichment protocols, which significantly limit their wide practical application. Here, we developed a straightforward, enrichment-free caRNA profiling strategy: proximity crosslinking-induced RNA depletion sequencing (PCRD-seq). This approach leverages the proximity crosslinking between chromatin and its surrounding RNAs induced by singlet oxygen generated by HoeDBF, a photosensitizer targeting chromatin region. The proximity crosslinking hinders the release of caRNAs during routine TRIzol extraction, consequently leading to a specific depletion of these RNAs. This method was successfully applied to investigate the role of U1 small nuclear RNA (snRNA) in RNA chromatin retention and the differences in chromatin-associated transcriptomes between two ovarian cancer cell lines with opposite metastatic capability. Moreover, our PCRD-seq exhibits potential in profiling nuclear lamina-associated RNAs, which paves the way for its application to profile RNAs associated with other chromatin subdomains. The minimal cell input and simple workflow render PCRD-seq a transformative tool for wide applications.",
-        "dedupe_key": "doi:10.1093/nar/gkag853",
-        "topic_hit": [
-          "生物信息"
-        ],
-        "priority_rank": 2,
-        "keyword_hit": []
-      },
-      "days_on_board": 1,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "4b90b79edd12",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-04T02:51:41.206031+00:00",
-          "rank": 21
-        },
-        {
-          "run_at": "2026-09-04T04:46:19.195629+00:00",
-          "rank": 30
-        },
-        {
-          "run_at": "2026-09-04T05:15:01.664932+00:00",
-          "rank": 30
-        }
-      ]
-    },
-    {
-      "source": "papers",
-      "rank": 31,
-      "title": "Synergistic interaction between the macrophage polarizing signals IL-4 and IFNγ is controlled by the STAT6/STAT1/IRF1 axis",
-      "title_zh": "巨噬细胞极化信号 IL-4 和 IFNγ 之间的协同相互作用受 STAT6/STAT1/IRF1 轴控制",
-      "url": "https://doi.org/10.1093/nar/gkag825",
-      "hot_value": null,
-      "summary_zh": "摘要 IFNγ 和 IL-4 是典型的 Th1 和 Th2 细胞因子，通常诱导相反的巨噬细胞极化。除了在病理环境中频繁共存和相互拮抗外，也可能存在协同串扰，这仍有待定义。通过整合转录组学、表观基因组学和基于 CRISPR 的分析，我们发现 IL-4 和 IFNγ 共同暴露导致小鼠巨噬细胞处于中间极化状态，并伴随一组协同激活的基因。我们表明这种协同激活由 STAT6 和 STAT1 在具有显著 H3K27Ac 积累的调控区域共结合介导，并依赖于 BRD4 辅因子。删除任一 STAT 因子或破坏其结合基序都会消除协同转录反应。我们的数据支持一个模型，即一种细胞因子诱导的染色质开放性促进了相反细胞因子激活的 STAT 转录因子（TF）的结合，从而促成协同基因激活。我们进一步表明，IRF1 是一种 IFNγ 诱导的 TF，其表达在 IL-4 存在下持续存在，对该程序的很大一部分是必不可少的。重要的",
-      "thumbnail": null,
-      "published_at": "2026-08-24",
-      "extra": {
-        "subsource": "crossref",
-        "tier": "英文顶刊",
-        "journal": "Nucleic Acids Research",
-        "mode": "filter",
-        "issn": "1362-4962",
-        "doi": "10.1093/nar/gkag825",
-        "description": "Abstract IFNγ and IL-4, the canonical Th1 and Th2 cytokines, typically induce opposing macrophage polarization. Beyond their frequent coexistence and mutual antagonism in pathological settings, a synergistic crosstalk may also exist and remains to be defined. Through integrated transcriptomic, epigenomic, and CRISPR-based analyses, we identify that co-exposure to IL-4 and IFNγ results in an intermediate macrophage polarization state in murine macrophages, associated with a cohort of synergistically activated genes. We show that this synergistic activation is mediated by co-binding of STAT6 and STAT1 at regulatory regions marked with pronounced H3K27Ac accumulation and is dependent on the BRD4 cofactor. Deletion of either STAT factor or disruption of their binding motifs abolishes the synergistic transcriptional response. Our data support a model in which chromatin openness induced by one cytokine facilitates binding of the opposing cytokine-activated STAT transcription factor (TF), contributing to synergistic gene activation. We further show that IRF1, an IFNγ-induced TF whose expression persists in the presence of IL-4, is indispensable for a substantial subset of this program. Importantly, single-cell RNA sequencing of the PyMT murine breast cancer model reveals an in vivo tumor-associated macrophage subset showing STAT1 and STAT6 activation and is enriched for the synergistic gene signature.",
-        "dedupe_key": "doi:10.1093/nar/gkag825",
-        "topic_hit": [
-          "生物信息"
-        ],
-        "priority_rank": 2,
-        "keyword_hit": []
-      },
-      "days_on_board": 1,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "87c60e734fcf",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-04T02:51:41.206031+00:00",
-          "rank": 22
-        },
-        {
-          "run_at": "2026-09-04T04:46:19.195629+00:00",
-          "rank": 31
-        },
-        {
-          "run_at": "2026-09-04T05:15:01.664932+00:00",
-          "rank": 31
-        }
-      ]
-    },
-    {
-      "source": "papers",
-      "rank": 32,
+      "rank": 34,
       "title": "TracingFlow: A Simulation-Free Trajectory Inference Framework Based on Second-Order Dynamics",
       "title_zh": "TracingFlow：基于二阶动力学的无模拟轨迹推断框架",
       "url": "http://arxiv.org/abs/2608.21070v1",
@@ -1772,7 +1948,7 @@
       },
       "days_on_board": 3,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": -2,
       "cluster_id": "c5b417d8bef7",
       "cluster_size": 1,
       "rank_history": [
@@ -1823,12 +1999,16 @@
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
           "rank": 32
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 34
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 33,
+      "rank": 35,
       "title": "Static analysis-guided agentic AI translation enables Rust as a full stack bioinformatics language",
       "title_zh": "静态分析引导的代理AI翻译使Rust成为全栈生物信息学语言",
       "url": "http://arxiv.org/abs/2608.13029v1",
@@ -1853,7 +2033,7 @@
       },
       "days_on_board": 3,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": -2,
       "cluster_id": "6938d7e53e75",
       "cluster_size": 1,
       "rank_history": [
@@ -1904,12 +2084,16 @@
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
           "rank": 33
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 35
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 34,
+      "rank": 36,
       "title": "Idea Search: Guiding Tree Search with Ideas to Explore Diverse Scientific Methods",
       "title_zh": "Idea Search：用想法引导树搜索以探索多样科学方法",
       "url": "http://arxiv.org/abs/2608.08958v1",
@@ -1934,7 +2118,7 @@
       },
       "days_on_board": 3,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": -2,
       "cluster_id": "17e1381b7db5",
       "cluster_size": 1,
       "rank_history": [
@@ -1985,12 +2169,16 @@
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
           "rank": 34
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 36
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 35,
+      "rank": 37,
       "title": "ESPO: Error-Structured Prompt Optimization via Diagnose, Diversify, and Stabilize",
       "title_zh": "ESPO：通过诊断、多样化和稳定化进行错误结构化提示优化",
       "url": "http://arxiv.org/abs/2609.04197v1",
@@ -2015,7 +2203,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": -2,
       "cluster_id": "fdc918f320b7",
       "cluster_size": 1,
       "rank_history": [
@@ -2026,12 +2214,16 @@
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
           "rank": 35
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 37
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 36,
+      "rank": 38,
       "title": "One Editor, Many Edits: A Unified Training-Free Framework for Diverse Video Editing",
       "title_zh": "一个编辑器，多种编辑：用于多样化视频编辑的统一免训练框架",
       "url": "http://arxiv.org/abs/2609.04190v1",
@@ -2056,7 +2248,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": -2,
       "cluster_id": "ce9dd5767f23",
       "cluster_size": 1,
       "rank_history": [
@@ -2067,12 +2259,16 @@
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
           "rank": 36
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 38
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 37,
+      "rank": 39,
       "title": "Robust PAC Learning of Concurrent Stochastic Games",
       "title_zh": "并发随机博弈的鲁棒PAC学习",
       "url": "http://arxiv.org/abs/2609.04189v1",
@@ -2097,7 +2293,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": -2,
       "cluster_id": "67ab725b458a",
       "cluster_size": 1,
       "rank_history": [
@@ -2108,12 +2304,16 @@
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
           "rank": 37
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 39
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 38,
+      "rank": 40,
       "title": "Para-Pipe: Exploiting Hierarchical Operator Parallelism of ML Computational Graphs on SoCs",
       "title_zh": "Para-Pipe：在SoC上利用ML计算图的层次化算子并行性",
       "url": "http://arxiv.org/abs/2609.04168v1",
@@ -2138,7 +2338,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": -2,
       "cluster_id": "ff043896e42d",
       "cluster_size": 1,
       "rank_history": [
@@ -2149,12 +2349,16 @@
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
           "rank": 38
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 40
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 39,
+      "rank": 41,
       "title": "SWE-Gate: Passing Functional Tests Is Not Enough for Software Engineering Agents",
       "title_zh": "SWE-Gate：通过功能测试不足以评估软件工程智能体",
       "url": "http://arxiv.org/abs/2609.04167v1",
@@ -2179,7 +2383,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": -2,
       "cluster_id": "1e3e25dac912",
       "cluster_size": 1,
       "rank_history": [
@@ -2190,12 +2394,16 @@
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
           "rank": 39
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 41
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 40,
+      "rank": 42,
       "title": "SENTINEL-RL: Offloading Topological Reasoning from LLM Agents in the Security Operations Center",
       "title_zh": "SENTINEL-RL：将拓扑推理从安全运营中心LLM智能体中卸载",
       "url": "http://arxiv.org/abs/2609.04159v1",
@@ -2220,7 +2428,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": -2,
       "cluster_id": "c74494e6d633",
       "cluster_size": 1,
       "rank_history": [
@@ -2231,12 +2439,16 @@
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
           "rank": 40
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 42
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 41,
+      "rank": 43,
       "title": "Contrastive learning of adverse events to provide effective and interpretable vector representations for machine-assisted pharmacovigilance.",
       "title_zh": "不良事件的对比学习，为机器辅助药物警戒提供有效且可解释的向量表示。",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42691506/",
@@ -2262,7 +2474,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": -2,
       "cluster_id": "2ffce815c917",
       "cluster_size": 1,
       "rank_history": [
@@ -2273,12 +2485,16 @@
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
           "rank": 41
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 43
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 42,
+      "rank": 44,
       "title": "Comprehensive evaluation of AlphaFold/OpenFold prediction of experimentally unresolved proteins through novel metrics.",
       "title_zh": "通过新指标对AlphaFold/OpenFold预测实验未解析蛋白质的综合评估。",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42691505/",
@@ -2303,7 +2519,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": -2,
       "cluster_id": "0eed297f4844",
       "cluster_size": 1,
       "rank_history": [
@@ -2314,12 +2530,16 @@
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
           "rank": 42
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 44
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 43,
+      "rank": 45,
       "title": "scPyviewer: a Python-native interactive viewer from AnnData single-cell data",
       "title_zh": "scPyviewer：来自AnnData单细胞数据的Python原生交互查看器",
       "url": "https://doi.org/10.64898/2026.08.26.747418",
@@ -2343,7 +2563,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": -2,
       "cluster_id": "f8b37d12e148",
       "cluster_size": 1,
       "rank_history": [
@@ -2362,6 +2582,10 @@
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
           "rank": 43
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 45
         }
       ]
     },
@@ -2403,6 +2627,10 @@
         },
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 17
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
           "rank": 17
         }
       ]
@@ -2453,6 +2681,10 @@
         },
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 47
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
           "rank": 47
         }
       ]
@@ -2512,6 +2744,10 @@
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
           "rank": 48
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 48
         }
       ]
     },
@@ -2561,6 +2797,10 @@
         },
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 49
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
           "rank": 49
         }
       ]
@@ -2612,6 +2852,10 @@
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
           "rank": 50
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 50
         }
       ]
     },
@@ -2661,6 +2905,10 @@
         },
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 51
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
           "rank": 51
         }
       ]
@@ -2720,6 +2968,10 @@
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
           "rank": 52
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 52
         }
       ]
     },
@@ -2777,6 +3029,10 @@
         },
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 67
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
           "rank": 67
         }
       ]
@@ -2836,6 +3092,10 @@
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
           "rank": 68
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 68
         }
       ]
     },
@@ -2893,6 +3153,10 @@
         },
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 69
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
           "rank": 69
         }
       ]
@@ -2952,6 +3216,10 @@
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
           "rank": 70
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 70
         }
       ]
     },
@@ -3009,6 +3277,10 @@
         },
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 71
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
           "rank": 71
         }
       ]
@@ -3068,6 +3340,10 @@
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
           "rank": 72
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 72
         }
       ]
     },
@@ -3125,6 +3401,10 @@
         },
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 73
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
           "rank": 73
         }
       ]
@@ -3184,6 +3464,10 @@
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
           "rank": 74
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 74
         }
       ]
     },
@@ -3241,6 +3525,10 @@
         },
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 75
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
           "rank": 75
         }
       ]
@@ -3300,6 +3588,10 @@
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
           "rank": 76
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 76
         }
       ]
     },
@@ -3357,6 +3649,10 @@
         },
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 85
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
           "rank": 85
         }
       ]
@@ -3416,6 +3712,10 @@
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
           "rank": 87
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 87
         }
       ]
     },
@@ -3473,6 +3773,10 @@
         },
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 88
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
           "rank": 88
         }
       ]
@@ -3532,6 +3836,10 @@
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
           "rank": 89
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 89
         }
       ]
     },
@@ -3590,6 +3898,10 @@
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
           "rank": 90
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 90
         }
       ]
     },
@@ -3647,6 +3959,10 @@
         },
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 92
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
           "rank": 92
         }
       ]

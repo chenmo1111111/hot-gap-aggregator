@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-09-04T05:15:01.664932+00:00",
+  "generated_at": "2026-09-04T06:28:15.690114+00:00",
   "rising": [
     {
       "source": "weibo",
-      "rank": 14,
-      "title": "马皓轩",
-      "title_zh": "马皓轩",
-      "url": "https://s.weibo.com/weibo?q=%23%E9%A9%AC%E7%9A%93%E8%BD%A9%23",
-      "hot_value": "474734",
+      "rank": 9,
+      "title": "突然发现大家都有省钱意识了",
+      "title_zh": "突然发现大家都有省钱意识了",
+      "url": "https://s.weibo.com/weibo?q=%23%E7%AA%81%E7%84%B6%E5%8F%91%E7%8E%B0%E5%A4%A7%E5%AE%B6%E9%83%BD%E6%9C%89%E7%9C%81%E9%92%B1%E6%84%8F%E8%AF%86%E4%BA%86%23",
+      "hot_value": "605329",
       "summary_zh": null,
       "thumbnail": null,
       "published_at": null,
@@ -16,919 +16,963 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 16,
-      "cluster_id": "824feb52345d",
+      "rank_delta": 15,
+      "cluster_id": "7ac00dd643ac",
       "cluster_size": 1,
       "rank_history": [
+        {
+          "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 24
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 9
+        }
+      ]
+    },
+    {
+      "source": "papers",
+      "rank": 10,
+      "title": "Model Context Protocol: The unexpected catalyst of a bioinformatics interoperability revolution",
+      "title_zh": "模型上下文协议：生物信息学互操作性革命的意外催化剂",
+      "url": "https://doi.org/10.1371/journal.pcbi.1014543",
+      "hot_value": null,
+      "summary_zh": null,
+      "thumbnail": null,
+      "published_at": "2026-08-31",
+      "extra": {
+        "subsource": "crossref",
+        "tier": "英文顶刊",
+        "journal": "PLOS Computational Biology",
+        "mode": "all",
+        "issn": "1553-7358",
+        "doi": "10.1371/journal.pcbi.1014543",
+        "description": "",
+        "dedupe_key": "doi:10.1371/journal.pcbi.1014543",
+        "topic_hit": [
+          "生物信息"
+        ],
+        "priority_rank": 2,
+        "keyword_hit": []
+      },
+      "days_on_board": 1,
+      "is_new": false,
+      "rank_delta": 14,
+      "cluster_id": "1b8ec5a2725a",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-04T02:35:41.728138+00:00",
+          "rank": 13
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 15
+        },
+        {
+          "run_at": "2026-09-04T04:46:19.195629+00:00",
+          "rank": 24
+        },
+        {
+          "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 24
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 10
+        }
+      ]
+    },
+    {
+      "source": "papers",
+      "rank": 11,
+      "title": "Integrated multi-omics reveals epigenetic regulation of beef color by the HMOX2 gene",
+      "title_zh": "整合多组学揭示HMOX2基因对牛肉颜色的表观遗传调控",
+      "url": "https://doi.org/10.1186/s12864-026-13308-3",
+      "hot_value": null,
+      "summary_zh": "摘要 背景 肉色是决定消费者购买决策的主要鲜肉品质属性。基于我们先前发现散栏饲养牛产生比拴系饲养牛更深的半腱肌（较低CIE L*），我们旨在阐明这种饲养系统诱导的肉色亮度差异的分子机制。方法 新疆褐牛被分配到拴系或散栏饲养组，其日常身体活动通过智能项圈连续量化。采用整合多组学策略，结合转录组学、非靶向代谢组学和简化代表性亚硫酸盐测序，描绘浅色和深色肉色表型牛间的差异。关键候选基因通过实时定量PCR、蛋白质印迹和亚硫酸盐扩增子测序进一步验证。结果 我们的分析显示，经历受限运动（3.61小时/天对比6.76小时/天）和较差动物福利条件的拴系牛，与散栏牛相比显示显著转录变化。具体而言，与血红素氧化（HMOX1和HMOX2）和错误折叠蛋白结合（DNAJB9）相关的基因显著上调，而与趋化因子活性（CCL21和CXCL10）相关的基因下调。此外，胰岛素抵抗途径基因（IRS2、PPARGC1A和SOCS",
+      "thumbnail": null,
+      "published_at": "2026-08-27",
+      "extra": {
+        "subsource": "crossref",
+        "tier": "英文顶刊",
+        "journal": "BMC Genomics",
+        "mode": "filter",
+        "issn": "1471-2164",
+        "doi": "10.1186/s12864-026-13308-3",
+        "description": "Abstract Background Meat color is a primary fresh meat quality attribute that governs consumer purchase decisions. Building on our prior findings that loose housing cattle produce darker semitendinosus muscle (lower CIE L*) than do tie stalls cattle, we aimed to elucidate the molecular mechanisms underlying this housing system-induced variation in meat color lightness. Methods Xinjiang Brown bulls were allocated to tie stalls or loose housing groups, and their daily physical activity was continuously quantified using smart collars. An integrated multi-omics strategy, combining transcriptomics, nontargeted metabolomics, and reduced representation bisulfite sequencing, was employed to profile differences between cattle with light and dark meat color phenotypes. Key candidate genes were further validated using real-time quantitative PCR, western blotting, and bisulfite amplicon sequencing. Results Our analyses revealed that tie stalls cattle, which experience restricted exercise (3.61 h/day vs. 6.76 h/day) and inferior animal welfare conditions, showed significant transcriptional changes compared with loose housing cattle. Specifically, genes associated with heme oxidation ( HMOX1 and HMOX2 ) and misfolded protein binding ( DNAJB9 ) were significantly upregulated, whereas those related to chemokine activity ( CCL21 and CXCL10 ) were downregulated. Furthermore, insulin resistance pathway genes ( IRS2 , PPARGC1A , and SOCS3 ) were upregulated and key exercise-responsive pathways, including cGMP-PKG, Notch, calcium, and PPAR signaling, were downregulated in tie stalls cattle. Metabolomics revealed that biliverdin was a critical metabolite whose abundance was negatively correlated with the expression of HMOX1 and HMOX2 . Critically, we detected and validated that HMOX2 was significantly hypermethylated in tie stalls cattle. Conclusions Our findings support an epigenetic regulatory mechanism whereby restricted activity and suboptimal welfare conditions in tie stalls housing induce HMOX2 hypermethylation, which upregulates its transcription and HO-2 protein expression, accelerates heme degradation, and ultimately increases meat color lightness. This pathway represents one important mechanism underlying housing system-related beef color variation, and HMOX2 may serve as a candidate biomarker for meat quality optimization.",
+        "dedupe_key": "doi:10.1186/s12864-026-13308-3",
+        "topic_hit": [
+          "生物信息"
+        ],
+        "priority_rank": 2,
+        "keyword_hit": []
+      },
+      "days_on_board": 1,
+      "is_new": false,
+      "rank_delta": 14,
+      "cluster_id": "b6b3e2a2356a",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-04T02:35:41.728138+00:00",
+          "rank": 14
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 16
+        },
+        {
+          "run_at": "2026-09-04T04:46:19.195629+00:00",
+          "rank": 25
+        },
+        {
+          "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 25
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 11
+        }
+      ]
+    },
+    {
+      "source": "papers",
+      "rank": 12,
+      "title": "Systematic multivariate analysis of chromatin complex dependencies reveals Set1C/COMPASS as a melanoma-enriched epigenetic vulnerability",
+      "title_zh": "染色质复合物依赖性的系统多变量分析揭示Set1C/COMPASS作为黑色素瘤富集的表观遗传脆弱性",
+      "url": "https://doi.org/10.1371/journal.pcbi.1014018",
+      "hot_value": null,
+      "summary_zh": "表观遗传失调是癌症的常见特征。它产生源于对维持恶性转录状态的染色质机制增加依赖的脆弱性。虽然许多染色质调节因子广泛需要用于细胞活力，但其他在跨不同致癌设置、组织谱系和分化状态的情境依赖方式中起作用。此外，染色质调节因子常在多亚基复合物内运作；因此，表观遗传脆弱性从协调复合物活性中涌现。在此，我们整合来自人类癌细胞系的大规模遗传依赖性图谱与精选表观遗传复合物注释，进行跨癌症谱系的复合物水平表观遗传依赖性的系统多变量分析。我们的分析揭示依赖性常聚类于功能相关的染色质复合物中，且生物学相关的癌症类型（如血液恶性肿瘤）共享相似依赖性模式，与共享潜在表观遗传需求一致。聚焦黑色素瘤，我们识别多种富集的表观遗传复合物依赖性，包括先前与复发性遗传改变或黑色素细胞谱系调控相关的复合物，以及涉及H3K4甲基转移酶复合物Set1C/COMPASS的先前未识别脆弱性。这种依赖性不限于特定黑色素瘤分化状态，但CXX",
+      "thumbnail": null,
+      "published_at": "2026-08-27",
+      "extra": {
+        "subsource": "crossref",
+        "tier": "英文顶刊",
+        "journal": "PLOS Computational Biology",
+        "mode": "all",
+        "issn": "1553-7358",
+        "doi": "10.1371/journal.pcbi.1014018",
+        "description": "Epigenetic dysregulation is a common feature of cancer. It creates vulnerabilities arising from an increased reliance on chromatin-based mechanisms that sustain malignant transcriptional states. While many chromatin regulators are broadly required for cellular viability, others function in a context-dependent manner across distinct oncogenic settings, tissue lineages, and differentiation states. Moreover, chromatin regulators often operate within multi-subunit complexes; thus, epigenetic vulnerabilities emerge from coordinated complex activities. Here, we integrate large-scale genetic dependency maps from human cancer cell lines with curated epigenetic complex annotations to perform a systematic, multivariate analysis of complex-level epigenetic dependencies across cancer lineages. Our analysis reveals that dependencies frequently cluster among functionally related chromatin complexes and that biologically related cancer types (e.g., hematologic malignancies) share similar dependency patterns, consistent with shared underlying epigenetic requirements. Focusing on melanoma, we identify multiple enriched epigenetic complex dependencies, including complexes previously associated with recurrent genetic alterations or melanocyte lineage regulation, as well as a previously unrecognized vulnerability involving the H3K4 methyltransferase complex Set1C/COMPASS. This dependency is not restricted to a specific melanoma differentiation state, but genetic depletion of CXXC1 (a critical complex-specific subunit) suggests that CXXC1-dependent melanoma cells require Set1C/COMPASS activity to maintain global H3K4 trimethylation (H3K4me3) and proliferation. Integrative modeling links Set1C/COMPASS dependency to MYC- and E2F-driven transcriptional programs, which are suppressed upon complex inhibition. Together, this work combines integrative, multivariate analysis of lineage-enriched epigenetic dependencies with genetic perturbation, transcriptional profiling, and single-cell analysis to uncover an enriched epigenetic dependency on Set1C/COMPASS in melanoma cells.",
+        "dedupe_key": "doi:10.1371/journal.pcbi.1014018",
+        "topic_hit": [
+          "生物信息"
+        ],
+        "priority_rank": 2,
+        "keyword_hit": []
+      },
+      "days_on_board": 1,
+      "is_new": false,
+      "rank_delta": 14,
+      "cluster_id": "ea1fbaff9a3d",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-04T02:35:41.728138+00:00",
+          "rank": 15
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 17
+        },
+        {
+          "run_at": "2026-09-04T04:46:19.195629+00:00",
+          "rank": 26
+        },
+        {
+          "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 26
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 12
+        }
+      ]
+    },
+    {
+      "source": "papers",
+      "rank": 13,
+      "title": "Integrated multi-omics analysis dissects hepatocyte states and genetic regulation of hepatic metabolism in pigs",
+      "title_zh": "整合多组学分析解析猪肝细胞状态和肝代谢的遗传调控",
+      "url": "https://doi.org/10.1186/s12864-026-13267-9",
+      "hot_value": null,
+      "summary_zh": "摘要 肝代谢受多组织环境和细胞异质性影响，然而肝脏特异性代谢功能的细胞基础和遗传调控机制仍不完全理解。猪在肝脏结构、生理功能和代谢特征上与人类高度相似，使其成为研究肝代谢调控的重要大动物模型。在本研究中，我们整合来自300个肝、脾和血样本的批量RNA-seq数据与肝scRNA-seq数据，在组织、细胞和遗传层面特征化猪肝代谢调控。多组织转录组分析识别主要与代谢和合成功能相关的肝富集基因集，突出猪肝在多组织背景下的功能特化。在单细胞分辨率下，肝细胞进一步解析为两个主要亚型。功能注释、轨迹分析和细胞间通讯分析进一步显示这两个肝细胞亚型显示不同功能特征：Hepatocytes_Metabolic富集脂质代谢和核心肝途径，而Hepatocytes_Immune更密切关联免疫相关微环境调控。为研究肝组织细胞异质性的遗传基础，我们将估计的细胞类型比例纳入细胞类型相互作用eQTL模型。该分析识别跨肝细胞",
+      "thumbnail": null,
+      "published_at": "2026-08-25",
+      "extra": {
+        "subsource": "crossref",
+        "tier": "英文顶刊",
+        "journal": "BMC Genomics",
+        "mode": "filter",
+        "issn": "1471-2164",
+        "doi": "10.1186/s12864-026-13267-9",
+        "description": "Abstract Hepatic metabolism is influenced by both the multi-tissue environment and cellular heterogeneity, yet the cellular basis and genetic regulatory mechanisms underlying liver-specific metabolic functions remain incompletely understood. Pigs share high similarity with humans in liver structure, physiological function, and metabolic characteristics, making them an important large-animal model for studying hepatic metabolic regulation. In this study, we integrated bulk RNA-seq data from 300 liver, spleen, and blood samples with liver scRNA-seq data to characterize pig hepatic metabolic regulation across tissue, cellular, and genetic layers. Multi-tissue transcriptomic analysis identified liver-enriched gene sets mainly associated with metabolic and synthetic functions, highlighting the functional specialization of the pig liver in a multi-tissue context. At single-cell resolution, hepatocytes were further resolved into two major subtypes. Functional annotation, trajectory analysis, and cell–cell communication analysis further showed that these two hepatocyte subtypes displayed distinct functional features: Hepatocytes_Metabolic was enriched for lipid metabolism and core hepatic pathways, whereas Hepatocytes_Immune was more closely associated with immune-related microenvironmental regulation. To investigate the genetic basis of cellular heterogeneity in liver tissue, we incorporated estimated cell-type proportions into cell-type interaction eQTL models. This analysis identified 6,313 ct-ieGenes across liver cell populations, with Hepatocytes_Metabolic showing the largest number of ieGenes (3,404), indicating that the proportion of this metabolic hepatocyte subtype provides an important cellular context for resolving heterogeneity in hepatic genetic regulation. Colocalization analysis further linked ct-ieQTL signals in Hepatocytes_Metabolic to liver-related biochemical and lipid traits, including gamma-glutamyl transferase and cholesterol-related traits. Cross-species analysis showed that pig hepatocytes were transcriptionally closer to human hepatocytes than to mouse hepatocytes, and pig–human conserved hepatocyte genes were mainly enriched in lipid metabolism-related functions. Overall, this study provides a multi-level framework for understanding pig hepatic metabolic regulation and suggests that Hepatocytes_Metabolic represents an important cellular context linking liver metabolic function, cell-composition-associated genetic regulation, and liver-related complex traits.",
+        "dedupe_key": "doi:10.1186/s12864-026-13267-9",
+        "topic_hit": [
+          "生物信息"
+        ],
+        "priority_rank": 2,
+        "keyword_hit": []
+      },
+      "days_on_board": 1,
+      "is_new": false,
+      "rank_delta": 14,
+      "cluster_id": "9ec8df2bf081",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-04T02:35:41.728138+00:00",
+          "rank": 16
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 18
+        },
+        {
+          "run_at": "2026-09-04T04:46:19.195629+00:00",
+          "rank": 27
+        },
+        {
+          "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 27
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 13
+        }
+      ]
+    },
+    {
+      "source": "papers",
+      "rank": 14,
+      "title": "The multi-omics fallacy in microbiome science",
+      "title_zh": "微生物组科学中的多组学谬误",
+      "url": "https://doi.org/10.1371/journal.pcbi.1014700",
+      "hot_value": null,
+      "summary_zh": null,
+      "thumbnail": null,
+      "published_at": "2026-08-25",
+      "extra": {
+        "subsource": "crossref",
+        "tier": "英文顶刊",
+        "journal": "PLOS Computational Biology",
+        "mode": "all",
+        "issn": "1553-7358",
+        "doi": "10.1371/journal.pcbi.1014700",
+        "description": "",
+        "dedupe_key": "doi:10.1371/journal.pcbi.1014700",
+        "topic_hit": [
+          "生物信息"
+        ],
+        "priority_rank": 2,
+        "keyword_hit": []
+      },
+      "days_on_board": 1,
+      "is_new": false,
+      "rank_delta": 14,
+      "cluster_id": "680375e793a0",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-04T02:35:41.728138+00:00",
+          "rank": 17
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 19
+        },
+        {
+          "run_at": "2026-09-04T04:46:19.195629+00:00",
+          "rank": 28
+        },
+        {
+          "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 28
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 14
+        }
+      ]
+    },
+    {
+      "source": "papers",
+      "rank": 15,
+      "title": "MFDB: a comprehensive database for marine fish functional genomics and evolutionary genomics",
+      "title_zh": "MFDB：海洋鱼类功能基因组学和进化基因组学综合数据库",
+      "url": "https://doi.org/10.1093/nar/gkag844",
+      "hot_value": null,
+      "summary_zh": "摘要 海洋鱼类是生物多样性保护和社会经济可持续性的重要贡献者。尽管近年来海洋鱼类物种的基因组和多组学数据集呈指数级增长，但其系统整合仍未充分探索，阻碍了对基因调控和生物系统的全面研究。为弥补这一空白，我们开发了海洋鱼类数据库（MFDB；http://marinefishdb.cn），这是首个专门为海洋硬骨鱼设计的整合基因组学平台。MFDB 汇集了 89 个物种的分散多组学资源，涵盖基因组组装、系统发育重建、共线性图谱、泛基因集、基因结构、功能注释、表达谱和进化基因家族分析。MFDB 还提供专门的分析模块，包括组织特异性基因共表达网络、谱系定义核心基因库和宏观共线性驱动的染色体进化模型。该平台具有直观且可编程的界面，支持多尺度查询、跨组学数据挖掘和多维生物相互作用动态可视化。这些功能共同使用户能够解读基因组元件如何通过多层调控级联协调表型结果。通过将快速扩展的组学数据集与稳健的分析流程整合，",
+      "thumbnail": null,
+      "published_at": "2026-08-24",
+      "extra": {
+        "subsource": "crossref",
+        "tier": "英文顶刊",
+        "journal": "Nucleic Acids Research",
+        "mode": "filter",
+        "issn": "1362-4962",
+        "doi": "10.1093/nar/gkag844",
+        "description": "Abstract Marine fishes are important contributors to biodiversity conservation and socioeconomic sustainability. While genomic and multi-omics datasets for marine fish species have expanded exponentially in recent years, their systematic integration remains underexplored, hindering comprehensive investigations into gene regulation and biological systems. To bridge this gap, we developed the Marine Fish Database (MFDB; http://marinefishdb.cn), the first integrative genomics platform specifically designed for marine teleosts. MFDB compiles fragmented multi-omics resources across 89 species, encompassing genome assemblies, phylogenomic reconstructions, collinearity maps, pan gene sets, gene architectures, functional annotations, expression profiles, and evolutionary gene family analyses. MFDB further delivers specialized analytical modules, including tissue-specific gene co-expression networks, lineage-defining core gene repertoires, and macrosynteny-driven chromosomal evolution models. The platform features an intuitive and programmable interface, enabling multiscale queries, cross-omics data mining, and dynamic visualization of multidimensional biological interactions. These functionalities collectively empower users to decipher how genomic elements orchestrate phenotypic outcomes through multi-layered regulatory cascades. By integrating rapidly expanding omics datasets with robust analytical pipelines, MFDB establishes a scalable framework to accelerate hypothesis-driven discoveries in marine fish biology, evolutionary adaptation, and ecological resilience research, and further provides an easy-to-operate information platform for the molecular breeding of marine fish species.",
+        "dedupe_key": "doi:10.1093/nar/gkag844",
+        "topic_hit": [
+          "生物信息"
+        ],
+        "priority_rank": 2,
+        "keyword_hit": []
+      },
+      "days_on_board": 1,
+      "is_new": false,
+      "rank_delta": 14,
+      "cluster_id": "7380bdad4f07",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 20
+        },
+        {
+          "run_at": "2026-09-04T04:46:19.195629+00:00",
+          "rank": 29
+        },
+        {
+          "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 29
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 15
+        }
+      ]
+    },
+    {
+      "source": "papers",
+      "rank": 16,
+      "title": "PCRD-seq: proximity crosslinking-induced RNA depletion sequencing for low-input chromatin-associated transcriptome profiling",
+      "title_zh": "PCRD-seq：用于低输入染色质相关转录组谱分析的交联诱导 RNA 去除测序",
+      "url": "https://doi.org/10.1093/nar/gkag853",
+      "hot_value": null,
+      "summary_zh": "摘要 染色质相关 RNA（caRNA）在调控染色质组织和转录中发挥关键作用，凸显了研究它们的重要性。邻近标记已成为一种有前景且多功能的技术，用于高时空分辨率分析 caRNA。尽管邻近标记技术强大，但传统方法依赖复杂、高输入的富集流程，这严重限制了其广泛实际应用。在这里，我们开发了一种简单、无富集的 caRNA 分析策略：邻近交联诱导 RNA 去除测序（PCRD-seq）。该方法利用靶向染色质区域的光敏剂 HoeDBF 产生的单线态氧诱导染色质与其周围 RNA 之间的邻近交联。这种邻近交联阻碍了常规 TRIzol 提取过程中 caRNA 的释放，从而导致这些 RNA 的特异性去除。该方法成功应用于研究 U1 小核 RNA（snRNA）在 RNA 染色质保留中的作用，以及两种转移能力相反的卵巢癌细胞系之间染色质相关转录组的差异。此外，我们的 PCRD-seq 在分析核纤层相关 RNA 方面显示",
+      "thumbnail": null,
+      "published_at": "2026-08-24",
+      "extra": {
+        "subsource": "crossref",
+        "tier": "英文顶刊",
+        "journal": "Nucleic Acids Research",
+        "mode": "filter",
+        "issn": "1362-4962",
+        "doi": "10.1093/nar/gkag853",
+        "description": "Abstract Chromatin-associated RNAs (caRNAs) play critical roles in regulating chromatin organization and transcription, underscoring the importance of their study. Proximity labeling has emerged as a promising and versatile technique for profiling caRNAs with high spatiotemporal resolution. While being a powerful technique, traditional proximity labeling methods depend on complex, high-input enrichment protocols, which significantly limit their wide practical application. Here, we developed a straightforward, enrichment-free caRNA profiling strategy: proximity crosslinking-induced RNA depletion sequencing (PCRD-seq). This approach leverages the proximity crosslinking between chromatin and its surrounding RNAs induced by singlet oxygen generated by HoeDBF, a photosensitizer targeting chromatin region. The proximity crosslinking hinders the release of caRNAs during routine TRIzol extraction, consequently leading to a specific depletion of these RNAs. This method was successfully applied to investigate the role of U1 small nuclear RNA (snRNA) in RNA chromatin retention and the differences in chromatin-associated transcriptomes between two ovarian cancer cell lines with opposite metastatic capability. Moreover, our PCRD-seq exhibits potential in profiling nuclear lamina-associated RNAs, which paves the way for its application to profile RNAs associated with other chromatin subdomains. The minimal cell input and simple workflow render PCRD-seq a transformative tool for wide applications.",
+        "dedupe_key": "doi:10.1093/nar/gkag853",
+        "topic_hit": [
+          "生物信息"
+        ],
+        "priority_rank": 2,
+        "keyword_hit": []
+      },
+      "days_on_board": 1,
+      "is_new": false,
+      "rank_delta": 14,
+      "cluster_id": "4b90b79edd12",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 21
+        },
         {
           "run_at": "2026-09-04T04:46:19.195629+00:00",
           "rank": 30
         },
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 30
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 16
+        }
+      ]
+    },
+    {
+      "source": "papers",
+      "rank": 17,
+      "title": "Synergistic interaction between the macrophage polarizing signals IL-4 and IFNγ is controlled by the STAT6/STAT1/IRF1 axis",
+      "title_zh": "巨噬细胞极化信号 IL-4 和 IFNγ 之间的协同相互作用受 STAT6/STAT1/IRF1 轴控制",
+      "url": "https://doi.org/10.1093/nar/gkag825",
+      "hot_value": null,
+      "summary_zh": "摘要 IFNγ 和 IL-4 是典型的 Th1 和 Th2 细胞因子，通常诱导相反的巨噬细胞极化。除了在病理环境中频繁共存和相互拮抗外，也可能存在协同串扰，这仍有待定义。通过整合转录组学、表观基因组学和基于 CRISPR 的分析，我们发现 IL-4 和 IFNγ 共同暴露导致小鼠巨噬细胞处于中间极化状态，并伴随一组协同激活的基因。我们表明这种协同激活由 STAT6 和 STAT1 在具有显著 H3K27Ac 积累的调控区域共结合介导，并依赖于 BRD4 辅因子。删除任一 STAT 因子或破坏其结合基序都会消除协同转录反应。我们的数据支持一个模型，即一种细胞因子诱导的染色质开放性促进了相反细胞因子激活的 STAT 转录因子（TF）的结合，从而促成协同基因激活。我们进一步表明，IRF1 是一种 IFNγ 诱导的 TF，其表达在 IL-4 存在下持续存在，对该程序的很大一部分是必不可少的。重要的",
+      "thumbnail": null,
+      "published_at": "2026-08-24",
+      "extra": {
+        "subsource": "crossref",
+        "tier": "英文顶刊",
+        "journal": "Nucleic Acids Research",
+        "mode": "filter",
+        "issn": "1362-4962",
+        "doi": "10.1093/nar/gkag825",
+        "description": "Abstract IFNγ and IL-4, the canonical Th1 and Th2 cytokines, typically induce opposing macrophage polarization. Beyond their frequent coexistence and mutual antagonism in pathological settings, a synergistic crosstalk may also exist and remains to be defined. Through integrated transcriptomic, epigenomic, and CRISPR-based analyses, we identify that co-exposure to IL-4 and IFNγ results in an intermediate macrophage polarization state in murine macrophages, associated with a cohort of synergistically activated genes. We show that this synergistic activation is mediated by co-binding of STAT6 and STAT1 at regulatory regions marked with pronounced H3K27Ac accumulation and is dependent on the BRD4 cofactor. Deletion of either STAT factor or disruption of their binding motifs abolishes the synergistic transcriptional response. Our data support a model in which chromatin openness induced by one cytokine facilitates binding of the opposing cytokine-activated STAT transcription factor (TF), contributing to synergistic gene activation. We further show that IRF1, an IFNγ-induced TF whose expression persists in the presence of IL-4, is indispensable for a substantial subset of this program. Importantly, single-cell RNA sequencing of the PyMT murine breast cancer model reveals an in vivo tumor-associated macrophage subset showing STAT1 and STAT6 activation and is enriched for the synergistic gene signature.",
+        "dedupe_key": "doi:10.1093/nar/gkag825",
+        "topic_hit": [
+          "生物信息"
+        ],
+        "priority_rank": 2,
+        "keyword_hit": []
+      },
+      "days_on_board": 1,
+      "is_new": false,
+      "rank_delta": 14,
+      "cluster_id": "87c60e734fcf",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 22
+        },
+        {
+          "run_at": "2026-09-04T04:46:19.195629+00:00",
+          "rank": 31
+        },
+        {
+          "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 31
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 17
+        }
+      ]
+    },
+    {
+      "source": "papers",
+      "rank": 8,
+      "title": "AlignMarkers: an original pipeline for placing molecular markers on physical sequences",
+      "title_zh": "AlignMarkers：一种将分子标记定位到物理序列上的原创流程",
+      "url": "https://doi.org/10.1186/s12859-026-06582-1",
+      "hot_value": null,
+      "summary_zh": "摘要 背景 基因组测序和组装的持续进展，加上长读长基因组序列和高品质分子标记（基于单核苷酸多态性（SNP）和插入缺失（indel））的日益丰富资源，要求准确方法轻松、精确且即时地确定跨基因组版本的标记位置。这对基因分型阵列开发和更新等应用尤为重要。然而，现有工具通常需要分子标记的相关参考基因组，且当无此类参考基因组时，需额外适应来映射这些标记的短上下文序列。为克服这些限制，我们的目标是开发原创流程。结果 AlignMarkers是一个稳健的生物信息学流程，设计使用序列比对准确地将分子标记放置在基因组组装上，无需参考基因组上初始位置信息。它也能操作基于坐标的文件进行类似liftover的分析，在无法生成基因组间比对时提供替代方案。它接受多种输入文件格式（VCF、BED、FASTA、CSV），并优化用于≥100碱基对的序列。当仅提供坐标时，检索上下文序列，然后使用Minimap2比对到目标基因",
+      "thumbnail": null,
+      "published_at": "2026-08-06",
+      "extra": {
+        "subsource": "crossref",
+        "tier": "英文顶刊",
+        "journal": "BMC Bioinformatics",
+        "mode": "all",
+        "issn": "1471-2105",
+        "doi": "10.1186/s12859-026-06582-1",
+        "description": "Abstract Background Continuous progress in genome sequencing and assembly, coupled with the growing availability of massive resources of long-read genomic sequences and high-quality molecular markers, based on single nucleotide polymorphisms (SNPs) and insertions-deletions (indels), demands accurate methods to easily, accurately and readily determine marker positions across genome versions. This is particularly important for applications such as development and updating of genotyping array. However, existing tools often require an associated reference genome for the molecular markers and additional adaptations are needed to map the short context sequences of these markers when no such reference genome is available. To overcome these limitations, our aim was to develop an original pipeline. Results AlignMarkers is a robust bioinformatics pipeline designed to accurately place molecular markers on genome assemblies without requiring information on initial positions on a reference genome, using sequence alignment. It can also operate on coordinate-based files to perform liftover-like analyses, providing an alternative when genome-to-genome alignments could not be generated. It accepts multiple input file formats (VCF, BED, FASTA, CSV) and is optimized for sequences of ≥ 100 base pairs. Context sequences are retrieved, when only coordinates are provided, and then aligned to target genomes using Minimap2, followed by a stringent filtering process ensuring alignment uniqueness, high sequence identity, and verification of the expected nucleotide. AlignMarkers is built with Nextflow and Python and integrates established tools such as Minimap2, Samtools, and Bedtools. It generates comprehensive reports and visualizations to facilitate result interpretation. We evaluated AlignMarkers using 80,000 randomly selected positions across the version 2 Pisum sativum genome assembly of cultivar Cameor, showing that increasing flanking sequence length improves placement accuracy and reduces multimapping, especially in repeat-rich regions. We further benchmarked AlignMarkers on 100,000 Solanum lycopersicum SNPs and indels against CrossMap and bcftools/liftover, showing high concordance in the outputs of all tools. These results demonstrate the robustness and reliability of the pipeline when used with different marker resources. Conclusion AlignMarkers is a reliable and user-friendly solution for transferring marker positions. It supports multiple applications and facilitates the management of large sets of molecular markers for various purposes, including the construction of genotyping platforms.",
+        "dedupe_key": "doi:10.1186/s12859-026-06582-1",
+        "topic_hit": [
+          "生物信息"
+        ],
+        "priority_rank": 2,
+        "keyword_hit": [
+          "benchmark"
+        ]
+      },
+      "days_on_board": 1,
+      "is_new": false,
+      "rank_delta": 13,
+      "cluster_id": "593f0b109aef",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-04T02:35:41.728138+00:00",
+          "rank": 10
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 11
+        },
+        {
+          "run_at": "2026-09-04T04:46:19.195629+00:00",
+          "rank": 21
+        },
+        {
+          "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 21
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 8
+        }
+      ]
+    },
+    {
+      "source": "papers",
+      "rank": 9,
+      "title": "Topological potentials guiding protein self-assembly",
+      "title_zh": "拓扑势引导蛋白质自组装",
+      "url": "https://doi.org/10.1371/journal.pcbi.1014709",
+      "hot_value": null,
+      "summary_zh": "将分子构建块模拟组装成功能复合物是计算生物学和材料科学的核心。由短程非极性相互作用驱动的蛋白质组装模拟原则上能达到其生物学正确结构，但崎岖能量景观常将模拟困在非功能局部最小值。我们引入长程拓扑势，通过加权总持久性量化，并将其与形态测量方法结合用于溶剂化自由能。在四个蛋白质系统中，这种组合将组装成功率提高多达十六倍，并在否则失败的情况下实现组装。与先前基于拓扑的方法不同，我们的方法使用拓扑度量作为主动能量偏置而非描述工具。仅依赖原子几何，该方法原则上扩展到其他自组装系统，提供克服分子模拟中动力学障碍的通用策略。",
+      "thumbnail": null,
+      "published_at": "2026-09-03",
+      "extra": {
+        "subsource": "crossref",
+        "tier": "英文顶刊",
+        "journal": "PLOS Computational Biology",
+        "mode": "all",
+        "issn": "1553-7358",
+        "doi": "10.1371/journal.pcbi.1014709",
+        "description": "The simulated assembly of molecular building blocks into functional complexes is central to computational biology and materials science. Protein-assembly simulations, driven by short-range nonpolar interactions, can in principle reach their biologically correct structures, but rugged energy landscapes often trap simulations in non-functional local minima. We introduce a long-range topological potential, quantified by weighted total persistence, and combine it with the morphometric approach to solvation free energy. Across four protein systems, this combination increases assembly success rates by up to sixteen-fold and enables assembly in cases that otherwise fail. Unlike previous topology-based approaches, our method uses topological measures as an active energetic bias rather than a descriptive tool. Depending only on atom geometry, the method extends in principle to other self-assembling systems, offering a general strategy for overcoming kinetic barriers in molecular simulations.",
+        "dedupe_key": "doi:10.1371/journal.pcbi.1014709",
+        "topic_hit": [
+          "生物信息"
+        ],
+        "priority_rank": 2,
+        "keyword_hit": []
+      },
+      "days_on_board": 1,
+      "is_new": false,
+      "rank_delta": 13,
+      "cluster_id": "d1da7bf5dcd8",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-04T02:35:41.728138+00:00",
+          "rank": 11
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 13
+        },
+        {
+          "run_at": "2026-09-04T04:46:19.195629+00:00",
+          "rank": 22
+        },
+        {
+          "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 22
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 9
+        }
+      ]
+    },
+    {
+      "source": "youtube",
+      "rank": 14,
+      "title": "Harry Potter HBO Series FULL Trailer BREAKDOWN: Easter Eggs & Everything You Missed",
+      "title_zh": "哈利·波特HBO系列完整预告片解析：彩蛋及你错过的一切",
+      "url": "https://youtube.com/watch?v=bRkSGRjIWM0",
+      "hot_value": "183192",
+      "summary_zh": "哈利波特剧集预告，细节彩蛋解析。",
+      "thumbnail": "https://i.ytimg.com/vi/bRkSGRjIWM0/hqdefault.jpg",
+      "published_at": "2026-09-03T18:25:32Z",
+      "extra": {
+        "video_id": "bRkSGRjIWM0",
+        "region": "US",
+        "channel": "MovieFlame",
+        "description": "Patreon: https://www.patreon.com/MovieFlameProd/overview\nTwitter: https://twitter.com/MovieFlameProd\nPersonal Instagram: https://www.instagram.com/morgan_ross18/\nTikTok: https://www.tiktok.com/@movieflamemorgan?_d=secCgYIASAHKAESMgow3bfnYmyfuu04G7we6Z3Zh6NP%2FeQRvTYiR8Iwy7%2BXLueuQQmmtekqDnwVdlbAawL"
+      },
+      "days_on_board": 1,
+      "is_new": false,
+      "rank_delta": 12,
+      "cluster_id": "fe2c543cfc32",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-04T02:35:41.728138+00:00",
+          "rank": 26
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 26
+        },
+        {
+          "run_at": "2026-09-04T04:46:19.195629+00:00",
+          "rank": 26
+        },
+        {
+          "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 26
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
           "rank": 14
         }
       ]
     },
     {
       "source": "douyin",
-      "rank": 33,
-      "title": "谁懂啊开学新同桌竟是小黄人",
-      "title_zh": "谁懂啊开学新同桌竟是小黄人",
-      "url": "https://www.douyin.com/search/%E8%B0%81%E6%87%82%E5%95%8A%E5%BC%80%E5%AD%A6%E6%96%B0%E5%90%8C%E6%A1%8C%E7%AB%9F%E6%98%AF%E5%B0%8F%E9%BB%84%E4%BA%BA",
-      "hot_value": "7706297",
+      "rank": 11,
+      "title": "张雪机车出战大海道越野拉力赛",
+      "title_zh": "张雪机车出战大海道越野拉力赛",
+      "url": "https://www.douyin.com/search/%E5%BC%A0%E9%9B%AA%E6%9C%BA%E8%BD%A6%E5%87%BA%E6%88%98%E5%A4%A7%E6%B5%B7%E9%81%93%E8%B6%8A%E9%87%8E%E6%8B%89%E5%8A%9B%E8%B5%9B",
+      "hot_value": "8042089",
       "summary_zh": null,
-      "thumbnail": "https://p3-sign.douyinpic.com/tos-cn-p-0015c000-ce/ogAAWiTdaSwhBjdkefpB0YA7wnitEy4IH1cREK~noop.jpeg?lk3s=bfd515bb&x-expires=1788519600&x-signature=l61uS8vmGkm8hPSvqKentKdsSn8%3D&from=3218412987",
+      "thumbnail": "https://p11-sign.douyinpic.com/tos-cn-p-0015/owdeIN6sGBAjPuTD2Ri9Ae1N2Arg6B4TIBPwai~noop.jpeg?lk3s=bfd515bb&x-expires=1788523200&x-signature=FhrkgYWIVALeDra1Jpi2zNpX2SA%3D&from=3218412987",
       "published_at": null,
       "extra": {
-        "sentence_id": "2634341"
+        "sentence_id": "2635016"
       },
-      "days_on_board": 2,
+      "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 6,
-      "cluster_id": "48dd3a176bab",
+      "rank_delta": 11,
+      "cluster_id": "94ab3f43ee79",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-03T13:21:21.222481+00:00",
-          "rank": 35
+          "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 22
         },
         {
-          "run_at": "2026-09-03T14:10:41.812376+00:00",
-          "rank": 37
-        },
-        {
-          "run_at": "2026-09-03T14:38:19.864140+00:00",
-          "rank": 36
-        },
-        {
-          "run_at": "2026-09-03T19:20:03.996706+00:00",
-          "rank": 28
-        },
-        {
-          "run_at": "2026-09-03T22:45:57.285881+00:00",
-          "rank": 29
-        },
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 11
+        }
+      ]
+    },
+    {
+      "source": "papers",
+      "rank": 7,
+      "title": "Multi-task deep learning for risk stratification and shared molecular architecture of cardiometabolic multimorbidity under fragmented multi-omics",
+      "title_zh": "多任务深度学习用于碎片化多组学下心脏代谢多发病的风险分层和共享分子架构",
+      "url": "https://doi.org/10.1186/s12859-026-06614-w",
+      "hot_value": null,
+      "summary_zh": "摘要 心脏代谢多发病（CMM）反映互连生理网络的系统性失败，然而基于宏观临床表型的当前风险分层方法留下大量未解决的分子残余风险。虽然多组学整合提供捕获这种潜在脆弱性的手段，但其人群规模应用受限于蛋白质组和代谢组数据的普遍碎片化和非重叠可用性。在此，我们开发多组学感知器用于生存（MOP-Surv），一种深度学习框架，设计通过动态注意力掩蔽和多任务生存学习适应不完整多组学谱而无需插补。应用于297,067名英国生物银行参与者，MOP-Surv在六个心脏代谢终点实现一致风险分层，并提供适度增量预测价值。超越预测，MOP-Surv识别跨终点预后关联的层级结构，并突出包括GDF15、EDA2R和WFDC2在内的简约生物标志物集，在多样疾病轨迹中具有一致预后相关性。因此，MOP-Surv为整合碎片化多组学数据提供实用方法，以表征心脏代谢结果中的共享预后模式。",
+      "thumbnail": null,
+      "published_at": "2026-08-24",
+      "extra": {
+        "subsource": "crossref",
+        "tier": "英文顶刊",
+        "journal": "BMC Bioinformatics",
+        "mode": "all",
+        "issn": "1471-2105",
+        "doi": "10.1186/s12859-026-06614-w",
+        "description": "Abstract Cardiometabolic multimorbidity (CMM) reflects a systemic failure of interconnected physiological networks, yet current risk stratification approaches based on macroscopic clinical phenotypes leave substantial molecular residual risk unresolved. Although multi-omics integration offers a means to capture this latent vulnerability, its population-scale application is limited by pervasive fragmentation and non-overlapping availability of proteomic and metabolomic data. Here, we develop the Multi-Omics Perceiver for Survival (MOP-Surv), a deep learning framework designed to accommodate incomplete multi-omics profiles without imputation through dynamic attention masking and multi-task survival learning. Applied to 297,067 UK Biobank participants, MOP-Surv achieved consistent risk stratification across six cardiometabolic endpoints and provided modest incremental predictive value. Beyond prediction, MOP-Surv identified a hierarchical structure of cross-endpoint prognostic associations and highlighted a parsimonious set of biomarkers including GDF15, EDA2R, and WFDC2 with consistent prognostic relevance across diverse disease trajectories. Therefore MOP-Surv provides a practical approach for integrating fragmented multi-omics data to characterize shared prognostic patterns across cardiometabolic outcomes.",
+        "dedupe_key": "doi:10.1186/s12859-026-06614-w",
+        "topic_hit": [
+          "生物信息"
+        ],
+        "priority_rank": 2,
+        "keyword_hit": [
+          "deep learning",
+          "attention"
+        ]
+      },
+      "days_on_board": 1,
+      "is_new": false,
+      "rank_delta": 10,
+      "cluster_id": "3386f62c4e9b",
+      "cluster_size": 1,
+      "rank_history": [
         {
           "run_at": "2026-09-04T02:35:41.728138+00:00",
-          "rank": 34
+          "rank": 9
         },
         {
           "run_at": "2026-09-04T02:51:41.206031+00:00",
-          "rank": 36
+          "rank": 10
         },
         {
           "run_at": "2026-09-04T04:46:19.195629+00:00",
-          "rank": 39
+          "rank": 17
         },
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
-          "rank": 33
+          "rank": 17
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 7
+        }
+      ]
+    },
+    {
+      "source": "bilibili",
+      "rank": 2,
+      "title": "《绝区零》克拉蕾角色展示 | 不想培训，但攻略已写好",
+      "title_zh": "《绝区零》克拉蕾角色展示 | 不想培训，但攻略已写好",
+      "url": "https://b23.tv/BV1wote6gEQ1",
+      "hot_value": "262454",
+      "summary_zh": null,
+      "thumbnail": "http://i0.hdslb.com/bfs/archive/78c7032651157d88e625a196d2ed51c9c7a62622.jpg",
+      "published_at": "2026-09-04T04:00:00+00:00",
+      "extra": {
+        "bvid": "BV1wote6gEQ1",
+        "owner": "绝区零"
+      },
+      "days_on_board": 1,
+      "is_new": false,
+      "rank_delta": 9,
+      "cluster_id": "b6c54fd56d27",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-04T04:46:19.195629+00:00",
+          "rank": 11
+        },
+        {
+          "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 11
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 2
+        }
+      ]
+    },
+    {
+      "source": "bilibili",
+      "rank": 7,
+      "title": "桃花源记",
+      "title_zh": "桃花源记",
+      "url": "https://b23.tv/BV16Hto6aE4v",
+      "hot_value": "495089",
+      "summary_zh": null,
+      "thumbnail": "http://i1.hdslb.com/bfs/archive/45a811a701bd6b3777080e205d0f5704073f41a3.jpg",
+      "published_at": "2026-09-03T12:28:55+00:00",
+      "extra": {
+        "bvid": "BV16Hto6aE4v",
+        "owner": "累渠_"
+      },
+      "days_on_board": 1,
+      "is_new": false,
+      "rank_delta": 9,
+      "cluster_id": "f01c378f0518",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-04T02:35:41.728138+00:00",
+          "rank": 7
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 6
+        },
+        {
+          "run_at": "2026-09-04T04:46:19.195629+00:00",
+          "rank": 16
+        },
+        {
+          "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 16
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 7
+        }
+      ]
+    },
+    {
+      "source": "papers",
+      "rank": 5,
+      "title": "ASPIRE: Accurate alternative splicing prediction from limited RNA sequencing data and a minimal gene set",
+      "title_zh": "ASPIRE：从有限RNA测序数据和最小基因集进行准确的可变剪接预测",
+      "url": "https://doi.org/10.1371/journal.pcbi.1014725",
+      "hot_value": null,
+      "summary_zh": "可变剪接是增加蛋白质多样性并调节真核生物关键细胞过程的基本生物机制。剪接失调与多种疾病相关，包括癌症、神经疾病和自身免疫疾病。准确预测剪接指标如剪接百分比（PSI）因此对理解剪接调控和改善疾病特征化至关重要。然而，现有方法通常需要高测序深度，因此不适合低覆盖设置如单细胞RNA测序，其中稀疏读数计数限制可靠剪接分析。在此，我们提出ASPIRE（从有限RNA测序进行准确剪接预测），一种深度学习框架，从低深度RNA-seq基因表达数据预测可变剪接指标。ASPIRE从有限读数覆盖的基因表达谱推断PSI值，并整合嵌入式特征选择机制，识别与剪接调控相关的少量信息性基因子集。这种设计实现准确预测，同时减少对广泛测序的依赖，并减轻无关或弱信息基因引入的噪声。通过关注生物学有意义的特征，包括RNA结合蛋白，ASPIRE即使在单细胞转录组学典型条件下也保持强预测性能。我们证明ASPIRE在一系列测序深度（包括",
+      "thumbnail": null,
+      "published_at": "2026-08-28",
+      "extra": {
+        "subsource": "crossref",
+        "tier": "英文顶刊",
+        "journal": "PLOS Computational Biology",
+        "mode": "all",
+        "issn": "1553-7358",
+        "doi": "10.1371/journal.pcbi.1014725",
+        "description": "Alternative splicing is a fundamental biological mechanism that increases protein diversity and regulates critical cellular processes across eukaryotes. Dysregulation of splicing is implicated in a wide range of diseases, including cancer, neurological disorders, and autoimmune conditions. Accurate prediction of splicing metrics such as percent spliced in (PSI) is therefore essential for understanding splicing regulation and improving disease characterization. However, existing approaches typically require high sequencing depth and are thus poorly suited for low-coverage settings such as single-cell RNA sequencing, where sparse read counts limit reliable splicing analysis. Here, we present ASPIRE (Accurate Splicing Prediction from Limited RNA Sequencing), a deep learning framework for predicting alternative splicing metrics from low-depth RNA-seq gene expression data. ASPIRE infers PSI values from gene expression profiles with limited read coverage and incorporates an embedded feature selection mechanism that identifies a minimal, informative subset of genes relevant to splicing regulation. This design enables accurate prediction while reducing reliance on extensive sequencing and mitigating noise introduced by irrelevant or weakly informative genes. By focusing on biologically meaningful features, including RNA-binding proteins, ASPIRE maintains strong predictive performance even under conditions typical of single-cell transcriptomics. We demonstrate that ASPIRE accurately predicts PSI values across a range of sequencing depths, including those characteristic of single-cell RNA-seq, and performs comparably to or better than existing methods in both simulated and real datasets. By enabling robust expression-based splicing inference from sparse data, ASPIRE facilitates the study of alternative splicing at cellular resolution and provides a practical framework for investigating splicing regulation in development, disease, and heterogeneous cell populations.",
+        "dedupe_key": "doi:10.1371/journal.pcbi.1014725",
+        "topic_hit": [
+          "生物信息"
+        ],
+        "priority_rank": 2,
+        "keyword_hit": [
+          "deep learning"
+        ]
+      },
+      "days_on_board": 1,
+      "is_new": false,
+      "rank_delta": 9,
+      "cluster_id": "a63b88dc1d4e",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-04T02:35:41.728138+00:00",
+          "rank": 7
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 8
+        },
+        {
+          "run_at": "2026-09-04T04:46:19.195629+00:00",
+          "rank": 14
+        },
+        {
+          "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 14
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 5
+        }
+      ]
+    },
+    {
+      "source": "papers",
+      "rank": 6,
+      "title": "iDCF: Interpretable deconvolution of cell fractions via biologically-informed deep learning using scRNA-seq data",
+      "title_zh": "iDCF：通过生物信息深度学习和scRNA-seq数据进行细胞分数的可解释反卷积",
+      "url": "https://doi.org/10.1371/journal.pcbi.1014727",
+      "hot_value": null,
+      "summary_zh": "精确解析复杂组织内的细胞异质性对于从批量转录组谱中解读疾病病因至关重要。虽然计算反卷积提供可扩展替代方案，但当前深度学习方法主要作为“黑箱”运行，忽视生物定律的结构约束。这种对纯数据驱动特征提取的依赖常产生生物学不一致的预测和有限的机制可解释性。iDCF（可解释细胞分数反卷积）是一种新框架，将生物拓扑强制到深度神经网络上。iDCF架构采用双流设计，协同标准深度网络与由途径定义和蛋白质-蛋白质相互作用（PPI）网络显式掩蔽的基于知识的稀疏神经网络（KSNN）。在全面基准测试中，iDCF达到顶级性能，在准确性和稳健性上始终排名于最先进方法中。iDCF整合SHapley加性解释（SHAP）框架，弥合计算推断与生物直觉间的差距。模型决策逻辑由既定生物机制而非虚假统计相关性主导，验证其可靠性。跨临床背景验证，包括阿尔茨海默病、卵巢癌和糖尿病，证明iDCF恢复疾病相关细胞动态的能力。iDCF为反卷积细",
+      "thumbnail": null,
+      "published_at": "2026-08-27",
+      "extra": {
+        "subsource": "crossref",
+        "tier": "英文顶刊",
+        "journal": "PLOS Computational Biology",
+        "mode": "all",
+        "issn": "1553-7358",
+        "doi": "10.1371/journal.pcbi.1014727",
+        "description": "Precise resolution of cellular heterogeneity within complex tissues is fundamental to deciphering disease etiologies from bulk transcriptomic profiles. While computational deconvolution offers a scalable alternative, current deep learning methods predominantly operate as “black boxes,” neglecting the structural constraints of biological laws. This reliance on purely data-driven feature extraction often yields biologically incoherent predictions and limited mechanistic interpretability. iDCF ( I nterpretable D econvolution of C ell F ractions) is a novel framework that enforces biological topology onto deep neural networks. The iDCF architecture employs a dual-stream design, synergizing a standard deep network with a knowledge-based sparse neural network (KSNN) explicitly masked by pathway definitions and protein-protein interaction (PPI) networks. In comprehensive benchmarks, iDCF achieves top-tier performance, consistently ranking among state-of-the-art methods in accuracy and robustness. iDCF integrates the SHapley Additive exPlanations (SHAP) framework, bridging the gap between computational inference and biological intuition. The model’s decision logic is governed by established biological mechanisms rather than spurious statistical correlations, validating its reliability. Validations across clinical contexts, including Alzheimer’s disease, ovarian cancer, and diabetes, demonstrate iDCF’s ability to recover disease-relevant cellular dynamics. iDCF offers a high-performance, interpretable, and biologically grounded tool for deconvolving cell-type proportions, facilitating deeper insights into tissue heterogeneity in health and disease.",
+        "dedupe_key": "doi:10.1371/journal.pcbi.1014727",
+        "topic_hit": [
+          "生物信息"
+        ],
+        "priority_rank": 2,
+        "keyword_hit": [
+          "deep learning",
+          "benchmark"
+        ]
+      },
+      "days_on_board": 1,
+      "is_new": false,
+      "rank_delta": 9,
+      "cluster_id": "bd528d98601e",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-04T02:35:41.728138+00:00",
+          "rank": 8
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 9
+        },
+        {
+          "run_at": "2026-09-04T04:46:19.195629+00:00",
+          "rank": 15
+        },
+        {
+          "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 15
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 6
         }
       ]
     },
     {
       "source": "douyin",
       "rank": 21,
-      "title": "全员进入Luke穿搭时代",
-      "title_zh": "全员进入Luke穿搭时代",
-      "url": "https://www.douyin.com/search/%E5%85%A8%E5%91%98%E8%BF%9B%E5%85%A5Luke%E7%A9%BF%E6%90%AD%E6%97%B6%E4%BB%A3",
-      "hot_value": "7773717",
+      "title": "电影杀死比尔观后感",
+      "title_zh": "电影杀死比尔观后感",
+      "url": "https://www.douyin.com/search/%E7%94%B5%E5%BD%B1%E6%9D%80%E6%AD%BB%E6%AF%94%E5%B0%94%E8%A7%82%E5%90%8E%E6%84%9F",
+      "hot_value": "7728692",
       "summary_zh": null,
-      "thumbnail": "https://p5-ex-gddgtc-sign.douyinpic.com/tos-cn-p-0015/owA0B6IgNhAFYE7uaV9t5lfXhrDzAB2ISM0qeX~noop.jpeg?lk3s=bfd515bb&x-expires=1788519600&x-signature=QwaXH7DzP4w5xi%2BHxH2VfSxa2tI%3D&from=3218412987",
+      "thumbnail": "https://p11-sign.douyinpic.com/tos-cn-p-0015/oUIAZi1GLBnqASBiIfAqIDCgirgk1T4VP68AeG~noop.jpeg?lk3s=bfd515bb&x-expires=1788523200&x-signature=jnkkBGtth0qmDmDh9lObXePxctw%3D&from=3218412987",
       "published_at": null,
       "extra": {
-        "sentence_id": "2633818"
+        "sentence_id": "2634987"
       },
-      "days_on_board": 2,
+      "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 5,
-      "cluster_id": "389e0b4272b5",
+      "rank_delta": 8,
+      "cluster_id": "8ebe5ee2ea01",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-03T09:00:07.774956+00:00",
-          "rank": 12
-        },
-        {
-          "run_at": "2026-09-03T13:21:21.222481+00:00",
-          "rank": 18
-        },
-        {
-          "run_at": "2026-09-03T14:10:41.812376+00:00",
-          "rank": 19
-        },
-        {
-          "run_at": "2026-09-03T14:38:19.864140+00:00",
-          "rank": 18
-        },
-        {
-          "run_at": "2026-09-03T19:20:03.996706+00:00",
-          "rank": 32
-        },
-        {
-          "run_at": "2026-09-03T22:45:57.285881+00:00",
-          "rank": 12
-        },
-        {
-          "run_at": "2026-09-04T02:35:41.728138+00:00",
-          "rank": 18
-        },
-        {
-          "run_at": "2026-09-04T02:51:41.206031+00:00",
-          "rank": 18
-        },
-        {
-          "run_at": "2026-09-04T04:46:19.195629+00:00",
-          "rank": 26
-        },
-        {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 29
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
           "rank": 21
         }
       ]
     },
     {
       "source": "douyin",
-      "rank": 36,
-      "title": "秋天少不了的好东西",
-      "title_zh": "秋天少不了的好东西",
-      "url": "https://www.douyin.com/search/%E7%A7%8B%E5%A4%A9%E5%B0%91%E4%B8%8D%E4%BA%86%E7%9A%84%E5%A5%BD%E4%B8%9C%E8%A5%BF",
-      "hot_value": "7698087",
+      "rank": 34,
+      "title": "原来是我们离不开孩子",
+      "title_zh": "原来是我们离不开孩子",
+      "url": "https://www.douyin.com/search/%E5%8E%9F%E6%9D%A5%E6%98%AF%E6%88%91%E4%BB%AC%E7%A6%BB%E4%B8%8D%E5%BC%80%E5%AD%A9%E5%AD%90",
+      "hot_value": "7678979",
       "summary_zh": null,
-      "thumbnail": "https://p3-sign.douyinpic.com/tos-cn-p-0015c000-ce/oYAT9e6IqEeMAlEz3CkiLS2iIXBAm3AYHwfFDW~noop.jpeg?lk3s=bfd515bb&x-expires=1788519600&x-signature=M9Q6iGT8XK5yDRv5piY3xMB8UJk%3D&from=3218412987",
+      "thumbnail": "https://p26-sign.douyinpic.com/tos-cn-p-0015/oUABXFvO7lgtDvqy9fqB7PA1gCE2A6SIUqdfEk~noop.jpeg?lk3s=bfd515bb&x-expires=1788523200&x-signature=MTaWu5HH%2F30y4X10dcB43DRa2T4%3D&from=3218412987",
       "published_at": null,
       "extra": {
-        "sentence_id": "2633770"
-      },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 4,
-      "cluster_id": "d6e25f80eed1",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-03T05:22:12.489468+00:00",
-          "rank": 11
-        },
-        {
-          "run_at": "2026-09-03T06:33:29.828752+00:00",
-          "rank": 27
-        },
-        {
-          "run_at": "2026-09-03T09:00:07.774956+00:00",
-          "rank": 31
-        },
-        {
-          "run_at": "2026-09-03T13:21:21.222481+00:00",
-          "rank": 11
-        },
-        {
-          "run_at": "2026-09-03T14:10:41.812376+00:00",
-          "rank": 44
-        },
-        {
-          "run_at": "2026-09-03T14:38:19.864140+00:00",
-          "rank": 37
-        },
-        {
-          "run_at": "2026-09-03T19:20:03.996706+00:00",
-          "rank": 29
-        },
-        {
-          "run_at": "2026-09-03T22:45:57.285881+00:00",
-          "rank": 30
-        },
-        {
-          "run_at": "2026-09-04T02:35:41.728138+00:00",
-          "rank": 8
-        },
-        {
-          "run_at": "2026-09-04T02:51:41.206031+00:00",
-          "rank": 8
-        },
-        {
-          "run_at": "2026-09-04T04:46:19.195629+00:00",
-          "rank": 40
-        },
-        {
-          "run_at": "2026-09-04T05:15:01.664932+00:00",
-          "rank": 36
-        }
-      ]
-    },
-    {
-      "source": "douyin",
-      "rank": 9,
-      "title": "郑钦文晋级美网32强",
-      "title_zh": "郑钦文晋级美网32强",
-      "url": "https://www.douyin.com/search/%E9%83%91%E9%92%A6%E6%96%87%E6%99%8B%E7%BA%A7%E7%BE%8E%E7%BD%9132%E5%BC%BA",
-      "hot_value": "9269528",
-      "summary_zh": null,
-      "thumbnail": "https://p5-ex-gddgtc-sign.douyinpic.com/tos-cn-p-0015c000-ce/oECFwABWEA9nSKHmFfesWIkuqr1QQDXYlCEwAE~noop.jpeg?lk3s=bfd515bb&x-expires=1788519600&x-signature=%2Fp0lcdLLjn%2B4j%2FqTQhdfV8%2BZYdE%3D&from=3218412987",
-      "published_at": null,
-      "extra": {
-        "sentence_id": "2634747"
-      },
-      "days_on_board": 1,
-      "is_new": false,
-      "rank_delta": 3,
-      "cluster_id": "f4aaa2b76187",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-04T02:35:41.728138+00:00",
-          "rank": 9
-        },
-        {
-          "run_at": "2026-09-04T02:51:41.206031+00:00",
-          "rank": 10
-        },
-        {
-          "run_at": "2026-09-04T04:46:19.195629+00:00",
-          "rank": 12
-        },
-        {
-          "run_at": "2026-09-04T05:15:01.664932+00:00",
-          "rank": 9
-        }
-      ]
-    },
-    {
-      "source": "douyin",
-      "rank": 39,
-      "title": "所有人都回到紧身裤时代",
-      "title_zh": "所有人都回到紧身裤时代",
-      "url": "https://www.douyin.com/search/%E6%89%80%E6%9C%89%E4%BA%BA%E9%83%BD%E5%9B%9E%E5%88%B0%E7%B4%A7%E8%BA%AB%E8%A3%A4%E6%97%B6%E4%BB%A3",
-      "hot_value": "7686807",
-      "summary_zh": null,
-      "thumbnail": "https://p3-sign.douyinpic.com/tos-cn-p-0015/oYLp8D7uVeBwQ6PXC5FEAeDdBLA7a2nQIbfuE0~noop.jpeg?lk3s=bfd515bb&x-expires=1788519600&x-signature=%2FtER5PyuYslj2wEpMDnMgvG5VzA%3D&from=3218412987",
-      "published_at": null,
-      "extra": {
-        "sentence_id": "2632761"
+        "sentence_id": "2633491"
       },
       "days_on_board": 3,
       "is_new": false,
-      "rank_delta": 3,
-      "cluster_id": "bb98d7eb3c10",
+      "rank_delta": 7,
+      "cluster_id": "5380fb370182",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-02T07:45:05.669605+00:00",
-          "rank": 16
-        },
-        {
-          "run_at": "2026-09-02T08:12:20.459281+00:00",
-          "rank": 16
-        },
-        {
-          "run_at": "2026-09-02T08:21:35.486354+00:00",
-          "rank": 16
-        },
-        {
-          "run_at": "2026-09-02T08:27:57.698257+00:00",
-          "rank": 16
-        },
-        {
-          "run_at": "2026-09-02T08:40:10.105008+00:00",
-          "rank": 16
-        },
-        {
-          "run_at": "2026-09-02T09:09:31.946901+00:00",
-          "rank": 17
-        },
-        {
-          "run_at": "2026-09-02T12:31:05.172723+00:00",
-          "rank": 13
-        },
-        {
-          "run_at": "2026-09-02T14:08:11.969730+00:00",
-          "rank": 12
-        },
-        {
           "run_at": "2026-09-02T19:15:05.327909+00:00",
-          "rank": 15
+          "rank": 6
         },
         {
           "run_at": "2026-09-02T22:24:21.398262+00:00",
-          "rank": 14
+          "rank": 6
         },
         {
           "run_at": "2026-09-03T05:22:12.489468+00:00",
-          "rank": 26
+          "rank": 5
         },
         {
           "run_at": "2026-09-03T06:33:29.828752+00:00",
+          "rank": 5
+        },
+        {
+          "run_at": "2026-09-03T09:00:07.774956+00:00",
+          "rank": 2
+        },
+        {
+          "run_at": "2026-09-03T13:21:21.222481+00:00",
+          "rank": 33
+        },
+        {
+          "run_at": "2026-09-03T14:10:41.812376+00:00",
+          "rank": 40
+        },
+        {
+          "run_at": "2026-09-03T14:38:19.864140+00:00",
+          "rank": 38
+        },
+        {
+          "run_at": "2026-09-03T19:20:03.996706+00:00",
+          "rank": 40
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
           "rank": 41
         },
         {
-          "run_at": "2026-09-03T09:00:07.774956+00:00",
-          "rank": 27
-        },
-        {
-          "run_at": "2026-09-03T13:21:21.222481+00:00",
-          "rank": 42
-        },
-        {
-          "run_at": "2026-09-03T14:10:41.812376+00:00",
-          "rank": 43
-        },
-        {
-          "run_at": "2026-09-03T14:38:19.864140+00:00",
-          "rank": 42
-        },
-        {
-          "run_at": "2026-09-03T19:20:03.996706+00:00",
-          "rank": 45
-        },
-        {
-          "run_at": "2026-09-03T22:45:57.285881+00:00",
-          "rank": 46
-        },
-        {
           "run_at": "2026-09-04T02:35:41.728138+00:00",
-          "rank": 42
+          "rank": 36
         },
         {
           "run_at": "2026-09-04T02:51:41.206031+00:00",
-          "rank": 43
+          "rank": 33
         },
         {
           "run_at": "2026-09-04T04:46:19.195629+00:00",
-          "rank": 42
+          "rank": 33
         },
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
-          "rank": 39
-        }
-      ]
-    },
-    {
-      "source": "weibo",
-      "rank": 2,
-      "title": "男子欠债想轻生学胖东来还清105万",
-      "title_zh": "男子欠债想轻生学胖东来还清105万",
-      "url": "https://s.weibo.com/weibo?q=%23%E7%94%B7%E5%AD%90%E6%AC%A0%E5%80%BA%E6%83%B3%E8%BD%BB%E7%94%9F%E5%AD%A6%E8%83%96%E4%B8%9C%E6%9D%A5%E8%BF%98%E6%B8%85105%E4%B8%87%23",
-      "hot_value": "1178798",
-      "summary_zh": null,
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "category": null
-      },
-      "days_on_board": 1,
-      "is_new": false,
-      "rank_delta": 3,
-      "cluster_id": "d31c647a8533",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-04T02:35:41.728138+00:00",
-          "rank": 7
+          "rank": 41
         },
         {
-          "run_at": "2026-09-04T02:51:41.206031+00:00",
-          "rank": 2
-        },
-        {
-          "run_at": "2026-09-04T04:46:19.195629+00:00",
-          "rank": 5
-        },
-        {
-          "run_at": "2026-09-04T05:15:01.664932+00:00",
-          "rank": 2
-        }
-      ]
-    },
-    {
-      "source": "gongkao",
-      "rank": 7,
-      "title": "冰轮环境2027届全球校园招聘",
-      "title_zh": "冰轮环境2027届全球校园招聘",
-      "url": "https://hera-webapp.fenbi.com/api/website/article/detail?deviceType=3&id=468839941560320&app=web&av=100&hav=100&kav=100&client_context_id=",
-      "hot_value": "正在报名",
-      "summary_zh": "招考人数：若干 报名时间：2026.09.04-2026.09.11",
-      "thumbnail": null,
-      "published_at": "2026-09-04T02:21:50+00:00",
-      "extra": {
-        "id": 468839941560320,
-        "sub": "announcement",
-        "tags": [
-          "山东",
-          "烟台市",
-          "济南市",
-          "湖北",
-          "武汉市",
-          "辽宁",
-          "大连市",
-          "广东",
-          "广州市",
-          "国企",
-          "国央企正式",
-          "2026"
-        ],
-        "province": "山东",
-        "exam_type": "国企",
-        "startSignUpTime": 1788451200000,
-        "endSignUpTime": 1789055940000,
-        "startWriteTime": null,
-        "target_university_hit": [],
-        "city_focus_hit": []
-      },
-      "days_on_board": 1,
-      "is_new": false,
-      "rank_delta": 2,
-      "cluster_id": "464b1eefed81",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-04T02:35:41.728138+00:00",
-          "rank": 8
-        },
-        {
-          "run_at": "2026-09-04T02:51:41.206031+00:00",
-          "rank": 8
-        },
-        {
-          "run_at": "2026-09-04T04:46:19.195629+00:00",
-          "rank": 9
-        },
-        {
-          "run_at": "2026-09-04T05:15:01.664932+00:00",
-          "rank": 7
-        }
-      ]
-    },
-    {
-      "source": "weibo",
-      "rank": 6,
-      "title": "毛阿敏对许晴称呼的变化",
-      "title_zh": "毛阿敏对许晴称呼的变化",
-      "url": "https://s.weibo.com/weibo?q=%23%E6%AF%9B%E9%98%BF%E6%95%8F%E5%AF%B9%E8%AE%B8%E6%99%B4%E7%A7%B0%E5%91%BC%E7%9A%84%E5%8F%98%E5%8C%96%23",
-      "hot_value": "661642",
-      "summary_zh": null,
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "category": null
-      },
-      "days_on_board": 1,
-      "is_new": false,
-      "rank_delta": 2,
-      "cluster_id": "1ec43c2c91ba",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-04T02:35:41.728138+00:00",
-          "rank": 4
-        },
-        {
-          "run_at": "2026-09-04T02:51:41.206031+00:00",
-          "rank": 4
-        },
-        {
-          "run_at": "2026-09-04T04:46:19.195629+00:00",
-          "rank": 8
-        },
-        {
-          "run_at": "2026-09-04T05:15:01.664932+00:00",
-          "rank": 6
-        }
-      ]
-    },
-    {
-      "source": "weibo",
-      "rank": 7,
-      "title": "妈妈煮熟葡萄女儿误以为是鹌鹑蛋",
-      "title_zh": "妈妈煮熟葡萄女儿误以为是鹌鹑蛋",
-      "url": "https://s.weibo.com/weibo?q=%23%E5%A6%88%E5%A6%88%E7%85%AE%E7%86%9F%E8%91%A1%E8%90%84%E5%A5%B3%E5%84%BF%E8%AF%AF%E4%BB%A5%E4%B8%BA%E6%98%AF%E9%B9%8C%E9%B9%91%E8%9B%8B%23",
-      "hot_value": "613914",
-      "summary_zh": null,
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "category": null
-      },
-      "days_on_board": 1,
-      "is_new": false,
-      "rank_delta": 2,
-      "cluster_id": "d5b92171de08",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-04T02:35:41.728138+00:00",
-          "rank": 9
-        },
-        {
-          "run_at": "2026-09-04T02:51:41.206031+00:00",
-          "rank": 7
-        },
-        {
-          "run_at": "2026-09-04T04:46:19.195629+00:00",
-          "rank": 9
-        },
-        {
-          "run_at": "2026-09-04T05:15:01.664932+00:00",
-          "rank": 7
-        }
-      ]
-    },
-    {
-      "source": "douyin",
-      "rank": 13,
-      "title": "开学版井柏然进行曲",
-      "title_zh": "开学版井柏然进行曲",
-      "url": "https://www.douyin.com/search/%E5%BC%80%E5%AD%A6%E7%89%88%E4%BA%95%E6%9F%8F%E7%84%B6%E8%BF%9B%E8%A1%8C%E6%9B%B2",
-      "hot_value": "9096689",
-      "summary_zh": null,
-      "thumbnail": "https://p11-sign.douyinpic.com/tos-cn-p-0015/o0w90mEMYFv1RxNXAszdf1gQDfASFALQQBRqPQ~noop.jpeg?lk3s=bfd515bb&x-expires=1788519600&x-signature=5TlnVnO%2BKnIA1uQpMNdc1O91Axg%3D&from=3218412987",
-      "published_at": null,
-      "extra": {
-        "sentence_id": "2634680"
-      },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 1,
-      "cluster_id": "eded3b77ff85",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-03T19:20:03.996706+00:00",
-          "rank": 13
-        },
-        {
-          "run_at": "2026-09-03T22:45:57.285881+00:00",
-          "rank": 13
-        },
-        {
-          "run_at": "2026-09-04T02:35:41.728138+00:00",
-          "rank": 10
-        },
-        {
-          "run_at": "2026-09-04T02:51:41.206031+00:00",
-          "rank": 11
-        },
-        {
-          "run_at": "2026-09-04T04:46:19.195629+00:00",
-          "rank": 14
-        },
-        {
-          "run_at": "2026-09-04T05:15:01.664932+00:00",
-          "rank": 13
-        }
-      ]
-    },
-    {
-      "source": "douyin",
-      "rank": 18,
-      "title": "沉浸式体验尚之桃同款通勤路",
-      "title_zh": "沉浸式体验尚之桃同款通勤路",
-      "url": "https://www.douyin.com/search/%E6%B2%89%E6%B5%B8%E5%BC%8F%E4%BD%93%E9%AA%8C%E5%B0%9A%E4%B9%8B%E6%A1%83%E5%90%8C%E6%AC%BE%E9%80%9A%E5%8B%A4%E8%B7%AF",
-      "hot_value": "8147805",
-      "summary_zh": null,
-      "thumbnail": "https://p11-sign.douyinpic.com/tos-cn-p-0015/oEb4tVzEDQMQcy0lAlFDC19CiBf1q4AIEfg5Am~noop.jpeg?lk3s=bfd515bb&x-expires=1788519600&x-signature=IIf1EwsIw9FlbloS5gTgRXHqmsg%3D&from=3218412987",
-      "published_at": null,
-      "extra": {
-        "sentence_id": "2634514"
-      },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 1,
-      "cluster_id": "5fd0ccebed69",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-03T14:10:41.812376+00:00",
-          "rank": 27
-        },
-        {
-          "run_at": "2026-09-03T14:38:19.864140+00:00",
-          "rank": 26
-        },
-        {
-          "run_at": "2026-09-03T19:20:03.996706+00:00",
-          "rank": 23
-        },
-        {
-          "run_at": "2026-09-03T22:45:57.285881+00:00",
-          "rank": 18
-        },
-        {
-          "run_at": "2026-09-04T02:35:41.728138+00:00",
-          "rank": 14
-        },
-        {
-          "run_at": "2026-09-04T02:51:41.206031+00:00",
-          "rank": 20
-        },
-        {
-          "run_at": "2026-09-04T04:46:19.195629+00:00",
-          "rank": 19
-        },
-        {
-          "run_at": "2026-09-04T05:15:01.664932+00:00",
-          "rank": 18
-        }
-      ]
-    },
-    {
-      "source": "douyin",
-      "rank": 20,
-      "title": "生逢其时开播",
-      "title_zh": "生逢其时开播",
-      "url": "https://www.douyin.com/search/%E7%94%9F%E9%80%A2%E5%85%B6%E6%97%B6%E5%BC%80%E6%92%AD",
-      "hot_value": "7826671",
-      "summary_zh": null,
-      "thumbnail": "https://p3-sign.douyinpic.com/tos-cn-p-0015/oQEAW1qA2B1ycgetwNIAuiiAzuB5RSCiafWdcC~noop.jpeg?lk3s=bfd515bb&x-expires=1788519600&x-signature=cNn2XTjxnwZrA92TjYkTzh29k%2FU%3D&from=3218412987",
-      "published_at": null,
-      "extra": {
-        "sentence_id": "2633942"
-      },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 1,
-      "cluster_id": "cbecbd8db278",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-03T06:33:29.828752+00:00",
-          "rank": 32
-        },
-        {
-          "run_at": "2026-09-03T09:00:07.774956+00:00",
-          "rank": 18
-        },
-        {
-          "run_at": "2026-09-03T13:21:21.222481+00:00",
-          "rank": 16
-        },
-        {
-          "run_at": "2026-09-03T14:10:41.812376+00:00",
-          "rank": 16
-        },
-        {
-          "run_at": "2026-09-03T14:38:19.864140+00:00",
-          "rank": 16
-        },
-        {
-          "run_at": "2026-09-03T19:20:03.996706+00:00",
-          "rank": 16
-        },
-        {
-          "run_at": "2026-09-03T22:45:57.285881+00:00",
-          "rank": 21
-        },
-        {
-          "run_at": "2026-09-04T02:35:41.728138+00:00",
-          "rank": 17
-        },
-        {
-          "run_at": "2026-09-04T02:51:41.206031+00:00",
-          "rank": 17
-        },
-        {
-          "run_at": "2026-09-04T04:46:19.195629+00:00",
-          "rank": 21
-        },
-        {
-          "run_at": "2026-09-04T05:15:01.664932+00:00",
-          "rank": 20
-        }
-      ]
-    },
-    {
-      "source": "douyin",
-      "rank": 27,
-      "title": "九月这波一定要接住了",
-      "title_zh": "九月这波一定要接住了",
-      "url": "https://www.douyin.com/search/%E4%B9%9D%E6%9C%88%E8%BF%99%E6%B3%A2%E4%B8%80%E5%AE%9A%E8%A6%81%E6%8E%A5%E4%BD%8F%E4%BA%86",
-      "hot_value": "7727602",
-      "summary_zh": null,
-      "thumbnail": "https://p11-sign.douyinpic.com/tos-cn-i-0813c001/oAf18yeCAZBTYZzivAiGlEA0A3AVIgC4IgANpA~noop.jpeg?lk3s=bfd515bb&x-expires=1788519600&x-signature=Ng6646IyhXFD4W1WKhuvfmTDiPY%3D&from=3218412987",
-      "published_at": null,
-      "extra": {
-        "sentence_id": "2633987"
-      },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 1,
-      "cluster_id": "9de6250d2c5c",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-03T09:00:07.774956+00:00",
-          "rank": 30
-        },
-        {
-          "run_at": "2026-09-03T13:21:21.222481+00:00",
-          "rank": 27
-        },
-        {
-          "run_at": "2026-09-03T14:10:41.812376+00:00",
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
           "rank": 34
-        },
-        {
-          "run_at": "2026-09-03T14:38:19.864140+00:00",
-          "rank": 34
-        },
-        {
-          "run_at": "2026-09-03T19:20:03.996706+00:00",
-          "rank": 30
-        },
-        {
-          "run_at": "2026-09-03T22:45:57.285881+00:00",
-          "rank": 26
-        },
-        {
-          "run_at": "2026-09-04T02:35:41.728138+00:00",
-          "rank": 29
-        },
-        {
-          "run_at": "2026-09-04T02:51:41.206031+00:00",
-          "rank": 26
-        },
-        {
-          "run_at": "2026-09-04T04:46:19.195629+00:00",
-          "rank": 28
-        },
-        {
-          "run_at": "2026-09-04T05:15:01.664932+00:00",
-          "rank": 27
-        }
-      ]
-    },
-    {
-      "source": "gongkao",
-      "rank": 45,
-      "title": "重庆市属事业单位2026年第三季度公开遴选工作人员公告",
-      "title_zh": "重庆市属事业单位2026年第三季度公开遴选工作人员公告",
-      "url": "https://hera-webapp.fenbi.com/api/website/article/detail?deviceType=3&id=468684721903616&app=web&av=100&hav=100&kav=100&client_context_id=",
-      "hot_value": "正在报名",
-      "summary_zh": "招考人数：48 报名时间：2026.08.31 09:00-2026.09.06 21:00",
-      "thumbnail": null,
-      "published_at": "2026-08-28T08:07:02+00:00",
-      "extra": {
-        "id": 468684721903616,
-        "sub": "announcement",
-        "tags": [
-          "重庆",
-          "重庆市",
-          "事业单位",
-          "遴选",
-          "2026",
-          "行政事业编",
-          "教师",
-          "联考/统考",
-          "重庆市属事业单位"
-        ],
-        "province": "重庆",
-        "exam_type": "公开遴选",
-        "startSignUpTime": 1788138000000,
-        "endSignUpTime": 1788699600000,
-        "startWriteTime": null,
-        "target_university_hit": [],
-        "city_focus_hit": []
-      },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 1,
-      "cluster_id": "ba1a2fac59ab",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-03T05:22:12.489468+00:00",
-          "rank": 50
-        },
-        {
-          "run_at": "2026-09-03T06:33:29.828752+00:00",
-          "rank": 50
-        },
-        {
-          "run_at": "2026-09-03T09:00:07.774956+00:00",
-          "rank": 50
-        },
-        {
-          "run_at": "2026-09-03T13:21:21.222481+00:00",
-          "rank": 49
-        },
-        {
-          "run_at": "2026-09-03T14:10:41.812376+00:00",
-          "rank": 49
-        },
-        {
-          "run_at": "2026-09-03T14:38:19.864140+00:00",
-          "rank": 49
-        },
-        {
-          "run_at": "2026-09-03T19:20:03.996706+00:00",
-          "rank": 47
-        },
-        {
-          "run_at": "2026-09-03T22:45:57.285881+00:00",
-          "rank": 47
-        },
-        {
-          "run_at": "2026-09-04T02:35:41.728138+00:00",
-          "rank": 47
-        },
-        {
-          "run_at": "2026-09-04T02:51:41.206031+00:00",
-          "rank": 47
-        },
-        {
-          "run_at": "2026-09-04T04:46:19.195629+00:00",
-          "rank": 46
-        },
-        {
-          "run_at": "2026-09-04T05:15:01.664932+00:00",
-          "rank": 45
-        }
-      ]
-    },
-    {
-      "source": "weibo",
-      "rank": 5,
-      "title": "王楚钦因伤退出澳门冠军赛",
-      "title_zh": "王楚钦因伤退出澳门冠军赛",
-      "url": "https://s.weibo.com/weibo?q=%23%E7%8E%8B%E6%A5%9A%E9%92%A6%E5%9B%A0%E4%BC%A4%E9%80%80%E5%87%BA%E6%BE%B3%E9%97%A8%E5%86%A0%E5%86%9B%E8%B5%9B%23",
-      "hot_value": "825660",
-      "summary_zh": null,
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "category": null
-      },
-      "days_on_board": 1,
-      "is_new": false,
-      "rank_delta": 1,
-      "cluster_id": "cf81b040ab29",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-04T04:46:19.195629+00:00",
-          "rank": 6
-        },
-        {
-          "run_at": "2026-09-04T05:15:01.664932+00:00",
-          "rank": 5
-        }
-      ]
-    },
-    {
-      "source": "weibo",
-      "rank": 9,
-      "title": "花少5是花少系列唯一一部获奖作品",
-      "title_zh": "花少5是花少系列唯一一部获奖作品",
-      "url": "https://s.weibo.com/weibo?q=%23%E8%8A%B1%E5%B0%915%E6%98%AF%E8%8A%B1%E5%B0%91%E7%B3%BB%E5%88%97%E5%94%AF%E4%B8%80%E4%B8%80%E9%83%A8%E8%8E%B7%E5%A5%96%E4%BD%9C%E5%93%81%23",
-      "hot_value": "485344",
-      "summary_zh": null,
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "category": null
-      },
-      "days_on_board": 1,
-      "is_new": false,
-      "rank_delta": 1,
-      "cluster_id": "b96d63098289",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-04T04:46:19.195629+00:00",
-          "rank": 10
-        },
-        {
-          "run_at": "2026-09-04T05:15:01.664932+00:00",
-          "rank": 9
-        }
-      ]
-    },
-    {
-      "source": "weibo",
-      "rank": 18,
-      "title": "OpenAI称AGI时代到来",
-      "title_zh": "OpenAI称AGI时代到来",
-      "url": "https://s.weibo.com/weibo?q=%23OpenAI%E7%A7%B0AGI%E6%97%B6%E4%BB%A3%E5%88%B0%E6%9D%A5%23",
-      "hot_value": "464392",
-      "summary_zh": null,
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "category": null
-      },
-      "days_on_board": 1,
-      "is_new": false,
-      "rank_delta": 1,
-      "cluster_id": "4a99a447ade8",
-      "cluster_size": 3,
-      "rank_history": [
-        {
-          "run_at": "2026-09-04T04:46:19.195629+00:00",
-          "rank": 19
-        },
-        {
-          "run_at": "2026-09-04T05:15:01.664932+00:00",
-          "rank": 18
         }
       ]
     }
@@ -937,29 +981,33 @@
     {
       "source": "bilibili",
       "rank": 1,
-      "title": "天 雷 滚 滚 纽 约 城【神奇组织53】",
-      "title_zh": "天 雷 滚 滚 纽 约 城【神奇组织53】",
-      "url": "https://b23.tv/BV1bHtd6CESR",
-      "hot_value": "407843",
+      "title": "《三角洲行动》全新【群星】赛季故事短片",
+      "title_zh": "《三角洲行动》全新【群星】赛季故事短片",
+      "url": "https://b23.tv/BV15VtZ6oEk7",
+      "hot_value": "1142112",
       "summary_zh": null,
-      "thumbnail": "http://i2.hdslb.com/bfs/archive/8136c66675bf9b68ac93c4473d9c34b801d005dd.jpg",
-      "published_at": "2026-09-04T03:00:00+00:00",
+      "thumbnail": "http://i1.hdslb.com/bfs/archive/1241d14f82468884f582057fe0377a2ad1494542.jpg",
+      "published_at": "2026-09-03T16:00:00+00:00",
       "extra": {
-        "bvid": "BV1bHtd6CESR",
-        "owner": "小约翰可汗"
+        "bvid": "BV15VtZ6oEk7",
+        "owner": "三角洲行动"
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "eb3c3e20514b",
+      "rank_delta": 1,
+      "cluster_id": "24278ed559a9",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-04T04:46:19.195629+00:00",
-          "rank": 1
+          "rank": 2
         },
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 2
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
           "rank": 1
         }
       ]
@@ -967,28 +1015,32 @@
     {
       "source": "douyin",
       "rank": 1,
-      "title": "各省文旅都成“搬运工”了",
-      "title_zh": "各省文旅都成“搬运工”了",
-      "url": "https://www.douyin.com/search/%E5%90%84%E7%9C%81%E6%96%87%E6%97%85%E9%83%BD%E6%88%90%E2%80%9C%E6%90%AC%E8%BF%90%E5%B7%A5%E2%80%9D%E4%BA%86",
-      "hot_value": "12104718",
+      "title": "女篮世界杯中国vs美国",
+      "title_zh": "女篮世界杯中国vs美国",
+      "url": "https://www.douyin.com/search/%E5%A5%B3%E7%AF%AE%E4%B8%96%E7%95%8C%E6%9D%AF%E4%B8%AD%E5%9B%BDvs%E7%BE%8E%E5%9B%BD",
+      "hot_value": "11310923",
       "summary_zh": null,
-      "thumbnail": "https://p26-sign.douyinpic.com/tos-cn-p-0015c000-ce/oU1lJBzk1CELYuEZB6iiwoBDATAetnWIEHf1oM~noop.jpeg?lk3s=bfd515bb&x-expires=1788519600&x-signature=rXBPhyJWCXtRbeW0R9MCmJTDaWg%3D&from=3218412987",
+      "thumbnail": "https://p26-sign.douyinpic.com/tos-cn-p-0015c000-ce/oIBSaZfSEgdR1iHAP94BAsnliTIEKIUwesSbl0~noop.jpeg?lk3s=bfd515bb&x-expires=1788523200&x-signature=u9FxhPbl0UBAlo0t7wMGhk19sdw%3D&from=3218412987",
       "published_at": null,
       "extra": {
-        "sentence_id": "2634779"
+        "sentence_id": "2634859"
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "bea021db9ac6",
+      "rank_delta": 1,
+      "cluster_id": "93e237515b41",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-04T04:46:19.195629+00:00",
-          "rank": 1
+          "rank": 2
         },
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 2
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
           "rank": 1
         }
       ]
@@ -1024,48 +1076,66 @@
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
           "rank": 1
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 1
         }
       ]
     },
     {
       "source": "papers",
       "rank": 1,
-      "title": "Subcellularly Resolved Single-Cell Embedding Learning with Transcriptomic data, Protein Structure and Localization Information",
-      "title_zh": "利用转录组数据、蛋白质结构和定位信息进行亚细胞分辨率的单细胞嵌入学习",
-      "url": "http://arxiv.org/abs/2609.02344v1",
+      "title": "scGPA: an LLM-assisted workflow for directional virtual gene perturbation analysis from single-cell transcriptomes",
+      "title_zh": "scGPA：一种LLM辅助工作流，用于从单细胞转录组进行定向虚拟基因扰动分析",
+      "url": "https://doi.org/10.1186/s12864-026-13270-0",
       "hot_value": null,
-      "summary_zh": "现有的细胞嵌入方法主要依赖转录组或蛋白质组测量，将每个细胞视为一个整体实体，从而忽略了单个分子的亚细胞定位。此外，它们很少整合蛋白质结构信息，尽管结构在决定分子相互作用和功能方面起着根本作用。在这项工作中，我们提出了一种多模态框架，通过联合利用RNA表达谱、蛋白质序列表示和蛋白质结构信息来学习亚细胞分辨率的细胞嵌入。具体来说，我们采用交叉注意力架构来整合转录组、序列和结构模态，并在不同的亚细胞区室中建模它们的相互作用。生成的嵌入通过精细的亚细胞组织来表示每个细胞，捕获分子表达模式和相关蛋白质的功能特性。通过在亚细胞分辨率下学习细胞表示，我们的框架保留了空间组织的生物信息，同时整合了跨多个分子水平的互补信号。据我们所知，这是第一个在统一跨模态学习范式中，通过联合整合转录组信息、蛋白质序列表示和蛋白质结构知识来生成亚细胞分辨率细胞嵌入的框架。",
+      "summary_zh": "摘要 背景 现有的虚拟扰动方法通常通过比较预测的扰动后表达谱与对照细胞来推断定向变化。然而，直接返回方向特异性下游候选基因以及置信度评分、证据支持和可解释摘要的工作流仍然有限。我们开发了scGPA，一种用于定向单细胞虚拟基因扰动分析的LLM辅助工作流系统。方法 scGPA从原始单细胞RNA测序数据开始，执行质量控制、归一化、降维、聚类和细胞群选择。然后，它使用重复子采样、主成分回归（PCR）/Ridge基网络推断和CP张量去噪构建细胞群特异性野生型调控网络。基于这些网络，scGPA模拟剂量感知的靶基因虚拟敲低，并应用符号扰动传播来估计下游转录反应的幅度和方向。LLM辅助用于基于标记的细胞类型注释、证据引导的候选优先级排序和面向用户的生物学摘要。结果 我们在五个公开的Perturb-seq数据集上对scGPA进行了基准测试，并将其性能与GEARS、scGPT和随机基线进行了比较。scGPA的",
       "thumbnail": null,
-      "published_at": "2026-09-02T09:20:48Z",
+      "published_at": "2026-08-25",
       "extra": {
-        "subsource": "arxiv",
-        "field": "q-bio.GN",
-        "doi": null,
-        "tier": "预印本",
-        "mode": "all",
-        "description": "Existing cell embedding methods predominantly rely on transcriptomic or proteomic measurements and represent each cell as a holistic entity, thereby overlooking the subcellular localization of individual molecules. Moreover, they rarely incorporate protein structural information, despite its fundamental role in determining molecular interactions and functions. In this work, we propose a multimodal framework for learning subcellularly resolved cell embeddings by jointly leveraging RNA expression profiles, protein sequence representations, and protein structural information. Specifically, we employ a cross-attention architecture to integrate transcriptomic, sequence, and structural modalities and model their interactions within distinct subcellular compartments. The resulting embeddings represent each cell through its fine-grained subcellular organization, capturing both molecular expression patterns and the functional properties of the associated proteins. By learning cell representations at subcellular resolution, our framework preserves spatially organized biological information while integrating complementary signals across multiple molecular levels. To the best of our knowledge, this is the first framework that produces subcellularly resolved cell embeddings by jointly incorporating transcriptomic information, protein sequence representations, and protein structural knowledge within a unified cross-modal learning paradigm.",
-        "identifier": "2609.02344",
-        "dedupe_key": "arxiv:2609.02344",
+        "subsource": "crossref",
+        "tier": "英文顶刊",
+        "journal": "BMC Genomics",
+        "mode": "filter",
+        "issn": "1471-2164",
+        "doi": "10.1186/s12864-026-13270-0",
+        "description": "Abstract Background Existing virtual perturbation methods can often infer directional changes by comparing predicted post-perturbation expression profiles with control cells. However, workflows that directly return direction-specific downstream candidate genes together with confidence scores, evidence support and interpretable summaries remain limited. We developed scGPA, an LLM-assisted workflow system for directional single-cell virtual gene perturbation analysis. Methods scGPA starts from raw single-cell RNA sequencing data and performs quality control, normalization, dimensionality reduction, clustering and cell-group selection. It then constructs cell-group-specific wild-type regulatory networks using repeated subsampling, principal component regression (PCR)/Ridge-based network inference and CP tensor denoising. Based on these networks, scGPA simulates dose-aware virtual knockdown of the target gene and applies signed perturbation propagation to estimate the magnitude and direction of downstream transcriptional responses. LLM assistance is used for marker-based cell-type annotation, evidence-guided candidate prioritization and user-facing biological summarization. Results We benchmarked scGPA across five public Perturb-seq datasets and compared its performance with GEARS, scGPT and a random baseline. The overall correct prediction rate of scGPA was 23.0%, exceeding those of GEARS (20.7%), scGPT (15.1%) and the random baseline (13.6%). These results indicate that scGPA achieved a higher correct prediction rate than the two comparator models and the random baseline. We subsequently evaluated scGPA using a public osteosarcoma single-cell dataset and performed qRT-PCR validation in 143B osteosarcoma cells. Among genes with significant experimental changes, scGPA achieved a directional concordance of 76.9%. When all tested downstream genes were counted, 37.0% were directionally correct, 51.9% showed no significant change and 11.1% changed in the opposite direction. Conclusions scGPA provides a practical workflow system for predicting and prioritizing direction-specific downstream transcriptional responses after target-gene perturbation. By integrating single-cell regulatory network inference, signed virtual perturbation and LLM-assisted interpretation, scGPA supports target-gene function inference and downstream mechanistic investigation from single-cell transcriptomic data.",
+        "dedupe_key": "doi:10.1186/s12864-026-13270-0",
         "topic_hit": [
-          "单细胞聚类"
+          "单细胞聚类",
+          "生物信息"
         ],
         "priority_rank": 0,
         "keyword_hit": [
-          "attention"
+          "dimensionality reduction",
+          "benchmark"
         ]
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "3d97e0af7e92",
+      "rank_delta": 2,
+      "cluster_id": "8e2a39fe6515",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-04T04:46:19.195629+00:00",
+          "run_at": "2026-09-04T02:35:41.728138+00:00",
           "rank": 1
         },
         {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 1
+        },
+        {
+          "run_at": "2026-09-04T04:46:19.195629+00:00",
+          "rank": 3
+        },
+        {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 3
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
           "rank": 1
         }
       ]
@@ -1073,25 +1143,25 @@
     {
       "source": "telegram",
       "rank": 1,
-      "title": "🔴 CVE Digest — 04 Sep 2026 5 critical vulnerabilities 🔴 CVE-2026-85509 · CVSS 9.8 FreeIPMI before 1.6.19 has a stack-based buffer overflow in _read_fru_data in libfreeipmi/fru/ipmi-fru.c when a BMC... 🔴 CVE-2026-85508 · CVSS 9.8 ipmi-oem in FreeIPMI before 1.6.19 has a stack-based buffer overflow in",
-      "title_zh": "🔴 CVE 摘要 — 2026年9月4日 5个严重漏洞 🔴 CVE-2026-85509 · CVSS 9.8 FreeIPMI 1.6.19之前版本在libfreeipmi/fru/ipmi-fru.c的_read_fru_data中存在栈溢出，当BMC... 🔴 CVE-2026-85508 · CVSS 9.8 FreeIPMI 1.6.19之前版本的ipmi-oem中存在栈溢出",
-      "url": "https://t.me/cyber_security_feed/35502",
-      "hot_value": "1",
+      "title": "🇺🇸 Tesla Cybercab with no steering wheel or pedals are being tested on the streets of Austin. @aipost 🏴",
+      "title_zh": "🇺🇸 特斯拉Cybercab无方向盘和踏板正在奥斯汀街头测试. @aipost 🏴",
+      "url": "https://t.me/aipost/8047",
+      "hot_value": "837",
       "summary_zh": null,
       "thumbnail": null,
-      "published_at": "2026-09-04T05:07:15+00:00",
+      "published_at": "2026-09-04T05:35:19+00:00",
       "extra": {
-        "channel": "cyber_security_feed",
+        "channel": "aipost",
         "translate": true
       },
       "days_on_board": 1,
       "is_new": true,
       "rank_delta": "new",
-      "cluster_id": "85958733be2f",
-      "cluster_size": 2,
+      "cluster_id": "636bdebd3132",
+      "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
           "rank": 1
         }
       ]
@@ -1099,10 +1169,10 @@
     {
       "source": "weibo",
       "rank": 1,
-      "title": "安徽大学回应副校长涉武大举报事件",
-      "title_zh": "安徽大学回应副校长涉武大举报事件",
-      "url": "https://s.weibo.com/weibo?q=%23%E5%AE%89%E5%BE%BD%E5%A4%A7%E5%AD%A6%E5%9B%9E%E5%BA%94%E5%89%AF%E6%A0%A1%E9%95%BF%E6%B6%89%E6%AD%A6%E5%A4%A7%E4%B8%BE%E6%8A%A5%E4%BA%8B%E4%BB%B6%23",
-      "hot_value": "1278659",
+      "title": "婚外胚胎 重婚罪",
+      "title_zh": "婚外胚胎 重婚罪",
+      "url": "https://s.weibo.com/weibo?q=%23%E5%A9%9A%E5%A4%96%E8%83%9A%E8%83%8E%20%E9%87%8D%E5%A9%9A%E7%BD%AA%23",
+      "hot_value": "1550762",
       "summary_zh": null,
       "thumbnail": null,
       "published_at": null,
@@ -1112,11 +1182,39 @@
       "days_on_board": 1,
       "is_new": true,
       "rank_delta": "new",
-      "cluster_id": "69bac4fcd261",
+      "cluster_id": "4a692f3b5c77",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 1
+        }
+      ]
+    },
+    {
+      "source": "youtube",
+      "rank": 1,
+      "title": "LISA - SaWaDiKa (Official Music Video)",
+      "title_zh": "LISA - SaWaDiKa (官方MV)",
+      "url": "https://youtube.com/watch?v=FyS5dAywkEo",
+      "hot_value": "13453901",
+      "summary_zh": "LISA新单曲MV发布，泰国风情舞曲。",
+      "thumbnail": "https://i.ytimg.com/vi/FyS5dAywkEo/hqdefault.jpg",
+      "published_at": "2026-09-04T00:00:05Z",
+      "extra": {
+        "video_id": "FyS5dAywkEo",
+        "region": "US",
+        "channel": "LISAOfficialVEVO",
+        "description": "Listen Now: https://lisa.lnk.to/SaWaDiKaSingle \nPre-Save now: https://lisa.lnk.to/PRESSPLAY \n\nFollow LISA:\nhttp://www.instagram.com/lalalalisa_m  https://www.tiktok.com/@lalalalisa_m  https://www.youtube.com/@lalalalisa_m \n\nFollow LLOUD:\nhttp://www.instagram.com/wearelloud \nhttps://www.tiktok.com/@w"
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "8e8df85fe816",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
           "rank": 1
         }
       ]
@@ -1124,29 +1222,33 @@
     {
       "source": "bilibili",
       "rank": 2,
-      "title": "《三角洲行动》全新【群星】赛季故事短片",
-      "title_zh": "《三角洲行动》全新【群星】赛季故事短片",
-      "url": "https://b23.tv/BV15VtZ6oEk7",
-      "hot_value": "934345",
+      "title": "《绝区零》克拉蕾角色展示 | 不想培训，但攻略已写好",
+      "title_zh": "《绝区零》克拉蕾角色展示 | 不想培训，但攻略已写好",
+      "url": "https://b23.tv/BV1wote6gEQ1",
+      "hot_value": "262454",
       "summary_zh": null,
-      "thumbnail": "http://i1.hdslb.com/bfs/archive/1241d14f82468884f582057fe0377a2ad1494542.jpg",
-      "published_at": "2026-09-03T16:00:00+00:00",
+      "thumbnail": "http://i0.hdslb.com/bfs/archive/78c7032651157d88e625a196d2ed51c9c7a62622.jpg",
+      "published_at": "2026-09-04T04:00:00+00:00",
       "extra": {
-        "bvid": "BV15VtZ6oEk7",
-        "owner": "三角洲行动"
+        "bvid": "BV1wote6gEQ1",
+        "owner": "绝区零"
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "24278ed559a9",
+      "rank_delta": 9,
+      "cluster_id": "b6c54fd56d27",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-04T04:46:19.195629+00:00",
-          "rank": 2
+          "rank": 11
         },
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 11
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
           "rank": 2
         }
       ]
@@ -1191,34 +1293,42 @@
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
           "rank": 2
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 2
         }
       ]
     },
     {
       "source": "douyin",
       "rank": 2,
-      "title": "女篮世界杯中国vs美国",
-      "title_zh": "女篮世界杯中国vs美国",
-      "url": "https://www.douyin.com/search/%E5%A5%B3%E7%AF%AE%E4%B8%96%E7%95%8C%E6%9D%AF%E4%B8%AD%E5%9B%BDvs%E7%BE%8E%E5%9B%BD",
-      "hot_value": "12102685",
+      "title": "各省文旅都成“搬运工”了",
+      "title_zh": "各省文旅都成“搬运工”了",
+      "url": "https://www.douyin.com/search/%E5%90%84%E7%9C%81%E6%96%87%E6%97%85%E9%83%BD%E6%88%90%E2%80%9C%E6%90%AC%E8%BF%90%E5%B7%A5%E2%80%9D%E4%BA%86",
+      "hot_value": "11121823",
       "summary_zh": null,
-      "thumbnail": "https://p5-ex-gddgtc-sign.douyinpic.com/tos-cn-p-0015c000-ce/oIBSaZfSEgdR1iHAP94BAsnliTIEKIUwesSbl0~noop.jpeg?lk3s=bfd515bb&x-expires=1788519600&x-signature=cCU1S08E5x9caJUZ3jL2L4DzJPc%3D&from=3218412987",
+      "thumbnail": "https://p3-sign.douyinpic.com/tos-cn-p-0015c000-ce/oU1lJBzk1CELYuEZB6iiwoBDATAetnWIEHf1oM~noop.jpeg?lk3s=bfd515bb&x-expires=1788523200&x-signature=4dboU%2B%2F2QT88u6WJZvQhsGx0eQU%3D&from=3218412987",
       "published_at": null,
       "extra": {
-        "sentence_id": "2634859"
+        "sentence_id": "2634779"
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "93e237515b41",
+      "rank_delta": -1,
+      "cluster_id": "bea021db9ac6",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-04T04:46:19.195629+00:00",
-          "rank": 2
+          "rank": 1
         },
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 1
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
           "rank": 2
         }
       ]
@@ -1254,49 +1364,64 @@
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
           "rank": 2
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 2
         }
       ]
     },
     {
       "source": "papers",
       "rank": 2,
-      "title": "Confounder-Aware Feature Correction for Single-Cell Batch Integration",
-      "title_zh": "用于单细胞批次整合的混杂因素感知特征校正",
-      "url": "http://arxiv.org/abs/2608.28849v1",
+      "title": "Balanced DNA interpolation improves learning of genetic distance-informed embeddings in plants",
+      "title_zh": "平衡DNA插值改善植物中遗传距离信息嵌入的学习",
+      "url": "https://doi.org/10.1371/journal.pcbi.1014722",
       "hot_value": null,
-      "summary_zh": "批次整合是单细胞基因组学中的一个核心预处理步骤，其中跨实验、供体和方案收集的数据集必须在普遍的技术批次效应下进行组合。领先的整合方法产生共享的低维嵌入，这丢弃了校正后的基因表达值，而下游差异表达、生物标志物和其他分析依赖于这些值。确实保留基因的特征空间（表达校正）方法通常对齐批次的边际表达分布，从而在批次间细胞类型组成不同时，即批次效应和生物信号混杂时，有抹除真实生物变异的风险。我们将单细胞批次整合重新定义为混杂域适应，并应用ConDo，一种在给定细胞类型注释的情况下匹配条件表达分布而非边际分布的方法。为了将ConDo的成对源到目标适配器扩展到多批次设置，我们引入了一种凝聚性兼容图整合器：批次作为节点，当它们共享一种细胞类型时连接，我们通过拟合一个ConDo适配器，贪心地合并每个得分最高的邻居到不断增长的参考中。在Open Problems批次整合基准上，ConDo是最强的特征空间整合器，",
+      "summary_zh": "在分类学研究中，基于系统发育树和结构的遗传数据分析正越来越多地被基于机器学习的识别和表示学习所补充。虽然训练最先进的机器学习模型所需的DNA数据量往往超过生物学研究中实际能收集和测序的量，但样本数量可以通过数据增强人为扩展。遗传数据增强通常指引入随机碱基变异、易位和反向互补。这些增强没有考虑种群和物种的内在结构，可能模糊遗传数据集中实体间的界限。在此，我们提出DNAInterpolator，一种基于给定数据集中DNA序列插值的方法，提供了一种邻域引导的随机突变替代方案。我们使用四个开花植物数据集和一个训练用于预测配对样本间遗传距离的人工神经网络测试了插值作为增强技术。为解决训练数据集中距离分布不均的问题，我们检查了通过筛选插值序列来平衡距离分布的效果。我们发现平衡有助于模型捕获整个距离范围内的遗传距离，通过增强分布中代表性不足区域的性能。我们的新方法利用了分类学DNA数据集在现代机器学习应",
       "thumbnail": null,
-      "published_at": "2026-08-28T20:41:24Z",
+      "published_at": "2026-09-03",
       "extra": {
-        "subsource": "arxiv",
-        "field": "q-bio.GN",
-        "doi": null,
-        "tier": "预印本",
+        "subsource": "crossref",
+        "tier": "英文顶刊",
+        "journal": "PLOS Computational Biology",
         "mode": "all",
-        "description": "Batch integration is a central preprocessing step in single-cell genomics, where datasets collected across experiments, donors, and protocols must be combined despite pervasive technical batch effects. The leading integration methods produce a shared low-dimensional embedding, which discards the corrected gene-expression values that downstream differential-expression, biomarker, and other analyses depend on. The feature-space (expression-correcting) methods that do preserve genes typically align the marginal expression distributions of batches and thereby risk erasing genuine biological variation whenever cell-type composition differs across batches, i.e. whenever batch effect and biological signal are confounded. We recast single-cell batch integration as confounded domain adaptation and apply ConDo, a method that matches conditional expression distributions given the cell-type annotation rather than marginal distributions. To extend ConDo's pairwise source-to-target adapter to the many-batch setting, we introduce an agglomerative compatibility-graph integrator: batches are nodes connected when they share a cell type, and we greedily merge each best-scoring neighbor into a growing reference by fitting one ConDo adapter. On the Open Problems Batch Integration Benchmark, ConDo is the strongest feature-space integrator, ranking first among feature methods on five of six datasets. Furthermore, it is competitive with or better than deep embedding methods on the overall score, ranking first across all methods on four of six datasets while returning corrected expression rather than an opaque embedding.",
-        "identifier": "2608.28849",
-        "dedupe_key": "arxiv:2608.28849",
+        "issn": "1553-7358",
+        "doi": "10.1371/journal.pcbi.1014722",
+        "description": "In taxonomic research, traditional phylogenetic tree- and structure-based analyses of genetic data are increasingly complemented by machine-learning-based identification and representation learning. Although the amount of DNA data needed to train state-of-the-art machine learning models often exceeds what can realistically be collected and sequenced in biological studies, the number of samples can be extended artificially through data augmentation. Genetic data augmentation usually refers to the introduction of random base variations, translocations, and reverse complementing. These augmentations do not take into account the inherent structures of populations and species, potentially blurring the lines between entities within genetic datasets. Here, we propose DNAInterpolator, an approach based on interpolation of DNA sequences within a given dataset that presents a neighbor-guided alternative to random mutations. We tested interpolation as an augmentation technique using four flowering plant datasets and an artificial neural network trained to predict genetic distances between paired samples. To address unequally distributed distances within our training datasets, we examined the effect of balancing the distance distribution by curating interpolated sequences. We found that balancing helps models capture genetic distances across the full distance range by strengthening performance in underrepresented regions of the distribution. Our new approach leverages the potential of taxonomic DNA datasets for modern machine learning applications.",
+        "dedupe_key": "doi:10.1371/journal.pcbi.1014722",
         "topic_hit": [
-          "单细胞聚类",
-          "生物信息"
+          "稀有细胞"
         ],
-        "priority_rank": 0,
+        "priority_rank": 1,
         "keyword_hit": [
-          "benchmark"
+          "representation learning"
         ]
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "32414c80238f",
+      "rank_delta": 6,
+      "cluster_id": "b93cca3dde8f",
       "cluster_size": 1,
       "rank_history": [
         {
+          "run_at": "2026-09-04T02:35:41.728138+00:00",
+          "rank": 3
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 3
+        },
+        {
           "run_at": "2026-09-04T04:46:19.195629+00:00",
-          "rank": 2
+          "rank": 8
         },
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 8
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
           "rank": 2
         }
       ]
@@ -1304,25 +1429,29 @@
     {
       "source": "telegram",
       "rank": 2,
-      "title": "The sameness problem behind those unappetizing AI-generated menus Source: https://techcrunch.com/2026/09/03/the-sameness-problem-behind-those-unappetizing-ai-generated-menus/",
-      "title_zh": "那些让人没胃口的AI生成菜单背后的同质化问题 来源：https://techcrunch.com/2026/09/03/the-sameness-problem-behind-those-unappetizing-ai-generated-menus/",
-      "url": "https://t.me/techcrunchcom/84276",
-      "hot_value": "25",
+      "title": "🔴 CVE Digest — 04 Sep 2026 5 critical vulnerabilities 🔴 CVE-2026-85509 · CVSS 9.8 FreeIPMI before 1.6.19 has a stack-based buffer overflow in _read_fru_data in libfreeipmi/fru/ipmi-fru.c when a BMC... 🔴 CVE-2026-85508 · CVSS 9.8 ipmi-oem in FreeIPMI before 1.6.19 has a stack-based buffer overflow in",
+      "title_zh": "🔴 CVE 摘要 — 2026年9月4日 5个严重漏洞 🔴 CVE-2026-85509 · CVSS 9.8 FreeIPMI 1.6.19之前版本在libfreeipmi/fru/ipmi-fru.c的_read_fru_data中存在栈溢出，当BMC... 🔴 CVE-2026-85508 · CVSS 9.8 FreeIPMI 1.6.19之前版本的ipmi-oem中存在栈溢出",
+      "url": "https://t.me/cyber_security_feed/35502",
+      "hot_value": "5",
       "summary_zh": null,
       "thumbnail": null,
-      "published_at": "2026-09-04T04:53:43+00:00",
+      "published_at": "2026-09-04T05:07:15+00:00",
       "extra": {
-        "channel": "techcrunchcom",
+        "channel": "cyber_security_feed",
         "translate": true
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
-      "cluster_id": "ec21b404526b",
-      "cluster_size": 1,
+      "is_new": false,
+      "rank_delta": -1,
+      "cluster_id": "85958733be2f",
+      "cluster_size": 2,
       "rank_history": [
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 1
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
           "rank": 2
         }
       ]
@@ -1333,7 +1462,7 @@
       "title": "男子欠债想轻生学胖东来还清105万",
       "title_zh": "男子欠债想轻生学胖东来还清105万",
       "url": "https://s.weibo.com/weibo?q=%23%E7%94%B7%E5%AD%90%E6%AC%A0%E5%80%BA%E6%83%B3%E8%BD%BB%E7%94%9F%E5%AD%A6%E8%83%96%E4%B8%9C%E6%9D%A5%E8%BF%98%E6%B8%85105%E4%B8%87%23",
-      "hot_value": "1178798",
+      "hot_value": "887100",
       "summary_zh": null,
       "thumbnail": null,
       "published_at": null,
@@ -1342,7 +1471,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 3,
+      "rank_delta": 0,
       "cluster_id": "d31c647a8533",
       "cluster_size": 1,
       "rank_history": [
@@ -1361,35 +1490,43 @@
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
           "rank": 2
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 2
         }
       ]
     },
     {
       "source": "bilibili",
       "rank": 3,
-      "title": "特厨探店丨吃宵夜得靠抢?二探洪达面馆!",
-      "title_zh": "特厨探店丨吃宵夜得靠抢?二探洪达面馆!",
-      "url": "https://b23.tv/BV11gtf6mEk9",
-      "hot_value": "180506",
+      "title": "天 雷 滚 滚 纽 约 城【神奇组织53】",
+      "title_zh": "天 雷 滚 滚 纽 约 城【神奇组织53】",
+      "url": "https://b23.tv/BV1bHtd6CESR",
+      "hot_value": "516532",
       "summary_zh": null,
-      "thumbnail": "http://i1.hdslb.com/bfs/archive/eba0cd7ca03eea9d63eee206b4220a20a31c5d9e.jpg",
-      "published_at": "2026-09-04T03:30:00+00:00",
+      "thumbnail": "http://i2.hdslb.com/bfs/archive/8136c66675bf9b68ac93c4473d9c34b801d005dd.jpg",
+      "published_at": "2026-09-04T03:00:00+00:00",
       "extra": {
-        "bvid": "BV11gtf6mEk9",
-        "owner": "特厨隋坡"
+        "bvid": "BV1bHtd6CESR",
+        "owner": "小约翰可汗"
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "388eb8d03338",
+      "rank_delta": -2,
+      "cluster_id": "eb3c3e20514b",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-04T04:46:19.195629+00:00",
-          "rank": 3
+          "rank": 1
         },
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 1
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
           "rank": 3
         }
       ]
@@ -1400,9 +1537,9 @@
       "title": "西藏吉隆泥石流灾害核心区通电",
       "title_zh": "西藏吉隆泥石流灾害核心区通电",
       "url": "https://www.douyin.com/search/%E8%A5%BF%E8%97%8F%E5%90%89%E9%9A%86%E6%B3%A5%E7%9F%B3%E6%B5%81%E7%81%BE%E5%AE%B3%E6%A0%B8%E5%BF%83%E5%8C%BA%E9%80%9A%E7%94%B5",
-      "hot_value": "11728195",
+      "hot_value": "10701185",
       "summary_zh": null,
-      "thumbnail": "https://p26-sign.douyinpic.com/tos-cn-p-0015/oAOxHfRGDCkqFxgDfyEzZYIeZEIQ2yuA2W2YeA~noop.jpeg?lk3s=bfd515bb&x-expires=1788519600&x-signature=lsuE7ERR0C%2Fmka0XzKjYR2BZ%2FTc%3D&from=3218412987",
+      "thumbnail": "https://p26-sign.douyinpic.com/tos-cn-p-0015/oAOxHfRGDCkqFxgDfyEzZYIeZEIQ2yuA2W2YeA~noop.jpeg?lk3s=bfd515bb&x-expires=1788523200&x-signature=cX6u1Rw6Oxg15mU7y16X6kk6IXM%3D&from=3218412987",
       "published_at": null,
       "extra": {
         "sentence_id": "2634547"
@@ -1427,6 +1564,10 @@
         },
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 3
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
           "rank": 3
         }
       ]
@@ -1461,6 +1602,10 @@
         },
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 3
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
           "rank": 3
         }
       ]
@@ -1503,58 +1648,64 @@
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
           "rank": 3
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 3
         }
       ]
     },
     {
       "source": "papers",
       "rank": 3,
-      "title": "scGPA: an LLM-assisted workflow for directional virtual gene perturbation analysis from single-cell transcriptomes",
-      "title_zh": "scGPA：一种LLM辅助工作流，用于从单细胞转录组进行定向虚拟基因扰动分析",
-      "url": "https://doi.org/10.1186/s12864-026-13270-0",
+      "title": "Speeding up taxonomy in the digital age: A deep learning approach for identifying cryptic freshwater snails",
+      "title_zh": "数字时代加速分类学：一种识别隐秘淡水蜗牛的深度学习方法",
+      "url": "https://doi.org/10.1371/journal.pcbi.1014733",
       "hot_value": null,
-      "summary_zh": "摘要 背景 现有的虚拟扰动方法通常通过比较预测的扰动后表达谱与对照细胞来推断定向变化。然而，直接返回方向特异性下游候选基因以及置信度评分、证据支持和可解释摘要的工作流仍然有限。我们开发了scGPA，一种用于定向单细胞虚拟基因扰动分析的LLM辅助工作流系统。方法 scGPA从原始单细胞RNA测序数据开始，执行质量控制、归一化、降维、聚类和细胞群选择。然后，它使用重复子采样、主成分回归（PCR）/Ridge基网络推断和CP张量去噪构建细胞群特异性野生型调控网络。基于这些网络，scGPA模拟剂量感知的靶基因虚拟敲低，并应用符号扰动传播来估计下游转录反应的幅度和方向。LLM辅助用于基于标记的细胞类型注释、证据引导的候选优先级排序和面向用户的生物学摘要。结果 我们在五个公开的Perturb-seq数据集上对scGPA进行了基准测试，并将其性能与GEARS、scGPT和随机基线进行了比较。scGPA的",
+      "summary_zh": "隐秘物种复合体给生物学家带来根本性挑战，因为物种表现出极小的形态差异，需要整合形态学、遗传学和生物地理学进行识别。在此，我们提出一种深度学习方法，支持淡水蜗牛属Radomaniola（水蜗牛科）的物种识别，这是一个来自巴尔干半岛的形态隐秘群体。我们的方法通过结合壳图像、形态测量和采集地点元数据，并可选地加入系统发育信息，模拟了专家分类学家的整合工作流程。尽管仅用不到700个标本、跨越20个视觉相似且类别大小严重不平衡的物种进行训练，系统仍实现了高识别性能。仔细控制虚假相关性，例如由地点特定成像条件或过于精确的地理元数据引起的相关性，对于确保网络学习生物学有意义的特征至关重要。在所有实验中，整合多种数据类型并联合优化有意义的嵌入和分类，始终优于仅图像和仅分类的基线。在训练期间见过的采集地点标本上，我们实现了宏平均F1分数0.93。尽管在来自未采样地点的标本上评估时降至低至0.14，但通过用2",
       "thumbnail": null,
-      "published_at": "2026-08-25",
+      "published_at": "2026-09-02",
       "extra": {
         "subsource": "crossref",
         "tier": "英文顶刊",
-        "journal": "BMC Genomics",
-        "mode": "filter",
-        "issn": "1471-2164",
-        "doi": "10.1186/s12864-026-13270-0",
-        "description": "Abstract Background Existing virtual perturbation methods can often infer directional changes by comparing predicted post-perturbation expression profiles with control cells. However, workflows that directly return direction-specific downstream candidate genes together with confidence scores, evidence support and interpretable summaries remain limited. We developed scGPA, an LLM-assisted workflow system for directional single-cell virtual gene perturbation analysis. Methods scGPA starts from raw single-cell RNA sequencing data and performs quality control, normalization, dimensionality reduction, clustering and cell-group selection. It then constructs cell-group-specific wild-type regulatory networks using repeated subsampling, principal component regression (PCR)/Ridge-based network inference and CP tensor denoising. Based on these networks, scGPA simulates dose-aware virtual knockdown of the target gene and applies signed perturbation propagation to estimate the magnitude and direction of downstream transcriptional responses. LLM assistance is used for marker-based cell-type annotation, evidence-guided candidate prioritization and user-facing biological summarization. Results We benchmarked scGPA across five public Perturb-seq datasets and compared its performance with GEARS, scGPT and a random baseline. The overall correct prediction rate of scGPA was 23.0%, exceeding those of GEARS (20.7%), scGPT (15.1%) and the random baseline (13.6%). These results indicate that scGPA achieved a higher correct prediction rate than the two comparator models and the random baseline. We subsequently evaluated scGPA using a public osteosarcoma single-cell dataset and performed qRT-PCR validation in 143B osteosarcoma cells. Among genes with significant experimental changes, scGPA achieved a directional concordance of 76.9%. When all tested downstream genes were counted, 37.0% were directionally correct, 51.9% showed no significant change and 11.1% changed in the opposite direction. Conclusions scGPA provides a practical workflow system for predicting and prioritizing direction-specific downstream transcriptional responses after target-gene perturbation. By integrating single-cell regulatory network inference, signed virtual perturbation and LLM-assisted interpretation, scGPA supports target-gene function inference and downstream mechanistic investigation from single-cell transcriptomic data.",
-        "dedupe_key": "doi:10.1186/s12864-026-13270-0",
+        "journal": "PLOS Computational Biology",
+        "mode": "all",
+        "issn": "1553-7358",
+        "doi": "10.1371/journal.pcbi.1014733",
+        "description": "Cryptic species complexes pose fundamental challenges to biologists, as species exhibit minimal morphological differences that require integrating morphology, genetics, and biogeography for identification. Here, we present a deep learning approach to support species identification in the freshwater snail genus Radomaniola (Hydrobiidae), a morphologically cryptic group from the Balkans. Our approach mirrors the integrative workflow of expert taxonomists by combining shell images, morphometric measurements, and collection‑site metadata, with optional phylogenetic information. Despite being trained on fewer than 700 specimens across 20 visually similar species with strongly imbalanced class sizes, the system achieved high identification performance. Careful control of spurious correlations, such as those arising from site‑specific imaging conditions or overly precise geographic metadata, was essential to ensure that the network learned biologically meaningful features. Across all experiments, integrating multiple data types and jointly optimizing meaningful embeddings and classification consistently improved performance over image‑only and classification‑only baselines. On specimens from collection sites seen during training we achieved a macro-averaged F1 score of 0.93. Even though this dropped as low as 0.14 when evaluating on specimens from previously unsampled localities, it could be rapidly recovered by retraining with 2–3 newly labeled specimens. Additionally, model top-3 accuracy stayed consistently above 80% in all settings. These results show that relatively lightweight deep learning models can provide practical decision support in real taxonomic workflows.",
+        "dedupe_key": "doi:10.1371/journal.pcbi.1014733",
         "topic_hit": [
-          "单细胞聚类",
-          "生物信息"
+          "稀有细胞"
         ],
-        "priority_rank": 0,
+        "priority_rank": 1,
         "keyword_hit": [
-          "dimensionality reduction",
-          "benchmark"
+          "deep learning"
         ]
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "8e2a39fe6515",
+      "rank_delta": 6,
+      "cluster_id": "b43c83bec621",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-04T02:35:41.728138+00:00",
-          "rank": 1
+          "rank": 4
         },
         {
           "run_at": "2026-09-04T02:51:41.206031+00:00",
-          "rank": 1
+          "rank": 4
         },
         {
           "run_at": "2026-09-04T04:46:19.195629+00:00",
-          "rank": 3
+          "rank": 9
         },
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 9
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
           "rank": 3
         }
       ]
@@ -1562,72 +1713,162 @@
     {
       "source": "telegram",
       "rank": 3,
-      "title": "Cybersecurity in 2026 is shifting from log storage to systems of intelligence that decide and act. Real moats come from security context, policy, threat graphs, and ownership of new threat models. #SIEM #MSSP #AIsecurity ➡️ https://www.hendryadrian.com/what-to-build-in-cybersecurity-in-2026-part-2-s",
-      "title_zh": "2026年的网络安全正从日志存储转向能决策和行动的智能系统。真正的护城河来自安全上下文、策略、威胁图谱，以及对新型威胁模型的掌控。#SIEM #MSSP #AIsecurity ➡️ https://www.hendryadrian.com/what-to-build-in-cybersecurity-in-2026-part-2-s",
-      "url": "https://t.me/cybernotif/35386",
-      "hot_value": "2",
+      "title": "The sameness problem behind those unappetizing AI-generated menus Source: https://techcrunch.com/2026/09/03/the-sameness-problem-behind-those-unappetizing-ai-generated-menus/",
+      "title_zh": "那些让人没胃口的AI生成菜单背后的同质化问题 来源：https://techcrunch.com/2026/09/03/the-sameness-problem-behind-those-unappetizing-ai-generated-menus/",
+      "url": "https://t.me/techcrunchcom/84276",
+      "hot_value": "62",
       "summary_zh": null,
       "thumbnail": null,
-      "published_at": "2026-09-04T04:45:05+00:00",
+      "published_at": "2026-09-04T04:53:43+00:00",
       "extra": {
-        "channel": "cybernotif",
+        "channel": "techcrunchcom",
         "translate": true
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": -2,
-      "cluster_id": "6194c71006c5",
+      "rank_delta": -1,
+      "cluster_id": "ec21b404526b",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-04T04:46:19.195629+00:00",
-          "rank": 1
-        },
-        {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
-          "rank": 3
-        }
-      ]
-    },
-    {
-      "source": "weibo",
-      "rank": 3,
-      "title": "吉隆泥石流灾害核心区恢复供电",
-      "title_zh": "吉隆泥石流灾害核心区恢复供电",
-      "url": "https://s.weibo.com/weibo?q=%23%E5%90%89%E9%9A%86%E6%B3%A5%E7%9F%B3%E6%B5%81%E7%81%BE%E5%AE%B3%E6%A0%B8%E5%BF%83%E5%8C%BA%E6%81%A2%E5%A4%8D%E4%BE%9B%E7%94%B5%23",
-      "hot_value": "890887",
-      "summary_zh": null,
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "category": null
-      },
-      "days_on_board": 1,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "21ce774c073b",
-      "cluster_size": 2,
-      "rank_history": [
-        {
-          "run_at": "2026-09-04T02:35:41.728138+00:00",
-          "rank": 3
+          "rank": 2
         },
         {
-          "run_at": "2026-09-04T02:51:41.206031+00:00",
-          "rank": 3
-        },
-        {
-          "run_at": "2026-09-04T04:46:19.195629+00:00",
-          "rank": 3
-        },
-        {
-          "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
           "rank": 3
         }
       ]
     }
   ],
   "dropped": [
+    {
+      "source": "bilibili",
+      "rank": 1,
+      "title": "【IGN独家】《鸣潮》共鸣者「心」、「锁暝」演示",
+      "title_zh": "【IGN独家】《鸣潮》共鸣者「心」、「锁暝」演示",
+      "url": "https://b23.tv/BV1Q5tG6bEX3",
+      "hot_value": "3185246",
+      "summary_zh": null,
+      "thumbnail": "http://i0.hdslb.com/bfs/archive/063978f926ae5a0cadc289c02681e972f25cb7e4.jpg",
+      "published_at": "2026-09-03T03:00:00+00:00",
+      "extra": {
+        "bvid": "BV1Q5tG6bEX3",
+        "owner": "IGN中国"
+      },
+      "days_on_board": 1,
+      "is_new": false,
+      "rank_delta": 1,
+      "cluster_id": "080a466b7966",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-03T05:22:12.489468+00:00",
+          "rank": 1
+        },
+        {
+          "run_at": "2026-09-03T06:33:29.828752+00:00",
+          "rank": 2
+        },
+        {
+          "run_at": "2026-09-03T09:00:07.774956+00:00",
+          "rank": 2
+        },
+        {
+          "run_at": "2026-09-03T13:21:21.222481+00:00",
+          "rank": 3
+        },
+        {
+          "run_at": "2026-09-03T14:10:41.812376+00:00",
+          "rank": 3
+        },
+        {
+          "run_at": "2026-09-03T14:38:19.864140+00:00",
+          "rank": 7
+        },
+        {
+          "run_at": "2026-09-03T19:20:03.996706+00:00",
+          "rank": 2
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 1
+        },
+        {
+          "run_at": "2026-09-04T02:35:41.728138+00:00",
+          "rank": 18
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 18
+        },
+        {
+          "run_at": "2026-09-04T04:46:19.195629+00:00",
+          "rank": 23
+        },
+        {
+          "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 23
+        }
+      ]
+    },
+    {
+      "source": "douyin",
+      "rank": 1,
+      "title": "外交部正告日本右翼势力",
+      "title_zh": "外交部正告日本右翼势力",
+      "url": "https://www.douyin.com/search/%E5%A4%96%E4%BA%A4%E9%83%A8%E6%AD%A3%E5%91%8A%E6%97%A5%E6%9C%AC%E5%8F%B3%E7%BF%BC%E5%8A%BF%E5%8A%9B",
+      "hot_value": "11628656",
+      "summary_zh": null,
+      "thumbnail": "https://p5-ex-gddgtc-sign.douyinpic.com/tos-cn-p-0015/ow5k7mQfVgamB8B9wCMLDpFIgzGJweA7NAeY6t~noop.jpeg?lk3s=bfd515bb&x-expires=1788494400&x-signature=9d2V1KQNp4oh%2FX%2FNbcBYpm1YaE8%3D&from=3218412987",
+      "published_at": null,
+      "extra": {
+        "sentence_id": "2634210"
+      },
+      "days_on_board": 1,
+      "is_new": false,
+      "rank_delta": 1,
+      "cluster_id": "d6b7b956fc50",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-03T13:21:21.222481+00:00",
+          "rank": 2
+        },
+        {
+          "run_at": "2026-09-03T14:10:41.812376+00:00",
+          "rank": 4
+        },
+        {
+          "run_at": "2026-09-03T14:38:19.864140+00:00",
+          "rank": 4
+        },
+        {
+          "run_at": "2026-09-03T19:20:03.996706+00:00",
+          "rank": 2
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 1
+        },
+        {
+          "run_at": "2026-09-04T02:35:41.728138+00:00",
+          "rank": 16
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 9
+        },
+        {
+          "run_at": "2026-09-04T04:46:19.195629+00:00",
+          "rank": 11
+        },
+        {
+          "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 12
+        }
+      ]
+    },
     {
       "source": "telegram",
       "rank": 1,
@@ -1680,6 +1921,67 @@
         {
           "run_at": "2026-09-03T22:45:57.285881+00:00",
           "rank": 1
+        }
+      ]
+    },
+    {
+      "source": "douyin",
+      "rank": 2,
+      "title": "厄尔尼诺将发展为超强级别",
+      "title_zh": "厄尔尼诺将发展为超强级别",
+      "url": "https://www.douyin.com/search/%E5%8E%84%E5%B0%94%E5%B0%BC%E8%AF%BA%E5%B0%86%E5%8F%91%E5%B1%95%E4%B8%BA%E8%B6%85%E5%BC%BA%E7%BA%A7%E5%88%AB",
+      "hot_value": "11429164",
+      "summary_zh": null,
+      "thumbnail": "https://p26-sign.douyinpic.com/tos-cn-p-0015/okAJBBnVaIpBO77QzeZeCLDMeGrdEhQowJoZ1A~noop.jpeg?lk3s=bfd515bb&x-expires=1788494400&x-signature=COfJHiC72HV4AVw62HHxYxYkr18%3D&from=3218412987",
+      "published_at": null,
+      "extra": {
+        "sentence_id": "2633981"
+      },
+      "days_on_board": 1,
+      "is_new": false,
+      "rank_delta": 5,
+      "cluster_id": "9b4c79073be3",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-03T09:00:07.774956+00:00",
+          "rank": 10
+        },
+        {
+          "run_at": "2026-09-03T13:21:21.222481+00:00",
+          "rank": 10
+        },
+        {
+          "run_at": "2026-09-03T14:10:41.812376+00:00",
+          "rank": 7
+        },
+        {
+          "run_at": "2026-09-03T14:38:19.864140+00:00",
+          "rank": 8
+        },
+        {
+          "run_at": "2026-09-03T19:20:03.996706+00:00",
+          "rank": 7
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 2
+        },
+        {
+          "run_at": "2026-09-04T02:35:41.728138+00:00",
+          "rank": 1
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 1
+        },
+        {
+          "run_at": "2026-09-04T04:46:19.195629+00:00",
+          "rank": 4
+        },
+        {
+          "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 6
         }
       ]
     },
@@ -2325,99 +2627,6 @@
           "rank": 5
         }
       ]
-    },
-    {
-      "source": "telegram",
-      "rank": 5,
-      "title": "H1 2026 saw 215 actively exploited CVEs, up 34% YoY, with attackers leaning on trusted tools, supply-chain abuse, RATs, stealers, and NFC mobile fraud. #CVE #RAT #Magecart ➡️ https://www.hendryadrian.com/h1-2026-malware-vulnerability-trends/",
-      "title_zh": "2026年上半年共发现215个被积极利用的CVE，同比增长34%，攻击者越来越依赖可信工具、供应链滥用、RAT、窃密程序和NFC移动欺诈。#CVE #RAT #Magecart ➡️ https://www.hendryadrian.com/h1-2026-malware-vulnerability-trends/",
-      "url": "https://t.me/cybernotif/35373",
-      "hot_value": "4",
-      "summary_zh": null,
-      "thumbnail": null,
-      "published_at": "2026-09-03T22:00:06+00:00",
-      "extra": {
-        "channel": "cybernotif",
-        "translate": true
-      },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
-      "cluster_id": "ed0335ebbd00",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-03T22:45:57.285881+00:00",
-          "rank": 5
-        }
-      ]
-    },
-    {
-      "source": "weibo",
-      "rank": 5,
-      "title": "宁静内涵花少2有人干涉剪辑",
-      "title_zh": "宁静内涵花少2有人干涉剪辑",
-      "url": "https://s.weibo.com/weibo?q=%23%E5%AE%81%E9%9D%99%E5%86%85%E6%B6%B5%E8%8A%B1%E5%B0%912%E6%9C%89%E4%BA%BA%E5%B9%B2%E6%B6%89%E5%89%AA%E8%BE%91%23",
-      "hot_value": "199290",
-      "summary_zh": null,
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "category": null
-      },
-      "days_on_board": 1,
-      "is_new": false,
-      "rank_delta": -1,
-      "cluster_id": "1bc642181937",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-03T19:20:03.996706+00:00",
-          "rank": 4
-        },
-        {
-          "run_at": "2026-09-03T22:45:57.285881+00:00",
-          "rank": 5
-        },
-        {
-          "run_at": "2026-09-04T02:35:41.728138+00:00",
-          "rank": 29
-        }
-      ]
-    },
-    {
-      "source": "feed",
-      "rank": 6,
-      "title": "微信员工回应苹果端支持液态玻璃：iOS 27 对 App 使用到系统控件部分，自动使用该效果",
-      "title_zh": "微信员工回应苹果端支持液态玻璃：iOS 27 对 App 使用到系统控件部分，自动使用该效果",
-      "url": "https://www.ithome.com/0/998/175.htm",
-      "hot_value": null,
-      "summary_zh": "感谢IT之家网友 雨雪载途 的线索投递！ IT之家 9 月 3 日消息，据博主 @Chills牙牙 反馈， 微信苹果 iOS 端已支持液态玻璃，不过效果仅限于编辑菜单栏等 。 对此，微信员工 @客村小蒋 发文进行了回应： iOS 27 系统对 App 使用到系统控件的部分，自动使用了液态玻璃效果。 据IT之家此前报道，苹果已于去年在 WWDC 2025 全球开发者大会上宣布， 为 iOS / iPadOS 26 推出全新“液态玻璃”（Liquid Glass）设计 —— 采用新半透明材质方案，能够反射和折射周围环境，使内容更加突出，并在控件、导航、应用图标、小组件等方面带来全新的活力。 该设计也被沿用到了 iOS 27 系统中，在 8 月 12 日发布的 iOS 27 Beta 5 中， 苹果调整了液态玻璃（Liquid Glass）滑块，让最高透明度档位比此前更透明 。对偏好高透明界面元",
-      "thumbnail": null,
-      "published_at": "2026-09-03T14:09:56+00:00",
-      "extra": {
-        "feed_name": "IT之家",
-        "tab": "ai",
-        "route": "/ithome/it",
-        "translate": false,
-        "description": "感谢IT之家网友 雨雪载途 的线索投递！ IT之家 9 月 3 日消息，据博主 @Chills牙牙 反馈， 微信苹果 iOS 端已支持液态玻璃，不过效果仅限于编辑菜单栏等 。 对此，微信员工 @客村小蒋 发文进行了回应： iOS 27 系统对 App 使用到系统控件的部分，自动使用了液态玻璃效果。 据IT之家此前报道，苹果已于去年在 WWDC 2025 全球开发者大会上宣布， 为 iOS / iPadOS 26 推出全新“液态玻璃”（Liquid Glass）设计 —— 采用新半透明材质方案，能够反射和折射周围环境，使内容更加突出，并在控件、导航、应用图标、小组件等方面带来全新的活力。 该设计也被沿用到了 iOS 27 系统中，在 8 月 12 日发布的 iOS 27 Beta 5 中， 苹果调整了液态玻璃（Liquid Glass）滑块，让最高透明度档位比此前更透明 。对偏好高透明界面元",
-        "dedupe_key": "https://www.ithome.com/0/998/175.htm"
-      },
-      "days_on_board": 1,
-      "is_new": false,
-      "rank_delta": -2,
-      "cluster_id": "9fa5b7a6b546",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-03T19:20:03.996706+00:00",
-          "rank": 4
-        },
-        {
-          "run_at": "2026-09-03T22:45:57.285881+00:00",
-          "rank": 6
-        }
-      ]
     }
   ],
   "longest_on_board": [
@@ -2461,10 +2670,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-01T16:09:15.129507+00:00",
-          "rank": 11
-        },
-        {
           "run_at": "2026-09-01T20:38:56.199666+00:00",
           "rank": 11
         },
@@ -2578,6 +2783,10 @@
         },
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 1
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
           "rank": 1
         }
       ]
@@ -2603,10 +2812,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-01T16:09:15.129507+00:00",
-          "rank": 14
-        },
-        {
           "run_at": "2026-09-01T20:38:56.199666+00:00",
           "rank": 14
         },
@@ -2720,6 +2925,10 @@
         },
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 6
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
           "rank": 6
         }
       ]
@@ -2761,10 +2970,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-01T16:09:15.129507+00:00",
-          "rank": 12
-        },
-        {
           "run_at": "2026-09-01T20:38:56.199666+00:00",
           "rank": 12
         },
@@ -2878,6 +3083,10 @@
         },
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 12
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
           "rank": 12
         }
       ]
@@ -2918,10 +3127,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-01T16:09:15.129507+00:00",
-          "rank": 13
-        },
-        {
           "run_at": "2026-09-01T20:38:56.199666+00:00",
           "rank": 13
         },
@@ -3035,6 +3240,10 @@
         },
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 13
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
           "rank": 13
         }
       ]
@@ -3075,10 +3284,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-01T16:09:15.129507+00:00",
-          "rank": 14
-        },
-        {
           "run_at": "2026-09-01T20:38:56.199666+00:00",
           "rank": 14
         },
@@ -3192,6 +3397,10 @@
         },
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 14
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
           "rank": 14
         }
       ]
@@ -3234,10 +3443,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-01T16:09:15.129507+00:00",
-          "rank": 15
-        },
-        {
           "run_at": "2026-09-01T20:38:56.199666+00:00",
           "rank": 15
         },
@@ -3351,6 +3556,10 @@
         },
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 15
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
           "rank": 15
         }
       ]
@@ -3389,10 +3598,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-01T16:09:15.129507+00:00",
-          "rank": 8
-        },
-        {
           "run_at": "2026-09-01T20:38:56.199666+00:00",
           "rank": 8
         },
@@ -3506,6 +3711,10 @@
         },
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 16
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
           "rank": 16
         }
       ]
@@ -3547,10 +3756,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-01T16:09:15.129507+00:00",
-          "rank": 16
-        },
-        {
           "run_at": "2026-09-01T20:38:56.199666+00:00",
           "rank": 16
         },
@@ -3664,6 +3869,10 @@
         },
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 17
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
           "rank": 17
         }
       ]
@@ -3703,10 +3912,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-01T16:09:15.129507+00:00",
-          "rank": 17
-        },
-        {
           "run_at": "2026-09-01T20:38:56.199666+00:00",
           "rank": 17
         },
@@ -3821,6 +4026,10 @@
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
           "rank": 18
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 18
         }
       ]
     },
@@ -3833,7 +4042,7 @@
       "hot_value": "",
       "summary_zh": "为方便各位考生查阅，小粉笔汇总了甘肃省2026年下半年事业单位联考公告，您可以根据个人需求进行查阅、筛选心仪的岗位。",
       "thumbnail": null,
-      "published_at": "2026-08-29T08:56:28+00:00",
+      "published_at": "2026-09-04T06:23:46+00:00",
       "extra": {
         "id": 468688310652928,
         "sub": "announcement",
@@ -3860,10 +4069,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-01T16:09:15.129507+00:00",
-          "rank": 18
-        },
-        {
           "run_at": "2026-09-01T20:38:56.199666+00:00",
           "rank": 18
         },
@@ -3977,6 +4182,10 @@
         },
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 19
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
           "rank": 19
         }
       ]
@@ -4020,10 +4229,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-01T16:09:15.129507+00:00",
-          "rank": 19
-        },
-        {
           "run_at": "2026-09-01T20:38:56.199666+00:00",
           "rank": 19
         },
@@ -4137,6 +4342,10 @@
         },
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 21
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
           "rank": 21
         }
       ]
@@ -4176,10 +4385,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-01T16:09:15.129507+00:00",
-          "rank": 20
-        },
-        {
           "run_at": "2026-09-01T20:38:56.199666+00:00",
           "rank": 20
         },
@@ -4293,6 +4498,10 @@
         },
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 22
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
           "rank": 22
         }
       ]
@@ -4388,10 +4597,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-01T16:09:15.129507+00:00",
-          "rank": 21
-        },
-        {
           "run_at": "2026-09-01T20:38:56.199666+00:00",
           "rank": 21
         },
@@ -4505,6 +4710,10 @@
         },
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 23
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
           "rank": 23
         }
       ]
@@ -4544,10 +4753,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-01T16:09:15.129507+00:00",
-          "rank": 22
-        },
-        {
           "run_at": "2026-09-01T20:38:56.199666+00:00",
           "rank": 22
         },
@@ -4661,6 +4866,10 @@
         },
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 24
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
           "rank": 24
         }
       ]
@@ -4738,10 +4947,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-01T16:09:15.129507+00:00",
-          "rank": 24
-        },
-        {
           "run_at": "2026-09-01T20:38:56.199666+00:00",
           "rank": 24
         },
@@ -4855,6 +5060,10 @@
         },
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 25
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
           "rank": 25
         }
       ]
@@ -4895,10 +5104,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-01T16:09:15.129507+00:00",
-          "rank": 26
-        },
-        {
           "run_at": "2026-09-01T20:38:56.199666+00:00",
           "rank": 26
         },
@@ -5012,6 +5217,10 @@
         },
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 26
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
           "rank": 26
         }
       ]
@@ -5081,10 +5290,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-01T16:09:15.129507+00:00",
-          "rank": 23
-        },
-        {
           "run_at": "2026-09-01T20:38:56.199666+00:00",
           "rank": 23
         },
@@ -5198,6 +5403,10 @@
         },
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 27
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
           "rank": 27
         }
       ]
@@ -5238,10 +5447,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-01T16:09:15.129507+00:00",
-          "rank": 28
-        },
-        {
           "run_at": "2026-09-01T20:38:56.199666+00:00",
           "rank": 28
         },
@@ -5355,6 +5560,10 @@
         },
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 28
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
           "rank": 28
         }
       ]
@@ -5396,10 +5605,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-01T16:09:15.129507+00:00",
-          "rank": 25
-        },
-        {
           "run_at": "2026-09-01T20:38:56.199666+00:00",
           "rank": 25
         },
@@ -5513,6 +5718,10 @@
         },
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 29
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
           "rank": 29
         }
       ]
@@ -5554,10 +5763,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-01T16:09:15.129507+00:00",
-          "rank": 27
-        },
-        {
           "run_at": "2026-09-01T20:38:56.199666+00:00",
           "rank": 27
         },
@@ -5671,6 +5876,10 @@
         },
         {
           "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 30
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
           "rank": 30
         }
       ]
