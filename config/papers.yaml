@@ -1,40 +1,71 @@
 # 这三个是我的研究方向，命中的论文排最前面，按列表顺序分级
 priority_topics:
   - name: 单细胞聚类
-    match: ["single-cell clustering", "single cell clustering", "scRNA-seq clustering",
-            "cell clustering", "cell type identification", "cell type annotation",
-            "Leiden", "Louvain", "subclustering", "cluster refinement"]
+    match: ["single-cell clustering", "single cell clustering", "scRNA-seq clustering", "cell clustering",
+            "cell type identification", "cell type annotation", "cell-type annotation", "subclustering",
+            "Leiden", "Louvain", "community detection", "subpopulation", "cell embedding",
+            "单细胞", "聚类", "细胞类型"]
   - name: 稀有细胞
-    match: ["rare cell", "rare cell type", "rare cell population", "rare subpopulation",
-            "rare population", "rare cell detection", "rare cell identification"]
+    match: ["rare cell", "rare cell type", "rare cell population", "rare subpopulation", "rare population",
+            "rare cell identification", "minority cell", "minority class", "class imbalance", "imbalanced",
+            "underrepresented", "long-tail", "稀有细胞", "稀有", "罕见细胞"]
   - name: 生物信息
-    match: ["bioinformatics", "computational biology", "single-cell analysis",
-            "single-cell RNA sequencing", "scRNA-seq", "spatial transcriptomics",
-            "multi-omics", "single-cell multiomics", "cell atlas"]
+    match: ["bioinformatics", "computational biology", "single-cell analysis", "single-cell RNA sequencing",
+            "scRNA-seq", "scATAC", "snRNA", "single-nucleus", "spatial transcriptomics", "multi-omics",
+            "multiomics", "cell atlas", "batch effect", "data integration", "trajectory inference",
+            "RNA velocity", "生物信息", "转录组", "单细胞测序", "空间转录组"]
 
 # 次级兴趣，命中排在 priority 之后、其它之前
-keywords_boost: ["LLM", "agent", "foundation model", "graph neural network",
-                 "hypergraph", "batch effect", "trajectory inference", "RNA velocity",
-                 "clustering", "representation learning", "graph", "contrastive", "benchmark"]
+keywords_boost: ["graph neural network", "GNN", "hypergraph", "graph representation", "contrastive learning",
+                 "autoencoder", "variational", "foundation model", "self-supervised", "deep learning",
+                 "representation learning", "dimensionality reduction", "benchmark", "attention",
+                 "图神经网络", "超图", "对比学习", "深度学习", "表示学习", "自监督"]
 
 arxiv_categories: [q-bio.GN, q-bio.QM, q-bio.MN, cs.LG, stat.ML, cs.AI]
 biorxiv: true
 biorxiv_categories: [bioinformatics, genomics, "systems biology", "cell biology",
-                     "molecular biology", "developmental biology"]
+                     "molecular biology", "developmental biology", "cancer biology"]
 medrxiv: false
-pubmed_journals: ["Nature", "Science", "Cell", "Nat Methods", "Nat Biotechnol",
-                  "Nat Comput Sci", "Genome Biol", "Bioinformatics", "Nucleic Acids Res",
-                  "Cell Syst", "Nat Commun", "Brief Bioinform", "Nat Med"]
+pubmed_journals:
+  - {name: Nature, mode: filter}
+  - {name: Science, mode: filter}
+  - {name: Cell, mode: filter}
+  - {name: Nature Methods, mode: filter}
+  - {name: Nature Biotechnology, mode: filter}
+  - {name: Nature Computational Science, mode: filter}
+  - {name: Genome Biology, mode: all}
+  - {name: Bioinformatics, mode: all}
+  - {name: Nucleic Acids Research, mode: filter}
+  - {name: Cell Systems, mode: filter}
+  - {name: Nature Communications, mode: filter}
+  - {name: Briefings in Bioinformatics, mode: filter}
+  - {name: Nature Medicine, mode: filter}
 
-# ISSN 已按 ISSN Portal 的期刊记录核对；Crossref 无摘要时仍保留标题。
+# ISSN/eISSN 已用 Crossref journals API 与刊方记录核对；Crossref 无摘要时仍保留标题。
+# 部分中文刊尚无 Crossref works，当前会安全返回空结果，未来注册 DOI 后可自动出现。
 journals_by_issn:
-  - {name: 生物信息学, issn: "1672-5565"}
-  - {name: 遗传, issn: "0253-9772"}
-  - {name: "遗传学报(JGG)", issn: "1673-8527"}
-  - {name: 生物工程学报, issn: "1000-3061"}
-  - {name: "中国科学:生命科学", issn: "1674-7232"}
-  - {name: 计算机学报, issn: "0254-4164"}
-  - {name: 软件学报, issn: "1000-9825"}
+  - {name: 生物信息学, issn: "1672-5565", tier: 中文核心, mode: all}
+  - {name: 遗传, issn: "0253-9772", tier: 中文核心, mode: filter}
+  - {name: "遗传学报(JGG)", issn: "1673-8527", tier: 中文核心, mode: filter}
+  - {name: 生物工程学报, issn: "1000-3061", tier: 中文核心, mode: filter}
+  - {name: "中国科学:生命科学", issn: "1674-7232", tier: 中文核心, mode: filter}
+  - {name: 计算机学报, issn: "0254-4164", tier: 中文核心, mode: filter}
+  - {name: 软件学报, issn: "1000-9825", tier: 中文核心, mode: filter}
+  - {name: 小型微型计算机系统, issn: "1000-1220", tier: 中文核心, mode: filter}
+  - {name: 计算机应用, issn: "1001-9081", tier: 中文核心, mode: filter}
+  - {name: 计算机应用研究, issn: "1001-3695", tier: 中文核心, mode: filter}
+  - {name: 计算机工程, issn: "1000-3428", tier: 中文核心, mode: filter}
+  - {name: 计算机工程与应用, issn: "1002-8331", tier: 中文核心, mode: filter}
+  - {name: 电子与信息学报, issn: "1009-5896", tier: 中文核心, mode: filter}
+  - {name: 数据采集与处理, issn: "1004-9037", tier: 中文核心, mode: filter}
+  - {name: 生物医学工程学杂志, issn: "1001-5515", tier: 中文核心, mode: filter}
+  - {name: 生物化学与生物物理进展, issn: "1000-3282", tier: 中文核心, mode: filter}
+  - {name: Briefings in Bioinformatics, issn: "1477-4054", tier: 英文顶刊, mode: filter}
+  - {name: BMC Bioinformatics, issn: "1471-2105", tier: 英文顶刊, mode: all}
+  - {name: BMC Genomics, issn: "1471-2164", tier: 英文顶刊, mode: filter}
+  - {name: Nucleic Acids Research, issn: "1362-4962", tier: 英文顶刊, mode: filter}
+  - {name: PLoS Computational Biology, issn: "1553-7358", tier: 英文顶刊, mode: all}
+  - {name: Patterns, issn: "2666-3899", tier: 英文顶刊, mode: filter}
 # Nature 系列的 Crossref 元数据常无 abstract；后续可加 Nature RSS 补摘要，本期保留标题。
 crossref_lookback_days: 45
 

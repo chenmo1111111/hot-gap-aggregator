@@ -11,7 +11,11 @@ const dataResponse = (url: string) => {
   if (url.endsWith('/data/all.json')) return json({ generated_at: '2026-09-03T00:00:00Z', sources: [], items: [] });
   if (url.endsWith('/data/ai.json')) return json({ generated_at: '', source: 'ai', status: { source: 'ai', status: 'ok', item_count: 1 }, items: [{ source: 'feed', rank: 1, title: '新的 AI 研究动态', title_zh: '新的 AI 研究动态', url: 'https://example.test/ai', summary_zh: '来自机器之心的摘要', published_at: '2026-09-03T00:00:00Z', extra: { tab: 'ai', feed_name: '机器之心' } }] });
   if (url.endsWith('/data/tools.json')) return json({ generated_at: '', source: 'tools', status: { source: 'tools', status: 'ok', item_count: 1 }, items: [{ source: 'feed', rank: 1, title: 'scanpy 1.12.0', title_zh: 'scanpy 1.12.0', url: 'https://example.test/tool', summary_zh: '性能优化', published_at: '2026-09-02T00:00:00Z', extra: { tab: 'tools', feed_name: 'scanpy 发版' } }] });
-  if (url.endsWith('/data/papers.json')) return json({ generated_at: '', source: 'papers', status: { source: 'papers', status: 'ok', item_count: 0 }, items: [] });
+  if (url.endsWith('/data/papers.json')) return json({ generated_at: '', source: 'papers', status: { source: 'papers', status: 'ok', item_count: 3 }, items: [
+    { source: 'papers', rank: 1, title: 'Rare cell clustering', title_zh: '稀有细胞聚类', url: 'https://example.test/preprint', published_at: '2026-09-03', extra: { tier: '预印本', subsource: 'biorxiv', topic_hit: ['稀有细胞'], keyword_hit: ['GNN'] } },
+    { source: 'papers', rank: 2, title: '核心论文', title_zh: '核心论文', url: 'https://example.test/core', published_at: '2026-09-02', extra: { tier: '中文核心', subsource: 'crossref', journal: '计算机应用' } },
+    { source: 'feed', rank: 3, title: 'Nature paper', title_zh: 'Nature 论文', url: 'https://example.test/nature', published_at: '2026-09-01', extra: { tab: 'papers', feed_name: 'Nature' } },
+  ] });
   if (url.endsWith('/data/jobs.json')) return json({ generated_at: '', source: 'jobs', status: { source: 'jobs', status: 'ok', item_count: 0 }, items: [] });
   if (url.endsWith('/data/trends.json')) return json({ generated_at: '', rising: [], new_today: [], dropped: [], longest_on_board: [] });
   if (url.endsWith('/data/gongkao_official_sites.json')) return json({ sites: [] });
@@ -95,5 +99,36 @@ describe('authenticated app bootstrap', () => {
     fireEvent.click(screen.getByRole('button', { name: '工具更新' }));
     expect(await screen.findByText('scanpy 1.12.0')).toBeInTheDocument();
     expect(screen.getByText('性能优化')).toBeInTheDocument();
+  });
+
+  it('renders papers in three expanded sections with source and match chips', async () => {
+    const fetchMock = vi.fn(async (input: RequestInfo | URL) => {
+      const url = String(input);
+      if (url === '/api/me') return json({ username: 'reader', is_admin: false });
+      if (url === '/api/settings') return json({ prefs: {}, updated_at: null });
+      if (url.endsWith('/data/all.json')) return json({
+        generated_at: '2026-09-03T00:00:00Z',
+        sources: [{ source: 'papers', status: 'ok', item_count: 2 }],
+        items: [
+          { source: 'papers', rank: 1, title: 'Rare cell clustering', title_zh: '稀有细胞聚类', url: 'https://example.test/preprint', published_at: '2026-09-03', extra: { tier: '预印本', subsource: 'biorxiv', topic_hit: ['稀有细胞'], keyword_hit: ['GNN'] } },
+          { source: 'papers', rank: 2, title: '核心论文', title_zh: '核心论文', url: 'https://example.test/core', published_at: '2026-09-02', extra: { tier: '中文核心', subsource: 'crossref', journal: '计算机应用' } },
+        ],
+      });
+      return dataResponse(url) ?? json({}, 404);
+    });
+    vi.stubGlobal('fetch', fetchMock);
+
+    render(<App />);
+    await screen.findByText('reader');
+    fireEvent.click(screen.getByRole('button', { name: '顶刊' }));
+
+    expect(await screen.findByText('英文顶刊')).toBeInTheDocument();
+    expect(screen.getByText('中文核心')).toBeInTheDocument();
+    expect(screen.getByText('预印本')).toBeInTheDocument();
+    expect(screen.getByText(/默认展开/)).toBeInTheDocument();
+    expect(screen.getByText('bioRxiv')).toBeInTheDocument();
+    expect(screen.getByText('稀有细胞')).toBeInTheDocument();
+    expect(screen.getByText('GNN')).toBeInTheDocument();
+    expect(screen.getByText('Nature 论文')).toBeInTheDocument();
   });
 });

@@ -86,6 +86,7 @@ class PapersCollector(BaseCollector):
                 extra={
                     "subsource": "arxiv", "field": field, "doi": doi,
                     "tier": "预印本",
+                    "mode": "all" if str(field or "").casefold().startswith("q-bio.") else "filter",
                     "description": abstract, "identifier": arxiv_id,
                     "dedupe_key": f"doi:{doi}" if doi else f"arxiv:{arxiv_id.lower()}",
                 },
@@ -113,6 +114,9 @@ class PapersCollector(BaseCollector):
                 extra={
                     "subsource": server, "field": category or None, "doi": doi,
                     "tier": "预印本",
+                    # A category match alone is intentionally not enough for bioRxiv:
+                    # broad biology categories must also hit a configured topic/keyword.
+                    "mode": "filter",
                     "description": abstract, "dedupe_key": f"doi:{doi}",
                 },
             ))
@@ -147,6 +151,7 @@ class PapersCollector(BaseCollector):
                 extra={
                     "subsource": "pubmed", "journal": journal or None, "doi": doi,
                     "tier": "英文顶刊",
+                    "mode": "filter",
                     "description": abstract, "identifier": pmid,
                     "dedupe_key": f"doi:{doi}" if doi else f"pubmed:{pmid}",
                 },
@@ -173,7 +178,10 @@ class PapersCollector(BaseCollector):
         return None
 
     @staticmethod
-    def parse_crossref(payload: dict[str, Any], configured_name: str, issn: str) -> list[Item]:
+    def parse_crossref(
+        payload: dict[str, Any], configured_name: str, issn: str,
+        *, tier: str = "中文核心", mode: str = "filter",
+    ) -> list[Item]:
         items: list[Item] = []
         message = payload.get("message", {}) if isinstance(payload, dict) else {}
         for row in message.get("items", []) if isinstance(message, dict) else []:
@@ -191,8 +199,9 @@ class PapersCollector(BaseCollector):
                 source="papers", rank=0, title=title, title_zh=title,
                 url=f"https://doi.org/{doi}", published_at=PapersCollector._crossref_date(row),
                 extra={
-                    "subsource": "crossref", "tier": "中文核心", "journal": journal or configured_name,
-                    "issn": issn, "doi": doi, "description": abstract, "dedupe_key": f"doi:{doi}",
+                    "subsource": "crossref", "tier": tier, "journal": journal or configured_name,
+                    "mode": mode if mode == "all" else "filter", "issn": issn, "doi": doi,
+                    "description": abstract, "dedupe_key": f"doi:{doi}",
                 },
             ))
         return items
@@ -248,12 +257,20 @@ class PapersCollector(BaseCollector):
         return self.parse_preprints(response.json(), server, categories)
 
     async def _fetch_pubmed(self, config: dict[str, Any]) -> list[Item]:
-        journals = [str(journal).strip() for journal in config.get("pubmed_journals", []) if str(journal).strip()]
+        journals: list[dict[str, str]] = []
+        for row in config.get("pubmed_journals", []):
+            if isinstance(row, dict):
+                name = str(row.get("name") or "").strip()
+                mode = "all" if str(row.get("mode") or "filter").casefold() == "all" else "filter"
+            else:
+                name, mode = str(row).strip(), "filter"
+            if name:
+                journals.append({"name": name, "mode": mode})
         if not journals:
             return []
         end = self.today or datetime.now(UTC).date()
         start = end - timedelta(days=max(0, int(config.get("lookback_days", 3))))
-        journal_filter = " OR ".join(f'"{journal}"[Journal]' for journal in journals)
+        journal_filter = " OR ".join(f'"{journal["name"]}"[Journal]' for journal in journals)
         api_key = str(os.getenv("NCBI_API_KEY") or config.get("NCBI_API_KEY") or "").strip()
         common = {"api_key": api_key} if api_key else {}
         search = await self.request(self.pubmed_search_endpoint, params={
@@ -267,7 +284,17 @@ class PapersCollector(BaseCollector):
         fetched = await self.request(self.pubmed_fetch_endpoint, params={
             "db": "pubmed", "retmode": "xml", "id": ",".join(ids), **common,
         }, headers={"Accept": "application/xml"})
-        return self.parse_pubmed(fetched.text)
+        items = self.parse_pubmed(fetched.text)
+        configured_modes = {
+            re.sub(r"[^a-z0-9\u4e00-\u9fff]+", "", journal["name"].casefold()): journal["mode"]
+            for journal in journals
+        }
+        for item in items:
+            journal_key = re.sub(
+                r"[^a-z0-9\u4e00-\u9fff]+", "", str(item.extra.get("journal") or "").casefold()
+            )
+            item.extra["mode"] = configured_modes.get(journal_key, "filter")
+        return items
 
     async def _fetch_crossref(self, config: dict[str, Any]) -> list[Item]:
         journals = [row for row in config.get("journals_by_issn", []) if isinstance(row, dict)]
@@ -282,6 +309,8 @@ class PapersCollector(BaseCollector):
             name, issn = str(journal.get("name") or "").strip(), str(journal.get("issn") or "").strip()
             if not name or not issn:
                 continue
+            tier = str(journal.get("tier") or "中文核心").strip() or "中文核心"
+            mode = "all" if str(journal.get("mode") or "filter").casefold() == "all" else "filter"
             params = {
                 "filter": f"issn:{issn},from-pub-date:{start.isoformat()},until-pub-date:{end.isoformat()}",
                 "sort": "published", "order": "desc", "rows": 40,
@@ -291,7 +320,7 @@ class PapersCollector(BaseCollector):
                 params["mailto"] = mailto
             try:
                 response = await self.request(self.crossref_endpoint, params=params, headers={"Accept": "application/json"})
-                items.extend(self.parse_crossref(response.json(), name, issn))
+                items.extend(self.parse_crossref(response.json(), name, issn, tier=tier, mode=mode))
             except Exception as exc:  # each journal is isolated from the rest of Crossref
                 errors.append(f"{name}({issn}): {exc}")
         if not items and errors:
@@ -325,6 +354,12 @@ class PapersCollector(BaseCollector):
         priority = int(item.extra.get("priority_rank", 999))
         keyword_rank = 0 if item.extra.get("keyword_hit") else 1
         return priority, keyword_rank, -_published_timestamp(item.published_at)
+
+    @staticmethod
+    def _keep_relevant(item: Item) -> bool:
+        mode = "all" if str(item.extra.get("mode") or "filter").casefold() == "all" else "filter"
+        item.extra["mode"] = mode
+        return mode == "all" or bool(item.extra.get("topic_hit") or item.extra.get("keyword_hit"))
 
     @staticmethod
     def _safe_error(error: BaseException, config: dict[str, Any]) -> str:
@@ -361,9 +396,12 @@ class PapersCollector(BaseCollector):
                 errors.append(f"{subsource}: {self._safe_error(result, config)}")
                 continue
             successful_subsources += 1
+            relevant: list[Item] = []
             for item in result:
                 self._annotate_matches(item, config)
-            merged.extend(sorted(result, key=self._sort_key)[:per_limit])
+                if self._keep_relevant(item):
+                    relevant.append(item)
+            merged.extend(sorted(relevant, key=self._sort_key)[:per_limit])
 
         if successful_subsources == 0:
             raise SourceUnavailable("All papers subsources failed: " + "; ".join(errors), status="degraded")

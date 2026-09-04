@@ -29,6 +29,7 @@ def test_arxiv_fixture_maps_atom_fields_and_dedupe_key() -> None:
     assert items[0].published_at == "2026-09-02T10:00:00Z"
     assert items[0].extra["field"] == "q-bio.GN"
     assert items[0].extra["doi"] == "10.1000/arxiv.demo"
+    assert items[0].extra["mode"] == "all"
     assert items[0].extra["dedupe_key"] == "doi:10.1000/arxiv.demo"
     assert items[1].extra["dedupe_key"] == "arxiv:2609.00002"
 
@@ -40,6 +41,7 @@ def test_biorxiv_fixture_filters_categories() -> None:
     assert [item.extra["field"] for item in items] == ["bioinformatics", "developmental biology"]
     assert items[0].url == "https://doi.org/10.1101/2026.09.02.111111"
     assert all(item.extra["subsource"] == "biorxiv" for item in items)
+    assert all(item.extra["mode"] == "filter" for item in items)
 
 
 def test_medrxiv_uses_same_json_mapping_without_biorxiv_filter() -> None:
@@ -68,12 +70,19 @@ def test_crossref_fixture_keeps_journal_articles_and_cleans_jats() -> None:
     assert items[0].published_at == "2026-09-01"
     assert items[1].extra["description"] == ""
 
+    english = PapersCollector.parse_crossref(
+        fixture_json("papers_crossref.json"), "BMC Bioinformatics", "1471-2105",
+        tier="英文顶刊", mode="all",
+    )
+    assert english[0].extra["tier"] == "英文顶刊"
+    assert english[0].extra["mode"] == "all"
+
 
 @pytest.mark.asyncio
 async def test_crossref_queries_each_issn_and_survives_one_failure(monkeypatch, tmp_path) -> None:
     config_path = tmp_path / "papers.yaml"
     config_path.write_text(
-        "journals_by_issn:\n  - {name: 生物信息学, issn: '1672-5565'}\n"
+        "journals_by_issn:\n  - {name: 生物信息学, issn: '1672-5565', tier: 英文顶刊, mode: all}\n"
         "  - {name: 遗传, issn: '0253-9772'}\ncrossref_lookback_days: 45\n",
         encoding="utf-8",
     )
@@ -97,12 +106,18 @@ async def test_crossref_queries_each_issn_and_survives_one_failure(monkeypatch, 
     assert len(calls) == 2
     assert calls[0]["mailto"] == "reader@example.test"
     assert "from-pub-date:2026-07-20" in calls[0]["filter"]
+    assert items[0].extra["tier"] == "英文顶刊"
+    assert items[0].extra["mode"] == "all"
 
 
 @pytest.mark.asyncio
 async def test_pubmed_makes_search_then_fetch_and_passes_optional_key(monkeypatch, tmp_path) -> None:
     config_path = tmp_path / "papers.yaml"
-    config_path.write_text("pubmed_journals: [Nature, Science]\nlookback_days: 4\n", encoding="utf-8")
+    config_path.write_text(
+        "pubmed_journals:\n  - {name: Nature, mode: all}\n"
+        "  - {name: Nature Methods, mode: filter}\nlookback_days: 4\n",
+        encoding="utf-8",
+    )
     collector = PapersCollector(config_path, today=date(2026, 9, 2))
     calls: list[tuple[str, dict]] = []
 
@@ -126,9 +141,38 @@ async def test_pubmed_makes_search_then_fetch_and_passes_optional_key(monkeypatc
     items = await collector._fetch_pubmed(collector.load_config())
     assert len(calls) == 2
     assert calls[0][1]["api_key"] == "fixture-key"
-    assert '"Nature"[Journal] OR "Science"[Journal]' in calls[0][1]["term"]
+    assert '"Nature"[Journal] OR "Nature Methods"[Journal]' in calls[0][1]["term"]
     assert calls[1][1]["id"] == "11111111,22222222"
     assert len(items) == 2
+    assert items[0].extra["mode"] == "filter"
+    assert items[1].extra["mode"] == "all"
+
+
+def test_keyword_matching_is_case_insensitive_and_mode_controls_filtering() -> None:
+    config = {
+        "priority_topics": [{"name": "单细胞聚类", "match": ["ScRNA-seq", "单细胞"]}],
+        "keywords_boost": ["GNN", "图神经网络"],
+    }
+    matched = Item(
+        source="papers", rank=0, title="GNN for 单细胞 analysis", title_zh="", url="https://example.test/1",
+        extra={"description": "SCRNA-SEQ atlas", "mode": "filter"},
+    )
+    unmatched = Item(
+        source="papers", rank=0, title="Unrelated chemistry", title_zh="", url="https://example.test/2",
+        extra={"description": "No configured terms", "mode": "filter"},
+    )
+    broad_qbio = Item(
+        source="papers", rank=0, title="General q-bio paper", title_zh="", url="https://example.test/3",
+        extra={"description": "", "mode": "all"},
+    )
+    for item in (matched, unmatched, broad_qbio):
+        PapersCollector._annotate_matches(item, config)
+
+    assert matched.extra["topic_hit"] == ["单细胞聚类"]
+    assert matched.extra["keyword_hit"] == ["GNN"]
+    assert PapersCollector._keep_relevant(matched) is True
+    assert PapersCollector._keep_relevant(unmatched) is False
+    assert PapersCollector._keep_relevant(broad_qbio) is True
 
 
 @pytest.mark.asyncio

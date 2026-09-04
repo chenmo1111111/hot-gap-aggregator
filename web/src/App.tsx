@@ -86,6 +86,7 @@ function Sparkline({ history = [] }: { history?: HistoryPoint[] }) {
 
 function HotCard({ item, highlight, onCluster }: { item: Item; highlight?: boolean; onCluster?: (event: React.MouseEvent, item: Item) => void }) {
   const paper = item.source === 'papers' || (item.source === 'feed' && item.extra?.tab === 'papers');
+  const paperSource = item.source === 'feed' ? String(item.extra?.feed_name || '期刊订阅') : ({ arxiv: 'arXiv', biorxiv: 'bioRxiv', medrxiv: 'medRxiv', pubmed: 'PubMed', crossref: 'Crossref' } as Record<string, string>)[String(item.extra?.subsource)] || '论文';
   const topicHits = Array.isArray(item.extra?.topic_hit) ? item.extra.topic_hit.map(String) : [];
   const keywordHits = Array.isArray(item.extra?.keyword_hit) ? item.extra.keyword_hit.map(String) : [];
   const paperHighlighted = paper && (topicHits.length > 0 || keywordHits.length > 0);
@@ -94,7 +95,7 @@ function HotCard({ item, highlight, onCluster }: { item: Item; highlight?: boole
     <div className="font-mono text-2xl font-bold text-[var(--rank)]">{String(item.rank).padStart(2, '0')}</div>
     <div className="min-w-0">
       <div className="mb-2 flex flex-wrap items-center gap-2 text-[11px] font-bold">
-        <span className="rounded bg-[var(--soft)] px-2 py-1">{item.source === 'feed' ? String(item.extra?.feed_name || 'RSSHub') : itemSourceName(item.source)}</span>
+        <span className="rounded bg-[var(--soft)] px-2 py-1">{paper ? paperSource : item.source === 'feed' ? String(item.extra?.feed_name || 'RSSHub') : itemSourceName(item.source)}</span>
         {item.source === 'feed' && <span className="rounded bg-cyan-100 px-2 py-1 text-cyan-900">feed</span>}
         {paperHighlighted && <span className="rounded bg-amber-100 px-2 py-1 text-amber-900">🔖 方向命中</span>}
         {item.is_new && <span className="rounded bg-lime-300 px-2 py-1 text-slate-950">新</span>}
@@ -172,8 +173,8 @@ function DeadlineBoard({ items, state }: { items: Item[]; state?: SourceState })
 }
 
 function PapersView({ items, deadlines, deadlineState, onlyPriority, onToggle, unavailable, error, onCluster }: { items: Item[]; deadlines: Item[]; deadlineState?: SourceState; onlyPriority: boolean; onToggle: () => void; unavailable: boolean; error?: string | null; onCluster: (event: React.MouseEvent, item: Item) => void }) {
-  const tier = (item: Item) => item.source === 'feed' ? 'RSSHub' : String(item.extra?.tier || (['arxiv', 'biorxiv', 'medrxiv'].includes(String(item.extra?.subsource)) ? '预印本' : '英文顶刊'));
-  const sections: Array<[string, string]> = [['英文顶刊', 'PubMed 正刊'], ['中文核心', 'Crossref · 中文核心期刊'], ['预印本', 'arXiv + bioRxiv'], ['RSSHub', 'Nature / Science / HF 每日论文等订阅源']];
+  const tier = (item: Item) => item.source === 'feed' ? '英文顶刊' : String(item.extra?.tier || (['arxiv', 'biorxiv', 'medrxiv'].includes(String(item.extra?.subsource)) ? '预印本' : '英文顶刊'));
+  const sections: Array<[string, string]> = [['英文顶刊', 'PubMed / Crossref / Nature 订阅'], ['中文核心', 'Crossref · 中文核心期刊'], ['预印本', 'arXiv + bioRxiv · 默认展开']];
   return <div className="w-full min-w-0 max-w-full"><DeadlineBoard items={deadlines} state={deadlineState} /><div className="mb-5 flex min-w-0 flex-col items-start gap-3 text-xs text-[var(--muted)] sm:flex-row sm:items-center sm:justify-between"><span className="break-words">论文雷达 · 按研究方向与算法关键词排序</span><div className="flex max-w-full flex-wrap items-center gap-3"><span className="whitespace-nowrap">{items.length} 条</span><label className="flex max-w-full cursor-pointer items-center gap-1.5 rounded-full bg-[var(--soft)] px-3 py-1.5 font-bold text-[var(--ink)]"><input type="checkbox" checked={onlyPriority} onChange={onToggle} className="shrink-0 accent-amber-500" /><span>只看我的方向</span></label></div></div><div className="grid min-w-0 gap-9">{sections.map(([name, subtitle]) => { const entries = items.filter((item) => tier(item) === name); return <section key={name} className="min-w-0"><div className="mb-3 flex min-w-0 items-end justify-between gap-3"><div className="min-w-0"><h2 className="text-xl font-black">{name}</h2><p className="break-words text-xs text-[var(--muted)]">{subtitle}</p></div><span className="shrink-0 font-mono text-xs text-[var(--muted)]">{entries.length}</span></div><div className="grid min-w-0 gap-3">{entries.map((item) => <HotCard key={`${item.rank}-${item.url}`} item={item} onCluster={onCluster} />)}{entries.length === 0 && items.length > 0 && <p className="rounded-xl border border-dashed border-[var(--line)] p-4 text-xs text-[var(--muted)]">当前没有{name}条目</p>}</div></section>; })}{items.length === 0 && <div className="rounded-2xl border border-dashed border-[var(--line)] p-12 text-center text-[var(--muted)]">{unavailable ? <><p className="font-bold text-[var(--ink)]">这个来源暂不可用</p><p className="mt-2 text-xs">{error || '采集端已安全降级，不影响其它来源。'}</p></> : '当前筛选下暂无论文。'}</div>}</div></div>;
 }
 
