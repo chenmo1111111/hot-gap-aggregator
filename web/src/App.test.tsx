@@ -157,9 +157,9 @@ describe('authenticated app bootstrap', () => {
     await screen.findByText('reader');
     fireEvent.click(screen.getByRole('button', { name: '顶刊' }));
 
-    expect(await screen.findByText('英文顶刊')).toBeInTheDocument();
-    expect(screen.getByText('中文核心')).toBeInTheDocument();
-    expect(screen.getByText('预印本')).toBeInTheDocument();
+    expect(await screen.findByRole('heading', { name: '英文顶刊' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: '中文核心' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: '预印本' })).toBeInTheDocument();
     expect(screen.getByText(/默认展开/)).toBeInTheDocument();
     expect(screen.getByText('bioRxiv')).toBeInTheDocument();
     expect(screen.getByText('稀有细胞')).toBeInTheDocument();
@@ -170,6 +170,12 @@ describe('authenticated app bootstrap', () => {
     fireEvent.change(screen.getByLabelText('期刊筛选'), { target: { value: 'Briefings in bioinformatics' } });
     expect(screen.getByText('BIB 论文')).toBeInTheDocument();
     expect(screen.queryByText('核心论文')).not.toBeInTheDocument();
+    expect(screen.queryByText('稀有细胞聚类')).not.toBeInTheDocument();
+
+    fireEvent.change(screen.getByLabelText('期刊筛选'), { target: { value: 'all' } });
+    fireEvent.click(screen.getByRole('button', { name: /^中文核心 1$/ }));
+    expect(screen.getByText('核心论文')).toBeInTheDocument();
+    expect(screen.queryByText('BIB 论文')).not.toBeInTheDocument();
     expect(screen.queryByText('稀有细胞聚类')).not.toBeInTheDocument();
   });
 

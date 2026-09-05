@@ -207,6 +207,46 @@ class PapersCollector(BaseCollector):
         return items
 
     @staticmethod
+    def parse_cn_journal_rss(
+        xml_text: str, journal: str, *, issn: str = "", discipline: str = "计算机",
+        mode: str = "filter", fallback_date: str | None = None,
+    ) -> list[Item]:
+        root = ET.fromstring(xml_text)
+
+        def local_name(node: ET.Element) -> str:
+            return node.tag.rsplit("}", 1)[-1]
+
+        def child_text(node: ET.Element, *names: str) -> str:
+            wanted = set(names)
+            for child in node:
+                if local_name(child) in wanted:
+                    return _text(child)
+            return ""
+
+        items: list[Item] = []
+        for entry in (node for node in root.iter() if local_name(node) == "item"):
+            title = child_text(entry, "title")
+            url = child_text(entry, "link") or str(entry.attrib.get("{http://www.w3.org/1999/02/22-rdf-syntax-ns#}about") or "")
+            if not title or not url or re.search(r"(?:目录|编委会|前\s*言)$", title):
+                continue
+            description = PapersCollector._plain_jats(child_text(entry, "description", "encoded"))
+            published_raw = child_text(entry, "pubDate", "date", "updated", "published")
+            published_at = published_raw[:10] if re.match(r"^\d{4}-\d{2}-\d{2}", published_raw) else fallback_date
+            doi_match = re.search(r"(?:doi\.org/|/doi/)(10\.\d{4,9}/[^?#\s]+)", url, re.I)
+            doi = _normalise_doi(doi_match.group(1)) if doi_match else ""
+            items.append(Item(
+                source="papers", rank=0, title=title, title_zh=title,
+                url=url, published_at=published_at,
+                extra={
+                    "subsource": "cn_journal_rss", "tier": "中文核心", "journal": journal,
+                    "discipline": discipline, "mode": "all" if mode == "all" else "filter",
+                    "issn": issn, "doi": doi or None, "description": description,
+                    "dedupe_key": f"doi:{doi}" if doi else f"url:{url.casefold()}",
+                },
+            ))
+        return items
+
+    @staticmethod
     def _parse_pubmed_date(node: ET.Element | None) -> str | None:
         if node is None:
             return None
@@ -334,6 +374,20 @@ class PapersCollector(BaseCollector):
             LOGGER.warning("papers Crossref partial failure: %s", "; ".join(errors))
         return items
 
+    async def _fetch_cn_journal_feed(self, journal: dict[str, Any]) -> list[Item]:
+        name = str(journal.get("name") or "").strip()
+        url = str(journal.get("url") or "").strip()
+        if not name or not url:
+            return []
+        response = await self.request(url, headers={"Accept": "application/rss+xml, application/xml, text/xml"})
+        return self.parse_cn_journal_rss(
+            response.text, name,
+            issn=str(journal.get("issn") or "").strip(),
+            discipline=str(journal.get("discipline") or "计算机").strip() or "计算机",
+            mode="all" if str(journal.get("mode") or "filter").casefold() == "all" else "filter",
+            fallback_date=(self.today or datetime.now(UTC).date()).isoformat(),
+        )
+
     @staticmethod
     def _annotate_matches(item: Item, config: dict[str, Any]) -> None:
         haystack = f"{item.title} {item.extra.get('description') or ''}".casefold()
@@ -388,6 +442,9 @@ class PapersCollector(BaseCollector):
             jobs.append(("pubmed", self._fetch_pubmed(config)))
         if config.get("journals_by_issn"):
             jobs.append(("crossref", self._fetch_crossref(config)))
+        for journal in config.get("cn_journal_feeds", []):
+            if isinstance(journal, dict) and journal.get("name") and journal.get("url"):
+                jobs.append((f"cn_journal_rss:{journal['name']}", self._fetch_cn_journal_feed(journal)))
         if not jobs:
             raise SourceUnavailable("Papers config has no enabled subsources", status="degraded")
 

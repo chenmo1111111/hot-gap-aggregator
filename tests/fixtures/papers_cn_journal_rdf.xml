@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:dc="http://purl.org/dc/elements/1.1/"
+         xmlns="http://purl.org/rss/1.0/">
+  <channel rdf:about="https://crad.example.test/">
+    <title>计算机研究与发展</title>
+  </channel>
+  <item rdf:about="https://crad.example.test/article/doi/10.7544/demo.2026.1">
+    <title><![CDATA[基于大模型的多智能体推理框架]]></title>
+    <link>https://crad.example.test/article/doi/10.7544/demo.2026.1</link>
+    <description><![CDATA[面向复杂任务的大语言模型与智能体研究。]]></description>
+    <dc:date></dc:date>
+  </item>
+</rdf:RDF>

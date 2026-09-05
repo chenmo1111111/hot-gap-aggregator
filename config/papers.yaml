@@ -19,7 +19,8 @@ priority_topics:
 keywords_boost: ["graph neural network", "GNN", "hypergraph", "graph representation", "contrastive learning",
                  "autoencoder", "variational", "foundation model", "self-supervised", "deep learning",
                  "representation learning", "dimensionality reduction", "benchmark", "attention",
-                 "图神经网络", "超图", "对比学习", "深度学习", "表示学习", "自监督"]
+                 "图神经网络", "超图", "对比学习", "深度学习", "表示学习", "自监督",
+                 "机器学习", "人工智能", "大语言模型", "大模型", "智能体", "图学习", "神经网络"]
 
 arxiv_categories: [q-bio.GN, q-bio.QM, q-bio.MN, cs.LG, stat.ML, cs.AI]
 biorxiv: true
@@ -54,7 +55,6 @@ journals_by_issn:
   - {name: 小型微型计算机系统, issn: "1000-1220", tier: 中文核心, mode: filter}
   - {name: 计算机应用, issn: "1001-9081", tier: 中文核心, mode: filter}
   - {name: 计算机应用研究, issn: "1001-3695", tier: 中文核心, mode: filter}
-  - {name: 计算机工程, issn: "1000-3428", tier: 中文核心, mode: filter}
   - {name: 计算机工程与应用, issn: "1002-8331", tier: 中文核心, mode: filter}
   - {name: 电子与信息学报, issn: "1009-5896", tier: 中文核心, mode: filter}
   - {name: 数据采集与处理, issn: "1004-9037", tier: 中文核心, mode: filter}
@@ -66,6 +66,13 @@ journals_by_issn:
   - {name: Nucleic Acids Research, issn: "1362-4962", tier: 英文顶刊, mode: filter}
   - {name: PLoS Computational Biology, issn: "1553-7358", tier: 英文顶刊, mode: all}
   - {name: Patterns, issn: "2666-3899", tier: 英文顶刊, mode: filter}
+
+# 多数中文计算机期刊没有向 Crossref 登记作品，改用刊方公开 RSS。
+# 每条 feed 独立失败降级；关键词只用于保留与你方向相关的文章。
+cn_journal_feeds:
+  - {name: 计算机科学, issn: "1002-137X", discipline: 计算机, mode: filter, url: "https://www.jsjkx.com/CN/rss_dqml_1002-137X.xml"}
+  - {name: 计算机工程, issn: "1000-3428", discipline: 计算机, mode: filter, url: "https://www.ecice06.com/CN/rss_dqml_1000-3428.xml"}
+  - {name: 计算机研究与发展, issn: "1000-1239", discipline: 计算机, mode: filter, url: "https://crad.ict.ac.cn/rss/current.xml"}
 # Nature 系列的 Crossref 元数据常无 abstract；后续可加 Nature RSS 补摘要，本期保留标题。
 # 中文期刊向 Crossref 登记元数据通常比英文刊慢。分层时间窗既能保留
 # 英文刊的新鲜度，也能避免中文核心因 45 天无登记而长期空白。

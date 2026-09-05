@@ -89,6 +89,57 @@ def test_crossref_fixture_keeps_journal_articles_and_cleans_jats() -> None:
     assert english[0].extra["mode"] == "all"
 
 
+def test_cn_journal_rss_maps_official_rss_and_rdf_variants() -> None:
+    rss_items = PapersCollector.parse_cn_journal_rss(
+        fixture_text("papers_cn_journal_rss.xml"), "计算机科学",
+        issn="1002-137X", fallback_date="2026-09-05",
+    )
+    assert len(rss_items) == 1
+    assert rss_items[0].title == "图神经网络驱动的单细胞聚类方法"
+    assert rss_items[0].published_at == "2026-08-15"
+    assert rss_items[0].extra["journal"] == "计算机科学"
+    assert rss_items[0].extra["discipline"] == "计算机"
+    assert rss_items[0].extra["description"] == "提出一种面向单细胞数据的 图神经网络 聚类模型。"
+
+    rdf_items = PapersCollector.parse_cn_journal_rss(
+        fixture_text("papers_cn_journal_rdf.xml"), "计算机研究与发展",
+        issn="1000-1239", fallback_date="2026-09-05",
+    )
+    assert len(rdf_items) == 1
+    assert rdf_items[0].published_at == "2026-09-05"
+    assert rdf_items[0].extra["doi"] == "10.7544/demo.2026.1"
+    assert rdf_items[0].extra["dedupe_key"] == "doi:10.7544/demo.2026.1"
+
+
+@pytest.mark.asyncio
+async def test_cn_journal_feeds_are_isolated_and_use_keyword_filter(monkeypatch, tmp_path) -> None:
+    config_path = tmp_path / "papers.yaml"
+    config_path.write_text("""
+keywords_boost: [图神经网络]
+cn_journal_feeds:
+  - {name: 计算机科学, issn: '1002-137X', url: 'https://journal.example.test/rss.xml'}
+  - {name: 计算机工程, issn: '1000-3428', url: 'https://broken.example.test/rss.xml'}
+per_subsource_limit: 20
+per_tier_limit: 20
+total_limit: 20
+""", encoding="utf-8")
+    collector = PapersCollector(config_path, today=date(2026, 9, 5))
+
+    class Response:
+        text = fixture_text("papers_cn_journal_rss.xml")
+
+    async def request(url: str, **_kwargs):
+        if "broken" in url:
+            raise RuntimeError("journal unavailable")
+        return Response()
+
+    monkeypatch.setattr(collector, "request", request)
+    items = await collector.fetch()
+    assert [item.title for item in items] == ["图神经网络驱动的单细胞聚类方法"]
+    assert items[0].extra["keyword_hit"] == ["图神经网络"]
+    assert items[0].rank == 1
+
+
 @pytest.mark.asyncio
 async def test_crossref_queries_each_issn_and_survives_one_failure(monkeypatch, tmp_path) -> None:
     config_path = tmp_path / "papers.yaml"
