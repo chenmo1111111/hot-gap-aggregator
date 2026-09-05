@@ -1,4 +1,4 @@
-const CACHE = 'hot-gap-v7';
+const CACHE = 'hot-gap-v8';
 const SHELL = [
   './', './manifest.webmanifest?v=2', './favicon-32.png?v=2', './apple-touch-icon.png?v=2',
   './icon-192.png?v=2', './icon-512.png?v=2', './icon-maskable-512.png?v=2',
@@ -33,7 +33,7 @@ self.addEventListener('fetch', (event) => {
     // first, then refresh the offline fallback so an old shell cannot point at
     // assets removed by rsync --delete.
     event.respondWith(
-      fetch(event.request)
+      fetch(event.request, { cache: 'no-store' })
         .then((response) => {
           if (response.ok && url.origin === self.location.origin) {
             const copy = response.clone();

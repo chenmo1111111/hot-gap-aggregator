@@ -201,4 +201,32 @@ describe('authenticated app bootstrap', () => {
     expect(text.indexOf('微博第一热搜')).toBeLessThan(text.indexOf('官方选调公告'));
     expect(text.indexOf('官方选调公告')).toBeLessThan(text.indexOf('粉笔考试公告'));
   });
+
+  it('refreshes data when the installed app returns to the foreground', async () => {
+    let now = 1_000;
+    let allRequests = 0;
+    vi.spyOn(Date, 'now').mockImplementation(() => now);
+    const fetchMock = vi.fn(async (input: RequestInfo | URL) => {
+      const url = String(input);
+      if (url === '/api/me') return json({ username: 'reader', is_admin: false });
+      if (url === '/api/settings') return json({ prefs: {}, updated_at: null });
+      if (url.endsWith('/data/all.json')) {
+        allRequests += 1;
+        return json({
+          generated_at: `2026-09-05T0${allRequests}:00:00Z`,
+          sources: [{ source: 'weibo', status: 'ok', item_count: 1 }],
+          items: [{ source: 'weibo', rank: 1, title: `前台刷新版本 ${allRequests}`, title_zh: `前台刷新版本 ${allRequests}`, url: `https://example.test/version-${allRequests}` }],
+        });
+      }
+      return dataResponse(url) ?? json({}, 404);
+    });
+    vi.stubGlobal('fetch', fetchMock);
+
+    render(<App />);
+    expect(await screen.findByText('前台刷新版本 1')).toBeInTheDocument();
+    now += 2 * 60 * 1000;
+    window.dispatchEvent(new Event('focus'));
+    expect(await screen.findByText('前台刷新版本 2')).toBeInTheDocument();
+    expect(screen.queryByText('前台刷新版本 1')).not.toBeInTheDocument();
+  });
 });

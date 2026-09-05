@@ -95,6 +95,8 @@ const paperVenueLabel = (venue: string) => /^briefings in bioinformatics$/i.test
   : venue;
 
 const hotSourceOrder = ['weibo', 'bilibili', 'douyin', 'youtube', 'github', 'telegram', 'nowcoder', 'feed'];
+const AUTO_REFRESH_INTERVAL_MS = 10 * 60 * 1000;
+const FOREGROUND_REFRESH_STALE_MS = 60 * 1000;
 const sortAllItems = (items: Item[]) => items.map((item, index) => ({ item, index })).sort((left, right) => {
   const leftHot = hotSourceOrder.includes(left.item.source) && (left.item.source !== 'feed' || left.item.extra?.tab === 'hot');
   const rightHot = hotSourceOrder.includes(right.item.source) && (right.item.source !== 'feed' || right.item.extra?.tab === 'hot');
@@ -390,10 +392,13 @@ function App() {
   const [prefsReady, setPrefsReady] = useState(false);
   const [settingsUpdatedAt, setSettingsUpdatedAt] = useState<string | null>(null);
   const [syncing, setSyncing] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
   const [active, setActive] = useState('all');
   const [highlightCluster, setHighlightCluster] = useState<string | null>(null);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const syncGeneration = useRef(0);
+  const refreshInFlight = useRef(false);
+  const lastDataRefreshAt = useRef(0);
 
   const updatePrefs = useCallback((patch: Prefs) => setPrefs((current) => {
     const next = { ...current, ...patch };
@@ -407,9 +412,14 @@ function App() {
     return next;
   }), []);
 
-  const bootstrap = useCallback(async () => {
-    setAuthState('checking');
-    setPrefsReady(false);
+  const bootstrap = useCallback(async (background = false) => {
+    if (refreshInFlight.current) return;
+    refreshInFlight.current = true;
+    if (background) setRefreshing(true);
+    else {
+      setAuthState('checking');
+      setPrefsReady(false);
+    }
     try {
       const meResponse = await fetch('/api/me', { credentials: 'include', cache: 'no-store' });
       if (meResponse.status === 401) {
@@ -454,12 +464,34 @@ function App() {
       const localPrefs = loadPrefs();
       const merged = remoteSettings ? deepMergePrefs(localPrefs, remoteSettings.prefs) : localPrefs;
       savePrefs(merged); setPrefs(merged); setSettingsUpdatedAt(remoteSettings?.updated_at ?? null); setPrefsReady(true);
+      lastDataRefreshAt.current = Date.now();
     } catch {
-      setUser(null); setFeed(null); setAuthState('anonymous');
+      if (!background) {
+        setUser(null); setFeed(null); setAuthState('anonymous');
+      }
+    } finally {
+      refreshInFlight.current = false;
+      setRefreshing(false);
     }
   }, []);
 
   useEffect(() => { void bootstrap(); }, [bootstrap]);
+  useEffect(() => {
+    const refreshWhenVisible = () => {
+      if (document.visibilityState !== 'visible' || Date.now() - lastDataRefreshAt.current < FOREGROUND_REFRESH_STALE_MS) return;
+      void bootstrap(true);
+    };
+    const interval = window.setInterval(refreshWhenVisible, AUTO_REFRESH_INTERVAL_MS);
+    document.addEventListener('visibilitychange', refreshWhenVisible);
+    window.addEventListener('focus', refreshWhenVisible);
+    window.addEventListener('pageshow', refreshWhenVisible);
+    return () => {
+      window.clearInterval(interval);
+      document.removeEventListener('visibilitychange', refreshWhenVisible);
+      window.removeEventListener('focus', refreshWhenVisible);
+      window.removeEventListener('pageshow', refreshWhenVisible);
+    };
+  }, [bootstrap]);
   useEffect(() => {
     if (authState !== 'authenticated' || !prefsReady) return;
     const generation = ++syncGeneration.current;
@@ -540,7 +572,7 @@ function App() {
   const restoreTabs = () => removePrefs(['tab_order', 'tab_hidden']);
   const showCluster = (event: React.MouseEvent, item: Item) => { event.stopPropagation(); if (!item.cluster_id) return; setActive('all'); setHighlightCluster((current) => current === item.cluster_id ? null : item.cluster_id ?? null); };
   return <main className="min-h-screen w-full min-w-0 max-w-full overflow-x-hidden bg-[var(--paper)] text-[var(--ink)] transition-colors">
-    <header className="border-b border-[var(--line)] bg-[var(--header)] text-white"><div className="mx-auto max-w-6xl px-4 pb-7 pt-5 sm:px-6 sm:pb-10 sm:pt-8"><div className="flex flex-wrap items-center justify-between gap-3"><span className="font-mono text-[11px] tracking-[0.2em] text-cyan-300">SIGNAL / NOISE · P2</span><div className="flex flex-wrap items-center justify-end gap-2"><span className="rounded-full bg-white/10 px-3 py-1.5 text-xs">{user?.username}{user?.is_admin ? ' · 管理员' : ''}</span><button type="button" aria-label="调整导航标签" aria-expanded={settingsOpen} className="rounded-full border border-white/20 px-3 py-1.5 text-xs transition hover:bg-white/10" onClick={() => setSettingsOpen(true)}>⚙ 设置</button><button type="button" className="rounded-full border border-white/20 px-3 py-1.5 text-xs transition hover:bg-white/10" onClick={() => updatePrefs({ theme: dark ? 'light' : 'dark' })}>{dark ? '☀ 浅色' : '◐ 深色'}</button><button type="button" onClick={() => void logout()} className="rounded-full border border-white/20 px-3 py-1.5 text-xs transition hover:bg-white/10">退出</button></div></div><div className="mt-8 grid gap-5 sm:grid-cols-[1fr_auto] sm:items-end"><div><p className="mb-2 text-sm text-slate-400">看见一条热搜，也看见全网正在汇聚的信号。</p><h1 className="text-4xl font-black tracking-[-0.06em] sm:text-6xl">信息差<span className="text-cyan-300">日报</span></h1></div><div className="border-l-2 border-lime-300 pl-3 text-xs leading-5 text-slate-300"><div>{feed?.sources?.filter((source) => source.status === 'ok').length ?? 0}/{feed?.sources?.length ?? 0} 来源正常 · {feed?.sources?.filter((source) => source.status !== 'ok').length ?? 0} 降级</div><div>{feed?.generated_at ? `更新于 ${new Date(feed.generated_at).toLocaleString('zh-CN')}` : '正在同步最新信号…'}</div></div></div></div></header>
+    <header className="border-b border-[var(--line)] bg-[var(--header)] text-white"><div className="mx-auto max-w-6xl px-4 pb-7 pt-5 sm:px-6 sm:pb-10 sm:pt-8"><div className="flex flex-wrap items-center justify-between gap-3"><span className="font-mono text-[11px] tracking-[0.2em] text-cyan-300">SIGNAL / NOISE · P2</span><div className="flex flex-wrap items-center justify-end gap-2"><span className="rounded-full bg-white/10 px-3 py-1.5 text-xs">{user?.username}{user?.is_admin ? ' · 管理员' : ''}</span><button type="button" aria-label="调整导航标签" aria-expanded={settingsOpen} className="rounded-full border border-white/20 px-3 py-1.5 text-xs transition hover:bg-white/10" onClick={() => setSettingsOpen(true)}>⚙ 设置</button><button type="button" className="rounded-full border border-white/20 px-3 py-1.5 text-xs transition hover:bg-white/10" onClick={() => updatePrefs({ theme: dark ? 'light' : 'dark' })}>{dark ? '☀ 浅色' : '◐ 深色'}</button><button type="button" onClick={() => void logout()} className="rounded-full border border-white/20 px-3 py-1.5 text-xs transition hover:bg-white/10">退出</button></div></div><div className="mt-8 grid gap-5 sm:grid-cols-[1fr_auto] sm:items-end"><div><p className="mb-2 text-sm text-slate-400">看见一条热搜，也看见全网正在汇聚的信号。</p><h1 className="text-4xl font-black tracking-[-0.06em] sm:text-6xl">信息差<span className="text-cyan-300">日报</span></h1></div><div className="border-l-2 border-lime-300 pl-3 text-xs leading-5 text-slate-300"><div>{feed?.sources?.filter((source) => source.status === 'ok').length ?? 0}/{feed?.sources?.length ?? 0} 来源正常 · {feed?.sources?.filter((source) => source.status !== 'ok').length ?? 0} 降级</div><div>{refreshing ? '正在刷新最新信号…' : feed?.generated_at ? `更新于 ${new Date(feed.generated_at).toLocaleString('zh-CN')}` : '正在同步最新信号…'}</div></div></div></div></header>
     <nav className="sticky top-0 z-10 w-full max-w-full overflow-x-auto border-b border-[var(--line)] bg-[var(--paper)]/95 backdrop-blur"><div className="mx-auto flex w-max min-w-full max-w-6xl gap-1 px-4 py-3 sm:px-6">{tabOrder.filter((tab) => !hiddenTabs.includes(tab)).map((tab) => { const tabState = feed?.sources?.find((source) => source.source === tab); return <button key={tab} onClick={() => { setActive(tab); setHighlightCluster(null); }} className={`flex items-center gap-1.5 whitespace-nowrap rounded-full px-4 py-2 text-sm font-bold ${active === tab ? 'bg-[var(--ink)] text-[var(--paper)]' : 'text-[var(--muted)] hover:bg-[var(--soft)]'}`}>{tab === 'all' ? `全部 ${allItems.length}` : tabLabel(tab)}{tab === 'alerts' && hasUnreadAlerts && <span aria-label="有未读预警" className="h-2 w-2 animate-pulse rounded-full bg-red-500" />}{tabState && <span title={tabState.status} className={`h-1.5 w-1.5 rounded-full ${tabState.status === 'ok' ? 'bg-emerald-400' : 'bg-orange-400'}`} />}</button>; })}</div></nav>
     {settingsOpen && <div className="fixed inset-0 z-50"><button type="button" aria-label="关闭导航设置" className="absolute inset-0 h-full w-full bg-slate-950/60 backdrop-blur-sm" onClick={() => setSettingsOpen(false)} /><aside role="dialog" aria-modal="true" aria-labelledby="tab-settings-title" className="absolute inset-y-0 right-0 flex w-full max-w-md flex-col border-l border-[var(--line)] bg-[var(--card)] text-[var(--ink)] shadow-2xl"><div className="flex items-start justify-between border-b border-[var(--line)] px-5 py-5"><div><h2 id="tab-settings-title" className="text-xl font-black">导航设置</h2><p className="mt-1 text-xs text-[var(--muted)]">{syncing ? '正在同步…' : settingsUpdatedAt ? `已同步 · 上次 ${new Date(settingsUpdatedAt).toLocaleString('zh-CN')}` : '偏好保存在本机，服务恢复后会自动同步'}</p></div><button type="button" aria-label="关闭" className="rounded-full bg-[var(--soft)] px-3 py-1.5 text-sm font-bold" onClick={() => setSettingsOpen(false)}>×</button></div><div className="flex-1 overflow-y-auto p-4"><div className="mb-3 flex items-center justify-between rounded-xl border border-[var(--line)] bg-[var(--paper)] px-4 py-3"><span className="font-bold">全部</span><span className="rounded-full bg-[var(--soft)] px-2.5 py-1 text-[11px] text-[var(--muted)]">固定首位</span></div><div className="grid gap-2">{tabOrder.slice(1).map((tab, index, adjustable) => { const hidden = hiddenTabs.includes(tab); return <div key={tab} className={`flex items-center gap-2 rounded-xl border border-[var(--line)] bg-[var(--paper)] px-3 py-3 ${hidden ? 'opacity-65' : ''}`}><span className="min-w-0 flex-1 truncate font-bold">{tabLabel(tab)}</span><button type="button" aria-label={`${tabLabel(tab)}上移`} disabled={index === 0} onClick={() => moveTab(tab, -1)} className="h-8 w-8 rounded-full bg-[var(--soft)] text-sm font-black disabled:cursor-not-allowed disabled:opacity-30">↑</button><button type="button" aria-label={`${tabLabel(tab)}下移`} disabled={index === adjustable.length - 1} onClick={() => moveTab(tab, 1)} className="h-8 w-8 rounded-full bg-[var(--soft)] text-sm font-black disabled:cursor-not-allowed disabled:opacity-30">↓</button><label className="flex cursor-pointer items-center gap-1.5 rounded-full bg-[var(--soft)] px-2.5 py-1.5 text-xs font-bold"><input type="checkbox" checked={!hidden} onChange={() => toggleTab(tab)} className="accent-cyan-500" /><span>{hidden ? '隐藏' : '显示'}</span></label></div>; })}</div><button type="button" onClick={restoreTabs} className="mt-4 w-full rounded-full border border-[var(--line)] bg-[var(--paper)] px-4 py-3 text-sm font-bold transition hover:border-cyan-400">恢复默认</button>{user?.is_admin && <AdminPanel />}</div></aside></div>}
     <section className="mx-auto w-full min-w-0 max-w-6xl px-4 py-5 sm:px-6 sm:py-8">
