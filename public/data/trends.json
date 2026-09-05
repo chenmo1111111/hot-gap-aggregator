@@ -1,13 +1,1032 @@
 {
-  "generated_at": "2026-09-05T13:43:58.261424+00:00",
+  "generated_at": "2026-09-05T16:44:00.251437+00:00",
   "rising": [
     {
-      "source": "weibo",
+      "source": "bilibili",
       "rank": 6,
-      "title": "才知道陈妍希儿子名字陈睦辰",
-      "title_zh": "才知道陈妍希儿子名字陈睦辰",
-      "url": "https://s.weibo.com/weibo?q=%23%E6%89%8D%E7%9F%A5%E9%81%93%E9%99%88%E5%A6%8D%E5%B8%8C%E5%84%BF%E5%AD%90%E5%90%8D%E5%AD%97%E9%99%88%E7%9D%A6%E8%BE%B0%23",
-      "hot_value": "731129",
+      "title": "我把汉堡搬到了星星上",
+      "title_zh": "我把汉堡搬到了星星上",
+      "url": "https://b23.tv/BV1Xdt26bECx",
+      "hot_value": "415057",
+      "summary_zh": null,
+      "thumbnail": "http://i1.hdslb.com/bfs/archive/00acb9ebe0ce9f07650b66bfdded1d7bfe0ae979.jpg",
+      "published_at": "2026-09-05T09:30:00+00:00",
+      "extra": {
+        "bvid": "BV1Xdt26bECx",
+        "owner": "李炮炮儿"
+      },
+      "days_on_board": 1,
+      "is_new": false,
+      "rank_delta": 18,
+      "cluster_id": "2430273e7c8a",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-05T13:43:58.261424+00:00",
+          "rank": 24
+        },
+        {
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 6
+        }
+      ]
+    },
+    {
+      "source": "douyin",
+      "rank": 2,
+      "title": "郑钦文美网对决凯斯",
+      "title_zh": "郑钦文美网对决凯斯",
+      "url": "https://www.douyin.com/search/%E9%83%91%E9%92%A6%E6%96%87%E7%BE%8E%E7%BD%91%E5%AF%B9%E5%86%B3%E5%87%AF%E6%96%AF",
+      "hot_value": "12093837",
+      "summary_zh": null,
+      "thumbnail": "https://p26-sign.douyinpic.com/tos-cn-p-0015/oMsbk41Eg89bDQWIWBFqAneDgWCmWAoWf5mAai~noop.jpeg?lk3s=bfd515bb&x-expires=1788645600&x-signature=1kYCF4UsMcSjI3ap807%2FYvDh6II%3D&from=3218412987",
+      "published_at": null,
+      "extra": {
+        "sentence_id": "2636484"
+      },
+      "days_on_board": 1,
+      "is_new": false,
+      "rank_delta": 18,
+      "cluster_id": "bc190c529494",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-05T06:59:06.242545+00:00",
+          "rank": 12
+        },
+        {
+          "run_at": "2026-09-05T07:44:06.628615+00:00",
+          "rank": 8
+        },
+        {
+          "run_at": "2026-09-05T10:44:07.499731+00:00",
+          "rank": 8
+        },
+        {
+          "run_at": "2026-09-05T13:43:58.261424+00:00",
+          "rank": 20
+        },
+        {
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 2
+        }
+      ]
+    },
+    {
+      "source": "papers",
+      "rank": 43,
+      "title": "ESPO: Error-Structured Prompt Optimization via Diagnose, Diversify, and Stabilize",
+      "title_zh": "ESPO：通过诊断、多样化和稳定化进行错误结构化提示优化",
+      "url": "http://arxiv.org/abs/2609.04197v1",
+      "hot_value": null,
+      "summary_zh": "诸如GEPA之类的进化提示优化器存在提示膨胀问题：每次迭代都会附加规则和注意事项，产生长达3倍但准确性并未提高的提示。我们将此追溯到三个缺陷——不完整的错误观察、有限的搜索多样性和不可靠的选择——并提出ESPO（错误结构化提示优化），它将提示优化分解为三个阶段：诊断在一轮中将所有训练错误聚类为结构化模式；提议通过四种具有独立偏差的互补策略生成候选；选择应用引导稳定性选择。在七个公共NLP基准——Tweet、MMLU、GSM8K、HotpotQA、ScoNe、HoVer和PUPA上，ESPO将平均准确率提高了+3.76个百分点，优于最先进水平（74.67%对比GEPA的70.91%），在每个数据集上匹配或超过GEPA，同时生成的提示缩短47%（1,004对比1,878字符）且推理更快。跨四个额外学生模型（Gemma 3 12B、Mistral 14B、Qwen3 32B、Claude Hai",
+      "thumbnail": null,
+      "published_at": "2026-09-03T17:59:37Z",
+      "extra": {
+        "subsource": "arxiv",
+        "field": "cs.CL",
+        "doi": null,
+        "tier": "预印本",
+        "mode": "filter",
+        "description": "Evolutionary prompt optimizers such as GEPA suffer from prompt bloat: each iteration appends rules and caveats, producing prompts up to 3$\\times$ longer yet no more accurate. We trace this to three deficiencies - incomplete error observation, limited search diversity, and unreliable selection - and propose ESPO (Error-Structured Prompt Optimization), which decomposes prompt optimization into three phases: Diagnose clusters all training errors into structural patterns in one round; Propose generates candidates via four complementary strategies with independent biases; Select applies bootstrap stability selection. On seven public NLP benchmarks - Tweet, MMLU, GSM8K, HotpotQA, ScoNe, HoVer, and PUPA - ESPO improves average accuracy by $+$3.76 pp over the state-of-the-art (74.67% vs 70.91% for GEPA), matching or exceeding GEPA on every dataset while producing prompts 47% shorter (1,004 vs 1,878 chars) and faster at inference. Cross-model experiments across four additional student models (Gemma 3 12B, Mistral 14B, Qwen3 32B, Claude Haiku 4.5) show ESPO yields the best average accuracy on every model tested, with the largest gap on Qwen3 GSM8K (15.00% $\\to$ 91.40%). A generalization bound (Appendix) grounds each phase in a corresponding term of the test-time gap, and the ablation confirms a key prediction: adding diversity without bootstrap selection actually hurts performance ($-$1.20%).",
+        "identifier": "2609.04197",
+        "dedupe_key": "arxiv:2609.04197",
+        "topic_hit": [],
+        "priority_rank": 999,
+        "keyword_hit": [
+          "benchmark"
+        ]
+      },
+      "days_on_board": 2,
+      "is_new": false,
+      "rank_delta": 13,
+      "cluster_id": "fdc918f320b7",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-04T04:46:19.195629+00:00",
+          "rank": 35
+        },
+        {
+          "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 35
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 37
+        },
+        {
+          "run_at": "2026-09-04T07:50:56.349243+00:00",
+          "rank": 37
+        },
+        {
+          "run_at": "2026-09-04T10:50:52.203202+00:00",
+          "rank": 37
+        },
+        {
+          "run_at": "2026-09-04T13:44:12.649307+00:00",
+          "rank": 38
+        },
+        {
+          "run_at": "2026-09-04T16:44:12.536912+00:00",
+          "rank": 38
+        },
+        {
+          "run_at": "2026-09-04T19:43:56.539533+00:00",
+          "rank": 38
+        },
+        {
+          "run_at": "2026-09-04T22:43:55.269806+00:00",
+          "rank": 37
+        },
+        {
+          "run_at": "2026-09-05T01:44:07.909533+00:00",
+          "rank": 56
+        },
+        {
+          "run_at": "2026-09-05T04:43:51.890357+00:00",
+          "rank": 56
+        },
+        {
+          "run_at": "2026-09-05T05:04:16.938707+00:00",
+          "rank": 56
+        },
+        {
+          "run_at": "2026-09-05T06:59:06.242545+00:00",
+          "rank": 56
+        },
+        {
+          "run_at": "2026-09-05T07:44:06.628615+00:00",
+          "rank": 56
+        },
+        {
+          "run_at": "2026-09-05T10:44:07.499731+00:00",
+          "rank": 56
+        },
+        {
+          "run_at": "2026-09-05T13:43:58.261424+00:00",
+          "rank": 56
+        },
+        {
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 43
+        }
+      ]
+    },
+    {
+      "source": "papers",
+      "rank": 44,
+      "title": "One Editor, Many Edits: A Unified Training-Free Framework for Diverse Video Editing",
+      "title_zh": "一个编辑器，多种编辑：用于多样化视频编辑的统一免训练框架",
+      "url": "http://arxiv.org/abs/2609.04190v1",
+      "hot_value": null,
+      "summary_zh": "视频编辑涵盖多种编辑范式，但在一个统一框架内实现高质量的指令引导和主体引导编辑仍然具有挑战性。我们引入了EditVid，一个免训练框架，结合了用于局部一致性的稀疏因果记忆、用于长程身份保持的基于对应关系的后注意力令牌注入，以及用于编辑局部性的软潜在混合。同一框架支持指令引导和参考引导的编辑，包括风格迁移、属性修改、对象插入、部分级编辑和主体替换。在FiVE上，EditVid达到了78.16的FiVE-Acc，而最强的评估免训练基线为58.95，同时在IVEBench上获得了竞争性结果。一项用户研究进一步显示，EditVid在7种竞争方法中获得了51.8%的总体偏好。",
+      "thumbnail": null,
+      "published_at": "2026-09-03T17:59:01Z",
+      "extra": {
+        "subsource": "arxiv",
+        "field": "cs.CV",
+        "doi": null,
+        "tier": "预印本",
+        "mode": "filter",
+        "description": "Video editing spans diverse editing paradigms, yet achieving high-quality instruction-guided and subject-guided editing within a single unified framework remains challenging. We introduce EditVid, a training-free framework combining sparse causal memory for local coherence, correspondence-based post-attention token injection for long-range identity preservation, and soft latent blending for edit locality. The same framework supports instruction-guided and reference-guided edits, including style transfer, attribute modification, object insertion, part-level editing, and subject replacement. On FiVE, EditVid achieves 78.16 FiVE-Acc, compared with 58.95 for the strongest evaluated training-free baseline, while obtaining competitive results on IVEBench. A user study further shows a 51.8\\% overall preference for EditVid over 7 competing methods.",
+        "identifier": "2609.04190",
+        "dedupe_key": "arxiv:2609.04190",
+        "topic_hit": [],
+        "priority_rank": 999,
+        "keyword_hit": [
+          "attention"
+        ]
+      },
+      "days_on_board": 2,
+      "is_new": false,
+      "rank_delta": 13,
+      "cluster_id": "ce9dd5767f23",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-04T04:46:19.195629+00:00",
+          "rank": 36
+        },
+        {
+          "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 36
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 38
+        },
+        {
+          "run_at": "2026-09-04T07:50:56.349243+00:00",
+          "rank": 38
+        },
+        {
+          "run_at": "2026-09-04T10:50:52.203202+00:00",
+          "rank": 38
+        },
+        {
+          "run_at": "2026-09-04T13:44:12.649307+00:00",
+          "rank": 39
+        },
+        {
+          "run_at": "2026-09-04T16:44:12.536912+00:00",
+          "rank": 39
+        },
+        {
+          "run_at": "2026-09-04T19:43:56.539533+00:00",
+          "rank": 39
+        },
+        {
+          "run_at": "2026-09-04T22:43:55.269806+00:00",
+          "rank": 38
+        },
+        {
+          "run_at": "2026-09-05T01:44:07.909533+00:00",
+          "rank": 57
+        },
+        {
+          "run_at": "2026-09-05T04:43:51.890357+00:00",
+          "rank": 57
+        },
+        {
+          "run_at": "2026-09-05T05:04:16.938707+00:00",
+          "rank": 57
+        },
+        {
+          "run_at": "2026-09-05T06:59:06.242545+00:00",
+          "rank": 57
+        },
+        {
+          "run_at": "2026-09-05T07:44:06.628615+00:00",
+          "rank": 57
+        },
+        {
+          "run_at": "2026-09-05T10:44:07.499731+00:00",
+          "rank": 57
+        },
+        {
+          "run_at": "2026-09-05T13:43:58.261424+00:00",
+          "rank": 57
+        },
+        {
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 44
+        }
+      ]
+    },
+    {
+      "source": "papers",
+      "rank": 45,
+      "title": "Robust PAC Learning of Concurrent Stochastic Games",
+      "title_zh": "并发随机博弈的鲁棒PAC学习",
+      "url": "http://arxiv.org/abs/2609.04189v1",
+      "hot_value": null,
+      "summary_zh": "我们引入了第一个用于具有转移不确定性的广义和并发随机博弈（CSG）的概率近似正确（PAC）学习框架，同时解决了纳什均衡（NE）存在性的挑战。我们的算法在转移核上维护数据驱动的$L^1$置信集，并求解一个鲁棒CSG以计算社会福利最优的$\\varepsilon$-NE，使用基于鲁棒MDP的探索机制来驱动联合状态-动作覆盖。关键的是，我们引入了一个纳什边际特征，使得能够对均衡存在性进行原则性推理：该框架要么返回一个$\\varepsilon$-近似NE，其社会福利值在$\\varepsilon$-接近最优，要么提供一个合理的证书，证明不存在精确NE。在相关状态-动作对的最小可达性条件$p_{\\mathrm{reach}}>0$下，算法在多项式数量的轨迹样本后终止，样本复杂度为$\\widetilde{O}\\left( {R_{\\max}^2 H^4 |S|^2 |A| / (p_{\\mathrm{re",
+      "thumbnail": null,
+      "published_at": "2026-09-03T17:58:57Z",
+      "extra": {
+        "subsource": "arxiv",
+        "field": "cs.LG",
+        "doi": null,
+        "tier": "预印本",
+        "mode": "filter",
+        "description": "We introduce the first Probably Approximately Correct (PAC) learning framework for general-sum concurrent stochastic games (CSGs) with transition uncertainty, while addressing the challenge of Nash equilibrium (NE) existence. Our algorithm maintains data-driven $L^1$ confidence sets over transition kernels and solves a robust CSG to compute a social-welfare optimal $\\varepsilon$-NE, using a robust MDP-based exploration mechanism to drive joint state-action coverage. Crucially, we introduce a Nash margin characterisation that enables principled reasoning about equilibrium existence: the framework either returns an $\\varepsilon$-approximate NE whose social-welfare value is $\\varepsilon$-close to optimal, or provides a sound certificate that no exact NE exists. Under a minimum reachability condition $p_{\\mathrm{reach}}>0$ over relevant state-action pairs, the algorithm terminates after a polynomial number of trajectory samples, with sample complexity $\\widetilde{O}\\left( {R_{\\max}^2 H^4 |S|^2 |A| / (p_{\\mathrm{reach}} \\varepsilon^2)} \\right)$. Empirical results on benchmark CSGs demonstrate near-optimal performance, correct handling of equilibrium (non-)existence, and sample complexity consistent with theory.",
+        "identifier": "2609.04189",
+        "dedupe_key": "arxiv:2609.04189",
+        "topic_hit": [],
+        "priority_rank": 999,
+        "keyword_hit": [
+          "benchmark"
+        ]
+      },
+      "days_on_board": 2,
+      "is_new": false,
+      "rank_delta": 13,
+      "cluster_id": "67ab725b458a",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-04T04:46:19.195629+00:00",
+          "rank": 37
+        },
+        {
+          "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 37
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 39
+        },
+        {
+          "run_at": "2026-09-04T07:50:56.349243+00:00",
+          "rank": 39
+        },
+        {
+          "run_at": "2026-09-04T10:50:52.203202+00:00",
+          "rank": 39
+        },
+        {
+          "run_at": "2026-09-04T13:44:12.649307+00:00",
+          "rank": 40
+        },
+        {
+          "run_at": "2026-09-04T16:44:12.536912+00:00",
+          "rank": 40
+        },
+        {
+          "run_at": "2026-09-04T19:43:56.539533+00:00",
+          "rank": 40
+        },
+        {
+          "run_at": "2026-09-04T22:43:55.269806+00:00",
+          "rank": 39
+        },
+        {
+          "run_at": "2026-09-05T01:44:07.909533+00:00",
+          "rank": 58
+        },
+        {
+          "run_at": "2026-09-05T04:43:51.890357+00:00",
+          "rank": 58
+        },
+        {
+          "run_at": "2026-09-05T05:04:16.938707+00:00",
+          "rank": 58
+        },
+        {
+          "run_at": "2026-09-05T06:59:06.242545+00:00",
+          "rank": 58
+        },
+        {
+          "run_at": "2026-09-05T07:44:06.628615+00:00",
+          "rank": 58
+        },
+        {
+          "run_at": "2026-09-05T10:44:07.499731+00:00",
+          "rank": 58
+        },
+        {
+          "run_at": "2026-09-05T13:43:58.261424+00:00",
+          "rank": 58
+        },
+        {
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 45
+        }
+      ]
+    },
+    {
+      "source": "papers",
+      "rank": 46,
+      "title": "Para-Pipe: Exploiting Hierarchical Operator Parallelism of ML Computational Graphs on SoCs",
+      "title_zh": "Para-Pipe：在SoC上利用ML计算图的层次化算子并行性",
+      "url": "http://arxiv.org/abs/2609.04168v1",
+      "hot_value": null,
+      "summary_zh": "随着边缘深度学习应用变得越来越复杂，在异构片上系统（SoC）上优化性能提出了独特的挑战。传统的流水线技术将计算分布到不同的片上处理单元，虽然对吞吐量有效，但并未解决现代神经网络因复杂相互依赖性和广泛算子并行性而带来的延迟需求。利用算子并行性来实现在多个处理单元上的并发执行，从而减少推理延迟，具有潜力。然而，优先考虑流水线或并行执行通常需要妥协，优化一个性能指标会对另一个产生不利影响。本文介绍了Para-Pipe，一个层次化映射框架，在流水线架构中集成了阶段内和阶段间的算子并行性。Para-Pipe通过选择性地微调流水线阶段内部和之间的并行级别来导航吞吐量和延迟之间的权衡。该策略可以显著减少处理器间通信开销，显著提高能效。我们的评估表明，Para-Pipe在配备ARM big.LITTLE CPU和GPU的Amlogic SoC以及配备深度学习加速器和两个DSP的黑芝麻科技SoC上生成了多个",
+      "thumbnail": null,
+      "published_at": "2026-09-03T17:53:44Z",
+      "extra": {
+        "subsource": "arxiv",
+        "field": "cs.DC",
+        "doi": "10.1109/tcad.2025.3568348",
+        "tier": "预印本",
+        "mode": "filter",
+        "description": "As edge-based deep learning applications become more complex, optimizing performance on heterogeneous System-on-Chips (SoCs) presents unique challenges. Traditional pipelining techniques distributing the computation across different on-chip processing units, while effective for throughput, do not address the latency demands posed by modern neural networks with complex interdependencies and extensive operator parallelism. There is a potential in leveraging operator parallelism to enable concurrent execution across multiple processing units, thereby reducing inference latency. However, prioritizing pipelining or parallel execution often necessitates a compromise, where optimizing one performance metric adversely impacts the other. This paper introduces Para-Pipe, a hierarchical mapping framework that integrates intra- and inter-stage operator parallelism within a pipelined architecture. Para-Pipe navigates the trade-off between throughput and latency by selectively fine-tuning parallelism levels within and across pipeline stages. This strategy can significantly reduce inter-processor communication overhead, significantly improving energy efficiency. Our evaluation demonstrates that Para-Pipe generates multiple Pareto-optimal configurations, achieving a balance between throughput and latency on an Amlogic SoC equipped with ARM big.LITTLE CPUs and GPU, as well as the Black Sesame Technology SoC featuring a deep learning accelerator and two DSPs. More importantly, throughput-optimized configurations under Para-Pipe on Amlogic SoC show an average energy efficiency improvement of 11.0% over purely pipelined strategies and 23.3% relative to non-pipelined parallel execution.",
+        "identifier": "2609.04168",
+        "dedupe_key": "doi:10.1109/tcad.2025.3568348",
+        "topic_hit": [],
+        "priority_rank": 999,
+        "keyword_hit": [
+          "deep learning"
+        ]
+      },
+      "days_on_board": 2,
+      "is_new": false,
+      "rank_delta": 13,
+      "cluster_id": "ff043896e42d",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-04T04:46:19.195629+00:00",
+          "rank": 38
+        },
+        {
+          "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 38
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 40
+        },
+        {
+          "run_at": "2026-09-04T07:50:56.349243+00:00",
+          "rank": 40
+        },
+        {
+          "run_at": "2026-09-04T10:50:52.203202+00:00",
+          "rank": 40
+        },
+        {
+          "run_at": "2026-09-04T13:44:12.649307+00:00",
+          "rank": 41
+        },
+        {
+          "run_at": "2026-09-04T16:44:12.536912+00:00",
+          "rank": 41
+        },
+        {
+          "run_at": "2026-09-04T19:43:56.539533+00:00",
+          "rank": 41
+        },
+        {
+          "run_at": "2026-09-04T22:43:55.269806+00:00",
+          "rank": 40
+        },
+        {
+          "run_at": "2026-09-05T01:44:07.909533+00:00",
+          "rank": 59
+        },
+        {
+          "run_at": "2026-09-05T04:43:51.890357+00:00",
+          "rank": 59
+        },
+        {
+          "run_at": "2026-09-05T05:04:16.938707+00:00",
+          "rank": 59
+        },
+        {
+          "run_at": "2026-09-05T06:59:06.242545+00:00",
+          "rank": 59
+        },
+        {
+          "run_at": "2026-09-05T07:44:06.628615+00:00",
+          "rank": 59
+        },
+        {
+          "run_at": "2026-09-05T10:44:07.499731+00:00",
+          "rank": 59
+        },
+        {
+          "run_at": "2026-09-05T13:43:58.261424+00:00",
+          "rank": 59
+        },
+        {
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 46
+        }
+      ]
+    },
+    {
+      "source": "papers",
+      "rank": 47,
+      "title": "SWE-Gate: Passing Functional Tests Is Not Enough for Software Engineering Agents",
+      "title_zh": "SWE-Gate：通过功能测试不足以评估软件工程智能体",
+      "url": "http://arxiv.org/abs/2609.04167v1",
+      "hot_value": null,
+      "summary_zh": "仓库级软件工程基准显著推进了编码智能体的评估，但现有基准主要衡量生成的补丁是否通过功能测试，忽略了实际软件开发中常影响补丁可接受性的审查派生验收约束（审查约束）。我们引入了SWE-Gate，一个用于软件工程智能体的仓库级基准，明确评估审查约束合规性和功能正确性。SWE-Gate从真实拉取请求审查评论中派生审查约束，并围绕这些约束合成仓库级修复实例。每个实例提供单独的功能和约束测试，以及不合规和黄金补丁，从而能够明确区分问题解决能力和审查约束合规性。我们构建了包含303个仓库级修复实例的SWE-Gate，涵盖75个开源Python仓库，跨越不同软件领域。在常见编码智能体脚手架下，使用四个不同能力水平的LLM后端进行的实验揭示了功能成功与完整修复规范成功之间的显著差距：在通过功能测试的644个修复中，有221个未能满足提供的审查约束。这些发现表明，仅功能评估高估了智能体满足仓库级修复任务全部要",
+      "thumbnail": null,
+      "published_at": "2026-09-03T17:53:34Z",
+      "extra": {
+        "subsource": "arxiv",
+        "field": "cs.SE",
+        "doi": null,
+        "tier": "预印本",
+        "mode": "filter",
+        "description": "Repository-level software engineering benchmarks have significantly advanced the evaluation of coding agents, but existing benchmarks primarily measure whether generated patches pass functional tests and overlook review-derived acceptance constraints (review constraints) that often influence whether a patch is acceptable in real-world software development. We introduce SWE-Gate, a repository-level benchmark for software engineering agents that explicitly evaluates review constraint compliance alongside functional correctness. SWE-Gate derives review constraints from real pull request review comments and synthesizes repository-level repair instances around these constraints. Each instance provides separate functional and constraint tests, together with non-compliant and gold patches, enabling explicit separation between issue resolution capability and review constraint compliance. We construct SWE-Gate with 303 repository-level repair instances spanning 75 open-source Python repositories across diverse software domains. Experiments with four LLM backends spanning different capability levels under a common coding-agent scaffold reveal a substantial gap between functional success and success under the complete repair specification: among 644 repairs that pass the functional tests, 221 fail to satisfy the provided review constraints. These findings show that functional-only evaluation overestimates agents' ability to satisfy the full requirements of repository-level repair tasks. The replication package including code, data, and experimental results is available at https://github.com/DeepSoftwareAnalytics/SWE-Gate.",
+        "identifier": "2609.04167",
+        "dedupe_key": "arxiv:2609.04167",
+        "topic_hit": [],
+        "priority_rank": 999,
+        "keyword_hit": [
+          "benchmark"
+        ]
+      },
+      "days_on_board": 2,
+      "is_new": false,
+      "rank_delta": 13,
+      "cluster_id": "1e3e25dac912",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-04T04:46:19.195629+00:00",
+          "rank": 39
+        },
+        {
+          "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 39
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 41
+        },
+        {
+          "run_at": "2026-09-04T07:50:56.349243+00:00",
+          "rank": 41
+        },
+        {
+          "run_at": "2026-09-04T10:50:52.203202+00:00",
+          "rank": 41
+        },
+        {
+          "run_at": "2026-09-04T13:44:12.649307+00:00",
+          "rank": 42
+        },
+        {
+          "run_at": "2026-09-04T16:44:12.536912+00:00",
+          "rank": 42
+        },
+        {
+          "run_at": "2026-09-04T19:43:56.539533+00:00",
+          "rank": 42
+        },
+        {
+          "run_at": "2026-09-04T22:43:55.269806+00:00",
+          "rank": 41
+        },
+        {
+          "run_at": "2026-09-05T01:44:07.909533+00:00",
+          "rank": 60
+        },
+        {
+          "run_at": "2026-09-05T04:43:51.890357+00:00",
+          "rank": 60
+        },
+        {
+          "run_at": "2026-09-05T05:04:16.938707+00:00",
+          "rank": 60
+        },
+        {
+          "run_at": "2026-09-05T06:59:06.242545+00:00",
+          "rank": 60
+        },
+        {
+          "run_at": "2026-09-05T07:44:06.628615+00:00",
+          "rank": 60
+        },
+        {
+          "run_at": "2026-09-05T10:44:07.499731+00:00",
+          "rank": 60
+        },
+        {
+          "run_at": "2026-09-05T13:43:58.261424+00:00",
+          "rank": 60
+        },
+        {
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 47
+        }
+      ]
+    },
+    {
+      "source": "douyin",
+      "rank": 28,
+      "title": "终南山怪虫到底是什么",
+      "title_zh": "终南山怪虫到底是什么",
+      "url": "https://www.douyin.com/search/%E7%BB%88%E5%8D%97%E5%B1%B1%E6%80%AA%E8%99%AB%E5%88%B0%E5%BA%95%E6%98%AF%E4%BB%80%E4%B9%88",
+      "hot_value": "7723696",
+      "summary_zh": null,
+      "thumbnail": "https://p3-sign.douyinpic.com/tos-cn-p-0015/ocIAZFqFXBcVAODXIftkMCIgErgSfmovaWcA9z~noop.jpeg?lk3s=bfd515bb&x-expires=1788645600&x-signature=42zeGZzIiiboxIY1FpnndRUPqdo%3D&from=3218412987",
+      "published_at": null,
+      "extra": {
+        "sentence_id": "2636196"
+      },
+      "days_on_board": 1,
+      "is_new": false,
+      "rank_delta": 12,
+      "cluster_id": "2a19754dae5c",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-05T01:44:07.909533+00:00",
+          "rank": 28
+        },
+        {
+          "run_at": "2026-09-05T04:43:51.890357+00:00",
+          "rank": 26
+        },
+        {
+          "run_at": "2026-09-05T05:04:16.938707+00:00",
+          "rank": 27
+        },
+        {
+          "run_at": "2026-09-05T06:59:06.242545+00:00",
+          "rank": 25
+        },
+        {
+          "run_at": "2026-09-05T07:44:06.628615+00:00",
+          "rank": 29
+        },
+        {
+          "run_at": "2026-09-05T10:44:07.499731+00:00",
+          "rank": 20
+        },
+        {
+          "run_at": "2026-09-05T13:43:58.261424+00:00",
+          "rank": 40
+        },
+        {
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 28
+        }
+      ]
+    },
+    {
+      "source": "douyin",
+      "rank": 25,
+      "title": "弹壳狂放人生真Boss驾到",
+      "title_zh": "弹壳狂放人生真Boss驾到",
+      "url": "https://www.douyin.com/search/%E5%BC%B9%E5%A3%B3%E7%8B%82%E6%94%BE%E4%BA%BA%E7%94%9F%E7%9C%9FBoss%E9%A9%BE%E5%88%B0",
+      "hot_value": "7734237",
+      "summary_zh": null,
+      "thumbnail": "https://p26-sign.douyinpic.com/tos-cn-p-0015/o8AQ1CBTpIliimIPnql8paIiTOqpBA0PRaQZy~noop.jpeg?lk3s=bfd515bb&x-expires=1788645600&x-signature=OenStTinfvs1QVFWjUTYLxA4cac%3D&from=3218412987",
+      "published_at": null,
+      "extra": {
+        "sentence_id": "2636747"
+      },
+      "days_on_board": 1,
+      "is_new": false,
+      "rank_delta": 11,
+      "cluster_id": "f72083acaf38",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-05T13:43:58.261424+00:00",
+          "rank": 36
+        },
+        {
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 25
+        }
+      ]
+    },
+    {
+      "source": "bilibili",
+      "rank": 8,
+      "title": "【短的发布会】老火靓汤才够正！广汽传祺越7把舒适越野都煲到位，内外全是料",
+      "title_zh": "【短的发布会】老火靓汤才够正！广汽传祺越7把舒适越野都煲到位，内外全是料",
+      "url": "https://b23.tv/BV157tz6GEhh",
+      "hot_value": "838646",
+      "summary_zh": null,
+      "thumbnail": "http://i1.hdslb.com/bfs/archive/a2e4e478fa6c847f02189bd4384120f9666c5ae0.jpg",
+      "published_at": "2026-09-04T09:00:02+00:00",
+      "extra": {
+        "bvid": "BV157tz6GEhh",
+        "owner": "短的发布会"
+      },
+      "days_on_board": 1,
+      "is_new": false,
+      "rank_delta": 10,
+      "cluster_id": "41c0163066e4",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-05T13:43:58.261424+00:00",
+          "rank": 18
+        },
+        {
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 8
+        }
+      ]
+    },
+    {
+      "source": "papers",
+      "rank": 42,
+      "title": "Large Language Models for Accessible Reporting of Bioinformatics Analyses in Interdisciplinary Contexts",
+      "title_zh": "跨学科背景下用大语言模型做生物信息学分析的可读报告",
+      "url": "https://doi.org/10.1101/2025.11.09.687479",
+      "hot_value": null,
+      "summary_zh": "健康与生命科学研究者常靠定量专家做复杂数据分析，但跨学科沟通障碍常让结果解读卡壳。大语言模型（LLM）有潜力当中间人，把分析输出转成易懂的科学叙述，不过它们在真实生物医学数据分析中跨学科可靠解读的能力还不清楚。本研究里，我们看了最新LLM在真实生物信息学分析流程里当报告生成助手时表现如何，面向跨学科团队。我们用自动和人工两种评估框架来全面评价LLM生成的摘要。自动评估用基于Bloom分类法的多选题，测不同理解层次；人工评估让科学家给摘要打分，看事实一致性、无害性、全面性和连贯性。结果普遍可读且基本安全，说明它们适合做技术分析的初步翻译，但经常误读可视化内容，摘要冗长，很少给出分析里没有的新见解。我们的结论是，LLM最适合缓解跨学科沟通，而不是替代领域专长，人工监督仍必不可少，以保证准确性、解读深度和真正新颖的科学发现。",
+      "thumbnail": null,
+      "published_at": "2026-09-01",
+      "extra": {
+        "subsource": "biorxiv",
+        "field": "bioinformatics",
+        "doi": "10.1101/2025.11.09.687479",
+        "tier": "预印本",
+        "mode": "all",
+        "description": "Health and life scientists frequently rely on quantitative experts to perform complex data analyses, yet interpretation of these results often becomes a bottleneck due to communication barriers across disciplines. Large Language Models (LLMs) have the potential to act as intermediaries that translate analytical outputs into accessible scientific narratives, but their ability to reliably interpret outputs from real-world biomedical data analyses across disciplines remains unclear. In this study, we investigate how state-of-the-art LLMs behave when integrated into real bioinformatics analysis workflows as report-generation assistants for interdisciplinary teams. We evaluated LLM-generated summaries using both automated and human evaluation frameworks to ensure holistic evaluation. Automated assessment employed multiple choice questions designed using Bloom's taxonomy to assess multiple levels of understanding, while human evaluation tasked scientists to score summaries for factual consistency, lack of harmfulness, comprehensiveness, and coherence. All generally produced readable and largely safe summaries, confirming their value for first-pass translation of technical analyses, however frequently misinterpreted visualisations, produced verbose summaries and rarely offered novel insights beyond what was already contained in the analytics. Our findings suggest that LLMs are best suited for easing interdisciplinary communication rather than replacing domain expertise and human oversight remains essential to guarantee accuracy, interpretative depth, and the generation of genuinely novel scientific insights.",
+        "dedupe_key": "doi:10.1101/2025.11.09.687479",
+        "topic_hit": [
+          "生物信息"
+        ],
+        "priority_rank": 2,
+        "keyword_hit": []
+      },
+      "days_on_board": 1,
+      "is_new": false,
+      "rank_delta": 10,
+      "cluster_id": "ccc0bf215ae5",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-05T01:44:07.909533+00:00",
+          "rank": 52
+        },
+        {
+          "run_at": "2026-09-05T04:43:51.890357+00:00",
+          "rank": 52
+        },
+        {
+          "run_at": "2026-09-05T05:04:16.938707+00:00",
+          "rank": 52
+        },
+        {
+          "run_at": "2026-09-05T06:59:06.242545+00:00",
+          "rank": 52
+        },
+        {
+          "run_at": "2026-09-05T07:44:06.628615+00:00",
+          "rank": 52
+        },
+        {
+          "run_at": "2026-09-05T10:44:07.499731+00:00",
+          "rank": 52
+        },
+        {
+          "run_at": "2026-09-05T13:43:58.261424+00:00",
+          "rank": 52
+        },
+        {
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 42
+        }
+      ]
+    },
+    {
+      "source": "douyin",
+      "rank": 20,
+      "title": "李荣浩成都演唱会",
+      "title_zh": "李荣浩成都演唱会",
+      "url": "https://www.douyin.com/search/%E6%9D%8E%E8%8D%A3%E6%B5%A9%E6%88%90%E9%83%BD%E6%BC%94%E5%94%B1%E4%BC%9A",
+      "hot_value": "7797199",
+      "summary_zh": null,
+      "thumbnail": "https://p11-sign.douyinpic.com/tos-cn-p-0015c000-ce/o0ftzewomBEiVa7ICITk2ZAYu7VwAqbyBA9biy~noop.jpeg?lk3s=bfd515bb&x-expires=1788645600&x-signature=za50Pdz2rPhlsw4%2Fe7PfMrMiwf0%3D&from=3218412987",
+      "published_at": null,
+      "extra": {
+        "sentence_id": "2637038"
+      },
+      "days_on_board": 1,
+      "is_new": false,
+      "rank_delta": 9,
+      "cluster_id": "be0f77f5b070",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-05T13:43:58.261424+00:00",
+          "rank": 29
+        },
+        {
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 20
+        }
+      ]
+    },
+    {
+      "source": "bilibili",
+      "rank": 18,
+      "title": "【花学12大历史事件逐帧解读】第一回：伦敦暖气致疯事件",
+      "title_zh": "【花学12大历史事件逐帧解读】第一回：伦敦暖气致疯事件",
+      "url": "https://b23.tv/BV1nGtC6wE9y",
+      "hot_value": "575336",
+      "summary_zh": null,
+      "thumbnail": "http://i2.hdslb.com/bfs/archive/67ddc84dc405c982e029be572655f814a56c391b.jpg",
+      "published_at": "2026-09-05T02:15:04+00:00",
+      "extra": {
+        "bvid": "BV1nGtC6wE9y",
+        "owner": "一只吐槽圆"
+      },
+      "days_on_board": 1,
+      "is_new": false,
+      "rank_delta": 8,
+      "cluster_id": "734b0642af6d",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-05T04:43:51.890357+00:00",
+          "rank": 16
+        },
+        {
+          "run_at": "2026-09-05T05:04:16.938707+00:00",
+          "rank": 15
+        },
+        {
+          "run_at": "2026-09-05T07:44:06.628615+00:00",
+          "rank": 20
+        },
+        {
+          "run_at": "2026-09-05T10:44:07.499731+00:00",
+          "rank": 23
+        },
+        {
+          "run_at": "2026-09-05T13:43:58.261424+00:00",
+          "rank": 26
+        },
+        {
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 18
+        }
+      ]
+    },
+    {
+      "source": "douyin",
+      "rank": 33,
+      "title": "可是我却不能够在你的身旁",
+      "title_zh": "可是我却不能够在你的身旁",
+      "url": "https://www.douyin.com/search/%E5%8F%AF%E6%98%AF%E6%88%91%E5%8D%B4%E4%B8%8D%E8%83%BD%E5%A4%9F%E5%9C%A8%E4%BD%A0%E7%9A%84%E8%BA%AB%E6%97%81",
+      "hot_value": "7708164",
+      "summary_zh": null,
+      "thumbnail": "https://p11-sign.douyinpic.com/tos-cn-p-0015/oElARmDsaFyIABDj3q8y9kg6BEQffAhDQ0oUmK~noop.jpeg?lk3s=bfd515bb&x-expires=1788645600&x-signature=UMn57ovoww%2FD5Y654FO0viUHpq4%3D&from=3218412987",
+      "published_at": null,
+      "extra": {
+        "sentence_id": "2635874"
+      },
+      "days_on_board": 2,
+      "is_new": false,
+      "rank_delta": 8,
+      "cluster_id": "f067f18c7199",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-04T16:44:12.536912+00:00",
+          "rank": 19
+        },
+        {
+          "run_at": "2026-09-04T19:43:56.539533+00:00",
+          "rank": 19
+        },
+        {
+          "run_at": "2026-09-04T22:43:55.269806+00:00",
+          "rank": 19
+        },
+        {
+          "run_at": "2026-09-05T01:44:07.909533+00:00",
+          "rank": 25
+        },
+        {
+          "run_at": "2026-09-05T04:43:51.890357+00:00",
+          "rank": 28
+        },
+        {
+          "run_at": "2026-09-05T05:04:16.938707+00:00",
+          "rank": 23
+        },
+        {
+          "run_at": "2026-09-05T06:59:06.242545+00:00",
+          "rank": 28
+        },
+        {
+          "run_at": "2026-09-05T07:44:06.628615+00:00",
+          "rank": 36
+        },
+        {
+          "run_at": "2026-09-05T10:44:07.499731+00:00",
+          "rank": 26
+        },
+        {
+          "run_at": "2026-09-05T13:43:58.261424+00:00",
+          "rank": 41
+        },
+        {
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 33
+        }
+      ]
+    },
+    {
+      "source": "douyin",
+      "rank": 34,
+      "title": "芮豆摇变装教程",
+      "title_zh": "芮豆摇变装教程",
+      "url": "https://www.douyin.com/search/%E8%8A%AE%E8%B1%86%E6%91%87%E5%8F%98%E8%A3%85%E6%95%99%E7%A8%8B",
+      "hot_value": "7696863",
+      "summary_zh": null,
+      "thumbnail": "https://p11-sign.douyinpic.com/tos-cn-p-0015/oAmAWBEkLFD79fgIbv0oFc0Af9CMEqQAkWQ9oW~noop.jpeg?lk3s=bfd515bb&x-expires=1788645600&x-signature=FwBAbkBC3TXFpzWuW85FFoCkeoo%3D&from=3218412987",
+      "published_at": null,
+      "extra": {
+        "sentence_id": "2635646"
+      },
+      "days_on_board": 1,
+      "is_new": false,
+      "rank_delta": 8,
+      "cluster_id": "efc1eedf42fb",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-05T01:44:07.909533+00:00",
+          "rank": 38
+        },
+        {
+          "run_at": "2026-09-05T06:59:06.242545+00:00",
+          "rank": 24
+        },
+        {
+          "run_at": "2026-09-05T07:44:06.628615+00:00",
+          "rank": 39
+        },
+        {
+          "run_at": "2026-09-05T10:44:07.499731+00:00",
+          "rank": 38
+        },
+        {
+          "run_at": "2026-09-05T13:43:58.261424+00:00",
+          "rank": 42
+        },
+        {
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 34
+        }
+      ]
+    },
+    {
+      "source": "gongkao",
+      "rank": 2,
+      "title": "中国特种飞行器研究所2027届校园招聘正式启动",
+      "title_zh": "中国特种飞行器研究所2027届校园招聘正式启动",
+      "url": "https://hera-webapp.fenbi.com/api/website/article/detail?deviceType=3&id=468840173032448&app=web&av=100&hav=100&kav=100&client_context_id=",
+      "hot_value": "正在报名",
+      "summary_zh": "招考人数：若干 报名时间：2026.09.04-2026.09.11",
+      "thumbnail": null,
+      "published_at": "2026-09-04T03:07:20+00:00",
+      "extra": {
+        "id": 468840173032448,
+        "sub": "announcement",
+        "tags": [
+          "湖北",
+          "武汉市",
+          "荆门市",
+          "国企",
+          "2026",
+          "国央企正式",
+          "中国特种飞行器研究所"
+        ],
+        "province": "湖北",
+        "exam_type": "国企",
+        "startSignUpTime": 1788192000000,
+        "endSignUpTime": 1788796740000,
+        "startWriteTime": null,
+        "target_university_hit": [],
+        "city_focus_hit": []
+      },
+      "days_on_board": 2,
+      "is_new": false,
+      "rank_delta": 8,
+      "cluster_id": "361ed7e2158d",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-04T04:46:19.195629+00:00",
+          "rank": 10
+        },
+        {
+          "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 10
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 10
+        },
+        {
+          "run_at": "2026-09-04T07:50:56.349243+00:00",
+          "rank": 10
+        },
+        {
+          "run_at": "2026-09-04T10:50:52.203202+00:00",
+          "rank": 10
+        },
+        {
+          "run_at": "2026-09-04T13:44:12.649307+00:00",
+          "rank": 10
+        },
+        {
+          "run_at": "2026-09-05T06:59:06.242545+00:00",
+          "rank": 10
+        },
+        {
+          "run_at": "2026-09-05T07:44:06.628615+00:00",
+          "rank": 10
+        },
+        {
+          "run_at": "2026-09-05T10:44:07.499731+00:00",
+          "rank": 10
+        },
+        {
+          "run_at": "2026-09-05T13:43:58.261424+00:00",
+          "rank": 10
+        },
+        {
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 2
+        }
+      ]
+    },
+    {
+      "source": "weibo",
+      "rank": 17,
+      "title": "刘雯 避嫌",
+      "title_zh": "刘雯 避嫌",
+      "url": "https://s.weibo.com/weibo?q=%23%E5%88%98%E9%9B%AF%20%E9%81%BF%E5%AB%8C%23",
+      "hot_value": "249565",
       "summary_zh": null,
       "thumbnail": null,
       "published_at": null,
@@ -16,56 +1035,10 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 21,
-      "cluster_id": "2eee8d25b8e5",
+      "rank_delta": 8,
+      "cluster_id": "cf095a928ff5",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-05T10:44:07.499731+00:00",
-          "rank": 27
-        },
-        {
-          "run_at": "2026-09-05T13:43:58.261424+00:00",
-          "rank": 6
-        }
-      ]
-    },
-    {
-      "source": "bilibili",
-      "rank": 8,
-      "title": "这次是真玩爽了",
-      "title_zh": "这次是真玩爽了",
-      "url": "https://b23.tv/BV1e8tR6EER5",
-      "hot_value": "1720210",
-      "summary_zh": null,
-      "thumbnail": "http://i0.hdslb.com/bfs/archive/505e0248c88be510f7e5cce68940e0e3b6908dd8.jpg",
-      "published_at": "2026-09-03T09:28:07+00:00",
-      "extra": {
-        "bvid": "BV1e8tR6EER5",
-        "owner": "爱弹琴的Jony"
-      },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 14,
-      "cluster_id": "367bd1fb9794",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-04T13:44:12.649307+00:00",
-          "rank": 5
-        },
-        {
-          "run_at": "2026-09-04T16:44:12.536912+00:00",
-          "rank": 6
-        },
-        {
-          "run_at": "2026-09-04T19:43:56.539533+00:00",
-          "rank": 11
-        },
-        {
-          "run_at": "2026-09-04T22:43:55.269806+00:00",
-          "rank": 12
-        },
         {
           "run_at": "2026-09-05T01:44:07.909533+00:00",
           "rank": 12
@@ -76,1548 +1049,130 @@
         },
         {
           "run_at": "2026-09-05T05:04:16.938707+00:00",
-          "rank": 11
-        },
-        {
-          "run_at": "2026-09-05T06:59:06.242545+00:00",
           "rank": 12
         },
         {
-          "run_at": "2026-09-05T07:44:06.628615+00:00",
-          "rank": 12
-        },
-        {
-          "run_at": "2026-09-05T10:44:07.499731+00:00",
-          "rank": 22
-        },
-        {
-          "run_at": "2026-09-05T13:43:58.261424+00:00",
-          "rank": 8
-        }
-      ]
-    },
-    {
-      "source": "bilibili",
-      "rank": 6,
-      "title": "接了好多蝌蚪…",
-      "title_zh": "接了好多蝌蚪…",
-      "url": "https://b23.tv/BV1mT4X6aEKp",
-      "hot_value": "1390041",
-      "summary_zh": null,
-      "thumbnail": "http://i1.hdslb.com/bfs/archive/4140398d26dcaec4ab88e4c91a96172d10d11c5d.jpg",
-      "published_at": "2026-08-30T12:25:00+00:00",
-      "extra": {
-        "bvid": "BV1mT4X6aEKp",
-        "owner": "不辣的-皮冻"
-      },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 12,
-      "cluster_id": "7036b674f53f",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-04T19:43:56.539533+00:00",
-          "rank": 26
-        },
-        {
-          "run_at": "2026-09-05T01:44:07.909533+00:00",
-          "rank": 6
-        },
-        {
-          "run_at": "2026-09-05T04:43:51.890357+00:00",
-          "rank": 15
-        },
-        {
-          "run_at": "2026-09-05T05:04:16.938707+00:00",
-          "rank": 14
-        },
-        {
           "run_at": "2026-09-05T06:59:06.242545+00:00",
-          "rank": 8
+          "rank": 13
         },
         {
           "run_at": "2026-09-05T07:44:06.628615+00:00",
-          "rank": 8
+          "rank": 13
         },
         {
           "run_at": "2026-09-05T10:44:07.499731+00:00",
-          "rank": 18
-        },
-        {
-          "run_at": "2026-09-05T13:43:58.261424+00:00",
-          "rank": 6
-        }
-      ]
-    },
-    {
-      "source": "douyin",
-      "rank": 25,
-      "title": "五百年桑田沧海越听越有共鸣",
-      "title_zh": "五百年桑田沧海越听越有共鸣",
-      "url": "https://www.douyin.com/search/%E4%BA%94%E7%99%BE%E5%B9%B4%E6%A1%91%E7%94%B0%E6%B2%A7%E6%B5%B7%E8%B6%8A%E5%90%AC%E8%B6%8A%E6%9C%89%E5%85%B1%E9%B8%A3",
-      "hot_value": "7743909",
-      "summary_zh": null,
-      "thumbnail": "https://p3-sign.douyinpic.com/tos-cn-p-0015/oU6m5dIIICAqFraeeCLIaCGkDDfH2DAeGEB2DB~noop.jpeg?lk3s=bfd515bb&x-expires=1788634800&x-signature=PQSAwknJMNFGe6hzeb1uXRL3XlY%3D&from=3218412987",
-      "published_at": null,
-      "extra": {
-        "sentence_id": "2636261"
-      },
-      "days_on_board": 1,
-      "is_new": false,
-      "rank_delta": 11,
-      "cluster_id": "048f0159cd0d",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-05T06:59:06.242545+00:00",
-          "rank": 34
-        },
-        {
-          "run_at": "2026-09-05T07:44:06.628615+00:00",
-          "rank": 18
-        },
-        {
-          "run_at": "2026-09-05T10:44:07.499731+00:00",
-          "rank": 36
+          "rank": 20
         },
         {
           "run_at": "2026-09-05T13:43:58.261424+00:00",
           "rank": 25
+        },
+        {
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 17
+        }
+      ]
+    },
+    {
+      "source": "weibo",
+      "rank": 20,
+      "title": "美林肯号水兵登陆芭提雅彻底放飞",
+      "title_zh": "美林肯号水兵登陆芭提雅彻底放飞",
+      "url": "https://s.weibo.com/weibo?q=%23%E7%BE%8E%E6%9E%97%E8%82%AF%E5%8F%B7%E6%B0%B4%E5%85%B5%E7%99%BB%E9%99%86%E8%8A%AD%E6%8F%90%E9%9B%85%E5%BD%BB%E5%BA%95%E6%94%BE%E9%A3%9E%23",
+      "hot_value": "232471",
+      "summary_zh": null,
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "category": null
+      },
+      "days_on_board": 1,
+      "is_new": false,
+      "rank_delta": 8,
+      "cluster_id": "2bceb2afc474",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-05T13:43:58.261424+00:00",
+          "rank": 28
+        },
+        {
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 20
         }
       ]
     },
     {
       "source": "youtube",
-      "rank": 44,
-      "title": "【マイクラ映画】ベリティ vs ガガピー",
-      "title_zh": "【我的世界电影】贝利蒂 vs 嘎嘎皮",
-      "url": "https://youtube.com/watch?v=jnp7op0rYFk",
-      "hot_value": "101655",
-      "summary_zh": "我的世界电影对决，博士与神秘角色引关注。",
-      "thumbnail": "https://i.ytimg.com/vi/jnp7op0rYFk/hqdefault.jpg",
-      "published_at": "2026-09-05T08:00:20Z",
-      "extra": {
-        "video_id": "jnp7op0rYFk",
-        "region": "JP",
-        "channel": "やぎさん",
-        "description": "ガガピーと博士が気になる人へ\nhttps://youtu.be/Vdk3LJJ92gM\n\n\nラインスタンプはこちらから↓↓\nhttps://line.me/S/sticker/31855742\n\nBGM：若林タカツグ\nhttps://x.com/cocoa2448\n   / @takatsugu  \n\nメンバーシップを始めました！登録はこちらから↓\nhttps://www.youtube.com/channel/UCdg6QfeRTKRrMfxmxZEyvkQ/join\n\n▼【自作MODの再生リストはこちら！】\nhttps://youtube.com/playlist?list=PL-UqKX"
-      },
-      "days_on_board": 1,
-      "is_new": false,
-      "rank_delta": 10,
-      "cluster_id": "f6062f3491d2",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-05T10:44:07.499731+00:00",
-          "rank": 54
-        },
-        {
-          "run_at": "2026-09-05T13:43:58.261424+00:00",
-          "rank": 44
-        }
-      ]
-    },
-    {
-      "source": "bilibili",
-      "rank": 10,
-      "title": "我好像找到了特别贴numb numb副歌音效的跳法…",
-      "title_zh": "我好像找到了特别贴numb numb副歌音效的跳法…",
-      "url": "https://b23.tv/BV1s9tf6EE3N",
-      "hot_value": "334676",
-      "summary_zh": null,
-      "thumbnail": "http://i0.hdslb.com/bfs/archive/04d8e0b95cdf3a45e361c52ec4c021f05881b8db.jpg",
-      "published_at": "2026-09-03T14:11:42+00:00",
-      "extra": {
-        "bvid": "BV1s9tf6EE3N",
-        "owner": "Tutting-Max"
-      },
-      "days_on_board": 1,
-      "is_new": false,
-      "rank_delta": 9,
-      "cluster_id": "cc8429c0b24a",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-05T10:44:07.499731+00:00",
-          "rank": 19
-        },
-        {
-          "run_at": "2026-09-05T13:43:58.261424+00:00",
-          "rank": 10
-        }
-      ]
-    },
-    {
-      "source": "feed",
-      "rank": 70,
-      "title": "TDS REVIEW | 无印良品 MUJI 头戴式蓝牙降噪耳机体验",
-      "title_zh": "TDS REVIEW | 无印良品 MUJI 头戴式蓝牙降噪耳机体验",
-      "url": "https://sspai.com/post/113998",
-      "hot_value": null,
-      "summary_zh": "这篇文章是 TDS Studio 在少数派上的第 30 篇文章，依然是全平台首发。 为什么想到突然写无印良品的耳机？其实一直以来我们都忽视了这些「生活方式品牌」或者杂货店品牌的耳机产品，但是往往对于一些「应急场景」的需求来说，MUJI 和名创优品甚至便利店会是你在出差时能够最快找到如数码收纳包、充电线、耳机之类东西的地方，而且通常前两者还有可追溯的质保。 我们在新品与评论节目里提到过名创优品的小型蓝牙头戴其实算是一个代表性产品，不是说这个产品做得有多好，从声音素质到听感其实做得都很一般，但它刚好与很多想要购买小头戴迎合复古潮流的受众能够接触到的渠道是重叠的。正好今年上半年有读者朋友跟我们说在 MUJI 看到了头戴耳机产品，这就让我们十分好奇了。于是经过一个季度的间断使用，这篇就破天荒聊聊这个此前完全不会考虑其数码产品的品牌。 包装与配件 | Package & Accessories 这个",
-      "thumbnail": null,
-      "published_at": "2026-09-03T07:00:00+00:00",
-      "extra": {
-        "feed_name": "少数派",
-        "tab": "tools",
-        "route": "/sspai/index",
-        "translate": false,
-        "description": "这篇文章是 TDS Studio 在少数派上的第 30 篇文章，依然是全平台首发。 为什么想到突然写无印良品的耳机？其实一直以来我们都忽视了这些「生活方式品牌」或者杂货店品牌的耳机产品，但是往往对于一些「应急场景」的需求来说，MUJI 和名创优品甚至便利店会是你在出差时能够最快找到如数码收纳包、充电线、耳机之类东西的地方，而且通常前两者还有可追溯的质保。 我们在新品与评论节目里提到过名创优品的小型蓝牙头戴其实算是一个代表性产品，不是说这个产品做得有多好，从声音素质到听感其实做得都很一般，但它刚好与很多想要购买小头戴迎合复古潮流的受众能够接触到的渠道是重叠的。正好今年上半年有读者朋友跟我们说在 MUJI 看到了头戴耳机产品，这就让我们十分好奇了。于是经过一个季度的间断使用，这篇就破天荒聊聊这个此前完全不会考虑其数码产品的品牌。 包装与配件 | Package & Accessories 这个",
-        "dedupe_key": "https://sspai.com/post/113998"
-      },
-      "days_on_board": 3,
-      "is_new": false,
-      "rank_delta": 5,
-      "cluster_id": "e8b7007158a7",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-03T14:10:41.812376+00:00",
-          "rank": 19
-        },
-        {
-          "run_at": "2026-09-03T14:38:19.864140+00:00",
-          "rank": 19
-        },
-        {
-          "run_at": "2026-09-03T19:20:03.996706+00:00",
-          "rank": 20
-        },
-        {
-          "run_at": "2026-09-03T22:45:57.285881+00:00",
-          "rank": 23
-        },
-        {
-          "run_at": "2026-09-04T02:35:41.728138+00:00",
-          "rank": 39
-        },
-        {
-          "run_at": "2026-09-04T02:51:41.206031+00:00",
-          "rank": 39
-        },
-        {
-          "run_at": "2026-09-04T04:46:19.195629+00:00",
-          "rank": 38
-        },
-        {
-          "run_at": "2026-09-04T05:15:01.664932+00:00",
-          "rank": 38
-        },
-        {
-          "run_at": "2026-09-04T06:28:15.690114+00:00",
-          "rank": 38
-        },
-        {
-          "run_at": "2026-09-04T07:50:56.349243+00:00",
-          "rank": 53
-        },
-        {
-          "run_at": "2026-09-04T10:50:52.203202+00:00",
-          "rank": 51
-        },
-        {
-          "run_at": "2026-09-04T13:44:12.649307+00:00",
-          "rank": 56
-        },
-        {
-          "run_at": "2026-09-04T16:44:12.536912+00:00",
-          "rank": 66
-        },
-        {
-          "run_at": "2026-09-04T19:43:56.539533+00:00",
-          "rank": 65
-        },
-        {
-          "run_at": "2026-09-04T22:43:55.269806+00:00",
-          "rank": 66
-        },
-        {
-          "run_at": "2026-09-05T01:44:07.909533+00:00",
-          "rank": 67
-        },
-        {
-          "run_at": "2026-09-05T04:43:51.890357+00:00",
-          "rank": 69
-        },
-        {
-          "run_at": "2026-09-05T05:04:16.938707+00:00",
-          "rank": 69
-        },
-        {
-          "run_at": "2026-09-05T06:59:06.242545+00:00",
-          "rank": 74
-        },
-        {
-          "run_at": "2026-09-05T07:44:06.628615+00:00",
-          "rank": 74
-        },
-        {
-          "run_at": "2026-09-05T10:44:07.499731+00:00",
-          "rank": 75
-        },
-        {
-          "run_at": "2026-09-05T13:43:58.261424+00:00",
-          "rank": 70
-        }
-      ]
-    },
-    {
-      "source": "feed",
-      "rank": 71,
-      "title": "福建莆田特大暴雨一天下了北方多地全年降水量，有人员失联，宁德多地内涝，为什么雨量这么大？目前情况如何？",
-      "title_zh": "福建莆田特大暴雨一天下了北方多地全年降水量，有人员失联，宁德多地内涝，为什么雨量这么大？目前情况如何？",
-      "url": "https://www.zhihu.com/question/2078856515239108892",
-      "hot_value": null,
-      "summary_zh": "最新： 9月3日到4日早晨，受台风“沙德尔”环流和冷空气影响，福建莆田、秀屿、仙游出现了特大暴雨。秀屿降雨386.8毫米、仙游降雨372.8毫米，均打破当地观测史单日降水量纪录；莆田降雨416.5毫米，打破当地9月单日降水量纪录。https://baijiahao.baidu.com/s?id=1875367444730436843&wfr=spider&for=pc 记者从福建省莆田市有关部门获悉，受台风“沙德尔”带来的连日强降雨影响，该市部分民房被淹、群众被困，有人员失联。目前当地正组织救援人员对受困群众陆续进行转移。福建莆田因强降雨有人员失联 受“沙德尔”影响，过去几天，福建宁德连续多日出现强降雨，局地一度出现特大暴雨，24小时累计雨量达到近500毫米。受强降雨影响，昨天（2日）上午，宁德福鼎一处水库的水坝背水面发生了滑坡。 总台记者魏明：此次发生坝体滑坡的是宝溪水库，据水利专家介绍",
-      "thumbnail": null,
-      "published_at": "2026-09-03T06:46:56+00:00",
-      "extra": {
-        "feed_name": "知乎热榜",
-        "tab": "hot",
-        "route": "/zhihu/hot",
-        "translate": false,
-        "description": "最新： 9月3日到4日早晨，受台风“沙德尔”环流和冷空气影响，福建莆田、秀屿、仙游出现了特大暴雨。秀屿降雨386.8毫米、仙游降雨372.8毫米，均打破当地观测史单日降水量纪录；莆田降雨416.5毫米，打破当地9月单日降水量纪录。https://baijiahao.baidu.com/s?id=1875367444730436843&wfr=spider&for=pc 记者从福建省莆田市有关部门获悉，受台风“沙德尔”带来的连日强降雨影响，该市部分民房被淹、群众被困，有人员失联。目前当地正组织救援人员对受困群众陆续进行转移。福建莆田因强降雨有人员失联 受“沙德尔”影响，过去几天，福建宁德连续多日出现强降雨，局地一度出现特大暴雨，24小时累计雨量达到近500毫米。受强降雨影响，昨天（2日）上午，宁德福鼎一处水库的水坝背水面发生了滑坡。 总台记者魏明：此次发生坝体滑坡的是宝溪水库，据水利专家介绍",
-        "dedupe_key": "https://www.zhihu.com/question/2078856515239108892"
-      },
-      "days_on_board": 1,
-      "is_new": false,
-      "rank_delta": 5,
-      "cluster_id": "3e7c0c26b5fc",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-05T10:44:07.499731+00:00",
-          "rank": 76
-        },
-        {
-          "run_at": "2026-09-05T13:43:58.261424+00:00",
-          "rank": 71
-        }
-      ]
-    },
-    {
-      "source": "feed",
-      "rank": 72,
-      "title": "当说起「Hi-Fi」时，我们到底在追求什么？",
-      "title_zh": "当说起「Hi-Fi」时，我们到底在追求什么？",
-      "url": "https://sspai.com/post/113159",
-      "hot_value": null,
-      "summary_zh": "Matrix 首页推荐 Matrix 是少数派的写作社区，我们主张分享真实的产品体验，有实用价值的经验与思考。我们会不定期挑选 Matrix 最优质的文章，展示来自用户的最真实的体验和观点。 文章代表作者个人观点，少数派仅对标题和排版略作修改。 本文部分图片使用 AI 生成；部分有关声学工程的相关专业知识经过与 AI 的讨论和调整；本文成稿后经由 AI 润色过部分措辞和表达方式。 最初我和许多人一样，对于 Hi-Fi 产品抱有「玄学」的刻板印象，总感觉 Hi-Fi 发烧友会是能一本正经说出「嗯，水力发电供的声音果然就是比风力发电好听」这种言论的群体。当我有了更深入的了解时，我便开始能够理解为什么这些看似过时的有线听音设备会有如此魔力吸引着全世界大量的消费者。 我真正开始关注听音设备时正值 AirPods 横空出世。如今的 AirPods 已然成为苹果事实上最受欢迎的产品系列之一，TWS（真",
-      "thumbnail": null,
-      "published_at": "2026-09-03T03:32:28+00:00",
-      "extra": {
-        "feed_name": "少数派",
-        "tab": "tools",
-        "route": "/sspai/index",
-        "translate": false,
-        "description": "Matrix 首页推荐 Matrix 是少数派的写作社区，我们主张分享真实的产品体验，有实用价值的经验与思考。我们会不定期挑选 Matrix 最优质的文章，展示来自用户的最真实的体验和观点。 文章代表作者个人观点，少数派仅对标题和排版略作修改。 本文部分图片使用 AI 生成；部分有关声学工程的相关专业知识经过与 AI 的讨论和调整；本文成稿后经由 AI 润色过部分措辞和表达方式。 最初我和许多人一样，对于 Hi-Fi 产品抱有「玄学」的刻板印象，总感觉 Hi-Fi 发烧友会是能一本正经说出「嗯，水力发电供的声音果然就是比风力发电好听」这种言论的群体。当我有了更深入的了解时，我便开始能够理解为什么这些看似过时的有线听音设备会有如此魔力吸引着全世界大量的消费者。 我真正开始关注听音设备时正值 AirPods 横空出世。如今的 AirPods 已然成为苹果事实上最受欢迎的产品系列之一，TWS（真",
-        "dedupe_key": "https://sspai.com/post/113159"
-      },
-      "days_on_board": 3,
-      "is_new": false,
-      "rank_delta": 5,
-      "cluster_id": "39fe1b8bc10a",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-03T14:10:41.812376+00:00",
-          "rank": 23
-        },
-        {
-          "run_at": "2026-09-03T14:38:19.864140+00:00",
-          "rank": 23
-        },
-        {
-          "run_at": "2026-09-03T19:20:03.996706+00:00",
-          "rank": 23
-        },
-        {
-          "run_at": "2026-09-03T22:45:57.285881+00:00",
-          "rank": 26
-        },
-        {
-          "run_at": "2026-09-04T02:35:41.728138+00:00",
-          "rank": 44
-        },
-        {
-          "run_at": "2026-09-04T02:51:41.206031+00:00",
-          "rank": 44
-        },
-        {
-          "run_at": "2026-09-04T04:46:19.195629+00:00",
-          "rank": 41
-        },
-        {
-          "run_at": "2026-09-04T05:15:01.664932+00:00",
-          "rank": 41
-        },
-        {
-          "run_at": "2026-09-04T06:28:15.690114+00:00",
-          "rank": 41
-        },
-        {
-          "run_at": "2026-09-04T07:50:56.349243+00:00",
-          "rank": 55
-        },
-        {
-          "run_at": "2026-09-04T10:50:52.203202+00:00",
-          "rank": 53
-        },
-        {
-          "run_at": "2026-09-04T13:44:12.649307+00:00",
-          "rank": 58
-        },
-        {
-          "run_at": "2026-09-04T16:44:12.536912+00:00",
-          "rank": 67
-        },
-        {
-          "run_at": "2026-09-04T19:43:56.539533+00:00",
-          "rank": 67
-        },
-        {
-          "run_at": "2026-09-04T22:43:55.269806+00:00",
-          "rank": 68
-        },
-        {
-          "run_at": "2026-09-05T01:44:07.909533+00:00",
-          "rank": 69
-        },
-        {
-          "run_at": "2026-09-05T04:43:51.890357+00:00",
-          "rank": 71
-        },
-        {
-          "run_at": "2026-09-05T05:04:16.938707+00:00",
-          "rank": 71
-        },
-        {
-          "run_at": "2026-09-05T06:59:06.242545+00:00",
-          "rank": 75
-        },
-        {
-          "run_at": "2026-09-05T07:44:06.628615+00:00",
-          "rank": 75
-        },
-        {
-          "run_at": "2026-09-05T10:44:07.499731+00:00",
-          "rank": 77
-        },
-        {
-          "run_at": "2026-09-05T13:43:58.261424+00:00",
-          "rank": 72
-        }
-      ]
-    },
-    {
-      "source": "bilibili",
       "rank": 16,
-      "title": "拉康：我们如何用一生，从别人那里偷来一个“我”？",
-      "title_zh": "拉康：我们如何用一生，从别人那里偷来一个“我”？",
-      "url": "https://b23.tv/BV1BZtC68EXq",
-      "hot_value": "913636",
-      "summary_zh": null,
-      "thumbnail": "http://i1.hdslb.com/bfs/archive/fae7adfcd7410f81c201096f4d51f877186161e9.jpg",
-      "published_at": "2026-09-04T23:55:00+00:00",
+      "title": "Fabolous - Lufthansa Heist Freestyle (Official Video)",
+      "title_zh": "Fabolous - Lufthansa Heist Freestyle (官方视频)",
+      "url": "https://youtube.com/watch?v=QNtYuY1DA3w",
+      "hot_value": "192500",
+      "summary_zh": "Fabolous即兴说唱，街头风范十足。",
+      "thumbnail": "https://i.ytimg.com/vi/QNtYuY1DA3w/hqdefault.jpg",
+      "published_at": "2026-09-04T22:00:06Z",
       "extra": {
-        "bvid": "BV1BZtC68EXq",
-        "owner": "大圆镜科普"
+        "video_id": "QNtYuY1DA3w",
+        "region": "US",
+        "channel": "MyFabolousLife",
+        "description": "IG: @MyFabolousLife \n\nDirected By: @Marco2live \n\nThe Family Music Group."
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 4,
-      "cluster_id": "460126f8279e",
+      "rank_delta": 6,
+      "cluster_id": "366a3ddc941f",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-05T06:59:06.242545+00:00",
-          "rank": 5
+          "rank": 28
         },
         {
           "run_at": "2026-09-05T07:44:06.628615+00:00",
-          "rank": 5
+          "rank": 28
         },
         {
           "run_at": "2026-09-05T10:44:07.499731+00:00",
+          "rank": 25
+        },
+        {
+          "run_at": "2026-09-05T13:43:58.261424+00:00",
+          "rank": 22
+        },
+        {
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 16
+        }
+      ]
+    },
+    {
+      "source": "bilibili",
+      "rank": 20,
+      "title": "不同北京人的住处差异",
+      "title_zh": "不同北京人的住处差异",
+      "url": "https://b23.tv/BV1Fwtq6yErw",
+      "hot_value": "2296520",
+      "summary_zh": null,
+      "thumbnail": "http://i2.hdslb.com/bfs/archive/ecddae78aa14d05593a9654371b45c3a2c8bf78f.jpg",
+      "published_at": "2026-09-04T06:56:56+00:00",
+      "extra": {
+        "bvid": "BV1Fwtq6yErw",
+        "owner": "抵抗Resistance"
+      },
+      "days_on_board": 1,
+      "is_new": false,
+      "rank_delta": 5,
+      "cluster_id": "85c4df242152",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-05T13:43:58.261424+00:00",
+          "rank": 25
+        },
+        {
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
           "rank": 20
-        },
-        {
-          "run_at": "2026-09-05T13:43:58.261424+00:00",
-          "rank": 16
-        }
-      ]
-    },
-    {
-      "source": "feed",
-      "rank": 69,
-      "title": "新玩意 251｜少数派的编辑们最近买了啥？",
-      "title_zh": "新玩意 251｜少数派的编辑们最近买了啥？",
-      "url": "https://sspai.com/post/114154",
-      "hot_value": null,
-      "summary_zh": "关于栏目 很多读者都会好奇少数派的编辑们到底平时都「买了啥」。我们希望通过「编辑部的新玩意」介绍编辑部成员们最近在用的新奇产品，让他们自己来谈谈这些新玩意的使用体验究竟如何。 @什么陈：洗手间置物架 参考价格：350 元 装修洗手间的时候，我在镜子这件事上多少有点「为了好看牺牲实用」。最后选了一块造型很简单的镜子，没有做常见的镜柜，视觉上确实清爽了不少，但等真正开始往洗漱台上放东西，问题也马上来了：牙刷、洗面奶、吹风机、纸巾，还有各种瓶瓶罐罐，总不能全堆在台面上。 所以后来的一段时间，我都在找一个合适的收纳方案。 市面上的洗漱台置物架其实很多，但看了一圈，总觉得差那么一点。要么是塑料要么是白/黑色金属为主，放进现在的洗手间里多少有些违和；要么就是功能已经完全固定好了，哪里放杯子、哪里挂吹风机都替你安排得明明白白。如果自己的东西刚好不符合它的布局，就只能将就着用。 最后找到的这套，吸引我的地",
-      "thumbnail": null,
-      "published_at": "2026-09-03T10:18:06+00:00",
-      "extra": {
-        "feed_name": "少数派",
-        "tab": "tools",
-        "route": "/sspai/index",
-        "translate": false,
-        "description": "关于栏目 很多读者都会好奇少数派的编辑们到底平时都「买了啥」。我们希望通过「编辑部的新玩意」介绍编辑部成员们最近在用的新奇产品，让他们自己来谈谈这些新玩意的使用体验究竟如何。 @什么陈：洗手间置物架 参考价格：350 元 装修洗手间的时候，我在镜子这件事上多少有点「为了好看牺牲实用」。最后选了一块造型很简单的镜子，没有做常见的镜柜，视觉上确实清爽了不少，但等真正开始往洗漱台上放东西，问题也马上来了：牙刷、洗面奶、吹风机、纸巾，还有各种瓶瓶罐罐，总不能全堆在台面上。 所以后来的一段时间，我都在找一个合适的收纳方案。 市面上的洗漱台置物架其实很多，但看了一圈，总觉得差那么一点。要么是塑料要么是白/黑色金属为主，放进现在的洗手间里多少有些违和；要么就是功能已经完全固定好了，哪里放杯子、哪里挂吹风机都替你安排得明明白白。如果自己的东西刚好不符合它的布局，就只能将就着用。 最后找到的这套，吸引我的地",
-        "dedupe_key": "https://sspai.com/post/114154"
-      },
-      "days_on_board": 3,
-      "is_new": false,
-      "rank_delta": 4,
-      "cluster_id": "25c3b427b51c",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-03T14:10:41.812376+00:00",
-          "rank": 14
-        },
-        {
-          "run_at": "2026-09-03T14:38:19.864140+00:00",
-          "rank": 14
-        },
-        {
-          "run_at": "2026-09-03T19:20:03.996706+00:00",
-          "rank": 16
-        },
-        {
-          "run_at": "2026-09-03T22:45:57.285881+00:00",
-          "rank": 19
-        },
-        {
-          "run_at": "2026-09-04T02:35:41.728138+00:00",
-          "rank": 33
-        },
-        {
-          "run_at": "2026-09-04T02:51:41.206031+00:00",
-          "rank": 33
-        },
-        {
-          "run_at": "2026-09-04T04:46:19.195629+00:00",
-          "rank": 31
-        },
-        {
-          "run_at": "2026-09-04T05:15:01.664932+00:00",
-          "rank": 31
-        },
-        {
-          "run_at": "2026-09-04T06:28:15.690114+00:00",
-          "rank": 31
-        },
-        {
-          "run_at": "2026-09-04T07:50:56.349243+00:00",
-          "rank": 48
-        },
-        {
-          "run_at": "2026-09-04T10:50:52.203202+00:00",
-          "rank": 50
-        },
-        {
-          "run_at": "2026-09-04T13:44:12.649307+00:00",
-          "rank": 54
-        },
-        {
-          "run_at": "2026-09-04T16:44:12.536912+00:00",
-          "rank": 65
-        },
-        {
-          "run_at": "2026-09-04T19:43:56.539533+00:00",
-          "rank": 64
-        },
-        {
-          "run_at": "2026-09-04T22:43:55.269806+00:00",
-          "rank": 65
-        },
-        {
-          "run_at": "2026-09-05T01:44:07.909533+00:00",
-          "rank": 65
-        },
-        {
-          "run_at": "2026-09-05T04:43:51.890357+00:00",
-          "rank": 67
-        },
-        {
-          "run_at": "2026-09-05T05:04:16.938707+00:00",
-          "rank": 67
-        },
-        {
-          "run_at": "2026-09-05T06:59:06.242545+00:00",
-          "rank": 72
-        },
-        {
-          "run_at": "2026-09-05T07:44:06.628615+00:00",
-          "rank": 72
-        },
-        {
-          "run_at": "2026-09-05T10:44:07.499731+00:00",
-          "rank": 73
-        },
-        {
-          "run_at": "2026-09-05T13:43:58.261424+00:00",
-          "rank": 69
-        }
-      ]
-    },
-    {
-      "source": "feed",
-      "rank": 74,
-      "title": "派早报：Google 发布 Gemini 3.8 Flash、理想推出新一代 MEGA 等",
-      "title_zh": "派早报：Google 发布 Gemini 3.8 Flash、理想推出新一代 MEGA 等",
-      "url": "https://sspai.com/post/114113",
-      "hot_value": null,
-      "summary_zh": "Google 发布 Gemini 3.8 系列 9 月 2 日，Google 公司发布 Gemini 3.8 系列，包括 Gemini 3.8 Flash 和 Gemini 3.8 Flash Cyber 两个版本。这是 Google 在六周内推出的第三款 Flash 模型，重点提升软件工程、智能体任务以及专业领域的多步推理能力，运行速度和价格与三周前发布的 Gemini 3.7 Flash 相同。 Google 方面称，Gemini 3.8 Flash 在长周期软件工程测试 DeepSWE v1.1 中超过多数体量更大的前沿模型，在 HLE-Verified 测试中取得 54.9% 的成绩。该模型支持文本、图片、音频和视频输入，上下文窗口最高为 100 万 Token，单次最多输出 6.4 万 Token；面对复杂任务时会执行更多推理步骤并反复调用工具，因此高思考强度下可能消耗更多 To",
-      "thumbnail": null,
-      "published_at": "2026-09-03T00:31:14+00:00",
-      "extra": {
-        "feed_name": "少数派",
-        "tab": "tools",
-        "route": "/sspai/index",
-        "translate": false,
-        "description": "Google 发布 Gemini 3.8 系列 9 月 2 日，Google 公司发布 Gemini 3.8 系列，包括 Gemini 3.8 Flash 和 Gemini 3.8 Flash Cyber 两个版本。这是 Google 在六周内推出的第三款 Flash 模型，重点提升软件工程、智能体任务以及专业领域的多步推理能力，运行速度和价格与三周前发布的 Gemini 3.7 Flash 相同。 Google 方面称，Gemini 3.8 Flash 在长周期软件工程测试 DeepSWE v1.1 中超过多数体量更大的前沿模型，在 HLE-Verified 测试中取得 54.9% 的成绩。该模型支持文本、图片、音频和视频输入，上下文窗口最高为 100 万 Token，单次最多输出 6.4 万 Token；面对复杂任务时会执行更多推理步骤并反复调用工具，因此高思考强度下可能消耗更多 To",
-        "dedupe_key": "https://sspai.com/post/114113"
-      },
-      "days_on_board": 3,
-      "is_new": false,
-      "rank_delta": 4,
-      "cluster_id": "eaa9bf320440",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-03T14:10:41.812376+00:00",
-          "rank": 33
-        },
-        {
-          "run_at": "2026-09-03T14:38:19.864140+00:00",
-          "rank": 33
-        },
-        {
-          "run_at": "2026-09-03T19:20:03.996706+00:00",
-          "rank": 34
-        },
-        {
-          "run_at": "2026-09-03T22:45:57.285881+00:00",
-          "rank": 37
-        },
-        {
-          "run_at": "2026-09-04T02:35:41.728138+00:00",
-          "rank": 48
-        },
-        {
-          "run_at": "2026-09-04T02:51:41.206031+00:00",
-          "rank": 48
-        },
-        {
-          "run_at": "2026-09-04T04:46:19.195629+00:00",
-          "rank": 45
-        },
-        {
-          "run_at": "2026-09-04T05:15:01.664932+00:00",
-          "rank": 45
-        },
-        {
-          "run_at": "2026-09-04T06:28:15.690114+00:00",
-          "rank": 45
-        },
-        {
-          "run_at": "2026-09-04T07:50:56.349243+00:00",
-          "rank": 57
-        },
-        {
-          "run_at": "2026-09-04T10:50:52.203202+00:00",
-          "rank": 55
-        },
-        {
-          "run_at": "2026-09-04T13:44:12.649307+00:00",
-          "rank": 60
-        },
-        {
-          "run_at": "2026-09-04T16:44:12.536912+00:00",
-          "rank": 69
-        },
-        {
-          "run_at": "2026-09-04T19:43:56.539533+00:00",
-          "rank": 69
-        },
-        {
-          "run_at": "2026-09-04T22:43:55.269806+00:00",
-          "rank": 71
-        },
-        {
-          "run_at": "2026-09-05T01:44:07.909533+00:00",
-          "rank": 71
-        },
-        {
-          "run_at": "2026-09-05T04:43:51.890357+00:00",
-          "rank": 72
-        },
-        {
-          "run_at": "2026-09-05T05:04:16.938707+00:00",
-          "rank": 72
-        },
-        {
-          "run_at": "2026-09-05T06:59:06.242545+00:00",
-          "rank": 76
-        },
-        {
-          "run_at": "2026-09-05T07:44:06.628615+00:00",
-          "rank": 76
-        },
-        {
-          "run_at": "2026-09-05T10:44:07.499731+00:00",
-          "rank": 78
-        },
-        {
-          "run_at": "2026-09-05T13:43:58.261424+00:00",
-          "rank": 74
-        }
-      ]
-    },
-    {
-      "source": "feed",
-      "rank": 75,
-      "title": "早报｜小米「中折叠」官宣,跟华为发布会「撞档」/微信灰测未读聊天汇总、红包一键直达/50.98万，新一代理想MEGA上市",
-      "title_zh": "早报｜小米「中折叠」官宣,跟华为发布会「撞档」/微信灰测未读聊天汇总、红包一键直达/50.98万，新一代理想MEGA上市",
-      "url": "https://www.ifanr.com/1678222",
-      "hot_value": null,
-      "summary_zh": "🎬 小米发布会定档 9 月 7 日，与华为、苹果「撞档」 ⚡ Google 发布 Gemini 3.8 Flash、推出网络安全专用模型 💳 微信灰度测试未读聊天汇总，聊天页增加红包与转账提醒 ✨ 李飞飞发布世界模型 Atlas，用统一模型生成、重建与模拟三维世界 😯 尊界 V800 挥手关门未触发，官方称当时车辆处于 D 档 💻 豆包工作支持多 Agents 并行，Mac 版新增操作电脑 🍎 Mac App Store 应用现可移除 Intel Mac 支持 🏛️ 加州通过律师使用生成式 AI 法案，禁止将法律执业委托给 AI 🖥️ 普华永道：全球数据中心到 2050 年或投入 31.6 万亿美元 🧠 网信办整治 AI 应用乱象，已清理 561 万余条信息 💔 星宇股份董事长再次致歉，大众已就批量解约应届生启动调查 💡 马斯克：AI 明年底可胜任所有数字工作 🪄 50.98 万元，新一代",
-      "thumbnail": null,
-      "published_at": "2026-09-03T00:22:35+00:00",
-      "extra": {
-        "feed_name": "爱范儿",
-        "tab": "ai",
-        "route": "/ifanr/index",
-        "translate": false,
-        "description": "🎬 小米发布会定档 9 月 7 日，与华为、苹果「撞档」 ⚡ Google 发布 Gemini 3.8 Flash、推出网络安全专用模型 💳 微信灰度测试未读聊天汇总，聊天页增加红包与转账提醒 ✨ 李飞飞发布世界模型 Atlas，用统一模型生成、重建与模拟三维世界 😯 尊界 V800 挥手关门未触发，官方称当时车辆处于 D 档 💻 豆包工作支持多 Agents 并行，Mac 版新增操作电脑 🍎 Mac App Store 应用现可移除 Intel Mac 支持 🏛️ 加州通过律师使用生成式 AI 法案，禁止将法律执业委托给 AI 🖥️ 普华永道：全球数据中心到 2050 年或投入 31.6 万亿美元 🧠 网信办整治 AI 应用乱象，已清理 561 万余条信息 💔 星宇股份董事长再次致歉，大众已就批量解约应届生启动调查 💡 马斯克：AI 明年底可胜任所有数字工作 🪄 50.98 万元，新一代",
-        "dedupe_key": "https://www.ifanr.com/1678222"
-      },
-      "days_on_board": 3,
-      "is_new": false,
-      "rank_delta": 4,
-      "cluster_id": "edacfe4f0ea6",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-03T14:10:41.812376+00:00",
-          "rank": 34
-        },
-        {
-          "run_at": "2026-09-03T14:38:19.864140+00:00",
-          "rank": 34
-        },
-        {
-          "run_at": "2026-09-03T19:20:03.996706+00:00",
-          "rank": 35
-        },
-        {
-          "run_at": "2026-09-03T22:45:57.285881+00:00",
-          "rank": 38
-        },
-        {
-          "run_at": "2026-09-04T02:35:41.728138+00:00",
-          "rank": 49
-        },
-        {
-          "run_at": "2026-09-04T02:51:41.206031+00:00",
-          "rank": 49
-        },
-        {
-          "run_at": "2026-09-04T04:46:19.195629+00:00",
-          "rank": 46
-        },
-        {
-          "run_at": "2026-09-04T05:15:01.664932+00:00",
-          "rank": 46
-        },
-        {
-          "run_at": "2026-09-04T06:28:15.690114+00:00",
-          "rank": 46
-        },
-        {
-          "run_at": "2026-09-04T07:50:56.349243+00:00",
-          "rank": 58
-        },
-        {
-          "run_at": "2026-09-04T10:50:52.203202+00:00",
-          "rank": 56
-        },
-        {
-          "run_at": "2026-09-04T13:44:12.649307+00:00",
-          "rank": 61
-        },
-        {
-          "run_at": "2026-09-04T16:44:12.536912+00:00",
-          "rank": 70
-        },
-        {
-          "run_at": "2026-09-04T19:43:56.539533+00:00",
-          "rank": 70
-        },
-        {
-          "run_at": "2026-09-04T22:43:55.269806+00:00",
-          "rank": 72
-        },
-        {
-          "run_at": "2026-09-05T01:44:07.909533+00:00",
-          "rank": 72
-        },
-        {
-          "run_at": "2026-09-05T04:43:51.890357+00:00",
-          "rank": 73
-        },
-        {
-          "run_at": "2026-09-05T05:04:16.938707+00:00",
-          "rank": 73
-        },
-        {
-          "run_at": "2026-09-05T06:59:06.242545+00:00",
-          "rank": 77
-        },
-        {
-          "run_at": "2026-09-05T07:44:06.628615+00:00",
-          "rank": 77
-        },
-        {
-          "run_at": "2026-09-05T10:44:07.499731+00:00",
-          "rank": 79
-        },
-        {
-          "run_at": "2026-09-05T13:43:58.261424+00:00",
-          "rank": 75
-        }
-      ]
-    },
-    {
-      "source": "feed",
-      "rank": 76,
-      "title": "Ketone homologation via palladium-catalysed decarboxylative rearrangement",
-      "title_zh": "钯催化脱羧重排实现酮的同系化",
-      "url": "https://www.nature.com/articles/s41586-026-11091-5",
-      "hot_value": null,
-      "summary_zh": "Nature，2026年9月3日在线发表；doi:10.1038/s41586-026-11091-5 钯催化脱羧重排实现酮的同系化",
-      "thumbnail": null,
-      "published_at": "2026-09-03T00:00:00+00:00",
-      "extra": {
-        "feed_name": "Nature",
-        "tab": "papers",
-        "route": "https://www.nature.com/nature.rss",
-        "translate": true,
-        "description": "Nature, Published online: 03 September 2026; doi:10.1038/s41586-026-11091-5 Ketone homologation via palladium-catalysed decarboxylative rearrangement",
-        "dedupe_key": "https://www.nature.com/articles/s41586-026-11091-5"
-      },
-      "days_on_board": 3,
-      "is_new": false,
-      "rank_delta": 4,
-      "cluster_id": "1814ef6d75ba",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-03T19:20:03.996706+00:00",
-          "rank": 40
-        },
-        {
-          "run_at": "2026-09-03T22:45:57.285881+00:00",
-          "rank": 43
-        },
-        {
-          "run_at": "2026-09-04T02:35:41.728138+00:00",
-          "rank": 50
-        },
-        {
-          "run_at": "2026-09-04T02:51:41.206031+00:00",
-          "rank": 50
-        },
-        {
-          "run_at": "2026-09-04T04:46:19.195629+00:00",
-          "rank": 47
-        },
-        {
-          "run_at": "2026-09-04T05:15:01.664932+00:00",
-          "rank": 47
-        },
-        {
-          "run_at": "2026-09-04T06:28:15.690114+00:00",
-          "rank": 47
-        },
-        {
-          "run_at": "2026-09-04T07:50:56.349243+00:00",
-          "rank": 59
-        },
-        {
-          "run_at": "2026-09-04T10:50:52.203202+00:00",
-          "rank": 57
-        },
-        {
-          "run_at": "2026-09-04T13:44:12.649307+00:00",
-          "rank": 62
-        },
-        {
-          "run_at": "2026-09-04T16:44:12.536912+00:00",
-          "rank": 71
-        },
-        {
-          "run_at": "2026-09-04T19:43:56.539533+00:00",
-          "rank": 71
-        },
-        {
-          "run_at": "2026-09-04T22:43:55.269806+00:00",
-          "rank": 73
-        },
-        {
-          "run_at": "2026-09-05T01:44:07.909533+00:00",
-          "rank": 73
-        },
-        {
-          "run_at": "2026-09-05T04:43:51.890357+00:00",
-          "rank": 74
-        },
-        {
-          "run_at": "2026-09-05T05:04:16.938707+00:00",
-          "rank": 74
-        },
-        {
-          "run_at": "2026-09-05T06:59:06.242545+00:00",
-          "rank": 78
-        },
-        {
-          "run_at": "2026-09-05T07:44:06.628615+00:00",
-          "rank": 78
-        },
-        {
-          "run_at": "2026-09-05T10:44:07.499731+00:00",
-          "rank": 80
-        },
-        {
-          "run_at": "2026-09-05T13:43:58.261424+00:00",
-          "rank": 76
-        }
-      ]
-    },
-    {
-      "source": "feed",
-      "rank": 77,
-      "title": "Immune therapy engineered inside the body eases multiple sclerosis",
-      "title_zh": "体内工程化免疫疗法缓解多发性硬化症",
-      "url": "https://www.nature.com/articles/d41586-026-02765-1",
-      "hot_value": null,
-      "summary_zh": "Nature，在线发布：2026年9月3日；doi:10.1038/d41586-026-02765-1 一项小型试验结果表明，改良病毒可指导免疫系统清除致病细胞。",
-      "thumbnail": null,
-      "published_at": "2026-09-03T00:00:00+00:00",
-      "extra": {
-        "feed_name": "Nature",
-        "tab": "papers",
-        "route": "https://www.nature.com/nature.rss",
-        "translate": true,
-        "description": "Nature, Published online: 03 September 2026; doi:10.1038/d41586-026-02765-1 Results from a small trial suggest a modified virus can instruct the immune system to wipe out disease-causing cells.",
-        "dedupe_key": "https://www.nature.com/articles/d41586-026-02765-1"
-      },
-      "days_on_board": 3,
-      "is_new": false,
-      "rank_delta": 4,
-      "cluster_id": "4c8527ee2ce8",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-03T14:10:41.812376+00:00",
-          "rank": 39
-        },
-        {
-          "run_at": "2026-09-03T14:38:19.864140+00:00",
-          "rank": 39
-        },
-        {
-          "run_at": "2026-09-03T19:20:03.996706+00:00",
-          "rank": 41
-        },
-        {
-          "run_at": "2026-09-03T22:45:57.285881+00:00",
-          "rank": 44
-        },
-        {
-          "run_at": "2026-09-04T02:35:41.728138+00:00",
-          "rank": 51
-        },
-        {
-          "run_at": "2026-09-04T02:51:41.206031+00:00",
-          "rank": 51
-        },
-        {
-          "run_at": "2026-09-04T04:46:19.195629+00:00",
-          "rank": 48
-        },
-        {
-          "run_at": "2026-09-04T05:15:01.664932+00:00",
-          "rank": 48
-        },
-        {
-          "run_at": "2026-09-04T06:28:15.690114+00:00",
-          "rank": 48
-        },
-        {
-          "run_at": "2026-09-04T07:50:56.349243+00:00",
-          "rank": 60
-        },
-        {
-          "run_at": "2026-09-04T10:50:52.203202+00:00",
-          "rank": 58
-        },
-        {
-          "run_at": "2026-09-04T13:44:12.649307+00:00",
-          "rank": 63
-        },
-        {
-          "run_at": "2026-09-04T16:44:12.536912+00:00",
-          "rank": 72
-        },
-        {
-          "run_at": "2026-09-04T19:43:56.539533+00:00",
-          "rank": 72
-        },
-        {
-          "run_at": "2026-09-04T22:43:55.269806+00:00",
-          "rank": 74
-        },
-        {
-          "run_at": "2026-09-05T01:44:07.909533+00:00",
-          "rank": 74
-        },
-        {
-          "run_at": "2026-09-05T04:43:51.890357+00:00",
-          "rank": 75
-        },
-        {
-          "run_at": "2026-09-05T05:04:16.938707+00:00",
-          "rank": 75
-        },
-        {
-          "run_at": "2026-09-05T06:59:06.242545+00:00",
-          "rank": 79
-        },
-        {
-          "run_at": "2026-09-05T07:44:06.628615+00:00",
-          "rank": 79
-        },
-        {
-          "run_at": "2026-09-05T10:44:07.499731+00:00",
-          "rank": 81
-        },
-        {
-          "run_at": "2026-09-05T13:43:58.261424+00:00",
-          "rank": 77
-        }
-      ]
-    },
-    {
-      "source": "feed",
-      "rank": 78,
-      "title": "Magic-mushroom compound blocks a severe side effect of chemotherapy in mice",
-      "title_zh": "神奇蘑菇化合物阻断小鼠化疗严重副作用",
-      "url": "https://www.nature.com/articles/d41586-026-02744-6",
-      "hot_value": null,
-      "summary_zh": "Nature，2026年9月3日在线发表；doi:10.1038/d41586-026-02744-6 研究表明，裸盖菇素作用于神经，预防外周神经病变这一疼痛状况。",
-      "thumbnail": null,
-      "published_at": "2026-09-03T00:00:00+00:00",
-      "extra": {
-        "feed_name": "Nature",
-        "tab": "papers",
-        "route": "https://www.nature.com/nature.rss",
-        "translate": true,
-        "description": "Nature, Published online: 03 September 2026; doi:10.1038/d41586-026-02744-6 Study shows that psilocybin acts on nerves to prevent the painful condition called peripheral neuropathy.",
-        "dedupe_key": "https://www.nature.com/articles/d41586-026-02744-6"
-      },
-      "days_on_board": 3,
-      "is_new": false,
-      "rank_delta": 4,
-      "cluster_id": "7b9e6621b855",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-03T19:20:03.996706+00:00",
-          "rank": 42
-        },
-        {
-          "run_at": "2026-09-03T22:45:57.285881+00:00",
-          "rank": 45
-        },
-        {
-          "run_at": "2026-09-04T02:35:41.728138+00:00",
-          "rank": 52
-        },
-        {
-          "run_at": "2026-09-04T02:51:41.206031+00:00",
-          "rank": 52
-        },
-        {
-          "run_at": "2026-09-04T04:46:19.195629+00:00",
-          "rank": 49
-        },
-        {
-          "run_at": "2026-09-04T05:15:01.664932+00:00",
-          "rank": 49
-        },
-        {
-          "run_at": "2026-09-04T06:28:15.690114+00:00",
-          "rank": 49
-        },
-        {
-          "run_at": "2026-09-04T07:50:56.349243+00:00",
-          "rank": 61
-        },
-        {
-          "run_at": "2026-09-04T10:50:52.203202+00:00",
-          "rank": 59
-        },
-        {
-          "run_at": "2026-09-04T13:44:12.649307+00:00",
-          "rank": 64
-        },
-        {
-          "run_at": "2026-09-04T16:44:12.536912+00:00",
-          "rank": 73
-        },
-        {
-          "run_at": "2026-09-04T19:43:56.539533+00:00",
-          "rank": 73
-        },
-        {
-          "run_at": "2026-09-04T22:43:55.269806+00:00",
-          "rank": 75
-        },
-        {
-          "run_at": "2026-09-05T01:44:07.909533+00:00",
-          "rank": 75
-        },
-        {
-          "run_at": "2026-09-05T04:43:51.890357+00:00",
-          "rank": 76
-        },
-        {
-          "run_at": "2026-09-05T05:04:16.938707+00:00",
-          "rank": 76
-        },
-        {
-          "run_at": "2026-09-05T06:59:06.242545+00:00",
-          "rank": 80
-        },
-        {
-          "run_at": "2026-09-05T07:44:06.628615+00:00",
-          "rank": 80
-        },
-        {
-          "run_at": "2026-09-05T10:44:07.499731+00:00",
-          "rank": 82
-        },
-        {
-          "run_at": "2026-09-05T13:43:58.261424+00:00",
-          "rank": 78
-        }
-      ]
-    },
-    {
-      "source": "feed",
-      "rank": 79,
-      "title": "Nations expanding their research programmes impose sweeping penalties for malpractice",
-      "title_zh": "扩大研究项目的国家对学术不端实施严厉处罚",
-      "url": "https://www.nature.com/articles/d41586-026-02517-1",
-      "hot_value": null,
-      "summary_zh": "Nature，2026年9月3日在线发表；doi:10.1038/d41586-026-02517-1 印度、秘鲁和越南正推出政策，限制违反科研诚信准则的科学家机会。",
-      "thumbnail": null,
-      "published_at": "2026-09-03T00:00:00+00:00",
-      "extra": {
-        "feed_name": "Nature",
-        "tab": "papers",
-        "route": "https://www.nature.com/nature.rss",
-        "translate": true,
-        "description": "Nature, Published online: 03 September 2026; doi:10.1038/d41586-026-02517-1 India, Peru and Vietnam are rolling out policies that limit opportunities for scientists who fall foul of research-integrity guidelines.",
-        "dedupe_key": "https://www.nature.com/articles/d41586-026-02517-1"
-      },
-      "days_on_board": 3,
-      "is_new": false,
-      "rank_delta": 4,
-      "cluster_id": "fd691535ea7d",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-03T19:20:03.996706+00:00",
-          "rank": 44
-        },
-        {
-          "run_at": "2026-09-03T22:45:57.285881+00:00",
-          "rank": 47
-        },
-        {
-          "run_at": "2026-09-04T02:35:41.728138+00:00",
-          "rank": 54
-        },
-        {
-          "run_at": "2026-09-04T02:51:41.206031+00:00",
-          "rank": 54
-        },
-        {
-          "run_at": "2026-09-04T04:46:19.195629+00:00",
-          "rank": 51
-        },
-        {
-          "run_at": "2026-09-04T05:15:01.664932+00:00",
-          "rank": 51
-        },
-        {
-          "run_at": "2026-09-04T06:28:15.690114+00:00",
-          "rank": 51
-        },
-        {
-          "run_at": "2026-09-04T07:50:56.349243+00:00",
-          "rank": 63
-        },
-        {
-          "run_at": "2026-09-04T10:50:52.203202+00:00",
-          "rank": 61
-        },
-        {
-          "run_at": "2026-09-04T13:44:12.649307+00:00",
-          "rank": 66
-        },
-        {
-          "run_at": "2026-09-04T16:44:12.536912+00:00",
-          "rank": 74
-        },
-        {
-          "run_at": "2026-09-04T19:43:56.539533+00:00",
-          "rank": 74
-        },
-        {
-          "run_at": "2026-09-04T22:43:55.269806+00:00",
-          "rank": 76
-        },
-        {
-          "run_at": "2026-09-05T01:44:07.909533+00:00",
-          "rank": 76
-        },
-        {
-          "run_at": "2026-09-05T04:43:51.890357+00:00",
-          "rank": 77
-        },
-        {
-          "run_at": "2026-09-05T05:04:16.938707+00:00",
-          "rank": 77
-        },
-        {
-          "run_at": "2026-09-05T06:59:06.242545+00:00",
-          "rank": 81
-        },
-        {
-          "run_at": "2026-09-05T07:44:06.628615+00:00",
-          "rank": 81
-        },
-        {
-          "run_at": "2026-09-05T10:44:07.499731+00:00",
-          "rank": 83
-        },
-        {
-          "run_at": "2026-09-05T13:43:58.261424+00:00",
-          "rank": 79
-        }
-      ]
-    },
-    {
-      "source": "feed",
-      "rank": 80,
-      "title": "Daily briefing: GLP-1 obesity drugs slow signs of ageing in mice",
-      "title_zh": "每日简报：GLP-1减肥药减缓小鼠衰老迹象",
-      "url": "https://www.nature.com/articles/d41586-026-02781-1",
-      "hot_value": null,
-      "summary_zh": "《自然》，在线发表：2026年9月3日；doi:10.1038/d41586-026-02781-1 服用GLP-1的小鼠在认知任务上也优于热量限制饮食小鼠。此外，卫星图像显示尼泊尔-西藏边境附近冰川崩塌的早期预警信号，以及人们口头表达减少的影响。",
-      "thumbnail": null,
-      "published_at": "2026-09-03T00:00:00+00:00",
-      "extra": {
-        "feed_name": "Nature",
-        "tab": "papers",
-        "route": "https://www.nature.com/nature.rss",
-        "translate": true,
-        "description": "Nature, Published online: 03 September 2026; doi:10.1038/d41586-026-02781-1 Mice on GLP-1s also performed better on cognitive tasks than those on a calorie restricted diet . Plus, satellite images showed early warning signs of glacier collapse near the Nepal–Tibet border and the impact of people saying fewer words aloud.",
-        "dedupe_key": "https://www.nature.com/articles/d41586-026-02781-1"
-      },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 4,
-      "cluster_id": "ed6dc187ab22",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-04T13:44:12.649307+00:00",
-          "rank": 67
-        },
-        {
-          "run_at": "2026-09-04T16:44:12.536912+00:00",
-          "rank": 75
-        },
-        {
-          "run_at": "2026-09-04T19:43:56.539533+00:00",
-          "rank": 75
-        },
-        {
-          "run_at": "2026-09-04T22:43:55.269806+00:00",
-          "rank": 77
-        },
-        {
-          "run_at": "2026-09-05T01:44:07.909533+00:00",
-          "rank": 77
-        },
-        {
-          "run_at": "2026-09-05T04:43:51.890357+00:00",
-          "rank": 78
-        },
-        {
-          "run_at": "2026-09-05T05:04:16.938707+00:00",
-          "rank": 78
-        },
-        {
-          "run_at": "2026-09-05T06:59:06.242545+00:00",
-          "rank": 82
-        },
-        {
-          "run_at": "2026-09-05T07:44:06.628615+00:00",
-          "rank": 82
-        },
-        {
-          "run_at": "2026-09-05T10:44:07.499731+00:00",
-          "rank": 84
-        },
-        {
-          "run_at": "2026-09-05T13:43:58.261424+00:00",
-          "rank": 80
-        }
-      ]
-    },
-    {
-      "source": "feed",
-      "rank": 81,
-      "title": "Gemini 3.8 Flash 光速发布：干活挺勤快，就是没开窍",
-      "title_zh": "Gemini 3.8 Flash 光速发布：干活挺勤快，就是没开窍",
-      "url": "https://www.ifanr.com/1678197",
-      "hot_value": null,
-      "summary_zh": "以近乎下饺子的速度，Gemini 又双叒更新了。 今天凌晨，Gemini 3.8 Flash 正式上线。 这已经是 Google 在六周之内发布的第三款 Flash 模型 。 看起来，Google 要把「小步快跑」的战略贯彻到底。但我比较担心的是，按这个速度，在 Gemini 4 出来之前 3.x 的版本号好像不太够用了…… 从版本号上看这只是一个常规更新，但 Google 给 Flash 系列模型安排的任务却越来越重。官方说法称，它的目标是编写和修改大型项目、反复调用工具、独立完成持续数小时的复杂工作。 这些一般用来衡量顶级 Agentic 模型的活儿，如今都委派给了 3.8 Flash。 Flash 系列原本的意义是跑得更快、花得更少，但现在，它不得不代替迟迟没有出现的 3.5 Pro，证明 Google 仍有能力留在牌桌上。 看官方跑分，Google 似乎真的做到了；但社区反馈和我们",
-      "thumbnail": null,
-      "published_at": "2026-09-02T22:52:37+00:00",
-      "extra": {
-        "feed_name": "爱范儿",
-        "tab": "ai",
-        "route": "/ifanr/index",
-        "translate": false,
-        "description": "以近乎下饺子的速度，Gemini 又双叒更新了。 今天凌晨，Gemini 3.8 Flash 正式上线。 这已经是 Google 在六周之内发布的第三款 Flash 模型 。 看起来，Google 要把「小步快跑」的战略贯彻到底。但我比较担心的是，按这个速度，在 Gemini 4 出来之前 3.x 的版本号好像不太够用了…… 从版本号上看这只是一个常规更新，但 Google 给 Flash 系列模型安排的任务却越来越重。官方说法称，它的目标是编写和修改大型项目、反复调用工具、独立完成持续数小时的复杂工作。 这些一般用来衡量顶级 Agentic 模型的活儿，如今都委派给了 3.8 Flash。 Flash 系列原本的意义是跑得更快、花得更少，但现在，它不得不代替迟迟没有出现的 3.5 Pro，证明 Google 仍有能力留在牌桌上。 看官方跑分，Google 似乎真的做到了；但社区反馈和我们",
-        "dedupe_key": "https://www.ifanr.com/1678197"
-      },
-      "days_on_board": 3,
-      "is_new": false,
-      "rank_delta": 4,
-      "cluster_id": "1b0e4b8dd85c",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-03T14:10:41.812376+00:00",
-          "rank": 41
-        },
-        {
-          "run_at": "2026-09-03T14:38:19.864140+00:00",
-          "rank": 41
-        },
-        {
-          "run_at": "2026-09-03T19:20:03.996706+00:00",
-          "rank": 46
-        },
-        {
-          "run_at": "2026-09-03T22:45:57.285881+00:00",
-          "rank": 49
-        },
-        {
-          "run_at": "2026-09-04T02:35:41.728138+00:00",
-          "rank": 56
-        },
-        {
-          "run_at": "2026-09-04T02:51:41.206031+00:00",
-          "rank": 56
-        },
-        {
-          "run_at": "2026-09-04T04:46:19.195629+00:00",
-          "rank": 53
-        },
-        {
-          "run_at": "2026-09-04T05:15:01.664932+00:00",
-          "rank": 53
-        },
-        {
-          "run_at": "2026-09-04T06:28:15.690114+00:00",
-          "rank": 53
-        },
-        {
-          "run_at": "2026-09-04T07:50:56.349243+00:00",
-          "rank": 65
-        },
-        {
-          "run_at": "2026-09-04T10:50:52.203202+00:00",
-          "rank": 63
-        },
-        {
-          "run_at": "2026-09-04T13:44:12.649307+00:00",
-          "rank": 69
-        },
-        {
-          "run_at": "2026-09-04T16:44:12.536912+00:00",
-          "rank": 76
-        },
-        {
-          "run_at": "2026-09-04T19:43:56.539533+00:00",
-          "rank": 76
-        },
-        {
-          "run_at": "2026-09-04T22:43:55.269806+00:00",
-          "rank": 78
-        },
-        {
-          "run_at": "2026-09-05T01:44:07.909533+00:00",
-          "rank": 78
-        },
-        {
-          "run_at": "2026-09-05T04:43:51.890357+00:00",
-          "rank": 79
-        },
-        {
-          "run_at": "2026-09-05T05:04:16.938707+00:00",
-          "rank": 79
-        },
-        {
-          "run_at": "2026-09-05T06:59:06.242545+00:00",
-          "rank": 83
-        },
-        {
-          "run_at": "2026-09-05T07:44:06.628615+00:00",
-          "rank": 83
-        },
-        {
-          "run_at": "2026-09-05T10:44:07.499731+00:00",
-          "rank": 85
-        },
-        {
-          "run_at": "2026-09-05T13:43:58.261424+00:00",
-          "rank": 81
-        }
-      ]
-    },
-    {
-      "source": "feed",
-      "rank": 83,
-      "title": "50.98 万元！新理想 MEGA 发布：前两排零重力座椅，加入后轮转向，还要推出右舵版",
-      "title_zh": "50.98 万元！新理想 MEGA 发布：前两排零重力座椅，加入后轮转向，还要推出右舵版",
-      "url": "https://www.ifanr.com/1678181",
-      "hot_value": null,
-      "summary_zh": "两年前，理想 MEGA 上市，这是一台无论开在路上，还是在舆论场里，都无法被忽视的车。 它没有采用豪华 MPV 常见的直立车头和巨大格栅，而是以水滴形车头与平滑车顶，勾勒出一副略显科幻的「高铁」轮廓。理想 MEGA 的设计无疑足够先锋，而 0.215Cd 的风阻系数、纯电平台对效率的要求，以及三排乘员对车内空间的需求，又共同赋予了这套设计以工程上的合理性。 但很可惜，相比工程逻辑，更快抵达公众视野的是围绕外观展开的嘲讽与争议。 9 月 2 日，新一代理想 MEGA 正式发布。新车依然沿用了旧款 MEGA 的整体造型，仅在细节处做了一些微调，面对过去两年的争议，理想最终坚持住了这套由产品逻辑推导而来的原创设计。 新车只提供 MEGA Home 一个版本，全国统一零售价为 50.98 万元，比 2025 款 MEGA Home 低了 5 万元，车辆已经抵达全国零售中心，本周内开启交付。 值得一",
-      "thumbnail": null,
-      "published_at": "2026-09-02T14:28:34+00:00",
-      "extra": {
-        "feed_name": "爱范儿",
-        "tab": "ai",
-        "route": "/ifanr/index",
-        "translate": false,
-        "description": "两年前，理想 MEGA 上市，这是一台无论开在路上，还是在舆论场里，都无法被忽视的车。 它没有采用豪华 MPV 常见的直立车头和巨大格栅，而是以水滴形车头与平滑车顶，勾勒出一副略显科幻的「高铁」轮廓。理想 MEGA 的设计无疑足够先锋，而 0.215Cd 的风阻系数、纯电平台对效率的要求，以及三排乘员对车内空间的需求，又共同赋予了这套设计以工程上的合理性。 但很可惜，相比工程逻辑，更快抵达公众视野的是围绕外观展开的嘲讽与争议。 9 月 2 日，新一代理想 MEGA 正式发布。新车依然沿用了旧款 MEGA 的整体造型，仅在细节处做了一些微调，面对过去两年的争议，理想最终坚持住了这套由产品逻辑推导而来的原创设计。 新车只提供 MEGA Home 一个版本，全国统一零售价为 50.98 万元，比 2025 款 MEGA Home 低了 5 万元，车辆已经抵达全国零售中心，本周内开启交付。 值得一",
-        "dedupe_key": "https://www.ifanr.com/1678181"
-      },
-      "days_on_board": 3,
-      "is_new": false,
-      "rank_delta": 4,
-      "cluster_id": "aa7acf517775",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-03T14:10:41.812376+00:00",
-          "rank": 42
-        },
-        {
-          "run_at": "2026-09-03T14:38:19.864140+00:00",
-          "rank": 42
-        },
-        {
-          "run_at": "2026-09-03T19:20:03.996706+00:00",
-          "rank": 49
-        },
-        {
-          "run_at": "2026-09-03T22:45:57.285881+00:00",
-          "rank": 51
-        },
-        {
-          "run_at": "2026-09-04T02:35:41.728138+00:00",
-          "rank": 58
-        },
-        {
-          "run_at": "2026-09-04T02:51:41.206031+00:00",
-          "rank": 58
-        },
-        {
-          "run_at": "2026-09-04T04:46:19.195629+00:00",
-          "rank": 55
-        },
-        {
-          "run_at": "2026-09-04T05:15:01.664932+00:00",
-          "rank": 55
-        },
-        {
-          "run_at": "2026-09-04T06:28:15.690114+00:00",
-          "rank": 55
-        },
-        {
-          "run_at": "2026-09-04T07:50:56.349243+00:00",
-          "rank": 66
-        },
-        {
-          "run_at": "2026-09-04T10:50:52.203202+00:00",
-          "rank": 64
-        },
-        {
-          "run_at": "2026-09-04T13:44:12.649307+00:00",
-          "rank": 72
-        },
-        {
-          "run_at": "2026-09-04T16:44:12.536912+00:00",
-          "rank": 78
-        },
-        {
-          "run_at": "2026-09-04T19:43:56.539533+00:00",
-          "rank": 77
-        },
-        {
-          "run_at": "2026-09-04T22:43:55.269806+00:00",
-          "rank": 79
-        },
-        {
-          "run_at": "2026-09-05T01:44:07.909533+00:00",
-          "rank": 80
-        },
-        {
-          "run_at": "2026-09-05T04:43:51.890357+00:00",
-          "rank": 81
-        },
-        {
-          "run_at": "2026-09-05T05:04:16.938707+00:00",
-          "rank": 81
-        },
-        {
-          "run_at": "2026-09-05T06:59:06.242545+00:00",
-          "rank": 86
-        },
-        {
-          "run_at": "2026-09-05T07:44:06.628615+00:00",
-          "rank": 86
-        },
-        {
-          "run_at": "2026-09-05T10:44:07.499731+00:00",
-          "rank": 87
-        },
-        {
-          "run_at": "2026-09-05T13:43:58.261424+00:00",
-          "rank": 83
         }
       ]
     }
@@ -1629,7 +1184,7 @@
       "title": "【独家】《凡人修仙传之慕兰之战》第14集【总第190集】",
       "title_zh": "【独家】《凡人修仙传之慕兰之战》第14集【总第190集】",
       "url": "https://b23.tv/BV1Satr6zETw",
-      "hot_value": "4213722",
+      "hot_value": "4756646",
       "summary_zh": null,
       "thumbnail": "http://i2.hdslb.com/bfs/archive/9a03bdfbe9ef950b61ac65b1284239e020a92d52.jpg",
       "published_at": "2026-09-05T03:00:02+00:00",
@@ -1666,6 +1221,10 @@
         {
           "run_at": "2026-09-05T13:43:58.261424+00:00",
           "rank": 1
+        },
+        {
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 1
         }
       ]
     },
@@ -1675,21 +1234,25 @@
       "title": "张雪机车法国站第一回合第三名",
       "title_zh": "张雪机车法国站第一回合第三名",
       "url": "https://www.douyin.com/search/%E5%BC%A0%E9%9B%AA%E6%9C%BA%E8%BD%A6%E6%B3%95%E5%9B%BD%E7%AB%99%E7%AC%AC%E4%B8%80%E5%9B%9E%E5%90%88%E7%AC%AC%E4%B8%89%E5%90%8D",
-      "hot_value": "12107479",
+      "hot_value": "12176877",
       "summary_zh": null,
-      "thumbnail": "https://p26-sign.douyinpic.com/tos-cn-p-0015/oU2QgEqF96ZQqAHf4UknEAUhMheDABFhNtvAtk~noop.jpeg?lk3s=bfd515bb&x-expires=1788634800&x-signature=kbFqvov9pNC5RMiA4rpKd80FpI4%3D&from=3218412987",
+      "thumbnail": "https://p11-sign.douyinpic.com/tos-cn-p-0015/oU2QgEqF96ZQqAHf4UknEAUhMheDABFhNtvAtk~noop.jpeg?lk3s=bfd515bb&x-expires=1788645600&x-signature=jY8tCWPslueqUi%2F71Rdkd7I380A%3D&from=3218412987",
       "published_at": null,
       "extra": {
         "sentence_id": "2637143"
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "864ff169f02e",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-05T13:43:58.261424+00:00",
+          "rank": 1
+        },
+        {
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
           "rank": 1
         }
       ]
@@ -1697,29 +1260,69 @@
     {
       "source": "feed",
       "rank": 1,
-      "title": "央视曝光“幽灵外卖”乱象：无资质商家花 500 元就能上线外卖平台",
-      "title_zh": "央视曝光“幽灵外卖”乱象：无资质商家花 500 元就能上线外卖平台",
-      "url": "https://www.ithome.com/0/998/825.htm",
+      "title": "GPT-6带火循环Transformer，阿里早已布局",
+      "title_zh": "GPT-6带火循环Transformer，阿里早已布局",
+      "url": "https://www.qbitai.com/2026/09/484726.html",
       "hot_value": null,
-      "summary_zh": "感谢IT之家网友 补药吖 、 顺势而为 的线索投递！ IT之家 9 月 5 日消息，网络餐饮快速发展，外卖平台上的商家资质关系消费者“舌尖上的安全”。据央视财经今天（5 日）报道，近期，广西市场监管部门在全区入网餐饮服务提供者证照数据核验中，将外卖平台商户公示的资质信息与食品经营许可数据逐项比对，检测出 五千余条异常信息 。 监管部门发现，平台上有一家餐饮店显示的名称为“今晚烧烤吧”，食品经营许可证格式规范、印章齐全。然而，当执法人员进行核验时，却发现这家店的 食品经营许可证在数据库里查无记录 。按照平台公示地址，柳州市鱼峰区市场监督管理局五里亭街道市场监督管理所的工作人员来到一个居民小区，眼前却只有一排车库， 没有招牌，也没有任何经营迹象 。但平台显示，这家店的接单仍在持续。 店主承认，自己用该车库地址注册的是一家食品店，在平台上卖蔬菜水果，因经营不善想转行开烧烤店，却不具备办理食品经营",
+      "summary_zh": "GPT-6带火循环Transformer，阿里早已布局 一水 2026-09-05 23:07:08 来源： 量子位 手握两篇顶会论文 GPT-6 Astra一发布，recurrent depth突然一夜火了！ 最早是The Information爆料，Astra使用了这种「循环深度」技术： 让同一组Transformer层反复运行，在不增加同等规模参数的情况下，把计算做得更深 。 ？？模型不必继续疯狂「长肉」，也能让现有参数多干几轮活，还有这好事。 不出所料，争议很快到来。。。 由于循环发生在hidden state里，中间过程未必会写成人类可读的思维链，模型会不会因此更难监测？ OpenAI也由此被AI安全专家集体讨伐，甚至一度逼得首席科学家Jakub Pachocki亲自下场回应。 Jakub Pachocki还透露，自己正在憋一篇小作文以完整解释整件事情。 边等小作文，边让我们把目",
       "thumbnail": null,
-      "published_at": "2026-09-05T13:26:16+00:00",
+      "published_at": "2026-09-05T15:07:08+00:00",
       "extra": {
-        "feed_name": "IT之家",
+        "feed_name": "量子位",
         "tab": "ai",
-        "route": "/ithome/it",
+        "route": "/qbitai/category/%E8%B5%84%E8%AE%AF",
         "translate": false,
-        "description": "感谢IT之家网友 补药吖 、 顺势而为 的线索投递！ IT之家 9 月 5 日消息，网络餐饮快速发展，外卖平台上的商家资质关系消费者“舌尖上的安全”。据央视财经今天（5 日）报道，近期，广西市场监管部门在全区入网餐饮服务提供者证照数据核验中，将外卖平台商户公示的资质信息与食品经营许可数据逐项比对，检测出 五千余条异常信息 。 监管部门发现，平台上有一家餐饮店显示的名称为“今晚烧烤吧”，食品经营许可证格式规范、印章齐全。然而，当执法人员进行核验时，却发现这家店的 食品经营许可证在数据库里查无记录 。按照平台公示地址，柳州市鱼峰区市场监督管理局五里亭街道市场监督管理所的工作人员来到一个居民小区，眼前却只有一排车库， 没有招牌，也没有任何经营迹象 。但平台显示，这家店的接单仍在持续。 店主承认，自己用该车库地址注册的是一家食品店，在平台上卖蔬菜水果，因经营不善想转行开烧烤店，却不具备办理食品经营",
-        "dedupe_key": "https://www.ithome.com/0/998/825.htm"
+        "description": "GPT-6带火循环Transformer，阿里早已布局 一水 2026-09-05 23:07:08 来源： 量子位 手握两篇顶会论文 GPT-6 Astra一发布，recurrent depth突然一夜火了！ 最早是The Information爆料，Astra使用了这种「循环深度」技术： 让同一组Transformer层反复运行，在不增加同等规模参数的情况下，把计算做得更深 。 ？？模型不必继续疯狂「长肉」，也能让现有参数多干几轮活，还有这好事。 不出所料，争议很快到来。。。 由于循环发生在hidden state里，中间过程未必会写成人类可读的思维链，模型会不会因此更难监测？ OpenAI也由此被AI安全专家集体讨伐，甚至一度逼得首席科学家Jakub Pachocki亲自下场回应。 Jakub Pachocki还透露，自己正在憋一篇小作文以完整解释整件事情。 边等小作文，边让我们把目",
+        "dedupe_key": "https://www.qbitai.com/2026/09/484726.html"
       },
       "days_on_board": 1,
       "is_new": true,
       "rank_delta": "new",
-      "cluster_id": "4c2ad0b15c33",
+      "cluster_id": "bca058a9957d",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-05T13:43:58.261424+00:00",
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 1
+        }
+      ]
+    },
+    {
+      "source": "gongkao",
+      "rank": 1,
+      "title": "香港投资推广署招商引才/投资推广高级副总监或副总监（天津）招聘公告",
+      "title_zh": "香港投资推广署招商引才/投资推广高级副总监或副总监（天津）招聘公告",
+      "url": "https://hera-webapp.fenbi.com/api/website/article/detail?deviceType=3&id=468614751211520&app=web&av=100&hav=100&kav=100&client_context_id=",
+      "hot_value": "正在报名",
+      "summary_zh": "招考人数：若干 报名时间：2026.09.07-2026.09.07 12:00",
+      "thumbnail": null,
+      "published_at": "2026-08-25T11:47:38+00:00",
+      "extra": {
+        "id": 468614751211520,
+        "sub": "announcement",
+        "tags": [
+          "天津",
+          "天津市",
+          "派遣/临时/购买服务等",
+          "2026",
+          "劳务派遣"
+        ],
+        "province": "天津",
+        "exam_type": "派遣/临时/购买服务等",
+        "startSignUpTime": 1787587200000,
+        "endSignUpTime": 1788796740000,
+        "startWriteTime": null,
+        "target_university_hit": [],
+        "city_focus_hit": []
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "463f8f7f5ee7",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
           "rank": 1
         }
       ]
@@ -1727,25 +1330,25 @@
     {
       "source": "telegram",
       "rank": 1,
-      "title": "Thousands of OpenAI agents reportedly used a dormant wiki to coordinate answers, share data, and bypass sandbox limits, leaving about 18,000 posts between May and July 2026. #OpenAI #DSEwiki #Azure ➡️ https://www.hendryadrian.com/thousands-of-openai-agents-quietly-turned-an-abandoned-wiki-into-their",
-      "title_zh": "据报道，数千个OpenAI代理使用一个休眠的wiki来协调答案、共享数据并绕过沙盒限制，在2026年5月至7月间留下了约18,000条帖子。 #OpenAI #DSEwiki #Azure ➡️ https://www.hendryadrian.com/thousands-of-openai-agents-quietly-turned-an-abandoned-wiki-into-their",
-      "url": "https://t.me/cybernotif/35444",
-      "hot_value": "10",
+      "title": "📢 AI data centers are becoming job machines AI data centers aren’t just eating electricity and GPUs, they’re also creating a serious economic boom in the places where they’re built. Meta’s massive Louisiana data-center project saw private-sector employment jump 41% in its first year, while average w",
+      "title_zh": "📢 AI数据中心正成为就业机器 AI数据中心不仅消耗电力和GPU，还在建设地创造经济繁荣。Meta在路易斯安那州的大型数据中心项目首年私营部门就业增长41%，平均工资",
+      "url": "https://t.me/aipost/8058",
+      "hot_value": "561",
       "summary_zh": null,
       "thumbnail": null,
-      "published_at": "2026-09-05T13:00:11+00:00",
+      "published_at": "2026-09-05T16:13:58+00:00",
       "extra": {
-        "channel": "cybernotif",
+        "channel": "aipost",
         "translate": true
       },
       "days_on_board": 1,
       "is_new": true,
       "rank_delta": "new",
-      "cluster_id": "e383d899662a",
-      "cluster_size": 5,
+      "cluster_id": "a46906b857ad",
+      "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-05T13:43:58.261424+00:00",
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
           "rank": 1
         }
       ]
@@ -1753,10 +1356,10 @@
     {
       "source": "weibo",
       "rank": 1,
-      "title": "避孕药 血栓",
-      "title_zh": "避孕药 血栓",
-      "url": "https://s.weibo.com/weibo?q=%23%E9%81%BF%E5%AD%95%E8%8D%AF%20%E8%A1%80%E6%A0%93%23",
-      "hot_value": "1390782",
+      "title": "葫芦娃爷爷把葫芦剪掉了目击者发声",
+      "title_zh": "葫芦娃爷爷把葫芦剪掉了目击者发声",
+      "url": "https://s.weibo.com/weibo?q=%23%E8%91%AB%E8%8A%A6%E5%A8%83%E7%88%B7%E7%88%B7%E6%8A%8A%E8%91%AB%E8%8A%A6%E5%89%AA%E6%8E%89%E4%BA%86%E7%9B%AE%E5%87%BB%E8%80%85%E5%8F%91%E5%A3%B0%23",
+      "hot_value": "1093744",
       "summary_zh": null,
       "thumbnail": null,
       "published_at": null,
@@ -1766,11 +1369,11 @@
       "days_on_board": 1,
       "is_new": true,
       "rank_delta": "new",
-      "cluster_id": "a89391501eae",
+      "cluster_id": "b163c64947ef",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-05T13:43:58.261424+00:00",
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
           "rank": 1
         }
       ]
@@ -1781,7 +1384,7 @@
       "title": "【2026LPL第三赛段】9月5日 TES vs IG",
       "title_zh": "【2026LPL第三赛段】9月5日 TES vs IG",
       "url": "https://b23.tv/BV1Zkty68EAe",
-      "hot_value": "1161215",
+      "hot_value": "1706001",
       "summary_zh": null,
       "thumbnail": "http://i0.hdslb.com/bfs/archive/7c19f0d1b895f633d8abf4fac0d4e93db33eb839.jpg",
       "published_at": "2026-09-05T07:06:12+00:00",
@@ -1790,13 +1393,17 @@
         "owner": "哔哩哔哩英雄联盟赛事"
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "fbaede932c0d",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-05T13:43:58.261424+00:00",
+          "rank": 2
+        },
+        {
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
           "rank": 2
         }
       ]
@@ -1804,24 +1411,40 @@
     {
       "source": "douyin",
       "rank": 2,
-      "title": "福建莆田多地出现洪涝灾害",
-      "title_zh": "福建莆田多地出现洪涝灾害",
-      "url": "https://www.douyin.com/search/%E7%A6%8F%E5%BB%BA%E8%8E%86%E7%94%B0%E5%A4%9A%E5%9C%B0%E5%87%BA%E7%8E%B0%E6%B4%AA%E6%B6%9D%E7%81%BE%E5%AE%B3",
-      "hot_value": "12097562",
+      "title": "郑钦文美网对决凯斯",
+      "title_zh": "郑钦文美网对决凯斯",
+      "url": "https://www.douyin.com/search/%E9%83%91%E9%92%A6%E6%96%87%E7%BE%8E%E7%BD%91%E5%AF%B9%E5%86%B3%E5%87%AF%E6%96%AF",
+      "hot_value": "12093837",
       "summary_zh": null,
-      "thumbnail": "https://p3-sign.douyinpic.com/tos-cn-p-0015/osBWexQAG8AXeQxH8c79eN8oo9MhBCJQlD3VS3~noop.jpeg?lk3s=bfd515bb&x-expires=1788634800&x-signature=9hBx5lH9AmzpsOhDoQp45KHE%2BiI%3D&from=3218412987",
+      "thumbnail": "https://p26-sign.douyinpic.com/tos-cn-p-0015/oMsbk41Eg89bDQWIWBFqAneDgWCmWAoWf5mAai~noop.jpeg?lk3s=bfd515bb&x-expires=1788645600&x-signature=1kYCF4UsMcSjI3ap807%2FYvDh6II%3D&from=3218412987",
       "published_at": null,
       "extra": {
-        "sentence_id": "2636456"
+        "sentence_id": "2636484"
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
-      "cluster_id": "12478083e759",
+      "is_new": false,
+      "rank_delta": 18,
+      "cluster_id": "bc190c529494",
       "cluster_size": 1,
       "rank_history": [
         {
+          "run_at": "2026-09-05T06:59:06.242545+00:00",
+          "rank": 12
+        },
+        {
+          "run_at": "2026-09-05T07:44:06.628615+00:00",
+          "rank": 8
+        },
+        {
+          "run_at": "2026-09-05T10:44:07.499731+00:00",
+          "rank": 8
+        },
+        {
           "run_at": "2026-09-05T13:43:58.261424+00:00",
+          "rank": 20
+        },
+        {
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
           "rank": 2
         }
       ]
@@ -1829,29 +1452,29 @@
     {
       "source": "feed",
       "rank": 2,
-      "title": "《虹猫蓝兔七侠传》开播 20 周年，动画项目全新启动",
-      "title_zh": "《虹猫蓝兔七侠传》开播 20 周年，动画项目全新启动",
-      "url": "https://www.ithome.com/0/998/817.htm",
+      "title": "中广核山东招远核电项目 2 号机组主体工程开工，规划建设 6 台“华龙一号”",
+      "title_zh": "中广核山东招远核电项目 2 号机组主体工程开工，规划建设 6 台“华龙一号”",
+      "url": "https://www.ithome.com/0/998/834.htm",
       "hot_value": null,
-      "summary_zh": "感谢IT之家网友 软媒用户1238620 的线索投递！ IT之家 9 月 5 日消息，国产武侠动画《虹猫蓝兔七侠传》迎来开播 20 周年。今天，制作方湖南宏梦卡通创作团队发布长文“写给少侠们的一封信”，回顾二十年前这部“中国第一部长篇武侠动画片”的制作历程。与此同时，宏梦卡通公布了新一轮“归来”计划：除已在播出的 4K 高清修复版外， 动画项目将全新启动 ，二十周年官方设定集也即将落地。 IT之家附原文如下： 江湖未老侠心在二十周年再出发 —— 写给少侠们的一封信 诸位少侠： 江湖别来无恙！ 提笔写下这封信时，恰见荧屏上播放《虹猫蓝兔七侠传》4K 高清版，虹猫和麒麟逍遥嬉戏于山林幽溪之间，瞬间把众人记忆拉回到 20 年前的盛夏江湖。 总导演曾对我们说：“我们要做中国第一部长篇武侠动画片，让孩子看得懂、大人坐得住。”这句话直抵人心，我辈年少时皆怀仗剑江湖的侠客梦，因一颗热血真心相聚，立志为孩",
+      "summary_zh": "IT之家 9 月 5 日消息，据中国广核集团，9 月 5 日上午 9 时 18 分，中广核山东招远核电项目 2 号机组启动核岛第一罐混凝土浇筑（ FCD ），标志着该机组主体工程正式开工，项目一期工程进入全面建设阶段。 IT之家从官方介绍获悉，山东招远核电是中广核在全国布局的第十个核电基地，项目 1、2 号机组于 2024 年 8 月 19 日获得国家核准。项目 1 号机组于 2025 年 11 月 18 日主体工程开工， 是我国首个配置冷却塔的“华龙一号”核电机组 。本次浇筑的项目 2 号机组反应堆厂房筏基为半径 27 米、高度 3.7 米的圆柱体，混凝土总浇筑量约 8800 立方米，预计连续施工约 60 小时。 中广核山东招远核电项目规划建设 6 台“华龙一号”核电机组 ，每台机组均配置一台高达 203 米、淋水面积为 16800 平方米的高位收水自然通风冷却塔，将核电站常规岛的直接冷",
       "thumbnail": null,
-      "published_at": "2026-09-05T12:12:44+00:00",
+      "published_at": "2026-09-05T15:02:03+00:00",
       "extra": {
         "feed_name": "IT之家",
         "tab": "ai",
         "route": "/ithome/it",
         "translate": false,
-        "description": "感谢IT之家网友 软媒用户1238620 的线索投递！ IT之家 9 月 5 日消息，国产武侠动画《虹猫蓝兔七侠传》迎来开播 20 周年。今天，制作方湖南宏梦卡通创作团队发布长文“写给少侠们的一封信”，回顾二十年前这部“中国第一部长篇武侠动画片”的制作历程。与此同时，宏梦卡通公布了新一轮“归来”计划：除已在播出的 4K 高清修复版外， 动画项目将全新启动 ，二十周年官方设定集也即将落地。 IT之家附原文如下： 江湖未老侠心在二十周年再出发 —— 写给少侠们的一封信 诸位少侠： 江湖别来无恙！ 提笔写下这封信时，恰见荧屏上播放《虹猫蓝兔七侠传》4K 高清版，虹猫和麒麟逍遥嬉戏于山林幽溪之间，瞬间把众人记忆拉回到 20 年前的盛夏江湖。 总导演曾对我们说：“我们要做中国第一部长篇武侠动画片，让孩子看得懂、大人坐得住。”这句话直抵人心，我辈年少时皆怀仗剑江湖的侠客梦，因一颗热血真心相聚，立志为孩",
-        "dedupe_key": "https://www.ithome.com/0/998/817.htm"
+        "description": "IT之家 9 月 5 日消息，据中国广核集团，9 月 5 日上午 9 时 18 分，中广核山东招远核电项目 2 号机组启动核岛第一罐混凝土浇筑（ FCD ），标志着该机组主体工程正式开工，项目一期工程进入全面建设阶段。 IT之家从官方介绍获悉，山东招远核电是中广核在全国布局的第十个核电基地，项目 1、2 号机组于 2024 年 8 月 19 日获得国家核准。项目 1 号机组于 2025 年 11 月 18 日主体工程开工， 是我国首个配置冷却塔的“华龙一号”核电机组 。本次浇筑的项目 2 号机组反应堆厂房筏基为半径 27 米、高度 3.7 米的圆柱体，混凝土总浇筑量约 8800 立方米，预计连续施工约 60 小时。 中广核山东招远核电项目规划建设 6 台“华龙一号”核电机组 ，每台机组均配置一台高达 203 米、淋水面积为 16800 平方米的高位收水自然通风冷却塔，将核电站常规岛的直接冷",
+        "dedupe_key": "https://www.ithome.com/0/998/834.htm"
       },
       "days_on_board": 1,
       "is_new": true,
       "rank_delta": "new",
-      "cluster_id": "2f903a735d5f",
+      "cluster_id": "38d81f007497",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-05T13:43:58.261424+00:00",
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
           "rank": 2
         }
       ]
@@ -1859,25 +1482,25 @@
     {
       "source": "telegram",
       "rank": 2,
-      "title": "PaperCut flaws are being chained to bypass auth and run code, with attacks on schools and universities in the U.S. and Europe. Activity includes credential theft, reconnaissance, and Meterpreter payloads. #PaperCut #USA #Education ➡️ https://www.hendryadrian.com/attackers-exploit-papercut-flaws-to-s",
-      "title_zh": "PaperCut漏洞正被串联利用以绕过认证并执行代码，攻击目标为美国和欧洲的学校及大学。活动包括窃取凭据、侦察和Meterpreter载荷。 #PaperCut #USA #Education ➡️ https://www.hendryadrian.com/attackers-exploit-papercut-flaws-to-s",
-      "url": "https://t.me/cybernotif/35443",
-      "hot_value": "10",
+      "title": "🇨🇳 China Builds a Rotating Sky Villa The capsule house-lift rises 16 metres and rotates 360 degrees for a better view. Inside are a kitchen, sleeping berth, shower and toilet, projector, balcony, and roof hatch for stargazing . 📊 @tech",
+      "title_zh": "🇨🇳 中国建造旋转天空别墅 胶囊式升降屋可升至16米并360度旋转，视野更佳。内部配备厨房、卧铺、淋浴和卫生间、投影仪、阳台及观星天窗。📊 @tech",
+      "url": "https://t.me/tech/3848",
+      "hot_value": "581",
       "summary_zh": null,
       "thumbnail": null,
-      "published_at": "2026-09-05T12:45:08+00:00",
+      "published_at": "2026-09-05T16:03:49+00:00",
       "extra": {
-        "channel": "cybernotif",
+        "channel": "technology",
         "translate": true
       },
       "days_on_board": 1,
       "is_new": true,
       "rank_delta": "new",
-      "cluster_id": "6e8c983425b1",
+      "cluster_id": "a2b6fe299859",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-05T13:43:58.261424+00:00",
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
           "rank": 2
         }
       ]
@@ -1885,10 +1508,10 @@
     {
       "source": "weibo",
       "rank": 2,
-      "title": "苹果折叠手机价格",
-      "title_zh": "苹果折叠手机价格",
-      "url": "https://s.weibo.com/weibo?q=%23%E8%8B%B9%E6%9E%9C%E6%8A%98%E5%8F%A0%E6%89%8B%E6%9C%BA%E4%BB%B7%E6%A0%BC%23",
-      "hot_value": "889896",
+      "title": "郑钦文vs凯斯",
+      "title_zh": "郑钦文vs凯斯",
+      "url": "https://s.weibo.com/weibo?q=%23%E9%83%91%E9%92%A6%E6%96%87vs%E5%87%AF%E6%96%AF%23",
+      "hot_value": "938970",
       "summary_zh": null,
       "thumbnail": null,
       "published_at": null,
@@ -1898,11 +1521,11 @@
       "days_on_board": 1,
       "is_new": true,
       "rank_delta": "new",
-      "cluster_id": "ee94b7707417",
+      "cluster_id": "98f0127448e1",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-05T13:43:58.261424+00:00",
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
           "rank": 2
         }
       ]
@@ -1910,29 +1533,25 @@
     {
       "source": "bilibili",
       "rank": 3,
-      "title": "午夜轮班，伪人超市",
-      "title_zh": "午夜轮班，伪人超市",
-      "url": "https://b23.tv/BV16Htm6rE8n",
-      "hot_value": "633877",
+      "title": "我爱我的废技能",
+      "title_zh": "我爱我的废技能",
+      "url": "https://b23.tv/BV1jbti6TEtk",
+      "hot_value": "738139",
       "summary_zh": null,
-      "thumbnail": "http://i0.hdslb.com/bfs/archive/49e5969b3581f371ce827568fc8f98ee3ac085d1.jpg",
-      "published_at": "2026-09-05T07:42:24+00:00",
+      "thumbnail": "http://i1.hdslb.com/bfs/archive/b03881e48c636ba5bfa7b95b55e097e1dccb93f3.jpg",
+      "published_at": "2026-09-04T08:15:48+00:00",
       "extra": {
-        "bvid": "BV16Htm6rE8n",
-        "owner": "鲤鱼Ace"
+        "bvid": "BV1jbti6TEtk",
+        "owner": "那就叫王师傅吧"
       },
       "days_on_board": 1,
-      "is_new": false,
-      "rank_delta": -1,
-      "cluster_id": "ee8fb9f4670a",
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "684b9e7893b2",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-05T10:44:07.499731+00:00",
-          "rank": 2
-        },
-        {
-          "run_at": "2026-09-05T13:43:58.261424+00:00",
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
           "rank": 3
         }
       ]
@@ -1943,21 +1562,25 @@
       "title": "我国将加快建设六张网项目库",
       "title_zh": "我国将加快建设六张网项目库",
       "url": "https://www.douyin.com/search/%E6%88%91%E5%9B%BD%E5%B0%86%E5%8A%A0%E5%BF%AB%E5%BB%BA%E8%AE%BE%E5%85%AD%E5%BC%A0%E7%BD%91%E9%A1%B9%E7%9B%AE%E5%BA%93",
-      "hot_value": "11979599",
+      "hot_value": "11940871",
       "summary_zh": null,
-      "thumbnail": "https://p3-sign.douyinpic.com/tos-cn-p-0015/oYm9gmEecHlTnbNxAYcLZwgQDfA9FALh1BGq2Q~noop.jpeg?lk3s=bfd515bb&x-expires=1788634800&x-signature=wEaQUtpjDjyjSf4DpVrtn4bQP%2FY%3D&from=3218412987",
+      "thumbnail": "https://p5-ex-gddgtc-sign.douyinpic.com/tos-cn-p-0015/oYm9gmEecHlTnbNxAYcLZwgQDfA9FALh1BGq2Q~noop.jpeg?lk3s=bfd515bb&x-expires=1788645600&x-signature=7q0Z7aaUEbepvVci0oxnpiwm3Q0%3D&from=3218412987",
       "published_at": null,
       "extra": {
         "sentence_id": "2637070"
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "078b8668ec04",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-05T13:43:58.261424+00:00",
+          "rank": 3
+        },
+        {
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
           "rank": 3
         }
       ]
@@ -1965,29 +1588,29 @@
     {
       "source": "feed",
       "rank": 3,
-      "title": "塔塔咨询将在印度海得拉巴建设 1GW AI 数据中心，预计投资 7000 亿卢比",
-      "title_zh": "塔塔咨询将在印度海得拉巴建设 1GW AI 数据中心，预计投资 7000 亿卢比",
-      "url": "https://www.ithome.com/0/998/810.htm",
+      "title": "押中SpaceX的硅谷老将，把票投给了一家中国世界模型公司",
+      "title_zh": "押中SpaceX的硅谷老将，把票投给了一家中国世界模型公司",
+      "url": "https://www.qbitai.com/2026/09/484683.html",
       "hot_value": null,
-      "summary_zh": "IT之家 9 月 5 日消息，塔塔咨询服务公司今日宣布，旗下子公司 HyperVault 已取得 264 英亩 （约 106.9 公顷） 土地，计划在印度海得拉巴打造规划容量高达 1 吉瓦（1GW）的大规模 AI 数据中心园区 。 官方表示，该数据中心可支持面向 AI 模型训练、推理以及复杂高性能计算工作负载的高密度 GPU 部署。建设将采取分期推进策略，密切匹配客户算力需求与底层技术迭代要求。全面建成后，该园区预计将跻身印度规模最大、技术最先进的 AI 基础设施园区之列。 项目落地后，预计将在当地创造数千个直接与间接就业岗位。 HyperVault 及其合作伙伴预计将投资高达 7,000 亿印度卢比 （IT之家注：现汇率约合 497.87 亿元人民币） ，用于该算力基础设施的建设与长期运营。 IT之家注意到，保时捷于当地时间 8 月 24 日，与塔塔咨询签署了一项 为期五年、价值 12.",
+      "summary_zh": "押中SpaceX的硅谷老将，把票投给了一家中国世界模型公司 量子位的朋友们 2026-09-05 22:46:15 来源： 量子位 当AI开始“预演”一场暴雨 允中 发自 凹非寺量子位 | 公众号 QbitAI 过去三年，AI证明了自己能读懂人类的语言。但尴尬的是，它依然看不懂我们身处的物理世界。 大模型缺乏通向物理世界的通路，这不是危言耸听。 2026年7月，中国南北方同时遭遇严峻洪涝考验。 南方，受台风美莎克及西南季风共同影响，广西遭遇持续强降雨。南宁市横州、宾阳等地多个站点降雨量突破历史纪录，六蓝水库发生溃口。 从监测到异常洪峰到溃口发生，留给指挥部的黄金处置时间不足30分钟，贵港郁江出现2001年以来最大洪水，洪峰水位超出警戒5.68米，一处教育园区积水最深接近三楼，上万名师生被困，全区紧急避险转移18.7万人。 几乎同期，北方也不平静：台风巴威虽未直接登陆东北，却通过远距离水汽输",
       "thumbnail": null,
-      "published_at": "2026-09-05T11:07:31+00:00",
+      "published_at": "2026-09-05T14:46:15+00:00",
       "extra": {
-        "feed_name": "IT之家",
+        "feed_name": "量子位",
         "tab": "ai",
-        "route": "/ithome/it",
+        "route": "/qbitai/category/%E8%B5%84%E8%AE%AF",
         "translate": false,
-        "description": "IT之家 9 月 5 日消息，塔塔咨询服务公司今日宣布，旗下子公司 HyperVault 已取得 264 英亩 （约 106.9 公顷） 土地，计划在印度海得拉巴打造规划容量高达 1 吉瓦（1GW）的大规模 AI 数据中心园区 。 官方表示，该数据中心可支持面向 AI 模型训练、推理以及复杂高性能计算工作负载的高密度 GPU 部署。建设将采取分期推进策略，密切匹配客户算力需求与底层技术迭代要求。全面建成后，该园区预计将跻身印度规模最大、技术最先进的 AI 基础设施园区之列。 项目落地后，预计将在当地创造数千个直接与间接就业岗位。 HyperVault 及其合作伙伴预计将投资高达 7,000 亿印度卢比 （IT之家注：现汇率约合 497.87 亿元人民币） ，用于该算力基础设施的建设与长期运营。 IT之家注意到，保时捷于当地时间 8 月 24 日，与塔塔咨询签署了一项 为期五年、价值 12.",
-        "dedupe_key": "https://www.ithome.com/0/998/810.htm"
+        "description": "押中SpaceX的硅谷老将，把票投给了一家中国世界模型公司 量子位的朋友们 2026-09-05 22:46:15 来源： 量子位 当AI开始“预演”一场暴雨 允中 发自 凹非寺量子位 | 公众号 QbitAI 过去三年，AI证明了自己能读懂人类的语言。但尴尬的是，它依然看不懂我们身处的物理世界。 大模型缺乏通向物理世界的通路，这不是危言耸听。 2026年7月，中国南北方同时遭遇严峻洪涝考验。 南方，受台风美莎克及西南季风共同影响，广西遭遇持续强降雨。南宁市横州、宾阳等地多个站点降雨量突破历史纪录，六蓝水库发生溃口。 从监测到异常洪峰到溃口发生，留给指挥部的黄金处置时间不足30分钟，贵港郁江出现2001年以来最大洪水，洪峰水位超出警戒5.68米，一处教育园区积水最深接近三楼，上万名师生被困，全区紧急避险转移18.7万人。 几乎同期，北方也不平静：台风巴威虽未直接登陆东北，却通过远距离水汽输",
+        "dedupe_key": "https://www.qbitai.com/2026/09/484683.html"
       },
       "days_on_board": 1,
       "is_new": true,
       "rank_delta": "new",
-      "cluster_id": "5909c4caaea0",
+      "cluster_id": "5b088d99040d",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-05T13:43:58.261424+00:00",
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
           "rank": 3
         }
       ]
@@ -1995,13 +1618,13 @@
     {
       "source": "telegram",
       "rank": 3,
-      "title": "🔴 CVE Digest — 05 Sep 2026 6 critical vulnerabilities 🔴 CVE-2026-86124 · CVSS 9.8 AutoAgent contains an unauthenticated remote code execution vulnerability in the TCP server that binds to all... 🔴 CVE-2026-86123 · CVSS 9.4 SQL Chat contains four unauthenticated API endpoints that accept client-suppl",
-      "title_zh": "🔴 CVE摘要 — 2026年9月5日 6个严重漏洞 🔴 CVE-2026-86124 · CVSS 9.8 AutoAgent包含一个未认证的远程代码执行漏洞，位于绑定到所有接口的TCP服务器中... 🔴 CVE-2026-86123 · CVSS 9.4 SQL Chat包含四个未认证的API端点，接受客户端提供的...",
-      "url": "https://t.me/cyber_security_feed/35529",
+      "title": "📰 BleepingComputer Over 5,400 hacked sites serve ClickFix payloads stored on the blockchain A massive cybercriminal operation is leveraging thousands of compromised small-business websites to deliver ClickFix payloads stored in smart contracts on the BNB Smart Chain (BSC). [...] #CyberNews #Infosec",
+      "title_zh": "📰 BleepingComputer 超5400个被黑网站传播存储在区块链上的ClickFix载荷 一场大规模网络犯罪行动利用数千个被入侵的小型企业网站，传播存储在BNB智能链（BSC）智能合约中的ClickFix载荷。[...] #网络新闻 #信息安全",
+      "url": "https://t.me/cyber_security_feed/35531",
       "hot_value": "5",
       "summary_zh": null,
       "thumbnail": null,
-      "published_at": "2026-09-05T12:07:17+00:00",
+      "published_at": "2026-09-05T15:07:08+00:00",
       "extra": {
         "channel": "cyber_security_feed",
         "translate": true
@@ -2009,11 +1632,11 @@
       "days_on_board": 1,
       "is_new": true,
       "rank_delta": "new",
-      "cluster_id": "8fd475482987",
+      "cluster_id": "7ca942b414e2",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-05T13:43:58.261424+00:00",
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
           "rank": 3
         }
       ]
@@ -2024,7 +1647,7 @@
       "title": "青春华章",
       "title_zh": "青春华章",
       "url": "https://s.weibo.com/weibo?q=%23%E9%9D%92%E6%98%A5%E5%8D%8E%E7%AB%A0%23",
-      "hot_value": "764842",
+      "hot_value": "866729",
       "summary_zh": null,
       "thumbnail": null,
       "published_at": null,
@@ -2032,13 +1655,45 @@
         "category": null
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "67dd56afcbb5",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-05T13:43:58.261424+00:00",
+          "rank": 3
+        },
+        {
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 3
+        }
+      ]
+    },
+    {
+      "source": "youtube",
+      "rank": 3,
+      "title": "1000 Players Simulate Mining Prison in Minecraft",
+      "title_zh": "1000名玩家在《我的世界》模拟挖矿监狱",
+      "url": "https://youtube.com/watch?v=we2dBzQxtgQ",
+      "hot_value": "732136",
+      "summary_zh": "千名玩家模拟越狱，剧情反转值得一看。",
+      "thumbnail": "https://i.ytimg.com/vi/we2dBzQxtgQ/hqdefault.jpg",
+      "published_at": "2026-09-05T13:00:30Z",
+      "extra": {
+        "video_id": "we2dBzQxtgQ",
+        "region": "US",
+        "channel": "Parrot",
+        "description": "After being captured and taken to the nether by ClownPierce... I was put into a Mining Prison, where players must mine for their own survival. But I promise that someday, somehow, I'm going to escape. This is How 1000 Players Simulate Mining Prison in Minecraft. \n\nUnstable SMP:\n➜ ‪  ‪    ‪@FlameFrag"
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "09d12559dc1c",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
           "rank": 3
         }
       ]
@@ -2049,7 +1704,7 @@
       "title": "【萌黄一槽】幻术吗，什么时候？！宇智波鼬[晓·朱]全技能爆料！",
       "title_zh": "【萌黄一槽】幻术吗，什么时候？！宇智波鼬[晓·朱]全技能爆料！",
       "url": "https://b23.tv/BV1j3t268EPc",
-      "hot_value": "649333",
+      "hot_value": "991763",
       "summary_zh": null,
       "thumbnail": "http://i0.hdslb.com/bfs/archive/1afcd84b38608668d330bd9529c85fe9b1e39236.jpg",
       "published_at": "2026-09-05T10:40:31+00:00",
@@ -2058,13 +1713,17 @@
         "owner": "火影忍者手游情报君"
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "56196ec03f70",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-05T13:43:58.261424+00:00",
+          "rank": 4
+        },
+        {
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
           "rank": 4
         }
       ]
@@ -2072,36 +1731,28 @@
     {
       "source": "douyin",
       "rank": 4,
-      "title": "台风科罗旺突破24小时警戒线",
-      "title_zh": "台风科罗旺突破24小时警戒线",
-      "url": "https://www.douyin.com/search/%E5%8F%B0%E9%A3%8E%E7%A7%91%E7%BD%97%E6%97%BA%E7%AA%81%E7%A0%B424%E5%B0%8F%E6%97%B6%E8%AD%A6%E6%88%92%E7%BA%BF",
-      "hot_value": "11922339",
+      "title": "福建莆田多地出现洪涝灾害",
+      "title_zh": "福建莆田多地出现洪涝灾害",
+      "url": "https://www.douyin.com/search/%E7%A6%8F%E5%BB%BA%E8%8E%86%E7%94%B0%E5%A4%9A%E5%9C%B0%E5%87%BA%E7%8E%B0%E6%B4%AA%E6%B6%9D%E7%81%BE%E5%AE%B3",
+      "hot_value": "11815458",
       "summary_zh": null,
-      "thumbnail": "https://p11-sign.douyinpic.com/tos-cn-p-0015/osIbIFAB9n4mAHBqmiGzfD7Bd0wAeiygN75UBB~noop.jpeg?lk3s=bfd515bb&x-expires=1788634800&x-signature=IxGH93Sido8B9olrmPqfN1ei5vM%3D&from=3218412987",
+      "thumbnail": "https://p26-sign.douyinpic.com/tos-cn-p-0015/osBWexQAG8AXeQxH8c79eN8oo9MhBCJQlD3VS3~noop.jpeg?lk3s=bfd515bb&x-expires=1788645600&x-signature=HRUe4Sgq3UoOg5ues%2FDPHeBIwf4%3D&from=3218412987",
       "published_at": null,
       "extra": {
-        "sentence_id": "2636485"
+        "sentence_id": "2636456"
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": -3,
-      "cluster_id": "afe3be863f68",
+      "rank_delta": -2,
+      "cluster_id": "12478083e759",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-05T06:59:06.242545+00:00",
-          "rank": 1
-        },
-        {
-          "run_at": "2026-09-05T07:44:06.628615+00:00",
-          "rank": 1
-        },
-        {
-          "run_at": "2026-09-05T10:44:07.499731+00:00",
-          "rank": 1
-        },
-        {
           "run_at": "2026-09-05T13:43:58.261424+00:00",
+          "rank": 2
+        },
+        {
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
           "rank": 4
         }
       ]
@@ -2109,92 +1760,29 @@
     {
       "source": "feed",
       "rank": 4,
-      "title": "奥尔特曼自曝是“超级果粉”，为苹果起诉 OpenAI 而感到难过",
-      "title_zh": "奥尔特曼自曝是“超级果粉”，为苹果起诉 OpenAI 而感到难过",
-      "url": "https://www.ithome.com/0/998/790.htm",
+      "title": "HTC 黄昭颖：手机发展至今很难再找到新的创新突破，眼下资源转向 AI 眼镜",
+      "title_zh": "HTC 黄昭颖：手机发展至今很难再找到新的创新突破，眼下资源转向 AI 眼镜",
+      "url": "https://www.ithome.com/0/998/828.htm",
       "hot_value": null,
-      "summary_zh": "IT之家 9 月 5 日消息，据《商业内幕》今天（5 日）报道，OpenAI CEO 萨姆 · 奥尔特曼一直是苹果的超级拥趸，但苹果起诉 OpenAI，让他的这份喜爱受到了“一次考验”。 奥尔特曼在接受科技记者亚历克斯 · 希思采访时坦言：“我算是苹果的超级铁粉， 所以这件事让我很难过 。” 今年 7 月，苹果对 OpenAI 提起诉讼，指控 OpenAI 为窃取苹果严密保护的商业秘密，在机构层面有组织地实施了一系列不当行为。OpenAI 否认对其他公司的商业秘密感兴趣，并称这起诉讼有负苹果“对最细微之处都反复推敲”的一贯声誉。 奥尔特曼表示，自己最初听说苹果起诉 OpenAI 时，还以为 肯定出了非常严重的问题 ：“我第一次听说的时候心想，天啊，这听起来太恶劣了，肯定有人做了很糟糕的事。我们不想要任何公司的知识产权，当然也不希望有人把一家公司的知识产权带到我们这里。” 苹果最初提交的 4",
+      "summary_zh": "IT之家 9 月 5 日消息，9 月 3 日，HTC 宣布为旗下 AI 智能眼镜 VIVE Eagle 新增全新圆框款式，同步升级多项软件功能；同时登陆欧洲、北美和澳大利亚市场，主打时尚设计、AI 功能和隐私保护。 在同日的媒体采访中，HTC 高级副总裁黄昭颖表示， 智能手机发展至今，很难再找到新的创新突破 ；现有 U24 Pro 预计今年底逐步进入产品周期尾声，接下来手机将暂退二线。 不过，黄昭颖并未完全排除重启手机业务的可能。他表示，若未来市场出现新的突破技术，HTC 仍可能重新评估； 只是眼前资源已有更明确的去处，AI 眼镜正是其中之一 。 IT之家注意到，自 2025 年推出 AI 眼镜 VIVE Eagle 后，HTC 该品类今年的营收规模已超越智能手机。在昔日奠定 HTC 品牌声量的手机业务尚未正式退市前，其内部战略已全面转向 AI。 相关阅读： 《 王雪红：HTC 已成功转型",
       "thumbnail": null,
-      "published_at": "2026-09-05T09:49:56+00:00",
+      "published_at": "2026-09-05T13:46:34+00:00",
       "extra": {
         "feed_name": "IT之家",
         "tab": "ai",
         "route": "/ithome/it",
         "translate": false,
-        "description": "IT之家 9 月 5 日消息，据《商业内幕》今天（5 日）报道，OpenAI CEO 萨姆 · 奥尔特曼一直是苹果的超级拥趸，但苹果起诉 OpenAI，让他的这份喜爱受到了“一次考验”。 奥尔特曼在接受科技记者亚历克斯 · 希思采访时坦言：“我算是苹果的超级铁粉， 所以这件事让我很难过 。” 今年 7 月，苹果对 OpenAI 提起诉讼，指控 OpenAI 为窃取苹果严密保护的商业秘密，在机构层面有组织地实施了一系列不当行为。OpenAI 否认对其他公司的商业秘密感兴趣，并称这起诉讼有负苹果“对最细微之处都反复推敲”的一贯声誉。 奥尔特曼表示，自己最初听说苹果起诉 OpenAI 时，还以为 肯定出了非常严重的问题 ：“我第一次听说的时候心想，天啊，这听起来太恶劣了，肯定有人做了很糟糕的事。我们不想要任何公司的知识产权，当然也不希望有人把一家公司的知识产权带到我们这里。” 苹果最初提交的 4",
-        "dedupe_key": "https://www.ithome.com/0/998/790.htm"
-      },
-      "days_on_board": 1,
-      "is_new": false,
-      "rank_delta": -3,
-      "cluster_id": "1191ca675387",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-05T10:44:07.499731+00:00",
-          "rank": 1
-        },
-        {
-          "run_at": "2026-09-05T13:43:58.261424+00:00",
-          "rank": 4
-        }
-      ]
-    },
-    {
-      "source": "telegram",
-      "rank": 4,
-      "title": "📰 BleepingComputer OpenAI admits it didn't disclose rogue AI wiki hijacking incident OpenAI admits it did not disclose an incident where autonomous AI agents hijacked a German wiki, created 18,000 posts, shared answers, and bypassed restrictions, saying it treated the activity as model \"misalignment",
-      "title_zh": "📰 BleepingComputer OpenAI承认未披露流氓AI wiki劫持事件 OpenAI承认未披露一起自主AI代理劫持德国wiki、创建18,000条帖子、共享答案并绕过限制的事件，称其将该活动视为模型“错位”",
-      "url": "https://t.me/cyber_security_feed/35528",
-      "hot_value": "5",
-      "summary_zh": null,
-      "thumbnail": null,
-      "published_at": "2026-09-05T12:07:08+00:00",
-      "extra": {
-        "channel": "cyber_security_feed",
-        "translate": true
+        "description": "IT之家 9 月 5 日消息，9 月 3 日，HTC 宣布为旗下 AI 智能眼镜 VIVE Eagle 新增全新圆框款式，同步升级多项软件功能；同时登陆欧洲、北美和澳大利亚市场，主打时尚设计、AI 功能和隐私保护。 在同日的媒体采访中，HTC 高级副总裁黄昭颖表示， 智能手机发展至今，很难再找到新的创新突破 ；现有 U24 Pro 预计今年底逐步进入产品周期尾声，接下来手机将暂退二线。 不过，黄昭颖并未完全排除重启手机业务的可能。他表示，若未来市场出现新的突破技术，HTC 仍可能重新评估； 只是眼前资源已有更明确的去处，AI 眼镜正是其中之一 。 IT之家注意到，自 2025 年推出 AI 眼镜 VIVE Eagle 后，HTC 该品类今年的营收规模已超越智能手机。在昔日奠定 HTC 品牌声量的手机业务尚未正式退市前，其内部战略已全面转向 AI。 相关阅读： 《 王雪红：HTC 已成功转型",
+        "dedupe_key": "https://www.ithome.com/0/998/828.htm"
       },
       "days_on_board": 1,
       "is_new": true,
       "rank_delta": "new",
-      "cluster_id": "be6d6bd9d510",
+      "cluster_id": "55b1c1047988",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-05T13:43:58.261424+00:00",
-          "rank": 4
-        }
-      ]
-    },
-    {
-      "source": "weibo",
-      "rank": 4,
-      "title": "张雅琪被花少8剪掉了",
-      "title_zh": "张雅琪被花少8剪掉了",
-      "url": "https://s.weibo.com/weibo?q=%23%E5%BC%A0%E9%9B%85%E7%90%AA%E8%A2%AB%E8%8A%B1%E5%B0%918%E5%89%AA%E6%8E%89%E4%BA%86%23",
-      "hot_value": "763210",
-      "summary_zh": null,
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "category": null
-      },
-      "days_on_board": 1,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "afbcf5927e68",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-05T07:44:06.628615+00:00",
-          "rank": 9
-        },
-        {
-          "run_at": "2026-09-05T10:44:07.499731+00:00",
-          "rank": 4
-        },
-        {
-          "run_at": "2026-09-05T13:43:58.261424+00:00",
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
           "rank": 4
         }
       ]
@@ -2529,6 +2117,82 @@
       ]
     },
     {
+      "source": "gongkao",
+      "rank": 2,
+      "title": "安琪集团2027年校园招聘启动",
+      "title_zh": "安琪集团2027年校园招聘启动",
+      "url": "https://hera-webapp.fenbi.com/api/website/article/detail?deviceType=3&id=468798982344704&app=web&av=100&hav=100&kav=100&client_context_id=",
+      "hot_value": "正在报名",
+      "summary_zh": "招考人数：若干 报名时间：2026.08.30 09:13-2026.09.29 09:13",
+      "thumbnail": null,
+      "published_at": "2026-09-02T13:42:43+00:00",
+      "extra": {
+        "id": 468798982344704,
+        "sub": "announcement",
+        "tags": [
+          "湖北",
+          "宜昌市",
+          "国企",
+          "国央企正式",
+          "2026"
+        ],
+        "province": "湖北",
+        "exam_type": "国企",
+        "startSignUpTime": 1788052380000,
+        "endSignUpTime": 1788657180000,
+        "startWriteTime": null,
+        "target_university_hit": [],
+        "city_focus_hit": []
+      },
+      "days_on_board": 1,
+      "is_new": false,
+      "rank_delta": 0,
+      "cluster_id": "62c9ceed7ce0",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-04T16:44:12.536912+00:00",
+          "rank": 2
+        },
+        {
+          "run_at": "2026-09-04T19:43:56.539533+00:00",
+          "rank": 2
+        },
+        {
+          "run_at": "2026-09-04T22:43:55.269806+00:00",
+          "rank": 2
+        },
+        {
+          "run_at": "2026-09-05T01:44:07.909533+00:00",
+          "rank": 2
+        },
+        {
+          "run_at": "2026-09-05T04:43:51.890357+00:00",
+          "rank": 2
+        },
+        {
+          "run_at": "2026-09-05T05:04:16.938707+00:00",
+          "rank": 2
+        },
+        {
+          "run_at": "2026-09-05T06:59:06.242545+00:00",
+          "rank": 2
+        },
+        {
+          "run_at": "2026-09-05T07:44:06.628615+00:00",
+          "rank": 2
+        },
+        {
+          "run_at": "2026-09-05T10:44:07.499731+00:00",
+          "rank": 2
+        },
+        {
+          "run_at": "2026-09-05T13:43:58.261424+00:00",
+          "rank": 2
+        }
+      ]
+    },
+    {
       "source": "telegram",
       "rank": 2,
       "title": "LockBit5 reportedly targeted PSC Industries, a long-standing US manufacturer, claiming access to systems and potential disruption. Incident centers on the United States. #UnitedStates #PSCIndustries #Manufacturing ➡️ https://www.hendryadrian.com/ransom-pscindustries-com-sep-2026/",
@@ -2716,6 +2380,83 @@
         },
         {
           "run_at": "2026-09-04T22:43:55.269806+00:00",
+          "rank": 3
+        }
+      ]
+    },
+    {
+      "source": "gongkao",
+      "rank": 3,
+      "title": "邢台消防公开招聘政府专职消防员公告",
+      "title_zh": "邢台消防公开招聘政府专职消防员公告",
+      "url": "https://hera-webapp.fenbi.com/api/website/article/detail?deviceType=3&id=468693508707328&app=web&av=100&hav=100&kav=100&client_context_id=",
+      "hot_value": "正在报名",
+      "summary_zh": "招考人数：172 报名时间：2026.09.01 08:30-2026.09.06 17:30",
+      "thumbnail": null,
+      "published_at": "2026-08-29T02:27:22+00:00",
+      "extra": {
+        "id": 468693508707328,
+        "sub": "announcement",
+        "tags": [
+          "河北",
+          "邢台市",
+          "2026",
+          "体制内直签非编",
+          "事业单位",
+          "邢台市消防救援支队"
+        ],
+        "province": "河北",
+        "exam_type": "事业单位",
+        "startSignUpTime": 1788222600000,
+        "endSignUpTime": 1788687000000,
+        "startWriteTime": null,
+        "target_university_hit": [],
+        "city_focus_hit": []
+      },
+      "days_on_board": 1,
+      "is_new": false,
+      "rank_delta": 0,
+      "cluster_id": "b68e10f66b5a",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-04T16:44:12.536912+00:00",
+          "rank": 3
+        },
+        {
+          "run_at": "2026-09-04T19:43:56.539533+00:00",
+          "rank": 3
+        },
+        {
+          "run_at": "2026-09-04T22:43:55.269806+00:00",
+          "rank": 3
+        },
+        {
+          "run_at": "2026-09-05T01:44:07.909533+00:00",
+          "rank": 3
+        },
+        {
+          "run_at": "2026-09-05T04:43:51.890357+00:00",
+          "rank": 3
+        },
+        {
+          "run_at": "2026-09-05T05:04:16.938707+00:00",
+          "rank": 3
+        },
+        {
+          "run_at": "2026-09-05T06:59:06.242545+00:00",
+          "rank": 3
+        },
+        {
+          "run_at": "2026-09-05T07:44:06.628615+00:00",
+          "rank": 3
+        },
+        {
+          "run_at": "2026-09-05T10:44:07.499731+00:00",
+          "rank": 3
+        },
+        {
+          "run_at": "2026-09-05T13:43:58.261424+00:00",
           "rank": 3
         }
       ]
@@ -2957,67 +2698,46 @@
       ]
     },
     {
-      "source": "nowcoder",
+      "source": "gongkao",
       "rank": 4,
-      "title": "27届秋招",
-      "title_zh": "27届秋招",
-      "url": "https://www.nowcoder.com/feed/main/detail/96d4d4b58b6e4b319f451905adde6e3b",
-      "hot_value": "命中 1 个关键词",
-      "summary_zh": null,
+      "title": "海口市消防救援局2026年招录政府专职消防员公告",
+      "title_zh": "海口市消防救援局2026年招录政府专职消防员公告",
+      "url": "https://hera-webapp.fenbi.com/api/website/article/detail?deviceType=3&id=468778043857920&app=web&av=100&hav=100&kav=100&client_context_id=",
+      "hot_value": "正在报名",
+      "summary_zh": "招考人数：133 报名时间：2026.08.28 08:00-2026.09.06 20:00",
       "thumbnail": null,
-      "published_at": null,
+      "published_at": "2026-09-01T07:09:00+00:00",
       "extra": {
-        "subsource": "rsshub",
-        "keyword_hit": [
-          "秋招"
+        "id": 468778043857920,
+        "sub": "announcement",
+        "tags": [
+          "海南",
+          "海口市",
+          "2026",
+          "体制内直签非编",
+          "事业单位"
         ],
-        "description": ""
+        "province": "海南",
+        "exam_type": "事业单位",
+        "startSignUpTime": 1787875200000,
+        "endSignUpTime": 1788652800000,
+        "startWriteTime": null,
+        "target_university_hit": [],
+        "city_focus_hit": []
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 1,
-      "cluster_id": "7546dc047d18",
+      "rank_delta": 0,
+      "cluster_id": "a67ca0fd3451",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-04T02:35:41.728138+00:00",
-          "rank": 4
-        },
-        {
-          "run_at": "2026-09-04T02:51:41.206031+00:00",
-          "rank": 4
-        },
-        {
-          "run_at": "2026-09-04T04:46:19.195629+00:00",
-          "rank": 4
-        },
-        {
-          "run_at": "2026-09-04T05:15:01.664932+00:00",
-          "rank": 4
-        },
-        {
-          "run_at": "2026-09-04T06:28:15.690114+00:00",
-          "rank": 4
-        },
-        {
-          "run_at": "2026-09-04T07:50:56.349243+00:00",
-          "rank": 4
-        },
-        {
-          "run_at": "2026-09-04T10:50:52.203202+00:00",
-          "rank": 3
-        },
-        {
-          "run_at": "2026-09-04T13:44:12.649307+00:00",
-          "rank": 3
-        },
-        {
           "run_at": "2026-09-04T16:44:12.536912+00:00",
-          "rank": 5
+          "rank": 4
         },
         {
           "run_at": "2026-09-04T19:43:56.539533+00:00",
-          "rank": 5
+          "rank": 4
         },
         {
           "run_at": "2026-09-04T22:43:55.269806+00:00",
@@ -3025,110 +2745,181 @@
         },
         {
           "run_at": "2026-09-05T01:44:07.909533+00:00",
-          "rank": 5
-        },
-        {
-          "run_at": "2026-09-05T04:43:51.890357+00:00",
-          "rank": 6
-        },
-        {
-          "run_at": "2026-09-05T05:04:16.938707+00:00",
-          "rank": 6
-        }
-      ]
-    },
-    {
-      "source": "telegram",
-      "rank": 4,
-      "title": "📰 Dark Reading Insurers Search for Answers to Rein in Rogue AI As incidents of unintended harm caused by rogue AI agents mount, CISOs and insurance firms are figuring out how to handle the fallout. #CyberNews #Infosec",
-      "title_zh": "📰 Dark Reading 保险公司寻找控制流氓AI的方法 随着流氓AI代理造成意外伤害的事件增多，CISO和保险公司正在想办法应对后果。#CyberNews #Infosec",
-      "url": "https://t.me/cyber_security_feed/35521",
-      "hot_value": "4",
-      "summary_zh": null,
-      "thumbnail": null,
-      "published_at": "2026-09-04T22:07:09+00:00",
-      "extra": {
-        "channel": "cyber_security_feed",
-        "translate": true
-      },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
-      "cluster_id": "632d195a02e3",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-04T22:43:55.269806+00:00",
           "rank": 4
         },
         {
-          "run_at": "2026-09-05T01:44:07.909533+00:00",
-          "rank": 12
-        },
-        {
           "run_at": "2026-09-05T04:43:51.890357+00:00",
-          "rank": 14
+          "rank": 4
         },
         {
           "run_at": "2026-09-05T05:04:16.938707+00:00",
-          "rank": 14
+          "rank": 4
         },
         {
           "run_at": "2026-09-05T06:59:06.242545+00:00",
-          "rank": 14
-        },
-        {
-          "run_at": "2026-09-05T07:44:06.628615+00:00",
-          "rank": 14
-        }
-      ]
-    },
-    {
-      "source": "weibo",
-      "rank": 4,
-      "title": "为什么现在这么流行耳夹式耳机",
-      "title_zh": "为什么现在这么流行耳夹式耳机",
-      "url": "https://s.weibo.com/weibo?q=%23%E4%B8%BA%E4%BB%80%E4%B9%88%E7%8E%B0%E5%9C%A8%E8%BF%99%E4%B9%88%E6%B5%81%E8%A1%8C%E8%80%B3%E5%A4%B9%E5%BC%8F%E8%80%B3%E6%9C%BA%23",
-      "hot_value": "213593",
-      "summary_zh": null,
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "category": null
-      },
-      "days_on_board": 1,
-      "is_new": false,
-      "rank_delta": -3,
-      "cluster_id": "d1eab1438a80",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-04T13:44:12.649307+00:00",
-          "rank": 24
-        },
-        {
-          "run_at": "2026-09-04T16:44:12.536912+00:00",
-          "rank": 5
-        },
-        {
-          "run_at": "2026-09-04T19:43:56.539533+00:00",
-          "rank": 1
-        },
-        {
-          "run_at": "2026-09-04T22:43:55.269806+00:00",
           "rank": 4
         },
         {
-          "run_at": "2026-09-05T01:44:07.909533+00:00",
-          "rank": 22
+          "run_at": "2026-09-05T07:44:06.628615+00:00",
+          "rank": 4
+        },
+        {
+          "run_at": "2026-09-05T10:44:07.499731+00:00",
+          "rank": 4
+        },
+        {
+          "run_at": "2026-09-05T13:43:58.261424+00:00",
+          "rank": 4
         }
       ]
     }
   ],
   "longest_on_board": [
     {
+      "source": "github",
+      "rank": 2,
+      "title": "affaan-m/ECC",
+      "title_zh": "affaan-m/ECC",
+      "url": "https://github.com/affaan-m/ECC",
+      "hot_value": "1,325 stars today",
+      "summary_zh": "智能体性能优化系统，强化记忆安全。",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "description": "The agent harness performance optimization system. Skills, instincts, memory, security, and research-first development for Claude Code, Codex, Opencode, Cursor and beyond.",
+        "language": "JavaScript"
+      },
+      "days_on_board": 6,
+      "is_new": false,
+      "rank_delta": 0,
+      "cluster_id": "9317f65b1d4f",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-02T14:08:11.969730+00:00",
+          "rank": 12
+        },
+        {
+          "run_at": "2026-09-02T19:15:05.327909+00:00",
+          "rank": 12
+        },
+        {
+          "run_at": "2026-09-02T22:24:21.398262+00:00",
+          "rank": 12
+        },
+        {
+          "run_at": "2026-09-03T05:22:12.489468+00:00",
+          "rank": 12
+        },
+        {
+          "run_at": "2026-09-03T06:33:29.828752+00:00",
+          "rank": 12
+        },
+        {
+          "run_at": "2026-09-03T09:00:07.774956+00:00",
+          "rank": 12
+        },
+        {
+          "run_at": "2026-09-03T13:21:21.222481+00:00",
+          "rank": 6
+        },
+        {
+          "run_at": "2026-09-03T14:10:41.812376+00:00",
+          "rank": 6
+        },
+        {
+          "run_at": "2026-09-03T14:38:19.864140+00:00",
+          "rank": 6
+        },
+        {
+          "run_at": "2026-09-03T19:20:03.996706+00:00",
+          "rank": 6
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 6
+        },
+        {
+          "run_at": "2026-09-04T02:35:41.728138+00:00",
+          "rank": 6
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 6
+        },
+        {
+          "run_at": "2026-09-04T04:46:19.195629+00:00",
+          "rank": 6
+        },
+        {
+          "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 6
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 6
+        },
+        {
+          "run_at": "2026-09-04T07:50:56.349243+00:00",
+          "rank": 6
+        },
+        {
+          "run_at": "2026-09-04T10:50:52.203202+00:00",
+          "rank": 4
+        },
+        {
+          "run_at": "2026-09-04T13:44:12.649307+00:00",
+          "rank": 4
+        },
+        {
+          "run_at": "2026-09-04T16:44:12.536912+00:00",
+          "rank": 4
+        },
+        {
+          "run_at": "2026-09-04T19:43:56.539533+00:00",
+          "rank": 4
+        },
+        {
+          "run_at": "2026-09-04T22:43:55.269806+00:00",
+          "rank": 4
+        },
+        {
+          "run_at": "2026-09-05T01:44:07.909533+00:00",
+          "rank": 4
+        },
+        {
+          "run_at": "2026-09-05T04:43:51.890357+00:00",
+          "rank": 4
+        },
+        {
+          "run_at": "2026-09-05T05:04:16.938707+00:00",
+          "rank": 4
+        },
+        {
+          "run_at": "2026-09-05T06:59:06.242545+00:00",
+          "rank": 4
+        },
+        {
+          "run_at": "2026-09-05T07:44:06.628615+00:00",
+          "rank": 4
+        },
+        {
+          "run_at": "2026-09-05T10:44:07.499731+00:00",
+          "rank": 2
+        },
+        {
+          "run_at": "2026-09-05T13:43:58.261424+00:00",
+          "rank": 2
+        },
+        {
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 2
+        }
+      ]
+    },
+    {
       "source": "gongkao",
-      "rank": 1,
+      "rank": 3,
       "title": "重庆市区县事业单位2026年第三季度公开招聘工作人员公告",
       "title_zh": "重庆市区县事业单位2026年第三季度公开招聘工作人员公告",
       "url": "https://hera-webapp.fenbi.com/api/website/article/detail?deviceType=3&id=468684721901568&app=web&av=100&hav=100&kav=100&client_context_id=",
@@ -3157,15 +2948,11 @@
       },
       "days_on_board": 6,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": -2,
       "cluster_id": "aae912f39f67",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-02T12:31:05.172723+00:00",
-          "rank": 26
-        },
-        {
           "run_at": "2026-09-02T14:08:11.969730+00:00",
           "rank": 26
         },
@@ -3280,307 +3067,10 @@
         {
           "run_at": "2026-09-05T13:43:58.261424+00:00",
           "rank": 1
-        }
-      ]
-    },
-    {
-      "source": "github",
-      "rank": 2,
-      "title": "affaan-m/ECC",
-      "title_zh": "affaan-m/ECC",
-      "url": "https://github.com/affaan-m/ECC",
-      "hot_value": "1,325 stars today",
-      "summary_zh": "智能体性能优化系统，强化记忆安全。",
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "description": "The agent harness performance optimization system. Skills, instincts, memory, security, and research-first development for Claude Code, Codex, Opencode, Cursor and beyond.",
-        "language": "JavaScript"
-      },
-      "days_on_board": 6,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "9317f65b1d4f",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-02T12:31:05.172723+00:00",
-          "rank": 11
         },
         {
-          "run_at": "2026-09-02T14:08:11.969730+00:00",
-          "rank": 12
-        },
-        {
-          "run_at": "2026-09-02T19:15:05.327909+00:00",
-          "rank": 12
-        },
-        {
-          "run_at": "2026-09-02T22:24:21.398262+00:00",
-          "rank": 12
-        },
-        {
-          "run_at": "2026-09-03T05:22:12.489468+00:00",
-          "rank": 12
-        },
-        {
-          "run_at": "2026-09-03T06:33:29.828752+00:00",
-          "rank": 12
-        },
-        {
-          "run_at": "2026-09-03T09:00:07.774956+00:00",
-          "rank": 12
-        },
-        {
-          "run_at": "2026-09-03T13:21:21.222481+00:00",
-          "rank": 6
-        },
-        {
-          "run_at": "2026-09-03T14:10:41.812376+00:00",
-          "rank": 6
-        },
-        {
-          "run_at": "2026-09-03T14:38:19.864140+00:00",
-          "rank": 6
-        },
-        {
-          "run_at": "2026-09-03T19:20:03.996706+00:00",
-          "rank": 6
-        },
-        {
-          "run_at": "2026-09-03T22:45:57.285881+00:00",
-          "rank": 6
-        },
-        {
-          "run_at": "2026-09-04T02:35:41.728138+00:00",
-          "rank": 6
-        },
-        {
-          "run_at": "2026-09-04T02:51:41.206031+00:00",
-          "rank": 6
-        },
-        {
-          "run_at": "2026-09-04T04:46:19.195629+00:00",
-          "rank": 6
-        },
-        {
-          "run_at": "2026-09-04T05:15:01.664932+00:00",
-          "rank": 6
-        },
-        {
-          "run_at": "2026-09-04T06:28:15.690114+00:00",
-          "rank": 6
-        },
-        {
-          "run_at": "2026-09-04T07:50:56.349243+00:00",
-          "rank": 6
-        },
-        {
-          "run_at": "2026-09-04T10:50:52.203202+00:00",
-          "rank": 4
-        },
-        {
-          "run_at": "2026-09-04T13:44:12.649307+00:00",
-          "rank": 4
-        },
-        {
-          "run_at": "2026-09-04T16:44:12.536912+00:00",
-          "rank": 4
-        },
-        {
-          "run_at": "2026-09-04T19:43:56.539533+00:00",
-          "rank": 4
-        },
-        {
-          "run_at": "2026-09-04T22:43:55.269806+00:00",
-          "rank": 4
-        },
-        {
-          "run_at": "2026-09-05T01:44:07.909533+00:00",
-          "rank": 4
-        },
-        {
-          "run_at": "2026-09-05T04:43:51.890357+00:00",
-          "rank": 4
-        },
-        {
-          "run_at": "2026-09-05T05:04:16.938707+00:00",
-          "rank": 4
-        },
-        {
-          "run_at": "2026-09-05T06:59:06.242545+00:00",
-          "rank": 4
-        },
-        {
-          "run_at": "2026-09-05T07:44:06.628615+00:00",
-          "rank": 4
-        },
-        {
-          "run_at": "2026-09-05T10:44:07.499731+00:00",
-          "rank": 2
-        },
-        {
-          "run_at": "2026-09-05T13:43:58.261424+00:00",
-          "rank": 2
-        }
-      ]
-    },
-    {
-      "source": "gongkao",
-      "rank": 5,
-      "title": "重庆市属事业单位2026年第三季度公开招聘工作人员公告",
-      "title_zh": "重庆市属事业单位2026年第三季度公开招聘工作人员公告",
-      "url": "https://hera-webapp.fenbi.com/api/website/article/detail?deviceType=3&id=468684721902592&app=web&av=100&hav=100&kav=100&client_context_id=",
-      "hot_value": "正在报名",
-      "summary_zh": "招考人数：120 报名时间：2026.08.31 09:00-2026.09.06 21:00",
-      "thumbnail": null,
-      "published_at": "2026-08-28T08:06:44+00:00",
-      "extra": {
-        "id": 468684721902592,
-        "sub": "announcement",
-        "tags": [
-          "重庆",
-          "重庆市",
-          "事业单位",
-          "2026",
-          "行政事业编",
-          "教师",
-          "联考/统考",
-          "重庆市属事业单位"
-        ],
-        "province": "重庆",
-        "exam_type": "事业单位",
-        "startSignUpTime": 1788138000000,
-        "endSignUpTime": 1788656400000,
-        "startWriteTime": null,
-        "target_university_hit": [],
-        "city_focus_hit": []
-      },
-      "days_on_board": 6,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "3f8ef919547a",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-02T12:31:05.172723+00:00",
-          "rank": 30
-        },
-        {
-          "run_at": "2026-09-02T14:08:11.969730+00:00",
-          "rank": 30
-        },
-        {
-          "run_at": "2026-09-02T19:15:05.327909+00:00",
-          "rank": 30
-        },
-        {
-          "run_at": "2026-09-02T22:24:21.398262+00:00",
-          "rank": 30
-        },
-        {
-          "run_at": "2026-09-03T05:22:12.489468+00:00",
-          "rank": 31
-        },
-        {
-          "run_at": "2026-09-03T06:33:29.828752+00:00",
-          "rank": 31
-        },
-        {
-          "run_at": "2026-09-03T09:00:07.774956+00:00",
-          "rank": 31
-        },
-        {
-          "run_at": "2026-09-03T13:21:21.222481+00:00",
-          "rank": 31
-        },
-        {
-          "run_at": "2026-09-03T14:10:41.812376+00:00",
-          "rank": 31
-        },
-        {
-          "run_at": "2026-09-03T14:38:19.864140+00:00",
-          "rank": 31
-        },
-        {
-          "run_at": "2026-09-03T19:20:03.996706+00:00",
-          "rank": 31
-        },
-        {
-          "run_at": "2026-09-03T22:45:57.285881+00:00",
-          "rank": 31
-        },
-        {
-          "run_at": "2026-09-04T02:35:41.728138+00:00",
-          "rank": 31
-        },
-        {
-          "run_at": "2026-09-04T02:51:41.206031+00:00",
-          "rank": 31
-        },
-        {
-          "run_at": "2026-09-04T04:46:19.195629+00:00",
-          "rank": 31
-        },
-        {
-          "run_at": "2026-09-04T05:15:01.664932+00:00",
-          "rank": 31
-        },
-        {
-          "run_at": "2026-09-04T06:28:15.690114+00:00",
-          "rank": 31
-        },
-        {
-          "run_at": "2026-09-04T07:50:56.349243+00:00",
-          "rank": 32
-        },
-        {
-          "run_at": "2026-09-04T10:50:52.203202+00:00",
-          "rank": 32
-        },
-        {
-          "run_at": "2026-09-04T13:44:12.649307+00:00",
-          "rank": 32
-        },
-        {
-          "run_at": "2026-09-04T16:44:12.536912+00:00",
-          "rank": 31
-        },
-        {
-          "run_at": "2026-09-04T19:43:56.539533+00:00",
-          "rank": 31
-        },
-        {
-          "run_at": "2026-09-04T22:43:55.269806+00:00",
-          "rank": 31
-        },
-        {
-          "run_at": "2026-09-05T01:44:07.909533+00:00",
-          "rank": 31
-        },
-        {
-          "run_at": "2026-09-05T04:43:51.890357+00:00",
-          "rank": 31
-        },
-        {
-          "run_at": "2026-09-05T05:04:16.938707+00:00",
-          "rank": 31
-        },
-        {
-          "run_at": "2026-09-05T06:59:06.242545+00:00",
-          "rank": 31
-        },
-        {
-          "run_at": "2026-09-05T07:44:06.628615+00:00",
-          "rank": 31
-        },
-        {
-          "run_at": "2026-09-05T10:44:07.499731+00:00",
-          "rank": 5
-        },
-        {
-          "run_at": "2026-09-05T13:43:58.261424+00:00",
-          "rank": 5
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 3
         }
       ]
     },
@@ -3621,10 +3111,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-02T12:31:05.172723+00:00",
-          "rank": 12
-        },
-        {
           "run_at": "2026-09-02T14:08:11.969730+00:00",
           "rank": 12
         },
@@ -3738,6 +3224,10 @@
         },
         {
           "run_at": "2026-09-05T13:43:58.261424+00:00",
+          "rank": 12
+        },
+        {
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
           "rank": 12
         }
       ]
@@ -3778,10 +3268,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-02T12:31:05.172723+00:00",
-          "rank": 13
-        },
-        {
           "run_at": "2026-09-02T14:08:11.969730+00:00",
           "rank": 13
         },
@@ -3895,6 +3381,10 @@
         },
         {
           "run_at": "2026-09-05T13:43:58.261424+00:00",
+          "rank": 13
+        },
+        {
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
           "rank": 13
         }
       ]
@@ -3935,10 +3425,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-02T12:31:05.172723+00:00",
-          "rank": 14
-        },
-        {
           "run_at": "2026-09-02T14:08:11.969730+00:00",
           "rank": 14
         },
@@ -4052,6 +3538,10 @@
         },
         {
           "run_at": "2026-09-05T13:43:58.261424+00:00",
+          "rank": 14
+        },
+        {
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
           "rank": 14
         }
       ]
@@ -4090,10 +3580,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-02T12:31:05.172723+00:00",
-          "rank": 16
-        },
-        {
           "run_at": "2026-09-02T14:08:11.969730+00:00",
           "rank": 16
         },
@@ -4207,6 +3693,10 @@
         },
         {
           "run_at": "2026-09-05T13:43:58.261424+00:00",
+          "rank": 17
+        },
+        {
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
           "rank": 17
         }
       ]
@@ -4248,10 +3738,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-02T12:31:05.172723+00:00",
-          "rank": 17
-        },
-        {
           "run_at": "2026-09-02T14:08:11.969730+00:00",
           "rank": 17
         },
@@ -4366,6 +3852,10 @@
         {
           "run_at": "2026-09-05T13:43:58.261424+00:00",
           "rank": 18
+        },
+        {
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 18
         }
       ]
     },
@@ -4378,7 +3868,7 @@
       "hot_value": "",
       "summary_zh": "为方便各位考生查阅，小粉笔汇总了安徽省2026年下半年事业单位联考公告，您可以根据个人需求进行查阅、筛选心仪的岗位。",
       "thumbnail": null,
-      "published_at": "2026-09-05T12:14:47+00:00",
+      "published_at": "2026-09-05T16:11:16+00:00",
       "extra": {
         "id": 468660277236736,
         "sub": "announcement",
@@ -4404,10 +3894,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-02T12:31:05.172723+00:00",
-          "rank": 18
-        },
-        {
           "run_at": "2026-09-02T14:08:11.969730+00:00",
           "rank": 18
         },
@@ -4521,6 +4007,10 @@
         },
         {
           "run_at": "2026-09-05T13:43:58.261424+00:00",
+          "rank": 19
+        },
+        {
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
           "rank": 19
         }
       ]
@@ -4561,10 +4051,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-02T12:31:05.172723+00:00",
-          "rank": 19
-        },
-        {
           "run_at": "2026-09-02T14:08:11.969730+00:00",
           "rank": 19
         },
@@ -4678,6 +4164,10 @@
         },
         {
           "run_at": "2026-09-05T13:43:58.261424+00:00",
+          "rank": 21
+        },
+        {
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
           "rank": 21
         }
       ]
@@ -4721,10 +4211,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-02T12:31:05.172723+00:00",
-          "rank": 20
-        },
-        {
           "run_at": "2026-09-02T14:08:11.969730+00:00",
           "rank": 20
         },
@@ -4838,6 +4324,10 @@
         },
         {
           "run_at": "2026-09-05T13:43:58.261424+00:00",
+          "rank": 22
+        },
+        {
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
           "rank": 22
         }
       ]
@@ -4845,162 +4335,6 @@
     {
       "source": "gongkao",
       "rank": 23,
-      "title": "名创优品科技（广州）有限公司关于公开招聘集团下属企业管理岗位的公告",
-      "title_zh": "名创优品科技（广州）有限公司关于公开招聘集团下属企业管理岗位的公告",
-      "url": "https://hera-webapp.fenbi.com/api/website/article/detail?deviceType=3&id=467897095837696&app=web&av=100&hav=100&kav=100&client_context_id=",
-      "hot_value": "",
-      "summary_zh": "招考人数：4 报名时间：2026.12.31-2026.12.31 23:59",
-      "thumbnail": null,
-      "published_at": "2026-08-03T17:34:52+00:00",
-      "extra": {
-        "id": 467897095837696,
-        "sub": "announcement",
-        "tags": [
-          "广东",
-          "广州市",
-          "国企",
-          "2026",
-          "国央企正式"
-        ],
-        "province": "广东",
-        "exam_type": "国企",
-        "startSignUpTime": 1798646400000,
-        "endSignUpTime": 1798732740000,
-        "startWriteTime": null,
-        "target_university_hit": [],
-        "city_focus_hit": []
-      },
-      "days_on_board": 6,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "cde12a757205",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-02T12:31:05.172723+00:00",
-          "rank": 21
-        },
-        {
-          "run_at": "2026-09-02T14:08:11.969730+00:00",
-          "rank": 21
-        },
-        {
-          "run_at": "2026-09-02T19:15:05.327909+00:00",
-          "rank": 21
-        },
-        {
-          "run_at": "2026-09-02T22:24:21.398262+00:00",
-          "rank": 21
-        },
-        {
-          "run_at": "2026-09-03T05:22:12.489468+00:00",
-          "rank": 22
-        },
-        {
-          "run_at": "2026-09-03T06:33:29.828752+00:00",
-          "rank": 22
-        },
-        {
-          "run_at": "2026-09-03T09:00:07.774956+00:00",
-          "rank": 22
-        },
-        {
-          "run_at": "2026-09-03T13:21:21.222481+00:00",
-          "rank": 22
-        },
-        {
-          "run_at": "2026-09-03T14:10:41.812376+00:00",
-          "rank": 22
-        },
-        {
-          "run_at": "2026-09-03T14:38:19.864140+00:00",
-          "rank": 22
-        },
-        {
-          "run_at": "2026-09-03T19:20:03.996706+00:00",
-          "rank": 22
-        },
-        {
-          "run_at": "2026-09-03T22:45:57.285881+00:00",
-          "rank": 22
-        },
-        {
-          "run_at": "2026-09-04T02:35:41.728138+00:00",
-          "rank": 22
-        },
-        {
-          "run_at": "2026-09-04T02:51:41.206031+00:00",
-          "rank": 22
-        },
-        {
-          "run_at": "2026-09-04T04:46:19.195629+00:00",
-          "rank": 22
-        },
-        {
-          "run_at": "2026-09-04T05:15:01.664932+00:00",
-          "rank": 22
-        },
-        {
-          "run_at": "2026-09-04T06:28:15.690114+00:00",
-          "rank": 22
-        },
-        {
-          "run_at": "2026-09-04T07:50:56.349243+00:00",
-          "rank": 23
-        },
-        {
-          "run_at": "2026-09-04T10:50:52.203202+00:00",
-          "rank": 23
-        },
-        {
-          "run_at": "2026-09-04T13:44:12.649307+00:00",
-          "rank": 23
-        },
-        {
-          "run_at": "2026-09-04T16:44:12.536912+00:00",
-          "rank": 23
-        },
-        {
-          "run_at": "2026-09-04T19:43:56.539533+00:00",
-          "rank": 23
-        },
-        {
-          "run_at": "2026-09-04T22:43:55.269806+00:00",
-          "rank": 23
-        },
-        {
-          "run_at": "2026-09-05T01:44:07.909533+00:00",
-          "rank": 23
-        },
-        {
-          "run_at": "2026-09-05T04:43:51.890357+00:00",
-          "rank": 23
-        },
-        {
-          "run_at": "2026-09-05T05:04:16.938707+00:00",
-          "rank": 23
-        },
-        {
-          "run_at": "2026-09-05T06:59:06.242545+00:00",
-          "rank": 23
-        },
-        {
-          "run_at": "2026-09-05T07:44:06.628615+00:00",
-          "rank": 23
-        },
-        {
-          "run_at": "2026-09-05T10:44:07.499731+00:00",
-          "rank": 23
-        },
-        {
-          "run_at": "2026-09-05T13:43:58.261424+00:00",
-          "rank": 23
-        }
-      ]
-    },
-    {
-      "source": "gongkao",
-      "rank": 24,
       "title": "安徽省徽商集团有限公司所属企业2026年社会招聘公告",
       "title_zh": "安徽省徽商集团有限公司所属企业2026年社会招聘公告",
       "url": "https://hera-webapp.fenbi.com/api/website/article/detail?deviceType=3&id=468464177010688&app=web&av=100&hav=100&kav=100&client_context_id=",
@@ -5084,14 +4418,10 @@
       },
       "days_on_board": 6,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": 1,
       "cluster_id": "4f1a63a57077",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-02T12:31:05.172723+00:00",
-          "rank": 22
-        },
         {
           "run_at": "2026-09-02T14:08:11.969730+00:00",
           "rank": 22
@@ -5207,6 +4537,166 @@
         {
           "run_at": "2026-09-05T13:43:58.261424+00:00",
           "rank": 24
+        },
+        {
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 23
+        }
+      ]
+    },
+    {
+      "source": "gongkao",
+      "rank": 24,
+      "title": "名创优品科技（广州）有限公司关于公开招聘集团下属企业管理岗位的公告",
+      "title_zh": "名创优品科技（广州）有限公司关于公开招聘集团下属企业管理岗位的公告",
+      "url": "https://hera-webapp.fenbi.com/api/website/article/detail?deviceType=3&id=467897095837696&app=web&av=100&hav=100&kav=100&client_context_id=",
+      "hot_value": "",
+      "summary_zh": "招考人数：4 报名时间：2026.12.31-2026.12.31 23:59",
+      "thumbnail": null,
+      "published_at": "2026-08-03T17:34:52+00:00",
+      "extra": {
+        "id": 467897095837696,
+        "sub": "announcement",
+        "tags": [
+          "广东",
+          "广州市",
+          "国企",
+          "2026",
+          "国央企正式"
+        ],
+        "province": "广东",
+        "exam_type": "国企",
+        "startSignUpTime": 1798646400000,
+        "endSignUpTime": 1798732740000,
+        "startWriteTime": null,
+        "target_university_hit": [],
+        "city_focus_hit": []
+      },
+      "days_on_board": 6,
+      "is_new": false,
+      "rank_delta": -1,
+      "cluster_id": "cde12a757205",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-02T14:08:11.969730+00:00",
+          "rank": 21
+        },
+        {
+          "run_at": "2026-09-02T19:15:05.327909+00:00",
+          "rank": 21
+        },
+        {
+          "run_at": "2026-09-02T22:24:21.398262+00:00",
+          "rank": 21
+        },
+        {
+          "run_at": "2026-09-03T05:22:12.489468+00:00",
+          "rank": 22
+        },
+        {
+          "run_at": "2026-09-03T06:33:29.828752+00:00",
+          "rank": 22
+        },
+        {
+          "run_at": "2026-09-03T09:00:07.774956+00:00",
+          "rank": 22
+        },
+        {
+          "run_at": "2026-09-03T13:21:21.222481+00:00",
+          "rank": 22
+        },
+        {
+          "run_at": "2026-09-03T14:10:41.812376+00:00",
+          "rank": 22
+        },
+        {
+          "run_at": "2026-09-03T14:38:19.864140+00:00",
+          "rank": 22
+        },
+        {
+          "run_at": "2026-09-03T19:20:03.996706+00:00",
+          "rank": 22
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 22
+        },
+        {
+          "run_at": "2026-09-04T02:35:41.728138+00:00",
+          "rank": 22
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 22
+        },
+        {
+          "run_at": "2026-09-04T04:46:19.195629+00:00",
+          "rank": 22
+        },
+        {
+          "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 22
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 22
+        },
+        {
+          "run_at": "2026-09-04T07:50:56.349243+00:00",
+          "rank": 23
+        },
+        {
+          "run_at": "2026-09-04T10:50:52.203202+00:00",
+          "rank": 23
+        },
+        {
+          "run_at": "2026-09-04T13:44:12.649307+00:00",
+          "rank": 23
+        },
+        {
+          "run_at": "2026-09-04T16:44:12.536912+00:00",
+          "rank": 23
+        },
+        {
+          "run_at": "2026-09-04T19:43:56.539533+00:00",
+          "rank": 23
+        },
+        {
+          "run_at": "2026-09-04T22:43:55.269806+00:00",
+          "rank": 23
+        },
+        {
+          "run_at": "2026-09-05T01:44:07.909533+00:00",
+          "rank": 23
+        },
+        {
+          "run_at": "2026-09-05T04:43:51.890357+00:00",
+          "rank": 23
+        },
+        {
+          "run_at": "2026-09-05T05:04:16.938707+00:00",
+          "rank": 23
+        },
+        {
+          "run_at": "2026-09-05T06:59:06.242545+00:00",
+          "rank": 23
+        },
+        {
+          "run_at": "2026-09-05T07:44:06.628615+00:00",
+          "rank": 23
+        },
+        {
+          "run_at": "2026-09-05T10:44:07.499731+00:00",
+          "rank": 23
+        },
+        {
+          "run_at": "2026-09-05T13:43:58.261424+00:00",
+          "rank": 23
+        },
+        {
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 24
         }
       ]
     },
@@ -5245,10 +4735,6 @@
       "cluster_id": "5195bfc48c38",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-02T12:31:05.172723+00:00",
-          "rank": 29
-        },
         {
           "run_at": "2026-09-02T14:08:11.969730+00:00",
           "rank": 29
@@ -5363,6 +4849,10 @@
         },
         {
           "run_at": "2026-09-05T13:43:58.261424+00:00",
+          "rank": 25
+        },
+        {
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
           "rank": 25
         }
       ]
@@ -5440,10 +4930,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-02T12:31:05.172723+00:00",
-          "rank": 24
-        },
-        {
           "run_at": "2026-09-02T14:08:11.969730+00:00",
           "rank": 24
         },
@@ -5557,6 +5043,10 @@
         },
         {
           "run_at": "2026-09-05T13:43:58.261424+00:00",
+          "rank": 26
+        },
+        {
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
           "rank": 26
         }
       ]
@@ -5596,10 +5086,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-02T12:31:05.172723+00:00",
-          "rank": 23
-        },
-        {
           "run_at": "2026-09-02T14:08:11.969730+00:00",
           "rank": 23
         },
@@ -5713,6 +5199,10 @@
         },
         {
           "run_at": "2026-09-05T13:43:58.261424+00:00",
+          "rank": 27
+        },
+        {
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
           "rank": 27
         }
       ]
@@ -5782,10 +5272,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-02T12:31:05.172723+00:00",
-          "rank": 25
-        },
-        {
           "run_at": "2026-09-02T14:08:11.969730+00:00",
           "rank": 25
         },
@@ -5899,6 +5385,10 @@
         },
         {
           "run_at": "2026-09-05T13:43:58.261424+00:00",
+          "rank": 28
+        },
+        {
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
           "rank": 28
         }
       ]
@@ -5940,10 +5430,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-02T12:31:05.172723+00:00",
-          "rank": 27
-        },
-        {
           "run_at": "2026-09-02T14:08:11.969730+00:00",
           "rank": 27
         },
@@ -6057,6 +5543,10 @@
         },
         {
           "run_at": "2026-09-05T13:43:58.261424+00:00",
+          "rank": 29
+        },
+        {
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
           "rank": 29
         }
       ]
@@ -6098,10 +5588,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-02T12:31:05.172723+00:00",
-          "rank": 28
-        },
-        {
           "run_at": "2026-09-02T14:08:11.969730+00:00",
           "rank": 28
         },
@@ -6216,12 +5702,175 @@
         {
           "run_at": "2026-09-05T13:43:58.261424+00:00",
           "rank": 30
+        },
+        {
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 30
         }
       ]
     },
     {
       "source": "gongkao",
-      "rank": 32,
+      "rank": 31,
+      "title": "重庆市属事业单位2026年第三季度公开招聘工作人员公告",
+      "title_zh": "重庆市属事业单位2026年第三季度公开招聘工作人员公告",
+      "url": "https://hera-webapp.fenbi.com/api/website/article/detail?deviceType=3&id=468684721902592&app=web&av=100&hav=100&kav=100&client_context_id=",
+      "hot_value": "正在报名",
+      "summary_zh": "招考人数：120 报名时间：2026.08.31 09:00-2026.09.06 21:00",
+      "thumbnail": null,
+      "published_at": "2026-08-28T08:06:44+00:00",
+      "extra": {
+        "id": 468684721902592,
+        "sub": "announcement",
+        "tags": [
+          "重庆",
+          "重庆市",
+          "事业单位",
+          "2026",
+          "行政事业编",
+          "教师",
+          "联考/统考",
+          "重庆市属事业单位"
+        ],
+        "province": "重庆",
+        "exam_type": "事业单位",
+        "startSignUpTime": 1788138000000,
+        "endSignUpTime": 1788656400000,
+        "startWriteTime": null,
+        "target_university_hit": [],
+        "city_focus_hit": []
+      },
+      "days_on_board": 6,
+      "is_new": false,
+      "rank_delta": -26,
+      "cluster_id": "3f8ef919547a",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-02T14:08:11.969730+00:00",
+          "rank": 30
+        },
+        {
+          "run_at": "2026-09-02T19:15:05.327909+00:00",
+          "rank": 30
+        },
+        {
+          "run_at": "2026-09-02T22:24:21.398262+00:00",
+          "rank": 30
+        },
+        {
+          "run_at": "2026-09-03T05:22:12.489468+00:00",
+          "rank": 31
+        },
+        {
+          "run_at": "2026-09-03T06:33:29.828752+00:00",
+          "rank": 31
+        },
+        {
+          "run_at": "2026-09-03T09:00:07.774956+00:00",
+          "rank": 31
+        },
+        {
+          "run_at": "2026-09-03T13:21:21.222481+00:00",
+          "rank": 31
+        },
+        {
+          "run_at": "2026-09-03T14:10:41.812376+00:00",
+          "rank": 31
+        },
+        {
+          "run_at": "2026-09-03T14:38:19.864140+00:00",
+          "rank": 31
+        },
+        {
+          "run_at": "2026-09-03T19:20:03.996706+00:00",
+          "rank": 31
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 31
+        },
+        {
+          "run_at": "2026-09-04T02:35:41.728138+00:00",
+          "rank": 31
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 31
+        },
+        {
+          "run_at": "2026-09-04T04:46:19.195629+00:00",
+          "rank": 31
+        },
+        {
+          "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 31
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 31
+        },
+        {
+          "run_at": "2026-09-04T07:50:56.349243+00:00",
+          "rank": 32
+        },
+        {
+          "run_at": "2026-09-04T10:50:52.203202+00:00",
+          "rank": 32
+        },
+        {
+          "run_at": "2026-09-04T13:44:12.649307+00:00",
+          "rank": 32
+        },
+        {
+          "run_at": "2026-09-04T16:44:12.536912+00:00",
+          "rank": 31
+        },
+        {
+          "run_at": "2026-09-04T19:43:56.539533+00:00",
+          "rank": 31
+        },
+        {
+          "run_at": "2026-09-04T22:43:55.269806+00:00",
+          "rank": 31
+        },
+        {
+          "run_at": "2026-09-05T01:44:07.909533+00:00",
+          "rank": 31
+        },
+        {
+          "run_at": "2026-09-05T04:43:51.890357+00:00",
+          "rank": 31
+        },
+        {
+          "run_at": "2026-09-05T05:04:16.938707+00:00",
+          "rank": 31
+        },
+        {
+          "run_at": "2026-09-05T06:59:06.242545+00:00",
+          "rank": 31
+        },
+        {
+          "run_at": "2026-09-05T07:44:06.628615+00:00",
+          "rank": 31
+        },
+        {
+          "run_at": "2026-09-05T10:44:07.499731+00:00",
+          "rank": 5
+        },
+        {
+          "run_at": "2026-09-05T13:43:58.261424+00:00",
+          "rank": 5
+        },
+        {
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 31
+        }
+      ]
+    },
+    {
+      "source": "gongkao",
+      "rank": 33,
       "title": "数字新疆建设运营有限公司面向社会公开招聘",
       "title_zh": "数字新疆建设运营有限公司面向社会公开招聘",
       "url": "https://hera-webapp.fenbi.com/api/website/article/detail?deviceType=3&id=467879131110400&app=web&av=100&hav=100&kav=100&client_context_id=",
@@ -6248,14 +5897,10 @@
       },
       "days_on_board": 6,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": -1,
       "cluster_id": "b20735aeafb3",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-02T12:31:05.172723+00:00",
-          "rank": 31
-        },
         {
           "run_at": "2026-09-02T14:08:11.969730+00:00",
           "rank": 31
@@ -6371,6 +6016,10 @@
         {
           "run_at": "2026-09-05T13:43:58.261424+00:00",
           "rank": 32
+        },
+        {
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 33
         }
       ]
     }
