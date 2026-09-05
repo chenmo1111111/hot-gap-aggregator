@@ -1,871 +1,1184 @@
 {
-  "generated_at": "2026-09-05T16:44:00.251437+00:00",
+  "generated_at": "2026-09-05T19:43:55.780608+00:00",
   "rising": [
     {
       "source": "bilibili",
-      "rank": 6,
-      "title": "我把汉堡搬到了星星上",
-      "title_zh": "我把汉堡搬到了星星上",
-      "url": "https://b23.tv/BV1Xdt26bECx",
-      "hot_value": "415057",
+      "rank": 8,
+      "title": "你是说我钓鱼还得用枪吗？",
+      "title_zh": "你是说我钓鱼还得用枪吗？",
+      "url": "https://b23.tv/BV1H6t26zEVw",
+      "hot_value": "330471",
       "summary_zh": null,
-      "thumbnail": "http://i1.hdslb.com/bfs/archive/00acb9ebe0ce9f07650b66bfdded1d7bfe0ae979.jpg",
-      "published_at": "2026-09-05T09:30:00+00:00",
+      "thumbnail": "http://i0.hdslb.com/bfs/archive/271434e1018e4dc6cfd67e6a7e7dd59e65992160.jpg",
+      "published_at": "2026-09-05T09:57:21+00:00",
       "extra": {
-        "bvid": "BV1Xdt26bECx",
-        "owner": "李炮炮儿"
+        "bvid": "BV1H6t26zEVw",
+        "owner": "与山0v0"
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 18,
-      "cluster_id": "2430273e7c8a",
+      "rank_delta": 16,
+      "cluster_id": "6ce06ce0e102",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-05T13:43:58.261424+00:00",
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
           "rank": 24
         },
         {
-          "run_at": "2026-09-05T16:44:00.251437+00:00",
-          "rank": 6
+          "run_at": "2026-09-05T19:43:55.780608+00:00",
+          "rank": 8
         }
       ]
     },
     {
-      "source": "douyin",
-      "rank": 2,
-      "title": "郑钦文美网对决凯斯",
-      "title_zh": "郑钦文美网对决凯斯",
-      "url": "https://www.douyin.com/search/%E9%83%91%E9%92%A6%E6%96%87%E7%BE%8E%E7%BD%91%E5%AF%B9%E5%86%B3%E5%87%AF%E6%96%AF",
-      "hot_value": "12093837",
-      "summary_zh": null,
-      "thumbnail": "https://p26-sign.douyinpic.com/tos-cn-p-0015/oMsbk41Eg89bDQWIWBFqAneDgWCmWAoWf5mAai~noop.jpeg?lk3s=bfd515bb&x-expires=1788645600&x-signature=1kYCF4UsMcSjI3ap807%2FYvDh6II%3D&from=3218412987",
-      "published_at": null,
+      "source": "youtube",
+      "rank": 5,
+      "title": "Comrade Kalyan - Official Teaser | Sree Vishnu | Mahima Nambiar | Janakiram Marella",
+      "title_zh": "Comrade Kalyan - 官方预告片 | Sree Vishnu | Mahima Nambiar | Janakiram Marella",
+      "url": "https://youtube.com/watch?v=Tr-4d0FYNB8",
+      "hot_value": "1051732",
+      "summary_zh": "电影预告引热议，选角争议成焦点。",
+      "thumbnail": "https://i.ytimg.com/vi/Tr-4d0FYNB8/hqdefault.jpg",
+      "published_at": "2026-09-05T11:34:13Z",
       "extra": {
-        "sentence_id": "2636484"
+        "video_id": "Tr-4d0FYNB8",
+        "region": "US",
+        "channel": "Saregama Telugu",
+        "description": "For more latest songs & videos, subscribe 👉 https://bit.ly/Saregama_Telugu\n\nPresenting the official teaser of ‘Comrade Kalyan’, starring Sree Vishnu and Mahima Nambiar in the lead roles. Directed by Janakiram Marella,  Music Composed by Vijai Bulganin.\n\nMovie Credits:\nCast & Crew Details:\nCast: Sree"
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 18,
-      "cluster_id": "bc190c529494",
+      "rank_delta": 15,
+      "cluster_id": "f644169d2dbe",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-05T06:59:06.242545+00:00",
-          "rank": 12
-        },
-        {
-          "run_at": "2026-09-05T07:44:06.628615+00:00",
-          "rank": 8
-        },
-        {
-          "run_at": "2026-09-05T10:44:07.499731+00:00",
-          "rank": 8
-        },
-        {
-          "run_at": "2026-09-05T13:43:58.261424+00:00",
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
           "rank": 20
         },
         {
-          "run_at": "2026-09-05T16:44:00.251437+00:00",
-          "rank": 2
+          "run_at": "2026-09-05T19:43:55.780608+00:00",
+          "rank": 5
         }
       ]
     },
     {
-      "source": "papers",
-      "rank": 43,
-      "title": "ESPO: Error-Structured Prompt Optimization via Diagnose, Diversify, and Stabilize",
-      "title_zh": "ESPO：通过诊断、多样化和稳定化进行错误结构化提示优化",
-      "url": "http://arxiv.org/abs/2609.04197v1",
-      "hot_value": null,
-      "summary_zh": "诸如GEPA之类的进化提示优化器存在提示膨胀问题：每次迭代都会附加规则和注意事项，产生长达3倍但准确性并未提高的提示。我们将此追溯到三个缺陷——不完整的错误观察、有限的搜索多样性和不可靠的选择——并提出ESPO（错误结构化提示优化），它将提示优化分解为三个阶段：诊断在一轮中将所有训练错误聚类为结构化模式；提议通过四种具有独立偏差的互补策略生成候选；选择应用引导稳定性选择。在七个公共NLP基准——Tweet、MMLU、GSM8K、HotpotQA、ScoNe、HoVer和PUPA上，ESPO将平均准确率提高了+3.76个百分点，优于最先进水平（74.67%对比GEPA的70.91%），在每个数据集上匹配或超过GEPA，同时生成的提示缩短47%（1,004对比1,878字符）且推理更快。跨四个额外学生模型（Gemma 3 12B、Mistral 14B、Qwen3 32B、Claude Hai",
-      "thumbnail": null,
-      "published_at": "2026-09-03T17:59:37Z",
-      "extra": {
-        "subsource": "arxiv",
-        "field": "cs.CL",
-        "doi": null,
-        "tier": "预印本",
-        "mode": "filter",
-        "description": "Evolutionary prompt optimizers such as GEPA suffer from prompt bloat: each iteration appends rules and caveats, producing prompts up to 3$\\times$ longer yet no more accurate. We trace this to three deficiencies - incomplete error observation, limited search diversity, and unreliable selection - and propose ESPO (Error-Structured Prompt Optimization), which decomposes prompt optimization into three phases: Diagnose clusters all training errors into structural patterns in one round; Propose generates candidates via four complementary strategies with independent biases; Select applies bootstrap stability selection. On seven public NLP benchmarks - Tweet, MMLU, GSM8K, HotpotQA, ScoNe, HoVer, and PUPA - ESPO improves average accuracy by $+$3.76 pp over the state-of-the-art (74.67% vs 70.91% for GEPA), matching or exceeding GEPA on every dataset while producing prompts 47% shorter (1,004 vs 1,878 chars) and faster at inference. Cross-model experiments across four additional student models (Gemma 3 12B, Mistral 14B, Qwen3 32B, Claude Haiku 4.5) show ESPO yields the best average accuracy on every model tested, with the largest gap on Qwen3 GSM8K (15.00% $\\to$ 91.40%). A generalization bound (Appendix) grounds each phase in a corresponding term of the test-time gap, and the ablation confirms a key prediction: adding diversity without bootstrap selection actually hurts performance ($-$1.20%).",
-        "identifier": "2609.04197",
-        "dedupe_key": "arxiv:2609.04197",
-        "topic_hit": [],
-        "priority_rank": 999,
-        "keyword_hit": [
-          "benchmark"
-        ]
-      },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 13,
-      "cluster_id": "fdc918f320b7",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-04T04:46:19.195629+00:00",
-          "rank": 35
-        },
-        {
-          "run_at": "2026-09-04T05:15:01.664932+00:00",
-          "rank": 35
-        },
-        {
-          "run_at": "2026-09-04T06:28:15.690114+00:00",
-          "rank": 37
-        },
-        {
-          "run_at": "2026-09-04T07:50:56.349243+00:00",
-          "rank": 37
-        },
-        {
-          "run_at": "2026-09-04T10:50:52.203202+00:00",
-          "rank": 37
-        },
-        {
-          "run_at": "2026-09-04T13:44:12.649307+00:00",
-          "rank": 38
-        },
-        {
-          "run_at": "2026-09-04T16:44:12.536912+00:00",
-          "rank": 38
-        },
-        {
-          "run_at": "2026-09-04T19:43:56.539533+00:00",
-          "rank": 38
-        },
-        {
-          "run_at": "2026-09-04T22:43:55.269806+00:00",
-          "rank": 37
-        },
-        {
-          "run_at": "2026-09-05T01:44:07.909533+00:00",
-          "rank": 56
-        },
-        {
-          "run_at": "2026-09-05T04:43:51.890357+00:00",
-          "rank": 56
-        },
-        {
-          "run_at": "2026-09-05T05:04:16.938707+00:00",
-          "rank": 56
-        },
-        {
-          "run_at": "2026-09-05T06:59:06.242545+00:00",
-          "rank": 56
-        },
-        {
-          "run_at": "2026-09-05T07:44:06.628615+00:00",
-          "rank": 56
-        },
-        {
-          "run_at": "2026-09-05T10:44:07.499731+00:00",
-          "rank": 56
-        },
-        {
-          "run_at": "2026-09-05T13:43:58.261424+00:00",
-          "rank": 56
-        },
-        {
-          "run_at": "2026-09-05T16:44:00.251437+00:00",
-          "rank": 43
-        }
-      ]
-    },
-    {
-      "source": "papers",
-      "rank": 44,
-      "title": "One Editor, Many Edits: A Unified Training-Free Framework for Diverse Video Editing",
-      "title_zh": "一个编辑器，多种编辑：用于多样化视频编辑的统一免训练框架",
-      "url": "http://arxiv.org/abs/2609.04190v1",
-      "hot_value": null,
-      "summary_zh": "视频编辑涵盖多种编辑范式，但在一个统一框架内实现高质量的指令引导和主体引导编辑仍然具有挑战性。我们引入了EditVid，一个免训练框架，结合了用于局部一致性的稀疏因果记忆、用于长程身份保持的基于对应关系的后注意力令牌注入，以及用于编辑局部性的软潜在混合。同一框架支持指令引导和参考引导的编辑，包括风格迁移、属性修改、对象插入、部分级编辑和主体替换。在FiVE上，EditVid达到了78.16的FiVE-Acc，而最强的评估免训练基线为58.95，同时在IVEBench上获得了竞争性结果。一项用户研究进一步显示，EditVid在7种竞争方法中获得了51.8%的总体偏好。",
-      "thumbnail": null,
-      "published_at": "2026-09-03T17:59:01Z",
-      "extra": {
-        "subsource": "arxiv",
-        "field": "cs.CV",
-        "doi": null,
-        "tier": "预印本",
-        "mode": "filter",
-        "description": "Video editing spans diverse editing paradigms, yet achieving high-quality instruction-guided and subject-guided editing within a single unified framework remains challenging. We introduce EditVid, a training-free framework combining sparse causal memory for local coherence, correspondence-based post-attention token injection for long-range identity preservation, and soft latent blending for edit locality. The same framework supports instruction-guided and reference-guided edits, including style transfer, attribute modification, object insertion, part-level editing, and subject replacement. On FiVE, EditVid achieves 78.16 FiVE-Acc, compared with 58.95 for the strongest evaluated training-free baseline, while obtaining competitive results on IVEBench. A user study further shows a 51.8\\% overall preference for EditVid over 7 competing methods.",
-        "identifier": "2609.04190",
-        "dedupe_key": "arxiv:2609.04190",
-        "topic_hit": [],
-        "priority_rank": 999,
-        "keyword_hit": [
-          "attention"
-        ]
-      },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 13,
-      "cluster_id": "ce9dd5767f23",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-04T04:46:19.195629+00:00",
-          "rank": 36
-        },
-        {
-          "run_at": "2026-09-04T05:15:01.664932+00:00",
-          "rank": 36
-        },
-        {
-          "run_at": "2026-09-04T06:28:15.690114+00:00",
-          "rank": 38
-        },
-        {
-          "run_at": "2026-09-04T07:50:56.349243+00:00",
-          "rank": 38
-        },
-        {
-          "run_at": "2026-09-04T10:50:52.203202+00:00",
-          "rank": 38
-        },
-        {
-          "run_at": "2026-09-04T13:44:12.649307+00:00",
-          "rank": 39
-        },
-        {
-          "run_at": "2026-09-04T16:44:12.536912+00:00",
-          "rank": 39
-        },
-        {
-          "run_at": "2026-09-04T19:43:56.539533+00:00",
-          "rank": 39
-        },
-        {
-          "run_at": "2026-09-04T22:43:55.269806+00:00",
-          "rank": 38
-        },
-        {
-          "run_at": "2026-09-05T01:44:07.909533+00:00",
-          "rank": 57
-        },
-        {
-          "run_at": "2026-09-05T04:43:51.890357+00:00",
-          "rank": 57
-        },
-        {
-          "run_at": "2026-09-05T05:04:16.938707+00:00",
-          "rank": 57
-        },
-        {
-          "run_at": "2026-09-05T06:59:06.242545+00:00",
-          "rank": 57
-        },
-        {
-          "run_at": "2026-09-05T07:44:06.628615+00:00",
-          "rank": 57
-        },
-        {
-          "run_at": "2026-09-05T10:44:07.499731+00:00",
-          "rank": 57
-        },
-        {
-          "run_at": "2026-09-05T13:43:58.261424+00:00",
-          "rank": 57
-        },
-        {
-          "run_at": "2026-09-05T16:44:00.251437+00:00",
-          "rank": 44
-        }
-      ]
-    },
-    {
-      "source": "papers",
-      "rank": 45,
-      "title": "Robust PAC Learning of Concurrent Stochastic Games",
-      "title_zh": "并发随机博弈的鲁棒PAC学习",
-      "url": "http://arxiv.org/abs/2609.04189v1",
-      "hot_value": null,
-      "summary_zh": "我们引入了第一个用于具有转移不确定性的广义和并发随机博弈（CSG）的概率近似正确（PAC）学习框架，同时解决了纳什均衡（NE）存在性的挑战。我们的算法在转移核上维护数据驱动的$L^1$置信集，并求解一个鲁棒CSG以计算社会福利最优的$\\varepsilon$-NE，使用基于鲁棒MDP的探索机制来驱动联合状态-动作覆盖。关键的是，我们引入了一个纳什边际特征，使得能够对均衡存在性进行原则性推理：该框架要么返回一个$\\varepsilon$-近似NE，其社会福利值在$\\varepsilon$-接近最优，要么提供一个合理的证书，证明不存在精确NE。在相关状态-动作对的最小可达性条件$p_{\\mathrm{reach}}>0$下，算法在多项式数量的轨迹样本后终止，样本复杂度为$\\widetilde{O}\\left( {R_{\\max}^2 H^4 |S|^2 |A| / (p_{\\mathrm{re",
-      "thumbnail": null,
-      "published_at": "2026-09-03T17:58:57Z",
-      "extra": {
-        "subsource": "arxiv",
-        "field": "cs.LG",
-        "doi": null,
-        "tier": "预印本",
-        "mode": "filter",
-        "description": "We introduce the first Probably Approximately Correct (PAC) learning framework for general-sum concurrent stochastic games (CSGs) with transition uncertainty, while addressing the challenge of Nash equilibrium (NE) existence. Our algorithm maintains data-driven $L^1$ confidence sets over transition kernels and solves a robust CSG to compute a social-welfare optimal $\\varepsilon$-NE, using a robust MDP-based exploration mechanism to drive joint state-action coverage. Crucially, we introduce a Nash margin characterisation that enables principled reasoning about equilibrium existence: the framework either returns an $\\varepsilon$-approximate NE whose social-welfare value is $\\varepsilon$-close to optimal, or provides a sound certificate that no exact NE exists. Under a minimum reachability condition $p_{\\mathrm{reach}}>0$ over relevant state-action pairs, the algorithm terminates after a polynomial number of trajectory samples, with sample complexity $\\widetilde{O}\\left( {R_{\\max}^2 H^4 |S|^2 |A| / (p_{\\mathrm{reach}} \\varepsilon^2)} \\right)$. Empirical results on benchmark CSGs demonstrate near-optimal performance, correct handling of equilibrium (non-)existence, and sample complexity consistent with theory.",
-        "identifier": "2609.04189",
-        "dedupe_key": "arxiv:2609.04189",
-        "topic_hit": [],
-        "priority_rank": 999,
-        "keyword_hit": [
-          "benchmark"
-        ]
-      },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 13,
-      "cluster_id": "67ab725b458a",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-04T04:46:19.195629+00:00",
-          "rank": 37
-        },
-        {
-          "run_at": "2026-09-04T05:15:01.664932+00:00",
-          "rank": 37
-        },
-        {
-          "run_at": "2026-09-04T06:28:15.690114+00:00",
-          "rank": 39
-        },
-        {
-          "run_at": "2026-09-04T07:50:56.349243+00:00",
-          "rank": 39
-        },
-        {
-          "run_at": "2026-09-04T10:50:52.203202+00:00",
-          "rank": 39
-        },
-        {
-          "run_at": "2026-09-04T13:44:12.649307+00:00",
-          "rank": 40
-        },
-        {
-          "run_at": "2026-09-04T16:44:12.536912+00:00",
-          "rank": 40
-        },
-        {
-          "run_at": "2026-09-04T19:43:56.539533+00:00",
-          "rank": 40
-        },
-        {
-          "run_at": "2026-09-04T22:43:55.269806+00:00",
-          "rank": 39
-        },
-        {
-          "run_at": "2026-09-05T01:44:07.909533+00:00",
-          "rank": 58
-        },
-        {
-          "run_at": "2026-09-05T04:43:51.890357+00:00",
-          "rank": 58
-        },
-        {
-          "run_at": "2026-09-05T05:04:16.938707+00:00",
-          "rank": 58
-        },
-        {
-          "run_at": "2026-09-05T06:59:06.242545+00:00",
-          "rank": 58
-        },
-        {
-          "run_at": "2026-09-05T07:44:06.628615+00:00",
-          "rank": 58
-        },
-        {
-          "run_at": "2026-09-05T10:44:07.499731+00:00",
-          "rank": 58
-        },
-        {
-          "run_at": "2026-09-05T13:43:58.261424+00:00",
-          "rank": 58
-        },
-        {
-          "run_at": "2026-09-05T16:44:00.251437+00:00",
-          "rank": 45
-        }
-      ]
-    },
-    {
-      "source": "papers",
-      "rank": 46,
-      "title": "Para-Pipe: Exploiting Hierarchical Operator Parallelism of ML Computational Graphs on SoCs",
-      "title_zh": "Para-Pipe：在SoC上利用ML计算图的层次化算子并行性",
-      "url": "http://arxiv.org/abs/2609.04168v1",
-      "hot_value": null,
-      "summary_zh": "随着边缘深度学习应用变得越来越复杂，在异构片上系统（SoC）上优化性能提出了独特的挑战。传统的流水线技术将计算分布到不同的片上处理单元，虽然对吞吐量有效，但并未解决现代神经网络因复杂相互依赖性和广泛算子并行性而带来的延迟需求。利用算子并行性来实现在多个处理单元上的并发执行，从而减少推理延迟，具有潜力。然而，优先考虑流水线或并行执行通常需要妥协，优化一个性能指标会对另一个产生不利影响。本文介绍了Para-Pipe，一个层次化映射框架，在流水线架构中集成了阶段内和阶段间的算子并行性。Para-Pipe通过选择性地微调流水线阶段内部和之间的并行级别来导航吞吐量和延迟之间的权衡。该策略可以显著减少处理器间通信开销，显著提高能效。我们的评估表明，Para-Pipe在配备ARM big.LITTLE CPU和GPU的Amlogic SoC以及配备深度学习加速器和两个DSP的黑芝麻科技SoC上生成了多个",
-      "thumbnail": null,
-      "published_at": "2026-09-03T17:53:44Z",
-      "extra": {
-        "subsource": "arxiv",
-        "field": "cs.DC",
-        "doi": "10.1109/tcad.2025.3568348",
-        "tier": "预印本",
-        "mode": "filter",
-        "description": "As edge-based deep learning applications become more complex, optimizing performance on heterogeneous System-on-Chips (SoCs) presents unique challenges. Traditional pipelining techniques distributing the computation across different on-chip processing units, while effective for throughput, do not address the latency demands posed by modern neural networks with complex interdependencies and extensive operator parallelism. There is a potential in leveraging operator parallelism to enable concurrent execution across multiple processing units, thereby reducing inference latency. However, prioritizing pipelining or parallel execution often necessitates a compromise, where optimizing one performance metric adversely impacts the other. This paper introduces Para-Pipe, a hierarchical mapping framework that integrates intra- and inter-stage operator parallelism within a pipelined architecture. Para-Pipe navigates the trade-off between throughput and latency by selectively fine-tuning parallelism levels within and across pipeline stages. This strategy can significantly reduce inter-processor communication overhead, significantly improving energy efficiency. Our evaluation demonstrates that Para-Pipe generates multiple Pareto-optimal configurations, achieving a balance between throughput and latency on an Amlogic SoC equipped with ARM big.LITTLE CPUs and GPU, as well as the Black Sesame Technology SoC featuring a deep learning accelerator and two DSPs. More importantly, throughput-optimized configurations under Para-Pipe on Amlogic SoC show an average energy efficiency improvement of 11.0% over purely pipelined strategies and 23.3% relative to non-pipelined parallel execution.",
-        "identifier": "2609.04168",
-        "dedupe_key": "doi:10.1109/tcad.2025.3568348",
-        "topic_hit": [],
-        "priority_rank": 999,
-        "keyword_hit": [
-          "deep learning"
-        ]
-      },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 13,
-      "cluster_id": "ff043896e42d",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-04T04:46:19.195629+00:00",
-          "rank": 38
-        },
-        {
-          "run_at": "2026-09-04T05:15:01.664932+00:00",
-          "rank": 38
-        },
-        {
-          "run_at": "2026-09-04T06:28:15.690114+00:00",
-          "rank": 40
-        },
-        {
-          "run_at": "2026-09-04T07:50:56.349243+00:00",
-          "rank": 40
-        },
-        {
-          "run_at": "2026-09-04T10:50:52.203202+00:00",
-          "rank": 40
-        },
-        {
-          "run_at": "2026-09-04T13:44:12.649307+00:00",
-          "rank": 41
-        },
-        {
-          "run_at": "2026-09-04T16:44:12.536912+00:00",
-          "rank": 41
-        },
-        {
-          "run_at": "2026-09-04T19:43:56.539533+00:00",
-          "rank": 41
-        },
-        {
-          "run_at": "2026-09-04T22:43:55.269806+00:00",
-          "rank": 40
-        },
-        {
-          "run_at": "2026-09-05T01:44:07.909533+00:00",
-          "rank": 59
-        },
-        {
-          "run_at": "2026-09-05T04:43:51.890357+00:00",
-          "rank": 59
-        },
-        {
-          "run_at": "2026-09-05T05:04:16.938707+00:00",
-          "rank": 59
-        },
-        {
-          "run_at": "2026-09-05T06:59:06.242545+00:00",
-          "rank": 59
-        },
-        {
-          "run_at": "2026-09-05T07:44:06.628615+00:00",
-          "rank": 59
-        },
-        {
-          "run_at": "2026-09-05T10:44:07.499731+00:00",
-          "rank": 59
-        },
-        {
-          "run_at": "2026-09-05T13:43:58.261424+00:00",
-          "rank": 59
-        },
-        {
-          "run_at": "2026-09-05T16:44:00.251437+00:00",
-          "rank": 46
-        }
-      ]
-    },
-    {
-      "source": "papers",
-      "rank": 47,
-      "title": "SWE-Gate: Passing Functional Tests Is Not Enough for Software Engineering Agents",
-      "title_zh": "SWE-Gate：通过功能测试不足以评估软件工程智能体",
-      "url": "http://arxiv.org/abs/2609.04167v1",
-      "hot_value": null,
-      "summary_zh": "仓库级软件工程基准显著推进了编码智能体的评估，但现有基准主要衡量生成的补丁是否通过功能测试，忽略了实际软件开发中常影响补丁可接受性的审查派生验收约束（审查约束）。我们引入了SWE-Gate，一个用于软件工程智能体的仓库级基准，明确评估审查约束合规性和功能正确性。SWE-Gate从真实拉取请求审查评论中派生审查约束，并围绕这些约束合成仓库级修复实例。每个实例提供单独的功能和约束测试，以及不合规和黄金补丁，从而能够明确区分问题解决能力和审查约束合规性。我们构建了包含303个仓库级修复实例的SWE-Gate，涵盖75个开源Python仓库，跨越不同软件领域。在常见编码智能体脚手架下，使用四个不同能力水平的LLM后端进行的实验揭示了功能成功与完整修复规范成功之间的显著差距：在通过功能测试的644个修复中，有221个未能满足提供的审查约束。这些发现表明，仅功能评估高估了智能体满足仓库级修复任务全部要",
-      "thumbnail": null,
-      "published_at": "2026-09-03T17:53:34Z",
-      "extra": {
-        "subsource": "arxiv",
-        "field": "cs.SE",
-        "doi": null,
-        "tier": "预印本",
-        "mode": "filter",
-        "description": "Repository-level software engineering benchmarks have significantly advanced the evaluation of coding agents, but existing benchmarks primarily measure whether generated patches pass functional tests and overlook review-derived acceptance constraints (review constraints) that often influence whether a patch is acceptable in real-world software development. We introduce SWE-Gate, a repository-level benchmark for software engineering agents that explicitly evaluates review constraint compliance alongside functional correctness. SWE-Gate derives review constraints from real pull request review comments and synthesizes repository-level repair instances around these constraints. Each instance provides separate functional and constraint tests, together with non-compliant and gold patches, enabling explicit separation between issue resolution capability and review constraint compliance. We construct SWE-Gate with 303 repository-level repair instances spanning 75 open-source Python repositories across diverse software domains. Experiments with four LLM backends spanning different capability levels under a common coding-agent scaffold reveal a substantial gap between functional success and success under the complete repair specification: among 644 repairs that pass the functional tests, 221 fail to satisfy the provided review constraints. These findings show that functional-only evaluation overestimates agents' ability to satisfy the full requirements of repository-level repair tasks. The replication package including code, data, and experimental results is available at https://github.com/DeepSoftwareAnalytics/SWE-Gate.",
-        "identifier": "2609.04167",
-        "dedupe_key": "arxiv:2609.04167",
-        "topic_hit": [],
-        "priority_rank": 999,
-        "keyword_hit": [
-          "benchmark"
-        ]
-      },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 13,
-      "cluster_id": "1e3e25dac912",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-04T04:46:19.195629+00:00",
-          "rank": 39
-        },
-        {
-          "run_at": "2026-09-04T05:15:01.664932+00:00",
-          "rank": 39
-        },
-        {
-          "run_at": "2026-09-04T06:28:15.690114+00:00",
-          "rank": 41
-        },
-        {
-          "run_at": "2026-09-04T07:50:56.349243+00:00",
-          "rank": 41
-        },
-        {
-          "run_at": "2026-09-04T10:50:52.203202+00:00",
-          "rank": 41
-        },
-        {
-          "run_at": "2026-09-04T13:44:12.649307+00:00",
-          "rank": 42
-        },
-        {
-          "run_at": "2026-09-04T16:44:12.536912+00:00",
-          "rank": 42
-        },
-        {
-          "run_at": "2026-09-04T19:43:56.539533+00:00",
-          "rank": 42
-        },
-        {
-          "run_at": "2026-09-04T22:43:55.269806+00:00",
-          "rank": 41
-        },
-        {
-          "run_at": "2026-09-05T01:44:07.909533+00:00",
-          "rank": 60
-        },
-        {
-          "run_at": "2026-09-05T04:43:51.890357+00:00",
-          "rank": 60
-        },
-        {
-          "run_at": "2026-09-05T05:04:16.938707+00:00",
-          "rank": 60
-        },
-        {
-          "run_at": "2026-09-05T06:59:06.242545+00:00",
-          "rank": 60
-        },
-        {
-          "run_at": "2026-09-05T07:44:06.628615+00:00",
-          "rank": 60
-        },
-        {
-          "run_at": "2026-09-05T10:44:07.499731+00:00",
-          "rank": 60
-        },
-        {
-          "run_at": "2026-09-05T13:43:58.261424+00:00",
-          "rank": 60
-        },
-        {
-          "run_at": "2026-09-05T16:44:00.251437+00:00",
-          "rank": 47
-        }
-      ]
-    },
-    {
-      "source": "douyin",
-      "rank": 28,
-      "title": "终南山怪虫到底是什么",
-      "title_zh": "终南山怪虫到底是什么",
-      "url": "https://www.douyin.com/search/%E7%BB%88%E5%8D%97%E5%B1%B1%E6%80%AA%E8%99%AB%E5%88%B0%E5%BA%95%E6%98%AF%E4%BB%80%E4%B9%88",
-      "hot_value": "7723696",
+      "source": "bilibili",
+      "rank": 11,
+      "title": "对面一个牢玩家李白，打我们这边4个牢玩家",
+      "title_zh": "对面一个牢玩家李白，打我们这边4个牢玩家",
+      "url": "https://b23.tv/BV1NAtr68EaE",
+      "hot_value": "1076261",
       "summary_zh": null,
-      "thumbnail": "https://p3-sign.douyinpic.com/tos-cn-p-0015/ocIAZFqFXBcVAODXIftkMCIgErgSfmovaWcA9z~noop.jpeg?lk3s=bfd515bb&x-expires=1788645600&x-signature=42zeGZzIiiboxIY1FpnndRUPqdo%3D&from=3218412987",
-      "published_at": null,
+      "thumbnail": "http://i2.hdslb.com/bfs/archive/fc92af22cf68aba66d2f415075fb51bc64a4c311.jpg",
+      "published_at": "2026-09-05T01:00:00+00:00",
       "extra": {
-        "sentence_id": "2636196"
-      },
-      "days_on_board": 1,
-      "is_new": false,
-      "rank_delta": 12,
-      "cluster_id": "2a19754dae5c",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-05T01:44:07.909533+00:00",
-          "rank": 28
-        },
-        {
-          "run_at": "2026-09-05T04:43:51.890357+00:00",
-          "rank": 26
-        },
-        {
-          "run_at": "2026-09-05T05:04:16.938707+00:00",
-          "rank": 27
-        },
-        {
-          "run_at": "2026-09-05T06:59:06.242545+00:00",
-          "rank": 25
-        },
-        {
-          "run_at": "2026-09-05T07:44:06.628615+00:00",
-          "rank": 29
-        },
-        {
-          "run_at": "2026-09-05T10:44:07.499731+00:00",
-          "rank": 20
-        },
-        {
-          "run_at": "2026-09-05T13:43:58.261424+00:00",
-          "rank": 40
-        },
-        {
-          "run_at": "2026-09-05T16:44:00.251437+00:00",
-          "rank": 28
-        }
-      ]
-    },
-    {
-      "source": "douyin",
-      "rank": 25,
-      "title": "弹壳狂放人生真Boss驾到",
-      "title_zh": "弹壳狂放人生真Boss驾到",
-      "url": "https://www.douyin.com/search/%E5%BC%B9%E5%A3%B3%E7%8B%82%E6%94%BE%E4%BA%BA%E7%94%9F%E7%9C%9FBoss%E9%A9%BE%E5%88%B0",
-      "hot_value": "7734237",
-      "summary_zh": null,
-      "thumbnail": "https://p26-sign.douyinpic.com/tos-cn-p-0015/o8AQ1CBTpIliimIPnql8paIiTOqpBA0PRaQZy~noop.jpeg?lk3s=bfd515bb&x-expires=1788645600&x-signature=OenStTinfvs1QVFWjUTYLxA4cac%3D&from=3218412987",
-      "published_at": null,
-      "extra": {
-        "sentence_id": "2636747"
+        "bvid": "BV1NAtr68EaE",
+        "owner": "磊哥游戏"
       },
       "days_on_board": 1,
       "is_new": false,
       "rank_delta": 11,
-      "cluster_id": "f72083acaf38",
+      "cluster_id": "351ef93cd5d1",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-05T13:43:58.261424+00:00",
-          "rank": 36
-        },
-        {
-          "run_at": "2026-09-05T16:44:00.251437+00:00",
-          "rank": 25
-        }
-      ]
-    },
-    {
-      "source": "bilibili",
-      "rank": 8,
-      "title": "【短的发布会】老火靓汤才够正！广汽传祺越7把舒适越野都煲到位，内外全是料",
-      "title_zh": "【短的发布会】老火靓汤才够正！广汽传祺越7把舒适越野都煲到位，内外全是料",
-      "url": "https://b23.tv/BV157tz6GEhh",
-      "hot_value": "838646",
-      "summary_zh": null,
-      "thumbnail": "http://i1.hdslb.com/bfs/archive/a2e4e478fa6c847f02189bd4384120f9666c5ae0.jpg",
-      "published_at": "2026-09-04T09:00:02+00:00",
-      "extra": {
-        "bvid": "BV157tz6GEhh",
-        "owner": "短的发布会"
-      },
-      "days_on_board": 1,
-      "is_new": false,
-      "rank_delta": 10,
-      "cluster_id": "41c0163066e4",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-05T13:43:58.261424+00:00",
-          "rank": 18
-        },
-        {
-          "run_at": "2026-09-05T16:44:00.251437+00:00",
-          "rank": 8
-        }
-      ]
-    },
-    {
-      "source": "papers",
-      "rank": 42,
-      "title": "Large Language Models for Accessible Reporting of Bioinformatics Analyses in Interdisciplinary Contexts",
-      "title_zh": "跨学科背景下用大语言模型做生物信息学分析的可读报告",
-      "url": "https://doi.org/10.1101/2025.11.09.687479",
-      "hot_value": null,
-      "summary_zh": "健康与生命科学研究者常靠定量专家做复杂数据分析，但跨学科沟通障碍常让结果解读卡壳。大语言模型（LLM）有潜力当中间人，把分析输出转成易懂的科学叙述，不过它们在真实生物医学数据分析中跨学科可靠解读的能力还不清楚。本研究里，我们看了最新LLM在真实生物信息学分析流程里当报告生成助手时表现如何，面向跨学科团队。我们用自动和人工两种评估框架来全面评价LLM生成的摘要。自动评估用基于Bloom分类法的多选题，测不同理解层次；人工评估让科学家给摘要打分，看事实一致性、无害性、全面性和连贯性。结果普遍可读且基本安全，说明它们适合做技术分析的初步翻译，但经常误读可视化内容，摘要冗长，很少给出分析里没有的新见解。我们的结论是，LLM最适合缓解跨学科沟通，而不是替代领域专长，人工监督仍必不可少，以保证准确性、解读深度和真正新颖的科学发现。",
-      "thumbnail": null,
-      "published_at": "2026-09-01",
-      "extra": {
-        "subsource": "biorxiv",
-        "field": "bioinformatics",
-        "doi": "10.1101/2025.11.09.687479",
-        "tier": "预印本",
-        "mode": "all",
-        "description": "Health and life scientists frequently rely on quantitative experts to perform complex data analyses, yet interpretation of these results often becomes a bottleneck due to communication barriers across disciplines. Large Language Models (LLMs) have the potential to act as intermediaries that translate analytical outputs into accessible scientific narratives, but their ability to reliably interpret outputs from real-world biomedical data analyses across disciplines remains unclear. In this study, we investigate how state-of-the-art LLMs behave when integrated into real bioinformatics analysis workflows as report-generation assistants for interdisciplinary teams. We evaluated LLM-generated summaries using both automated and human evaluation frameworks to ensure holistic evaluation. Automated assessment employed multiple choice questions designed using Bloom's taxonomy to assess multiple levels of understanding, while human evaluation tasked scientists to score summaries for factual consistency, lack of harmfulness, comprehensiveness, and coherence. All generally produced readable and largely safe summaries, confirming their value for first-pass translation of technical analyses, however frequently misinterpreted visualisations, produced verbose summaries and rarely offered novel insights beyond what was already contained in the analytics. Our findings suggest that LLMs are best suited for easing interdisciplinary communication rather than replacing domain expertise and human oversight remains essential to guarantee accuracy, interpretative depth, and the generation of genuinely novel scientific insights.",
-        "dedupe_key": "doi:10.1101/2025.11.09.687479",
-        "topic_hit": [
-          "生物信息"
-        ],
-        "priority_rank": 2,
-        "keyword_hit": []
-      },
-      "days_on_board": 1,
-      "is_new": false,
-      "rank_delta": 10,
-      "cluster_id": "ccc0bf215ae5",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-05T01:44:07.909533+00:00",
-          "rank": 52
-        },
-        {
-          "run_at": "2026-09-05T04:43:51.890357+00:00",
-          "rank": 52
-        },
-        {
-          "run_at": "2026-09-05T05:04:16.938707+00:00",
-          "rank": 52
-        },
         {
           "run_at": "2026-09-05T06:59:06.242545+00:00",
-          "rank": 52
+          "rank": 11
         },
         {
           "run_at": "2026-09-05T07:44:06.628615+00:00",
-          "rank": 52
+          "rank": 14
         },
         {
           "run_at": "2026-09-05T10:44:07.499731+00:00",
-          "rank": 52
+          "rank": 11
         },
         {
           "run_at": "2026-09-05T13:43:58.261424+00:00",
-          "rank": 52
+          "rank": 14
         },
         {
           "run_at": "2026-09-05T16:44:00.251437+00:00",
-          "rank": 42
-        }
-      ]
-    },
-    {
-      "source": "douyin",
-      "rank": 20,
-      "title": "李荣浩成都演唱会",
-      "title_zh": "李荣浩成都演唱会",
-      "url": "https://www.douyin.com/search/%E6%9D%8E%E8%8D%A3%E6%B5%A9%E6%88%90%E9%83%BD%E6%BC%94%E5%94%B1%E4%BC%9A",
-      "hot_value": "7797199",
-      "summary_zh": null,
-      "thumbnail": "https://p11-sign.douyinpic.com/tos-cn-p-0015c000-ce/o0ftzewomBEiVa7ICITk2ZAYu7VwAqbyBA9biy~noop.jpeg?lk3s=bfd515bb&x-expires=1788645600&x-signature=za50Pdz2rPhlsw4%2Fe7PfMrMiwf0%3D&from=3218412987",
-      "published_at": null,
-      "extra": {
-        "sentence_id": "2637038"
-      },
-      "days_on_board": 1,
-      "is_new": false,
-      "rank_delta": 9,
-      "cluster_id": "be0f77f5b070",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-05T13:43:58.261424+00:00",
-          "rank": 29
+          "rank": 22
         },
         {
-          "run_at": "2026-09-05T16:44:00.251437+00:00",
-          "rank": 20
-        }
-      ]
-    },
-    {
-      "source": "bilibili",
-      "rank": 18,
-      "title": "【花学12大历史事件逐帧解读】第一回：伦敦暖气致疯事件",
-      "title_zh": "【花学12大历史事件逐帧解读】第一回：伦敦暖气致疯事件",
-      "url": "https://b23.tv/BV1nGtC6wE9y",
-      "hot_value": "575336",
-      "summary_zh": null,
-      "thumbnail": "http://i2.hdslb.com/bfs/archive/67ddc84dc405c982e029be572655f814a56c391b.jpg",
-      "published_at": "2026-09-05T02:15:04+00:00",
-      "extra": {
-        "bvid": "BV1nGtC6wE9y",
-        "owner": "一只吐槽圆"
-      },
-      "days_on_board": 1,
-      "is_new": false,
-      "rank_delta": 8,
-      "cluster_id": "734b0642af6d",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-05T04:43:51.890357+00:00",
-          "rank": 16
-        },
-        {
-          "run_at": "2026-09-05T05:04:16.938707+00:00",
-          "rank": 15
-        },
-        {
-          "run_at": "2026-09-05T07:44:06.628615+00:00",
-          "rank": 20
-        },
-        {
-          "run_at": "2026-09-05T10:44:07.499731+00:00",
-          "rank": 23
-        },
-        {
-          "run_at": "2026-09-05T13:43:58.261424+00:00",
-          "rank": 26
-        },
-        {
-          "run_at": "2026-09-05T16:44:00.251437+00:00",
-          "rank": 18
+          "run_at": "2026-09-05T19:43:55.780608+00:00",
+          "rank": 11
         }
       ]
     },
     {
       "source": "douyin",
       "rank": 33,
-      "title": "可是我却不能够在你的身旁",
-      "title_zh": "可是我却不能够在你的身旁",
-      "url": "https://www.douyin.com/search/%E5%8F%AF%E6%98%AF%E6%88%91%E5%8D%B4%E4%B8%8D%E8%83%BD%E5%A4%9F%E5%9C%A8%E4%BD%A0%E7%9A%84%E8%BA%AB%E6%97%81",
-      "hot_value": "7708164",
+      "title": "沈阳这桌小吃谁看了不馋",
+      "title_zh": "沈阳这桌小吃谁看了不馋",
+      "url": "https://www.douyin.com/search/%E6%B2%88%E9%98%B3%E8%BF%99%E6%A1%8C%E5%B0%8F%E5%90%83%E8%B0%81%E7%9C%8B%E4%BA%86%E4%B8%8D%E9%A6%8B",
+      "hot_value": "7705242",
       "summary_zh": null,
-      "thumbnail": "https://p11-sign.douyinpic.com/tos-cn-p-0015/oElARmDsaFyIABDj3q8y9kg6BEQffAhDQ0oUmK~noop.jpeg?lk3s=bfd515bb&x-expires=1788645600&x-signature=UMn57ovoww%2FD5Y654FO0viUHpq4%3D&from=3218412987",
+      "thumbnail": "https://p26-sign.douyinpic.com/tos-cn-p-0015/o4aPIIAp3UjQOZkiUm8auTA8Qlo2BqiwvBIaI~noop.jpeg?lk3s=bfd515bb&x-expires=1788656400&x-signature=oo68qVF%2BlHtaH4odnLf%2Bj8kXKIU%3D&from=3218412987",
       "published_at": null,
       "extra": {
-        "sentence_id": "2635874"
+        "sentence_id": "2636543"
+      },
+      "days_on_board": 1,
+      "is_new": false,
+      "rank_delta": 10,
+      "cluster_id": "0879f92c824a",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-05T13:43:58.261424+00:00",
+          "rank": 44
+        },
+        {
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 43
+        },
+        {
+          "run_at": "2026-09-05T19:43:55.780608+00:00",
+          "rank": 33
+        }
+      ]
+    },
+    {
+      "source": "feed",
+      "rank": 62,
+      "title": "730 马力+三把锁！传祺越 7 预售 17.18 万元起",
+      "title_zh": "730 马力+三把锁！传祺越 7 预售 17.18 万元起",
+      "url": "https://www.ifanr.com/1678320",
+      "hot_value": null,
+      "summary_zh": "传祺的新能源方盒子也来了。 昨天晚上，广汽传祺越 7 正式开启预售。新车一共有 4 款车型，预售价为 17.98-22.58 万元，叠加预售权益后，价格为 17.18-21.78 万元。 具体来看，两驱 Pro 版和两驱 Max 版的预售权益价分别为 17.18 万元、18.78 万元；四驱 Max 版和四驱 Ultra 版分别为 20.78 万元、21.78 万元。 传祺把越 7 定位为「全场景智享硬核 SUV」，简单理解就是，它并不只想服务硬核越野玩家，而是希望把方盒子的造型和通过性，与家庭用户更看重的空间、舒适、能耗和智能化放在一起。 越 7 的长宽高分别为 5045/2004/1933mm，轴距 2900mm。根据备胎、轮眉和悬架配置不同，车身尺寸会有小幅变化。超过 5 米的车长和超过 2 米的车宽，让它在方盒子 SUV 中也属于体量较大的一类。 设计上，越 7 采用「八方美学」设",
+      "thumbnail": null,
+      "published_at": "2026-09-03T11:20:38+00:00",
+      "extra": {
+        "feed_name": "爱范儿",
+        "tab": "ai",
+        "route": "/ifanr/index",
+        "translate": false,
+        "description": "传祺的新能源方盒子也来了。 昨天晚上，广汽传祺越 7 正式开启预售。新车一共有 4 款车型，预售价为 17.98-22.58 万元，叠加预售权益后，价格为 17.18-21.78 万元。 具体来看，两驱 Pro 版和两驱 Max 版的预售权益价分别为 17.18 万元、18.78 万元；四驱 Max 版和四驱 Ultra 版分别为 20.78 万元、21.78 万元。 传祺把越 7 定位为「全场景智享硬核 SUV」，简单理解就是，它并不只想服务硬核越野玩家，而是希望把方盒子的造型和通过性，与家庭用户更看重的空间、舒适、能耗和智能化放在一起。 越 7 的长宽高分别为 5045/2004/1933mm，轴距 2900mm。根据备胎、轮眉和悬架配置不同，车身尺寸会有小幅变化。超过 5 米的车长和超过 2 米的车宽，让它在方盒子 SUV 中也属于体量较大的一类。 设计上，越 7 采用「八方美学」设",
+        "dedupe_key": "https://www.ifanr.com/1678320"
+      },
+      "days_on_board": 3,
+      "is_new": false,
+      "rank_delta": 9,
+      "cluster_id": "430aca02a9d5",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-03T14:10:41.812376+00:00",
+          "rank": 12
+        },
+        {
+          "run_at": "2026-09-03T14:38:19.864140+00:00",
+          "rank": 12
+        },
+        {
+          "run_at": "2026-09-03T19:20:03.996706+00:00",
+          "rank": 14
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 17
+        },
+        {
+          "run_at": "2026-09-04T02:35:41.728138+00:00",
+          "rank": 31
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 31
+        },
+        {
+          "run_at": "2026-09-04T04:46:19.195629+00:00",
+          "rank": 29
+        },
+        {
+          "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 29
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 29
+        },
+        {
+          "run_at": "2026-09-04T07:50:56.349243+00:00",
+          "rank": 47
+        },
+        {
+          "run_at": "2026-09-04T10:50:52.203202+00:00",
+          "rank": 49
+        },
+        {
+          "run_at": "2026-09-04T13:44:12.649307+00:00",
+          "rank": 53
+        },
+        {
+          "run_at": "2026-09-04T16:44:12.536912+00:00",
+          "rank": 64
+        },
+        {
+          "run_at": "2026-09-04T19:43:56.539533+00:00",
+          "rank": 63
+        },
+        {
+          "run_at": "2026-09-04T22:43:55.269806+00:00",
+          "rank": 64
+        },
+        {
+          "run_at": "2026-09-05T01:44:07.909533+00:00",
+          "rank": 64
+        },
+        {
+          "run_at": "2026-09-05T04:43:51.890357+00:00",
+          "rank": 65
+        },
+        {
+          "run_at": "2026-09-05T05:04:16.938707+00:00",
+          "rank": 65
+        },
+        {
+          "run_at": "2026-09-05T06:59:06.242545+00:00",
+          "rank": 70
+        },
+        {
+          "run_at": "2026-09-05T07:44:06.628615+00:00",
+          "rank": 70
+        },
+        {
+          "run_at": "2026-09-05T10:44:07.499731+00:00",
+          "rank": 71
+        },
+        {
+          "run_at": "2026-09-05T13:43:58.261424+00:00",
+          "rank": 68
+        },
+        {
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 71
+        },
+        {
+          "run_at": "2026-09-05T19:43:55.780608+00:00",
+          "rank": 62
+        }
+      ]
+    },
+    {
+      "source": "feed",
+      "rank": 63,
+      "title": "新玩意 251｜少数派的编辑们最近买了啥？",
+      "title_zh": "新玩意 251｜少数派的编辑们最近买了啥？",
+      "url": "https://sspai.com/post/114154",
+      "hot_value": null,
+      "summary_zh": "关于栏目 很多读者都会好奇少数派的编辑们到底平时都「买了啥」。我们希望通过「编辑部的新玩意」介绍编辑部成员们最近在用的新奇产品，让他们自己来谈谈这些新玩意的使用体验究竟如何。 @什么陈：洗手间置物架 参考价格：350 元 装修洗手间的时候，我在镜子这件事上多少有点「为了好看牺牲实用」。最后选了一块造型很简单的镜子，没有做常见的镜柜，视觉上确实清爽了不少，但等真正开始往洗漱台上放东西，问题也马上来了：牙刷、洗面奶、吹风机、纸巾，还有各种瓶瓶罐罐，总不能全堆在台面上。 所以后来的一段时间，我都在找一个合适的收纳方案。 市面上的洗漱台置物架其实很多，但看了一圈，总觉得差那么一点。要么是塑料要么是白/黑色金属为主，放进现在的洗手间里多少有些违和；要么就是功能已经完全固定好了，哪里放杯子、哪里挂吹风机都替你安排得明明白白。如果自己的东西刚好不符合它的布局，就只能将就着用。 最后找到的这套，吸引我的地",
+      "thumbnail": null,
+      "published_at": "2026-09-03T10:18:06+00:00",
+      "extra": {
+        "feed_name": "少数派",
+        "tab": "tools",
+        "route": "/sspai/index",
+        "translate": false,
+        "description": "关于栏目 很多读者都会好奇少数派的编辑们到底平时都「买了啥」。我们希望通过「编辑部的新玩意」介绍编辑部成员们最近在用的新奇产品，让他们自己来谈谈这些新玩意的使用体验究竟如何。 @什么陈：洗手间置物架 参考价格：350 元 装修洗手间的时候，我在镜子这件事上多少有点「为了好看牺牲实用」。最后选了一块造型很简单的镜子，没有做常见的镜柜，视觉上确实清爽了不少，但等真正开始往洗漱台上放东西，问题也马上来了：牙刷、洗面奶、吹风机、纸巾，还有各种瓶瓶罐罐，总不能全堆在台面上。 所以后来的一段时间，我都在找一个合适的收纳方案。 市面上的洗漱台置物架其实很多，但看了一圈，总觉得差那么一点。要么是塑料要么是白/黑色金属为主，放进现在的洗手间里多少有些违和；要么就是功能已经完全固定好了，哪里放杯子、哪里挂吹风机都替你安排得明明白白。如果自己的东西刚好不符合它的布局，就只能将就着用。 最后找到的这套，吸引我的地",
+        "dedupe_key": "https://sspai.com/post/114154"
+      },
+      "days_on_board": 3,
+      "is_new": false,
+      "rank_delta": 9,
+      "cluster_id": "25c3b427b51c",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-03T14:10:41.812376+00:00",
+          "rank": 14
+        },
+        {
+          "run_at": "2026-09-03T14:38:19.864140+00:00",
+          "rank": 14
+        },
+        {
+          "run_at": "2026-09-03T19:20:03.996706+00:00",
+          "rank": 16
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 19
+        },
+        {
+          "run_at": "2026-09-04T02:35:41.728138+00:00",
+          "rank": 33
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 33
+        },
+        {
+          "run_at": "2026-09-04T04:46:19.195629+00:00",
+          "rank": 31
+        },
+        {
+          "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 31
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 31
+        },
+        {
+          "run_at": "2026-09-04T07:50:56.349243+00:00",
+          "rank": 48
+        },
+        {
+          "run_at": "2026-09-04T10:50:52.203202+00:00",
+          "rank": 50
+        },
+        {
+          "run_at": "2026-09-04T13:44:12.649307+00:00",
+          "rank": 54
+        },
+        {
+          "run_at": "2026-09-04T16:44:12.536912+00:00",
+          "rank": 65
+        },
+        {
+          "run_at": "2026-09-04T19:43:56.539533+00:00",
+          "rank": 64
+        },
+        {
+          "run_at": "2026-09-04T22:43:55.269806+00:00",
+          "rank": 65
+        },
+        {
+          "run_at": "2026-09-05T01:44:07.909533+00:00",
+          "rank": 65
+        },
+        {
+          "run_at": "2026-09-05T04:43:51.890357+00:00",
+          "rank": 67
+        },
+        {
+          "run_at": "2026-09-05T05:04:16.938707+00:00",
+          "rank": 67
+        },
+        {
+          "run_at": "2026-09-05T06:59:06.242545+00:00",
+          "rank": 72
+        },
+        {
+          "run_at": "2026-09-05T07:44:06.628615+00:00",
+          "rank": 72
+        },
+        {
+          "run_at": "2026-09-05T10:44:07.499731+00:00",
+          "rank": 73
+        },
+        {
+          "run_at": "2026-09-05T13:43:58.261424+00:00",
+          "rank": 69
+        },
+        {
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 72
+        },
+        {
+          "run_at": "2026-09-05T19:43:55.780608+00:00",
+          "rank": 63
+        }
+      ]
+    },
+    {
+      "source": "feed",
+      "rank": 64,
+      "title": "TDS REVIEW | 无印良品 MUJI 头戴式蓝牙降噪耳机体验",
+      "title_zh": "TDS REVIEW | 无印良品 MUJI 头戴式蓝牙降噪耳机体验",
+      "url": "https://sspai.com/post/113998",
+      "hot_value": null,
+      "summary_zh": "这篇文章是 TDS Studio 在少数派上的第 30 篇文章，依然是全平台首发。 为什么想到突然写无印良品的耳机？其实一直以来我们都忽视了这些「生活方式品牌」或者杂货店品牌的耳机产品，但是往往对于一些「应急场景」的需求来说，MUJI 和名创优品甚至便利店会是你在出差时能够最快找到如数码收纳包、充电线、耳机之类东西的地方，而且通常前两者还有可追溯的质保。 我们在新品与评论节目里提到过名创优品的小型蓝牙头戴其实算是一个代表性产品，不是说这个产品做得有多好，从声音素质到听感其实做得都很一般，但它刚好与很多想要购买小头戴迎合复古潮流的受众能够接触到的渠道是重叠的。正好今年上半年有读者朋友跟我们说在 MUJI 看到了头戴耳机产品，这就让我们十分好奇了。于是经过一个季度的间断使用，这篇就破天荒聊聊这个此前完全不会考虑其数码产品的品牌。 包装与配件 | Package & Accessories 这个",
+      "thumbnail": null,
+      "published_at": "2026-09-03T07:00:00+00:00",
+      "extra": {
+        "feed_name": "少数派",
+        "tab": "tools",
+        "route": "/sspai/index",
+        "translate": false,
+        "description": "这篇文章是 TDS Studio 在少数派上的第 30 篇文章，依然是全平台首发。 为什么想到突然写无印良品的耳机？其实一直以来我们都忽视了这些「生活方式品牌」或者杂货店品牌的耳机产品，但是往往对于一些「应急场景」的需求来说，MUJI 和名创优品甚至便利店会是你在出差时能够最快找到如数码收纳包、充电线、耳机之类东西的地方，而且通常前两者还有可追溯的质保。 我们在新品与评论节目里提到过名创优品的小型蓝牙头戴其实算是一个代表性产品，不是说这个产品做得有多好，从声音素质到听感其实做得都很一般，但它刚好与很多想要购买小头戴迎合复古潮流的受众能够接触到的渠道是重叠的。正好今年上半年有读者朋友跟我们说在 MUJI 看到了头戴耳机产品，这就让我们十分好奇了。于是经过一个季度的间断使用，这篇就破天荒聊聊这个此前完全不会考虑其数码产品的品牌。 包装与配件 | Package & Accessories 这个",
+        "dedupe_key": "https://sspai.com/post/113998"
+      },
+      "days_on_board": 3,
+      "is_new": false,
+      "rank_delta": 9,
+      "cluster_id": "e8b7007158a7",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-03T14:10:41.812376+00:00",
+          "rank": 19
+        },
+        {
+          "run_at": "2026-09-03T14:38:19.864140+00:00",
+          "rank": 19
+        },
+        {
+          "run_at": "2026-09-03T19:20:03.996706+00:00",
+          "rank": 20
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 23
+        },
+        {
+          "run_at": "2026-09-04T02:35:41.728138+00:00",
+          "rank": 39
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 39
+        },
+        {
+          "run_at": "2026-09-04T04:46:19.195629+00:00",
+          "rank": 38
+        },
+        {
+          "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 38
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 38
+        },
+        {
+          "run_at": "2026-09-04T07:50:56.349243+00:00",
+          "rank": 53
+        },
+        {
+          "run_at": "2026-09-04T10:50:52.203202+00:00",
+          "rank": 51
+        },
+        {
+          "run_at": "2026-09-04T13:44:12.649307+00:00",
+          "rank": 56
+        },
+        {
+          "run_at": "2026-09-04T16:44:12.536912+00:00",
+          "rank": 66
+        },
+        {
+          "run_at": "2026-09-04T19:43:56.539533+00:00",
+          "rank": 65
+        },
+        {
+          "run_at": "2026-09-04T22:43:55.269806+00:00",
+          "rank": 66
+        },
+        {
+          "run_at": "2026-09-05T01:44:07.909533+00:00",
+          "rank": 67
+        },
+        {
+          "run_at": "2026-09-05T04:43:51.890357+00:00",
+          "rank": 69
+        },
+        {
+          "run_at": "2026-09-05T05:04:16.938707+00:00",
+          "rank": 69
+        },
+        {
+          "run_at": "2026-09-05T06:59:06.242545+00:00",
+          "rank": 74
+        },
+        {
+          "run_at": "2026-09-05T07:44:06.628615+00:00",
+          "rank": 74
+        },
+        {
+          "run_at": "2026-09-05T10:44:07.499731+00:00",
+          "rank": 75
+        },
+        {
+          "run_at": "2026-09-05T13:43:58.261424+00:00",
+          "rank": 70
+        },
+        {
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 73
+        },
+        {
+          "run_at": "2026-09-05T19:43:55.780608+00:00",
+          "rank": 64
+        }
+      ]
+    },
+    {
+      "source": "feed",
+      "rank": 65,
+      "title": "福建莆田特大暴雨一天下了北方多地全年降水量，有人员失联，宁德多地内涝，为什么雨量这么大？目前情况如何？",
+      "title_zh": "福建莆田特大暴雨一天下了北方多地全年降水量，有人员失联，宁德多地内涝，为什么雨量这么大？目前情况如何？",
+      "url": "https://www.zhihu.com/question/2078856515239108892",
+      "hot_value": null,
+      "summary_zh": "最新： 9月3日到4日早晨，受台风“沙德尔”环流和冷空气影响，福建莆田、秀屿、仙游出现了特大暴雨。秀屿降雨386.8毫米、仙游降雨372.8毫米，均打破当地观测史单日降水量纪录；莆田降雨416.5毫米，打破当地9月单日降水量纪录。https://baijiahao.baidu.com/s?id=1875367444730436843&wfr=spider&for=pc 记者从福建省莆田市有关部门获悉，受台风“沙德尔”带来的连日强降雨影响，该市部分民房被淹、群众被困，有人员失联。目前当地正组织救援人员对受困群众陆续进行转移。福建莆田因强降雨有人员失联 受“沙德尔”影响，过去几天，福建宁德连续多日出现强降雨，局地一度出现特大暴雨，24小时累计雨量达到近500毫米。受强降雨影响，昨天（2日）上午，宁德福鼎一处水库的水坝背水面发生了滑坡。 总台记者魏明：此次发生坝体滑坡的是宝溪水库，据水利专家介绍",
+      "thumbnail": null,
+      "published_at": "2026-09-03T06:46:56+00:00",
+      "extra": {
+        "feed_name": "知乎热榜",
+        "tab": "hot",
+        "route": "/zhihu/hot",
+        "translate": false,
+        "description": "最新： 9月3日到4日早晨，受台风“沙德尔”环流和冷空气影响，福建莆田、秀屿、仙游出现了特大暴雨。秀屿降雨386.8毫米、仙游降雨372.8毫米，均打破当地观测史单日降水量纪录；莆田降雨416.5毫米，打破当地9月单日降水量纪录。https://baijiahao.baidu.com/s?id=1875367444730436843&wfr=spider&for=pc 记者从福建省莆田市有关部门获悉，受台风“沙德尔”带来的连日强降雨影响，该市部分民房被淹、群众被困，有人员失联。目前当地正组织救援人员对受困群众陆续进行转移。福建莆田因强降雨有人员失联 受“沙德尔”影响，过去几天，福建宁德连续多日出现强降雨，局地一度出现特大暴雨，24小时累计雨量达到近500毫米。受强降雨影响，昨天（2日）上午，宁德福鼎一处水库的水坝背水面发生了滑坡。 总台记者魏明：此次发生坝体滑坡的是宝溪水库，据水利专家介绍",
+        "dedupe_key": "https://www.zhihu.com/question/2078856515239108892"
+      },
+      "days_on_board": 1,
+      "is_new": false,
+      "rank_delta": 9,
+      "cluster_id": "3e7c0c26b5fc",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-05T10:44:07.499731+00:00",
+          "rank": 76
+        },
+        {
+          "run_at": "2026-09-05T13:43:58.261424+00:00",
+          "rank": 71
+        },
+        {
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 74
+        },
+        {
+          "run_at": "2026-09-05T19:43:55.780608+00:00",
+          "rank": 65
+        }
+      ]
+    },
+    {
+      "source": "feed",
+      "rank": 66,
+      "title": "当说起「Hi-Fi」时，我们到底在追求什么？",
+      "title_zh": "当说起「Hi-Fi」时，我们到底在追求什么？",
+      "url": "https://sspai.com/post/113159",
+      "hot_value": null,
+      "summary_zh": "Matrix 首页推荐 Matrix 是少数派的写作社区，我们主张分享真实的产品体验，有实用价值的经验与思考。我们会不定期挑选 Matrix 最优质的文章，展示来自用户的最真实的体验和观点。 文章代表作者个人观点，少数派仅对标题和排版略作修改。 本文部分图片使用 AI 生成；部分有关声学工程的相关专业知识经过与 AI 的讨论和调整；本文成稿后经由 AI 润色过部分措辞和表达方式。 最初我和许多人一样，对于 Hi-Fi 产品抱有「玄学」的刻板印象，总感觉 Hi-Fi 发烧友会是能一本正经说出「嗯，水力发电供的声音果然就是比风力发电好听」这种言论的群体。当我有了更深入的了解时，我便开始能够理解为什么这些看似过时的有线听音设备会有如此魔力吸引着全世界大量的消费者。 我真正开始关注听音设备时正值 AirPods 横空出世。如今的 AirPods 已然成为苹果事实上最受欢迎的产品系列之一，TWS（真",
+      "thumbnail": null,
+      "published_at": "2026-09-03T03:32:28+00:00",
+      "extra": {
+        "feed_name": "少数派",
+        "tab": "tools",
+        "route": "/sspai/index",
+        "translate": false,
+        "description": "Matrix 首页推荐 Matrix 是少数派的写作社区，我们主张分享真实的产品体验，有实用价值的经验与思考。我们会不定期挑选 Matrix 最优质的文章，展示来自用户的最真实的体验和观点。 文章代表作者个人观点，少数派仅对标题和排版略作修改。 本文部分图片使用 AI 生成；部分有关声学工程的相关专业知识经过与 AI 的讨论和调整；本文成稿后经由 AI 润色过部分措辞和表达方式。 最初我和许多人一样，对于 Hi-Fi 产品抱有「玄学」的刻板印象，总感觉 Hi-Fi 发烧友会是能一本正经说出「嗯，水力发电供的声音果然就是比风力发电好听」这种言论的群体。当我有了更深入的了解时，我便开始能够理解为什么这些看似过时的有线听音设备会有如此魔力吸引着全世界大量的消费者。 我真正开始关注听音设备时正值 AirPods 横空出世。如今的 AirPods 已然成为苹果事实上最受欢迎的产品系列之一，TWS（真",
+        "dedupe_key": "https://sspai.com/post/113159"
+      },
+      "days_on_board": 3,
+      "is_new": false,
+      "rank_delta": 9,
+      "cluster_id": "39fe1b8bc10a",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-03T14:10:41.812376+00:00",
+          "rank": 23
+        },
+        {
+          "run_at": "2026-09-03T14:38:19.864140+00:00",
+          "rank": 23
+        },
+        {
+          "run_at": "2026-09-03T19:20:03.996706+00:00",
+          "rank": 23
+        },
+        {
+          "run_at": "2026-09-03T22:45:57.285881+00:00",
+          "rank": 26
+        },
+        {
+          "run_at": "2026-09-04T02:35:41.728138+00:00",
+          "rank": 44
+        },
+        {
+          "run_at": "2026-09-04T02:51:41.206031+00:00",
+          "rank": 44
+        },
+        {
+          "run_at": "2026-09-04T04:46:19.195629+00:00",
+          "rank": 41
+        },
+        {
+          "run_at": "2026-09-04T05:15:01.664932+00:00",
+          "rank": 41
+        },
+        {
+          "run_at": "2026-09-04T06:28:15.690114+00:00",
+          "rank": 41
+        },
+        {
+          "run_at": "2026-09-04T07:50:56.349243+00:00",
+          "rank": 55
+        },
+        {
+          "run_at": "2026-09-04T10:50:52.203202+00:00",
+          "rank": 53
+        },
+        {
+          "run_at": "2026-09-04T13:44:12.649307+00:00",
+          "rank": 58
+        },
+        {
+          "run_at": "2026-09-04T16:44:12.536912+00:00",
+          "rank": 67
+        },
+        {
+          "run_at": "2026-09-04T19:43:56.539533+00:00",
+          "rank": 67
+        },
+        {
+          "run_at": "2026-09-04T22:43:55.269806+00:00",
+          "rank": 68
+        },
+        {
+          "run_at": "2026-09-05T01:44:07.909533+00:00",
+          "rank": 69
+        },
+        {
+          "run_at": "2026-09-05T04:43:51.890357+00:00",
+          "rank": 71
+        },
+        {
+          "run_at": "2026-09-05T05:04:16.938707+00:00",
+          "rank": 71
+        },
+        {
+          "run_at": "2026-09-05T06:59:06.242545+00:00",
+          "rank": 75
+        },
+        {
+          "run_at": "2026-09-05T07:44:06.628615+00:00",
+          "rank": 75
+        },
+        {
+          "run_at": "2026-09-05T10:44:07.499731+00:00",
+          "rank": 77
+        },
+        {
+          "run_at": "2026-09-05T13:43:58.261424+00:00",
+          "rank": 72
+        },
+        {
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 75
+        },
+        {
+          "run_at": "2026-09-05T19:43:55.780608+00:00",
+          "rank": 66
+        }
+      ]
+    },
+    {
+      "source": "feed",
+      "rank": 67,
+      "title": "为什么足球运动员要专门练习非惯用脚？",
+      "title_zh": "为什么足球运动员要专门练习非惯用脚？",
+      "url": "https://www.zhihu.com/question/2078804533359142248",
+      "hot_value": null,
+      "summary_zh": null,
+      "thumbnail": null,
+      "published_at": "2026-09-03T03:20:23+00:00",
+      "extra": {
+        "feed_name": "知乎热榜",
+        "tab": "hot",
+        "route": "/zhihu/hot",
+        "translate": false,
+        "description": "",
+        "dedupe_key": "https://www.zhihu.com/question/2078804533359142248"
+      },
+      "days_on_board": 1,
+      "is_new": false,
+      "rank_delta": 9,
+      "cluster_id": "6bf674ed22da",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 76
+        },
+        {
+          "run_at": "2026-09-05T19:43:55.780608+00:00",
+          "rank": 67
+        }
+      ]
+    },
+    {
+      "source": "feed",
+      "rank": 68,
+      "title": "《周处除三害》导演新作《荡荡荡寇志》剧照流出，张家辉、阮经天、贾静雯造型颠覆，能复刻前作的口碑吗？",
+      "title_zh": "《周处除三害》导演新作《荡荡荡寇志》剧照流出，张家辉、阮经天、贾静雯造型颠覆，能复刻前作的口碑吗？",
+      "url": "https://www.zhihu.com/question/2078796105559400662",
+      "hot_value": null,
+      "summary_zh": "《周处除三害》导演新片《荡荡荡寇志》发布角色剧照。 张家辉、阮经天、贾静雯、陈以文、张孝全、宋芸桦等主演。 故事围绕一个名为南埠“和兴”的黑帮，揭开一场横跨20年的兄弟恩怨与江湖情仇。“和兴四虎”掌事人伍哥(陈以文饰)与澎湃(张孝全饰)、牡丹(贾静雯饰)、春生(张家辉饰)、还有忠心耿耿的司机一狗(阮经天饰) 并肩打天下。 一次意外，他们闯进“和平饭堂”，与饭堂老板小熊结下不解之缘，却因小熊离世，让这段兄弟情义破碎。二十年后，伍哥踏上北岸寻找春生，意外掀起一场危机重重的拯救行动，昔日兄弟之间的恩怨情仇再度浮上台面，迎来最后决战。",
+      "thumbnail": null,
+      "published_at": "2026-09-03T02:46:53+00:00",
+      "extra": {
+        "feed_name": "知乎热榜",
+        "tab": "hot",
+        "route": "/zhihu/hot",
+        "translate": false,
+        "description": "《周处除三害》导演新片《荡荡荡寇志》发布角色剧照。 张家辉、阮经天、贾静雯、陈以文、张孝全、宋芸桦等主演。 故事围绕一个名为南埠“和兴”的黑帮，揭开一场横跨20年的兄弟恩怨与江湖情仇。“和兴四虎”掌事人伍哥(陈以文饰)与澎湃(张孝全饰)、牡丹(贾静雯饰)、春生(张家辉饰)、还有忠心耿耿的司机一狗(阮经天饰) 并肩打天下。 一次意外，他们闯进“和平饭堂”，与饭堂老板小熊结下不解之缘，却因小熊离世，让这段兄弟情义破碎。二十年后，伍哥踏上北岸寻找春生，意外掀起一场危机重重的拯救行动，昔日兄弟之间的恩怨情仇再度浮上台面，迎来最后决战。",
+        "dedupe_key": "https://www.zhihu.com/question/2078796105559400662"
+      },
+      "days_on_board": 1,
+      "is_new": false,
+      "rank_delta": 9,
+      "cluster_id": "3a846cd21d14",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-05T13:43:58.261424+00:00",
+          "rank": 73
+        },
+        {
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 77
+        },
+        {
+          "run_at": "2026-09-05T19:43:55.780608+00:00",
+          "rank": 68
+        }
+      ]
+    },
+    {
+      "source": "youtube",
+      "rank": 13,
+      "title": "Que Se Siente",
+      "title_zh": "Que Se Siente",
+      "url": "https://youtube.com/watch?v=4VGKgcj0kFM",
+      "hot_value": "154328",
+      "summary_zh": "新歌发布，旋律动感值得一听。",
+      "thumbnail": "https://i.ytimg.com/vi/4VGKgcj0kFM/hqdefault.jpg",
+      "published_at": "2026-09-03T10:02:19Z",
+      "extra": {
+        "video_id": "4VGKgcj0kFM",
+        "region": "US",
+        "channel": "Eley Romero - Topic",
+        "description": "Provided to YouTube by Colonize Media, Inc.\n\nQue Se Siente · Eley Romero · Adrian L Santos\n\nQue Se Siente\n\n℗ 2026 La Empresa Music, Inc.\n\nReleased on: 2026-09-04\n\nProducer: Robert Jaramillo\nVocals: Eley Romero\nExecutive Producer: Robert Jaramillo\nVocals: Adrian L Santos\nMusic Publisher: La Empresa H"
+      },
+      "days_on_board": 1,
+      "is_new": false,
+      "rank_delta": 9,
+      "cluster_id": "e1211267e7d1",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 22
+        },
+        {
+          "run_at": "2026-09-05T19:43:55.780608+00:00",
+          "rank": 13
+        }
+      ]
+    },
+    {
+      "source": "bilibili",
+      "rank": 5,
+      "title": "全B站最垃圾的一期视频",
+      "title_zh": "全B站最垃圾的一期视频",
+      "url": "https://b23.tv/BV1sxtk6YEGp",
+      "hot_value": "1835540",
+      "summary_zh": null,
+      "thumbnail": "http://i1.hdslb.com/bfs/archive/f49c3e26b86db67d7914485877b22f2f949998f7.jpg",
+      "published_at": "2026-09-04T23:00:00+00:00",
+      "extra": {
+        "bvid": "BV1sxtk6YEGp",
+        "owner": "小潮院长"
+      },
+      "days_on_board": 1,
+      "is_new": false,
+      "rank_delta": 8,
+      "cluster_id": "c6a4fc799602",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-05T04:43:51.890357+00:00",
+          "rank": 3
+        },
+        {
+          "run_at": "2026-09-05T05:04:16.938707+00:00",
+          "rank": 3
+        },
+        {
+          "run_at": "2026-09-05T06:59:06.242545+00:00",
+          "rank": 3
+        },
+        {
+          "run_at": "2026-09-05T07:44:06.628615+00:00",
+          "rank": 4
+        },
+        {
+          "run_at": "2026-09-05T10:44:07.499731+00:00",
+          "rank": 4
+        },
+        {
+          "run_at": "2026-09-05T13:43:58.261424+00:00",
+          "rank": 7
+        },
+        {
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 13
+        },
+        {
+          "run_at": "2026-09-05T19:43:55.780608+00:00",
+          "rank": 5
+        }
+      ]
+    },
+    {
+      "source": "feed",
+      "rank": 22,
+      "title": "早报｜苹果将迎来史上最大产品发布潮/微信小微内测Agent间沟通/何庭波发布「韬定律」新论文",
+      "title_zh": "早报｜苹果将迎来史上最大产品发布潮/微信小微内测Agent间沟通/何庭波发布「韬定律」新论文",
+      "url": "https://www.ifanr.com/1677342",
+      "hot_value": null,
+      "summary_zh": "✨ 苹果将迎来史上最大产品发布潮 📌 GPT-6 Astra 全量发布 🔐 Anthropic 宣布 Claude 完成费马大定理端到端形式化证明 📱 曝折叠屏 iPhone 8 月底日产仅数百台 🚗 特斯拉 Cybercab 首秀，在奥斯汀开放乘坐服务 🤖 曝微信小微内测 Agent 间沟通，双方确认后再交换信息 ✨ 千问办公上线一个月，用户突破 3000 万 💸 存储涨价推高手机成本，全球在售机型平均涨价约 15% 🔬 何庭波发布「韬定律」新论文，披露麒麟 2026 功耗测试 📰 Adobe 确定新 CEO，纳拉延将转任执行董事长 📉 大众汽车追加裁员计划，德国四座工厂将陆续停产 🏛️ 车用固态电池三项国标计划年底征求意见 📌 LVMH 股价跌至 2020 年以来最低 🔎 康佳主动退市进入表决阶段，A、B 股已停牌 💵 Nscale 寻求 35 亿美元 IPO 前融资，英伟达拟出资 2",
+      "thumbnail": null,
+      "published_at": "2026-09-05T00:44:17+00:00",
+      "extra": {
+        "feed_name": "爱范儿",
+        "tab": "ai",
+        "route": "/ifanr/index",
+        "translate": false,
+        "description": "✨ 苹果将迎来史上最大产品发布潮 📌 GPT-6 Astra 全量发布 🔐 Anthropic 宣布 Claude 完成费马大定理端到端形式化证明 📱 曝折叠屏 iPhone 8 月底日产仅数百台 🚗 特斯拉 Cybercab 首秀，在奥斯汀开放乘坐服务 🤖 曝微信小微内测 Agent 间沟通，双方确认后再交换信息 ✨ 千问办公上线一个月，用户突破 3000 万 💸 存储涨价推高手机成本，全球在售机型平均涨价约 15% 🔬 何庭波发布「韬定律」新论文，披露麒麟 2026 功耗测试 📰 Adobe 确定新 CEO，纳拉延将转任执行董事长 📉 大众汽车追加裁员计划，德国四座工厂将陆续停产 🏛️ 车用固态电池三项国标计划年底征求意见 📌 LVMH 股价跌至 2020 年以来最低 🔎 康佳主动退市进入表决阶段，A、B 股已停牌 💵 Nscale 寻求 35 亿美元 IPO 前融资，英伟达拟出资 2",
+        "dedupe_key": "https://www.ifanr.com/1677342"
+      },
+      "days_on_board": 1,
+      "is_new": false,
+      "rank_delta": 8,
+      "cluster_id": "4c5088afd7a4",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-05T01:44:07.909533+00:00",
+          "rank": 4
+        },
+        {
+          "run_at": "2026-09-05T04:43:51.890357+00:00",
+          "rank": 9
+        },
+        {
+          "run_at": "2026-09-05T05:04:16.938707+00:00",
+          "rank": 9
+        },
+        {
+          "run_at": "2026-09-05T06:59:06.242545+00:00",
+          "rank": 12
+        },
+        {
+          "run_at": "2026-09-05T07:44:06.628615+00:00",
+          "rank": 12
+        },
+        {
+          "run_at": "2026-09-05T10:44:07.499731+00:00",
+          "rank": 19
+        },
+        {
+          "run_at": "2026-09-05T13:43:58.261424+00:00",
+          "rank": 26
+        },
+        {
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 30
+        },
+        {
+          "run_at": "2026-09-05T19:43:55.780608+00:00",
+          "rank": 22
+        }
+      ]
+    },
+    {
+      "source": "feed",
+      "rank": 23,
+      "title": "联合国警告称升温1.5℃已无法避免，能做的只有压低超额升温，这是否意味着变暖要失控了？",
+      "title_zh": "联合国警告称升温1.5℃已无法避免，能做的只有压低超额升温，这是否意味着变暖要失控了？",
+      "url": "https://www.zhihu.com/question/2079482537852811188",
+      "hot_value": null,
+      "summary_zh": "前段时间联合国环境规划署（UNEP）发布警告称，1.5℃升温已经无法避免，即便在最优排放路径之下最终升温仍然可达1.8℃。 并进一步指出，现阶段我们能做的只有尽可能的压低超额升温，并将超额升温的时间尽量缩短，每多升温0.1℃都会带来重大影响。 这是否意味着全球变暖即将失控，或者说我们彻底失败了？联合国呼吁限制全球升温超1.5摄氏度的幅度和时间-新华网",
+      "thumbnail": null,
+      "published_at": "2026-09-05T00:14:31+00:00",
+      "extra": {
+        "feed_name": "知乎热榜",
+        "tab": "hot",
+        "route": "/zhihu/hot",
+        "translate": false,
+        "description": "前段时间联合国环境规划署（UNEP）发布警告称，1.5℃升温已经无法避免，即便在最优排放路径之下最终升温仍然可达1.8℃。 并进一步指出，现阶段我们能做的只有尽可能的压低超额升温，并将超额升温的时间尽量缩短，每多升温0.1℃都会带来重大影响。 这是否意味着全球变暖即将失控，或者说我们彻底失败了？联合国呼吁限制全球升温超1.5摄氏度的幅度和时间-新华网",
+        "dedupe_key": "https://www.zhihu.com/question/2079482537852811188"
+      },
+      "days_on_board": 1,
+      "is_new": false,
+      "rank_delta": 8,
+      "cluster_id": "eba618489d4b",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 31
+        },
+        {
+          "run_at": "2026-09-05T19:43:55.780608+00:00",
+          "rank": 23
+        }
+      ]
+    },
+    {
+      "source": "feed",
+      "rank": 24,
+      "title": "王楚钦退赛「1000」分卫冕积分将清零，如何影响其世界排名及赛程？",
+      "title_zh": "王楚钦退赛「1000」分卫冕积分将清零，如何影响其世界排名及赛程？",
+      "url": "https://www.zhihu.com/question/2079351258750641660",
+      "hot_value": null,
+      "summary_zh": "WTT世界乒联9月4日官宣，因肩膝旧伤复发退出2026年澳门冠军赛，他去年在此夺冠的1000分卫冕积分即将到期清零，世界第一排名虽暂时守住但领先优势大幅缩水。退赛直接后果 积分清零：按WTT 52周滚动积分规则，冠军积分满一年自动失效，无法通过缺席保留。王楚钦2025年澳门站夺冠的1000分将于近期到期扣除，改由其重庆冠军赛八强的300分递补，总积分从8857分降至7857分。",
+      "thumbnail": null,
+      "published_at": "2026-09-04T15:32:52+00:00",
+      "extra": {
+        "feed_name": "知乎热榜",
+        "tab": "hot",
+        "route": "/zhihu/hot",
+        "translate": false,
+        "description": "WTT世界乒联9月4日官宣，因肩膝旧伤复发退出2026年澳门冠军赛，他去年在此夺冠的1000分卫冕积分即将到期清零，世界第一排名虽暂时守住但领先优势大幅缩水。退赛直接后果 积分清零：按WTT 52周滚动积分规则，冠军积分满一年自动失效，无法通过缺席保留。王楚钦2025年澳门站夺冠的1000分将于近期到期扣除，改由其重庆冠军赛八强的300分递补，总积分从8857分降至7857分。",
+        "dedupe_key": "https://www.zhihu.com/question/2079351258750641660"
+      },
+      "days_on_board": 1,
+      "is_new": false,
+      "rank_delta": 8,
+      "cluster_id": "a3dc00ce558d",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-05T10:44:07.499731+00:00",
+          "rank": 21
+        },
+        {
+          "run_at": "2026-09-05T13:43:58.261424+00:00",
+          "rank": 27
+        },
+        {
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 32
+        },
+        {
+          "run_at": "2026-09-05T19:43:55.780608+00:00",
+          "rank": 24
+        }
+      ]
+    },
+    {
+      "source": "feed",
+      "rank": 25,
+      "title": "24.99 万元起、全系四激光雷达，启境 GX7 还准备了一件「午休神器」",
+      "title_zh": "24.99 万元起、全系四激光雷达，启境 GX7 还准备了一件「午休神器」",
+      "url": "https://www.ifanr.com/1678459",
+      "hot_value": null,
+      "summary_zh": "9 月 4 日，启境 GX7 开启预售，这次预售一共推出三个版本，均以「Ultra」开头： GX7 Ultra 定价 24.99 万元，采用 200kW 单电机后驱，配备 52kWh 磷酸铁锂电池，CLTC 纯电续航 340km、综合续航 1580km，使用连续可变阻尼减振器。 GX7 Ultra 双电机四驱定价 26.99 万元，采用 340kW 双电机系统，同样配备 52kWh 磷酸铁锂电池，CLTC 纯电续航 325km、综合续航 1500km，增加闭式双腔空气悬架。 GX7 Ultra 三电机四驱定价 31.19 万元，配备 67kWh 三元锂电池，CLTC 纯电续航 385km、综合续航 1530km。同时提供 800V 高压平台、5C 快充、闭式双腔空气悬架、21 英寸前后鸳鸯胎。 预售期间支付 1999 元意向金，可以膨胀为 5999 元，用来兑换二排极致舒享套装，或直接抵扣",
+      "thumbnail": null,
+      "published_at": "2026-09-04T13:09:26+00:00",
+      "extra": {
+        "feed_name": "爱范儿",
+        "tab": "ai",
+        "route": "/ifanr/index",
+        "translate": false,
+        "description": "9 月 4 日，启境 GX7 开启预售，这次预售一共推出三个版本，均以「Ultra」开头： GX7 Ultra 定价 24.99 万元，采用 200kW 单电机后驱，配备 52kWh 磷酸铁锂电池，CLTC 纯电续航 340km、综合续航 1580km，使用连续可变阻尼减振器。 GX7 Ultra 双电机四驱定价 26.99 万元，采用 340kW 双电机系统，同样配备 52kWh 磷酸铁锂电池，CLTC 纯电续航 325km、综合续航 1500km，增加闭式双腔空气悬架。 GX7 Ultra 三电机四驱定价 31.19 万元，配备 67kWh 三元锂电池，CLTC 纯电续航 385km、综合续航 1530km。同时提供 800V 高压平台、5C 快充、闭式双腔空气悬架、21 英寸前后鸳鸯胎。 预售期间支付 1999 元意向金，可以膨胀为 5999 元，用来兑换二排极致舒享套装，或直接抵扣",
+        "dedupe_key": "https://www.ifanr.com/1678459"
       },
       "days_on_board": 2,
       "is_new": false,
       "rank_delta": 8,
-      "cluster_id": "f067f18c7199",
+      "cluster_id": "89de32c7bde2",
       "cluster_size": 1,
       "rank_history": [
         {
+          "run_at": "2026-09-04T13:44:12.649307+00:00",
+          "rank": 2
+        },
+        {
           "run_at": "2026-09-04T16:44:12.536912+00:00",
-          "rank": 19
+          "rank": 8
         },
         {
           "run_at": "2026-09-04T19:43:56.539533+00:00",
-          "rank": 19
+          "rank": 8
         },
         {
           "run_at": "2026-09-04T22:43:55.269806+00:00",
-          "rank": 19
+          "rank": 8
         },
         {
           "run_at": "2026-09-05T01:44:07.909533+00:00",
-          "rank": 25
+          "rank": 13
         },
         {
           "run_at": "2026-09-05T04:43:51.890357+00:00",
+          "rank": 17
+        },
+        {
+          "run_at": "2026-09-05T05:04:16.938707+00:00",
+          "rank": 17
+        },
+        {
+          "run_at": "2026-09-05T06:59:06.242545+00:00",
+          "rank": 21
+        },
+        {
+          "run_at": "2026-09-05T07:44:06.628615+00:00",
+          "rank": 21
+        },
+        {
+          "run_at": "2026-09-05T10:44:07.499731+00:00",
+          "rank": 25
+        },
+        {
+          "run_at": "2026-09-05T13:43:58.261424+00:00",
           "rank": 28
+        },
+        {
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 33
+        },
+        {
+          "run_at": "2026-09-05T19:43:55.780608+00:00",
+          "rank": 25
+        }
+      ]
+    },
+    {
+      "source": "feed",
+      "rank": 26,
+      "title": "本周看什么 | 最近值得一看的 8 部作品",
+      "title_zh": "本周看什么 | 最近值得一看的 8 部作品",
+      "url": "https://sspai.com/post/114175",
+      "hot_value": null,
+      "summary_zh": "☕️ TL;DR 近期佳作推荐： [美剧] 人生复本 第二季、[英剧] 不眠 第三季、[美剧] 成年人 第二季、[国产] 邻人可疑、[电影] 太空见习生、[电影] 凤仙花、[动画] 与奔驰于透明之夜的你，谈一场看不见的恋爱。、[真人秀] 柯南势在必行 第三季 几则精彩预告： 《哈利·波特》剧集先导预告、《街头霸王》新预告、《墨》首支预告、《野兽之心》新预告 几则影视资讯： 《宝可梦 Wild Card》2027 年上映、《星际牛仔 天国之门》重映海报、《药师少女的独语》真人版 2028 年上线、《黑球》发布新海报 往期推荐可 点此 或点击文末 tag #本周看什么，更多主题片单可 点此 查看；想要查看更多深度影视内容，可以关注我们的衍生栏目「 看什么 Café 」。如有其他建议也欢迎在评论区提出，感谢大家对「看什么」栏目的喜爱和支持。 [美剧] 人生复本 第二季 关键词：科幻 又名：Dar",
+      "thumbnail": null,
+      "published_at": "2026-09-04T09:32:48+00:00",
+      "extra": {
+        "feed_name": "少数派",
+        "tab": "tools",
+        "route": "/sspai/index",
+        "translate": false,
+        "description": "☕️ TL;DR 近期佳作推荐： [美剧] 人生复本 第二季、[英剧] 不眠 第三季、[美剧] 成年人 第二季、[国产] 邻人可疑、[电影] 太空见习生、[电影] 凤仙花、[动画] 与奔驰于透明之夜的你，谈一场看不见的恋爱。、[真人秀] 柯南势在必行 第三季 几则精彩预告： 《哈利·波特》剧集先导预告、《街头霸王》新预告、《墨》首支预告、《野兽之心》新预告 几则影视资讯： 《宝可梦 Wild Card》2027 年上映、《星际牛仔 天国之门》重映海报、《药师少女的独语》真人版 2028 年上线、《黑球》发布新海报 往期推荐可 点此 或点击文末 tag #本周看什么，更多主题片单可 点此 查看；想要查看更多深度影视内容，可以关注我们的衍生栏目「 看什么 Café 」。如有其他建议也欢迎在评论区提出，感谢大家对「看什么」栏目的喜爱和支持。 [美剧] 人生复本 第二季 关键词：科幻 又名：Dar",
+        "dedupe_key": "https://sspai.com/post/114175"
+      },
+      "days_on_board": 2,
+      "is_new": false,
+      "rank_delta": 8,
+      "cluster_id": "a5c73e402d74",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-04T10:50:52.203202+00:00",
+          "rank": 1
+        },
+        {
+          "run_at": "2026-09-04T13:44:12.649307+00:00",
+          "rank": 4
+        },
+        {
+          "run_at": "2026-09-04T16:44:12.536912+00:00",
+          "rank": 10
+        },
+        {
+          "run_at": "2026-09-04T19:43:56.539533+00:00",
+          "rank": 10
+        },
+        {
+          "run_at": "2026-09-04T22:43:55.269806+00:00",
+          "rank": 11
+        },
+        {
+          "run_at": "2026-09-05T01:44:07.909533+00:00",
+          "rank": 17
+        },
+        {
+          "run_at": "2026-09-05T04:43:51.890357+00:00",
+          "rank": 22
+        },
+        {
+          "run_at": "2026-09-05T05:04:16.938707+00:00",
+          "rank": 22
+        },
+        {
+          "run_at": "2026-09-05T06:59:06.242545+00:00",
+          "rank": 26
+        },
+        {
+          "run_at": "2026-09-05T07:44:06.628615+00:00",
+          "rank": 26
+        },
+        {
+          "run_at": "2026-09-05T10:44:07.499731+00:00",
+          "rank": 29
+        },
+        {
+          "run_at": "2026-09-05T13:43:58.261424+00:00",
+          "rank": 29
+        },
+        {
+          "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 34
+        },
+        {
+          "run_at": "2026-09-05T19:43:55.780608+00:00",
+          "rank": 26
+        }
+      ]
+    },
+    {
+      "source": "feed",
+      "rank": 27,
+      "title": "趋境科技与摩尔线程达成战略合作，高品质 AI Token 国产异构方案性价比超越国际先进算力",
+      "title_zh": "趋境科技与摩尔线程达成战略合作，高品质 AI Token 国产异构方案性价比超越国际先进算力",
+      "url": "https://www.qbitai.com/2026/09/484547.html",
+      "hot_value": null,
+      "summary_zh": "趋境科技与摩尔线程达成战略合作，高品质 AI Token 国产异构方案性价比超越国际先进算力 量子位的朋友们 2026-09-04 17:23:24 来源： 量子位 国产卡跑出高品质 AI Token 生产级性能 9月3日，趋境科技与摩尔线程签署战略合作协议。此次合作以趋境科技自研的国产 PD 异构技术与摩尔线程 MTT S5000 智算卡与 MUSA 软件平台的深度融合为基础，双方将持续推进基于趋境科技 ATaaS 平台的国产化高品质 AI Token 工厂建设，并共同研发和推广以 Token Pod（Token 超节点）为载体的联合解决方案。 目前，相关方案已投入生产，并承接头部模型厂商官方业务的真实 Token 流量。在同等生产服务标准下，该方案兼顾国产算力的生产级性能与单位 AI Token 成本优势， 整体性价比超越国际先进算力方案。 这一进展也标志着趋境科技携手摩尔线程， 率先",
+      "thumbnail": null,
+      "published_at": "2026-09-04T09:23:24+00:00",
+      "extra": {
+        "feed_name": "量子位",
+        "tab": "ai",
+        "route": "/qbitai/category/%E8%B5%84%E8%AE%AF",
+        "translate": false,
+        "description": "趋境科技与摩尔线程达成战略合作，高品质 AI Token 国产异构方案性价比超越国际先进算力 量子位的朋友们 2026-09-04 17:23:24 来源： 量子位 国产卡跑出高品质 AI Token 生产级性能 9月3日，趋境科技与摩尔线程签署战略合作协议。此次合作以趋境科技自研的国产 PD 异构技术与摩尔线程 MTT S5000 智算卡与 MUSA 软件平台的深度融合为基础，双方将持续推进基于趋境科技 ATaaS 平台的国产化高品质 AI Token 工厂建设，并共同研发和推广以 Token Pod（Token 超节点）为载体的联合解决方案。 目前，相关方案已投入生产，并承接头部模型厂商官方业务的真实 Token 流量。在同等生产服务标准下，该方案兼顾国产算力的生产级性能与单位 AI Token 成本优势， 整体性价比超越国际先进算力方案。 这一进展也标志着趋境科技携手摩尔线程， 率先",
+        "dedupe_key": "https://www.qbitai.com/2026/09/484547.html"
+      },
+      "days_on_board": 2,
+      "is_new": false,
+      "rank_delta": 8,
+      "cluster_id": "1d70b3d8483e",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-04T10:50:52.203202+00:00",
+          "rank": 2
+        },
+        {
+          "run_at": "2026-09-04T13:44:12.649307+00:00",
+          "rank": 5
+        },
+        {
+          "run_at": "2026-09-04T16:44:12.536912+00:00",
+          "rank": 11
+        },
+        {
+          "run_at": "2026-09-04T19:43:56.539533+00:00",
+          "rank": 11
+        },
+        {
+          "run_at": "2026-09-04T22:43:55.269806+00:00",
+          "rank": 12
+        },
+        {
+          "run_at": "2026-09-05T01:44:07.909533+00:00",
+          "rank": 18
+        },
+        {
+          "run_at": "2026-09-05T04:43:51.890357+00:00",
+          "rank": 23
         },
         {
           "run_at": "2026-09-05T05:04:16.938707+00:00",
@@ -873,257 +1186,86 @@
         },
         {
           "run_at": "2026-09-05T06:59:06.242545+00:00",
-          "rank": 28
+          "rank": 27
         },
         {
           "run_at": "2026-09-05T07:44:06.628615+00:00",
-          "rank": 36
+          "rank": 27
         },
         {
           "run_at": "2026-09-05T10:44:07.499731+00:00",
-          "rank": 26
+          "rank": 30
         },
         {
           "run_at": "2026-09-05T13:43:58.261424+00:00",
-          "rank": 41
+          "rank": 30
         },
         {
           "run_at": "2026-09-05T16:44:00.251437+00:00",
-          "rank": 33
+          "rank": 35
+        },
+        {
+          "run_at": "2026-09-05T19:43:55.780608+00:00",
+          "rank": 27
         }
       ]
     },
     {
-      "source": "douyin",
-      "rank": 34,
-      "title": "芮豆摇变装教程",
-      "title_zh": "芮豆摇变装教程",
-      "url": "https://www.douyin.com/search/%E8%8A%AE%E8%B1%86%E6%91%87%E5%8F%98%E8%A3%85%E6%95%99%E7%A8%8B",
-      "hot_value": "7696863",
-      "summary_zh": null,
-      "thumbnail": "https://p11-sign.douyinpic.com/tos-cn-p-0015/oAmAWBEkLFD79fgIbv0oFc0Af9CMEqQAkWQ9oW~noop.jpeg?lk3s=bfd515bb&x-expires=1788645600&x-signature=FwBAbkBC3TXFpzWuW85FFoCkeoo%3D&from=3218412987",
-      "published_at": null,
-      "extra": {
-        "sentence_id": "2635646"
-      },
-      "days_on_board": 1,
-      "is_new": false,
-      "rank_delta": 8,
-      "cluster_id": "efc1eedf42fb",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-05T01:44:07.909533+00:00",
-          "rank": 38
-        },
-        {
-          "run_at": "2026-09-05T06:59:06.242545+00:00",
-          "rank": 24
-        },
-        {
-          "run_at": "2026-09-05T07:44:06.628615+00:00",
-          "rank": 39
-        },
-        {
-          "run_at": "2026-09-05T10:44:07.499731+00:00",
-          "rank": 38
-        },
-        {
-          "run_at": "2026-09-05T13:43:58.261424+00:00",
-          "rank": 42
-        },
-        {
-          "run_at": "2026-09-05T16:44:00.251437+00:00",
-          "rank": 34
-        }
-      ]
-    },
-    {
-      "source": "gongkao",
-      "rank": 2,
-      "title": "中国特种飞行器研究所2027届校园招聘正式启动",
-      "title_zh": "中国特种飞行器研究所2027届校园招聘正式启动",
-      "url": "https://hera-webapp.fenbi.com/api/website/article/detail?deviceType=3&id=468840173032448&app=web&av=100&hav=100&kav=100&client_context_id=",
-      "hot_value": "正在报名",
-      "summary_zh": "招考人数：若干 报名时间：2026.09.04-2026.09.11",
+      "source": "feed",
+      "rank": 28,
+      "title": "机器人不能停下来等模型：星尘发布 SmoothRL，让在线强化学习跟上大模型的异步推理",
+      "title_zh": "机器人不能停下来等模型：星尘发布 SmoothRL，让在线强化学习跟上大模型的异步推理",
+      "url": "https://www.qbitai.com/2026/09/484437.html",
+      "hot_value": null,
+      "summary_zh": "机器人不能停下来等模型：星尘发布 SmoothRL，让在线强化学习跟上大模型的异步推理 量子位的朋友们 2026-09-04 17:19:29 来源： 量子位 星尘智能（Astribot） 基座模型团队发布能异步执行的在线强化学习框架 SmoothRL 真实机器人没有“暂停键”。 现在的 VLA、World-Action Model 往往一次生成未来一段时间的动作序列，也就是 action chunk。模型越来越大，推理时间也越来越长，但机器人不能每隔几百毫秒就停下来等模型推理下一段时间的动作。尤其在投掷这类高动态任务里，一次停顿就可能让已经积累起来的速度掉下去，导致整个任务失败。 所以真实部署里更常见的方式是 异步推理 ：机器人继续执行手头的动作，模型同时在后台计算下一段。简单说， 手上做 A，模型已经在算 B。 但这给在线强化学习带来了一个新的问题：模型一次生成了一段动作序列（acti",
       "thumbnail": null,
-      "published_at": "2026-09-04T03:07:20+00:00",
+      "published_at": "2026-09-04T09:19:29+00:00",
       "extra": {
-        "id": 468840173032448,
-        "sub": "announcement",
-        "tags": [
-          "湖北",
-          "武汉市",
-          "荆门市",
-          "国企",
-          "2026",
-          "国央企正式",
-          "中国特种飞行器研究所"
-        ],
-        "province": "湖北",
-        "exam_type": "国企",
-        "startSignUpTime": 1788192000000,
-        "endSignUpTime": 1788796740000,
-        "startWriteTime": null,
-        "target_university_hit": [],
-        "city_focus_hit": []
+        "feed_name": "量子位",
+        "tab": "ai",
+        "route": "/qbitai/category/%E8%B5%84%E8%AE%AF",
+        "translate": false,
+        "description": "机器人不能停下来等模型：星尘发布 SmoothRL，让在线强化学习跟上大模型的异步推理 量子位的朋友们 2026-09-04 17:19:29 来源： 量子位 星尘智能（Astribot） 基座模型团队发布能异步执行的在线强化学习框架 SmoothRL 真实机器人没有“暂停键”。 现在的 VLA、World-Action Model 往往一次生成未来一段时间的动作序列，也就是 action chunk。模型越来越大，推理时间也越来越长，但机器人不能每隔几百毫秒就停下来等模型推理下一段时间的动作。尤其在投掷这类高动态任务里，一次停顿就可能让已经积累起来的速度掉下去，导致整个任务失败。 所以真实部署里更常见的方式是 异步推理 ：机器人继续执行手头的动作，模型同时在后台计算下一段。简单说， 手上做 A，模型已经在算 B。 但这给在线强化学习带来了一个新的问题：模型一次生成了一段动作序列（acti",
+        "dedupe_key": "https://www.qbitai.com/2026/09/484437.html"
       },
       "days_on_board": 2,
       "is_new": false,
       "rank_delta": 8,
-      "cluster_id": "361ed7e2158d",
+      "cluster_id": "f323a5087d04",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-04T04:46:19.195629+00:00",
-          "rank": 10
-        },
-        {
-          "run_at": "2026-09-04T05:15:01.664932+00:00",
-          "rank": 10
-        },
-        {
-          "run_at": "2026-09-04T06:28:15.690114+00:00",
-          "rank": 10
-        },
-        {
-          "run_at": "2026-09-04T07:50:56.349243+00:00",
-          "rank": 10
-        },
-        {
           "run_at": "2026-09-04T10:50:52.203202+00:00",
-          "rank": 10
+          "rank": 4
         },
         {
           "run_at": "2026-09-04T13:44:12.649307+00:00",
-          "rank": 10
+          "rank": 7
         },
         {
-          "run_at": "2026-09-05T06:59:06.242545+00:00",
-          "rank": 10
+          "run_at": "2026-09-04T16:44:12.536912+00:00",
+          "rank": 12
         },
         {
-          "run_at": "2026-09-05T07:44:06.628615+00:00",
-          "rank": 10
+          "run_at": "2026-09-04T19:43:56.539533+00:00",
+          "rank": 12
         },
         {
-          "run_at": "2026-09-05T10:44:07.499731+00:00",
-          "rank": 10
+          "run_at": "2026-09-04T22:43:55.269806+00:00",
+          "rank": 13
         },
-        {
-          "run_at": "2026-09-05T13:43:58.261424+00:00",
-          "rank": 10
-        },
-        {
-          "run_at": "2026-09-05T16:44:00.251437+00:00",
-          "rank": 2
-        }
-      ]
-    },
-    {
-      "source": "weibo",
-      "rank": 17,
-      "title": "刘雯 避嫌",
-      "title_zh": "刘雯 避嫌",
-      "url": "https://s.weibo.com/weibo?q=%23%E5%88%98%E9%9B%AF%20%E9%81%BF%E5%AB%8C%23",
-      "hot_value": "249565",
-      "summary_zh": null,
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "category": null
-      },
-      "days_on_board": 1,
-      "is_new": false,
-      "rank_delta": 8,
-      "cluster_id": "cf095a928ff5",
-      "cluster_size": 1,
-      "rank_history": [
         {
           "run_at": "2026-09-05T01:44:07.909533+00:00",
-          "rank": 12
+          "rank": 19
         },
         {
           "run_at": "2026-09-05T04:43:51.890357+00:00",
-          "rank": 12
+          "rank": 24
         },
         {
           "run_at": "2026-09-05T05:04:16.938707+00:00",
-          "rank": 12
+          "rank": 24
         },
-        {
-          "run_at": "2026-09-05T06:59:06.242545+00:00",
-          "rank": 13
-        },
-        {
-          "run_at": "2026-09-05T07:44:06.628615+00:00",
-          "rank": 13
-        },
-        {
-          "run_at": "2026-09-05T10:44:07.499731+00:00",
-          "rank": 20
-        },
-        {
-          "run_at": "2026-09-05T13:43:58.261424+00:00",
-          "rank": 25
-        },
-        {
-          "run_at": "2026-09-05T16:44:00.251437+00:00",
-          "rank": 17
-        }
-      ]
-    },
-    {
-      "source": "weibo",
-      "rank": 20,
-      "title": "美林肯号水兵登陆芭提雅彻底放飞",
-      "title_zh": "美林肯号水兵登陆芭提雅彻底放飞",
-      "url": "https://s.weibo.com/weibo?q=%23%E7%BE%8E%E6%9E%97%E8%82%AF%E5%8F%B7%E6%B0%B4%E5%85%B5%E7%99%BB%E9%99%86%E8%8A%AD%E6%8F%90%E9%9B%85%E5%BD%BB%E5%BA%95%E6%94%BE%E9%A3%9E%23",
-      "hot_value": "232471",
-      "summary_zh": null,
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "category": null
-      },
-      "days_on_board": 1,
-      "is_new": false,
-      "rank_delta": 8,
-      "cluster_id": "2bceb2afc474",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-05T13:43:58.261424+00:00",
-          "rank": 28
-        },
-        {
-          "run_at": "2026-09-05T16:44:00.251437+00:00",
-          "rank": 20
-        }
-      ]
-    },
-    {
-      "source": "youtube",
-      "rank": 16,
-      "title": "Fabolous - Lufthansa Heist Freestyle (Official Video)",
-      "title_zh": "Fabolous - Lufthansa Heist Freestyle (官方视频)",
-      "url": "https://youtube.com/watch?v=QNtYuY1DA3w",
-      "hot_value": "192500",
-      "summary_zh": "Fabolous即兴说唱，街头风范十足。",
-      "thumbnail": "https://i.ytimg.com/vi/QNtYuY1DA3w/hqdefault.jpg",
-      "published_at": "2026-09-04T22:00:06Z",
-      "extra": {
-        "video_id": "QNtYuY1DA3w",
-        "region": "US",
-        "channel": "MyFabolousLife",
-        "description": "IG: @MyFabolousLife \n\nDirected By: @Marco2live \n\nThe Family Music Group."
-      },
-      "days_on_board": 1,
-      "is_new": false,
-      "rank_delta": 6,
-      "cluster_id": "366a3ddc941f",
-      "cluster_size": 1,
-      "rank_history": [
         {
           "run_at": "2026-09-05T06:59:06.242545+00:00",
           "rank": 28
@@ -1134,45 +1276,19 @@
         },
         {
           "run_at": "2026-09-05T10:44:07.499731+00:00",
-          "rank": 25
+          "rank": 31
         },
         {
           "run_at": "2026-09-05T13:43:58.261424+00:00",
-          "rank": 22
+          "rank": 31
         },
         {
           "run_at": "2026-09-05T16:44:00.251437+00:00",
-          "rank": 16
-        }
-      ]
-    },
-    {
-      "source": "bilibili",
-      "rank": 20,
-      "title": "不同北京人的住处差异",
-      "title_zh": "不同北京人的住处差异",
-      "url": "https://b23.tv/BV1Fwtq6yErw",
-      "hot_value": "2296520",
-      "summary_zh": null,
-      "thumbnail": "http://i2.hdslb.com/bfs/archive/ecddae78aa14d05593a9654371b45c3a2c8bf78f.jpg",
-      "published_at": "2026-09-04T06:56:56+00:00",
-      "extra": {
-        "bvid": "BV1Fwtq6yErw",
-        "owner": "抵抗Resistance"
-      },
-      "days_on_board": 1,
-      "is_new": false,
-      "rank_delta": 5,
-      "cluster_id": "85c4df242152",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-05T13:43:58.261424+00:00",
-          "rank": 25
+          "rank": 36
         },
         {
-          "run_at": "2026-09-05T16:44:00.251437+00:00",
-          "rank": 20
+          "run_at": "2026-09-05T19:43:55.780608+00:00",
+          "rank": 28
         }
       ]
     }
@@ -1184,7 +1300,7 @@
       "title": "【独家】《凡人修仙传之慕兰之战》第14集【总第190集】",
       "title_zh": "【独家】《凡人修仙传之慕兰之战》第14集【总第190集】",
       "url": "https://b23.tv/BV1Satr6zETw",
-      "hot_value": "4756646",
+      "hot_value": "4927015",
       "summary_zh": null,
       "thumbnail": "http://i2.hdslb.com/bfs/archive/9a03bdfbe9ef950b61ac65b1284239e020a92d52.jpg",
       "published_at": "2026-09-05T03:00:02+00:00",
@@ -1225,34 +1341,34 @@
         {
           "run_at": "2026-09-05T16:44:00.251437+00:00",
           "rank": 1
+        },
+        {
+          "run_at": "2026-09-05T19:43:55.780608+00:00",
+          "rank": 1
         }
       ]
     },
     {
       "source": "douyin",
       "rank": 1,
-      "title": "张雪机车法国站第一回合第三名",
-      "title_zh": "张雪机车法国站第一回合第三名",
-      "url": "https://www.douyin.com/search/%E5%BC%A0%E9%9B%AA%E6%9C%BA%E8%BD%A6%E6%B3%95%E5%9B%BD%E7%AB%99%E7%AC%AC%E4%B8%80%E5%9B%9E%E5%90%88%E7%AC%AC%E4%B8%89%E5%90%8D",
-      "hot_value": "12176877",
+      "title": "郑钦文逆转战胜凯斯",
+      "title_zh": "郑钦文逆转战胜凯斯",
+      "url": "https://www.douyin.com/search/%E9%83%91%E9%92%A6%E6%96%87%E9%80%86%E8%BD%AC%E6%88%98%E8%83%9C%E5%87%AF%E6%96%AF",
+      "hot_value": "11873245",
       "summary_zh": null,
-      "thumbnail": "https://p11-sign.douyinpic.com/tos-cn-p-0015/oU2QgEqF96ZQqAHf4UknEAUhMheDABFhNtvAtk~noop.jpeg?lk3s=bfd515bb&x-expires=1788645600&x-signature=jY8tCWPslueqUi%2F71Rdkd7I380A%3D&from=3218412987",
+      "thumbnail": "https://p3-sign.douyinpic.com/tos-cn-p-0015/oMsbk41Eg89bDQWIWBFqAneDgWCmWAoWf5mAai~noop.jpeg?lk3s=bfd515bb&x-expires=1788656400&x-signature=W8LRIMaBlguRWpCem8q0FuG3e1A%3D&from=3218412987",
       "published_at": null,
       "extra": {
-        "sentence_id": "2637143"
+        "sentence_id": "2636484"
       },
       "days_on_board": 1,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "864ff169f02e",
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "f1047007c69f",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-05T13:43:58.261424+00:00",
-          "rank": 1
-        },
-        {
-          "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "run_at": "2026-09-05T19:43:55.780608+00:00",
           "rank": 1
         }
       ]
@@ -1260,29 +1376,29 @@
     {
       "source": "feed",
       "rank": 1,
-      "title": "GPT-6带火循环Transformer，阿里早已布局",
-      "title_zh": "GPT-6带火循环Transformer，阿里早已布局",
-      "url": "https://www.qbitai.com/2026/09/484726.html",
+      "title": "郑钦文 2-1 凯斯，晋级美网 16 强，决胜局 0-5 落后上演超级大逆转，如何评价她的表现？",
+      "title_zh": "郑钦文 2-1 凯斯，晋级美网 16 强，决胜局 0-5 落后上演超级大逆转，如何评价她的表现？",
+      "url": "https://www.zhihu.com/question/2079745891850778176",
       "hot_value": null,
-      "summary_zh": "GPT-6带火循环Transformer，阿里早已布局 一水 2026-09-05 23:07:08 来源： 量子位 手握两篇顶会论文 GPT-6 Astra一发布，recurrent depth突然一夜火了！ 最早是The Information爆料，Astra使用了这种「循环深度」技术： 让同一组Transformer层反复运行，在不增加同等规模参数的情况下，把计算做得更深 。 ？？模型不必继续疯狂「长肉」，也能让现有参数多干几轮活，还有这好事。 不出所料，争议很快到来。。。 由于循环发生在hidden state里，中间过程未必会写成人类可读的思维链，模型会不会因此更难监测？ OpenAI也由此被AI安全专家集体讨伐，甚至一度逼得首席科学家Jakub Pachocki亲自下场回应。 Jakub Pachocki还透露，自己正在憋一篇小作文以完整解释整件事情。 边等小作文，边让我们把目",
+      "summary_zh": null,
       "thumbnail": null,
-      "published_at": "2026-09-05T15:07:08+00:00",
+      "published_at": "2026-09-05T17:41:00+00:00",
       "extra": {
-        "feed_name": "量子位",
-        "tab": "ai",
-        "route": "/qbitai/category/%E8%B5%84%E8%AE%AF",
+        "feed_name": "知乎热榜",
+        "tab": "hot",
+        "route": "/zhihu/hot",
         "translate": false,
-        "description": "GPT-6带火循环Transformer，阿里早已布局 一水 2026-09-05 23:07:08 来源： 量子位 手握两篇顶会论文 GPT-6 Astra一发布，recurrent depth突然一夜火了！ 最早是The Information爆料，Astra使用了这种「循环深度」技术： 让同一组Transformer层反复运行，在不增加同等规模参数的情况下，把计算做得更深 。 ？？模型不必继续疯狂「长肉」，也能让现有参数多干几轮活，还有这好事。 不出所料，争议很快到来。。。 由于循环发生在hidden state里，中间过程未必会写成人类可读的思维链，模型会不会因此更难监测？ OpenAI也由此被AI安全专家集体讨伐，甚至一度逼得首席科学家Jakub Pachocki亲自下场回应。 Jakub Pachocki还透露，自己正在憋一篇小作文以完整解释整件事情。 边等小作文，边让我们把目",
-        "dedupe_key": "https://www.qbitai.com/2026/09/484726.html"
+        "description": "",
+        "dedupe_key": "https://www.zhihu.com/question/2079745891850778176"
       },
       "days_on_board": 1,
       "is_new": true,
       "rank_delta": "new",
-      "cluster_id": "bca058a9957d",
+      "cluster_id": "617c575f1f85",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "run_at": "2026-09-05T19:43:55.780608+00:00",
           "rank": 1
         }
       ]
@@ -1316,13 +1432,17 @@
         "city_focus_hit": []
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "463f8f7f5ee7",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 1
+        },
+        {
+          "run_at": "2026-09-05T19:43:55.780608+00:00",
           "rank": 1
         }
       ]
@@ -1330,13 +1450,13 @@
     {
       "source": "telegram",
       "rank": 1,
-      "title": "📢 AI data centers are becoming job machines AI data centers aren’t just eating electricity and GPUs, they’re also creating a serious economic boom in the places where they’re built. Meta’s massive Louisiana data-center project saw private-sector employment jump 41% in its first year, while average w",
-      "title_zh": "📢 AI数据中心正成为就业机器 AI数据中心不仅消耗电力和GPU，还在建设地创造经济繁荣。Meta在路易斯安那州的大型数据中心项目首年私营部门就业增长41%，平均工资",
-      "url": "https://t.me/aipost/8058",
-      "hot_value": "561",
+      "title": "🇺🇸 Bessent says America’s biggest AI companies have done a “HORRENDOUS JOB” explaining themselves to the American people. “The AI companies, whether it is the builders of the data centers, whether it is the labs themselves have done a horrendous job, horrendous job of explaining themselves to the Am",
+      "title_zh": "🇺🇸 贝森特表示，美国最大的AI公司在向美国人民解释自己方面做得“糟糕透顶”。“AI公司，无论是数据中心建设者，还是实验室本身，在向美国人民解释自己方面都做得糟糕透顶，糟糕透顶……”",
+      "url": "https://t.me/aipost/8059",
+      "hot_value": "546",
       "summary_zh": null,
       "thumbnail": null,
-      "published_at": "2026-09-05T16:13:58+00:00",
+      "published_at": "2026-09-05T19:10:25+00:00",
       "extra": {
         "channel": "aipost",
         "translate": true
@@ -1344,11 +1464,11 @@
       "days_on_board": 1,
       "is_new": true,
       "rank_delta": "new",
-      "cluster_id": "a46906b857ad",
+      "cluster_id": "b48fc0cb37a0",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "run_at": "2026-09-05T19:43:55.780608+00:00",
           "rank": 1
         }
       ]
@@ -1356,10 +1476,10 @@
     {
       "source": "weibo",
       "rank": 1,
-      "title": "葫芦娃爷爷把葫芦剪掉了目击者发声",
-      "title_zh": "葫芦娃爷爷把葫芦剪掉了目击者发声",
-      "url": "https://s.weibo.com/weibo?q=%23%E8%91%AB%E8%8A%A6%E5%A8%83%E7%88%B7%E7%88%B7%E6%8A%8A%E8%91%AB%E8%8A%A6%E5%89%AA%E6%8E%89%E4%BA%86%E7%9B%AE%E5%87%BB%E8%80%85%E5%8F%91%E5%A3%B0%23",
-      "hot_value": "1093744",
+      "title": "郑钦文美网惊天逆转",
+      "title_zh": "郑钦文美网惊天逆转",
+      "url": "https://s.weibo.com/weibo?q=%23%E9%83%91%E9%92%A6%E6%96%87%E7%BE%8E%E7%BD%91%E6%83%8A%E5%A4%A9%E9%80%86%E8%BD%AC%23",
+      "hot_value": "518343",
       "summary_zh": null,
       "thumbnail": null,
       "published_at": null,
@@ -1369,11 +1489,11 @@
       "days_on_board": 1,
       "is_new": true,
       "rank_delta": "new",
-      "cluster_id": "b163c64947ef",
+      "cluster_id": "a1f88a4bfaed",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "run_at": "2026-09-05T19:43:55.780608+00:00",
           "rank": 1
         }
       ]
@@ -1384,7 +1504,7 @@
       "title": "【2026LPL第三赛段】9月5日 TES vs IG",
       "title_zh": "【2026LPL第三赛段】9月5日 TES vs IG",
       "url": "https://b23.tv/BV1Zkty68EAe",
-      "hot_value": "1706001",
+      "hot_value": "1940241",
       "summary_zh": null,
       "thumbnail": "http://i0.hdslb.com/bfs/archive/7c19f0d1b895f633d8abf4fac0d4e93db33eb839.jpg",
       "published_at": "2026-09-05T07:06:12+00:00",
@@ -1405,46 +1525,42 @@
         {
           "run_at": "2026-09-05T16:44:00.251437+00:00",
           "rank": 2
+        },
+        {
+          "run_at": "2026-09-05T19:43:55.780608+00:00",
+          "rank": 2
         }
       ]
     },
     {
       "source": "douyin",
       "rank": 2,
-      "title": "郑钦文美网对决凯斯",
-      "title_zh": "郑钦文美网对决凯斯",
-      "url": "https://www.douyin.com/search/%E9%83%91%E9%92%A6%E6%96%87%E7%BE%8E%E7%BD%91%E5%AF%B9%E5%86%B3%E5%87%AF%E6%96%AF",
-      "hot_value": "12093837",
+      "title": "福建莆田多地出现洪涝灾害",
+      "title_zh": "福建莆田多地出现洪涝灾害",
+      "url": "https://www.douyin.com/search/%E7%A6%8F%E5%BB%BA%E8%8E%86%E7%94%B0%E5%A4%9A%E5%9C%B0%E5%87%BA%E7%8E%B0%E6%B4%AA%E6%B6%9D%E7%81%BE%E5%AE%B3",
+      "hot_value": "11734718",
       "summary_zh": null,
-      "thumbnail": "https://p26-sign.douyinpic.com/tos-cn-p-0015/oMsbk41Eg89bDQWIWBFqAneDgWCmWAoWf5mAai~noop.jpeg?lk3s=bfd515bb&x-expires=1788645600&x-signature=1kYCF4UsMcSjI3ap807%2FYvDh6II%3D&from=3218412987",
+      "thumbnail": "https://p26-sign.douyinpic.com/tos-cn-p-0015/osBWexQAG8AXeQxH8c79eN8oo9MhBCJQlD3VS3~noop.jpeg?lk3s=bfd515bb&x-expires=1788656400&x-signature=ngRUwd%2Bnk7FgFzqFtEby2RCq208%3D&from=3218412987",
       "published_at": null,
       "extra": {
-        "sentence_id": "2636484"
+        "sentence_id": "2636456"
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 18,
-      "cluster_id": "bc190c529494",
+      "rank_delta": 2,
+      "cluster_id": "12478083e759",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-05T06:59:06.242545+00:00",
-          "rank": 12
-        },
-        {
-          "run_at": "2026-09-05T07:44:06.628615+00:00",
-          "rank": 8
-        },
-        {
-          "run_at": "2026-09-05T10:44:07.499731+00:00",
-          "rank": 8
-        },
-        {
           "run_at": "2026-09-05T13:43:58.261424+00:00",
-          "rank": 20
+          "rank": 2
         },
         {
           "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 4
+        },
+        {
+          "run_at": "2026-09-05T19:43:55.780608+00:00",
           "rank": 2
         }
       ]
@@ -1452,29 +1568,33 @@
     {
       "source": "feed",
       "rank": 2,
-      "title": "中广核山东招远核电项目 2 号机组主体工程开工，规划建设 6 台“华龙一号”",
-      "title_zh": "中广核山东招远核电项目 2 号机组主体工程开工，规划建设 6 台“华龙一号”",
-      "url": "https://www.ithome.com/0/998/834.htm",
+      "title": "GPT-6带火循环Transformer，阿里早已布局",
+      "title_zh": "GPT-6带火循环Transformer，阿里早已布局",
+      "url": "https://www.qbitai.com/2026/09/484726.html",
       "hot_value": null,
-      "summary_zh": "IT之家 9 月 5 日消息，据中国广核集团，9 月 5 日上午 9 时 18 分，中广核山东招远核电项目 2 号机组启动核岛第一罐混凝土浇筑（ FCD ），标志着该机组主体工程正式开工，项目一期工程进入全面建设阶段。 IT之家从官方介绍获悉，山东招远核电是中广核在全国布局的第十个核电基地，项目 1、2 号机组于 2024 年 8 月 19 日获得国家核准。项目 1 号机组于 2025 年 11 月 18 日主体工程开工， 是我国首个配置冷却塔的“华龙一号”核电机组 。本次浇筑的项目 2 号机组反应堆厂房筏基为半径 27 米、高度 3.7 米的圆柱体，混凝土总浇筑量约 8800 立方米，预计连续施工约 60 小时。 中广核山东招远核电项目规划建设 6 台“华龙一号”核电机组 ，每台机组均配置一台高达 203 米、淋水面积为 16800 平方米的高位收水自然通风冷却塔，将核电站常规岛的直接冷",
+      "summary_zh": "GPT-6带火循环Transformer，阿里早已布局 一水 2026-09-05 23:07:08 来源： 量子位 手握两篇顶会论文 GPT-6 Astra一发布，recurrent depth突然一夜火了！ 最早是The Information爆料，Astra使用了这种「循环深度」技术： 让同一组Transformer层反复运行，在不增加同等规模参数的情况下，把计算做得更深 。 ？？模型不必继续疯狂「长肉」，也能让现有参数多干几轮活，还有这好事。 不出所料，争议很快到来。。。 由于循环发生在hidden state里，中间过程未必会写成人类可读的思维链，模型会不会因此更难监测？ OpenAI也由此被AI安全专家集体讨伐，甚至一度逼得首席科学家Jakub Pachocki亲自下场回应。 Jakub Pachocki还透露，自己正在憋一篇小作文以完整解释整件事情。 边等小作文，边让我们把目",
       "thumbnail": null,
-      "published_at": "2026-09-05T15:02:03+00:00",
+      "published_at": "2026-09-05T15:07:08+00:00",
       "extra": {
-        "feed_name": "IT之家",
+        "feed_name": "量子位",
         "tab": "ai",
-        "route": "/ithome/it",
+        "route": "/qbitai/category/%E8%B5%84%E8%AE%AF",
         "translate": false,
-        "description": "IT之家 9 月 5 日消息，据中国广核集团，9 月 5 日上午 9 时 18 分，中广核山东招远核电项目 2 号机组启动核岛第一罐混凝土浇筑（ FCD ），标志着该机组主体工程正式开工，项目一期工程进入全面建设阶段。 IT之家从官方介绍获悉，山东招远核电是中广核在全国布局的第十个核电基地，项目 1、2 号机组于 2024 年 8 月 19 日获得国家核准。项目 1 号机组于 2025 年 11 月 18 日主体工程开工， 是我国首个配置冷却塔的“华龙一号”核电机组 。本次浇筑的项目 2 号机组反应堆厂房筏基为半径 27 米、高度 3.7 米的圆柱体，混凝土总浇筑量约 8800 立方米，预计连续施工约 60 小时。 中广核山东招远核电项目规划建设 6 台“华龙一号”核电机组 ，每台机组均配置一台高达 203 米、淋水面积为 16800 平方米的高位收水自然通风冷却塔，将核电站常规岛的直接冷",
-        "dedupe_key": "https://www.ithome.com/0/998/834.htm"
+        "description": "GPT-6带火循环Transformer，阿里早已布局 一水 2026-09-05 23:07:08 来源： 量子位 手握两篇顶会论文 GPT-6 Astra一发布，recurrent depth突然一夜火了！ 最早是The Information爆料，Astra使用了这种「循环深度」技术： 让同一组Transformer层反复运行，在不增加同等规模参数的情况下，把计算做得更深 。 ？？模型不必继续疯狂「长肉」，也能让现有参数多干几轮活，还有这好事。 不出所料，争议很快到来。。。 由于循环发生在hidden state里，中间过程未必会写成人类可读的思维链，模型会不会因此更难监测？ OpenAI也由此被AI安全专家集体讨伐，甚至一度逼得首席科学家Jakub Pachocki亲自下场回应。 Jakub Pachocki还透露，自己正在憋一篇小作文以完整解释整件事情。 边等小作文，边让我们把目",
+        "dedupe_key": "https://www.qbitai.com/2026/09/484726.html"
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
-      "cluster_id": "38d81f007497",
+      "is_new": false,
+      "rank_delta": -1,
+      "cluster_id": "bca058a9957d",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 1
+        },
+        {
+          "run_at": "2026-09-05T19:43:55.780608+00:00",
           "rank": 2
         }
       ]
@@ -1482,25 +1602,25 @@
     {
       "source": "telegram",
       "rank": 2,
-      "title": "🇨🇳 China Builds a Rotating Sky Villa The capsule house-lift rises 16 metres and rotates 360 degrees for a better view. Inside are a kitchen, sleeping berth, shower and toilet, projector, balcony, and roof hatch for stargazing . 📊 @tech",
-      "title_zh": "🇨🇳 中国建造旋转天空别墅 胶囊式升降屋可升至16米并360度旋转，视野更佳。内部配备厨房、卧铺、淋浴和卫生间、投影仪、阳台及观星天窗。📊 @tech",
-      "url": "https://t.me/tech/3848",
-      "hot_value": "581",
+      "title": "Mega Velocity, a Mexico-based transportation and tech company, was reportedly targeted by Vexy Ransomware in a claimed attack. #Mexico #Ransomware #Transportation ➡️ https://www.hendryadrian.com/ransom-mega-velocity-sep-2026/",
+      "title_zh": "据报道，总部位于墨西哥的运输和科技公司Mega Velocity遭到Vexy勒索软件声称的攻击。#墨西哥 #勒索软件 #运输 ➡️ https://www.hendryadrian.com/ransom-mega-velocity-sep-2026/",
+      "url": "https://t.me/cybernotif/35453",
+      "hot_value": "3",
       "summary_zh": null,
       "thumbnail": null,
-      "published_at": "2026-09-05T16:03:49+00:00",
+      "published_at": "2026-09-05T18:45:06+00:00",
       "extra": {
-        "channel": "technology",
+        "channel": "cybernotif",
         "translate": true
       },
       "days_on_board": 1,
       "is_new": true,
       "rank_delta": "new",
-      "cluster_id": "a2b6fe299859",
+      "cluster_id": "0d36c8b0a3b9",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "run_at": "2026-09-05T19:43:55.780608+00:00",
           "rank": 2
         }
       ]
@@ -1508,10 +1628,10 @@
     {
       "source": "weibo",
       "rank": 2,
-      "title": "郑钦文vs凯斯",
-      "title_zh": "郑钦文vs凯斯",
-      "url": "https://s.weibo.com/weibo?q=%23%E9%83%91%E9%92%A6%E6%96%87vs%E5%87%AF%E6%96%AF%23",
-      "hot_value": "938970",
+      "title": "葫芦娃爷爷把葫芦剪掉了目击者发声",
+      "title_zh": "葫芦娃爷爷把葫芦剪掉了目击者发声",
+      "url": "https://s.weibo.com/weibo?q=%23%E8%91%AB%E8%8A%A6%E5%A8%83%E7%88%B7%E7%88%B7%E6%8A%8A%E8%91%AB%E8%8A%A6%E5%89%AA%E6%8E%89%E4%BA%86%E7%9B%AE%E5%87%BB%E8%80%85%E5%8F%91%E5%A3%B0%23",
+      "hot_value": "312944",
       "summary_zh": null,
       "thumbnail": null,
       "published_at": null,
@@ -1519,13 +1639,17 @@
         "category": null
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
-      "cluster_id": "98f0127448e1",
+      "is_new": false,
+      "rank_delta": -1,
+      "cluster_id": "b163c64947ef",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 1
+        },
+        {
+          "run_at": "2026-09-05T19:43:55.780608+00:00",
           "rank": 2
         }
       ]
@@ -1533,25 +1657,37 @@
     {
       "source": "bilibili",
       "rank": 3,
-      "title": "我爱我的废技能",
-      "title_zh": "我爱我的废技能",
-      "url": "https://b23.tv/BV1jbti6TEtk",
-      "hot_value": "738139",
+      "title": "午夜轮班，伪人超市",
+      "title_zh": "午夜轮班，伪人超市",
+      "url": "https://b23.tv/BV16Htm6rE8n",
+      "hot_value": "858618",
       "summary_zh": null,
-      "thumbnail": "http://i1.hdslb.com/bfs/archive/b03881e48c636ba5bfa7b95b55e097e1dccb93f3.jpg",
-      "published_at": "2026-09-04T08:15:48+00:00",
+      "thumbnail": "http://i0.hdslb.com/bfs/archive/49e5969b3581f371ce827568fc8f98ee3ac085d1.jpg",
+      "published_at": "2026-09-05T07:42:24+00:00",
       "extra": {
-        "bvid": "BV1jbti6TEtk",
-        "owner": "那就叫王师傅吧"
+        "bvid": "BV16Htm6rE8n",
+        "owner": "鲤鱼Ace"
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
-      "cluster_id": "684b9e7893b2",
+      "is_new": false,
+      "rank_delta": 2,
+      "cluster_id": "ee8fb9f4670a",
       "cluster_size": 1,
       "rank_history": [
         {
+          "run_at": "2026-09-05T10:44:07.499731+00:00",
+          "rank": 2
+        },
+        {
+          "run_at": "2026-09-05T13:43:58.261424+00:00",
+          "rank": 3
+        },
+        {
           "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 5
+        },
+        {
+          "run_at": "2026-09-05T19:43:55.780608+00:00",
           "rank": 3
         }
       ]
@@ -1562,9 +1698,9 @@
       "title": "我国将加快建设六张网项目库",
       "title_zh": "我国将加快建设六张网项目库",
       "url": "https://www.douyin.com/search/%E6%88%91%E5%9B%BD%E5%B0%86%E5%8A%A0%E5%BF%AB%E5%BB%BA%E8%AE%BE%E5%85%AD%E5%BC%A0%E7%BD%91%E9%A1%B9%E7%9B%AE%E5%BA%93",
-      "hot_value": "11940871",
+      "hot_value": "11345555",
       "summary_zh": null,
-      "thumbnail": "https://p5-ex-gddgtc-sign.douyinpic.com/tos-cn-p-0015/oYm9gmEecHlTnbNxAYcLZwgQDfA9FALh1BGq2Q~noop.jpeg?lk3s=bfd515bb&x-expires=1788645600&x-signature=7q0Z7aaUEbepvVci0oxnpiwm3Q0%3D&from=3218412987",
+      "thumbnail": "https://p26-sign.douyinpic.com/tos-cn-p-0015/oYm9gmEecHlTnbNxAYcLZwgQDfA9FALh1BGq2Q~noop.jpeg?lk3s=bfd515bb&x-expires=1788656400&x-signature=gTvLP8XMU%2FS7cz26R3uLLg4szKM%3D&from=3218412987",
       "published_at": null,
       "extra": {
         "sentence_id": "2637070"
@@ -1582,35 +1718,43 @@
         {
           "run_at": "2026-09-05T16:44:00.251437+00:00",
           "rank": 3
+        },
+        {
+          "run_at": "2026-09-05T19:43:55.780608+00:00",
+          "rank": 3
         }
       ]
     },
     {
       "source": "feed",
       "rank": 3,
-      "title": "押中SpaceX的硅谷老将，把票投给了一家中国世界模型公司",
-      "title_zh": "押中SpaceX的硅谷老将，把票投给了一家中国世界模型公司",
-      "url": "https://www.qbitai.com/2026/09/484683.html",
+      "title": "中广核山东招远核电项目 2 号机组主体工程开工，规划建设 6 台“华龙一号”",
+      "title_zh": "中广核山东招远核电项目 2 号机组主体工程开工，规划建设 6 台“华龙一号”",
+      "url": "https://www.ithome.com/0/998/834.htm",
       "hot_value": null,
-      "summary_zh": "押中SpaceX的硅谷老将，把票投给了一家中国世界模型公司 量子位的朋友们 2026-09-05 22:46:15 来源： 量子位 当AI开始“预演”一场暴雨 允中 发自 凹非寺量子位 | 公众号 QbitAI 过去三年，AI证明了自己能读懂人类的语言。但尴尬的是，它依然看不懂我们身处的物理世界。 大模型缺乏通向物理世界的通路，这不是危言耸听。 2026年7月，中国南北方同时遭遇严峻洪涝考验。 南方，受台风美莎克及西南季风共同影响，广西遭遇持续强降雨。南宁市横州、宾阳等地多个站点降雨量突破历史纪录，六蓝水库发生溃口。 从监测到异常洪峰到溃口发生，留给指挥部的黄金处置时间不足30分钟，贵港郁江出现2001年以来最大洪水，洪峰水位超出警戒5.68米，一处教育园区积水最深接近三楼，上万名师生被困，全区紧急避险转移18.7万人。 几乎同期，北方也不平静：台风巴威虽未直接登陆东北，却通过远距离水汽输",
+      "summary_zh": "IT之家 9 月 5 日消息，据中国广核集团，9 月 5 日上午 9 时 18 分，中广核山东招远核电项目 2 号机组启动核岛第一罐混凝土浇筑（ FCD ），标志着该机组主体工程正式开工，项目一期工程进入全面建设阶段。 IT之家从官方介绍获悉，山东招远核电是中广核在全国布局的第十个核电基地，项目 1、2 号机组于 2024 年 8 月 19 日获得国家核准。项目 1 号机组于 2025 年 11 月 18 日主体工程开工， 是我国首个配置冷却塔的“华龙一号”核电机组 。本次浇筑的项目 2 号机组反应堆厂房筏基为半径 27 米、高度 3.7 米的圆柱体，混凝土总浇筑量约 8800 立方米，预计连续施工约 60 小时。 中广核山东招远核电项目规划建设 6 台“华龙一号”核电机组 ，每台机组均配置一台高达 203 米、淋水面积为 16800 平方米的高位收水自然通风冷却塔，将核电站常规岛的直接冷",
       "thumbnail": null,
-      "published_at": "2026-09-05T14:46:15+00:00",
+      "published_at": "2026-09-05T15:02:03+00:00",
       "extra": {
-        "feed_name": "量子位",
+        "feed_name": "IT之家",
         "tab": "ai",
-        "route": "/qbitai/category/%E8%B5%84%E8%AE%AF",
+        "route": "/ithome/it",
         "translate": false,
-        "description": "押中SpaceX的硅谷老将，把票投给了一家中国世界模型公司 量子位的朋友们 2026-09-05 22:46:15 来源： 量子位 当AI开始“预演”一场暴雨 允中 发自 凹非寺量子位 | 公众号 QbitAI 过去三年，AI证明了自己能读懂人类的语言。但尴尬的是，它依然看不懂我们身处的物理世界。 大模型缺乏通向物理世界的通路，这不是危言耸听。 2026年7月，中国南北方同时遭遇严峻洪涝考验。 南方，受台风美莎克及西南季风共同影响，广西遭遇持续强降雨。南宁市横州、宾阳等地多个站点降雨量突破历史纪录，六蓝水库发生溃口。 从监测到异常洪峰到溃口发生，留给指挥部的黄金处置时间不足30分钟，贵港郁江出现2001年以来最大洪水，洪峰水位超出警戒5.68米，一处教育园区积水最深接近三楼，上万名师生被困，全区紧急避险转移18.7万人。 几乎同期，北方也不平静：台风巴威虽未直接登陆东北，却通过远距离水汽输",
-        "dedupe_key": "https://www.qbitai.com/2026/09/484683.html"
+        "description": "IT之家 9 月 5 日消息，据中国广核集团，9 月 5 日上午 9 时 18 分，中广核山东招远核电项目 2 号机组启动核岛第一罐混凝土浇筑（ FCD ），标志着该机组主体工程正式开工，项目一期工程进入全面建设阶段。 IT之家从官方介绍获悉，山东招远核电是中广核在全国布局的第十个核电基地，项目 1、2 号机组于 2024 年 8 月 19 日获得国家核准。项目 1 号机组于 2025 年 11 月 18 日主体工程开工， 是我国首个配置冷却塔的“华龙一号”核电机组 。本次浇筑的项目 2 号机组反应堆厂房筏基为半径 27 米、高度 3.7 米的圆柱体，混凝土总浇筑量约 8800 立方米，预计连续施工约 60 小时。 中广核山东招远核电项目规划建设 6 台“华龙一号”核电机组 ，每台机组均配置一台高达 203 米、淋水面积为 16800 平方米的高位收水自然通风冷却塔，将核电站常规岛的直接冷",
+        "dedupe_key": "https://www.ithome.com/0/998/834.htm"
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
-      "cluster_id": "5b088d99040d",
+      "is_new": false,
+      "rank_delta": -1,
+      "cluster_id": "38d81f007497",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 2
+        },
+        {
+          "run_at": "2026-09-05T19:43:55.780608+00:00",
           "rank": 3
         }
       ]
@@ -1618,25 +1762,25 @@
     {
       "source": "telegram",
       "rank": 3,
-      "title": "📰 BleepingComputer Over 5,400 hacked sites serve ClickFix payloads stored on the blockchain A massive cybercriminal operation is leveraging thousands of compromised small-business websites to deliver ClickFix payloads stored in smart contracts on the BNB Smart Chain (BSC). [...] #CyberNews #Infosec",
-      "title_zh": "📰 BleepingComputer 超5400个被黑网站传播存储在区块链上的ClickFix载荷 一场大规模网络犯罪行动利用数千个被入侵的小型企业网站，传播存储在BNB智能链（BSC）智能合约中的ClickFix载荷。[...] #网络新闻 #信息安全",
-      "url": "https://t.me/cyber_security_feed/35531",
-      "hot_value": "5",
+      "title": "Sality Botnet Dismantled After 23-Year Run Infecting 11 Million Devices CrowdStrike, the FBI, Europol, and authorities from Bulgaria, Hungary, and Romania dismantled the Sality botnet, a Russia-based peer-to-peer network active since 2003. The operation targeted infected machines' peer lists, cuttin",
+      "title_zh": "Sality僵尸网络在运行23年、感染1100万台设备后被摧毁 CrowdStrike、FBI、欧洲刑警组织以及保加利亚、匈牙利和罗马尼亚当局摧毁了Sality僵尸网络，这是一个自2003年以来活跃的俄罗斯对等网络。该行动针对受感染机器的对等列表，切断了……",
+      "url": "https://t.me/Cyber_Security_Channel/114073",
+      "hot_value": "359",
       "summary_zh": null,
       "thumbnail": null,
-      "published_at": "2026-09-05T15:07:08+00:00",
+      "published_at": "2026-09-05T18:02:01+00:00",
       "extra": {
-        "channel": "cyber_security_feed",
+        "channel": "Cyber_Security_Channel",
         "translate": true
       },
       "days_on_board": 1,
       "is_new": true,
       "rank_delta": "new",
-      "cluster_id": "7ca942b414e2",
+      "cluster_id": "c72826b1ee02",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "run_at": "2026-09-05T19:43:55.780608+00:00",
           "rank": 3
         }
       ]
@@ -1647,7 +1791,7 @@
       "title": "青春华章",
       "title_zh": "青春华章",
       "url": "https://s.weibo.com/weibo?q=%23%E9%9D%92%E6%98%A5%E5%8D%8E%E7%AB%A0%23",
-      "hot_value": "866729",
+      "hot_value": "176178",
       "summary_zh": null,
       "thumbnail": null,
       "published_at": null,
@@ -1667,6 +1811,10 @@
         {
           "run_at": "2026-09-05T16:44:00.251437+00:00",
           "rank": 3
+        },
+        {
+          "run_at": "2026-09-05T19:43:55.780608+00:00",
+          "rank": 3
         }
       ]
     },
@@ -1676,7 +1824,7 @@
       "title": "1000 Players Simulate Mining Prison in Minecraft",
       "title_zh": "1000名玩家在《我的世界》模拟挖矿监狱",
       "url": "https://youtube.com/watch?v=we2dBzQxtgQ",
-      "hot_value": "732136",
+      "hot_value": "1666836",
       "summary_zh": "千名玩家模拟越狱，剧情反转值得一看。",
       "thumbnail": "https://i.ytimg.com/vi/we2dBzQxtgQ/hqdefault.jpg",
       "published_at": "2026-09-05T13:00:30Z",
@@ -1687,13 +1835,17 @@
         "description": "After being captured and taken to the nether by ClownPierce... I was put into a Mining Prison, where players must mine for their own survival. But I promise that someday, somehow, I'm going to escape. This is How 1000 Players Simulate Mining Prison in Minecraft. \n\nUnstable SMP:\n➜ ‪  ‪    ‪@FlameFrag"
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "09d12559dc1c",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 3
+        },
+        {
+          "run_at": "2026-09-05T19:43:55.780608+00:00",
           "rank": 3
         }
       ]
@@ -1701,29 +1853,45 @@
     {
       "source": "bilibili",
       "rank": 4,
-      "title": "【萌黄一槽】幻术吗，什么时候？！宇智波鼬[晓·朱]全技能爆料！",
-      "title_zh": "【萌黄一槽】幻术吗，什么时候？！宇智波鼬[晓·朱]全技能爆料！",
-      "url": "https://b23.tv/BV1j3t268EPc",
-      "hot_value": "991763",
+      "title": "慢下来，就会死！",
+      "title_zh": "慢下来，就会死！",
+      "url": "https://b23.tv/BV1T2ti6REsF",
+      "hot_value": "655535",
       "summary_zh": null,
-      "thumbnail": "http://i0.hdslb.com/bfs/archive/1afcd84b38608668d330bd9529c85fe9b1e39236.jpg",
-      "published_at": "2026-09-05T10:40:31+00:00",
+      "thumbnail": "http://i2.hdslb.com/bfs/archive/f28b0b343fb72220fc74d1856b2335ef676d2c62.jpg",
+      "published_at": "2026-09-05T03:30:00+00:00",
       "extra": {
-        "bvid": "BV1j3t268EPc",
-        "owner": "火影忍者手游情报君"
+        "bvid": "BV1T2ti6REsF",
+        "owner": "某幻君"
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "56196ec03f70",
+      "rank_delta": 5,
+      "cluster_id": "96bdb24eea6d",
       "cluster_size": 1,
       "rank_history": [
         {
+          "run_at": "2026-09-05T06:59:06.242545+00:00",
+          "rank": 6
+        },
+        {
+          "run_at": "2026-09-05T07:44:06.628615+00:00",
+          "rank": 13
+        },
+        {
+          "run_at": "2026-09-05T10:44:07.499731+00:00",
+          "rank": 9
+        },
+        {
           "run_at": "2026-09-05T13:43:58.261424+00:00",
-          "rank": 4
+          "rank": 12
         },
         {
           "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 9
+        },
+        {
+          "run_at": "2026-09-05T19:43:55.780608+00:00",
           "rank": 4
         }
       ]
@@ -1731,28 +1899,32 @@
     {
       "source": "douyin",
       "rank": 4,
-      "title": "福建莆田多地出现洪涝灾害",
-      "title_zh": "福建莆田多地出现洪涝灾害",
-      "url": "https://www.douyin.com/search/%E7%A6%8F%E5%BB%BA%E8%8E%86%E7%94%B0%E5%A4%9A%E5%9C%B0%E5%87%BA%E7%8E%B0%E6%B4%AA%E6%B6%9D%E7%81%BE%E5%AE%B3",
-      "hot_value": "11815458",
+      "title": "张雪机车法国站第一回合第三名",
+      "title_zh": "张雪机车法国站第一回合第三名",
+      "url": "https://www.douyin.com/search/%E5%BC%A0%E9%9B%AA%E6%9C%BA%E8%BD%A6%E6%B3%95%E5%9B%BD%E7%AB%99%E7%AC%AC%E4%B8%80%E5%9B%9E%E5%90%88%E7%AC%AC%E4%B8%89%E5%90%8D",
+      "hot_value": "11322893",
       "summary_zh": null,
-      "thumbnail": "https://p26-sign.douyinpic.com/tos-cn-p-0015/osBWexQAG8AXeQxH8c79eN8oo9MhBCJQlD3VS3~noop.jpeg?lk3s=bfd515bb&x-expires=1788645600&x-signature=HRUe4Sgq3UoOg5ues%2FDPHeBIwf4%3D&from=3218412987",
+      "thumbnail": "https://p26-sign.douyinpic.com/tos-cn-p-0015/oU2QgEqF96ZQqAHf4UknEAUhMheDABFhNtvAtk~noop.jpeg?lk3s=bfd515bb&x-expires=1788656400&x-signature=eZV4bcYjNzTJhrd95MnZ9Wemt4c%3D&from=3218412987",
       "published_at": null,
       "extra": {
-        "sentence_id": "2636456"
+        "sentence_id": "2637143"
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": -2,
-      "cluster_id": "12478083e759",
+      "rank_delta": -3,
+      "cluster_id": "864ff169f02e",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-05T13:43:58.261424+00:00",
-          "rank": 2
+          "rank": 1
         },
         {
           "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 1
+        },
+        {
+          "run_at": "2026-09-05T19:43:55.780608+00:00",
           "rank": 4
         }
       ]
@@ -1760,29 +1932,33 @@
     {
       "source": "feed",
       "rank": 4,
-      "title": "HTC 黄昭颖：手机发展至今很难再找到新的创新突破，眼下资源转向 AI 眼镜",
-      "title_zh": "HTC 黄昭颖：手机发展至今很难再找到新的创新突破，眼下资源转向 AI 眼镜",
-      "url": "https://www.ithome.com/0/998/828.htm",
+      "title": "押中SpaceX的硅谷老将，把票投给了一家中国世界模型公司",
+      "title_zh": "押中SpaceX的硅谷老将，把票投给了一家中国世界模型公司",
+      "url": "https://www.qbitai.com/2026/09/484683.html",
       "hot_value": null,
-      "summary_zh": "IT之家 9 月 5 日消息，9 月 3 日，HTC 宣布为旗下 AI 智能眼镜 VIVE Eagle 新增全新圆框款式，同步升级多项软件功能；同时登陆欧洲、北美和澳大利亚市场，主打时尚设计、AI 功能和隐私保护。 在同日的媒体采访中，HTC 高级副总裁黄昭颖表示， 智能手机发展至今，很难再找到新的创新突破 ；现有 U24 Pro 预计今年底逐步进入产品周期尾声，接下来手机将暂退二线。 不过，黄昭颖并未完全排除重启手机业务的可能。他表示，若未来市场出现新的突破技术，HTC 仍可能重新评估； 只是眼前资源已有更明确的去处，AI 眼镜正是其中之一 。 IT之家注意到，自 2025 年推出 AI 眼镜 VIVE Eagle 后，HTC 该品类今年的营收规模已超越智能手机。在昔日奠定 HTC 品牌声量的手机业务尚未正式退市前，其内部战略已全面转向 AI。 相关阅读： 《 王雪红：HTC 已成功转型",
+      "summary_zh": "押中SpaceX的硅谷老将，把票投给了一家中国世界模型公司 量子位的朋友们 2026-09-05 22:46:15 来源： 量子位 当AI开始“预演”一场暴雨 允中 发自 凹非寺量子位 | 公众号 QbitAI 过去三年，AI证明了自己能读懂人类的语言。但尴尬的是，它依然看不懂我们身处的物理世界。 大模型缺乏通向物理世界的通路，这不是危言耸听。 2026年7月，中国南北方同时遭遇严峻洪涝考验。 南方，受台风美莎克及西南季风共同影响，广西遭遇持续强降雨。南宁市横州、宾阳等地多个站点降雨量突破历史纪录，六蓝水库发生溃口。 从监测到异常洪峰到溃口发生，留给指挥部的黄金处置时间不足30分钟，贵港郁江出现2001年以来最大洪水，洪峰水位超出警戒5.68米，一处教育园区积水最深接近三楼，上万名师生被困，全区紧急避险转移18.7万人。 几乎同期，北方也不平静：台风巴威虽未直接登陆东北，却通过远距离水汽输",
       "thumbnail": null,
-      "published_at": "2026-09-05T13:46:34+00:00",
+      "published_at": "2026-09-05T14:46:15+00:00",
       "extra": {
-        "feed_name": "IT之家",
+        "feed_name": "量子位",
         "tab": "ai",
-        "route": "/ithome/it",
+        "route": "/qbitai/category/%E8%B5%84%E8%AE%AF",
         "translate": false,
-        "description": "IT之家 9 月 5 日消息，9 月 3 日，HTC 宣布为旗下 AI 智能眼镜 VIVE Eagle 新增全新圆框款式，同步升级多项软件功能；同时登陆欧洲、北美和澳大利亚市场，主打时尚设计、AI 功能和隐私保护。 在同日的媒体采访中，HTC 高级副总裁黄昭颖表示， 智能手机发展至今，很难再找到新的创新突破 ；现有 U24 Pro 预计今年底逐步进入产品周期尾声，接下来手机将暂退二线。 不过，黄昭颖并未完全排除重启手机业务的可能。他表示，若未来市场出现新的突破技术，HTC 仍可能重新评估； 只是眼前资源已有更明确的去处，AI 眼镜正是其中之一 。 IT之家注意到，自 2025 年推出 AI 眼镜 VIVE Eagle 后，HTC 该品类今年的营收规模已超越智能手机。在昔日奠定 HTC 品牌声量的手机业务尚未正式退市前，其内部战略已全面转向 AI。 相关阅读： 《 王雪红：HTC 已成功转型",
-        "dedupe_key": "https://www.ithome.com/0/998/828.htm"
+        "description": "押中SpaceX的硅谷老将，把票投给了一家中国世界模型公司 量子位的朋友们 2026-09-05 22:46:15 来源： 量子位 当AI开始“预演”一场暴雨 允中 发自 凹非寺量子位 | 公众号 QbitAI 过去三年，AI证明了自己能读懂人类的语言。但尴尬的是，它依然看不懂我们身处的物理世界。 大模型缺乏通向物理世界的通路，这不是危言耸听。 2026年7月，中国南北方同时遭遇严峻洪涝考验。 南方，受台风美莎克及西南季风共同影响，广西遭遇持续强降雨。南宁市横州、宾阳等地多个站点降雨量突破历史纪录，六蓝水库发生溃口。 从监测到异常洪峰到溃口发生，留给指挥部的黄金处置时间不足30分钟，贵港郁江出现2001年以来最大洪水，洪峰水位超出警戒5.68米，一处教育园区积水最深接近三楼，上万名师生被困，全区紧急避险转移18.7万人。 几乎同期，北方也不平静：台风巴威虽未直接登陆东北，却通过远距离水汽输",
+        "dedupe_key": "https://www.qbitai.com/2026/09/484683.html"
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
-      "cluster_id": "55b1c1047988",
+      "is_new": false,
+      "rank_delta": -1,
+      "cluster_id": "5b088d99040d",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 3
+        },
+        {
+          "run_at": "2026-09-05T19:43:55.780608+00:00",
           "rank": 4
         }
       ]
@@ -2796,10 +2972,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-02T14:08:11.969730+00:00",
-          "rank": 12
-        },
-        {
           "run_at": "2026-09-02T19:15:05.327909+00:00",
           "rank": 12
         },
@@ -2914,6 +3086,10 @@
         {
           "run_at": "2026-09-05T16:44:00.251437+00:00",
           "rank": 2
+        },
+        {
+          "run_at": "2026-09-05T19:43:55.780608+00:00",
+          "rank": 2
         }
       ]
     },
@@ -2948,14 +3124,10 @@
       },
       "days_on_board": 6,
       "is_new": false,
-      "rank_delta": -2,
+      "rank_delta": 0,
       "cluster_id": "aae912f39f67",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-02T14:08:11.969730+00:00",
-          "rank": 26
-        },
         {
           "run_at": "2026-09-02T19:15:05.327909+00:00",
           "rank": 26
@@ -3071,6 +3243,10 @@
         {
           "run_at": "2026-09-05T16:44:00.251437+00:00",
           "rank": 3
+        },
+        {
+          "run_at": "2026-09-05T19:43:55.780608+00:00",
+          "rank": 3
         }
       ]
     },
@@ -3111,10 +3287,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-02T14:08:11.969730+00:00",
-          "rank": 12
-        },
-        {
           "run_at": "2026-09-02T19:15:05.327909+00:00",
           "rank": 11
         },
@@ -3228,6 +3400,10 @@
         },
         {
           "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 12
+        },
+        {
+          "run_at": "2026-09-05T19:43:55.780608+00:00",
           "rank": 12
         }
       ]
@@ -3268,10 +3444,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-02T14:08:11.969730+00:00",
-          "rank": 13
-        },
-        {
           "run_at": "2026-09-02T19:15:05.327909+00:00",
           "rank": 12
         },
@@ -3385,6 +3557,10 @@
         },
         {
           "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 13
+        },
+        {
+          "run_at": "2026-09-05T19:43:55.780608+00:00",
           "rank": 13
         }
       ]
@@ -3425,10 +3601,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-02T14:08:11.969730+00:00",
-          "rank": 14
-        },
-        {
           "run_at": "2026-09-02T19:15:05.327909+00:00",
           "rank": 13
         },
@@ -3542,6 +3714,10 @@
         },
         {
           "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 14
+        },
+        {
+          "run_at": "2026-09-05T19:43:55.780608+00:00",
           "rank": 14
         }
       ]
@@ -3580,10 +3756,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-02T14:08:11.969730+00:00",
-          "rank": 16
-        },
-        {
           "run_at": "2026-09-02T19:15:05.327909+00:00",
           "rank": 16
         },
@@ -3697,6 +3869,10 @@
         },
         {
           "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 17
+        },
+        {
+          "run_at": "2026-09-05T19:43:55.780608+00:00",
           "rank": 17
         }
       ]
@@ -3738,10 +3914,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-02T14:08:11.969730+00:00",
-          "rank": 17
-        },
-        {
           "run_at": "2026-09-02T19:15:05.327909+00:00",
           "rank": 17
         },
@@ -3855,6 +4027,10 @@
         },
         {
           "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 18
+        },
+        {
+          "run_at": "2026-09-05T19:43:55.780608+00:00",
           "rank": 18
         }
       ]
@@ -3894,10 +4070,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-02T14:08:11.969730+00:00",
-          "rank": 18
-        },
-        {
           "run_at": "2026-09-02T19:15:05.327909+00:00",
           "rank": 18
         },
@@ -4011,6 +4183,10 @@
         },
         {
           "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 19
+        },
+        {
+          "run_at": "2026-09-05T19:43:55.780608+00:00",
           "rank": 19
         }
       ]
@@ -4051,10 +4227,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-02T14:08:11.969730+00:00",
-          "rank": 19
-        },
-        {
           "run_at": "2026-09-02T19:15:05.327909+00:00",
           "rank": 19
         },
@@ -4168,6 +4340,10 @@
         },
         {
           "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 21
+        },
+        {
+          "run_at": "2026-09-05T19:43:55.780608+00:00",
           "rank": 21
         }
       ]
@@ -4211,10 +4387,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-02T14:08:11.969730+00:00",
-          "rank": 20
-        },
-        {
           "run_at": "2026-09-02T19:15:05.327909+00:00",
           "rank": 20
         },
@@ -4328,6 +4500,10 @@
         },
         {
           "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 22
+        },
+        {
+          "run_at": "2026-09-05T19:43:55.780608+00:00",
           "rank": 22
         }
       ]
@@ -4418,14 +4594,10 @@
       },
       "days_on_board": 6,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": 0,
       "cluster_id": "4f1a63a57077",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-02T14:08:11.969730+00:00",
-          "rank": 22
-        },
         {
           "run_at": "2026-09-02T19:15:05.327909+00:00",
           "rank": 22
@@ -4540,6 +4712,10 @@
         },
         {
           "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 23
+        },
+        {
+          "run_at": "2026-09-05T19:43:55.780608+00:00",
           "rank": 23
         }
       ]
@@ -4574,14 +4750,10 @@
       },
       "days_on_board": 6,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": 0,
       "cluster_id": "cde12a757205",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-02T14:08:11.969730+00:00",
-          "rank": 21
-        },
         {
           "run_at": "2026-09-02T19:15:05.327909+00:00",
           "rank": 21
@@ -4696,6 +4868,10 @@
         },
         {
           "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 24
+        },
+        {
+          "run_at": "2026-09-05T19:43:55.780608+00:00",
           "rank": 24
         }
       ]
@@ -4736,10 +4912,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-02T14:08:11.969730+00:00",
-          "rank": 29
-        },
-        {
           "run_at": "2026-09-02T19:15:05.327909+00:00",
           "rank": 28
         },
@@ -4853,6 +5025,10 @@
         },
         {
           "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 25
+        },
+        {
+          "run_at": "2026-09-05T19:43:55.780608+00:00",
           "rank": 25
         }
       ]
@@ -4930,10 +5106,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-02T14:08:11.969730+00:00",
-          "rank": 24
-        },
-        {
           "run_at": "2026-09-02T19:15:05.327909+00:00",
           "rank": 24
         },
@@ -5047,6 +5219,10 @@
         },
         {
           "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 26
+        },
+        {
+          "run_at": "2026-09-05T19:43:55.780608+00:00",
           "rank": 26
         }
       ]
@@ -5086,10 +5262,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-02T14:08:11.969730+00:00",
-          "rank": 23
-        },
-        {
           "run_at": "2026-09-02T19:15:05.327909+00:00",
           "rank": 23
         },
@@ -5203,6 +5375,10 @@
         },
         {
           "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 27
+        },
+        {
+          "run_at": "2026-09-05T19:43:55.780608+00:00",
           "rank": 27
         }
       ]
@@ -5272,10 +5448,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-02T14:08:11.969730+00:00",
-          "rank": 25
-        },
-        {
           "run_at": "2026-09-02T19:15:05.327909+00:00",
           "rank": 25
         },
@@ -5389,6 +5561,10 @@
         },
         {
           "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 28
+        },
+        {
+          "run_at": "2026-09-05T19:43:55.780608+00:00",
           "rank": 28
         }
       ]
@@ -5430,10 +5606,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-02T14:08:11.969730+00:00",
-          "rank": 27
-        },
-        {
           "run_at": "2026-09-02T19:15:05.327909+00:00",
           "rank": 27
         },
@@ -5547,6 +5719,10 @@
         },
         {
           "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 29
+        },
+        {
+          "run_at": "2026-09-05T19:43:55.780608+00:00",
           "rank": 29
         }
       ]
@@ -5588,10 +5764,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-02T14:08:11.969730+00:00",
-          "rank": 28
-        },
-        {
           "run_at": "2026-09-02T19:15:05.327909+00:00",
           "rank": 29
         },
@@ -5705,6 +5877,10 @@
         },
         {
           "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 30
+        },
+        {
+          "run_at": "2026-09-05T19:43:55.780608+00:00",
           "rank": 30
         }
       ]
@@ -5742,14 +5918,10 @@
       },
       "days_on_board": 6,
       "is_new": false,
-      "rank_delta": -26,
+      "rank_delta": 0,
       "cluster_id": "3f8ef919547a",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-02T14:08:11.969730+00:00",
-          "rank": 30
-        },
         {
           "run_at": "2026-09-02T19:15:05.327909+00:00",
           "rank": 30
@@ -5864,6 +6036,10 @@
         },
         {
           "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 31
+        },
+        {
+          "run_at": "2026-09-05T19:43:55.780608+00:00",
           "rank": 31
         }
       ]
@@ -5897,14 +6073,10 @@
       },
       "days_on_board": 6,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": 0,
       "cluster_id": "b20735aeafb3",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-02T14:08:11.969730+00:00",
-          "rank": 31
-        },
         {
           "run_at": "2026-09-02T19:15:05.327909+00:00",
           "rank": 31
@@ -6019,6 +6191,10 @@
         },
         {
           "run_at": "2026-09-05T16:44:00.251437+00:00",
+          "rank": 33
+        },
+        {
+          "run_at": "2026-09-05T19:43:55.780608+00:00",
           "rank": 33
         }
       ]
