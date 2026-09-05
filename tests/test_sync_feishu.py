@@ -67,7 +67,7 @@ def test_gongkao_mapping_derives_dates_status_region_and_links() -> None:
     assert fields["报名截止"] == date_to_millis("2026-09-07")
     assert fields["距截止天数"] == 2
     assert fields["报名状态"] == "报名中"
-    assert fields["报名入口"] == {"text": "报名入口", "link": "https://example.com/apply"}
+    assert "报名入口" not in fields
     assert fields["公告链接"] == {"text": "查看公告", "link": "https://example.com/notice"}
     assert fields["应届可报"] is True
     assert fields["来源"] == "自动"
@@ -203,8 +203,8 @@ def test_client_caches_token_and_refetches_it_once_after_401() -> None:
 
 def test_default_mapping_has_every_required_feishu_field() -> None:
     assert set(DEFAULT_GONGKAO_MAPPING.values()) == {
-        "同步ID", "更新时间", "地区", "招录类型", "招录单位·公告", "招录人数", "学历要求",
-        "专业要求", "报名开始", "报名截止", "距截止天数", "笔试时间", "报名状态", "报名入口",
+        "同步ID", "更新时间", "地区", "招录类型", "招录单位·公告", "招录人数",
+        "报名开始", "报名截止", "距截止天数", "笔试时间", "报名状态",
         "公告链接", "应届可报", "来源", "备注",
     }
     assert set(DEFAULT_QIUZHAO_MAPPING.values()) == {
