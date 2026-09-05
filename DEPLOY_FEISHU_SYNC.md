@@ -1,8 +1,9 @@
 # S1：公考 + 秋招同步到飞书多维表格
 
-同步任务只部署在 S1，直接读取 `/var/www/hot-gap/data/gongkao.json` 和
-`/var/www/hot-gap/data/qiuzhao.json`。不要把它加入 GitHub Actions：飞书 API 从美国 IP
-访问不稳定。
+同步任务只部署在 S1，读取 `/var/www/hot-gap/data/gongkao.json` 和
+`/var/www/hot-gap/data/qiuzhao.json`。秋招文件由 S1 上现有的 `jobs.json` 标准化生成；
+仅保留上游实际提供的公司、岗位、地点、行业和链接，未知截止日期等字段保持为空。不要把它加入
+GitHub Actions：飞书 API 从美国 IP 访问不稳定。
 
 ## 1. 新建多维表格和数据表
 
@@ -158,6 +159,7 @@ BARK_URL=
 
 ```bash
 cd /path/to/hot-gap-aggregator
+.venv/bin/python -m app.export_qiuzhao
 .venv/bin/python -m app.sync_feishu
 ```
 
@@ -176,7 +178,7 @@ cd /path/to/hot-gap-aggregator
 执行 `crontab -e`，加入：
 
 ```cron
-0 7,13,19 * * * cd /path/to/hot-gap-aggregator && .venv/bin/python -m app.sync_feishu >> /var/log/hot-gap-feishu-sync.log 2>&1
+0 7,13,19 * * * cd /path/to/hot-gap-aggregator && .venv/bin/python -m app.export_qiuzhao && .venv/bin/python -m app.sync_feishu >> /var/log/hot-gap-feishu-sync.log 2>&1
 ```
 
 确保 cron 用户能读取项目 `.env`、`config/feishu_sync.yaml` 和两份 JSON，并能写入
