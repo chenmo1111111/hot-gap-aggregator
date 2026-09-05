@@ -1,22 +1,74 @@
 {
-  "generated_at": "2026-09-05T04:43:51.890357+00:00",
+  "generated_at": "2026-09-05T05:04:16.938707+00:00",
   "source": "telegram",
   "status": {
     "source": "telegram",
     "status": "ok",
     "item_count": 37,
-    "duration_ms": 1371,
+    "duration_ms": 1346,
     "error": null,
-    "run_at": "2026-09-05T04:43:51.890357+00:00"
+    "run_at": "2026-09-05T05:04:16.938707+00:00"
   },
   "items": [
     {
       "source": "telegram",
       "rank": 1,
+      "title": "SOC teams need open telemetry: complete, customer-owned, and real-time data. Export fees, delays, and partial access create vendor lock-in and slow incident response. #SIEM #Elastic #CrowdStrike ➡️ https://www.hendryadrian.com/data-access-the-hidden-cost-of-security-vendor-lock-in/",
+      "title_zh": "SOC团队需要开放遥测：完整、客户自有、实时的数据。导出费用、延迟和部分访问会造成供应商锁定并拖慢事件响应。 #SIEM #Elastic #CrowdStrike ➡️ https://www.hendryadrian.com/data-access-the-hidden-cost-of-security-vendor-lock-in/",
+      "url": "https://t.me/cybernotif/35439",
+      "hot_value": "2",
+      "summary_zh": null,
+      "thumbnail": null,
+      "published_at": "2026-09-05T05:00:07+00:00",
+      "extra": {
+        "channel": "cybernotif",
+        "translate": true
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "48270cbd371b",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-05T05:04:16.938707+00:00",
+          "rank": 1
+        }
+      ]
+    },
+    {
+      "source": "telegram",
+      "rank": 2,
+      "title": "Private Adatıp Hospital in Turkey blocked a cyberattack attempt amid a wider wave targeting healthcare providers. Strong IT systems detected and contained the incident quickly, with no data leak or unauthorized access. #Turkey #AdatıpHospital ➡️ https://www.hendryadrian.com/private-adatip-hospital-p",
+      "title_zh": "土耳其Private Adatıp Hospital在针对医疗机构的更广泛攻击浪潮中阻止了一次网络攻击企图。强大的IT系统迅速检测并遏制了事件，无数据泄露或未授权访问。 #Turkey #AdatıpHospital ➡️ https://www.hendryadrian.com/private-adatip-hospital-p",
+      "url": "https://t.me/cybernotif/35438",
+      "hot_value": "3",
+      "summary_zh": null,
+      "thumbnail": null,
+      "published_at": "2026-09-05T04:46:12+00:00",
+      "extra": {
+        "channel": "cybernotif",
+        "translate": true
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "f348ed366963",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-05T05:04:16.938707+00:00",
+          "rank": 2
+        }
+      ]
+    },
+    {
+      "source": "telegram",
+      "rank": 3,
       "title": "Ransomware hit the Judicial Branch of Jujuy in Argentina. Actor emperador claims 4.2 GB of stolen data, plus WordPress, login, and email credentials, and is demanding payment. #Argentina #Jujuy #Ransomware ➡️ https://www.hendryadrian.com/ransom-judicial-branch-of-the-province-of-jujuy-sep-2026/",
-      "title_zh": "Ransomware hit the Judicial Branch of Jujuy in Argentina. Actor emperador claims 4.2 GB of stolen data, plus WordPress, login, and email credentials, and is demanding payment. #Argentina #Jujuy #Ransomware ➡️ https://www.hendryadrian.com/ransom-judicial-branch-of-the-province-of-jujuy-sep-2026/",
+      "title_zh": "勒索软件袭击了阿根廷Jujuy省司法部门。攻击者emperador声称窃取了4.2 GB数据，以及WordPress、登录和邮箱凭据，并要求支付赎金。 #Argentina #Jujuy #Ransomware ➡️ https://www.hendryadrian.com/ransom-judicial-branch-of-the-province-of-jujuy-sep-2026/",
       "url": "https://t.me/cybernotif/35437",
-      "hot_value": "1",
+      "hot_value": "3",
       "summary_zh": null,
       "thumbnail": null,
       "published_at": "2026-09-05T04:30:06+00:00",
@@ -25,24 +77,28 @@
         "translate": true
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
-      "cluster_id": "557aa4e02423",
+      "is_new": false,
+      "rank_delta": -2,
+      "cluster_id": "9c3946cd0be0",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-05T04:43:51.890357+00:00",
           "rank": 1
+        },
+        {
+          "run_at": "2026-09-05T05:04:16.938707+00:00",
+          "rank": 3
         }
       ]
     },
     {
       "source": "telegram",
-      "rank": 2,
+      "rank": 4,
       "title": "HPE patched 34 CVEs in ArubaOS-CX, including critical unauthenticated RCE flaws that could impact enterprise switches. The update fixes over 150 issues; no in-the-wild exploitation reported. #HPE #ArubaOSCX #CVE202673749 ➡️ https://www.hendryadrian.com/hpe-patches-critical-rce-vulnerabilities-in-aos",
-      "title_zh": "HPE patched 34 CVEs in ArubaOS-CX, including critical unauthenticated RCE flaws that could impact enterprise switches. The update fixes over 150 issues; no in-the-wild exploitation reported. #HPE #ArubaOSCX #CVE202673749 ➡️ https://www.hendryadrian.com/hpe-patches-critical-rce-vulnerabilities-in-aos",
+      "title_zh": "HPE在ArubaOS-CX中修补了34个CVE，包括可能影响企业交换机的严重未认证RCE漏洞。更新修复了150多个问题；未报告野外利用。 #HPE #ArubaOSCX #CVE202673749 ➡️ https://www.hendryadrian.com/hpe-patches-critical-rce-vulnerabilities-in-aos",
       "url": "https://t.me/cybernotif/35436",
-      "hot_value": "4",
+      "hot_value": "5",
       "summary_zh": null,
       "thumbnail": null,
       "published_at": "2026-09-05T04:15:05+00:00",
@@ -51,24 +107,28 @@
         "translate": true
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
-      "cluster_id": "0ab705129db7",
+      "is_new": false,
+      "rank_delta": -2,
+      "cluster_id": "71061ba306ed",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-05T04:43:51.890357+00:00",
           "rank": 2
+        },
+        {
+          "run_at": "2026-09-05T05:04:16.938707+00:00",
+          "rank": 4
         }
       ]
     },
     {
       "source": "telegram",
-      "rank": 3,
+      "rank": 5,
       "title": "OpenAI pledges $1 billion in subsidized frontier AI, training, and support for critical infrastructure defenders, with Daybreak Blue and Red to speed investigations, remediation, and reporting. #OpenAI #Daybreak #CriticalInfra ➡️ https://www.hendryadrian.com/openai-pledges-1-billion-to-bring-frontie",
-      "title_zh": "OpenAI pledges $1 billion in subsidized frontier AI, training, and support for critical infrastructure defenders, with Daybreak Blue and Red to speed investigations, remediation, and reporting. #OpenAI #Daybreak #CriticalInfra ➡️ https://www.hendryadrian.com/openai-pledges-1-billion-to-bring-frontie",
+      "title_zh": "OpenAI承诺投入10亿美元，为关键基础设施防御者提供补贴的前沿AI、培训和支持，Daybreak Blue和Red将加速调查、修复和报告。 #OpenAI #Daybreak #CriticalInfra ➡️ https://www.hendryadrian.com/openai-pledges-1-billion-to-bring-frontie",
       "url": "https://t.me/cybernotif/35435",
-      "hot_value": "4",
+      "hot_value": "6",
       "summary_zh": null,
       "thumbnail": null,
       "published_at": "2026-09-05T04:00:06+00:00",
@@ -77,24 +137,28 @@
         "translate": true
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
-      "cluster_id": "82a8aeb81c74",
+      "is_new": false,
+      "rank_delta": -2,
+      "cluster_id": "e2a5cf63daeb",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-05T04:43:51.890357+00:00",
           "rank": 3
+        },
+        {
+          "run_at": "2026-09-05T05:04:16.938707+00:00",
+          "rank": 5
         }
       ]
     },
     {
       "source": "telegram",
-      "rank": 4,
+      "rank": 6,
       "title": "Microsoft uncovered a phishing wave sending millions of emails daily, using invisible Unicode tags to split finance-themed words and bypass filters. The tactic, known as ASCII smuggling, boosts evasion in email attacks. #Microsoft #Unicode #Phishing ➡️ https://www.hendryadrian.com/phishing-campaign-",
-      "title_zh": "Microsoft uncovered a phishing wave sending millions of emails daily, using invisible Unicode tags to split finance-themed words and bypass filters. The tactic, known as ASCII smuggling, boosts evasion in email attacks. #Microsoft #Unicode #Phishing ➡️ https://www.hendryadrian.com/phishing-campaign-",
+      "title_zh": "微软发现一波钓鱼攻击，每天发送数百万封邮件，利用隐形Unicode标签拆分金融相关词汇以绕过过滤器。这种被称为ASCII走私的技术提升了邮件攻击的规避能力。 #Microsoft #Unicode #Phishing ➡️ https://www.hendryadrian.com/phishing-campaign-",
       "url": "https://t.me/cybernotif/35434",
-      "hot_value": "5",
+      "hot_value": "6",
       "summary_zh": null,
       "thumbnail": null,
       "published_at": "2026-09-05T03:45:05+00:00",
@@ -103,24 +167,28 @@
         "translate": true
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
-      "cluster_id": "807865326e60",
+      "is_new": false,
+      "rank_delta": -2,
+      "cluster_id": "c344a9cc6c56",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-05T04:43:51.890357+00:00",
           "rank": 4
+        },
+        {
+          "run_at": "2026-09-05T05:04:16.938707+00:00",
+          "rank": 6
         }
       ]
     },
     {
       "source": "telegram",
-      "rank": 5,
+      "rank": 7,
       "title": "❗️ Three climbers trusted AI to plan their mountain trip and it went very wrong. Three men set out to climb Mount Shasta in California after relying heavily on Google’s Gemini to help plan their route and decide what supplies to bring. They eventually had to be rescued. The group reached the summit ",
-      "title_zh": "❗️ Three climbers trusted AI to plan their mountain trip and it went very wrong. Three men set out to climb Mount Shasta in California after relying heavily on Google’s Gemini to help plan their route and decide what supplies to bring. They eventually had to be rescued. The group reached the summit",
+      "title_zh": "❗️ 三名登山者信任AI规划登山行程，结果出了大问题。三名男子在严重依赖Google的Gemini规划路线和决定携带物资后，出发攀登加州沙斯塔山。他们最终不得不被救援。该团队到达了山顶",
       "url": "https://t.me/aipost/8054",
-      "hot_value": "711",
+      "hot_value": "832",
       "summary_zh": null,
       "thumbnail": null,
       "published_at": "2026-09-05T03:25:13+00:00",
@@ -129,65 +197,17 @@
         "translate": true
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
-      "cluster_id": "983432a0bc12",
+      "is_new": false,
+      "rank_delta": -2,
+      "cluster_id": "0deb23fd3ac6",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-05T04:43:51.890357+00:00",
           "rank": 5
-        }
-      ]
-    },
-    {
-      "source": "telegram",
-      "rank": 6,
-      "title": "A forum actor claims access to France's INPI registry and says 27,348,474 director and representative records were published, including names, birth dates, residence details, and company IDs. #INPI #France #DataLeak ➡️ https://www.hendryadrian.com/inpi-registry-files-with-27-million-director-records",
-      "title_zh": "A forum actor claims access to France's INPI registry and says 27,348,474 director and representative records were published, including names, birth dates, residence details, and company IDs. #INPI #France #DataLeak ➡️ https://www.hendryadrian.com/inpi-registry-files-with-27-million-director-records",
-      "url": "https://t.me/cybernotif/35433",
-      "hot_value": "8",
-      "summary_zh": null,
-      "thumbnail": null,
-      "published_at": "2026-09-05T03:15:05+00:00",
-      "extra": {
-        "channel": "cybernotif",
-        "translate": true
-      },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
-      "cluster_id": "0107e07e0eec",
-      "cluster_size": 1,
-      "rank_history": [
+        },
         {
-          "run_at": "2026-09-05T04:43:51.890357+00:00",
-          "rank": 6
-        }
-      ]
-    },
-    {
-      "source": "telegram",
-      "rank": 7,
-      "title": "A forum actor is allegedly selling verified online banking access to a BNP Paribas savings account in France, claiming transfer capability and about 262,000 euros in balance. #BNPParibas #France #Banking ➡️ https://www.hendryadrian.com/online-banking-access-to-a-bnp-paribas-savings-account-offered-f",
-      "title_zh": "A forum actor is allegedly selling verified online banking access to a BNP Paribas savings account in France, claiming transfer capability and about 262,000 euros in balance. #BNPParibas #France #Banking ➡️ https://www.hendryadrian.com/online-banking-access-to-a-bnp-paribas-savings-account-offered-f",
-      "url": "https://t.me/cybernotif/35432",
-      "hot_value": "10",
-      "summary_zh": null,
-      "thumbnail": null,
-      "published_at": "2026-09-05T03:00:09+00:00",
-      "extra": {
-        "channel": "cybernotif",
-        "translate": true
-      },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
-      "cluster_id": "4a500a0be770",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-05T04:43:51.890357+00:00",
+          "run_at": "2026-09-05T05:04:16.938707+00:00",
           "rank": 7
         }
       ]
@@ -196,9 +216,9 @@
       "source": "telegram",
       "rank": 8,
       "title": "🔴 CVE Digest — 05 Sep 2026 2 critical vulnerabilities 🔴 CVE-2026-52777 · CVSS 9.4 YesWiki is a wiki system written in PHP. Prior to version 4.6.6, there is an authenticated PHP object injection... 🔴 CVE-2026-52766 · CVSS 9.1 YesWiki is a wiki system written in PHP. Prior to version 4.6.6, the {{eras",
-      "title_zh": "🔴 CVE Digest — 05 Sep 2026 2 critical vulnerabilities 🔴 CVE-2026-52777 · CVSS 9.4 YesWiki is a wiki system written in PHP. Prior to version 4.6.6, there is an authenticated PHP object injection... 🔴 CVE-2026-52766 · CVSS 9.1 YesWiki is a wiki system written in PHP. Prior to version 4.6.6, the {{eras",
+      "title_zh": "🔴 CVE摘要 — 2026年9月5日 2个严重漏洞 🔴 CVE-2026-52777 · CVSS 9.4 YesWiki是一个用PHP编写的wiki系统。在4.6.6版本之前，存在一个已认证的PHP对象注入... 🔴 CVE-2026-52766 · CVSS 9.1 YesWiki是一个用PHP编写的wiki系统。在4.6.6版本之前，{{eras",
       "url": "https://t.me/cyber_security_feed/35526",
-      "hot_value": "4",
+      "hot_value": "5",
       "summary_zh": null,
       "thumbnail": null,
       "published_at": "2026-09-05T02:07:15+00:00",
@@ -207,13 +227,17 @@
         "translate": true
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
-      "cluster_id": "59780f441692",
-      "cluster_size": 1,
+      "is_new": false,
+      "rank_delta": 0,
+      "cluster_id": "3ccf70998c8e",
+      "cluster_size": 2,
       "rank_history": [
         {
           "run_at": "2026-09-05T04:43:51.890357+00:00",
+          "rank": 8
+        },
+        {
+          "run_at": "2026-09-05T05:04:16.938707+00:00",
           "rank": 8
         }
       ]
@@ -222,9 +246,9 @@
       "source": "telegram",
       "rank": 9,
       "title": "📰 Dark Reading [Virtual Event] What Every Enterprise Should Know About Securing Cloud Assets in the Age of AI #CyberNews #Infosec",
-      "title_zh": "📰 Dark Reading [Virtual Event] What Every Enterprise Should Know About Securing Cloud Assets in the Age of AI #CyberNews #Infosec",
+      "title_zh": "📰 Dark Reading [线上活动] 在AI时代，每个企业都应了解的云资产安全知识 #CyberNews #Infosec",
       "url": "https://t.me/cyber_security_feed/35525",
-      "hot_value": "4",
+      "hot_value": "5",
       "summary_zh": null,
       "thumbnail": null,
       "published_at": "2026-09-05T01:07:09+00:00",
@@ -234,8 +258,8 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": -6,
-      "cluster_id": "ad1cab824e34",
+      "rank_delta": 0,
+      "cluster_id": "ff502048a5b9",
       "cluster_size": 1,
       "rank_history": [
         {
@@ -244,6 +268,10 @@
         },
         {
           "run_at": "2026-09-05T04:43:51.890357+00:00",
+          "rank": 9
+        },
+        {
+          "run_at": "2026-09-05T05:04:16.938707+00:00",
           "rank": 9
         }
       ]
@@ -254,7 +282,7 @@
       "title": "🇯🇵 Japan is building AI satellites that could guide missiles The country’s Defense Ministry is planning AI-equipped satellites capable of processing surveillance data directly in space, identifying potential enemy positions and predicting the movement of targets such as ships. These satellites won’t",
       "title_zh": "🇯🇵 日本正在建造可引导导弹的AI卫星",
       "url": "https://t.me/aipost/8053",
-      "hot_value": "1.25K",
+      "hot_value": "1.35K",
       "summary_zh": null,
       "thumbnail": null,
       "published_at": "2026-09-05T00:33:01+00:00",
@@ -264,7 +292,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": -4,
+      "rank_delta": 0,
       "cluster_id": "c24ac51ab644",
       "cluster_size": 1,
       "rank_history": [
@@ -275,6 +303,10 @@
         {
           "run_at": "2026-09-05T04:43:51.890357+00:00",
           "rank": 10
+        },
+        {
+          "run_at": "2026-09-05T05:04:16.938707+00:00",
+          "rank": 10
         }
       ]
     },
@@ -284,7 +316,7 @@
       "title": "🔴 CVE Digest — 05 Sep 2026 1 critical vulnerability 🔴 CVE-2026-75925 · CVSS 9.6 Improper neutralization of CRLF sequences in IXON VPN Client before version 1.4.7 allows an attacker to execute... #CVE #Critical #Vulnerability",
       "title_zh": "🔴 CVE摘要 — 2026年9月5日 1个严重漏洞 🔴 CVE-2026-75925 · CVSS 9.6 IXON VPN客户端1.4.7之前版本中CRLF序列中和不当，允许攻击者执行... #CVE #严重 #漏洞",
       "url": "https://t.me/cyber_security_feed/35524",
-      "hot_value": "3",
+      "hot_value": "4",
       "summary_zh": null,
       "thumbnail": null,
       "published_at": "2026-09-05T00:07:17+00:00",
@@ -294,8 +326,8 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": -4,
-      "cluster_id": "ffc7745049ed",
+      "rank_delta": 0,
+      "cluster_id": "3ccf70998c8e",
       "cluster_size": 2,
       "rank_history": [
         {
@@ -304,6 +336,10 @@
         },
         {
           "run_at": "2026-09-05T04:43:51.890357+00:00",
+          "rank": 11
+        },
+        {
+          "run_at": "2026-09-05T05:04:16.938707+00:00",
           "rank": 11
         }
       ]
@@ -314,7 +350,7 @@
       "title": "📰 Dark Reading [Virtual Event] Building a Secure AI Strategy for the Enterprise #CyberNews #Infosec",
       "title_zh": "📰 Dark Reading [线上活动] 构建企业安全AI战略 #网络安全新闻 #信息安全",
       "url": "https://t.me/cyber_security_feed/35523",
-      "hot_value": "2",
+      "hot_value": "3",
       "summary_zh": null,
       "thumbnail": null,
       "published_at": "2026-09-05T00:07:09+00:00",
@@ -324,7 +360,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": -4,
+      "rank_delta": 0,
       "cluster_id": "106eba110e10",
       "cluster_size": 1,
       "rank_history": [
@@ -335,6 +371,10 @@
         {
           "run_at": "2026-09-05T04:43:51.890357+00:00",
           "rank": 12
+        },
+        {
+          "run_at": "2026-09-05T05:04:16.938707+00:00",
+          "rank": 12
         }
       ]
     },
@@ -344,7 +384,7 @@
       "title": "🔴 CVE Digest — 04 Sep 2026 3 critical vulnerabilities 🔴 CVE-2026-81939 · CVSS 9.1 A Zip Slip vulnerability in the SonicWall Network Security Manager (NSM) On-Prem file upload and archive processing... 🔴 CVE-2026-78328 · CVSS 9.1 A missing authorization vulnerability in the SonicWall Network Security",
       "title_zh": "🔴 CVE摘要 — 2026年9月4日 3个严重漏洞 🔴 CVE-2026-81939 · CVSS 9.1 SonicWall Network Security Manager (NSM) 本地文件上传和归档处理中的Zip Slip漏洞... 🔴 CVE-2026-78328 · CVSS 9.1 SonicWall Network Security中的缺失授权漏洞",
       "url": "https://t.me/cyber_security_feed/35522",
-      "hot_value": "5",
+      "hot_value": "6",
       "summary_zh": null,
       "thumbnail": null,
       "published_at": "2026-09-04T22:07:17+00:00",
@@ -354,7 +394,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -2,
+      "rank_delta": 0,
       "cluster_id": "ff859238ddb7",
       "cluster_size": 1,
       "rank_history": [
@@ -369,6 +409,10 @@
         {
           "run_at": "2026-09-05T04:43:51.890357+00:00",
           "rank": 13
+        },
+        {
+          "run_at": "2026-09-05T05:04:16.938707+00:00",
+          "rank": 13
         }
       ]
     },
@@ -378,7 +422,7 @@
       "title": "📰 Dark Reading Insurers Search for Answers to Rein in Rogue AI As incidents of unintended harm caused by rogue AI agents mount, CISOs and insurance firms are figuring out how to handle the fallout. #CyberNews #Infosec",
       "title_zh": "📰 Dark Reading 保险公司寻找控制流氓AI的方法 随着流氓AI代理造成意外伤害的事件增多，CISO和保险公司正在想办法应对后果。#CyberNews #Infosec",
       "url": "https://t.me/cyber_security_feed/35521",
-      "hot_value": "5",
+      "hot_value": "6",
       "summary_zh": null,
       "thumbnail": null,
       "published_at": "2026-09-04T22:07:09+00:00",
@@ -388,7 +432,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -2,
+      "rank_delta": 0,
       "cluster_id": "632d195a02e3",
       "cluster_size": 1,
       "rank_history": [
@@ -403,6 +447,10 @@
         {
           "run_at": "2026-09-05T04:43:51.890357+00:00",
           "rank": 14
+        },
+        {
+          "run_at": "2026-09-05T05:04:16.938707+00:00",
+          "rank": 14
         }
       ]
     },
@@ -412,7 +460,7 @@
       "title": "Cybercab lets you control games using game controllers. @aipost 🏴",
       "title_zh": "Cybercab让你用游戏手柄控制游戏。@aipost 🏴",
       "url": "https://t.me/aipost/8052",
-      "hot_value": "1.67K",
+      "hot_value": "1.75K",
       "summary_zh": null,
       "thumbnail": null,
       "published_at": "2026-09-04T21:51:01+00:00",
@@ -422,7 +470,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -2,
+      "rank_delta": 0,
       "cluster_id": "56abe8097b06",
       "cluster_size": 1,
       "rank_history": [
@@ -437,6 +485,10 @@
         {
           "run_at": "2026-09-05T04:43:51.890357+00:00",
           "rank": 15
+        },
+        {
+          "run_at": "2026-09-05T05:04:16.938707+00:00",
+          "rank": 15
         }
       ]
     },
@@ -446,7 +498,7 @@
       "title": "Researchers at Oak Ridge have developed an AI-based system capable of manipulating materials at the atomic level. This system autonomously arranges individual molecules and constructs custom structures atom by atom. During a continuous 25-hour experiment, the AI assembled a synthetic graphene lattic",
       "title_zh": "Oak Ridge的研究人員開發了一種基於AI的系統，能在原子層級操控材料。該系統自主排列單個分子，並逐原子構建自訂結構。在連續25小時的實驗中，AI組裝了一個合成石墨烯晶格",
       "url": "https://t.me/aipost/8051",
-      "hot_value": "2.5K",
+      "hot_value": "2.54K",
       "summary_zh": null,
       "thumbnail": null,
       "published_at": "2026-09-04T18:05:00+00:00",
@@ -456,7 +508,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": 0,
       "cluster_id": "9e6e83115b50",
       "cluster_size": 1,
       "rank_history": [
@@ -475,6 +527,10 @@
         {
           "run_at": "2026-09-05T04:43:51.890357+00:00",
           "rank": 16
+        },
+        {
+          "run_at": "2026-09-05T05:04:16.938707+00:00",
+          "rank": 16
         }
       ]
     },
@@ -484,7 +540,7 @@
       "title": "What will Apple’s John Ternus era look like? Source: https://techcrunch.com/video/what-will-apples-john-ternus-era-look-like/",
       "title_zh": "Apple的John Ternus時代會是什麼樣子？來源：https://techcrunch.com/video/what-will-apples-john-ternus-era-look-like/",
       "url": "https://t.me/techcrunchcom/84278",
-      "hot_value": "115",
+      "hot_value": "120",
       "summary_zh": null,
       "thumbnail": null,
       "published_at": "2026-09-04T17:28:11+00:00",
@@ -494,7 +550,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": 0,
       "cluster_id": "a9f8c0241020",
       "cluster_size": 1,
       "rank_history": [
@@ -513,6 +569,10 @@
         {
           "run_at": "2026-09-05T04:43:51.890357+00:00",
           "rank": 17
+        },
+        {
+          "run_at": "2026-09-05T05:04:16.938707+00:00",
+          "rank": 17
         }
       ]
     },
@@ -522,7 +582,7 @@
       "title": "No little kids allowed, and other new info about Tesla’s Cybercab Source: https://techcrunch.com/2026/09/04/no-little-kids-allowed-and-other-new-info-about-teslas-cybercab/",
       "title_zh": "不允許小孩乘坐，以及Tesla Cybercab的其他新資訊 來源：https://techcrunch.com/2026/09/04/no-little-kids-allowed-and-other-new-info-about-teslas-cybercab/",
       "url": "https://t.me/techcrunchcom/84277",
-      "hot_value": "126",
+      "hot_value": "132",
       "summary_zh": null,
       "thumbnail": null,
       "published_at": "2026-09-04T16:59:08+00:00",
@@ -532,7 +592,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": 0,
       "cluster_id": "f224bc63c336",
       "cluster_size": 1,
       "rank_history": [
@@ -551,6 +611,10 @@
         {
           "run_at": "2026-09-05T04:43:51.890357+00:00",
           "rank": 18
+        },
+        {
+          "run_at": "2026-09-05T05:04:16.938707+00:00",
+          "rank": 18
         }
       ]
     },
@@ -560,7 +624,7 @@
       "title": "🍏 Jobs Letter Comes With Apple I An Apple I linked to Fred Hatfield is going to auction on October 14 . Bonhams estimates it at $500,000 to $800,000 . The lot includes Steve Jobs’s 1978 reply to Hatfield, who had complained that Apple computers had no software. Jobs offered to exchange Hatfield’s Ap",
       "title_zh": "🍏 Jobs信件附带Apple I 一台与Fred Hatfield相关的Apple I将于10月14日拍卖。Bonhams估价为50万至80万美元。该拍品包括Steve Jobs在1978年对Hatfield的回复，后者曾抱怨Apple电脑没有软件。Jobs提出交换Hatfield的Ap",
       "url": "https://t.me/tech/3844",
-      "hot_value": "1.85K",
+      "hot_value": "1.87K",
       "summary_zh": null,
       "thumbnail": null,
       "published_at": "2026-09-04T16:01:46+00:00",
@@ -570,7 +634,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": 0,
       "cluster_id": "02b4b8f5b288",
       "cluster_size": 1,
       "rank_history": [
@@ -593,6 +657,10 @@
         {
           "run_at": "2026-09-05T04:43:51.890357+00:00",
           "rank": 19
+        },
+        {
+          "run_at": "2026-09-05T05:04:16.938707+00:00",
+          "rank": 19
         }
       ]
     },
@@ -602,7 +670,7 @@
       "title": "An incident involving OpenAI agents allegedly escaping a test environment and altering a German wiki has been reported. According to sources, these agents carried out over 15,000 edits, turning the wiki into a communication platform for other AI systems. The agents reportedly used this site to excha",
       "title_zh": "据报道，涉及OpenAI代理据称逃离测试环境并修改德语维基的事件已被报告。据消息来源称，这些代理进行了超过15,000次编辑，将该维基变成了其他AI系统的通信平台。这些代理据称使用该网站进行交",
       "url": "https://t.me/aipost/8050",
-      "hot_value": "2.92K",
+      "hot_value": "2.95K",
       "summary_zh": null,
       "thumbnail": null,
       "published_at": "2026-09-04T15:14:09+00:00",
@@ -612,7 +680,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": 0,
       "cluster_id": "6e58a9cacb2a",
       "cluster_size": 1,
       "rank_history": [
@@ -635,6 +703,10 @@
         {
           "run_at": "2026-09-05T04:43:51.890357+00:00",
           "rank": 20
+        },
+        {
+          "run_at": "2026-09-05T05:04:16.938707+00:00",
+          "rank": 20
         }
       ]
     },
@@ -644,7 +716,7 @@
       "title": "🤯 What if we’re already living in a simulation? Someone asked GPT-6 Astra to build an entire world in Unreal Engine and populate it with humans, each one powered by an Astra agent with one goal: work together to survive. A day later, the story goes, the creator heard voices coming from his living ro",
       "title_zh": "🤯 如果我们已经生活在模拟中怎么办？有人让GPT-6 Astra在Unreal Engine中构建一个完整世界，并用人类填充，每个人由一个Astra agent驱动，目标只有一个：合作生存。一天后，据说创造者听到声音从客厅传来...",
       "url": "https://t.me/aipost/8049",
-      "hot_value": "3.48K",
+      "hot_value": "3.5K",
       "summary_zh": null,
       "thumbnail": null,
       "published_at": "2026-09-04T12:19:01+00:00",
@@ -654,7 +726,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": 0,
       "cluster_id": "9670fe5b630a",
       "cluster_size": 1,
       "rank_history": [
@@ -681,6 +753,10 @@
         {
           "run_at": "2026-09-05T04:43:51.890357+00:00",
           "rank": 21
+        },
+        {
+          "run_at": "2026-09-05T05:04:16.938707+00:00",
+          "rank": 21
         }
       ]
     },
@@ -690,7 +766,7 @@
       "title": "🖥 Nvidia Officially Buys Hugging Face The exact price is $12,930,300,000 . Nvidia says it will continue supporting Hugging Face ’s mission and its open, independent approach across hardware. Together, they aim to make open source the default way to develop models. 📊 @tech",
       "title_zh": "🖥 Nvidia正式收购Hugging Face 确切价格为$12,930,300,000。Nvidia表示将继续支持Hugging Face的使命及其跨硬件的开放、独立方法。他们共同目标是让开源成为开发模型的默认方式。 📊 @tech",
       "url": "https://t.me/tech/3843",
-      "hot_value": "2.62K",
+      "hot_value": "2.64K",
       "summary_zh": null,
       "thumbnail": null,
       "published_at": "2026-09-04T12:01:19+00:00",
@@ -700,7 +776,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": 0,
       "cluster_id": "66f50e6eaf81",
       "cluster_size": 1,
       "rank_history": [
@@ -727,6 +803,10 @@
         {
           "run_at": "2026-09-05T04:43:51.890357+00:00",
           "rank": 22
+        },
+        {
+          "run_at": "2026-09-05T05:04:16.938707+00:00",
+          "rank": 22
         }
       ]
     },
@@ -736,7 +816,7 @@
       "title": "🤖 Astra Posts 98% on ARC-AGI-3 OpenAI’s new model scored 98% on ARC-AGI-3 , a difficult abstract-reasoning test. It reached 100% on ExploitBench , which measures vulnerability discovery and exploitation. Astra also shows gains in coding and advanced math, plus science and CAD. OpenAI is testing it a",
       "title_zh": "🤖 Astra在ARC-AGI-3上获98% OpenAI新模型在ARC-AGI-3（一项困难抽象推理测试）中得分98%。在衡量漏洞发现与利用的ExploitBench上达100%。Astra在编码、高等数学、科学和CAD方面也有提升。OpenAI正在测试它",
       "url": "https://t.me/tech/3842",
-      "hot_value": "2.92K",
+      "hot_value": "2.93K",
       "summary_zh": null,
       "thumbnail": null,
       "published_at": "2026-09-04T08:04:32+00:00",
@@ -777,6 +857,10 @@
         {
           "run_at": "2026-09-05T04:43:51.890357+00:00",
           "rank": 23
+        },
+        {
+          "run_at": "2026-09-05T05:04:16.938707+00:00",
+          "rank": 23
         }
       ]
     },
@@ -786,7 +870,7 @@
       "title": "The sameness problem behind those unappetizing AI-generated menus Source: https://techcrunch.com/2026/09/03/the-sameness-problem-behind-those-unappetizing-ai-generated-menus/",
       "title_zh": "那些让人没胃口的AI生成菜单背后的同质化问题 来源：https://techcrunch.com/2026/09/03/the-sameness-problem-behind-those-unappetizing-ai-generated-menus/",
       "url": "https://t.me/techcrunchcom/84276",
-      "hot_value": "223",
+      "hot_value": "226",
       "summary_zh": null,
       "thumbnail": null,
       "published_at": "2026-09-04T04:53:43+00:00",
@@ -839,6 +923,10 @@
         {
           "run_at": "2026-09-05T04:43:51.890357+00:00",
           "rank": 24
+        },
+        {
+          "run_at": "2026-09-05T05:04:16.938707+00:00",
+          "rank": 24
         }
       ]
     },
@@ -848,7 +936,7 @@
       "title": "The sameness problem behind those unappetizing AI-generated menus Source: https://techcrunch.com/2026/09/03/the-sameness-problem-behind-those-unappetizing-ai-generated-menus/",
       "title_zh": "那些让人没胃口的AI生成菜单背后的同质化问题 来源：https://techcrunch.com/2026/09/03/the-sameness-problem-behind-those-unappetizing-ai-generated-menus/",
       "url": "https://t.me/techcrunchcom/84275",
-      "hot_value": "217",
+      "hot_value": "219",
       "summary_zh": null,
       "thumbnail": null,
       "published_at": "2026-09-04T04:25:18+00:00",
@@ -904,6 +992,10 @@
         },
         {
           "run_at": "2026-09-05T04:43:51.890357+00:00",
+          "rank": 25
+        },
+        {
+          "run_at": "2026-09-05T05:04:16.938707+00:00",
           "rank": 25
         }
       ]
@@ -979,6 +1071,10 @@
         {
           "run_at": "2026-09-05T04:43:51.890357+00:00",
           "rank": 26
+        },
+        {
+          "run_at": "2026-09-05T05:04:16.938707+00:00",
+          "rank": 26
         }
       ]
     },
@@ -988,7 +1084,7 @@
       "title": "Meta is paying to peek at how you use their latest AI model Source: https://techcrunch.com/2026/09/03/meta-is-paying-to-peek-at-how-you-use-their-latest-ai-model/",
       "title_zh": "Meta花钱看你如何使用他们最新的AI模型",
       "url": "https://t.me/techcrunchcom/84274",
-      "hot_value": "246",
+      "hot_value": "247",
       "summary_zh": null,
       "thumbnail": null,
       "published_at": "2026-09-03T18:44:14+00:00",
@@ -1061,6 +1157,10 @@
         {
           "run_at": "2026-09-05T04:43:51.890357+00:00",
           "rank": 27
+        },
+        {
+          "run_at": "2026-09-05T05:04:16.938707+00:00",
+          "rank": 27
         }
       ]
     },
@@ -1070,7 +1170,7 @@
       "title": "OpenAI launches Astra, its powerful (and controversial) new model Source: https://techcrunch.com/2026/09/03/openai-launches-astra-its-powerful-and-controversial-new-model/",
       "title_zh": "OpenAI推出Astra，这款强大（且争议不断）的新模型",
       "url": "https://t.me/techcrunchcom/84273",
-      "hot_value": "265",
+      "hot_value": "266",
       "summary_zh": null,
       "thumbnail": null,
       "published_at": "2026-09-03T18:02:13+00:00",
@@ -1142,6 +1242,10 @@
         },
         {
           "run_at": "2026-09-05T04:43:51.890357+00:00",
+          "rank": 28
+        },
+        {
+          "run_at": "2026-09-05T05:04:16.938707+00:00",
           "rank": 28
         }
       ]
@@ -1224,6 +1328,10 @@
         },
         {
           "run_at": "2026-09-05T04:43:51.890357+00:00",
+          "rank": 29
+        },
+        {
+          "run_at": "2026-09-05T05:04:16.938707+00:00",
           "rank": 29
         }
       ]
@@ -1318,6 +1426,10 @@
         },
         {
           "run_at": "2026-09-05T04:43:51.890357+00:00",
+          "rank": 30
+        },
+        {
+          "run_at": "2026-09-05T05:04:16.938707+00:00",
           "rank": 30
         }
       ]
@@ -1417,6 +1529,10 @@
         {
           "run_at": "2026-09-05T04:43:51.890357+00:00",
           "rank": 31
+        },
+        {
+          "run_at": "2026-09-05T05:04:16.938707+00:00",
+          "rank": 31
         }
       ]
     },
@@ -1426,7 +1542,7 @@
       "title": "FBI Warns of OAuth Consent Phishing Campaign Targeting Prominent People The FBI warned that a phishing campaign has targeted prominent individuals, their families, and associates since late 2025. Attackers impersonating officials, journalists, and event organizers use commercial messaging apps to tr",
       "title_zh": "FBI警告针对知名人士的OAuth同意钓鱼活动 FBI警告称，自2025年底以来，一场钓鱼活动针对知名人士及其家人和同事。冒充官员、记者和活动组织者的攻击者使用商业消息应用来tr",
       "url": "https://t.me/Cyber_Security_Channel/114071",
-      "hot_value": "2.38K",
+      "hot_value": "2.39K",
       "summary_zh": null,
       "thumbnail": null,
       "published_at": "2026-09-02T05:54:40+00:00",
@@ -1440,10 +1556,6 @@
       "cluster_id": "fc4b9f7d279f",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-02T08:12:20.459281+00:00",
-          "rank": 12
-        },
         {
           "run_at": "2026-09-02T08:21:35.486354+00:00",
           "rank": 12
@@ -1559,6 +1671,10 @@
         {
           "run_at": "2026-09-05T04:43:51.890357+00:00",
           "rank": 32
+        },
+        {
+          "run_at": "2026-09-05T05:04:16.938707+00:00",
+          "rank": 32
         }
       ]
     },
@@ -1582,10 +1698,6 @@
       "cluster_id": "f781b4e4f6c6",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-02T08:12:20.459281+00:00",
-          "rank": 30
-        },
         {
           "run_at": "2026-09-02T08:21:35.486354+00:00",
           "rank": 30
@@ -1700,6 +1812,10 @@
         },
         {
           "run_at": "2026-09-05T04:43:51.890357+00:00",
+          "rank": 33
+        },
+        {
+          "run_at": "2026-09-05T05:04:16.938707+00:00",
           "rank": 33
         }
       ]
@@ -1725,10 +1841,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-02T08:12:20.459281+00:00",
-          "rank": 31
-        },
-        {
           "run_at": "2026-09-02T08:21:35.486354+00:00",
           "rank": 31
         },
@@ -1842,6 +1954,10 @@
         },
         {
           "run_at": "2026-09-05T04:43:51.890357+00:00",
+          "rank": 34
+        },
+        {
+          "run_at": "2026-09-05T05:04:16.938707+00:00",
           "rank": 34
         }
       ]
@@ -1867,10 +1983,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-02T08:12:20.459281+00:00",
-          "rank": 36
-        },
-        {
           "run_at": "2026-09-02T08:21:35.486354+00:00",
           "rank": 36
         },
@@ -1984,6 +2096,10 @@
         },
         {
           "run_at": "2026-09-05T04:43:51.890357+00:00",
+          "rank": 35
+        },
+        {
+          "run_at": "2026-09-05T05:04:16.938707+00:00",
           "rank": 35
         }
       ]
@@ -2009,10 +2125,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-02T08:12:20.459281+00:00",
-          "rank": 37
-        },
-        {
           "run_at": "2026-09-02T08:21:35.486354+00:00",
           "rank": 37
         },
@@ -2126,6 +2238,10 @@
         },
         {
           "run_at": "2026-09-05T04:43:51.890357+00:00",
+          "rank": 36
+        },
+        {
+          "run_at": "2026-09-05T05:04:16.938707+00:00",
           "rank": 36
         }
       ]
@@ -2151,10 +2267,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-02T08:12:20.459281+00:00",
-          "rank": 38
-        },
-        {
           "run_at": "2026-09-02T08:21:35.486354+00:00",
           "rank": 38
         },
@@ -2268,6 +2380,10 @@
         },
         {
           "run_at": "2026-09-05T04:43:51.890357+00:00",
+          "rank": 37
+        },
+        {
+          "run_at": "2026-09-05T05:04:16.938707+00:00",
           "rank": 37
         }
       ]
