@@ -1,0 +1,50 @@
+# 飞书多维表格 URL 中 /base/ 后面的值。
+app_token: ""
+# 分别打开两张表，从 URL 的 ?table= 参数复制。
+gongkao_table_id: ""
+qiuzhao_table_id: ""
+
+# 左侧是源 JSON 字段路径（| 表示依次取第一个非空值），右侧必须与飞书字段名完全一致。
+# $ 开头的是脚本生成字段，不要修改左侧名称；右侧字段名可以改，但必须同步修改飞书表。
+sources:
+  gongkao:
+    file: gongkao.json
+    field_mapping:
+      $sync_id: 同步ID
+      $sync_time: 更新时间
+      $region: 地区
+      $exam_type: 招录类型
+      "title_zh|title|招录单位·公告": 招录单位·公告
+      $recruit_count: 招录人数
+      "extra.education|education|学历要求": 学历要求
+      "extra.major|major|专业要求": 专业要求
+      $signup_start: 报名开始
+      $signup_end: 报名截止
+      $days_left: 距截止天数
+      $written_exam: 笔试时间
+      $signup_status: 报名状态
+      $signup_link: 报名入口
+      $announcement_link: 公告链接
+      $fresh_graduate: 应届可报
+      $source: 来源
+      "extra.notes|notes|备注": 备注
+
+  qiuzhao:
+    file: qiuzhao.json
+    field_mapping:
+      $sync_id: 同步ID
+      $sync_time: 更新时间
+      "company_name|company|extra.company|公司名称": 公司名称
+      $company_type: 企业性质
+      "industry|extra.industry|行业": 行业
+      "position|job|job_name|title_zh|title|招聘岗位": 招聘岗位
+      "location|work_location|city|extra.city|工作地点": 工作地点
+      "education|extra.education|学历要求": 学历要求
+      "cohort|graduation_year|extra.cohort|届次": 届次
+      $deadline: 网申截止
+      $days_left: 距截止天数
+      $written_test: 是否笔试
+      $apply_link: 投递链接
+      $announcement_link: 公告链接
+      $source: 来源
+      "notes|extra.notes|备注": 备注
