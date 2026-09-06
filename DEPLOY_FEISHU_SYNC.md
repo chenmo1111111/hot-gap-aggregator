@@ -234,13 +234,23 @@ cd "C:\Users\Administrator\Desktop\简历\hot-gap-aggregator"
   --state-dir "$env:LOCALAPPDATA\hot-gap-aggregator\wanqing"
 ```
 
-弹出的窗口中只需登录一次，并确认能看到 `27届秋招🍁`，再回终端按 Enter。Codex 应用内的
-“婉清秋招每日同步”自动任务会在每天北京时间 7:00 调用 `scripts/run_wanqing_sync.ps1`：
+弹出的窗口中只需登录一次，并确认能看到 `27届秋招🍁`，再回终端按 Enter。然后使用“以管理员
+身份运行”的 PowerShell 注册每天 7:00 自动唤醒任务：
+
+```powershell
+cd "C:\Users\Administrator\Desktop\简历\hot-gap-aggregator"
+powershell -ExecutionPolicy Bypass -File .\scripts\install_wanqing_task.ps1
+```
+
+计划任务 `HotGap-Wanqing-Feishu-0700` 会在每天北京时间 7:00 唤醒电脑并调用
+`scripts/run_wanqing_sync.ps1`：
 读取并去重最新 500 条、保存截图、上传到 S1 的待处理文件，然后调用受限命令把快照原子保存到
 `/var/lib/hot-gap/qiuzhao_wanqing.json`，复制为
 `/var/www/hot-gap/data/qiuzhao_wanqing.json`，最后同步到自己的飞书表。
-电脑在 7:00 必须开机且 Codex、Chrome 可正常运行；未运行时自动任务会在恢复后按应用机制
-处理。也可以随时手动执行：
+电脑在 7:00 必须开机且用户仍保持登录；允许唤醒定时器在交流供电下应为启用状态。电脑可以
+睡眠，任务会将其唤醒；电脑已关机或用户已注销时不能运行。错过执行时间后，任务会在系统恢复
+可用时尽快补跑。无需预先打开或手动刷新飞书页面：每次运行都会重新访问页面、获取最新表版本
+并请求最新记录。也可以随时手动执行：
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\scripts\run_wanqing_sync.ps1
