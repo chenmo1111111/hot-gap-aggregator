@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-09-06T16:44:06.701280+00:00",
+  "generated_at": "2026-09-06T19:43:54.772952+00:00",
   "source": "github",
   "status": {
     "source": "github",
     "status": "ok",
     "item_count": 18,
-    "duration_ms": 2174,
+    "duration_ms": 2434,
     "error": null,
-    "run_at": "2026-09-06T16:44:06.701280+00:00"
+    "run_at": "2026-09-06T19:43:54.772952+00:00"
   },
   "items": [
     {
@@ -26,14 +26,10 @@
       },
       "days_on_board": 7,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": 0,
       "cluster_id": "9317f65b1d4f",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-03T22:45:57.285881+00:00",
-          "rank": 6
-        },
         {
           "run_at": "2026-09-04T02:35:41.728138+00:00",
           "rank": 6
@@ -148,6 +144,10 @@
         },
         {
           "run_at": "2026-09-06T16:44:06.701280+00:00",
+          "rank": 1
+        },
+        {
+          "run_at": "2026-09-06T19:43:54.772952+00:00",
           "rank": 1
         }
       ]
@@ -168,14 +168,10 @@
       },
       "days_on_board": 5,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": 0,
       "cluster_id": "5963f5c06b20",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-03T22:45:57.285881+00:00",
-          "rank": 2
-        },
         {
           "run_at": "2026-09-04T02:35:41.728138+00:00",
           "rank": 2
@@ -291,6 +287,10 @@
         {
           "run_at": "2026-09-06T16:44:06.701280+00:00",
           "rank": 2
+        },
+        {
+          "run_at": "2026-09-06T19:43:54.772952+00:00",
+          "rank": 2
         }
       ]
     },
@@ -310,7 +310,7 @@
       },
       "days_on_board": 3,
       "is_new": false,
-      "rank_delta": 4,
+      "rank_delta": 0,
       "cluster_id": "d8c839d8efba",
       "cluster_size": 1,
       "rank_history": [
@@ -405,6 +405,10 @@
         {
           "run_at": "2026-09-06T16:44:06.701280+00:00",
           "rank": 3
+        },
+        {
+          "run_at": "2026-09-06T19:43:54.772952+00:00",
+          "rank": 3
         }
       ]
     },
@@ -428,10 +432,6 @@
       "cluster_id": "a380b0519e21",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-03T22:45:57.285881+00:00",
-          "rank": 3
-        },
         {
           "run_at": "2026-09-04T02:35:41.728138+00:00",
           "rank": 3
@@ -547,6 +547,10 @@
         {
           "run_at": "2026-09-06T16:44:06.701280+00:00",
           "rank": 4
+        },
+        {
+          "run_at": "2026-09-06T19:43:54.772952+00:00",
+          "rank": 4
         }
       ]
     },
@@ -565,13 +569,17 @@
         "language": "Python"
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "a5d5f9c5f4f2",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-06T16:44:06.701280+00:00",
+          "rank": 5
+        },
+        {
+          "run_at": "2026-09-06T19:43:54.772952+00:00",
           "rank": 5
         }
       ]
@@ -592,7 +600,7 @@
       },
       "days_on_board": 3,
       "is_new": false,
-      "rank_delta": 2,
+      "rank_delta": 0,
       "cluster_id": "9293bbcfea15",
       "cluster_size": 1,
       "rank_history": [
@@ -687,6 +695,10 @@
         {
           "run_at": "2026-09-06T16:44:06.701280+00:00",
           "rank": 6
+        },
+        {
+          "run_at": "2026-09-06T19:43:54.772952+00:00",
+          "rank": 6
         }
       ]
     },
@@ -706,14 +718,10 @@
       },
       "days_on_board": 5,
       "is_new": false,
-      "rank_delta": 4,
+      "rank_delta": 0,
       "cluster_id": "cac036268e6c",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-03T22:45:57.285881+00:00",
-          "rank": 8
-        },
         {
           "run_at": "2026-09-04T02:35:41.728138+00:00",
           "rank": 8
@@ -829,6 +837,10 @@
         {
           "run_at": "2026-09-06T16:44:06.701280+00:00",
           "rank": 7
+        },
+        {
+          "run_at": "2026-09-06T19:43:54.772952+00:00",
+          "rank": 7
         }
       ]
     },
@@ -847,13 +859,17 @@
         "language": "LLVM"
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "20e3b9cb7a72",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-06T16:44:06.701280+00:00",
+          "rank": 8
+        },
+        {
+          "run_at": "2026-09-06T19:43:54.772952+00:00",
           "rank": 8
         }
       ]
@@ -874,14 +890,10 @@
       },
       "days_on_board": 5,
       "is_new": false,
-      "rank_delta": -6,
+      "rank_delta": 0,
       "cluster_id": "34631a444fa3",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-03T22:45:57.285881+00:00",
-          "rank": 4
-        },
         {
           "run_at": "2026-09-04T02:35:41.728138+00:00",
           "rank": 4
@@ -997,6 +1009,10 @@
         {
           "run_at": "2026-09-06T16:44:06.701280+00:00",
           "rank": 9
+        },
+        {
+          "run_at": "2026-09-06T19:43:54.772952+00:00",
+          "rank": 9
         }
       ]
     },
@@ -1016,7 +1032,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": 0,
       "cluster_id": "85ccfa929afd",
       "cluster_size": 1,
       "rank_history": [
@@ -1071,6 +1087,10 @@
         {
           "run_at": "2026-09-06T16:44:06.701280+00:00",
           "rank": 10
+        },
+        {
+          "run_at": "2026-09-06T19:43:54.772952+00:00",
+          "rank": 10
         }
       ]
     },
@@ -1090,14 +1110,10 @@
       },
       "days_on_board": 4,
       "is_new": false,
-      "rank_delta": 3,
+      "rank_delta": 0,
       "cluster_id": "5085c39bb713",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-03T22:45:57.285881+00:00",
-          "rank": 14
-        },
         {
           "run_at": "2026-09-04T02:35:41.728138+00:00",
           "rank": 14
@@ -1213,6 +1229,10 @@
         {
           "run_at": "2026-09-06T16:44:06.701280+00:00",
           "rank": 11
+        },
+        {
+          "run_at": "2026-09-06T19:43:54.772952+00:00",
+          "rank": 11
         }
       ]
     },
@@ -1287,6 +1307,10 @@
         {
           "run_at": "2026-09-06T16:44:06.701280+00:00",
           "rank": 12
+        },
+        {
+          "run_at": "2026-09-06T19:43:54.772952+00:00",
+          "rank": 12
         }
       ]
     },
@@ -1296,7 +1320,7 @@
       "title": "coreyhaines31/marketingskills",
       "title_zh": "coreyhaines31/marketingskills",
       "url": "https://github.com/coreyhaines31/marketingskills",
-      "hot_value": "172 stars today",
+      "hot_value": "355 stars today",
       "summary_zh": "面向AI代理的营销技能集。",
       "thumbnail": null,
       "published_at": null,
@@ -1305,13 +1329,17 @@
         "language": "JavaScript"
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "fc96136e64d7",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-06T16:44:06.701280+00:00",
+          "rank": 13
+        },
+        {
+          "run_at": "2026-09-06T19:43:54.772952+00:00",
           "rank": 13
         }
       ]
@@ -1331,13 +1359,17 @@
         "language": "TypeScript"
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "dbda28b3ab1f",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-06T16:44:06.701280+00:00",
+          "rank": 14
+        },
+        {
+          "run_at": "2026-09-06T19:43:54.772952+00:00",
           "rank": 14
         }
       ]
@@ -1348,7 +1380,7 @@
       "title": "OpenWhispr/openwhispr",
       "title_zh": "OpenWhispr/openwhispr",
       "url": "https://github.com/OpenWhispr/openwhispr",
-      "hot_value": "274 stars today",
+      "hot_value": "225 stars today",
       "summary_zh": "隐私优先语音转文字应用。",
       "thumbnail": null,
       "published_at": null,
@@ -1357,13 +1389,17 @@
         "language": "JavaScript"
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "86e5a48acf5e",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-06T16:44:06.701280+00:00",
+          "rank": 15
+        },
+        {
+          "run_at": "2026-09-06T19:43:54.772952+00:00",
           "rank": 15
         }
       ]
@@ -1384,7 +1420,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -6,
+      "rank_delta": 0,
       "cluster_id": "b27998794425",
       "cluster_size": 1,
       "rank_history": [
@@ -1439,6 +1475,10 @@
         {
           "run_at": "2026-09-06T16:44:06.701280+00:00",
           "rank": 16
+        },
+        {
+          "run_at": "2026-09-06T19:43:54.772952+00:00",
+          "rank": 16
         }
       ]
     },
@@ -1457,13 +1497,17 @@
         "language": "Python"
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "7f0f66f04b10",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-06T16:44:06.701280+00:00",
+          "rank": 17
+        },
+        {
+          "run_at": "2026-09-06T19:43:54.772952+00:00",
           "rank": 17
         }
       ]
@@ -1483,13 +1527,17 @@
         "language": "JavaScript"
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "077eac533e26",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-06T16:44:06.701280+00:00",
+          "rank": 18
+        },
+        {
+          "run_at": "2026-09-06T19:43:54.772952+00:00",
           "rank": 18
         }
       ]
