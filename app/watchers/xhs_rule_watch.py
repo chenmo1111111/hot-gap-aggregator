@@ -38,7 +38,18 @@ REVISED_PATTERN = re.compile(
     r"本规则于\s*([\d-]+)\s*首次生效\s*[，,]\s*([\d-]+)\s*修订"
 )
 DOCUMENT_PATTERN = re.compile(r"https://doc\.weixin\.qq\.com/[^\s<>\"'，。]+")
-RULE_CHANGE_PROMPT = """这是小红书电商规则的变化（旧版/新版）。判断是否涉及：虚拟商品/虚拟卡券/电子资源/激活码/知识付费/账号充值/生活娱乐充值/网络工具 类目的：店铺类型限制（个人店、普通企业店能否经营）、类目准入方式（是否改邀约/定准）、新增资质门槛、冻结下架清退规则。命中→一句话说明影响+建议动作；否则→SKIP。
+RULE_CHANGE_PROMPT = """你是小红书电商规则风险监控助手。用户当前经营“电子资源”和“教育”类目，这两个类目是最高优先级；同时关注虚拟商品、虚拟卡券、激活码、知识付费、账号充值、生活娱乐充值、网络工具。
+
+对比下面规则的旧版和新版，重点判断：
+1. 个人店或普通企业店是否还能经营，店铺类型限制是否改变；
+2. 类目是否改为邀约、定向准入、招商准入或禁止准入；
+3. 是否新增营业执照、教育培训、出版发行、网络文化、版权授权、品牌授权或承诺函等资质；
+4. 商品发布、宣传用语、交付核销、退款售后规则是否改变；
+5. 是否新增冻结、下架、清退、扣分或终止服务风险；
+6. 公示日、生效日和过渡期是否变化。
+
+若涉及电子资源或教育，输出不超过120字的一段话，格式为：“【电子资源/教育重点】变化：……；影响：现在能否继续经营及所需资质；时间：生效或截止时间；动作：立即要做什么。”信息不明确时写“需人工确认”，不要猜测。
+若只涉及其它关注类目，用同样结构简要输出并标明类目。完全无关则只输出 SKIP。
 
 规则名：{name}
 
@@ -196,9 +207,10 @@ class XhsRuleWatcher:
             return {"status": "degraded", "error": str(exc)}
 
         keywords = [str(value).casefold() for value in config.get("title_keywords", []) if str(value).strip()]
+        focus_keywords = [str(value).casefold() for value in config.get("focus_keywords", []) if str(value).strip()]
         list_reports = []
         for page, text in scraped["lists"]:
-            list_reports.append(await self._process_list(page, text, keywords))
+            list_reports.append(await self._process_list(page, text, keywords, focus_keywords))
         article_reports = []
         for article, text in scraped["articles"]:
             article_reports.append(await self._process_article(article, text))
@@ -267,7 +279,9 @@ class XhsRuleWatcher:
                     await asyncio.sleep(0.5 * (2**attempt))
         raise RuntimeError(f"XHS rule page failed after retries: {last_error}")
 
-    async def _process_list(self, page: dict[str, Any], text: str, keywords: list[str]) -> dict[str, Any]:
+    async def _process_list(
+        self, page: dict[str, Any], text: str, keywords: list[str], focus_keywords: list[str],
+    ) -> dict[str, Any]:
         name, url = str(page.get("name") or "规则列表"), str(page.get("url") or "")
         candidates = [
             row for row in parse_rule_list_text(text, name)
@@ -281,9 +295,12 @@ class XhsRuleWatcher:
         for event_key, row in event_pairs:
             if event_key not in unseen:
                 continue
+            is_focus = any(keyword in row["title"].casefold() for keyword in focus_keywords)
+            focus_note = " · 重点关注：电子资源/教育类目" if is_focus else ""
             alert = self._alert(
                 title=f"《{row['title']}》", url=url, kind=row["kind"],
-                summary=f"{row['date']} · {row['prefix'] or name}", priority="normal",
+                summary=f"{row['date']} · {row['prefix'] or name}{focus_note}",
+                priority="highest" if is_focus else "normal",
             )
             if await self._deliver(alert):
                 self.database.mark_push_events([event_key])

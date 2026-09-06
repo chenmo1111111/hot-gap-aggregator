@@ -6,6 +6,7 @@ from selectolax.parser import HTMLParser
 
 from app.store.database import Database
 from app.watchers.xhs_rule_watch import (
+    RULE_CHANGE_PROMPT,
     XhsCookieInvalid,
     XhsRuleWatcher,
     article_changed,
@@ -67,7 +68,8 @@ async def test_list_push_log_deduplicates_and_filters_irrelevant_titles(monkeypa
     config = tmp_path / "xhs.yaml"
     config.write_text(
         "list_pages:\n  - {name: 规则修订, url: 'https://school.test/list'}\n"
-        "title_keywords: [虚拟卡券, 网络工具]\nwatch_articles: []\n",
+        "title_keywords: [虚拟卡券, 网络工具]\n"
+        "focus_keywords: [虚拟卡券]\nwatch_articles: []\n",
         encoding="utf-8",
     )
     database = Database(tmp_path / "watch.db")
@@ -88,6 +90,9 @@ async def test_list_push_log_deduplicates_and_filters_irrelevant_titles(monkeypa
     assert first["list_pages"][0] == {"name": "规则修订", "status": "pushed", "item_count": 2, "pushed": 2}
     assert second["list_pages"][0]["status"] == "unchanged"
     assert len(delivered) == 2
+    assert delivered[0]["priority"] == "highest"
+    assert "重点关注" in delivered[0]["summary"]
+    assert delivered[1]["priority"] == "normal"
     alerts = json.loads(alerts_path.read_text(encoding="utf-8"))
     assert len(alerts["items"]) == 2
     assert {item["id"] for item in alerts["items"]} == {item["id"] for item in delivered}
@@ -128,6 +133,8 @@ async def test_article_baseline_then_diff_judgment_and_one_push(monkeypatch, tmp
     assert (await watcher.run())["watch_articles"][0]["status"] == "pushed"
     assert (await watcher.run())["watch_articles"][0]["status"] == "unchanged"
     assert len(judgments) == 1
+    assert "电子资源" in RULE_CHANGE_PROMPT and "教育" in RULE_CHANGE_PROMPT
+    assert "现在能否继续经营" in RULE_CHANGE_PROMPT
     assert len(delivered) == 1
     assert delivered[0]["priority"] == "highest"
     alerts = json.loads(alerts_path.read_text(encoding="utf-8"))
