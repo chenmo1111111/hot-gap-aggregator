@@ -1,0 +1,31 @@
+page_url: "https://yal2at57cvq.feishu.cn/base/GtSLbyyR3aCENOsJYC6cdlsVnih?table=tblH4au5rnBcqHgJ&view=vewMjMLWkM"
+api_origin: "https://internal-api-space.feishu.cn"
+app_token: "GtSLbyyR3aCENOsJYC6cdlsVnih"
+table_id: "tblH4au5rnBcqHgJ"
+view_id: "vewMjMLWkM"
+source_view: "27届秋招🍁"
+max_items: 500
+min_items: 450
+page_size: 3000
+
+# 这些是来源表稳定的字段/选项 ID；来源表结构调整后需重新核对。
+fields:
+  company: "fldYWRUku6"
+  company_type: "fldrX4a2T5"
+  batch: "fldpBKyGy3"
+  industry: "fldu6e315A"
+  position: "fld7smuEYm"
+  location: "fldbQGokSd"
+  education: "fldbqd4cur"
+  cohort: "fldlitR3JY"
+  deadline: "fldTDbxIcV"
+  written_test: "fldt3TG9de"
+  apply_url: "fldcctPVpY"
+  announcement_url: "fldoUd8sNY"
+  notes: "fldO1dQgQs"
+  updated_at: "fldFybXZ5H"
+
+filters:
+  cohort_options: ["optUZPSsZt"]        # 2027届
+  batch_options: ["optxOEHIWg", "optVs6Rfew"]  # 秋招提前批 / 秋招专场
+  written_test_yes_options: ["optBhbPUsO"]

@@ -186,12 +186,16 @@ cd /path/to/hot-gap-aggregator
 执行 `crontab -e`，加入：
 
 ```cron
-0 7,13,19 * * * cd /path/to/hot-gap-aggregator && .venv/bin/python -m app.export_qiuzhao && .venv/bin/python -m app.sync_feishu >> /var/log/hot-gap-feishu-sync.log 2>&1
+0 7,13,19 * * * /usr/local/sbin/hot-gap-feishu-refresh >> /var/log/hot-gap-feishu-sync.log 2>&1
 ```
 
 确保 cron 用户能读取项目 `.env`、`config/feishu_sync.yaml` 和两份 JSON，并能写入
 `/var/www/hot-gap/data/` 中的失败计数文件。服务器时区应设为 `Asia/Shanghai`；脚本本身也固定按
 北京时间计算“今天”和“距截止天数”。
+
+`hot-gap-feishu-refresh` 使用文件锁避免 7:00 的本机抓取回调与 S1 cron 同时写飞书，并在每次
+同步前从 `/var/lib/hot-gap/qiuzhao_wanqing.json` 恢复秋招工作副本。不要再保留直接调用
+`app.export_qiuzhao && app.sync_feishu` 的旧 cron 行。
 
 ## 手动添加数据：来源必须选“手动”
 
@@ -211,6 +215,52 @@ cd /path/to/hot-gap-aggregator
 - 自建应用的写权限不在这里设置，仍需通过“⋯ 更多 → 添加文档应用”授予可编辑权限。
 
 建议默认关闭互联网匿名编辑，只给确实需要维护手动行的成员编辑权限。
+
+## 每天 7 点自动刷新婉清秋招快照
+
+来源表只允许网页查看，不能通过你的自建应用 OpenAPI 导出。因此抓取任务运行在 Windows
+电脑上，使用独立的 Playwright 浏览器配置保存登录会话；仓库、`.env` 和服务器都不保存来源表
+Cookie。脚本会同时留下当天页面截图用于排错，但结构化数据直接读取页面背后的表格接口，避免
+截图 OCR 截断岗位和链接。
+
+首次安装依赖并登录：
+
+```powershell
+cd "C:\Users\Administrator\Desktop\简历\hot-gap-aggregator"
+.venv\Scripts\python.exe -m playwright install chromium
+.venv\Scripts\python.exe -m app.capture_wanqing --login `
+  --output "$env:LOCALAPPDATA\hot-gap-aggregator\wanqing\qiuzhao_wanqing.json" `
+  --profile-dir "$env:LOCALAPPDATA\hot-gap-aggregator\wanqing\browser-profile" `
+  --state-dir "$env:LOCALAPPDATA\hot-gap-aggregator\wanqing"
+```
+
+弹出的窗口中只需登录一次，并确认能看到 `27届秋招🍁`，再回终端按 Enter。Codex 应用内的
+“婉清秋招每日同步”自动任务会在每天北京时间 7:00 调用 `scripts/run_wanqing_sync.ps1`：
+读取并去重最新 500 条、保存截图、上传到 S1 的待处理文件，然后调用受限命令把快照原子保存到
+`/var/lib/hot-gap/qiuzhao_wanqing.json`，复制为
+`/var/www/hot-gap/data/qiuzhao_wanqing.json`，最后同步到自己的飞书表。
+电脑在 7:00 必须开机且 Codex、Chrome 可正常运行；未运行时自动任务会在恢复后按应用机制
+处理。也可以随时手动执行：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\run_wanqing_sync.ps1
+```
+
+`/var/lib/hot-gap` 是持久真源，不受站点数据刷新影响；服务器每次 7/13/19 同步前都会从这里
+恢复工作副本。安全保护：抓取失败、登录过期、字段变化或有效记录少于 450 条时，脚本返回失败并保留上一次
+快照，不上传空文件，也不会导致飞书误删。连续失败且配置 `FEISHU_WEBHOOK` 或 `BARK_URL`
+时会告警。日志和截图位于 `%LOCALAPPDATA%\hot-gap-aggregator\wanqing`。
+
+S1 需由 root 一次性安装受限刷新命令（只允许执行这一条固定命令）：
+
+```bash
+install -o root -g root -m 755 /opt/hot-gap-aggregator/deploy/server/hot-gap-feishu-refresh /usr/local/sbin/hot-gap-feishu-refresh
+install -o root -g root -m 440 /opt/hot-gap-aggregator/deploy/server/hot-gap-feishu-refresh.sudoers /etc/sudoers.d/hot-gap-feishu-refresh
+visudo -cf /etc/sudoers.d/hot-gap-feishu-refresh
+```
+
+该辅助命令只进入 `/opt/hot-gap-aggregator` 执行秋招导出与飞书同步，不访问
+`/opt/cuotiben`。服务器原有 `7,13,19` 同步任务可保留；文件锁会避免两个同步进程同时写表。
 
 ## 更换 App Secret
 
