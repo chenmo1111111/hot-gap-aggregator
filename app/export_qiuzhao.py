@@ -73,13 +73,50 @@ def normalize_jobs_payload(payload: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def normalize_snapshot_payload(payload: dict[str, Any]) -> dict[str, Any]:
+    """Validate and preserve a manually captured standardized Qiuzhao snapshot."""
+    rows = payload.get("items")
+    if not isinstance(rows, list):
+        raise ValueError("qiuzhao_wanqing.json must contain an items list")
+
+    items: list[dict[str, Any]] = []
+    for index, row in enumerate(rows):
+        if not isinstance(row, dict):
+            raise ValueError(f"qiuzhao_wanqing.json items[{index}] must be an object")
+        company = _text(row.get("company_name"))
+        position = _text(row.get("position"))
+        if not company or not position:
+            raise ValueError(
+                f"qiuzhao_wanqing.json items[{index}] needs company_name and position"
+            )
+        items.append(dict(row))
+
+    source_status = payload.get("status") if isinstance(payload.get("status"), dict) else {}
+    return {
+        "generated_at": payload.get("generated_at"),
+        "source": "qiuzhao",
+        "status": {
+            **source_status,
+            "source": "qiuzhao",
+            "item_count": len(items),
+            "upstream_source": "wanqing_feishu",
+        },
+        "items": items,
+    }
+
+
 def write_qiuzhao(data_dir: str | Path) -> dict[str, Any]:
     target = Path(data_dir)
-    source_path = target / "jobs.json"
+    snapshot_path = target / "qiuzhao_wanqing.json"
+    source_path = snapshot_path if snapshot_path.exists() else target / "jobs.json"
     payload = json.loads(source_path.read_text(encoding="utf-8"))
     if not isinstance(payload, dict):
         raise ValueError(f"{source_path} must contain a JSON object")
-    output = normalize_jobs_payload(payload)
+    output = (
+        normalize_snapshot_payload(payload)
+        if source_path == snapshot_path
+        else normalize_jobs_payload(payload)
+    )
     destination = target / "qiuzhao.json"
     temporary = destination.with_suffix(".json.tmp")
     temporary.write_text(json.dumps(output, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

@@ -19,6 +19,7 @@ site/
 .wrangler/
 outputs/
 work/
+tmp/
 
 # SQLite transient files; data/hot.db is intentionally tracked
 *.db-shm

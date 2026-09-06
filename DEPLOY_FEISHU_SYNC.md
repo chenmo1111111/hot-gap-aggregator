@@ -1,9 +1,10 @@
 # S1：公考 + 秋招同步到飞书多维表格
 
 同步任务只部署在 S1，读取 `/var/www/hot-gap/data/gongkao.json` 和
-`/var/www/hot-gap/data/qiuzhao.json`。秋招文件由 S1 上现有的 `jobs.json` 标准化生成；
-仅保留上游实际提供的公司、岗位、地点、行业和链接，未知截止日期等字段保持为空。不要把它加入
-GitHub Actions：飞书 API 从美国 IP 访问不稳定。
+`/var/www/hot-gap/data/qiuzhao.json`。默认情况下，秋招文件由 S1 上现有的 `jobs.json`
+标准化生成；如果同目录存在人工抓取的标准化快照 `qiuzhao_wanqing.json`，导出器会优先使用
+该快照，避免定时任务把抓取结果覆盖回 `jobs.json`。不要把同步任务加入 GitHub Actions：
+飞书 API 从美国 IP 访问不稳定。
 
 ## 1. 新建多维表格和数据表
 
@@ -159,6 +160,16 @@ cd /path/to/hot-gap-aggregator
 .venv/bin/python -m app.export_qiuzhao
 .venv/bin/python -m app.sync_feishu
 ```
+
+如需使用人工抓取的秋招快照，把标准化 JSON 上传为：
+
+```text
+/var/www/hot-gap/data/qiuzhao_wanqing.json
+```
+
+随后运行 `app.export_qiuzhao`。只要该文件存在，定时任务就会继续用它生成
+`qiuzhao.json`；删除或移走该文件后，导出器才会恢复使用 `jobs.json`。快照必须包含
+`items` 数组，每条至少有非空的 `company_name` 和 `position`。
 
 正常日志会分别显示 `gongkao sync complete`、`qiuzhao sync complete` 以及新增、更新、删除、
 跳过数量。然后回飞书抽查日期、超链接、单选和复选框字段。

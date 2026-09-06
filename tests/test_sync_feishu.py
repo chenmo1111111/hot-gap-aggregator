@@ -141,6 +141,27 @@ def test_diff_treats_feishu_rich_text_response_as_plain_source_text() -> None:
     assert diff_records(source, existing) == ([], [], [])
 
 
+def test_diff_treats_feishu_numeric_strings_as_source_numbers() -> None:
+    source = [{
+        "同步ID": "company|role",
+        "更新时间": 200,
+        "网申截止": 1788624000000,
+        "距截止天数": 57,
+        "来源": "自动",
+    }]
+    existing = [{
+        "record_id": "rec-1",
+        "fields": {
+            "同步ID": [{"type": "text", "text": "company|role"}],
+            "更新时间": 100,
+            "网申截止": "1788624000000",
+            "距截止天数": "57",
+            "来源": "自动",
+        },
+    }]
+    assert diff_records(source, existing) == ([], [], [])
+
+
 def test_sync_table_uses_fake_client_and_batches_diff_operations() -> None:
     client = Mock()
     client.list_records.return_value = [

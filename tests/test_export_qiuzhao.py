@@ -2,7 +2,11 @@ from __future__ import annotations
 
 import json
 
-from app.export_qiuzhao import normalize_jobs_payload, write_qiuzhao
+from app.export_qiuzhao import (
+    normalize_jobs_payload,
+    normalize_snapshot_payload,
+    write_qiuzhao,
+)
 
 
 def test_normalize_jobs_payload_preserves_known_fields_without_inventing_deadline() -> None:
@@ -37,3 +41,40 @@ def test_write_qiuzhao_creates_atomically_from_jobs_json(tmp_path) -> None:
     assert result == written
     assert written["items"][0]["company_name"] == "公司"
     assert written["items"][0]["position"] == "岗位"
+
+
+def test_normalize_snapshot_payload_preserves_standardized_rows() -> None:
+    payload = {
+        "generated_at": "2026-09-06T05:00:00.000Z",
+        "status": {"source_view": "27届秋招🍁"},
+        "items": [{
+            "company_name": "示例公司",
+            "position": "研发工程师",
+            "apply_url": "https://example.com/apply",
+            "source_record_id": "rec_example",
+        }],
+    }
+    output = normalize_snapshot_payload(payload)
+    assert output["status"]["item_count"] == 1
+    assert output["status"]["upstream_source"] == "wanqing_feishu"
+    assert output["items"] == payload["items"]
+
+
+def test_write_qiuzhao_prefers_wanqing_snapshot(tmp_path) -> None:
+    (tmp_path / "jobs.json").write_text(json.dumps({
+        "items": [{"title": "旧岗位", "extra": {"company": "旧公司"}}],
+    }, ensure_ascii=False), encoding="utf-8")
+    snapshot = {
+        "generated_at": "2026-09-06T05:00:00.000Z",
+        "items": [{"company_name": "新公司", "position": "新岗位"}],
+    }
+    (tmp_path / "qiuzhao_wanqing.json").write_text(
+        json.dumps(snapshot, ensure_ascii=False), encoding="utf-8"
+    )
+
+    result = write_qiuzhao(tmp_path)
+
+    assert result["items"] == snapshot["items"]
+    assert result["status"]["upstream_source"] == "wanqing_feishu"
+    written = json.loads((tmp_path / "qiuzhao.json").read_text(encoding="utf-8"))
+    assert written == result

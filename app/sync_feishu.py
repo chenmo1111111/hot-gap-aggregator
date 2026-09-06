@@ -530,8 +530,13 @@ def _comparable(value: object) -> object:
         return tuple(sorted((str(key), _comparable(item)) for key, item in value.items()))
     if isinstance(value, list):
         if all(isinstance(item, Mapping) and "text" in item for item in value):
-            return "".join(str(item.get("text") or "") for item in value)
+            return _comparable("".join(str(item.get("text") or "") for item in value))
         return tuple(_comparable(item) for item in value)
+    # Bitable returns date and number cells as decimal strings in some API
+    # responses, while write payloads use JSON numbers.  Treat those wire
+    # representations as equal so an unchanged row is not updated forever.
+    if isinstance(value, str) and value.strip().lstrip("-").isdigit():
+        return int(value.strip())
     return value
 
 
