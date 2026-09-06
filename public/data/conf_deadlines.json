@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-09-06T10:44:12.660788+00:00",
+  "generated_at": "2026-09-06T13:44:08.835410+00:00",
   "source": "conf_deadlines",
   "status": {
     "source": "conf_deadlines",
     "status": "ok",
     "item_count": 2,
-    "duration_ms": 4036,
+    "duration_ms": 3741,
     "error": null,
-    "run_at": "2026-09-06T10:44:12.660788+00:00"
+    "run_at": "2026-09-06T13:44:08.835410+00:00"
   },
   "items": [
     {
@@ -16,7 +16,7 @@
       "title": "ICLR 2027 截止",
       "title_zh": "ICLR 2027 截止",
       "url": "https://iclr.cc/Conferences/2027",
-      "hot_value": "距截止 21 天",
+      "hot_value": "距截止 20 天",
       "summary_zh": "International Conference on Learning Representations · San Francisco, CA, USA · 官网",
       "thumbnail": null,
       "published_at": "2026-09-26T11:59:59+00:00",
@@ -24,7 +24,7 @@
         "subsource": "ai-deadlines",
         "conference": "ICLR",
         "deadline": "2026-09-26T11:59:59+00:00",
-        "days_left": 21,
+        "days_left": 20,
         "link": "https://iclr.cc/Conferences/2027",
         "full_name": "International Conference on Learning Representations",
         "location": "San Francisco, CA, USA"
@@ -35,10 +35,6 @@
       "cluster_id": "452d7cc39ac2",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-03T14:38:19.864140+00:00",
-          "rank": 1
-        },
         {
           "run_at": "2026-09-03T19:20:03.996706+00:00",
           "rank": 1
@@ -154,6 +150,10 @@
         {
           "run_at": "2026-09-06T10:44:12.660788+00:00",
           "rank": 1
+        },
+        {
+          "run_at": "2026-09-06T13:44:08.835410+00:00",
+          "rank": 1
         }
       ]
     },
@@ -163,7 +163,7 @@
       "title": "CVPR 2027 截止",
       "title_zh": "CVPR 2027 截止",
       "url": "https://cvpr.thecvf.com/Conferences/2027",
-      "hot_value": "距截止 73 天",
+      "hot_value": "距截止 72 天",
       "summary_zh": "IEEE/CVF Conference on Computer Vision and Pattern Recognition · Seattle, WA, United States · 官网",
       "thumbnail": null,
       "published_at": "2026-11-17T11:59:00+00:00",
@@ -171,7 +171,7 @@
         "subsource": "ai-deadlines",
         "conference": "CVPR",
         "deadline": "2026-11-17T11:59:00+00:00",
-        "days_left": 73,
+        "days_left": 72,
         "link": "https://cvpr.thecvf.com/Conferences/2027",
         "full_name": "IEEE/CVF Conference on Computer Vision and Pattern Recognition",
         "location": "Seattle, WA, United States"
@@ -288,6 +288,10 @@
         },
         {
           "run_at": "2026-09-06T10:44:12.660788+00:00",
+          "rank": 2
+        },
+        {
+          "run_at": "2026-09-06T13:44:08.835410+00:00",
           "rank": 2
         }
       ]
