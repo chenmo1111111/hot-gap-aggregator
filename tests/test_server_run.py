@@ -1,8 +1,12 @@
 import json
 from datetime import UTC, datetime
 
+import pytest
+
 from app.models import Item
-from app.server_run import merge_scs_into_site, merge_xuandiao_into_site
+from app import server_run
+from app.server_run import merge_scs_into_site, merge_xuandiao_into_site, run_xhs_rules
+from app.store.database import Database
 
 
 def test_merge_scs_writes_sidecar_without_touching_deployed_json(tmp_path) -> None:
@@ -48,3 +52,18 @@ def test_merge_xuandiao_preserves_failed_regions_from_previous_sidecar(tmp_path)
     merge_xuandiao_into_site(tmp_path, [fresh], "2026-09-03T06:00:00+00:00", {"辽宁"})
     merged = json.loads((tmp_path / "server-gongkao.json").read_text(encoding="utf-8"))
     assert [item["url"] for item in merged["items"]] == ["https://new.test/shandong", "https://old.test/liaoning"]
+
+
+@pytest.mark.asyncio
+async def test_xhs_rule_job_failure_is_isolated(monkeypatch, tmp_path) -> None:
+    class BrokenWatcher:
+        def __init__(self, _database):
+            pass
+
+        async def run(self):
+            raise RuntimeError("page changed")
+
+    monkeypatch.setattr(server_run, "XhsRuleWatcher", BrokenWatcher)
+    database = Database(tmp_path / "server.db")
+    assert await run_xhs_rules(database) == {"status": "degraded", "error": "page changed"}
+    database.close()

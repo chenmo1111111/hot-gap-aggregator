@@ -62,6 +62,11 @@ class Database:
             CREATE TABLE IF NOT EXISTS push_log (
                 event_key TEXT PRIMARY KEY, pushed_at TEXT NOT NULL
             );
+            CREATE TABLE IF NOT EXISTS xhs_rule_snapshot (
+                url TEXT PRIMARY KEY, announced_at TEXT, effective_at TEXT,
+                revised_at TEXT, document_url TEXT, content_hash TEXT NOT NULL,
+                content_text TEXT NOT NULL, checked_at TEXT NOT NULL
+            );
         """)
         snapshot_columns = {row["name"] for row in self.connection.execute("PRAGMA table_info(snapshots)")}
         if "payload" not in snapshot_columns:
@@ -195,6 +200,27 @@ class Database:
         self.connection.executemany(
             "INSERT OR IGNORE INTO push_log(event_key,pushed_at) VALUES(?,?)",
             [(key, now) for key in event_keys],
+        )
+        self.connection.commit()
+
+    def get_xhs_rule_snapshot(self, url: str) -> dict | None:
+        row = self.connection.execute(
+            "SELECT url,announced_at,effective_at,revised_at,document_url,content_hash,content_text,checked_at "
+            "FROM xhs_rule_snapshot WHERE url=?", (url,),
+        ).fetchone()
+        return dict(row) if row else None
+
+    def save_xhs_rule_snapshot(
+        self, url: str, *, announced_at: str = "", effective_at: str = "",
+        revised_at: str = "", document_url: str = "", content_hash: str,
+        content_text: str,
+    ) -> None:
+        checked_at = datetime.now(UTC).isoformat()
+        self.connection.execute(
+            "INSERT OR REPLACE INTO xhs_rule_snapshot("
+            "url,announced_at,effective_at,revised_at,document_url,content_hash,content_text,checked_at"
+            ") VALUES(?,?,?,?,?,?,?,?)",
+            (url, announced_at, effective_at, revised_at, document_url, content_hash, content_text, checked_at),
         )
         self.connection.commit()
 

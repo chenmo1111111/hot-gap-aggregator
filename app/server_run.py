@@ -17,6 +17,7 @@ from app.notify import build_gongkao_events, notify_priority_alert
 from app.store.database import Database
 from app.watchers.subsidy_watch import SubsidyWatcher
 from app.watchers.xuandiao_watch import XuandiaoWatcher
+from app.watchers.xhs_rule_watch import XhsRuleWatcher
 
 
 LOGGER = logging.getLogger("hot-gap-server")
@@ -159,7 +160,20 @@ async def run_xuandiao(database: Database, data_dir: str | Path) -> dict[str, ob
         return {"status": "degraded", "error": str(exc)}
 
 
-async def main(run_scs_job: bool = False, run_subsidy_job: bool = False, run_xuandiao_job: bool = False) -> None:
+async def run_xhs_rules(database: Database) -> dict[str, object]:
+    try:
+        return await XhsRuleWatcher(database).run()
+    except Exception as exc:
+        # This job is deliberately isolated from SCS/subsidy/xuandiao. A page
+        # redesign or bad local config must never stop another mainland job.
+        LOGGER.warning("XHS rule watcher degraded: %s", exc)
+        return {"status": "degraded", "error": str(exc)}
+
+
+async def main(
+    run_scs_job: bool = False, run_subsidy_job: bool = False,
+    run_xuandiao_job: bool = False, run_xhs_rules_job: bool = False,
+) -> None:
     load_dotenv()
     logging.basicConfig(level=logging.INFO, format="%(message)s")
     database = Database(os.getenv("SERVER_DATABASE", "data/server.db"))
@@ -171,6 +185,8 @@ async def main(run_scs_job: bool = False, run_subsidy_job: bool = False, run_xua
             output["subsidy_watch"] = await SubsidyWatcher(database).run()
         if run_xuandiao_job:
             output["xuandiao_watch"] = await run_xuandiao(database, os.getenv("SERVER_SITE_DATA_DIR", "/var/www/hot-gap/data"))
+        if run_xhs_rules_job:
+            output["xhs_rule_watch"] = await run_xhs_rules(database)
         LOGGER.info(json.dumps({"event": "server_jobs_finished", **output}, ensure_ascii=False))
     finally:
         database.close()
@@ -182,5 +198,11 @@ if __name__ == "__main__":
     parser.add_argument("--subsidy", action="store_true", help="check HRSS notice lists and core subsidy policy pages")
     parser.add_argument("--city", action="store_true", help="deprecated alias for --subsidy")
     parser.add_argument("--xuandiao", action="store_true", help="check official selection-graduate notice lists")
+    parser.add_argument("--xhs-rules", action="store_true", help="check Xiaohongshu e-commerce rule changes")
     arguments = parser.parse_args()
-    asyncio.run(main(run_scs_job=arguments.scs, run_subsidy_job=arguments.subsidy or arguments.city, run_xuandiao_job=arguments.xuandiao))
+    asyncio.run(main(
+        run_scs_job=arguments.scs,
+        run_subsidy_job=arguments.subsidy or arguments.city,
+        run_xuandiao_job=arguments.xuandiao,
+        run_xhs_rules_job=arguments.xhs_rules,
+    ))

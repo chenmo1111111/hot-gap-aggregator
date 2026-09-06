@@ -11,6 +11,7 @@
 cd /opt/hot-gap-aggregator
 python3 -m venv .venv
 .venv/bin/pip install -r requirements-server.txt
+.venv/bin/playwright install --with-deps chromium
 cp .env.server.example .env
 chmod 600 .env
 cp deploy/server/hot-gap-jobs.cron /etc/cron.d/hot-gap-jobs
@@ -33,7 +34,34 @@ chmod 644 /etc/cron.d/hot-gap-jobs
 .venv/bin/python -m app.server_run --scs
 .venv/bin/python -m app.server_run --subsidy
 .venv/bin/python -m app.server_run --xuandiao
+.venv/bin/python -m app.server_run --xhs-rules
 ```
+
+## 小红书电商规则监控
+
+监控使用桌面 Chromium 登录小红书学习中心，每 8 小时检查“规则修订、规则新增、
+意见征集”和配置中的重点规则正文。Cookie 只放服务器
+`/opt/hot-gap-aggregator/.env`：
+
+```dotenv
+XHS_RULE_WATCH_CONFIG=config/xhs_rule_watch.yaml
+XHS_SCHOOL_COOKIE_JSON='[{"name":"web_session","value":"...","domain":".xiaohongshu.com","path":"/"}]'
+XHS_SCHOOL_COOKIE_DOC='a1=...; webId=...; gid=...'
+```
+
+第一项粘贴 Cookie-Editor 导出的完整 JSON 数组，第二项粘贴页面 Console 里的
+`document.cookie`。真实值不得提交到 Git。登录失效后会通过飞书、Bark 或站内
+`alerts.json` 提醒重新导出。正文首次运行只建立基线；以后公示/生效/修订日期、
+腾讯文档链接或正文变化才交给模型判断。安装或升级后把 cron 模板复制到系统：
+
+```bash
+cp deploy/server/hot-gap-jobs.cron /etc/cron.d/hot-gap-jobs
+chmod 644 /etc/cron.d/hot-gap-jobs
+systemctl restart cron
+```
+
+Playwright Chromium 峰值约 500MB。运行前用 `free -h` 检查 available 内存并确保
+服务器已有 swap；任务结束后浏览器会关闭，不会常驻占用。
 
 检查服务端数据是否完整：
 
