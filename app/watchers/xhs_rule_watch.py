@@ -354,11 +354,17 @@ class XhsRuleWatcher:
         return False
 
     async def _deliver(self, alert: dict[str, str]) -> bool:
+        site_written = True
+        try:
+            self._write_alert(alert)
+        except Exception as exc:
+            site_written = False
+            LOGGER.warning("XHS rule alert site write failed: %s", exc)
+
         if self._custom_notifier or os.getenv("FEISHU_WEBHOOK") or os.getenv("BARK_URL"):
             status = await self.notifier(alert)
-            return any(value == "ok" for value in status.values())
-        self._write_alert(alert)
-        return True
+            return site_written and any(value == "ok" for value in status.values())
+        return site_written
 
     def _write_alert(self, alert: dict[str, str]) -> None:
         self.alerts_path.parent.mkdir(parents=True, exist_ok=True)

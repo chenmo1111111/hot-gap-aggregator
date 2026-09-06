@@ -77,7 +77,8 @@ async def test_list_push_log_deduplicates_and_filters_irrelevant_titles(monkeypa
         delivered.append(alert)
         return {"feishu": "ok"}
 
-    watcher = XhsRuleWatcher(database, config, notifier=notifier)
+    alerts_path = tmp_path / "alerts.json"
+    watcher = XhsRuleWatcher(database, config, notifier=notifier, alerts_path=alerts_path)
     page = {"name": "规则修订", "url": "https://school.test/list"}
     monkeypatch.setattr(watcher, "_scrape", lambda _config: async_value({
         "lists": [(page, fixture_body("xhs_rule_list.html"))], "articles": [],
@@ -87,6 +88,9 @@ async def test_list_push_log_deduplicates_and_filters_irrelevant_titles(monkeypa
     assert first["list_pages"][0] == {"name": "规则修订", "status": "pushed", "item_count": 2, "pushed": 2}
     assert second["list_pages"][0]["status"] == "unchanged"
     assert len(delivered) == 2
+    alerts = json.loads(alerts_path.read_text(encoding="utf-8"))
+    assert len(alerts["items"]) == 2
+    assert {item["id"] for item in alerts["items"]} == {item["id"] for item in delivered}
     database.close()
 
 
@@ -110,7 +114,8 @@ async def test_article_baseline_then_diff_judgment_and_one_push(monkeypatch, tmp
         delivered.append(alert)
         return {"feishu": "ok"}
 
-    watcher = XhsRuleWatcher(database, config, judge=judge, notifier=notifier)
+    alerts_path = tmp_path / "alerts.json"
+    watcher = XhsRuleWatcher(database, config, judge=judge, notifier=notifier, alerts_path=alerts_path)
     article = {"name": "定向准入", "url": "https://school.test/detail/1"}
     monkeypatch.setattr(watcher, "_scrape", lambda _config: async_value({
         "lists": [], "articles": [(article, fixture_body("xhs_rule_article_old.html"))],
@@ -125,6 +130,8 @@ async def test_article_baseline_then_diff_judgment_and_one_push(monkeypatch, tmp
     assert len(judgments) == 1
     assert len(delivered) == 1
     assert delivered[0]["priority"] == "highest"
+    alerts = json.loads(alerts_path.read_text(encoding="utf-8"))
+    assert alerts["items"] == delivered
     stored = database.get_xhs_rule_snapshot(article["url"])
     assert stored and stored["effective_at"] == "2026-09-08"
     database.close()
@@ -144,12 +151,15 @@ async def test_cookie_failure_alerts_once_without_raising(monkeypatch, tmp_path)
     async def expired(_config):
         raise XhsCookieInvalid("login verification failed", status="degraded")
 
-    watcher = XhsRuleWatcher(database, config, notifier=notifier)
+    alerts_path = tmp_path / "alerts.json"
+    watcher = XhsRuleWatcher(database, config, notifier=notifier, alerts_path=alerts_path)
     monkeypatch.setattr(watcher, "_scrape", expired)
     assert (await watcher.run())["status"] == "degraded"
     assert (await watcher.run())["status"] == "degraded"
     assert len(delivered) == 1
     assert "重新导出" in delivered[0]["summary"]
+    alerts = json.loads(alerts_path.read_text(encoding="utf-8"))
+    assert alerts["items"] == delivered
     database.close()
 
 
