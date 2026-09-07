@@ -34,6 +34,23 @@ chmod 644 /etc/cron.d/hot-gap-jobs
 站内预警链。两个 sidecar 都不会改写 GitHub Actions 生成的 `jobs.json`、
 `gongkao.json` 或 `all.json`。配置文件里可以继续追加目标高校。
 
+`config/yingjiesheng.yaml` 的应届生求职网也由国内服务器运行。服务器 `.env` 必须有：
+
+```dotenv
+YINGJIESHENG_ON_SERVER=true
+YINGJIESHENG_CONFIG=config/yingjiesheng.yaml
+SERVER_HEARTBEAT_PATH=/var/www/hot-gap/data/server-heartbeat.txt
+```
+
+两小时主任务同时执行 `--scs --yingjiesheng`；应届生主站被 WAF 拦截时会尝试
+配置的 `fallback_source: haitou`。两边都失败时不会清空上一次成功写入的
+`server-jobs.json`。GitHub Actions 设置同名变量为 `true` 后会直接跳过该浏览器
+采集，因此仍能快速完成其它来源。
+
+主任务完成后原子更新 `server-heartbeat.txt`。独立小时检查发现时间戳超过 4 小时
+时，只发送一次“公考聚合主采集停了,GitHub Actions 每日兜底仍在”；下一次正常
+心跳会形成新的监控周期。推送复用飞书/Bark，不配置渠道时只记录检查日志。
+
 手动验证：
 
 ```bash
@@ -42,6 +59,8 @@ chmod 644 /etc/cron.d/hot-gap-jobs
 .venv/bin/python -m app.server_run --xuandiao
 .venv/bin/python -m app.server_run --xhs-rules
 .venv/bin/python -m app.server_run --campus-jobs
+.venv/bin/python -m app.server_run --scs --yingjiesheng
+.venv/bin/python -m app.check_server_heartbeat --max-age-hours 4
 ```
 
 ## 小红书电商规则监控

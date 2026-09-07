@@ -1,5 +1,7 @@
 # SCS 官方国考源：写入 Actions 不会覆盖的 server-gongkao.json sidecar。
-35 */2 * * * root cd /opt/hot-gap-aggregator && /opt/hot-gap-aggregator/.venv/bin/python -m app.server_run --scs >> /var/log/hot-gap-server.log 2>&1
+35 */2 * * * root cd /opt/hot-gap-aggregator && /opt/hot-gap-aggregator/.venv/bin/python -m app.server_run --scs --yingjiesheng >> /var/log/hot-gap-server.log 2>&1
+# Main collector heartbeat: alert once when the two-hour job is over four hours stale.
+20 * * * * root cd /opt/hot-gap-aggregator && /opt/hot-gap-aggregator/.venv/bin/python -m app.check_server_heartbeat --max-age-hours 4 >> /var/log/hot-gap-server.log 2>&1
 # 人社局公告 + 核心补贴政策页 diff：每 12 小时。
 45 */12 * * * root cd /opt/hot-gap-aggregator && /opt/hot-gap-aggregator/.venv/bin/python -m app.server_run --subsidy >> /var/log/hot-gap-server.log 2>&1
 # 五省选调生官方公告：每 6 小时，黑龙江优先。

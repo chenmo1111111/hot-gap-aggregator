@@ -5,7 +5,11 @@ import pytest
 
 from app.models import Item
 from app import server_run
-from app.server_run import merge_campus_jobs_into_site, merge_scs_into_site, merge_xuandiao_into_site, run_xhs_rules
+from app.server_run import (
+    merge_campus_jobs_into_site, merge_scs_into_site,
+    merge_xuandiao_into_site, merge_yingjiesheng_jobs_into_site,
+    run_xhs_rules, write_server_heartbeat,
+)
 from app.store.database import Database
 
 
@@ -63,6 +67,26 @@ def test_merge_campus_jobs_uses_server_sidecar_without_touching_ci_jobs(tmp_path
     sidecar = json.loads((tmp_path / "server-jobs.json").read_text(encoding="utf-8"))
     assert sidecar["items"][0]["url"] == "https://nefu.test/1"
     assert sidecar["subsources"]["campus"]["item_count"] == 1
+
+
+def test_merge_yingjiesheng_preserves_campus_and_replaces_owned_rows(tmp_path) -> None:
+    campus = Item(source="jobs", rank=1, title="高校招聘", title_zh="高校招聘", url="https://nefu.test/1", extra={"subsource": "campus"})
+    merge_campus_jobs_into_site(tmp_path, [campus], "2026-09-07T00:00:00+00:00")
+    old = Item(source="jobs", rank=1, title="旧应届生", title_zh="旧应届生", url="https://yjs.test/old", extra={"subsource": "yingjiesheng"})
+    merge_yingjiesheng_jobs_into_site(tmp_path, [old], "2026-09-07T01:00:00+00:00")
+    fresh = Item(source="jobs", rank=1, title="海投岗位", title_zh="海投岗位", url="https://haitou.test/new", extra={"subsource": "haitou"})
+    merge_yingjiesheng_jobs_into_site(tmp_path, [fresh], "2026-09-07T02:00:00+00:00")
+    sidecar = json.loads((tmp_path / "server-jobs.json").read_text(encoding="utf-8"))
+    assert [row["url"] for row in sidecar["items"]] == ["https://haitou.test/new", "https://nefu.test/1"]
+    assert sidecar["subsources"]["yingjiesheng"]["item_count"] == 1
+
+
+def test_write_server_heartbeat_is_atomic_and_uses_requested_time(tmp_path, monkeypatch) -> None:
+    monkeypatch.delenv("SERVER_HEARTBEAT_PATH", raising=False)
+    path = write_server_heartbeat(tmp_path, "2026-09-07T03:00:00+00:00")
+    assert path == tmp_path / "server-heartbeat.txt"
+    assert path.read_text(encoding="utf-8") == "2026-09-07T03:00:00+00:00"
+    assert not (tmp_path / "server-heartbeat.txt.tmp").exists()
 
 
 @pytest.mark.asyncio

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import asyncio
 import logging
+import os
 from datetime import datetime, timezone
 
 from app.collectors.base import BaseCollector, SourceUnavailable
@@ -15,13 +16,25 @@ LOGGER = logging.getLogger(__name__)
 UTC = timezone.utc
 
 
+def _enabled(value: str | None) -> bool:
+    return str(value or "").strip().casefold() in {"1", "true", "yes", "on"}
+
+
 class JobsCollector(BaseCollector):
     """Combine independent job providers before the shared ``jobs`` DB write."""
 
     source = "jobs"
 
     def __init__(self, providers: list[BaseCollector] | None = None) -> None:
-        self.providers = providers or [JobRadarCollector(), YingjieshengCollector(), GuopinCollector()]
+        if providers is not None:
+            self.providers = providers
+            return
+        # When the source is assigned to the mainland runner, Actions must not
+        # open a browser for it. The server-owned sidecar is merged by the UI.
+        self.providers = [JobRadarCollector()]
+        if not _enabled(os.getenv("YINGJIESHENG_ON_SERVER")):
+            self.providers.append(YingjieshengCollector())
+        self.providers.append(GuopinCollector())
 
     @staticmethod
     def _timestamp(item: Item) -> float:

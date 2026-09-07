@@ -2,6 +2,8 @@ import pytest
 
 from app.collectors.base import SourceUnavailable
 from app.collectors.jobs import JobsCollector
+from app.collectors.guopin import GuopinCollector
+from app.collectors.job_radar import JobRadarCollector
 from app.models import Item
 
 
@@ -26,3 +28,9 @@ async def test_jobs_collector_combines_sources_and_isolates_provider_failure() -
     assert len(items) == 1
     assert items[0].extra["keywords_hit"] == ["算法", "生物"]
     assert items[0].rank == 1
+
+
+def test_jobs_collector_skips_yingjiesheng_when_server_owns_it(monkeypatch) -> None:
+    monkeypatch.setenv("YINGJIESHENG_ON_SERVER", "true")
+    providers = JobsCollector().providers
+    assert [type(provider) for provider in providers] == [JobRadarCollector, GuopinCollector]

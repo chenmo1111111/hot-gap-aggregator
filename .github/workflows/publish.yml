@@ -72,6 +72,9 @@ jobs:
           NOWCODER_CONFIG: config/nowcoder.yaml
           JOB_RADAR_CONFIG: config/job_radar.yaml
           YINGJIESHENG_CONFIG: config/yingjiesheng.yaml
+          # Yingjiesheng is owned by the mainland runner; JobsCollector skips
+          # it immediately here and the deployed server-jobs.json is preserved.
+          YINGJIESHENG_ON_SERVER: "true"
           GUOPIN_CONFIG: config/guopin.yaml
           RSSHUB_BASE: ${{ secrets.RSSHUB_BASE }}
           RSSHUB_KEY: ${{ secrets.RSSHUB_KEY }}

@@ -3,3 +3,5 @@ cities: [天津, 济南, 青岛, 大连, 沈阳, 石家庄, 北京]
 types: [校园招聘]
 lookback_days: 5
 per_query_limit: 20
+fallback_source: haitou
+fallback_url: "https://sx.haitou.cc/article/list?key={keyword}&select_classify=1&select_type=3&type=1"

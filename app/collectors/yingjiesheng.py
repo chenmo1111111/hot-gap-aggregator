@@ -21,6 +21,10 @@ LOGGER = logging.getLogger(__name__)
 UTC = timezone.utc
 DATE_RE = re.compile(r"(?<!\d)(20\d{2})[-/.年](\d{1,2})[-/.月](\d{1,2})(?:日)?")
 WAF_MARKERS = ("aliyun_waf_aa", "aliyun_waf", "acw_sc__v2", "waf challenge")
+FALLBACK_URLS = {
+    "haitou": "https://sx.haitou.cc/article/list?key={keyword}&select_classify=1&select_type=3&type=1",
+    "wutongguo": "https://www.wutongguo.com/search?keyword={keyword}",
+}
 
 
 def _clean(value: object, limit: int = 240) -> str:
@@ -37,7 +41,47 @@ def _iso_date(value: str) -> str | None:
 def is_waf_challenge(html_text: str) -> bool:
     """Recognize the official site's Alibaba WAF page and avoid a long selector wait."""
     lowered = html_text.casefold()
-    return any(marker in lowered for marker in WAF_MARKERS)
+    return any(marker in lowered for marker in WAF_MARKERS) or "请按住滑块" in html_text
+
+
+def parse_fallback_html(
+    html_text: str, base_url: str, source: str, keyword: str,
+    cities: list[str], limit: int,
+) -> list[Item]:
+    """Parse a conservative subset of Haitou/Wutongguo recruitment cards."""
+    tree = HTMLParser(html_text)
+    items: list[Item] = []
+    seen: set[str] = set()
+    path_tokens = ("/article/", "/job/", "/position/")
+    for anchor in tree.css("a[href]"):
+        href = urljoin(base_url, str(anchor.attributes.get("href") or ""))
+        if not any(token in urlparse(href).path.casefold() for token in path_tokens):
+            continue
+        title_node = anchor.css_first("h1,h2,h3,h4,strong,b")
+        title = _clean(title_node.text(separator=" ", strip=True) if title_node else anchor.text(separator=" ", strip=True), 160)
+        if len(title) < 4 or href in seen:
+            continue
+        container = anchor.parent or anchor
+        block = _clean(container.text(separator=" ", strip=True), 1200)
+        city = next((name for name in cities if name.casefold() in block.casefold()), "")
+        if cities and not city:
+            continue
+        company_match = re.search(r"([\u4e00-\u9fffA-Za-z0-9（）()·]{2,80}(?:公司|集团|研究院|研究所|中心))", block)
+        company = _clean(company_match.group(1) if company_match else source, 120)
+        seen.add(href)
+        items.append(Item(
+            source="jobs", rank=0, title=title, title_zh=title, url=href,
+            summary_zh=_clean(block.replace(title, "").replace(company, ""), 200),
+            published_at=_iso_date(block),
+            extra={
+                "subsource": source, "company": company, "city": city,
+                "keywords_hit": [keyword], "recruitment_type": "校园招聘",
+                "is_central_soe": False,
+            },
+        ))
+        if len(items) >= limit:
+            break
+    return items
 
 
 def _search_property(href: str) -> dict[str, Any]:
@@ -160,6 +204,7 @@ class YingjieshengCollector(BaseCollector):
 
     async def _fetch_search(
         self, keywords: list[str], cities: list[str], types: list[str], limit: int,
+        fallback_source: str = "", fallback_url: str = "",
     ) -> list[Item]:
         items: list[Item] = []
         errors: list[str] = []
@@ -188,6 +233,23 @@ class YingjieshengCollector(BaseCollector):
                             keyword_errors.append(f"{template}: {exc}")
                     else:
                         errors.append(f"{keyword}: {'; '.join(keyword_errors)}")
+                if not items and fallback_source:
+                    template = fallback_url or FALLBACK_URLS.get(fallback_source, "")
+                    if template:
+                        from urllib.parse import quote
+                        for keyword in keywords:
+                            try:
+                                url = template.format(keyword=quote(keyword))
+                                await page.goto(url, wait_until="domcontentloaded", timeout=30_000)
+                                await page.wait_for_timeout(1500)
+                                html_text = await page.content()
+                                if is_waf_challenge(html_text):
+                                    raise RuntimeError("blocked by fallback site WAF")
+                                items.extend(parse_fallback_html(
+                                    html_text, url, fallback_source, keyword, cities, limit,
+                                ))
+                            except Exception as exc:
+                                errors.append(f"fallback {fallback_source}/{keyword}: {exc}")
                 await context.close()
             finally:
                 await browser.close()
@@ -213,12 +275,15 @@ class YingjieshengCollector(BaseCollector):
         keywords = [str(value).strip() for value in config.get("keywords", []) if str(value).strip()]
         cities = [str(value).strip() for value in config.get("cities", []) if str(value).strip()]
         types = [str(value).strip() for value in config.get("types", []) if str(value).strip()]
+        fallback_source = str(config.get("fallback_source") or "").strip().casefold()
+        fallback_url = str(config.get("fallback_url") or "").strip()
         limit = max(1, int(config.get("per_query_limit", 20)))
         if not keywords:
             raise SourceUnavailable("Yingjiesheng has no keywords", status="degraded")
         import asyncio
         results = await asyncio.gather(
-            self._fetch_search(keywords, cities, types, limit), self._fetch_xjh(cities, limit),
+            self._fetch_search(keywords, cities, types, limit, fallback_source, fallback_url),
+            self._fetch_xjh(cities, limit),
             return_exceptions=True,
         )
         merged: list[Item] = []

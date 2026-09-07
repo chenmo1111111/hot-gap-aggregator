@@ -81,7 +81,8 @@ const mergeServerGongkao = (feed: Feed, officialFeed: ServerGongkaoFeed): Feed =
 const mergeServerJobs = (feed: Feed, serverFeed: ServerJobsFeed): Feed => {
   const serverItems = serverFeed.items.filter((item) => item.source === 'jobs');
   if (serverItems.length === 0) return feed;
-  const ciItems = feed.items.filter((item) => !(item.source === 'jobs' && item.extra?.subsource === 'campus'));
+  const serverOwned = new Set(['campus', 'yingjiesheng', 'xjh', 'haitou', 'wutongguo']);
+  const ciItems = feed.items.filter((item) => !(item.source === 'jobs' && serverOwned.has(String(item.extra?.subsource || ''))));
   const firstJobsIndex = ciItems.findIndex((item) => item.source === 'jobs');
   const merged = [...ciItems];
   merged.splice(firstJobsIndex < 0 ? merged.length : firstJobsIndex, 0, ...serverItems);
@@ -292,7 +293,7 @@ function ToolsView({ items, unavailable, error }: { items: Item[]; unavailable: 
 
 const jobSource = (item: Item) => {
   const subsource = String(item.extra?.subsource || 'radar');
-  if (['yingjiesheng', 'xjh'].includes(subsource)) return 'yingjiesheng';
+  if (['yingjiesheng', 'xjh', 'haitou', 'wutongguo'].includes(subsource)) return 'yingjiesheng';
   if (subsource === 'guopin') return 'guopin';
   if (subsource === 'campus') return 'campus';
   return 'radar';

@@ -12,6 +12,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 from app.collectors.scs import SCSCollector
+from app.collectors.yingjiesheng import YingjieshengCollector
 from app.models import Item
 from app.notify import build_gongkao_events, notify_priority_alert
 from app.store.database import Database
@@ -25,12 +26,29 @@ LOGGER = logging.getLogger("hot-gap-server")
 UTC = timezone.utc
 SERVER_GONGKAO_FILENAME = "server-gongkao.json"
 SERVER_JOBS_FILENAME = "server-jobs.json"
+YINGJIESHENG_SUBSOURCES = {"yingjiesheng", "xjh", "haitou", "wutongguo"}
 
 
 def _write_json(path: Path, payload: dict) -> None:
     temporary = path.with_suffix(path.suffix + ".tmp")
     temporary.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
     temporary.replace(path)
+
+
+def _enabled(value: str | None) -> bool:
+    return str(value or "").strip().casefold() in {"1", "true", "yes", "on"}
+
+
+def write_server_heartbeat(
+    data_dir: str | Path, generated_at: str | None = None,
+) -> Path:
+    """Atomically mark completion of the two-hour mainland main collection."""
+    target = Path(os.getenv("SERVER_HEARTBEAT_PATH") or Path(data_dir) / "server-heartbeat.txt")
+    target.parent.mkdir(parents=True, exist_ok=True)
+    temporary = target.with_suffix(target.suffix + ".tmp")
+    temporary.write_text(generated_at or datetime.now(UTC).isoformat(), encoding="utf-8")
+    temporary.replace(target)
+    return target
 
 
 def _load_server_gongkao(target: Path) -> dict:
@@ -175,6 +193,43 @@ def merge_campus_jobs_into_site(
     })
 
 
+def merge_yingjiesheng_jobs_into_site(
+    data_dir: str | Path, items: list[Item], generated_at: str,
+) -> None:
+    """Replace only server-owned Yingjiesheng/fallback rows in the jobs sidecar."""
+    target = Path(data_dir)
+    target.mkdir(parents=True, exist_ok=True)
+    payload = _load_server_jobs(target)
+    preserved = [
+        row for row in payload.get("items", [])
+        if isinstance(row, dict)
+        and str((row.get("extra") or {}).get("subsource") or "") not in YINGJIESHENG_SUBSOURCES
+    ]
+    combined: list[dict] = []
+    seen: set[str] = set()
+    for row in [*(item.to_dict() for item in items), *preserved]:
+        url = str(row.get("url") or "").strip().rstrip("/").casefold()
+        if not url or url in seen:
+            continue
+        seen.add(url)
+        row["rank"] = len(combined) + 1
+        combined.append(row)
+    subsources = payload.get("subsources") if isinstance(payload.get("subsources"), dict) else {}
+    subsources["yingjiesheng"] = {
+        "status": "ok",
+        "item_count": sum(
+            1 for row in combined
+            if str((row.get("extra") or {}).get("subsource") or "") in YINGJIESHENG_SUBSOURCES
+        ),
+        "updated_at": generated_at,
+    }
+    _write_json(target / SERVER_JOBS_FILENAME, {
+        "generated_at": generated_at, "source": "jobs_official",
+        "status": {"source": "jobs_official", "status": "ok", "item_count": len(combined)},
+        "subsources": subsources, "items": combined,
+    })
+
+
 async def run_scs(database: Database, data_dir: str | Path) -> dict[str, object]:
     started = time.perf_counter()
     collector = SCSCollector()
@@ -241,26 +296,52 @@ async def run_campus_jobs(database: Database, data_dir: str | Path) -> dict[str,
         return {"status": "degraded", "error": str(exc)}
 
 
+async def run_yingjiesheng(data_dir: str | Path) -> dict[str, object]:
+    if not _enabled(os.getenv("YINGJIESHENG_ON_SERVER")):
+        return {"status": "skipped", "reason": "YINGJIESHENG_ON_SERVER is not true"}
+    try:
+        items = await YingjieshengCollector().fetch()
+        if not items:
+            return {"status": "degraded", "item_count": 0, "error": "no recruitment items returned"}
+        run_at = datetime.now(UTC).isoformat()
+        merge_yingjiesheng_jobs_into_site(data_dir, items, run_at)
+        counts: dict[str, int] = {}
+        for item in items:
+            name = str(item.extra.get("subsource") or "yingjiesheng")
+            counts[name] = counts.get(name, 0) + 1
+        return {"status": "ok", "item_count": len(items), "subsources": counts}
+    except Exception as exc:
+        # Preserve the previous good sidecar when either the primary site or
+        # its configured fallback is unavailable.
+        LOGGER.warning("Yingjiesheng server collector degraded: %s", exc)
+        return {"status": "degraded", "item_count": 0, "error": str(exc)}
+
+
 async def main(
     run_scs_job: bool = False, run_subsidy_job: bool = False,
     run_xuandiao_job: bool = False, run_xhs_rules_job: bool = False,
-    run_campus_jobs_job: bool = False,
+    run_campus_jobs_job: bool = False, run_yingjiesheng_job: bool = False,
 ) -> None:
     load_dotenv()
     logging.basicConfig(level=logging.INFO, format="%(message)s")
     database = Database(os.getenv("SERVER_DATABASE", "data/server.db"))
     output: dict[str, object] = {}
+    data_dir = os.getenv("SERVER_SITE_DATA_DIR", "/var/www/hot-gap/data")
     try:
         if run_scs_job:
-            output["scs"] = await run_scs(database, os.getenv("SERVER_SITE_DATA_DIR", "/var/www/hot-gap/data"))
+            output["scs"] = await run_scs(database, data_dir)
         if run_subsidy_job:
             output["subsidy_watch"] = await SubsidyWatcher(database).run()
         if run_xuandiao_job:
-            output["xuandiao_watch"] = await run_xuandiao(database, os.getenv("SERVER_SITE_DATA_DIR", "/var/www/hot-gap/data"))
+            output["xuandiao_watch"] = await run_xuandiao(database, data_dir)
         if run_xhs_rules_job:
             output["xhs_rule_watch"] = await run_xhs_rules(database)
         if run_campus_jobs_job:
-            output["campus_jobs"] = await run_campus_jobs(database, os.getenv("SERVER_SITE_DATA_DIR", "/var/www/hot-gap/data"))
+            output["campus_jobs"] = await run_campus_jobs(database, data_dir)
+        if run_yingjiesheng_job:
+            output["yingjiesheng"] = await run_yingjiesheng(data_dir)
+        if run_scs_job:
+            output["heartbeat"] = str(write_server_heartbeat(data_dir))
         LOGGER.info(json.dumps({"event": "server_jobs_finished", **output}, ensure_ascii=False))
     finally:
         database.close()
@@ -274,6 +355,7 @@ if __name__ == "__main__":
     parser.add_argument("--xuandiao", action="store_true", help="check official selection-graduate notice lists")
     parser.add_argument("--xhs-rules", action="store_true", help="check Xiaohongshu e-commerce rule changes")
     parser.add_argument("--campus-jobs", action="store_true", help="check mainland university recruitment lists")
+    parser.add_argument("--yingjiesheng", action="store_true", help="collect Yingjiesheng jobs on the mainland server")
     arguments = parser.parse_args()
     asyncio.run(main(
         run_scs_job=arguments.scs,
@@ -281,4 +363,5 @@ if __name__ == "__main__":
         run_xuandiao_job=arguments.xuandiao,
         run_xhs_rules_job=arguments.xhs_rules,
         run_campus_jobs_job=arguments.campus_jobs,
+        run_yingjiesheng_job=arguments.yingjiesheng,
     ))

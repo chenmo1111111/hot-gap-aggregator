@@ -32,7 +32,8 @@ def _keywords(value: object) -> str:
 
 SOURCE_LABELS = {
     "tencent": "大厂雷达·腾讯", "bytedance": "大厂雷达·字节",
-    "yingjiesheng": "应届生", "xjh": "应届生宣讲会", "guopin": "国聘",
+    "yingjiesheng": "应届生", "xjh": "应届生宣讲会", "haitou": "海投校招",
+    "wutongguo": "梧桐果校招", "guopin": "国聘",
     "campus": "高校就业网",
 }
 
