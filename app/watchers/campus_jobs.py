@@ -1,10 +1,12 @@
 from __future__ import annotations
 
+import base64
 import hashlib
 import json
 import logging
 import os
 import re
+import zlib
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -19,6 +21,9 @@ from app.watchers.subsidy_watch import SubsidyWatcher, decode_response, parse_li
 LOGGER = logging.getLogger(__name__)
 UTC = timezone.utc
 SELECTION_TOKENS = ("选调", "定向")
+GXBYS_EMBEDDED_RE = re.compile(
+    r'Base64\.decode\(unzip\("([A-Za-z0-9+/=]+)"\)\.substr\((\d+)\)\)\.substr\((\d+)\)'
+)
 
 
 def _company_from_title(title: str) -> str:
@@ -27,9 +32,25 @@ def _company_from_title(title: str) -> str:
     return text[:120] or "高校就业网"
 
 
+def decode_gxbys_embedded_html(html_text: str) -> str | None:
+    """Decode the compressed list fragment used by current GXBYS school sites."""
+    fragments: list[str] = []
+    for match in GXBYS_EMBEDDED_RE.finditer(html_text):
+        try:
+            compressed = base64.b64decode(match.group(1), validate=True)
+            encoded = zlib.decompress(compressed).decode("ascii")
+            payload = base64.b64decode(encoded[int(match.group(2)):], validate=True)
+            fragment = payload.decode("utf-8")[int(match.group(3)):]
+        except (ValueError, UnicodeDecodeError, zlib.error):
+            continue
+        if "<a" in fragment:
+            fragments.append(fragment)
+    return "\n".join(fragments) or None
+
+
 def parse_campus_html(html_text: str, base_url: str) -> list[dict[str, str]]:
     """Parse current GXBYS pages and retain the generic-list fallback."""
-    entries = parse_list_html(html_text, base_url)
+    entries = parse_list_html(decode_gxbys_embedded_html(html_text) or html_text, base_url)
     unique: dict[str, dict[str, str]] = {}
     for entry in entries:
         url = entry["url"].rstrip("/")

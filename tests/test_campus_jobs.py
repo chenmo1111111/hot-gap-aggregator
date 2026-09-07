@@ -3,7 +3,7 @@ from pathlib import Path
 import pytest
 
 from app.store.database import Database
-from app.watchers.campus_jobs import CampusJobsWatcher, parse_campus_html
+from app.watchers.campus_jobs import CampusJobsWatcher, decode_gxbys_embedded_html, parse_campus_html
 
 
 FIXTURES = Path(__file__).parent / "fixtures"
@@ -12,6 +12,17 @@ FIXTURES = Path(__file__).parent / "fixtures"
 def test_parse_nefu_campus_list() -> None:
     entries = parse_campus_html((FIXTURES / "campus_jobs_initial.html").read_text(encoding="utf-8"), "https://nefu.gxbys.org.cn/campus")
     assert entries == [{"title": "示例科技2027届校园招聘公告", "url": "https://nefu.gxbys.org.cn/campus/view/id/1", "date": "2026-09-06"}]
+
+
+def test_parse_current_gxbys_compressed_list() -> None:
+    html = (FIXTURES / "campus_jobs_gxbys_compressed.html").read_text(encoding="utf-8")
+    decoded = decode_gxbys_embedded_html(html)
+    assert decoded and "东北林业大学2027届秋季校园招聘会" in decoded
+    assert parse_campus_html(html, "https://nefu.gxbys.org.cn/campus") == [{
+        "title": "东北林业大学2027届秋季校园招聘会",
+        "url": "https://nefu.gxbys.org.cn/campus/view/id/70001",
+        "date": "2026-09-07",
+    }]
 
 
 @pytest.mark.asyncio
