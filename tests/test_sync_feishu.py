@@ -107,6 +107,13 @@ def test_qiuzhao_mapping_and_normalized_sync_id() -> None:
     assert fields["投递链接"]["link"] == "https://example.com/job"
 
 
+def test_qiuzhao_mapping_writes_collector_source_label() -> None:
+    fields = map_qiuzhao({
+        "company_name": "示例央企", "position": "算法岗", "source_label": "国聘",
+    }, now=NOW)
+    assert fields["来源"] == "自动·国聘"
+
+
 def test_diff_creates_updates_deletes_and_completely_ignores_manual_rows() -> None:
     source = [
         {"同步ID": "same", "更新时间": 200, "公司名称": "A", "来源": "自动"},

@@ -19,6 +19,7 @@ type AlertFeed = { generated_at: string; items: AlertItem[] };
 type Quicklink = { name: string; url: string };
 type SourceFeed = { generated_at: string; source: string; status: SourceState; items: Item[] };
 type ServerGongkaoFeed = SourceFeed & { subsources?: Record<string, { status: string; item_count: number; updated_at: string }> };
+type ServerJobsFeed = SourceFeed & { subsources?: Record<string, { status: string; item_count: number; updated_at: string }> };
 type SessionUser = { username: string; is_admin: boolean };
 type AdminUser = SessionUser & { id: number; created_at: string };
 
@@ -75,6 +76,27 @@ const mergeServerGongkao = (feed: Feed, officialFeed: ServerGongkaoFeed): Feed =
     sources,
     items: mergedItems,
   };
+};
+
+const mergeServerJobs = (feed: Feed, serverFeed: ServerJobsFeed): Feed => {
+  const serverItems = serverFeed.items.filter((item) => item.source === 'jobs');
+  if (serverItems.length === 0) return feed;
+  const ciItems = feed.items.filter((item) => !(item.source === 'jobs' && item.extra?.subsource === 'campus'));
+  const firstJobsIndex = ciItems.findIndex((item) => item.source === 'jobs');
+  const merged = [...ciItems];
+  merged.splice(firstJobsIndex < 0 ? merged.length : firstJobsIndex, 0, ...serverItems);
+  const seen = new Set<string>();
+  const items = merged.filter((item) => {
+    const key = `${item.source}\0${item.url.trim().replace(/\/$/, '').toLowerCase()}`;
+    if (seen.has(key)) return false;
+    seen.add(key); return true;
+  });
+  const sources = [...(feed.sources ?? [])];
+  const count = items.filter((item) => item.source === 'jobs').length;
+  const index = sources.findIndex((source) => source.source === 'jobs');
+  if (index >= 0) sources[index] = { ...sources[index], status: 'ok', item_count: count };
+  else sources.push({ source: 'jobs', status: serverFeed.status.status, item_count: count });
+  return { ...feed, sources, items };
 };
 
 const paperTier = (item: Item) => item.source === 'feed'
@@ -268,8 +290,22 @@ function ToolsView({ items, unavailable, error }: { items: Item[]; unavailable: 
   return <section><div className="mb-5 flex items-end justify-between"><div><h2 className="text-2xl font-black">工具更新</h2><p className="mt-1 text-xs text-[var(--muted)]">常用科研工具的新版本与 release notes</p></div><span className="font-mono text-xs text-[var(--muted)]">{items.length}</span></div><div className="overflow-hidden rounded-2xl border border-[var(--line)] bg-[var(--card)]">{items.map((item, index) => <a key={item.url} href={item.url} target="_blank" rel="noreferrer" className={`grid gap-2 p-4 transition hover:bg-[var(--soft)] sm:grid-cols-[140px_1fr_auto] sm:items-center ${index ? 'border-t border-[var(--line)]' : ''}`}><b className="text-sm text-cyan-600">{String(item.extra?.feed_name || '工具更新').replace(/\s*发版$/, '')}</b><span className="min-w-0"><strong className="block truncate text-sm">{item.title_zh || item.title}</strong>{item.summary_zh && <small className="mt-1 block line-clamp-2 text-[var(--muted)]">{item.summary_zh}</small>}</span><time className="text-xs text-[var(--muted)]">{item.published_at?.slice(0, 10) || '日期待定'} · release ↗</time></a>)}{items.length === 0 && <div className="p-12 text-center text-[var(--muted)]">{unavailable ? <><p className="font-bold text-[var(--ink)]">RSSHub 暂不可用</p><p className="mt-2 text-xs">{error || '未配置或订阅路由暂时失败，不影响其它来源。'}</p></> : '暂时没有工具更新。'}</div>}</div></section>;
 }
 
+const jobSource = (item: Item) => {
+  const subsource = String(item.extra?.subsource || 'radar');
+  if (['yingjiesheng', 'xjh'].includes(subsource)) return 'yingjiesheng';
+  if (subsource === 'guopin') return 'guopin';
+  if (subsource === 'campus') return 'campus';
+  return 'radar';
+};
+const jobSourceLabels: Record<string, string> = { radar: '大厂雷达', yingjiesheng: '应届生', guopin: '国聘', campus: '高校' };
+
 function JobsView({ items, quicklinks, unavailable, error }: { items: Item[]; quicklinks: Quicklink[]; unavailable: boolean; error?: string | null }) {
-  return <div className="grid gap-8"><section className="rounded-3xl border border-[var(--line)] bg-[var(--card)] p-5 sm:p-7"><span className="rounded-full bg-cyan-100 px-3 py-1 text-xs font-black text-cyan-900">单细胞 / AI4Science</span><h2 className="mt-4 text-2xl font-black">大厂岗位雷达</h2><p className="mt-2 text-sm text-[var(--muted)]">腾讯与字节职位按关键词命中数优先；以下公司暂以官网直达补充。</p><div className="mt-5 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">{quicklinks.map((link) => <a key={link.url} href={link.url} target="_blank" rel="noreferrer" className="rounded-xl border border-[var(--line)] bg-[var(--paper)] px-4 py-3 text-sm font-bold transition hover:border-cyan-400">{link.name} ↗</a>)}</div></section><section><div className="mb-3 flex items-end justify-between"><div><h2 className="text-xl font-black">在招岗位</h2><p className="text-xs text-[var(--muted)]">同名岗位合并，多关键词命中的排在前面</p></div><span className="font-mono text-xs text-[var(--muted)]">{items.length}</span></div><div className="grid gap-3">{items.map((item) => { const hits = Array.isArray(item.extra?.keywords_hit) ? item.extra.keywords_hit.map(String) : []; const city = String(item.extra?.city || ''); return <article key={item.url} className="rounded-2xl border border-[var(--line)] bg-[var(--card)] p-5 shadow-sm"><div className="flex flex-wrap items-center gap-2 text-xs"><b className="rounded bg-[var(--soft)] px-2 py-1">{String(item.extra?.company || '招聘')}</b>{city && <span className="text-[var(--muted)]">📍 {city}</span>}{hits.map((hit) => <span key={hit} className="rounded-full bg-cyan-100 px-2 py-0.5 font-bold text-cyan-900">{hit}</span>)}</div><h3 className="mt-3 text-lg font-black">{item.title_zh || item.title}</h3>{item.summary_zh && <p className="mt-2 line-clamp-3 text-sm leading-6 text-[var(--muted)]">{item.summary_zh}</p>}<div className="mt-4 flex items-center justify-between"><time className="text-xs text-[var(--muted)]">{item.published_at?.slice(0, 10) || '更新日期待定'}</time><a href={item.url} target="_blank" rel="noreferrer" className="rounded-full bg-[var(--ink)] px-4 py-2 text-xs font-black text-[var(--paper)]">投递 →</a></div></article>; })}{items.length === 0 && <div className="rounded-2xl border border-dashed border-[var(--line)] p-12 text-center text-[var(--muted)]">{unavailable ? <><p className="font-bold text-[var(--ink)]">岗位接口暂不可用</p><p className="mt-2 text-xs">{error || '招聘站点已触发安全降级，官网直达仍可使用。'}</p></> : '当前关键词暂未命中岗位，可先使用上方官网直达。'}</div>}</div></section></div>;
+  const [sourceFilter, setSourceFilter] = useState('all');
+  const [cityFilter, setCityFilter] = useState('all');
+  const [centralOnly, setCentralOnly] = useState(false);
+  const cities = useMemo(() => [...new Set(items.flatMap((item) => String(item.extra?.city || '').split(/[、,，/]/).map((city) => city.trim()).filter(Boolean)))].sort((a, b) => a.localeCompare(b, 'zh-CN')), [items]);
+  const visible = items.filter((item) => (sourceFilter === 'all' || jobSource(item) === sourceFilter) && (cityFilter === 'all' || String(item.extra?.city || '').includes(cityFilter)) && (!centralOnly || item.extra?.is_central_soe === true));
+  return <div className="grid gap-8"><section className="rounded-3xl border border-[var(--line)] bg-[var(--card)] p-5 sm:p-7"><span className="rounded-full bg-cyan-100 px-3 py-1 text-xs font-black text-cyan-900">单细胞 / AI4Science</span><h2 className="mt-4 text-2xl font-black">岗位雷达</h2><p className="mt-2 text-sm text-[var(--muted)]">大厂官网、应届生求职网、国聘与高校就业网合并；多关键词命中的岗位优先。</p><div className="mt-5 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">{quicklinks.map((link) => <a key={link.url} href={link.url} target="_blank" rel="noreferrer" className="rounded-xl border border-[var(--line)] bg-[var(--paper)] px-4 py-3 text-sm font-bold transition hover:border-cyan-400">{link.name} ↗</a>)}</div></section><section><div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between"><div><h2 className="text-xl font-black">在招岗位</h2><p className="text-xs text-[var(--muted)]">来源、城市与央企可组合筛选</p></div><div className="flex flex-wrap items-center gap-2 text-xs"><select aria-label="岗位来源" value={sourceFilter} onChange={(event) => setSourceFilter(event.target.value)} className="rounded-full border border-[var(--line)] bg-[var(--card)] px-3 py-2"><option value="all">全部来源</option>{Object.entries(jobSourceLabels).map(([value, label]) => <option key={value} value={value}>{label}</option>)}</select><select aria-label="岗位城市" value={cityFilter} onChange={(event) => setCityFilter(event.target.value)} className="max-w-[180px] rounded-full border border-[var(--line)] bg-[var(--card)] px-3 py-2"><option value="all">全部城市</option>{cities.map((city) => <option key={city} value={city}>{city}</option>)}</select><label className="flex cursor-pointer items-center gap-2 rounded-full bg-[var(--soft)] px-3 py-2 font-bold"><input type="checkbox" checked={centralOnly} onChange={(event) => setCentralOnly(event.target.checked)} className="accent-cyan-500" />只看央企</label><span className="font-mono text-[var(--muted)]">{visible.length} / {items.length}</span></div></div><div className="grid gap-3">{visible.map((item) => { const hits = Array.isArray(item.extra?.keywords_hit) ? item.extra.keywords_hit.map(String) : []; const city = String(item.extra?.city || ''); const source = jobSource(item); return <article key={item.url} className={`rounded-2xl border bg-[var(--card)] p-5 shadow-sm ${item.extra?.is_central_soe === true ? 'border-l-4 border-l-red-500 border-[var(--line)]' : 'border-[var(--line)]'}`}><div className="flex flex-wrap items-center gap-2 text-xs"><span className="rounded bg-cyan-100 px-2 py-1 font-black text-cyan-900">{jobSourceLabels[source]}</span><b className="rounded bg-[var(--soft)] px-2 py-1">{String(item.extra?.company || '招聘')}</b>{item.extra?.is_central_soe === true && <span className="rounded bg-red-100 px-2 py-1 font-bold text-red-800">央企</span>}{city && <span className="text-[var(--muted)]">📍 {city}</span>}{hits.map((hit) => <span key={hit} className="rounded-full bg-cyan-100 px-2 py-0.5 font-bold text-cyan-900">{hit}</span>)}</div><h3 className="mt-3 text-lg font-black">{item.title_zh || item.title}</h3>{item.summary_zh && <p className="mt-2 line-clamp-3 text-sm leading-6 text-[var(--muted)]">{item.summary_zh}</p>}<div className="mt-4 flex items-center justify-between"><time className="text-xs text-[var(--muted)]">{item.published_at?.slice(0, 10) || '更新日期待定'}</time><a href={item.url} target="_blank" rel="noreferrer" className="rounded-full bg-[var(--ink)] px-4 py-2 text-xs font-black text-[var(--paper)]">投递 →</a></div></article>; })}{visible.length === 0 && <div className="rounded-2xl border border-dashed border-[var(--line)] p-12 text-center text-[var(--muted)]">{items.length === 0 && unavailable ? <><p className="font-bold text-[var(--ink)]">岗位接口暂不可用</p><p className="mt-2 text-xs">{error || '招聘站点已触发安全降级，官网直达仍可使用。'}</p></> : items.length === 0 ? '当前关键词暂未命中岗位，可先使用上方官网直达。' : '当前筛选下没有岗位。'}</div>}</div></section></div>;
 }
 
 function AlertsView({ feed }: { feed: AlertFeed }) {
@@ -441,9 +477,10 @@ function App() {
         return response.ok ? response.json() as Promise<T> : fallback;
       };
       const emptySourceFeed = (source: string): SourceFeed => ({ generated_at: '', source, status: { source, status: 'not_run', item_count: 0 }, items: [] });
-      const [baseFeed, nextServerGongkao, nextAi, nextTools, nextPapers, nextJobs, nextTrends, nextSites, nextAlerts, nextJobLinks, remoteSettings] = await Promise.all([
+      const [baseFeed, nextServerGongkao, nextServerJobs, nextAi, nextTools, nextPapers, nextJobs, nextTrends, nextSites, nextAlerts, nextJobLinks, remoteSettings] = await Promise.all([
         readJson<Feed>('/data/all.json', { generated_at: '', items: [] }),
         readJson<ServerGongkaoFeed>('/data/server-gongkao.json', { ...emptySourceFeed('gongkao_official'), subsources: {} }),
+        readJson<ServerJobsFeed>('/data/server-jobs.json', { ...emptySourceFeed('jobs_official'), subsources: {} }),
         readJson<SourceFeed>('/data/ai.json', emptySourceFeed('ai')),
         readJson<SourceFeed>('/data/tools.json', emptySourceFeed('tools')),
         readJson<SourceFeed>('/data/papers.json', emptySourceFeed('papers')),
@@ -454,7 +491,7 @@ function App() {
         readJson<{ items: Quicklink[] }>('/data/job_quicklinks.json', { items: [] }),
         readJson<{ prefs: Prefs; updated_at: string | null } | null>('/api/settings', null),
       ]);
-      const nextFeed = mergeServerGongkao(baseFeed, nextServerGongkao);
+      const nextFeed = mergeServerJobs(mergeServerGongkao(baseFeed, nextServerGongkao), nextServerJobs);
       const additions = [
         ...nextAi.items, ...nextTools.items,
         ...nextPapers.items.filter((item) => item.source === 'feed'),
@@ -468,6 +505,10 @@ function App() {
       });
       const sourceStates = new Map((nextFeed.sources ?? []).map((entry) => [entry.source, entry]));
       for (const extraFeed of [nextAi, nextTools, nextPapers, nextJobs]) sourceStates.set(extraFeed.source, extraFeed.status);
+      if (nextServerJobs.status.status === 'ok') sourceStates.set('jobs', {
+        ...sourceStates.get('jobs'), source: 'jobs', status: 'ok',
+        item_count: mergedItems.filter((item) => item.source === 'jobs').length,
+      });
       setFeed({ ...nextFeed, items: mergedItems, sources: [...sourceStates.values()] }); setTrends(nextTrends); setSites(nextSites.sites); setAlerts(nextAlerts); setJobQuicklinks(nextJobLinks.items);
       const localPrefs = loadPrefs();
       const merged = remoteSettings ? deepMergePrefs(localPrefs, remoteSettings.prefs) : localPrefs;

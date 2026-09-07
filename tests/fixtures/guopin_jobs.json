@@ -1,0 +1,24 @@
+{
+  "code": 1,
+  "msg": "请求成功",
+  "data": {
+    "list": [
+      {
+        "job_id": "gp-001",
+        "job_name": "生物信息算法工程师",
+        "district_list": [{"name": "北京"}],
+        "education_cn": "硕士",
+        "nature_cn": "校园招聘",
+        "update_time": "2026-09-06T08:00:00+08:00",
+        "job_description_template": "负责单细胞数据分析与算法开发",
+        "company_info": {"show_name": "中央示例集团", "nature_cn": "央企"}
+      },
+      {
+        "job_id": "gp-002",
+        "job_name": "数据工程师",
+        "district_list": [{"name": "上海"}],
+        "company_info": {"show_name": "外地公司", "nature_cn": "民企"}
+      }
+    ]
+  }
+}

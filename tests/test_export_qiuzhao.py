@@ -60,7 +60,7 @@ def test_normalize_snapshot_payload_preserves_standardized_rows() -> None:
     assert output["items"] == payload["items"]
 
 
-def test_write_qiuzhao_prefers_wanqing_snapshot(tmp_path) -> None:
+def test_write_qiuzhao_merges_wanqing_snapshot_with_collected_jobs(tmp_path) -> None:
     (tmp_path / "jobs.json").write_text(json.dumps({
         "items": [{"title": "旧岗位", "extra": {"company": "旧公司"}}],
     }, ensure_ascii=False), encoding="utf-8")
@@ -74,7 +74,31 @@ def test_write_qiuzhao_prefers_wanqing_snapshot(tmp_path) -> None:
 
     result = write_qiuzhao(tmp_path)
 
-    assert result["items"] == snapshot["items"]
-    assert result["status"]["upstream_source"] == "wanqing_feishu"
+    assert result["items"][0] == snapshot["items"][0]
+    assert result["items"][1]["company_name"] == "旧公司"
+    assert result["status"]["upstream_source"] == "wanqing_feishu+jobs"
     written = json.loads((tmp_path / "qiuzhao.json").read_text(encoding="utf-8"))
     assert written == result
+
+
+def test_write_qiuzhao_prefers_manual_row_for_same_company_and_position(tmp_path) -> None:
+    (tmp_path / "jobs.json").write_text(json.dumps({
+        "items": [{
+            "title": "研发工程师",
+            "url": "https://jobs.example/collected",
+            "extra": {"company": "示例公司", "city": "上海"},
+        }],
+    }, ensure_ascii=False), encoding="utf-8")
+    manual = {
+        "company_name": "示例公司",
+        "position": "研发工程师",
+        "location": "北京",
+        "apply_url": "https://jobs.example/manual",
+    }
+    (tmp_path / "qiuzhao_wanqing.json").write_text(
+        json.dumps({"items": [manual]}, ensure_ascii=False), encoding="utf-8"
+    )
+
+    result = write_qiuzhao(tmp_path)
+
+    assert result["items"] == [manual]

@@ -5,7 +5,7 @@ import pytest
 
 from app.models import Item
 from app import server_run
-from app.server_run import merge_scs_into_site, merge_xuandiao_into_site, run_xhs_rules
+from app.server_run import merge_campus_jobs_into_site, merge_scs_into_site, merge_xuandiao_into_site, run_xhs_rules
 from app.store.database import Database
 
 
@@ -52,6 +52,17 @@ def test_merge_xuandiao_preserves_failed_regions_from_previous_sidecar(tmp_path)
     merge_xuandiao_into_site(tmp_path, [fresh], "2026-09-03T06:00:00+00:00", {"辽宁"})
     merged = json.loads((tmp_path / "server-gongkao.json").read_text(encoding="utf-8"))
     assert [item["url"] for item in merged["items"]] == ["https://new.test/shandong", "https://old.test/liaoning"]
+
+
+def test_merge_campus_jobs_uses_server_sidecar_without_touching_ci_jobs(tmp_path) -> None:
+    ci = {"source": "jobs", "items": [{"source": "jobs", "url": "https://ci.test/1"}]}
+    (tmp_path / "jobs.json").write_text(json.dumps(ci), encoding="utf-8")
+    campus = Item(source="jobs", rank=1, title="高校招聘", title_zh="高校招聘", url="https://nefu.test/1", extra={"subsource": "campus", "school": "东北林业大学"})
+    merge_campus_jobs_into_site(tmp_path, [campus], "2026-09-07T00:00:00+00:00")
+    assert json.loads((tmp_path / "jobs.json").read_text(encoding="utf-8")) == ci
+    sidecar = json.loads((tmp_path / "server-jobs.json").read_text(encoding="utf-8"))
+    assert sidecar["items"][0]["url"] == "https://nefu.test/1"
+    assert sidecar["subsources"]["campus"]["item_count"] == 1
 
 
 @pytest.mark.asyncio

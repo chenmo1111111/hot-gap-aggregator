@@ -556,7 +556,7 @@ def map_qiuzhao(
         "$written_test": _bool_value(written),
         "$apply_link": _link(apply_url, "立即投递"),
         "$announcement_link": _link(announcement_url, "查看公告"),
-        "$source": "自动",
+        "$source": "自动" + (f"·{label}" if (label := str(_coalesce(row, "source_label|extra.source_label") or "").strip()) else ""),
     }
     return _apply_mapping(row, field_mapping or DEFAULT_QIUZHAO_MAPPING, derived)
 
@@ -607,7 +607,7 @@ def diff_records(
     automatic_records: list[dict[str, Any]] = []
     for record in existing_records:
         fields = record.get("fields") or {}
-        if _cell_text(fields.get(source_field)).strip() != "自动":
+        if not _cell_text(fields.get(source_field)).strip().startswith("自动"):
             continue
         automatic_records.append(record)
         sync_id = _cell_text(fields.get(sync_id_field)).strip()

@@ -30,6 +30,21 @@ def _keywords(value: object) -> str:
     return _text(value)
 
 
+SOURCE_LABELS = {
+    "tencent": "大厂雷达·腾讯", "bytedance": "大厂雷达·字节",
+    "yingjiesheng": "应届生", "xjh": "应届生宣讲会", "guopin": "国聘",
+    "campus": "高校就业网",
+}
+
+
+def _source_label(extra: dict[str, Any], row: dict[str, Any]) -> str:
+    explicit = _first(row.get("source_label"), row.get("source_name"), extra.get("source_label"))
+    if explicit:
+        return explicit
+    subsource = _text(extra.get("subsource"))
+    return SOURCE_LABELS.get(subsource, subsource)
+
+
 def normalize_jobs_payload(payload: dict[str, Any]) -> dict[str, Any]:
     """Convert published jobs items into the documented qiuzhao JSON shape."""
     rows = payload.get("items") if isinstance(payload.get("items"), list) else []
@@ -43,7 +58,7 @@ def normalize_jobs_payload(payload: dict[str, Any]) -> dict[str, Any]:
         if not company or not position:
             continue
         url = _first(row.get("apply_url"), row.get("url"))
-        items.append({
+        item = {
             "company_name": company,
             "company_type": _first(row.get("company_type"), extra.get("company_type")),
             "industry": _first(row.get("industry"), extra.get("industry"), _keywords(extra.get("keywords_hit"))),
@@ -57,7 +72,10 @@ def normalize_jobs_payload(payload: dict[str, Any]) -> dict[str, Any]:
             "announcement_url": _first(row.get("announcement_url"), extra.get("announcement_url"), url),
             "notes": _first(row.get("notes"), row.get("summary_zh")),
             "upstream_source": "jobs",
-        })
+        }
+        if label := _source_label(extra, row):
+            item["source_label"] = label
+        items.append(item)
     upstream_status = payload.get("status") if isinstance(payload.get("status"), dict) else {}
     status = {
         **upstream_status,
@@ -108,15 +126,43 @@ def normalize_snapshot_payload(payload: dict[str, Any]) -> dict[str, Any]:
 def write_qiuzhao(data_dir: str | Path) -> dict[str, Any]:
     target = Path(data_dir)
     snapshot_path = target / "qiuzhao_wanqing.json"
-    source_path = snapshot_path if snapshot_path.exists() else target / "jobs.json"
-    payload = json.loads(source_path.read_text(encoding="utf-8"))
-    if not isinstance(payload, dict):
-        raise ValueError(f"{source_path} must contain a JSON object")
-    output = (
-        normalize_snapshot_payload(payload)
-        if source_path == snapshot_path
-        else normalize_jobs_payload(payload)
-    )
+    inputs: list[dict[str, Any]] = []
+    if snapshot_path.exists():
+        payload = json.loads(snapshot_path.read_text(encoding="utf-8"))
+        if not isinstance(payload, dict):
+            raise ValueError(f"{snapshot_path} must contain a JSON object")
+        inputs.append(normalize_snapshot_payload(payload))
+    for filename in ("jobs.json", "server-jobs.json"):
+        source_path = target / filename
+        if not source_path.exists():
+            continue
+        payload = json.loads(source_path.read_text(encoding="utf-8"))
+        if not isinstance(payload, dict):
+            raise ValueError(f"{source_path} must contain a JSON object")
+        inputs.append(normalize_jobs_payload(payload))
+    if not inputs:
+        raise FileNotFoundError(f"No qiuzhao source found under {target}")
+    # Feishu uses company + position as the stable identity. Keep the same
+    # identity here so a collected row cannot overwrite a manually maintained
+    # row merely because its URL or location differs.
+    seen: set[tuple[str, str]] = set()
+    items: list[dict[str, Any]] = []
+    for feed in inputs:
+        for row in feed["items"]:
+            key = tuple(_text(row.get(name)).casefold() for name in ("company_name", "position"))
+            if key in seen:
+                continue
+            seen.add(key)
+            items.append(row)
+    output = {
+        "generated_at": next((feed.get("generated_at") for feed in inputs if feed.get("generated_at")), None),
+        "source": "qiuzhao",
+        "status": {
+            "source": "qiuzhao", "status": "ok", "item_count": len(items),
+            "upstream_source": "+".join(dict.fromkeys(str(feed["status"].get("upstream_source") or "") for feed in inputs)),
+        },
+        "items": items,
+    }
     destination = target / "qiuzhao.json"
     temporary = destination.with_suffix(".json.tmp")
     temporary.write_text(json.dumps(output, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

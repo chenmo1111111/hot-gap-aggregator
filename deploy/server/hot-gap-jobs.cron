@@ -6,3 +6,5 @@
 15 */6 * * * root cd /opt/hot-gap-aggregator && /opt/hot-gap-aggregator/.venv/bin/python -m app.server_run --xuandiao >> /var/log/hot-gap-server.log 2>&1
 # 小红书电商规则：国内服务器 + 登录 Cookie，每 8 小时。
 25 */8 * * * root cd /opt/hot-gap-aggregator && /opt/hot-gap-aggregator/.venv/bin/python -m app.server_run --xhs-rules >> /var/log/hot-gap-server.log 2>&1
+# University employment sites are checked domestically; isolated from every other job.
+55 */12 * * * root cd /opt/hot-gap-aggregator && /opt/hot-gap-aggregator/.venv/bin/python -m app.server_run --campus-jobs >> /var/log/hot-gap-server.log 2>&1

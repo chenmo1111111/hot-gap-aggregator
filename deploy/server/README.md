@@ -28,6 +28,12 @@ chmod 644 /etc/cron.d/hot-gap-jobs
 前端在登录后把该文件与 GitHub 生成的粉笔数据合并；发布工作流永久排除
 `data/server-*.json`，因此后续部署不会再覆盖国家公务员局和各省选调公告。
 
+`config/campus_jobs_sources.yaml` 默认监听东北林业大学就业信息网的招聘公告，
+每 12 小时运行。普通招聘写入服务器独占的 `data/server-jobs.json`；标题含
+“选调/定向”的公告还会同时写入 `data/server-gongkao.json` 并走现有飞书/Bark/
+站内预警链。两个 sidecar 都不会改写 GitHub Actions 生成的 `jobs.json`、
+`gongkao.json` 或 `all.json`。配置文件里可以继续追加目标高校。
+
 手动验证：
 
 ```bash
@@ -35,6 +41,7 @@ chmod 644 /etc/cron.d/hot-gap-jobs
 .venv/bin/python -m app.server_run --subsidy
 .venv/bin/python -m app.server_run --xuandiao
 .venv/bin/python -m app.server_run --xhs-rules
+.venv/bin/python -m app.server_run --campus-jobs
 ```
 
 ## 小红书电商规则监控
@@ -69,6 +76,13 @@ Playwright Chromium 峰值约 500MB。运行前用 `free -h` 检查 available �
 python3 - <<'PY'
 import json
 p = json.load(open('/var/www/hot-gap/data/server-gongkao.json', encoding='utf-8'))
+print(p['generated_at'], p['status'])
+print({key: value['item_count'] for key, value in p.get('subsources', {}).items()})
+PY
+
+python3 - <<'PY'
+import json
+p = json.load(open('/var/www/hot-gap/data/server-jobs.json', encoding='utf-8'))
 print(p['generated_at'], p['status'])
 print({key: value['item_count'] for key, value in p.get('subsources', {}).items()})
 PY

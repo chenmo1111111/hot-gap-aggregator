@@ -71,6 +71,8 @@ jobs:
           CONFERENCES_CONFIG: config/conferences.yaml
           NOWCODER_CONFIG: config/nowcoder.yaml
           JOB_RADAR_CONFIG: config/job_radar.yaml
+          YINGJIESHENG_CONFIG: config/yingjiesheng.yaml
+          GUOPIN_CONFIG: config/guopin.yaml
           RSSHUB_BASE: ${{ secrets.RSSHUB_BASE }}
           RSSHUB_KEY: ${{ secrets.RSSHUB_KEY }}
           FEEDS_CONFIG: config/feeds.yaml

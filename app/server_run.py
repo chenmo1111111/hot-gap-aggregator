@@ -15,6 +15,7 @@ from app.collectors.scs import SCSCollector
 from app.models import Item
 from app.notify import build_gongkao_events, notify_priority_alert
 from app.store.database import Database
+from app.watchers.campus_jobs import CampusJobsWatcher
 from app.watchers.subsidy_watch import SubsidyWatcher
 from app.watchers.xuandiao_watch import XuandiaoWatcher
 from app.watchers.xhs_rule_watch import XhsRuleWatcher
@@ -23,6 +24,7 @@ from app.watchers.xhs_rule_watch import XhsRuleWatcher
 LOGGER = logging.getLogger("hot-gap-server")
 UTC = timezone.utc
 SERVER_GONGKAO_FILENAME = "server-gongkao.json"
+SERVER_JOBS_FILENAME = "server-jobs.json"
 
 
 def _write_json(path: Path, payload: dict) -> None:
@@ -53,7 +55,7 @@ def _load_server_gongkao(target: Path) -> dict:
             legacy_items = [
                 row for row in deployed.get("items", [])
                 if isinstance(row, dict)
-                and row.get("extra", {}).get("subsource") in {"scs", "xuandiao"}
+                and row.get("extra", {}).get("subsource") in {"scs", "xuandiao", "campus"}
             ]
         except (OSError, json.JSONDecodeError):
             LOGGER.warning("Could not inspect legacy official gongkao rows under %s", target)
@@ -124,6 +126,55 @@ def merge_xuandiao_into_site(
     _merge_server_gongkao(data_dir, items, generated_at, "xuandiao", preserve_regions)
 
 
+def _load_server_jobs(target: Path) -> dict:
+    path = target / SERVER_JOBS_FILENAME
+    if path.exists():
+        try:
+            payload = json.loads(path.read_text(encoding="utf-8"))
+            if isinstance(payload, dict):
+                return payload
+        except (OSError, json.JSONDecodeError):
+            LOGGER.warning("Ignoring invalid %s; a fresh sidecar will be written", path)
+    return {"generated_at": "", "source": "jobs_official", "subsources": {}, "items": []}
+
+
+def merge_campus_jobs_into_site(
+    data_dir: str | Path, items: list[Item], generated_at: str,
+    preserve_schools: set[str] | None = None,
+) -> None:
+    target = Path(data_dir)
+    target.mkdir(parents=True, exist_ok=True)
+    payload = _load_server_jobs(target)
+    preserved: list[dict] = []
+    for row in payload.get("items", []):
+        if not isinstance(row, dict):
+            continue
+        extra = row.get("extra", {}) if isinstance(row.get("extra"), dict) else {}
+        if extra.get("subsource") != "campus" or (
+            preserve_schools and str(extra.get("school") or "") in preserve_schools
+        ):
+            preserved.append(row)
+    seen: set[str] = set()
+    combined: list[dict] = []
+    for row in [*(item.to_dict() for item in items), *preserved]:
+        url = str(row.get("url") or "").strip().rstrip("/").casefold()
+        if not url or url in seen:
+            continue
+        seen.add(url)
+        row["rank"] = len(combined) + 1
+        combined.append(row)
+    subsources = payload.get("subsources") if isinstance(payload.get("subsources"), dict) else {}
+    subsources["campus"] = {
+        "status": "ok", "item_count": sum(1 for row in combined if row.get("extra", {}).get("subsource") == "campus"),
+        "updated_at": generated_at,
+    }
+    _write_json(target / SERVER_JOBS_FILENAME, {
+        "generated_at": generated_at, "source": "jobs_official",
+        "status": {"source": "jobs_official", "status": "ok", "item_count": len(combined)},
+        "subsources": subsources, "items": combined,
+    })
+
+
 async def run_scs(database: Database, data_dir: str | Path) -> dict[str, object]:
     started = time.perf_counter()
     collector = SCSCollector()
@@ -170,9 +221,30 @@ async def run_xhs_rules(database: Database) -> dict[str, object]:
         return {"status": "degraded", "error": str(exc)}
 
 
+async def run_campus_jobs(database: Database, data_dir: str | Path) -> dict[str, object]:
+    watcher = CampusJobsWatcher(database)
+    try:
+        result = await watcher.run()
+        reports = result.get("list_pages", [])
+        degraded_schools = {str(row.get("school") or "") for row in reports if row.get("status") == "degraded"}
+        if reports and len(degraded_schools) == len(reports):
+            return {"status": "degraded", "item_count": 0, **result}
+        run_at = datetime.now(UTC).isoformat()
+        merge_campus_jobs_into_site(data_dir, watcher.latest_items, run_at, degraded_schools)
+        _merge_server_gongkao(data_dir, watcher.latest_gongkao_items, run_at, "campus")
+        return {
+            "status": "ok", "item_count": len(watcher.latest_items),
+            "gongkao_item_count": len(watcher.latest_gongkao_items), **result,
+        }
+    except Exception as exc:
+        LOGGER.warning("campus jobs watcher degraded: %s", exc)
+        return {"status": "degraded", "error": str(exc)}
+
+
 async def main(
     run_scs_job: bool = False, run_subsidy_job: bool = False,
     run_xuandiao_job: bool = False, run_xhs_rules_job: bool = False,
+    run_campus_jobs_job: bool = False,
 ) -> None:
     load_dotenv()
     logging.basicConfig(level=logging.INFO, format="%(message)s")
@@ -187,6 +259,8 @@ async def main(
             output["xuandiao_watch"] = await run_xuandiao(database, os.getenv("SERVER_SITE_DATA_DIR", "/var/www/hot-gap/data"))
         if run_xhs_rules_job:
             output["xhs_rule_watch"] = await run_xhs_rules(database)
+        if run_campus_jobs_job:
+            output["campus_jobs"] = await run_campus_jobs(database, os.getenv("SERVER_SITE_DATA_DIR", "/var/www/hot-gap/data"))
         LOGGER.info(json.dumps({"event": "server_jobs_finished", **output}, ensure_ascii=False))
     finally:
         database.close()
@@ -199,10 +273,12 @@ if __name__ == "__main__":
     parser.add_argument("--city", action="store_true", help="deprecated alias for --subsidy")
     parser.add_argument("--xuandiao", action="store_true", help="check official selection-graduate notice lists")
     parser.add_argument("--xhs-rules", action="store_true", help="check Xiaohongshu e-commerce rule changes")
+    parser.add_argument("--campus-jobs", action="store_true", help="check mainland university recruitment lists")
     arguments = parser.parse_args()
     asyncio.run(main(
         run_scs_job=arguments.scs,
         run_subsidy_job=arguments.subsidy or arguments.city,
         run_xuandiao_job=arguments.xuandiao,
         run_xhs_rules_job=arguments.xhs_rules,
+        run_campus_jobs_job=arguments.campus_jobs,
     ))

@@ -5,6 +5,9 @@ from .feeds import FeedsCollector
 from .github import GitHubCollector
 from .gongkao import GongkaoCollector
 from .job_radar import JobRadarCollector
+from .jobs import JobsCollector
+from .guopin import GuopinCollector
+from .yingjiesheng import YingjieshengCollector
 from .nowcoder import NowcoderCollector
 from .papers import PapersCollector
 from .telegram import TelegramCollector
@@ -13,6 +16,6 @@ from .xiaohongshu import XiaohongshuCollector
 from .youtube import YouTubeCollector
 
 __all__ = [
-    "BilibiliCollector", "ConfDeadlinesCollector", "DouyinCollector", "FeedsCollector", "GitHubCollector", "GongkaoCollector", "JobRadarCollector", "NowcoderCollector",
+    "BilibiliCollector", "ConfDeadlinesCollector", "DouyinCollector", "FeedsCollector", "GitHubCollector", "GongkaoCollector", "JobRadarCollector", "JobsCollector", "GuopinCollector", "YingjieshengCollector", "NowcoderCollector",
     "PapersCollector", "TelegramCollector", "WeiboCollector", "XiaohongshuCollector", "YouTubeCollector",
 ]

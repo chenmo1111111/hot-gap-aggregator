@@ -12,7 +12,7 @@
 - 首页置顶至少 3 个平台共同出现的聚类；每个来源单独显示正常/降级状态。
 - 顶刊论文合并 arXiv、bioRxiv/medRxiv 和 PubMed，按个人研究方向、兴趣关键词和发表时间排序。
 - 中文核心通过 Crossref 按 7 个已核对 ISSN 采集，顶刊页按英文顶刊、中文核心、预印本分区。
-- 岗位雷达逐关键词查询腾讯与字节的单细胞/AI4Science 职位，同名岗位合并，另提供 BioMap、深势、晶泰和华为官网直达。
+- 岗位雷达合并腾讯/字节、应届生求职网、国聘和高校就业网；同名岗位跨来源去重，另提供 BioMap、深势、晶泰和华为官网直达。
 - 顶刊页顶部展示生信/ML 会议 Deadline；牛客通过 RSSHub best-effort 聚合并按秋招风险词和目标公司排序。
 - 通用 RSSHub 采集器只需修改 `config/feeds.yaml` 即可增加来源，并按全部、AI动态、顶刊、工具更新和岗位自动分流。
 - 国考/选调支持快捷筛选、跨省强提醒和目标高校标红；国家公务员局官方专题源在百度云交叉校验。
@@ -100,8 +100,12 @@ python -m app.run --retranslate
 ### 单细胞 / AI4Science 岗位
 
 - `config/job_radar.yaml` 维护关键词、每词上限与无接口公司的官网直达。
+- `config/yingjiesheng.yaml` 维护应届生职位与宣讲会的关键词、城市、类型和时间窗；搜索页使用 Playwright，宣讲会列表独立抓取，任一路失败不会清空另一条。
+- `config/guopin.yaml` 使用国聘当前 `api4.iguopin.com` 职位接口并维护关键词、省份和招聘性质；接口风控或空响应只降级国聘。
+- `config/campus_jobs_sources.yaml` 默认监听东北林业大学就业信息网，国内服务器每 12 小时写 `server-jobs.json`；选调/定向公告同时进入公考与预警。部署见 [`DEPLOY_CAMPUS_JOBS.md`](DEPLOY_CAMPUS_JOBS.md)。
 - 腾讯 JSON API 与字节 JSON API 各自重试、独立降级；字节站的浏览器签名/风控可能返回 405，此时腾讯结果和直达按钮仍可用。
 - 去重键为岗位名 + 公司；同一职位命中多个关键词会合并关键词并优先展示。
+- 岗位页可按来源、城市、是否央企筛选；飞书秋招表的「来源」列会写入应届生、国聘或高校就业网。
 
 ### 会议 Deadline
 
@@ -158,6 +162,8 @@ python -m app.run --notify
 | `NOWCODER_CONFIG` | 牛客关键词配置 |
 | `FEEDS_CONFIG` / `RSSHUB_BASE` / `RSSHUB_KEY` | 通用 feed 配置、私有 RSSHub 地址与访问密钥 |
 | `JOB_RADAR_CONFIG` | 岗位关键词与公司直达配置 |
+| `YINGJIESHENG_CONFIG` / `GUOPIN_CONFIG` | 应届生求职网与国聘配置 |
+| `CAMPUS_JOBS_CONFIG` | 国内服务器高校就业网配置 |
 | `SUBSIDY_SOURCES_CONFIG` | 百度云人社公告与补贴政策页配置 |
 | `XUANDIAO_SOURCES_CONFIG` | 百度云五省选调公告配置 |
 | `BARK_URL` / `FEISHU_*` / `TG_*` / `SERVERCHAN_KEY` | 推送渠道 |

@@ -10,6 +10,7 @@ const json = (body: unknown, status = 200) => new Response(JSON.stringify(body),
 const dataResponse = (url: string) => {
   if (url.endsWith('/data/all.json')) return json({ generated_at: '2026-09-03T00:00:00Z', sources: [], items: [] });
   if (url.endsWith('/data/server-gongkao.json')) return json({ generated_at: '', source: 'gongkao_official', status: { source: 'gongkao_official', status: 'not_run', item_count: 0 }, items: [] });
+  if (url.endsWith('/data/server-jobs.json')) return json({ generated_at: '', source: 'jobs_official', status: { source: 'jobs_official', status: 'not_run', item_count: 0 }, items: [] });
   if (url.endsWith('/data/ai.json')) return json({ generated_at: '', source: 'ai', status: { source: 'ai', status: 'ok', item_count: 1 }, items: [{ source: 'feed', rank: 1, title: '新的 AI 研究动态', title_zh: '新的 AI 研究动态', url: 'https://example.test/ai', summary_zh: '来自机器之心的摘要', published_at: '2026-09-03T00:00:00Z', extra: { tab: 'ai', feed_name: '机器之心' } }] });
   if (url.endsWith('/data/tools.json')) return json({ generated_at: '', source: 'tools', status: { source: 'tools', status: 'ok', item_count: 1 }, items: [{ source: 'feed', rank: 1, title: 'scanpy 1.12.0', title_zh: 'scanpy 1.12.0', url: 'https://example.test/tool', summary_zh: '性能优化', published_at: '2026-09-02T00:00:00Z', extra: { tab: 'tools', feed_name: 'scanpy 发版' } }] });
   if (url.endsWith('/data/papers.json')) return json({ generated_at: '', source: 'papers', status: { source: 'papers', status: 'ok', item_count: 3 }, items: [
@@ -177,6 +178,32 @@ describe('authenticated app bootstrap', () => {
     expect(screen.getByText('核心论文')).toBeInTheDocument();
     expect(screen.queryByText('BIB 论文')).not.toBeInTheDocument();
     expect(screen.queryByText('稀有细胞聚类')).not.toBeInTheDocument();
+  });
+
+  it('merges campus jobs and filters jobs by source and central SOE', async () => {
+    const fetchMock = vi.fn(async (input: RequestInfo | URL) => {
+      const url = String(input);
+      if (url === '/api/me') return json({ username: 'reader', is_admin: false });
+      if (url === '/api/settings') return json({ prefs: {}, updated_at: null });
+      if (url.endsWith('/data/all.json')) return json({ generated_at: '2026-09-07T00:00:00Z', sources: [{ source: 'jobs', status: 'ok', item_count: 2 }], items: [
+        { source: 'jobs', rank: 1, title: '腾讯算法岗', title_zh: '腾讯算法岗', url: 'https://jobs.test/tencent', extra: { company: '腾讯', city: '北京', keywords_hit: ['算法'] } },
+        { source: 'jobs', rank: 2, title: '央企数据岗', title_zh: '央企数据岗', url: 'https://jobs.test/guopin', extra: { subsource: 'guopin', company: '中央示例集团', city: '天津', is_central_soe: true } },
+      ] });
+      if (url.endsWith('/data/server-jobs.json')) return json({ generated_at: '2026-09-07T01:00:00Z', source: 'jobs_official', status: { source: 'jobs_official', status: 'ok', item_count: 1 }, items: [
+        { source: 'jobs', rank: 1, title: '林大宣讲会', title_zh: '林大宣讲会', url: 'https://nefu.test/1', extra: { subsource: 'campus', company: '示例科技', city: '哈尔滨', school: '东北林业大学' } },
+      ] });
+      return dataResponse(url) ?? json({}, 404);
+    });
+    vi.stubGlobal('fetch', fetchMock);
+    render(<App />);
+    await screen.findByText('reader');
+    fireEvent.click(screen.getByRole('button', { name: '岗位' }));
+    expect(await screen.findByText('林大宣讲会')).toBeInTheDocument();
+    fireEvent.change(screen.getByLabelText('岗位来源'), { target: { value: 'guopin' } });
+    expect(screen.getByText('央企数据岗')).toBeInTheDocument();
+    expect(screen.queryByText('腾讯算法岗')).not.toBeInTheDocument();
+    fireEvent.click(screen.getByLabelText('只看央企'));
+    expect(screen.getByText('央企数据岗')).toBeInTheDocument();
   });
 
   it('keeps hot-list items before utility sources in the all tab', async () => {
