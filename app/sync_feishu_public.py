@@ -37,6 +37,7 @@ from app.sync_feishu import (
     normalize_company_type,
     normalize_exam_type,
 )
+from app.pipeline.gongkao_enrich import calculate_signup_status, detail_category
 
 
 LOGGER = logging.getLogger(__name__)
@@ -63,6 +64,26 @@ GONGKAO_SCHEMA: tuple[dict[str, Any], ...] = (
     {"field_name": "省份", "type": TEXT},
     {"field_name": "链接", "type": URL},
     {"field_name": "备注", "type": TEXT},
+    {
+        "field_name": "报名状态", "type": SINGLE_SELECT,
+        "property": {"options": [{"name": name} for name in (
+            "未开始", "报名中", "剩1天", "剩2天", "剩3天", "剩4天", "剩5天", "已截止",
+        )]},
+    },
+    {"field_name": "距截止天数", "type": 2, "property": {"formatter": "0"}},
+    {
+        "field_name": "细分类别", "type": SINGLE_SELECT,
+        "property": {"options": [{"name": name} for name in (
+            "国企", "央企", "事业单位", "银行", "教师", "医疗", "公务员", "选调", "三支一扶", "其他",
+        )]},
+    },
+    {"field_name": "笔试科目", "type": TEXT},
+    {"field_name": "限户籍", "type": TEXT},
+    {"field_name": "限专业", "type": TEXT},
+    {"field_name": "学历要求", "type": TEXT},
+    {"field_name": "限应届", "type": CHECKBOX},
+    {"field_name": "服务期", "type": TEXT},
+    {"field_name": "本校可报", "type": CHECKBOX},
 )
 
 QIUZHAO_SCHEMA: tuple[dict[str, Any], ...] = (
@@ -106,24 +127,36 @@ def ensure_public_schema(
     table_id: str,
     schema: tuple[dict[str, Any], ...],
 ) -> bool:
-    """Ensure a display-only schema; initialize only an otherwise blank table."""
+    """Ensure a display-only schema, adding fields without touching live data."""
     current = client.list_fields(app_token, table_id)
     expected_names = [str(field["field_name"]) for field in schema]
     by_name = {str(field.get("field_name") or ""): field for field in current}
-    exact = (
-        set(by_name) == set(expected_names)
-        and all(int(by_name[name].get("type") or 0) == int(definition["type"])
-                for name, definition in zip(expected_names, schema))
-        and bool(by_name[expected_names[0]].get("is_primary"))
-    )
+    exact = all(
+        name in by_name and int(by_name[name].get("type") or 0) == int(definition["type"])
+        for name, definition in zip(expected_names, schema)
+    ) and bool(by_name.get(expected_names[0], {}).get("is_primary"))
     if exact:
         return False
 
     records = client.list_records(app_token, table_id)
-    if any(any(_has_value(value) for value in (record.get("fields") or {}).values()) for record in records):
-        raise FeishuAPIError(
-            f"公开表 {table_id} 已有数据但字段不符合预期，拒绝自动重建字段"
-        )
+    has_data = any(
+        any(_has_value(value) for value in (record.get("fields") or {}).values())
+        for record in records
+    )
+
+    if has_data:
+        primary = next((field for field in current if field.get("is_primary")), None)
+        if not primary or str(primary.get("field_name") or "") != expected_names[0]:
+            raise FeishuAPIError(f"公开表 {table_id} 主字段不符合预期，拒绝自动修改")
+        for definition in schema:
+            name = str(definition["field_name"])
+            present = by_name.get(name)
+            if present and int(present.get("type") or 0) != int(definition["type"]):
+                raise FeishuAPIError(f"公开表字段 {name} 类型不符合预期，拒绝自动修改")
+        missing = [definition for definition in schema if definition["field_name"] not in by_name]
+        for definition in missing:
+            client.create_field(app_token, table_id, definition)
+        return bool(missing)
 
     primary = next((field for field in current if field.get("is_primary")), None)
     if not primary:
@@ -155,17 +188,38 @@ def map_public_gongkao(row: Mapping[str, Any]) -> dict[str, Any]:
     link = _link(url, "查看公告")
     if not title or not link:
         raise ValueError("公考公开记录缺少公告标题或链接")
+    end = _coalesce(row, "extra.endSignUpTime|endSignUpTime|报名截止|截止日期")
+    status, days_left = calculate_signup_status(
+        _coalesce(row, "extra.startSignUpTime|startSignUpTime|报名开始"), end
+    )
+    status = str(extra.get("signup_status") or status or "").strip() or None
+    days_left = extra.get("days_left") if extra.get("days_left") is not None else days_left
+    extracted = str(extra.get("enrichment_status") or "") == "ok"
+    limited_huji = _bool_value(extra.get("xian_huji"))
+    limited_major = _bool_value(extra.get("xian_zhuanye"))
     return {
         "公告标题": str(title).strip(),
         "日期": date_to_millis(_coalesce(row, "published_at|date|日期")),
         "类别": normalize_exam_type(_coalesce(row, "extra.exam_type|exam_type|类别")),
         "招聘人数": _recruit_count(row),
-        "截止日期": date_to_millis(
-            _coalesce(row, "extra.endSignUpTime|endSignUpTime|报名截止|截止日期")
-        ),
+        "截止日期": date_to_millis(end),
         "省份": str(extra.get("province") or row.get("province") or "全国").strip(),
         "链接": link,
         "备注": _coalesce(row, "extra.notes|notes|备注"),
+        "报名状态": status,
+        "距截止天数": days_left,
+        "细分类别": str(extra.get("detail_category") or detail_category(row)),
+        "笔试科目": extra.get("bishi_kemu") or ("" if extracted else "未提取"),
+        "限户籍": (
+            (extra.get("huji_shuoming") or "是") if limited_huji else ("不限" if extracted else "")
+        ),
+        "限专业": (
+            (extra.get("zhuanye_shuoming") or "是") if limited_major else ("不限" if extracted else "")
+        ),
+        "学历要求": extra.get("xueli") or "",
+        "限应届": _bool_value(extra.get("xian_yingjie")),
+        "服务期": extra.get("fuwu_qi") or "",
+        "本校可报": _bool_value(extra.get("my_school_eligible")),
     }
 
 
@@ -229,6 +283,7 @@ def diff_public_records(
     source_fields: Iterable[dict[str, Any]],
     existing_records: Iterable[dict[str, Any]],
     key_fn: Callable[[Mapping[str, Any]], str],
+    preserve_missing: Callable[[Mapping[str, Any]], bool] | None = None,
 ) -> tuple[list[dict[str, Any]], list[dict[str, Any]], list[str]]:
     source_by_key: dict[str, dict[str, Any]] = {}
     for fields in source_fields:
@@ -266,6 +321,7 @@ def diff_public_records(
         str(record["record_id"])
         for key, record in existing_by_key.items()
         if key not in source_by_key
+        and not (preserve_missing and preserve_missing(record.get("fields") or {}))
     )
     return creates, updates, deletes
 
@@ -277,6 +333,7 @@ def sync_public_table(
     rows: list[Mapping[str, Any]],
     mapper: Callable[[Mapping[str, Any]], dict[str, Any]],
     key_fn: Callable[[Mapping[str, Any]], str],
+    preserve_missing: Callable[[Mapping[str, Any]], bool] | None = None,
 ) -> dict[str, int]:
     mapped: list[dict[str, Any]] = []
     skipped = 0
@@ -287,7 +344,9 @@ def sync_public_table(
             skipped += 1
             LOGGER.warning("skip invalid public source row %d: %s", index, exc)
     existing = client.list_records(app_token, table_id)
-    creates, updates, deletes = diff_public_records(mapped, existing, key_fn)
+    creates, updates, deletes = diff_public_records(
+        mapped, existing, key_fn, preserve_missing=preserve_missing
+    )
     operations = [
         *((client.batch_create, batch) for batch in _batches(creates)),
         *((client.batch_update, batch) for batch in _batches(updates)),
@@ -340,31 +399,39 @@ def run(argv: list[str] | None = None) -> int:
 
     data_dir = Path(arguments.data_dir)
     app_token = str(config["app_token"])
+    sources = config.get("sources") if isinstance(config.get("sources"), Mapping) else {}
+    gongkao_source = sources.get("gongkao") if isinstance(sources.get("gongkao"), Mapping) else {}
+    qiuzhao_source = sources.get("qiuzhao") if isinstance(sources.get("qiuzhao"), Mapping) else {}
     jobs = (
         (
             "gongkao_public",
             str(config["gongkao_table_id"]),
             GONGKAO_SCHEMA,
-            "gongkao_feishu.json",
+            str(gongkao_source.get("file") or "gongkao_enriched.json"),
             map_public_gongkao,
             gongkao_key,
+            lambda fields: _cell_text(fields.get("报名状态")).strip() == "已截止",
         ),
         (
             "qiuzhao_public",
             str(config["qiuzhao_table_id"]),
             QIUZHAO_SCHEMA,
-            "qiuzhao.json",
+            str(qiuzhao_source.get("file") or "qiuzhao.json"),
             map_public_qiuzhao,
             qiuzhao_key,
+            None,
         ),
     )
     failed = False
     with FeishuClient(app_id, app_secret) as client:
-        for name, table_id, schema, filename, mapper, key_fn in jobs:
+        for name, table_id, schema, filename, mapper, key_fn, preserve_missing in jobs:
             try:
                 initialized = ensure_public_schema(client, app_token, table_id, schema)
                 rows = _load_items(data_dir / filename)
-                result = sync_public_table(client, app_token, table_id, rows, mapper, key_fn)
+                result = sync_public_table(
+                    client, app_token, table_id, rows, mapper, key_fn,
+                    preserve_missing=preserve_missing,
+                )
                 result["schema_initialized"] = int(initialized)
                 LOGGER.info("%s sync complete: %s", name, result)
             except Exception:

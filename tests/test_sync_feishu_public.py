@@ -30,11 +30,16 @@ def test_map_public_gongkao_uses_only_display_fields() -> None:
         },
     })
 
-    assert set(fields) == {"公告标题", "日期", "类别", "招聘人数", "截止日期", "省份", "链接", "备注"}
+    assert set(fields) == {
+        "公告标题", "日期", "类别", "招聘人数", "截止日期", "省份", "链接", "备注",
+        "报名状态", "距截止天数", "细分类别", "笔试科目", "限户籍", "限专业",
+        "学历要求", "限应届", "服务期", "本校可报",
+    }
     assert fields["类别"] == "事业单位"
     assert fields["招聘人数"] == "12"
     assert fields["链接"] == {"text": "查看公告", "link": "https://example.com/notice"}
     assert fields["日期"] == int(datetime(2026, 9, 4, tzinfo=CHINA_TZ).timestamp() * 1000)
+    assert fields["笔试科目"] == "未提取"
 
 
 def test_map_public_qiuzhao_uses_visible_natural_key() -> None:
@@ -111,12 +116,43 @@ def test_ensure_public_schema_initializes_only_blank_table() -> None:
     assert client.updated[0][1]["field_name"] == "公告标题"
     assert client.deleted_fields == ["fld-extra"]
     assert [field["field_name"] for field in client.created] == [
-        "日期", "类别", "招聘人数", "截止日期", "省份", "链接", "备注"
+        field["field_name"] for field in GONGKAO_SCHEMA[1:]
     ]
     assert client.deleted_records == ["rec-empty"]
 
 
 def test_ensure_public_schema_refuses_nonempty_table() -> None:
     client = _SchemaClient(records=[{"record_id": "rec-user", "fields": {"多行文本": "用户数据"}}])
-    with pytest.raises(FeishuAPIError, match="拒绝自动重建字段"):
+    with pytest.raises(FeishuAPIError, match="拒绝自动修改"):
         ensure_public_schema(client, "app", "table", GONGKAO_SCHEMA)
+
+
+def test_ensure_public_schema_only_adds_missing_fields_to_live_table() -> None:
+    client = _SchemaClient(records=[{"record_id": "rec-live", "fields": {"公告标题": "保留"}}])
+    client.list_fields = lambda _app, _table: [
+        {"field_id": f"fld-{index}", "field_name": definition["field_name"],
+         "type": definition["type"], "is_primary": index == 0}
+        for index, definition in enumerate(GONGKAO_SCHEMA[:8])
+    ]
+
+    changed = ensure_public_schema(client, "app", "table", GONGKAO_SCHEMA)
+
+    assert changed is True
+    assert client.updated == []
+    assert client.deleted_fields == []
+    assert client.deleted_records == []
+    assert [field["field_name"] for field in client.created] == [
+        field["field_name"] for field in GONGKAO_SCHEMA[8:]
+    ]
+
+
+def test_diff_preserves_expired_missing_gongkao_row() -> None:
+    existing = [{
+        "record_id": "rec-expired",
+        "fields": {"链接": {"link": "https://old.test"}, "报名状态": "已截止"},
+    }]
+    creates, updates, deletes = diff_public_records(
+        [], existing, gongkao_key,
+        preserve_missing=lambda fields: fields.get("报名状态") == "已截止",
+    )
+    assert (creates, updates, deletes) == ([], [], [])

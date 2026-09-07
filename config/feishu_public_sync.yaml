@@ -1,9 +1,10 @@
 app_token: "W0KAbVyynaJDB9sE75ocCCHonqb"
 gongkao_table_id: "tblX74pCp8xl0Lo7"
 qiuzhao_table_id: "tblKRsYCbrZNPg7K"
+gongkao_table_url: "https://my.feishu.cn/base/W0KAbVyynaJDB9sE75ocCCHonqb?table=tblX74pCp8xl0Lo7"
 
 sources:
   gongkao:
-    file: gongkao_feishu.json
+    file: gongkao_enriched.json
   qiuzhao:
     file: qiuzhao.json

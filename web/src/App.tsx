@@ -370,7 +370,14 @@ function LoginScreen({ onAuthenticated }: { onAuthenticated: () => Promise<void>
     <form onSubmit={submit} className="w-full max-w-sm rounded-3xl border border-[var(--line)] bg-[var(--card)] p-7 shadow-2xl sm:p-9">
       <span className="font-mono text-[10px] tracking-[0.22em] text-cyan-500">SIGNAL / NOISE</span>
       <h1 className="mt-4 text-3xl font-black tracking-tight">信息差日报</h1>
-      <p className="mt-2 text-sm text-[var(--muted)]">登录后查看你的信息流与同步设置</p>
+      <p className="mt-2 text-sm font-bold">每天 05:00 更新的个人报考机会清单</p>
+      <ul className="mt-4 space-y-2 text-xs leading-5 text-[var(--muted)]">
+        <li>粉笔全量公告 + 组织部选调公告，自动聚合更新</li>
+        <li>提炼笔试、户籍、专业、学历、应届与服务期限制</li>
+        <li>自动判断“东北林业大学能否报”，减少逐条翻附件</li>
+        <li>每天早晨推送最该处理的 10 个机会</li>
+        <li>1 个全量表 + 9 个预置视图，打开即可筛选</li>
+      </ul>
       <label className="mt-7 block text-xs font-bold">用户名<input aria-label="用户名" autoComplete="username" value={username} onChange={(event) => setUsername(event.target.value)} required className="mt-2 w-full rounded-xl border border-[var(--line)] bg-[var(--paper)] px-4 py-3 text-base outline-none focus:border-cyan-400" /></label>
       <label className="mt-4 block text-xs font-bold">密码<input aria-label="密码" type="password" autoComplete="current-password" value={password} onChange={(event) => setPassword(event.target.value)} required className="mt-2 w-full rounded-xl border border-[var(--line)] bg-[var(--paper)] px-4 py-3 text-base outline-none focus:border-cyan-400" /></label>
       {error && <p role="alert" className="mt-4 rounded-xl bg-rose-50 px-3 py-2 text-sm text-rose-700 dark:bg-rose-950/30 dark:text-rose-300">{error}</p>}

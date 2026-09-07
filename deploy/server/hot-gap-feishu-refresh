@@ -74,5 +74,7 @@ fi
 cd "$project"
 .venv/bin/python -m app.export_qiuzhao
 .venv/bin/python -m app.export_gongkao
+.venv/bin/python -m app.pipeline.gongkao_enrich
 .venv/bin/python -m app.sync_feishu
 .venv/bin/python -m app.sync_feishu_public
+.venv/bin/python -m app.notify_gongkao_digest
