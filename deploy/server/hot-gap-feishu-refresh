@@ -7,14 +7,18 @@ if [[ "${HOT_GAP_FEISHU_LOCKED:-}" != "1" ]]; then
 fi
 
 project=/opt/hot-gap-aggregator
-incoming=/home/deploy/.qiuzhao_wanqing.json.incoming
 persistent_dir=/var/lib/hot-gap
-persistent_snapshot="$persistent_dir/qiuzhao_wanqing.json"
-data_snapshot=/var/www/hot-gap/data/qiuzhao_wanqing.json
+data_dir=/var/www/hot-gap/data
+qiuzhao_incoming=/home/deploy/.qiuzhao_wanqing.json.incoming
+qiuzhao_persistent="$persistent_dir/qiuzhao_wanqing.json"
+qiuzhao_data="$data_dir/qiuzhao_wanqing.json"
+gongkao_incoming=/home/deploy/.gongkao_sheet.json.incoming
+gongkao_persistent="$persistent_dir/gongkao_sheet.json"
+gongkao_data="$data_dir/gongkao_sheet.json"
 
 /usr/bin/install -d -o root -g root -m 755 "$persistent_dir"
-if [[ -f "$incoming" ]]; then
-  "$project/.venv/bin/python" - "$incoming" <<'PY'
+if [[ -f "$qiuzhao_incoming" ]]; then
+  "$project/.venv/bin/python" - "$qiuzhao_incoming" <<'PY'
 import json
 import sys
 
@@ -28,15 +32,46 @@ for index, item in enumerate(items):
     if not isinstance(item, dict) or not item.get("company_name") or not item.get("position"):
         raise SystemExit(f"incoming Wanqing snapshot has invalid item {index}")
 PY
-  /usr/bin/install -o root -g root -m 644 "$incoming" "$persistent_snapshot.tmp"
-  /usr/bin/mv -f -- "$persistent_snapshot.tmp" "$persistent_snapshot"
-  /usr/bin/rm -f -- "$incoming"
+  /usr/bin/install -o root -g root -m 644 "$qiuzhao_incoming" "$qiuzhao_persistent.tmp"
+  /usr/bin/mv -f -- "$qiuzhao_persistent.tmp" "$qiuzhao_persistent"
+  /usr/bin/rm -f -- "$qiuzhao_incoming"
 fi
 
-if [[ -f "$persistent_snapshot" ]]; then
-  /usr/bin/install -o deploy -g deploy -m 664 "$persistent_snapshot" "$data_snapshot"
+if [[ -f "$gongkao_incoming" ]]; then
+  "$project/.venv/bin/python" - "$gongkao_incoming" <<'PY'
+import json
+import sys
+
+path = sys.argv[1]
+with open(path, encoding="utf-8") as handle:
+    payload = json.load(handle)
+items = payload.get("items") if isinstance(payload, dict) else None
+if not isinstance(items, list) or len(items) < 500:
+    raise SystemExit("incoming Gongkao Sheet snapshot failed validation: expected at least 500 items")
+for index, item in enumerate(items):
+    extra = item.get("extra") if isinstance(item, dict) else None
+    if (
+        not isinstance(item, dict)
+        or not item.get("title")
+        or not str(item.get("url") or "").startswith(("http://", "https://"))
+        or not isinstance(extra, dict)
+        or not extra.get("id")
+    ):
+        raise SystemExit(f"incoming Gongkao Sheet snapshot has invalid item {index}")
+PY
+  /usr/bin/install -o root -g root -m 644 "$gongkao_incoming" "$gongkao_persistent.tmp"
+  /usr/bin/mv -f -- "$gongkao_persistent.tmp" "$gongkao_persistent"
+  /usr/bin/rm -f -- "$gongkao_incoming"
+fi
+
+if [[ -f "$qiuzhao_persistent" ]]; then
+  /usr/bin/install -o deploy -g deploy -m 664 "$qiuzhao_persistent" "$qiuzhao_data"
+fi
+if [[ -f "$gongkao_persistent" ]]; then
+  /usr/bin/install -o deploy -g deploy -m 664 "$gongkao_persistent" "$gongkao_data"
 fi
 
 cd "$project"
 .venv/bin/python -m app.export_qiuzhao
+.venv/bin/python -m app.export_gongkao
 .venv/bin/python -m app.sync_feishu

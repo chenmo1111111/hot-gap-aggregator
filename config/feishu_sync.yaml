@@ -8,7 +8,7 @@ qiuzhao_table_id: ""
 # $ 开头的是脚本生成字段，不要修改左侧名称；右侧字段名可以改，但必须同步修改飞书表。
 sources:
   gongkao:
-    file: gongkao.json
+    file: gongkao_feishu.json
     field_mapping:
       $sync_id: 同步ID
       $sync_time: 更新时间

@@ -40,7 +40,7 @@ $task = New-ScheduledTask `
     -Trigger $trigger `
     -Settings $settings `
     -Principal $principal `
-    -Description "每天 07:00 唤醒电脑，抓取婉清秋招最新500条并同步至自建飞书多维表格。"
+    -Description "每天 07:00 唤醒电脑，抓取婉清秋招和飞书公考表并同步至自建飞书多维表格。"
 
 Register-ScheduledTask -TaskName $TaskName -InputObject $task -Force | Out-Null
 $registered = Get-ScheduledTask -TaskName $TaskName

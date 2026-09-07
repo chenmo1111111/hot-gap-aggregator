@@ -1,7 +1,8 @@
 # S1：公考 + 秋招同步到飞书多维表格
 
-同步任务只部署在 S1，读取 `/var/www/hot-gap/data/gongkao.json` 和
-`/var/www/hot-gap/data/qiuzhao.json`。默认情况下，秋招文件由 S1 上现有的 `jobs.json`
+飞书写入任务只部署在 S1，最终读取 `/var/www/hot-gap/data/gongkao_feishu.json` 和
+`/var/www/hot-gap/data/qiuzhao.json`。`gongkao_feishu.json` 由原有 `gongkao.json` 与本地浏览器
+抓取的 `gongkao_sheet.json` 去重合并生成，原有公考源优先且不会被改写。默认情况下，秋招文件由 S1 上现有的 `jobs.json`
 标准化生成；如果同目录存在人工抓取的标准化快照 `qiuzhao_wanqing.json`，导出器会优先使用
 该快照，避免定时任务把抓取结果覆盖回 `jobs.json`。不要把同步任务加入 GitHub Actions：
 飞书 API 从美国 IP 访问不稳定。
@@ -158,6 +159,7 @@ BARK_URL=
 ```bash
 cd /path/to/hot-gap-aggregator
 .venv/bin/python -m app.export_qiuzhao
+.venv/bin/python -m app.export_gongkao
 .venv/bin/python -m app.sync_feishu
 ```
 
@@ -194,7 +196,8 @@ cd /path/to/hot-gap-aggregator
 北京时间计算“今天”和“距截止天数”。
 
 `hot-gap-feishu-refresh` 使用文件锁避免 7:00 的本机抓取回调与 S1 cron 同时写飞书，并在每次
-同步前从 `/var/lib/hot-gap/qiuzhao_wanqing.json` 恢复秋招工作副本。不要再保留直接调用
+同步前从 `/var/lib/hot-gap/qiuzhao_wanqing.json` 和 `/var/lib/hot-gap/gongkao_sheet.json`
+恢复两个网页源的工作副本。不要再保留直接调用
 `app.export_qiuzhao && app.sync_feishu` 的旧 cron 行。
 
 ## 手动添加数据：来源必须选“手动”
@@ -216,9 +219,9 @@ cd /path/to/hot-gap-aggregator
 
 建议默认关闭互联网匿名编辑，只给确实需要维护手动行的成员编辑权限。
 
-## 每天 7 点自动刷新婉清秋招快照
+## 每天 7 点自动刷新秋招和公考网页源
 
-来源表只允许网页查看，不能通过你的自建应用 OpenAPI 导出。因此抓取任务运行在 Windows
+两个来源表只允许网页查看，不能通过你的自建应用 OpenAPI 导出。因此抓取任务运行在 Windows
 电脑上，使用独立的 Playwright 浏览器配置保存登录会话；仓库、`.env` 和服务器都不保存来源表
 Cookie。脚本会同时留下当天页面截图用于排错，但结构化数据直接读取页面背后的表格接口，避免
 截图 OCR 截断岗位和链接。
@@ -234,8 +237,18 @@ cd "C:\Users\Administrator\Desktop\简历\hot-gap-aggregator"
   --state-dir "$env:LOCALAPPDATA\hot-gap-aggregator\wanqing"
 ```
 
-弹出的窗口中只需登录一次，并确认能看到 `27届秋招🍁`，再回终端按 Enter。然后使用“以管理员
-身份运行”的 PowerShell 注册每天 7:00 自动唤醒任务：
+弹出的窗口中只需登录一次，并确认能看到 `27届秋招🍁`，再回终端按 Enter。同一个专用浏览器
+配置也用于公考普通表格。首次确认公考表账号可访问时运行：
+
+```powershell
+.venv\Scripts\python.exe -m app.capture_gongkao_sheet --login `
+  --output "$env:LOCALAPPDATA\hot-gap-aggregator\wanqing\gongkao_sheet.json" `
+  --profile-dir "$env:LOCALAPPDATA\hot-gap-aggregator\wanqing\browser-profile" `
+  --state-dir "$env:LOCALAPPDATA\hot-gap-aggregator\wanqing"
+```
+
+脚本识别到可访问账号后会读取整张表；公告链接列即使在屏幕右侧不可见也能完整取得。然后使用
+“以管理员身份运行”的 PowerShell 注册每天 7:00 自动唤醒任务：
 
 ```powershell
 cd "C:\Users\Administrator\Desktop\简历\hot-gap-aggregator"
@@ -244,9 +257,10 @@ powershell -ExecutionPolicy Bypass -File .\scripts\install_wanqing_task.ps1
 
 计划任务 `HotGap-Wanqing-Feishu-0700` 会在每天北京时间 7:00 唤醒电脑并调用
 `scripts/run_wanqing_sync.ps1`：
-读取并去重最新 500 条、保存截图、上传到 S1 的待处理文件，然后调用受限命令把快照原子保存到
-`/var/lib/hot-gap/qiuzhao_wanqing.json`，复制为
-`/var/www/hot-gap/data/qiuzhao_wanqing.json`，最后同步到自己的飞书表。
+先刷新秋招并读取最新 500 条，再刷新公考表并读取全部有效公告，分别保存诊断截图、上传到 S1
+待处理文件，然后调用受限命令把快照原子保存到 `/var/lib/hot-gap/`。服务器生成秋招文件及
+`gongkao_feishu.json` 后，再同步到自己的飞书表。一张来源抓取失败时，另一张仍可更新，失败来源
+继续使用服务器上的上一次有效快照。
 电脑在 7:00 必须开机且用户仍保持登录；允许唤醒定时器在交流供电下应为启用状态。电脑可以
 睡眠，任务会将其唤醒；电脑已关机或用户已注销时不能运行。错过执行时间后，任务会在系统恢复
 可用时尽快补跑。无需预先打开或手动刷新飞书页面：每次运行都会重新访问页面、获取最新表版本
@@ -257,7 +271,8 @@ powershell -ExecutionPolicy Bypass -File .\scripts\run_wanqing_sync.ps1
 ```
 
 `/var/lib/hot-gap` 是持久真源，不受站点数据刷新影响；服务器每次 7/13/19 同步前都会从这里
-恢复工作副本。安全保护：抓取失败、登录过期、字段变化或有效记录少于 450 条时，脚本返回失败并保留上一次
+恢复工作副本。安全保护：抓取失败、登录过期、字段变化、秋招有效记录少于 450 条或公考有效公告
+少于 500 条时，脚本返回失败并保留上一次
 快照，不上传空文件，也不会导致飞书误删。连续失败且配置 `FEISHU_WEBHOOK` 或 `BARK_URL`
 时会告警。日志和截图位于 `%LOCALAPPDATA%\hot-gap-aggregator\wanqing`。
 
@@ -269,7 +284,7 @@ install -o root -g root -m 440 /opt/hot-gap-aggregator/deploy/server/hot-gap-fei
 visudo -cf /etc/sudoers.d/hot-gap-feishu-refresh
 ```
 
-该辅助命令只进入 `/opt/hot-gap-aggregator` 执行秋招导出与飞书同步，不访问
+该辅助命令只进入 `/opt/hot-gap-aggregator` 执行两类导出与飞书同步，不访问
 `/opt/cuotiben`。服务器原有 `7,13,19` 同步任务可保留；文件锁会避免两个同步进程同时写表。
 
 ## 更换 App Secret
