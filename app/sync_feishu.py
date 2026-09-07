@@ -195,6 +195,54 @@ class FeishuClient:
             if not page_token:
                 raise FeishuAPIError("record pagination says has_more but has no page_token")
 
+    def list_fields(self, app_token: str, table_id: str) -> list[dict[str, Any]]:
+        fields: list[dict[str, Any]] = []
+        page_token: str | None = None
+        while True:
+            params: dict[str, Any] = {"page_size": 100}
+            if page_token:
+                params["page_token"] = page_token
+            payload = self._request(
+                "GET",
+                f"/bitable/v1/apps/{app_token}/tables/{table_id}/fields",
+                params=params,
+            )
+            data = payload.get("data") or {}
+            fields.extend(row for row in data.get("items") or [] if isinstance(row, dict))
+            if not data.get("has_more"):
+                return fields
+            page_token = str(data.get("page_token") or "")
+            if not page_token:
+                raise FeishuAPIError("field pagination says has_more but has no page_token")
+
+    def create_field(
+        self, app_token: str, table_id: str, definition: Mapping[str, Any]
+    ) -> dict[str, Any]:
+        return self._request(
+            "POST",
+            f"/bitable/v1/apps/{app_token}/tables/{table_id}/fields",
+            json=dict(definition),
+        )
+
+    def update_field(
+        self,
+        app_token: str,
+        table_id: str,
+        field_id: str,
+        definition: Mapping[str, Any],
+    ) -> dict[str, Any]:
+        return self._request(
+            "PUT",
+            f"/bitable/v1/apps/{app_token}/tables/{table_id}/fields/{field_id}",
+            json=dict(definition),
+        )
+
+    def delete_field(self, app_token: str, table_id: str, field_id: str) -> None:
+        self._request(
+            "DELETE",
+            f"/bitable/v1/apps/{app_token}/tables/{table_id}/fields/{field_id}",
+        )
+
     def batch_create(self, app_token: str, table_id: str, fields: list[dict[str, Any]]) -> None:
         self._request(
             "POST",
