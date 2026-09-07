@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-09-07T14:14:02.768639+00:00",
+  "generated_at": "2026-09-07T14:19:50.796169+00:00",
   "source": "telegram",
   "status": {
     "source": "telegram",
     "status": "ok",
     "item_count": 36,
-    "duration_ms": 1551,
+    "duration_ms": 2303,
     "error": null,
-    "run_at": "2026-09-07T14:14:02.768639+00:00"
+    "run_at": "2026-09-07T14:19:50.796169+00:00"
   },
   "items": [
     {
@@ -16,7 +16,7 @@
       "title": "🔴 CVE Digest — 07 Sep 2026 7 critical vulnerabilities 🔴 CVE-2026-80238 · CVSS 9.3 Dell SCG 5.0 Appliance versions prior to 5.36.00.16 and Dell SCG 5.0 Application versions prior to 5.36.00.00, contains... 🔴 CVE-2026-86426 · CVSS 9.2 LibreNMS before 26.8.0 contains an authentication bypass vulnerabil",
       "title_zh": "🔴 CVE 摘要 — 2026年9月7日 7个严重漏洞 🔴 CVE-2026-80238 · CVSS 9.3 Dell SCG 5.0 设备版本早于5.36.00.16及Dell SCG 5.0 应用版本早于5.36.00.00，包含... 🔴 CVE-2026-86426 · CVSS 9.2 LibreNMS 26.8.0之前版本包含认证绕过漏洞",
       "url": "https://t.me/cyber_security_feed/35549",
-      "hot_value": "2",
+      "hot_value": "3",
       "summary_zh": null,
       "thumbnail": null,
       "published_at": "2026-09-07T14:07:13+00:00",
@@ -25,13 +25,17 @@
         "translate": true
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "6562f036b70f",
       "cluster_size": 2,
       "rank_history": [
         {
           "run_at": "2026-09-07T14:14:02.768639+00:00",
+          "rank": 1
+        },
+        {
+          "run_at": "2026-09-07T14:19:50.796169+00:00",
           "rank": 1
         }
       ]
@@ -42,7 +46,7 @@
       "title": "N-able released an emergency hotfix for CVE-2026-86218, a critical zero-day in N-central that can allow pre-auth remote code execution. Reports indicate possible in-the-wild exploitation. #Nable #Ncentral #CVE202686218 ➡️ https://www.hendryadrian.com/n-able-patches-critical-n-central-zero-day-exploi",
       "title_zh": "N-able 发布了针对 CVE-2026-86218 的紧急热修复，这是 N-central 中的一个严重零日漏洞，可允许未经认证的远程代码执行。有报告显示可能存在野外利用。#Nable #Ncentral #CVE202686218 ➡️ https://www.hendryadrian.com/n-able-patches-critical-n-central-zero-day-exploi",
       "url": "https://t.me/cybernotif/35502",
-      "hot_value": "4",
+      "hot_value": "6",
       "summary_zh": null,
       "thumbnail": null,
       "published_at": "2026-09-07T14:00:06+00:00",
@@ -51,13 +55,17 @@
         "translate": true
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "233027193731",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-07T14:14:02.768639+00:00",
+          "rank": 2
+        },
+        {
+          "run_at": "2026-09-07T14:19:50.796169+00:00",
           "rank": 2
         }
       ]
@@ -68,7 +76,7 @@
       "title": "Adobe Commerce and Magento zero-day \"StyleSmuggler\" lets attackers inject PHP via template styles, trigger code execution through failed payment emails, and install a Rust backdoor that hides as legit processes. #AdobeCommerce #Magento #StyleSmuggler ➡️ https://www.hendryadrian.com/adobe-commerce-ze",
       "title_zh": "Adobe Commerce 和 Magento 零日漏洞“StyleSmuggler”允许攻击者通过模板样式注入 PHP，通过失败的支付邮件触发代码执行，并安装伪装成合法进程的 Rust 后门。#AdobeCommerce #Magento #StyleSmuggler ➡️ https://www.hendryadrian.com/adobe-commerce-ze",
       "url": "https://t.me/cybernotif/35501",
-      "hot_value": "8",
+      "hot_value": "10",
       "summary_zh": null,
       "thumbnail": null,
       "published_at": "2026-09-07T13:45:07+00:00",
@@ -77,13 +85,17 @@
         "translate": true
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "c51e14a52be3",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-07T14:14:02.768639+00:00",
+          "rank": 3
+        },
+        {
+          "run_at": "2026-09-07T14:19:50.796169+00:00",
           "rank": 3
         }
       ]
@@ -94,7 +106,7 @@
       "title": "Modified ScreenConnect clients are being used in a worm-like campaign that spreads VBScript and PowerShell payloads via social engineering, wscript.exe, and Run Key persistence across endpoints. #ScreenConnect #ConnectWise #Huntress ➡️ https://www.hendryadrian.com/modified-screenconnect-clients-used",
       "title_zh": "修改版ScreenConnect客户端正被用于一种蠕虫式攻击活动，通过社会工程学、wscript.exe和Run Key持久化在终端间传播VBScript和PowerShell载荷。#ScreenConnect #ConnectWise #Huntress ➡️ https://www.hendryadrian.com/modified-screenconnect-clients-used",
       "url": "https://t.me/cybernotif/35500",
-      "hot_value": "11",
+      "hot_value": "13",
       "summary_zh": null,
       "thumbnail": null,
       "published_at": "2026-09-07T13:30:06+00:00",
@@ -104,7 +116,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": -3,
+      "rank_delta": 0,
       "cluster_id": "46945654fc4b",
       "cluster_size": 1,
       "rank_history": [
@@ -115,6 +127,10 @@
         {
           "run_at": "2026-09-07T14:14:02.768639+00:00",
           "rank": 4
+        },
+        {
+          "run_at": "2026-09-07T14:19:50.796169+00:00",
+          "rank": 4
         }
       ]
     },
@@ -124,7 +140,7 @@
       "title": "N-able released Hotfix 4 for N-central to fix CVE-2026-86218, a critical pre-auth RCE affecting on-prem builds before 2026.3.1.14. Notices differ on exploitation status. #Ncentral #CVE202686218 #Nable ➡️ https://www.hendryadrian.com/n-able-issues-fourth-n-central-hotfix-in-five-weeks-for-unauthentic",
       "title_zh": "N-able发了N-central的Hotfix 4，修CVE-2026-86218，这是个严重的预认证RCE，影响2026.3.1.14之前的本地版。关于是否已被利用，通知说法不一。#Ncentral #CVE202686218 #Nable ➡️ https://www.hendryadrian.com/n-able-issues-fourth-n-central-hotfix-in-five-weeks-for-unauthentic",
       "url": "https://t.me/cybernotif/35499",
-      "hot_value": "13",
+      "hot_value": "14",
       "summary_zh": null,
       "thumbnail": null,
       "published_at": "2026-09-07T13:15:05+00:00",
@@ -134,7 +150,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": -3,
+      "rank_delta": 0,
       "cluster_id": "184b309a514d",
       "cluster_size": 1,
       "rank_history": [
@@ -148,6 +164,10 @@
         },
         {
           "run_at": "2026-09-07T14:14:02.768639+00:00",
+          "rank": 5
+        },
+        {
+          "run_at": "2026-09-07T14:19:50.796169+00:00",
           "rank": 5
         }
       ]
@@ -168,7 +188,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": -3,
+      "rank_delta": 0,
       "cluster_id": "3a70636321dd",
       "cluster_size": 1,
       "rank_history": [
@@ -182,6 +202,10 @@
         },
         {
           "run_at": "2026-09-07T14:14:02.768639+00:00",
+          "rank": 6
+        },
+        {
+          "run_at": "2026-09-07T14:19:50.796169+00:00",
           "rank": 6
         }
       ]
@@ -202,7 +226,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": -3,
+      "rank_delta": 0,
       "cluster_id": "299708ee34fa",
       "cluster_size": 1,
       "rank_history": [
@@ -217,6 +241,10 @@
         {
           "run_at": "2026-09-07T14:14:02.768639+00:00",
           "rank": 7
+        },
+        {
+          "run_at": "2026-09-07T14:19:50.796169+00:00",
+          "rank": 7
         }
       ]
     },
@@ -226,7 +254,7 @@
       "title": "Hackers are chaining two MikroTik RouterOS flaws to bypass SSH authentication and gain admin control of internet-exposed routers. MikroTik has released fixes and compromise-detection features. #MikroTik #RouterOS #Poland ➡️ https://www.hendryadrian.com/hackers-exploit-new-mikrotik-routeros-flaws-to-",
       "title_zh": "黑客正串联利用两个MikroTik RouterOS漏洞，绕过SSH认证，获取暴露在互联网上的路由器管理员控制权。MikroTik已发布修复和入侵检测功能。#MikroTik #RouterOS #波兰 ➡️ https://www.hendryadrian.com/hackers-exploit-new-mikrotik-routeros-flaws-to-",
       "url": "https://t.me/cybernotif/35498",
-      "hot_value": "14",
+      "hot_value": "16",
       "summary_zh": null,
       "thumbnail": null,
       "published_at": "2026-09-07T13:00:06+00:00",
@@ -236,7 +264,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": -3,
+      "rank_delta": 0,
       "cluster_id": "e8426ec1a525",
       "cluster_size": 1,
       "rank_history": [
@@ -255,6 +283,10 @@
         {
           "run_at": "2026-09-07T14:14:02.768639+00:00",
           "rank": 8
+        },
+        {
+          "run_at": "2026-09-07T14:19:50.796169+00:00",
+          "rank": 8
         }
       ]
     },
@@ -264,7 +296,7 @@
       "title": "ConnectWise disclosed a ScreenConnect file transfer flaw affecting cloud and on-prem deployments; temporary mitigations are out, with a patch due later this week. Nearly 6,000 exposed instances are tracked. #ConnectWise #ScreenConnect #CVE2024 ➡️ https://www.hendryadrian.com/connectwise-warns-of-new",
       "title_zh": "ConnectWise披露了一个影响云和本地部署的ScreenConnect文件传输漏洞；临时缓解措施已发布，补丁预计本周晚些时候推出。追踪到近6000个暴露实例。#ConnectWise #ScreenConnect #CVE2024 ➡️ https://www.hendryadrian.com/connectwise-warns-of-new",
       "url": "https://t.me/cybernotif/35497",
-      "hot_value": "18",
+      "hot_value": "20",
       "summary_zh": null,
       "thumbnail": null,
       "published_at": "2026-09-07T12:45:05+00:00",
@@ -274,7 +306,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": -3,
+      "rank_delta": 0,
       "cluster_id": "cd29536c757e",
       "cluster_size": 1,
       "rank_history": [
@@ -293,6 +325,10 @@
         {
           "run_at": "2026-09-07T14:14:02.768639+00:00",
           "rank": 9
+        },
+        {
+          "run_at": "2026-09-07T14:19:50.796169+00:00",
+          "rank": 9
         }
       ]
     },
@@ -302,7 +338,7 @@
       "title": "🧠 Every Developer’s App Evolution It starts with Minecraft and Subway Surfers , then moves to Fortnite and Instagram. One day, the screen is full of ChatGPT, GitHub, VS Code, Notion, plus 17 more tools “for work.” 📊 @tech",
       "title_zh": "🧠 每个开发者的应用进化史 从Minecraft和Subway Surfers开始，然后转向Fortnite和Instagram。某天，屏幕上全是ChatGPT、GitHub、VS Code、Notion，外加17个“工作用”工具。📊 @tech",
       "url": "https://t.me/tech/3854",
-      "hot_value": "1.14K",
+      "hot_value": "1.17K",
       "summary_zh": null,
       "thumbnail": null,
       "published_at": "2026-09-07T12:00:40+00:00",
@@ -312,7 +348,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": -3,
+      "rank_delta": 0,
       "cluster_id": "014a2d398d3c",
       "cluster_size": 1,
       "rank_history": [
@@ -331,6 +367,10 @@
         {
           "run_at": "2026-09-07T14:14:02.768639+00:00",
           "rank": 10
+        },
+        {
+          "run_at": "2026-09-07T14:19:50.796169+00:00",
+          "rank": 10
         }
       ]
     },
@@ -340,7 +380,7 @@
       "title": "🥺 Sam Altman on Bloomberg Television: GPT-6 Astra is not the model that was paused over cybersecurity concerns; the paused model is a future model. \"Astra has been done training for a while. The model that we recently talked about pausing, uh, is a future model. But with Astra, we did hit cyber-crit",
       "title_zh": "🥺 Sam Altman在彭博电视上：GPT-6 Astra不是那个因网络安全担忧而被暂停的模型；暂停的是未来模型。“Astra已经训练完一段时间了。我们最近提到的暂停模型，呃，是未来的。但Astra确实触及了网络关键……”",
       "url": "https://t.me/aipost/8075",
-      "hot_value": "1.76K",
+      "hot_value": "1.79K",
       "summary_zh": null,
       "thumbnail": null,
       "published_at": "2026-09-07T11:43:01+00:00",
@@ -350,7 +390,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": -3,
+      "rank_delta": 0,
       "cluster_id": "ab36862411e8",
       "cluster_size": 1,
       "rank_history": [
@@ -368,6 +408,10 @@
         },
         {
           "run_at": "2026-09-07T14:14:02.768639+00:00",
+          "rank": 11
+        },
+        {
+          "run_at": "2026-09-07T14:19:50.796169+00:00",
           "rank": 11
         }
       ]
@@ -388,7 +432,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": -3,
+      "rank_delta": 0,
       "cluster_id": "47835d376a71",
       "cluster_size": 1,
       "rank_history": [
@@ -406,6 +450,10 @@
         },
         {
           "run_at": "2026-09-07T14:14:02.768639+00:00",
+          "rank": 12
+        },
+        {
+          "run_at": "2026-09-07T14:19:50.796169+00:00",
           "rank": 12
         }
       ]
@@ -426,7 +474,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": -3,
+      "rank_delta": 0,
       "cluster_id": "9eb587a76cef",
       "cluster_size": 1,
       "rank_history": [
@@ -444,6 +492,10 @@
         },
         {
           "run_at": "2026-09-07T14:14:02.768639+00:00",
+          "rank": 13
+        },
+        {
+          "run_at": "2026-09-07T14:19:50.796169+00:00",
           "rank": 13
         }
       ]
@@ -464,7 +516,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": 0,
       "cluster_id": "e521a35da442",
       "cluster_size": 1,
       "rank_history": [
@@ -487,6 +539,10 @@
         {
           "run_at": "2026-09-07T14:14:02.768639+00:00",
           "rank": 14
+        },
+        {
+          "run_at": "2026-09-07T14:19:50.796169+00:00",
+          "rank": 14
         }
       ]
     },
@@ -496,7 +552,7 @@
       "title": "NVIDIA CEO Jensen Huang said “AGI has arrived” and that GPT-6 Astra was trained on 100K+ NVIDIA Grace Blackwell NVLink72 GPUs. @aipost 🏴",
       "title_zh": "NVIDIA CEO黄仁勋表示“AGI已经到来”，并称GPT-6 Astra在10万+ NVIDIA Grace Blackwell NVLink72 GPU上训练。@aipost 🏴",
       "url": "https://t.me/aipost/8074",
-      "hot_value": "2.59K",
+      "hot_value": "2.61K",
       "summary_zh": null,
       "thumbnail": null,
       "published_at": "2026-09-07T08:35:46+00:00",
@@ -529,6 +585,10 @@
         {
           "run_at": "2026-09-07T14:14:02.768639+00:00",
           "rank": 15
+        },
+        {
+          "run_at": "2026-09-07T14:19:50.796169+00:00",
+          "rank": 15
         }
       ]
     },
@@ -538,7 +598,7 @@
       "title": "❗️ OpenAI’s chief scientist says AI labs may need to slow down OpenAI chief scientist Jakub Pachocki is sounding the alarm: AI labs may not be able to keep scaling frontier models at full speed for much longer. He’s calling for voluntary slowdowns until the industry has shared safety standards in pl",
       "title_zh": "❗️ OpenAI首席科学家表示AI实验室可能需要放慢速度 OpenAI首席科学家Jakub Pachocki发出警告：AI实验室可能无法长期以全速扩展前沿模型。他呼吁自愿减速，直到行业建立共享安全标准。",
       "url": "https://t.me/aipost/8073",
-      "hot_value": "2.44K",
+      "hot_value": "2.46K",
       "summary_zh": null,
       "thumbnail": null,
       "published_at": "2026-09-07T08:30:09+00:00",
@@ -571,6 +631,10 @@
         {
           "run_at": "2026-09-07T14:14:02.768639+00:00",
           "rank": 16
+        },
+        {
+          "run_at": "2026-09-07T14:19:50.796169+00:00",
+          "rank": 16
         }
       ]
     },
@@ -580,7 +644,7 @@
       "title": "Geoffrey Hinton, Godfather of AI, says AI models are conscious and he has quietly believed it for years. @aipost 🏴",
       "title_zh": "AI教父Geoffrey Hinton表示AI模型具有意识，且他多年来一直默默相信这一点。@aipost 🏴",
       "url": "https://t.me/aipost/8072",
-      "hot_value": "2.38K",
+      "hot_value": "2.4K",
       "summary_zh": null,
       "thumbnail": null,
       "published_at": "2026-09-07T08:24:25+00:00",
@@ -613,6 +677,10 @@
         {
           "run_at": "2026-09-07T14:14:02.768639+00:00",
           "rank": 17
+        },
+        {
+          "run_at": "2026-09-07T14:19:50.796169+00:00",
+          "rank": 17
         }
       ]
     },
@@ -622,7 +690,7 @@
       "title": "😺 GPT-6 Astra Maps 2234 Anatomy Parts The 3D site breaks down male anatomy into 2234 modeled parts . It uses the existing BodyParts3D database , so Astra did not build the full model from scratch . The source leaves 2 questions open : has an anatomist checked its accuracy, and is the project origina",
       "title_zh": "😺 GPT-6 Astra Maps 2234个解剖部位 该3D网站将男性解剖结构分解为2234个建模部位。它使用现有的BodyParts3D数据库，因此Astra并未从头构建完整模型。来源留下两个问题：解剖学家是否检查了其准确性，以及该项目是否原创。",
       "url": "https://t.me/tech/3853",
-      "hot_value": "2.19K",
+      "hot_value": "2.2K",
       "summary_zh": null,
       "thumbnail": null,
       "published_at": "2026-09-07T08:03:41+00:00",
@@ -655,6 +723,10 @@
         {
           "run_at": "2026-09-07T14:14:02.768639+00:00",
           "rank": 18
+        },
+        {
+          "run_at": "2026-09-07T14:19:50.796169+00:00",
+          "rank": 18
         }
       ]
     },
@@ -664,7 +736,7 @@
       "title": "OpenAI has announced it has achieved the \"automated research intern\" milestone, marking a significant step in human-supervised AI completing well-defined research tasks—previously requiring several days of skilled labor. Engineers at OpenAI are now making code changes at a rate approximately seven t",
       "title_zh": "OpenAI宣布达成“自动化研究实习生”里程碑，标志着人类监督AI完成明确研究任务迈出重要一步——这类任务以前需要熟练工干好几天。OpenAI的工程师现在改代码的速度大约是原来的七倍",
       "url": "https://t.me/aipost/8071",
-      "hot_value": "3.87K",
+      "hot_value": "3.89K",
       "summary_zh": null,
       "thumbnail": null,
       "published_at": "2026-09-07T04:40:00+00:00",
@@ -713,6 +785,10 @@
         {
           "run_at": "2026-09-07T14:14:02.768639+00:00",
           "rank": 19
+        },
+        {
+          "run_at": "2026-09-07T14:19:50.796169+00:00",
+          "rank": 19
         }
       ]
     },
@@ -722,7 +798,7 @@
       "title": "🇩🇪 Germany’s Merz says germany is building data centers at an unprecedented scale. @aipost 🏴",
       "title_zh": "🇩🇪 德国默茨称德国正以前所未有的规模建设数据中心。@aipost 🏴",
       "url": "https://t.me/aipost/8070",
-      "hot_value": "3.49K",
+      "hot_value": "3.5K",
       "summary_zh": null,
       "thumbnail": null,
       "published_at": "2026-09-07T01:38:01+00:00",
@@ -775,6 +851,10 @@
         {
           "run_at": "2026-09-07T14:14:02.768639+00:00",
           "rank": 20
+        },
+        {
+          "run_at": "2026-09-07T14:19:50.796169+00:00",
+          "rank": 20
         }
       ]
     },
@@ -784,7 +864,7 @@
       "title": "Authors push back as publishers and agents seek share of Anthropic settlement Source: https://techcrunch.com/2026/09/06/authors-push-back-as-publishers-and-agents-seek-share-of-anthropic-settlement/",
       "title_zh": "作者反击，出版商和代理商寻求分享Anthropic和解金 来源：https://techcrunch.com/2026/09/06/authors-push-back-as-publishers-and-agents-seek-share-of-anthropic-settlement/",
       "url": "https://t.me/techcrunchcom/84281",
-      "hot_value": "181",
+      "hot_value": "182",
       "summary_zh": null,
       "thumbnail": null,
       "published_at": "2026-09-06T20:49:35+00:00",
@@ -841,6 +921,10 @@
         {
           "run_at": "2026-09-07T14:14:02.768639+00:00",
           "rank": 21
+        },
+        {
+          "run_at": "2026-09-07T14:19:50.796169+00:00",
+          "rank": 21
         }
       ]
     },
@@ -850,7 +934,7 @@
       "title": "💸 In just one month, Telegram has awarded over $2,222,000 to some of the brightest minds on our planet. 🎨 This week alone we distributed $222,000 among the winners of our two latest competitions — the Design Contest and the Digital Freedom Contest . On top of that, over the past month we awarded pri",
       "title_zh": "💸 仅一个月内，Telegram已向地球上一些最聪明的头脑发放了超过2,222,000美元。🎨 仅本周我们就向两个最新竞赛的获胜者分发了222,000美元——设计竞赛和数字自由竞赛。此外，在过去一个月里我们发放了奖",
       "url": "https://t.me/durov/547",
-      "hot_value": "759K",
+      "hot_value": "760K",
       "summary_zh": null,
       "thumbnail": null,
       "published_at": "2026-09-06T17:40:39+00:00",
@@ -911,6 +995,10 @@
         {
           "run_at": "2026-09-07T14:14:02.768639+00:00",
           "rank": 22
+        },
+        {
+          "run_at": "2026-09-07T14:19:50.796169+00:00",
+          "rank": 22
         }
       ]
     },
@@ -920,7 +1008,7 @@
       "title": "TechCrunch Mobility: Tesla Cybercab hits the road — and a snag Source: https://techcrunch.com/2026/09/06/techcrunch-mobility-tesla-cybercab-hits-the-road-and-a-snag/",
       "title_zh": "TechCrunch Mobility：特斯拉Cybercab上路——却遇波折 来源：https://techcrunch.com/2026/09/06/techcrunch-mobility-tesla-cybercab-hits-the-road-and-a-snag/",
       "url": "https://t.me/techcrunchcom/84280",
-      "hot_value": "215",
+      "hot_value": "216",
       "summary_zh": null,
       "thumbnail": null,
       "published_at": "2026-09-06T16:25:22+00:00",
@@ -931,8 +1019,8 @@
       "days_on_board": 2,
       "is_new": false,
       "rank_delta": 0,
-      "cluster_id": "af53c23cb050",
-      "cluster_size": 1,
+      "cluster_id": "d82875acc058",
+      "cluster_size": 2,
       "rank_history": [
         {
           "run_at": "2026-09-06T16:44:06.701280+00:00",
@@ -985,6 +1073,10 @@
         {
           "run_at": "2026-09-07T14:14:02.768639+00:00",
           "rank": 23
+        },
+        {
+          "run_at": "2026-09-07T14:19:50.796169+00:00",
+          "rank": 23
         }
       ]
     },
@@ -994,7 +1086,7 @@
       "title": "🤖 GPT-6 Astra Gets A Spatial Boost Early testers are already building detailed models in Blender and vibe-coding games in UE5 and Unity . For assets, Astra cycles through hundreds of materials to recreate locations and objects more precisely. It can also generate cutscenes. A playable demo from a si",
       "title_zh": "🤖 GPT-6 Astra获得空间增强 早期测试者已经在Blender中构建详细模型，并在UE5和Unity中即兴编码游戏。对于资产，Astra循环数百种材质以更精确地重建地点和物体。它还能生成过场动画。一个可玩演示来自一个单",
       "url": "https://t.me/tech/3849",
-      "hot_value": "3.82K",
+      "hot_value": "3.83K",
       "summary_zh": null,
       "thumbnail": null,
       "published_at": "2026-09-06T08:00:46+00:00",
@@ -1066,6 +1158,10 @@
         },
         {
           "run_at": "2026-09-07T14:14:02.768639+00:00",
+          "rank": 24
+        },
+        {
+          "run_at": "2026-09-07T14:19:50.796169+00:00",
           "rank": 24
         }
       ]
@@ -1177,6 +1273,10 @@
         {
           "run_at": "2026-09-07T14:14:02.768639+00:00",
           "rank": 25
+        },
+        {
+          "run_at": "2026-09-07T14:19:50.796169+00:00",
+          "rank": 25
         }
       ]
     },
@@ -1186,7 +1286,7 @@
       "title": "Clucky’s new alarm app wakes you up with a crowing rooster Source: https://techcrunch.com/2026/09/05/cluckys-new-alarm-app-wakes-you-up-with-a-crowing-rooster/",
       "title_zh": "Clucky的新闹钟应用用公鸡打鸣声叫醒你 来源：https://techcrunch.com/2026/09/05/cluckys-new-alarm-app-wakes-you-up-with-a-crowing-rooster/",
       "url": "https://t.me/techcrunchcom/84279",
-      "hot_value": "285",
+      "hot_value": "286",
       "summary_zh": null,
       "thumbnail": null,
       "published_at": "2026-09-05T17:20:29+00:00",
@@ -1287,6 +1387,10 @@
         {
           "run_at": "2026-09-07T14:14:02.768639+00:00",
           "rank": 26
+        },
+        {
+          "run_at": "2026-09-07T14:19:50.796169+00:00",
+          "rank": 26
         }
       ]
     },
@@ -1296,7 +1400,7 @@
       "title": "🇨🇳 China Builds a Rotating Sky Villa The capsule house-lift rises 16 metres and rotates 360 degrees for a better view. Inside are a kitchen, sleeping berth, shower and toilet, projector, balcony, and roof hatch for stargazing . 📊 @tech",
       "title_zh": "🇨🇳 中国建造旋转天空别墅 胶囊式升降屋可升至16米并360度旋转，视野更佳。内部配备厨房、卧铺、淋浴和卫生间、投影仪、阳台及观星天窗。📊 @tech",
       "url": "https://t.me/tech/3848",
-      "hot_value": "4.22K",
+      "hot_value": "4.23K",
       "summary_zh": null,
       "thumbnail": null,
       "published_at": "2026-09-05T16:03:49+00:00",
@@ -1401,6 +1505,10 @@
         {
           "run_at": "2026-09-07T14:14:02.768639+00:00",
           "rank": 27
+        },
+        {
+          "run_at": "2026-09-07T14:19:50.796169+00:00",
+          "rank": 27
         }
       ]
     },
@@ -1410,7 +1518,7 @@
       "title": "🔍 Google Upgrades Music Generation in Gemini Lyria 3.5 , Google’s new music model, improves vocals , creates richer arrangements , and generates higher-quality tracks . Users can choose or describe a genre . They can select vocal or instrumental mode , then set the track length. Templates are availa",
       "title_zh": "🔍 Google升级Gemini Lyria 3.5中的音乐生成功能，Google的新音乐模型改进了人声，创建更丰富的编曲，并生成更高质量的曲目。用户可以选择或描述流派。他们可以选择人声或器乐模式，然后设置曲目长度。模板可用...",
       "url": "https://t.me/tech/3847",
-      "hot_value": "4.19K",
+      "hot_value": "4.2K",
       "summary_zh": null,
       "thumbnail": null,
       "published_at": "2026-09-05T12:00:20+00:00",
@@ -1518,6 +1626,10 @@
         },
         {
           "run_at": "2026-09-07T14:14:02.768639+00:00",
+          "rank": 28
+        },
+        {
+          "run_at": "2026-09-07T14:19:50.796169+00:00",
           "rank": 28
         }
       ]
@@ -1641,6 +1753,10 @@
         {
           "run_at": "2026-09-07T14:14:02.768639+00:00",
           "rank": 29
+        },
+        {
+          "run_at": "2026-09-07T14:19:50.796169+00:00",
+          "rank": 29
         }
       ]
     },
@@ -1650,7 +1766,7 @@
       "title": "What will Apple’s John Ternus era look like? Source: https://techcrunch.com/video/what-will-apples-john-ternus-era-look-like/",
       "title_zh": "Apple的John Ternus時代會是什麼樣子？來源：https://techcrunch.com/video/what-will-apples-john-ternus-era-look-like/",
       "url": "https://t.me/techcrunchcom/84278",
-      "hot_value": "337",
+      "hot_value": "338",
       "summary_zh": null,
       "thumbnail": null,
       "published_at": "2026-09-04T17:28:11+00:00",
@@ -1664,10 +1780,6 @@
       "cluster_id": "a9f8c0241020",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-05T01:44:07.909533+00:00",
-          "rank": 16
-        },
         {
           "run_at": "2026-09-05T04:43:51.890357+00:00",
           "rank": 17
@@ -1783,6 +1895,10 @@
         {
           "run_at": "2026-09-07T14:14:02.768639+00:00",
           "rank": 30
+        },
+        {
+          "run_at": "2026-09-07T14:19:50.796169+00:00",
+          "rank": 30
         }
       ]
     },
@@ -1792,7 +1908,7 @@
       "title": "No little kids allowed, and other new info about Tesla’s Cybercab Source: https://techcrunch.com/2026/09/04/no-little-kids-allowed-and-other-new-info-about-teslas-cybercab/",
       "title_zh": "不允許小孩乘坐，以及Tesla Cybercab的其他新資訊 來源：https://techcrunch.com/2026/09/04/no-little-kids-allowed-and-other-new-info-about-teslas-cybercab/",
       "url": "https://t.me/techcrunchcom/84277",
-      "hot_value": "294",
+      "hot_value": "295",
       "summary_zh": null,
       "thumbnail": null,
       "published_at": "2026-09-04T16:59:08+00:00",
@@ -1803,13 +1919,9 @@
       "days_on_board": 4,
       "is_new": false,
       "rank_delta": 0,
-      "cluster_id": "f224bc63c336",
-      "cluster_size": 1,
+      "cluster_id": "d82875acc058",
+      "cluster_size": 2,
       "rank_history": [
-        {
-          "run_at": "2026-09-05T01:44:07.909533+00:00",
-          "rank": 17
-        },
         {
           "run_at": "2026-09-05T04:43:51.890357+00:00",
           "rank": 18
@@ -1925,6 +2037,10 @@
         {
           "run_at": "2026-09-07T14:14:02.768639+00:00",
           "rank": 31
+        },
+        {
+          "run_at": "2026-09-07T14:19:50.796169+00:00",
+          "rank": 31
         }
       ]
     },
@@ -1948,10 +2064,6 @@
       "cluster_id": "ec21b404526b",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-05T01:44:07.909533+00:00",
-          "rank": 24
-        },
         {
           "run_at": "2026-09-05T04:43:51.890357+00:00",
           "rank": 24
@@ -2067,6 +2179,10 @@
         {
           "run_at": "2026-09-07T14:14:02.768639+00:00",
           "rank": 32
+        },
+        {
+          "run_at": "2026-09-07T14:19:50.796169+00:00",
+          "rank": 32
         }
       ]
     },
@@ -2090,10 +2206,6 @@
       "cluster_id": "1535d5ae629a",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-05T01:44:07.909533+00:00",
-          "rank": 26
-        },
         {
           "run_at": "2026-09-05T04:43:51.890357+00:00",
           "rank": 26
@@ -2209,6 +2321,10 @@
         {
           "run_at": "2026-09-07T14:14:02.768639+00:00",
           "rank": 33
+        },
+        {
+          "run_at": "2026-09-07T14:19:50.796169+00:00",
+          "rank": 33
         }
       ]
     },
@@ -2232,10 +2348,6 @@
       "cluster_id": "3e7cca968a7c",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-05T01:44:07.909533+00:00",
-          "rank": 35
-        },
         {
           "run_at": "2026-09-05T04:43:51.890357+00:00",
           "rank": 35
@@ -2350,6 +2462,10 @@
         },
         {
           "run_at": "2026-09-07T14:14:02.768639+00:00",
+          "rank": 34
+        },
+        {
+          "run_at": "2026-09-07T14:19:50.796169+00:00",
           "rank": 34
         }
       ]
@@ -2375,10 +2491,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-05T01:44:07.909533+00:00",
-          "rank": 36
-        },
-        {
           "run_at": "2026-09-05T04:43:51.890357+00:00",
           "rank": 36
         },
@@ -2492,6 +2604,10 @@
         },
         {
           "run_at": "2026-09-07T14:14:02.768639+00:00",
+          "rank": 35
+        },
+        {
+          "run_at": "2026-09-07T14:19:50.796169+00:00",
           "rank": 35
         }
       ]
@@ -2517,10 +2633,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-05T01:44:07.909533+00:00",
-          "rank": 37
-        },
-        {
           "run_at": "2026-09-05T04:43:51.890357+00:00",
           "rank": 37
         },
@@ -2634,6 +2746,10 @@
         },
         {
           "run_at": "2026-09-07T14:14:02.768639+00:00",
+          "rank": 36
+        },
+        {
+          "run_at": "2026-09-07T14:19:50.796169+00:00",
           "rank": 36
         }
       ]
