@@ -58,21 +58,29 @@ def parse_guopin(payload: dict[str, Any], keyword: str, provinces: list[str], li
         company = _plain(_first(row, "company_name", "company_show_name") or _first(company_info, "show_name", "company_name", "name"), 120)
         district = _first(row, "district_list", "work_city", "city_name", "location")
         if isinstance(district, list):
-            city = "、".join(_plain(value.get("name") if isinstance(value, dict) else value, 40) for value in district)
+            city = "、".join(
+                _plain(_first(value, "area_cn", "name", "city_name", "address") if isinstance(value, dict) else value, 80)
+                for value in district
+            )
         else:
             city = _plain(district, 100)
         if provinces and not any(province.casefold() in city.casefold() for province in provinces):
             continue
         if not job_id or not title:
             continue
-        nature = _plain(_first(row, "nature_cn", "job_nature_cn", "recruit_type") or _first(company_info, "nature_cn", "nature"), 50)
+        nature = _plain(
+            _first(row, "recruitment_type_cn", "job_nature_cn", "recruit_type", "nature_cn")
+            or _first(company_info, "nature_cn", "nature"),
+            50,
+        )
         company_nature = _plain(_first(company_info, "nature_cn", "nature"), 50)
         central = _truthy(_first(row, "is_central_soe", "is_central", "is_central_enterprise")) or "央企" in f"{company_nature}{company}"
         state_owned = central or any(token in f"{company_nature}{company}" for token in ("国企", "国有"))
-        description = _plain(_first(row, "job_description_template", "job_description", "description", "duty"), 200)
+        description = _plain(_first(row, "contents", "job_description_template", "job_description", "description", "duty"), 200)
         published = _plain(_first(row, "publish_time", "update_time", "create_time", "published_at"), 40) or None
         source_url = str(_first(row, "source_url", "job_url", "url")).strip()
-        url = source_url if source_url.startswith(("http://", "https://")) else f"https://www.iguopin.com/job/detail?id={job_id}"
+        source = "campus" if nature in {"校园招聘", "校招"} else "social"
+        url = source_url if source_url.startswith(("http://", "https://")) else f"https://www.iguopin.com/job/detail?id={job_id}&source={source}"
         items.append(Item(
             source="jobs", rank=0, title=title, title_zh=title, url=url,
             summary_zh=description, published_at=published,
@@ -134,7 +142,7 @@ class GuopinCollector(BaseCollector):
 
     async def fetch(self) -> list[Item]:
         config = self.load_config()
-        endpoint = str(config.get("api_url") or "https://api4.iguopin.com/api/jobs/v1/recom-job")
+        endpoint = str(config.get("api_url") or "https://gp-api.iguopin.com/api/jobs/v1/recom-job")
         keywords = [str(value).strip() for value in config.get("keywords", []) if str(value).strip()]
         provinces = [str(value).strip() for value in config.get("provinces", []) if str(value).strip()]
         job_nature = [str(value).strip() for value in config.get("job_nature", []) if str(value).strip()]

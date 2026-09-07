@@ -20,6 +20,7 @@ from app.models import Item
 LOGGER = logging.getLogger(__name__)
 UTC = timezone.utc
 DATE_RE = re.compile(r"(?<!\d)(20\d{2})[-/.年](\d{1,2})[-/.月](\d{1,2})(?:日)?")
+WAF_MARKERS = ("aliyun_waf_aa", "aliyun_waf", "acw_sc__v2", "waf challenge")
 
 
 def _clean(value: object, limit: int = 240) -> str:
@@ -31,6 +32,12 @@ def _iso_date(value: str) -> str | None:
     if not match:
         return None
     return f"{int(match.group(1)):04d}-{int(match.group(2)):02d}-{int(match.group(3)):02d}"
+
+
+def is_waf_challenge(html_text: str) -> bool:
+    """Recognize the official site's Alibaba WAF page and avoid a long selector wait."""
+    lowered = html_text.casefold()
+    return any(marker in lowered for marker in WAF_MARKERS)
 
 
 def _search_property(href: str) -> dict[str, Any]:
@@ -167,6 +174,10 @@ class YingjieshengCollector(BaseCollector):
                         try:
                             from urllib.parse import quote
                             await page.goto(template.format(keyword=quote(keyword)), wait_until="domcontentloaded", timeout=30_000)
+                            initial_html = await page.content()
+                            if is_waf_challenge(initial_html):
+                                keyword_errors.append(f"{template}: blocked by site WAF")
+                                continue
                             await page.wait_for_selector('a[href*="/jobdetail/"]', timeout=15_000)
                             parsed = parse_search_html(await page.content(), keyword, cities, types, limit)
                             if parsed:

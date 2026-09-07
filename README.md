@@ -101,7 +101,7 @@ python -m app.run --retranslate
 
 - `config/job_radar.yaml` 维护关键词、每词上限与无接口公司的官网直达。
 - `config/yingjiesheng.yaml` 维护应届生职位与宣讲会的关键词、城市、类型和时间窗；搜索页使用 Playwright，宣讲会列表独立抓取，任一路失败不会清空另一条。
-- `config/guopin.yaml` 使用国聘当前 `api4.iguopin.com` 职位接口并维护关键词、省份和招聘性质；接口风控或空响应只降级国聘。
+- `config/guopin.yaml` 使用国聘当前 `gp-api.iguopin.com` 职位接口并维护关键词、省份和招聘性质；接口风控或空响应只降级国聘。
 - `config/campus_jobs_sources.yaml` 默认监听东北林业大学就业信息网，国内服务器每 12 小时写 `server-jobs.json`；选调/定向公告同时进入公考与预警。部署见 [`DEPLOY_CAMPUS_JOBS.md`](DEPLOY_CAMPUS_JOBS.md)。
 - 腾讯 JSON API 与字节 JSON API 各自重试、独立降级；字节站的浏览器签名/风控可能返回 405，此时腾讯结果和直达按钮仍可用。
 - 去重键为岗位名 + 公司；同一职位命中多个关键词会合并关键词并优先展示。

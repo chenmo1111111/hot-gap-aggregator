@@ -12,5 +12,8 @@ def test_guopin_mapping_and_central_soe_detection() -> None:
     assert item.title == "生物信息算法工程师"
     assert item.extra["company"] == "中央示例集团"
     assert item.extra["education"] == "硕士"
+    assert item.extra["city"] == "北京-海淀区"
+    assert item.extra["recruitment_type"] == "校园招聘"
     assert item.extra["is_central_soe"] is True
-    assert item.url == "https://www.iguopin.com/job/detail?id=gp-001"
+    assert item.summary_zh == "负责单细胞数据分析与算法开发"
+    assert item.url == "https://www.iguopin.com/job/detail?id=gp-001&source=campus"

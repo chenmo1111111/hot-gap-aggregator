@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from app.collectors.yingjiesheng import parse_search_html, parse_xjh_html
+from app.collectors.yingjiesheng import is_waf_challenge, parse_search_html, parse_xjh_html
 
 
 FIXTURES = Path(__file__).parent / "fixtures"
@@ -28,3 +28,8 @@ def test_yingjiesheng_xjh_mapping_and_city_filter() -> None:
     assert items[0].title == "示例生物 宣讲会"
     assert items[0].extra["school"] == "清华大学"
     assert items[0].url == "https://my.yingjiesheng.com/xjh-001.html"
+
+
+def test_yingjiesheng_waf_page_is_detected_without_waiting_for_cards() -> None:
+    assert is_waf_challenge('<meta name="aliyun_waf_aa" content="1">') is True
+    assert is_waf_challenge('<a href="/jobdetail/1">job</a>') is False
