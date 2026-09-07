@@ -31,6 +31,13 @@ def _clean(value: object, limit: int = 240) -> str:
     return " ".join(re.sub(r"<[^>]+>", " ", str(value or "")).split())[:limit]
 
 
+def decode_yingjiesheng_html(content: bytes) -> str:
+    """Honor the legacy GBK declaration used by the working XJH endpoint."""
+    head = content[:4096].lower()
+    encoding = "gb18030" if b"charset=\"gbk\"" in head or b"charset=gbk" in head else "utf-8"
+    return content.decode(encoding, errors="replace")
+
+
 def _iso_date(value: str) -> str | None:
     match = DATE_RE.search(value)
     if not match:
@@ -148,7 +155,10 @@ def parse_xjh_html(html_text: str, cities: list[str], limit: int) -> list[Item]:
     tree = HTMLParser(html_text)
     items: list[Item] = []
     seen: set[str] = set()
-    for row in tree.css("table.li, table[class*=li]"):
+    rows = tree.css("div.listul tr")
+    if not rows:
+        rows = [node.css_first("tr") or node for node in tree.css("table.li, table[class*=li]")]
+    for row in rows:
         cells = row.css("td")
         if len(cells) < 6:
             continue
@@ -261,7 +271,7 @@ class YingjieshengCollector(BaseCollector):
 
     async def _fetch_xjh(self, cities: list[str], limit: int) -> list[Item]:
         response = await self.request(self.xjh_url, headers={"Accept": "text/html"})
-        return parse_xjh_html(response.text, cities, limit)
+        return parse_xjh_html(decode_yingjiesheng_html(response.content), cities, limit)
 
     @staticmethod
     def _timestamp(item: Item) -> float:

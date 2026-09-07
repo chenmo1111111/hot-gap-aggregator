@@ -1,7 +1,8 @@
 from pathlib import Path
 
 from app.collectors.yingjiesheng import (
-    is_waf_challenge, parse_fallback_html, parse_search_html, parse_xjh_html,
+    decode_yingjiesheng_html, is_waf_challenge,
+    parse_fallback_html, parse_search_html, parse_xjh_html,
 )
 
 
@@ -30,6 +31,11 @@ def test_yingjiesheng_xjh_mapping_and_city_filter() -> None:
     assert items[0].title == "示例生物 宣讲会"
     assert items[0].extra["school"] == "清华大学"
     assert items[0].url == "https://my.yingjiesheng.com/xjh-001.html"
+
+
+def test_yingjiesheng_legacy_gbk_is_decoded() -> None:
+    encoded = '<meta charset="gbk"><td>北京宣讲会</td>'.encode("gb18030")
+    assert "北京宣讲会" in decode_yingjiesheng_html(encoded)
 
 
 def test_yingjiesheng_waf_page_is_detected_without_waiting_for_cards() -> None:
