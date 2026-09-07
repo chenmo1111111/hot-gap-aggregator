@@ -219,7 +219,7 @@ cd /path/to/hot-gap-aggregator
 
 建议默认关闭互联网匿名编辑，只给确实需要维护手动行的成员编辑权限。
 
-## 每天 7 点自动刷新秋招和公考网页源
+## 每天 5 点自动刷新秋招和公考网页源
 
 两个来源表只允许网页查看，不能通过你的自建应用 OpenAPI 导出。因此抓取任务运行在 Windows
 电脑上，使用独立的 Playwright 浏览器配置保存登录会话；仓库、`.env` 和服务器都不保存来源表
@@ -248,14 +248,15 @@ cd "C:\Users\Administrator\Desktop\简历\hot-gap-aggregator"
 ```
 
 脚本识别到可访问账号后会读取整张表；公告链接列即使在屏幕右侧不可见也能完整取得。然后使用
-“以管理员身份运行”的 PowerShell 注册每天 7:00 自动唤醒任务：
+“以管理员身份运行”的 PowerShell 注册每天 5:00 自动唤醒任务：
 
 ```powershell
 cd "C:\Users\Administrator\Desktop\简历\hot-gap-aggregator"
 powershell -ExecutionPolicy Bypass -File .\scripts\install_wanqing_task.ps1
 ```
 
-计划任务 `HotGap-Wanqing-Feishu-0700` 会在每天北京时间 7:00 唤醒电脑并调用
+计划任务 `HotGap-Wanqing-Feishu-0700`（名称为兼容旧安装而保留）会在每天北京时间 5:00
+唤醒电脑并调用
 `scripts/run_wanqing_sync.ps1`：
 先刷新秋招并读取最新 500 条，再刷新公考表并读取全部有效公告，分别保存诊断截图、上传到 S1
 待处理文件，然后调用受限命令把快照原子保存到 `/var/lib/hot-gap/`。服务器生成秋招文件及

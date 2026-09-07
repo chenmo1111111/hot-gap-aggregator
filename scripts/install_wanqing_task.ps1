@@ -1,7 +1,7 @@
 [CmdletBinding()]
 param(
     [string]$TaskName = "HotGap-Wanqing-Feishu-0700",
-    [string]$RunAt = "07:00"
+    [string]$RunAt = "05:00"
 )
 
 $ErrorActionPreference = "Stop"
@@ -40,7 +40,7 @@ $task = New-ScheduledTask `
     -Trigger $trigger `
     -Settings $settings `
     -Principal $principal `
-    -Description "每天 07:00 唤醒电脑，抓取婉清秋招和飞书公考表并同步至自建飞书多维表格。"
+    -Description "Wake at 05:00 daily, capture Qiuzhao and Gongkao, then sync both to Feishu."
 
 Register-ScheduledTask -TaskName $TaskName -InputObject $task -Force | Out-Null
 $registered = Get-ScheduledTask -TaskName $TaskName
