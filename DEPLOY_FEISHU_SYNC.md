@@ -274,9 +274,14 @@ cd /path/to/hot-gap-aggregator
 .venv/bin/python -m app.pipeline.gongkao_enrich
 ```
 
-结果写入 `gongkao_enriched.json`，公开表从该文件同步。粉笔详情接口固定使用
-`deviceType=3&app=web&av=100&hav=100&kav=100&client_context_id=`，响应是 UTF-8 HTML；脚本只
-取 `#content` 正文。DeepSeek 结果缓存在
+结果写入 `gongkao_enriched.json`，公开表从该文件同步。粉笔热门公告列表按
+`offset=0/50/100/150&num=50` 拉取四页并按公告 ID 去重，再通过详情接口
+`deviceType=3&app=web&av=100&hav=100&kav=100&client_context_id=` 获取 UTF-8 HTML，提取
+`#content` 正文。`export_gongkao` 同时合并服务器的 `server-gongkao.json`；其中选调公告、国家
+公务员局/税务海关公告和高校就业网选调公告，会直接访问其公开 HTTP(S) 公告 URL，自动识别
+UTF-8/GB18030 编码并从常见正文容器中取正文。URL 来源使用规范化 URL 的 SHA-256 作为缓存键，
+不向目标站发送飞书 Cookie；内网地址及 PDF/Word 等非 HTML 页面会拒绝抓取并标为“未提取”。
+DeepSeek 结果缓存在
 `/var/lib/hot-gap/gongkao-enrichment.db` 的 `gongkao_enrichment` 表，同一条、同一源内容不会重复
 计费；内容指纹变化才重新提取。没有 `DEEPSEEK_API_KEY` 或单条请求失败时标为“未提取”并继续
 后续飞书同步。确需重试失败项时运行：

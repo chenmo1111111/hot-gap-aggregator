@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import ipaddress
 import json
 import logging
 import os
@@ -13,6 +14,7 @@ from collections.abc import Mapping
 from datetime import date, datetime
 from pathlib import Path
 from typing import Any
+from urllib.parse import urlsplit, urlunsplit
 
 import httpx
 import yaml
@@ -44,6 +46,12 @@ EXTRACTION_KEYS = (
     "bishi_kemu", "xian_huji", "huji_shuoming", "xian_zhuanye",
     "zhuanye_shuoming", "xueli", "xian_yingjie", "fuwu_qi", "bei_zhu",
 )
+WATCHER_SUBSOURCES = {"xuandiao", "scs", "campus"}
+WEBPAGE_CONTENT_SELECTORS = (
+    "article", "main", "#content", "#zoom", ".article-content", ".detail-content",
+    ".pages_content", ".TRS_Editor", ".zwxl-article", ".article", ".content",
+)
+META_CHARSET_RE = re.compile(br"charset\s*=\s*['\"]?([a-zA-Z0-9_-]+)", re.I)
 
 
 def calculate_signup_status(
@@ -140,6 +148,74 @@ def strip_article_html(html: str) -> str:
     return re.sub(r"\n{3,}", "\n\n", text).strip()
 
 
+def strip_webpage_html(html: str) -> str:
+    """Extract the most likely announcement body from a government HTML page."""
+    tree = HTMLParser(html)
+    for node in tree.css(
+        "script,style,noscript,nav,footer,header,form,svg,.anti-crawler,.share,.toolbar"
+    ):
+        node.decompose()
+    candidates: list[str] = []
+    for selector in WEBPAGE_CONTENT_SELECTORS:
+        node = tree.css_first(selector)
+        if node is None:
+            continue
+        text = " ".join(node.text(separator=" ", strip=True).split())
+        if len(text) >= 20:
+            candidates.append(text)
+    if candidates:
+        return max(candidates, key=len)
+    body = tree.body
+    return " ".join(body.text(separator=" ", strip=True).split()) if body else ""
+
+
+def _decode_web_response(response: httpx.Response) -> str:
+    content = response.content
+    declared = response.headers.get("content-type", "")
+    header_match = re.search(r"charset=([a-zA-Z0-9_-]+)", declared, re.I)
+    meta_match = META_CHARSET_RE.search(content[:4096])
+    encodings = [
+        header_match.group(1) if header_match else "",
+        meta_match.group(1).decode("ascii", "ignore") if meta_match else "",
+        "utf-8",
+        "gb18030",
+    ]
+    for encoding in dict.fromkeys(value.lower() for value in encodings if value):
+        try:
+            return content.decode(encoding)
+        except (LookupError, UnicodeDecodeError):
+            continue
+    return content.decode("utf-8", errors="replace")
+
+
+def _canonical_web_url(value: object) -> str:
+    text = str(value or "").strip()
+    try:
+        parsed = urlsplit(text)
+    except ValueError:
+        return ""
+    if parsed.scheme not in {"http", "https"} or not parsed.hostname:
+        return ""
+    host = parsed.hostname.casefold()
+    if host in {"localhost", "localhost.localdomain"} or host.endswith(".local"):
+        return ""
+    try:
+        address = ipaddress.ip_address(host)
+    except ValueError:
+        pass
+    else:
+        if not address.is_global:
+            return ""
+    return urlunsplit((parsed.scheme.casefold(), parsed.netloc, parsed.path or "/", parsed.query, ""))
+
+
+def url_cache_key(url: str) -> str:
+    canonical = _canonical_web_url(url)
+    if not canonical:
+        return ""
+    return "url:" + hashlib.sha256(canonical.encode("utf-8")).hexdigest()
+
+
 def parse_extraction_json(value: str | Mapping[str, Any]) -> dict[str, Any]:
     if isinstance(value, Mapping):
         raw = dict(value)
@@ -222,6 +298,29 @@ class DeepSeekExtractor:
         self.last_apply_url = str(apply_node.attributes.get("href") or "") if apply_node else ""
         return strip_article_html(html)
 
+    def fetch_url(self, url: str) -> str:
+        canonical = _canonical_web_url(url)
+        if not canonical:
+            raise ValueError("公告 URL 无效或不是公网 HTTP(S) 地址")
+        self.last_apply_url = ""
+        response = self.client.get(
+            canonical,
+            headers={
+                "User-Agent": "Mozilla/5.0 (compatible; hot-gap-gongkao-enrich/1.0)",
+                "Accept": "text/html,application/xhtml+xml",
+            },
+        )
+        response.raise_for_status()
+        if not _canonical_web_url(str(response.url)):
+            raise ValueError("公告 URL 重定向到非公网地址")
+        content_type = response.headers.get("content-type", "").casefold()
+        if response.content.startswith(b"%PDF") or any(
+            marker in content_type
+            for marker in ("application/pdf", "application/octet-stream", "application/msword")
+        ):
+            raise ValueError(f"公告不是可直接解析的 HTML 页面: {content_type or 'unknown'}")
+        return strip_webpage_html(_decode_web_response(response))
+
     def extract(self, text: str) -> dict[str, Any]:
         response = self.client.post(
             f"{self.base_url}/chat/completions",
@@ -258,6 +357,23 @@ def _source_hash(item: Mapping[str, Any]) -> str:
     return hashlib.sha256(value.encode("utf-8")).hexdigest()
 
 
+def _enrichment_source(
+    item: Mapping[str, Any], extra: Mapping[str, Any]
+) -> tuple[str, str, str] | None:
+    article_id = str(extra.get("id") or "").strip()
+    if article_id.isdigit() and str(extra.get("sub") or "") == "announcement":
+        # Keep the legacy numeric cache key so existing Fenbi extractions remain reusable.
+        return "fenbi", article_id, article_id
+    subsource = str(extra.get("subsource") or "").strip().casefold()
+    if subsource not in WATCHER_SUBSOURCES:
+        return None
+    url = _canonical_web_url(
+        item.get("url") or item.get("announcement_url") or extra.get("announcement_url")
+    )
+    cache_key = url_cache_key(url)
+    return ("url", cache_key, url) if cache_key else None
+
+
 def _merge_extracted(extra: dict[str, Any], extracted: Mapping[str, Any], status: str) -> None:
     for key in EXTRACTION_KEYS:
         if key in extracted:
@@ -276,7 +392,11 @@ def enrich_payload(
     source_items = payload.get("items")
     if not isinstance(source_items, list):
         raise ValueError("gongkao payload must contain an items list")
-    stats = {"items": len(source_items), "extracted": 0, "cached": 0, "failed": 0, "skipped": 0}
+    stats = {
+        "items": len(source_items), "extracted": 0, "fenbi_extracted": 0,
+        "url_extracted": 0, "cached": 0, "failed": 0, "fetch_failed": 0,
+        "llm_failed": 0, "skipped": 0,
+    }
     items: list[dict[str, Any]] = []
     failure_streak = 0
     extraction_available = extractor is not None
@@ -295,42 +415,63 @@ def enrich_payload(
         extra["detail_category"] = detail_category(item)
         extra["my_school_eligible"] = is_my_school_eligible(item, school_config)
 
-        article_id = str(extra.get("id") or "").strip()
+        enrichment_source = _enrichment_source(item, extra)
         source_hash = _source_hash(item)
-        cached = cache.get(article_id) if article_id else None
+        cache_key = enrichment_source[1] if enrichment_source else ""
+        cached = cache.get(cache_key) if cache_key else None
         if cached and cached["source_hash"] == source_hash and (
             cached["status"] == "ok" or not retry_failed
         ):
             _merge_extracted(extra, json.loads(cached["提取JSON"]), str(cached["status"]))
             stats["cached"] += 1
-        elif not article_id.isdigit() or str(extra.get("sub") or "") != "announcement":
+        elif enrichment_source is None:
             extra["enrichment_status"] = "未提取"
             stats["skipped"] += 1
         elif not extraction_available or extractor is None:
             extra["enrichment_status"] = "未提取"
             stats["skipped"] += 1
         else:
+            source_kind, cache_key, source_value = enrichment_source
             try:
-                article_text = extractor.fetch_article(article_id)
+                article_text = (
+                    extractor.fetch_article(source_value)
+                    if source_kind == "fenbi"
+                    else extractor.fetch_url(source_value)
+                )
                 if len(article_text) < 20:
-                    raise ValueError("粉笔公告正文为空或过短")
+                    raise ValueError("公告正文为空或过短")
+            except Exception as exc:
+                # A single government site can be unavailable, block robots,
+                # or publish a non-HTML attachment. It must not disable other
+                # domains or the later Feishu sync.
+                LOGGER.warning("%s announcement fetch failed for %s: %s", source_kind, source_value, exc)
+                cache.put(cache_key, source_hash, {}, status="未提取", error=str(exc))
+                extra["enrichment_status"] = "未提取"
+                stats["failed"] += 1
+                stats["fetch_failed"] += 1
+                item["extra"] = extra
+                items.append(item)
+                continue
+            try:
                 extracted = extractor.extract(article_text)
                 apply_url = str(getattr(extractor, "last_apply_url", "") or "").strip()
                 if apply_url:
                     extracted["_apply_url"] = apply_url
-                cache.put(article_id, source_hash, extracted)
+                cache.put(cache_key, source_hash, extracted)
                 _merge_extracted(extra, extracted, "ok")
                 stats["extracted"] += 1
+                stats[f"{source_kind}_extracted"] += 1
                 failure_streak = 0
             except Exception as exc:
-                LOGGER.warning("announcement enrichment failed for %s: %s", article_id, exc)
-                cache.put(article_id, source_hash, {}, status="未提取", error=str(exc))
+                LOGGER.warning("DeepSeek enrichment failed for %s: %s", source_value, exc)
+                cache.put(cache_key, source_hash, {}, status="未提取", error=str(exc))
                 extra["enrichment_status"] = "未提取"
                 stats["failed"] += 1
+                stats["llm_failed"] += 1
                 failure_streak += 1
                 if failure_streak >= 3:
                     extraction_available = False
-                    LOGGER.warning("DeepSeek/Fenbi unavailable after 3 consecutive failures; skip remaining uncached rows")
+                    LOGGER.warning("DeepSeek/announcement source unavailable after 3 consecutive failures; skip remaining uncached rows")
         item["extra"] = extra
         items.append(item)
     output["items"] = items

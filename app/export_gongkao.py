@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import os
 import re
@@ -69,24 +70,46 @@ def _items(payload: Mapping[str, Any], name: str) -> list[dict[str, Any]]:
 def merge_gongkao_payloads(
     base_payload: Mapping[str, Any],
     sheet_payload: Mapping[str, Any] | None,
+    server_payload: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
-    """Return base records followed by only non-duplicate Sheet records."""
+    """Merge CI, mainland watcher, and captured Sheet records without duplicates."""
     base_items = _items(base_payload, "gongkao.json")
     sheet_items = _items(sheet_payload, "gongkao_sheet.json") if sheet_payload else []
+    server_items = _items(server_payload, "server-gongkao.json") if server_payload else []
 
     merged: list[dict[str, Any]] = []
     seen: set[str] = set()
-    duplicate_count = 0
+    sheet_duplicate_count = 0
+    server_duplicate_count = 0
     # Existing Gongkao records are authoritative and retain their cardinality,
     # IDs and order even if the upstream feed itself contains similar entries.
     for item in base_items:
         seen.update(_identity_keys(item))
         item["rank"] = len(merged) + 1
         merged.append(item)
+    # Mainland watcher records are official and take precedence over the
+    # manually captured Sheet when both point at the same announcement.
+    for item in server_items:
+        keys = _identity_keys(item)
+        if keys and seen.intersection(keys):
+            server_duplicate_count += 1
+            continue
+        extra = dict(_extra(item))
+        url = _canonical_url(item.get("url") or extra.get("announcement_url"))
+        if not extra.get("id") and url:
+            digest = hashlib.sha256(url.encode("utf-8")).hexdigest()[:24]
+            extra["id"] = f"watcher:{digest}"
+        extra.setdefault("sub", "announcement")
+        item["extra"] = extra
+        seen.update(keys)
+        item["rank"] = len(merged) + 1
+        merged.append(item)
+    server_added_count = len(merged) - len(base_items)
+
     for item in sheet_items:
         keys = _identity_keys(item)
         if keys and seen.intersection(keys):
-            duplicate_count += 1
+            sheet_duplicate_count += 1
             continue
         seen.update(keys)
         item["rank"] = len(merged) + 1
@@ -100,9 +123,16 @@ def merge_gongkao_payloads(
             "item_count": len(merged),
             "base_item_count": len(base_items),
             "sheet_item_count": len(sheet_items),
-            "sheet_added_count": len(merged) - len(base_items),
-            "sheet_duplicate_count": duplicate_count,
-            "upstream_sources": ["gongkao", "feishu_sheet"] if sheet_items else ["gongkao"],
+            "server_item_count": len(server_items),
+            "server_added_count": server_added_count,
+            "server_duplicate_count": server_duplicate_count,
+            "sheet_added_count": len(merged) - len(base_items) - server_added_count,
+            "sheet_duplicate_count": sheet_duplicate_count,
+            "upstream_sources": [
+                "gongkao",
+                *(["gongkao_official"] if server_items else []),
+                *(["feishu_sheet"] if sheet_items else []),
+            ],
         }
     )
     return {
@@ -117,6 +147,7 @@ def write_gongkao(data_dir: str | Path) -> dict[str, Any]:
     target = Path(data_dir)
     base_path = target / "gongkao.json"
     sheet_path = target / "gongkao_sheet.json"
+    server_path = target / "server-gongkao.json"
     base_payload = json.loads(base_path.read_text(encoding="utf-8"))
     if not isinstance(base_payload, dict):
         raise ValueError("gongkao.json must contain a JSON object")
@@ -127,7 +158,14 @@ def write_gongkao(data_dir: str | Path) -> dict[str, Any]:
             raise ValueError("gongkao_sheet.json must contain a JSON object")
         sheet_payload = value
 
-    output = merge_gongkao_payloads(base_payload, sheet_payload)
+    server_payload: dict[str, Any] | None = None
+    if server_path.exists():
+        value = json.loads(server_path.read_text(encoding="utf-8"))
+        if not isinstance(value, dict):
+            raise ValueError("server-gongkao.json must contain a JSON object")
+        server_payload = value
+
+    output = merge_gongkao_payloads(base_payload, sheet_payload, server_payload)
     destination = target / "gongkao_feishu.json"
     temporary = destination.with_suffix(".json.tmp")
     temporary.write_text(json.dumps(output, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
@@ -147,6 +185,7 @@ def main() -> int:
                 "event": "gongkao_exported",
                 "item_count": len(output["items"]),
                 "sheet_added_count": output["status"]["sheet_added_count"],
+                "server_added_count": output["status"]["server_added_count"],
             },
             ensure_ascii=False,
         )

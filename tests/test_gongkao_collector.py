@@ -1,6 +1,8 @@
 import json
 from pathlib import Path
 
+import pytest
+
 from app.collectors.gongkao import GongkaoCollector
 from app.collectors.gongkao_types import article_type, timeline_type
 
@@ -35,3 +37,37 @@ def test_selection_and_national_exam_types_are_normalized() -> None:
     assert timeline_type(1) == "国考"
     assert article_type([], "中央机关及其直属机构考试录用公务员公告") == "国考"
     assert article_type([{"type": 2, "name": "中央选调"}]) == "选调生"
+
+
+@pytest.mark.asyncio
+async def test_gongkao_fetches_four_article_pages_and_deduplicates(monkeypatch, tmp_path) -> None:
+    collector = GongkaoCollector(tmp_path / "missing.yaml")
+    calls: list[tuple[str, int]] = []
+
+    class Response:
+        def __init__(self, payload: dict) -> None:
+            self.payload = payload
+
+        def json(self) -> dict:
+            return self.payload
+
+    async def request(url: str, **kwargs):
+        params = kwargs["params"]
+        if url == collector.article_endpoint:
+            offset = int(params["offset"])
+            calls.append(("article", offset))
+            article_id = 100 if offset == 50 else offset + 100
+            return Response({"data": {"articles": [{"id": article_id, "title": f"公告{offset}"}]}})
+        calls.append(("timeline", int(params["offset"])))
+        return Response({"datas": [{"id": 100, "topic": "考试日历"}]})
+
+    monkeypatch.setattr(collector, "request", request)
+    items = await collector.fetch()
+
+    assert [offset for kind, offset in calls if kind == "article"] == [0, 50, 100, 150]
+    # The duplicate article ID from offset 50 is removed, but a timeline with
+    # the same numeric ID remains because it is a different record kind.
+    assert [(item.extra["sub"], item.extra["id"]) for item in items] == [
+        ("announcement", 100), ("announcement", 200), ("announcement", 250),
+        ("timeline", 100),
+    ]

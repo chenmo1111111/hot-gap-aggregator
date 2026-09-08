@@ -48,3 +48,24 @@ def test_write_gongkao_uses_snapshot_when_present_and_writes_separate_output(tmp
     assert written == result
     assert len(result["items"]) == 2
     assert json.loads((tmp_path / "gongkao.json").read_text(encoding="utf-8")) == base
+
+
+def test_merge_adds_server_watchers_before_sheet_and_assigns_stable_id() -> None:
+    base = {"items": [_item("base", "基础公告", "https://a.test/1")]}
+    server = {
+        "items": [{
+            "title": "辽宁定向选调公告",
+            "url": "https://gov.test/xuandiao/1",
+            "extra": {"subsource": "xuandiao", "province": "辽宁"},
+        }]
+    }
+    sheet = {"items": [_item("sheet", "重复的表格公告", "https://gov.test/xuandiao/1")]}
+
+    output = merge_gongkao_payloads(base, sheet, server)
+
+    assert len(output["items"]) == 2
+    watcher = output["items"][1]
+    assert watcher["extra"]["id"].startswith("watcher:")
+    assert watcher["extra"]["sub"] == "announcement"
+    assert output["status"]["server_added_count"] == 1
+    assert output["status"]["sheet_duplicate_count"] == 1

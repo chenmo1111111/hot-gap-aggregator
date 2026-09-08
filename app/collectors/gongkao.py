@@ -19,6 +19,8 @@ class GongkaoCollector(BaseCollector):
     article_endpoint = "https://hera-webapp.fenbi.com/api/website/article/hot/list/v3"
     timeline_endpoint = "https://market-api.fenbi.com/toolkit/api/v1/timeline/getTimeLineDetails"
     common_params = {"app": "web", "av": 100, "hav": 100, "kav": 100, "client_context_id": ""}
+    article_offsets = (0, 50, 100, 150)
+    article_page_size = 50
 
     def __init__(self, watch_config: str | Path | None = None) -> None:
         self.watch_config = Path(watch_config or os.getenv("GONGKAO_WATCH_CONFIG", "config/gongkao_watch.yaml"))
@@ -76,25 +78,37 @@ class GongkaoCollector(BaseCollector):
         return items
 
     async def fetch(self) -> list[Item]:
-        article_params = {**self.common_params, "offset": 0, "num": 50}
         timeline_params = {**self.common_params, "districtId": 0, "type": -1, "offset": 0, "size": 50}
+        article_requests = [
+            self.request(
+                self.article_endpoint,
+                params={**self.common_params, "offset": offset, "num": self.article_page_size},
+            )
+            for offset in self.article_offsets
+        ]
         results = await asyncio.gather(
-            self.request(self.article_endpoint, params=article_params),
+            *article_requests,
             self.request(self.timeline_endpoint, params=timeline_params),
             return_exceptions=True,
         )
         items: list[Item] = []
         errors: list[str] = []
-        if isinstance(results[0], Exception):
-            errors.append(str(results[0]))
+        for offset, result in zip(self.article_offsets, results[:-1], strict=True):
+            if isinstance(result, Exception):
+                errors.append(f"article offset={offset}: {result}")
+            else:
+                items.extend(self.parse_articles(result.json()))
+        timeline_result = results[-1]
+        if isinstance(timeline_result, Exception):
+            errors.append(f"timeline: {timeline_result}")
         else:
-            items.extend(self.parse_articles(results[0].json()))
-        if isinstance(results[1], Exception):
-            errors.append(str(results[1]))
-        else:
-            items.extend(self.parse_timeline(results[1].json()))
+            items.extend(self.parse_timeline(timeline_result.json()))
         if not items:
             raise SourceUnavailable("; ".join(errors) or "Fenbi returned no items", status="degraded")
+        unique: dict[tuple[str, str], Item] = {}
+        for item in items:
+            unique.setdefault((str(item.extra.get("sub") or ""), str(item.extra.get("id") or "")), item)
+        items = list(unique.values())
         self._annotate_watch_targets(items)
         for index, item in enumerate(items, 1):
             item.rank = index
