@@ -3,7 +3,10 @@ from __future__ import annotations
 import sqlite3
 from datetime import date
 
+import httpx
+
 from app.pipeline.gongkao_enrich import (
+    DeepSeekExtractor,
     EnrichmentCache,
     calculate_signup_status,
     enrich_payload,
@@ -61,6 +64,32 @@ def test_official_apply_url_extraction_prefers_labeled_application_link() -> Non
     <a href="https://career.company.example/campus/apply">立即投递</a>
     """
     assert extract_official_apply_url(html) == "https://career.company.example/campus/apply"
+
+
+def test_web_search_follows_information_result_to_official_portal() -> None:
+    def handler(request: httpx.Request) -> httpx.Response:
+        if request.url.host == "cn.bing.com":
+            return httpx.Response(200, content="""<?xml version="1.0" encoding="utf-8"?>
+            <rss><channel><item><title>招商证券2027校园招聘</title>
+            <link>https://career.school.edu.cn/notice/1</link>
+            <description>招商证券校园招聘公告</description></item></channel></rss>""".encode())
+        return httpx.Response(
+            200,
+            text='<article>招商证券2027校园招聘，请登录 cms.hotjob.cn 投递简历。</article>',
+            headers={"content-type": "text/html; charset=utf-8"},
+        )
+
+    extractor = DeepSeekExtractor("unused")
+    extractor.client.close()
+    extractor.client = httpx.Client(
+        transport=httpx.MockTransport(handler), follow_redirects=True
+    )
+    try:
+        assert extractor.search_official_apply_url(
+            "招商证券", "招商证券2027年校园招聘现已全面启动"
+        ) == "https://cms.hotjob.cn"
+    finally:
+        extractor.close()
 
 
 def test_selection_school_uses_explicit_list_before_fallback() -> None:

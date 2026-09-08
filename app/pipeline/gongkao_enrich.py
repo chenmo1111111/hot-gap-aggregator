@@ -11,6 +11,7 @@ import logging
 import os
 import re
 import sqlite3
+import xml.etree.ElementTree as ET
 from collections.abc import Mapping
 from datetime import date, datetime, timedelta
 from pathlib import Path
@@ -62,6 +63,15 @@ META_CHARSET_RE = re.compile(br"charset\s*=\s*['\"]?([a-zA-Z0-9_-]+)", re.I)
 APPLY_HOST_HINTS = ("hotjob", "career", "jobs", "job", "recruit", "campus", "zhaopin", "join")
 APPLY_PATH_HINTS = ("apply", "position", "job", "career", "campus", "recruit", "join")
 APPLY_TEXT_HINTS = ("立即报名", "立即投递", "投递简历", "申请职位", "招聘官网", "报名入口", "查看职位")
+RECRUIT_PORTAL_HOST_HINTS = (
+    "hotjob", "career", "jobs", "job", "recruit", "campus", "zhaopin", "join",
+    "mokahr", "zhiye", "hirede", "workdayjobs", "51job",
+)
+NON_PORTAL_HOST_SUFFIXES = (
+    "edu.cn", "gov.cn", "fenbi.com", "zhihu.com", "weixin.qq.com", "qq.com",
+    "sohu.com", "163.com", "baidu.com", "bing.com", "offcn.com", "nowcoder.com",
+    "wondercv.com", "yingjiesheng.com", "niuqizp.com",
+)
 ABSOLUTE_URL_RE = re.compile(r"https?://[^\s<>'\"）)]+", re.I)
 BARE_RECRUIT_HOST_RE = re.compile(
     r"(?<![@\w])((?:[a-z0-9-]+\.)+(?:com|cn|net|org)(?:/[a-z0-9_./?=&%+#~-]*)?)",
@@ -201,6 +211,32 @@ def extract_official_apply_url(document: str, base_url: str = "") -> str:
     for order, match in enumerate(BARE_RECRUIT_HOST_RE.finditer(text), start=20_000):
         add("https://" + match.group(1), "", order)
     return max(candidates)[2] if candidates else ""
+
+
+def _likely_recruit_portal(url: object) -> bool:
+    safe = actionable_apply_url(url)
+    if not safe:
+        return False
+    parsed = urlsplit(safe)
+    host = (parsed.hostname or "").casefold().rstrip(".")
+    if any(host == suffix or host.endswith("." + suffix) for suffix in NON_PORTAL_HOST_SUFFIXES):
+        return False
+    path = parsed.path.casefold()
+    return any(hint in host for hint in RECRUIT_PORTAL_HOST_HINTS) or any(
+        hint in path for hint in ("/career", "/jobs", "/job/", "/recruit", "/campus", "/apply")
+    )
+
+
+def _company_search_name(item: Mapping[str, Any], extra: Mapping[str, Any]) -> str:
+    explicit = next((str(value).strip() for value in (
+        item.get("company_name"), item.get("company"), extra.get("company"), extra.get("unit"),
+    ) if str(value or "").strip()), "")
+    if explicit:
+        return explicit
+    title = str(item.get("title_zh") or item.get("title") or "").strip()
+    title = re.sub(r"^20\d{2}(?:年度)?届?", "", title).strip(" ：:｜|-—")
+    marker = re.search(r"(?:20\d{2}(?:年度)?届?|春季|秋季)?(?:全球|全国)?(?:校园招聘|校招)", title)
+    return title[: marker.start()].strip(" ：:｜|-—") if marker else title
 
 
 def _decode_web_response(response: httpx.Response) -> str:
@@ -421,6 +457,67 @@ class DeepSeekExtractor:
         self.last_apply_url = extract_official_apply_url(html, str(response.url))
         return strip_webpage_html(html)
 
+    def search_official_apply_url(self, company: str, title: str) -> str:
+        """Search the public web and verify an employer/ATS application page."""
+        company = str(company or "").strip()
+        title = str(title or "").strip()
+        if not company and not title:
+            return ""
+        response = self.client.get(
+            "https://cn.bing.com/search",
+            params={"q": f'"{company}" "{title}" 官网 投递', "format": "rss", "count": "8"},
+            headers={
+                "User-Agent": "Mozilla/5.0 (compatible; hot-gap-link-finder/1.0)",
+                "Accept": "application/rss+xml,application/xml,text/xml,text/html",
+            },
+        )
+        response.raise_for_status()
+        try:
+            root = ET.fromstring(response.content)
+        except ET.ParseError as exc:
+            raise ValueError("搜索服务未返回可解析的 RSS") from exc
+
+        company_key = re.sub(r"(?:股份)?有限公司$", "", company).strip()
+        result_items = root.findall(".//item")[:8]
+        inspected_pages = 0
+        for result in result_items:
+            link = str(result.findtext("link") or "").strip()
+            result_title = str(result.findtext("title") or "")
+            description = html_lib.unescape(str(result.findtext("description") or ""))
+            context = f"{result_title} {description}"
+            if company_key and company_key not in context and company not in context:
+                continue
+            if _likely_recruit_portal(link):
+                return actionable_apply_url(link)
+
+            # University/employment-news results often quote the official ATS
+            # URL even when Fenbi itself does not. Inspect at most four such
+            # pages and only accept a link that looks like a recruitment portal.
+            if not actionable_apply_url(link):
+                continue
+            if inspected_pages >= 4:
+                break
+            inspected_pages += 1
+            try:
+                page = self.client.get(
+                    link,
+                    headers={
+                        "User-Agent": "Mozilla/5.0 (compatible; hot-gap-link-finder/1.0)",
+                        "Accept": "text/html,application/xhtml+xml",
+                    },
+                )
+                page.raise_for_status()
+                page_html = _decode_web_response(page)
+                page_text = strip_webpage_html(page_html)
+                if company_key and company_key not in f"{context} {page_text}":
+                    continue
+                candidate = extract_official_apply_url(page_html, str(page.url))
+                if _likely_recruit_portal(candidate):
+                    return candidate
+            except (httpx.HTTPError, ValueError):
+                continue
+        return ""
+
     def extract(self, text: str, *, include_xuandiao_scope: bool = False) -> dict[str, Any]:
         system_prompt = DEEPSEEK_SYSTEM_PROMPT + (
             XUANDIAO_SCOPE_PROMPT if include_xuandiao_scope else ""
@@ -537,6 +634,26 @@ def _merge_extracted(extra: dict[str, Any], extracted: Mapping[str, Any], status
         extra.pop("apply_url", None)
 
 
+def _search_apply_url(
+    extractor: object, item: Mapping[str, Any], extra: Mapping[str, Any], stats: dict[str, int]
+) -> str | None:
+    search = getattr(extractor, "search_official_apply_url", None)
+    if not callable(search):
+        return None
+    stats["apply_url_searched"] += 1
+    try:
+        result = actionable_apply_url(search(
+            _company_search_name(item, extra),
+            str(item.get("title_zh") or item.get("title") or ""),
+        ))
+    except Exception as exc:
+        LOGGER.warning("official application URL search failed: %s", exc)
+        return None
+    if result:
+        stats["apply_url_search_found"] += 1
+    return result
+
+
 def enrich_payload(
     payload: Mapping[str, Any], *, cache: EnrichmentCache,
     school_config: Mapping[str, Any], extractor: DeepSeekExtractor | None,
@@ -550,6 +667,7 @@ def enrich_payload(
         "items": len(source_items), "extracted": 0, "fenbi_extracted": 0,
         "url_extracted": 0, "cached": 0, "failed": 0, "fetch_failed": 0,
         "llm_failed": 0, "skipped": 0, "apply_url_backfilled": 0,
+        "apply_url_searched": 0, "apply_url_search_found": 0,
     }
     items: list[dict[str, Any]] = []
     failure_streak = 0
@@ -612,6 +730,22 @@ def enrich_payload(
                     )
                 except Exception as exc:
                     LOGGER.warning("application URL backfill failed for %s: %s", source_value, exc)
+            if (
+                extra.get("record_kind") == "秋招"
+                and not actionable_apply_url(cached_extracted.get("_apply_url"))
+                and "_apply_url_search_checked_v1" not in cached_extracted
+                and extraction_available
+                and extractor is not None
+            ):
+                search_result = _search_apply_url(extractor, item, extra, stats)
+                if search_result is not None:
+                    if search_result:
+                        cached_extracted["_apply_url"] = search_result
+                    cached_extracted["_apply_url_search_checked_v1"] = True
+                    cache.put(
+                        cache_key, source_hash, cached_extracted,
+                        status=str(cached["status"]), error=str(cached.get("error") or ""),
+                    )
             _merge_extracted(extra, cached_extracted, str(cached["status"]))
             stats["cached"] += 1
         elif enrichment_source is None:
@@ -635,7 +769,15 @@ def enrich_payload(
                 # or publish a non-HTML attachment. It must not disable other
                 # domains or the later Feishu sync.
                 LOGGER.warning("%s announcement fetch failed for %s: %s", source_kind, source_value, exc)
-                cache.put(cache_key, source_hash, {}, status="未提取", error=str(exc))
+                link_only: dict[str, Any] = {"_apply_url_checked_v1": True}
+                if extra.get("record_kind") == "秋招":
+                    search_result = _search_apply_url(extractor, item, extra, stats)
+                    if search_result is not None:
+                        if search_result:
+                            link_only["_apply_url"] = search_result
+                        link_only["_apply_url_search_checked_v1"] = True
+                cache.put(cache_key, source_hash, link_only, status="未提取", error=str(exc))
+                _merge_extracted(extra, link_only, "未提取")
                 extra["enrichment_status"] = "未提取"
                 stats["failed"] += 1
                 stats["fetch_failed"] += 1
@@ -649,6 +791,11 @@ def enrich_payload(
                 )
                 extracted["_apply_url_checked_v1"] = True
                 apply_url = actionable_apply_url(getattr(extractor, "last_apply_url", ""))
+                if not apply_url and extra.get("record_kind") == "秋招":
+                    search_result = _search_apply_url(extractor, item, extra, stats)
+                    if search_result is not None:
+                        apply_url = search_result
+                        extracted["_apply_url_search_checked_v1"] = True
                 if apply_url:
                     extracted["_apply_url"] = apply_url
                 cache.put(cache_key, source_hash, extracted)
@@ -664,6 +811,13 @@ def enrich_payload(
                 if apply_url := actionable_apply_url(getattr(extractor, "last_apply_url", "")):
                     link_only["_apply_url"] = apply_url
                     _merge_extracted(extra, link_only, "未提取")
+                elif extra.get("record_kind") == "秋招":
+                    search_result = _search_apply_url(extractor, item, extra, stats)
+                    if search_result:
+                        link_only["_apply_url"] = search_result
+                        _merge_extracted(extra, link_only, "未提取")
+                    if search_result is not None:
+                        link_only["_apply_url_search_checked_v1"] = True
                 cache.put(cache_key, source_hash, link_only, status="未提取", error=str(exc))
                 extra["enrichment_status"] = "未提取"
                 stats["failed"] += 1
