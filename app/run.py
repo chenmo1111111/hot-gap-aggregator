@@ -18,6 +18,7 @@ from app.models import Item
 from app.notify import notify_top20
 from app.pipeline.cluster import cluster_items
 from app.pipeline.processor import process_items
+from app.pipeline.prune import load_retention, prune_database
 from app.pipeline.trends import export_trends
 from app.pipeline.translator import create_translator
 from app.store.database import Database
@@ -77,6 +78,8 @@ async def main(send_notifications: bool = False, retranslate: bool = False) -> N
             database.save_status(run_at, source, status, duration_ms, error or "unknown error")
         log_event("source_finished", source=source, status=status, item_count=len(items), duration_ms=duration_ms, error=error)
 
+    prune_stats = prune_database(database, load_retention(), now=datetime.now(UTC))
+    log_event("prune_finished", **prune_stats)
     export_json(database, run_at, sources)
     trends = export_trends(database, run_at)
     if send_notifications:

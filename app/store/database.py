@@ -72,6 +72,8 @@ class Database:
         if "payload" not in snapshot_columns:
             self.connection.execute("ALTER TABLE snapshots ADD COLUMN payload TEXT")
         self._migrate_translations()
+        self._migrate_cache_last_hit("translations")
+        self._migrate_cache_last_hit("summaries")
         self.connection.execute("CREATE INDEX IF NOT EXISTS idx_summaries_provider ON summaries(provider, text_hash)")
         self.connection.execute("PRAGMA optimize")
         self.connection.commit()
@@ -101,6 +103,14 @@ class Database:
             ALTER TABLE translations_v2 RENAME TO translations;
         """)
 
+    def _migrate_cache_last_hit(self, table: str) -> None:
+        columns = {row["name"] for row in self.connection.execute(f"PRAGMA table_info({table})")}
+        if "last_hit_at" not in columns:
+            self.connection.execute(f"ALTER TABLE {table} ADD COLUMN last_hit_at TEXT")
+            self.connection.execute(
+                f"UPDATE {table} SET last_hit_at=created_at WHERE last_hit_at IS NULL"
+            )
+
     def get_translations(self, texts: list[str], provider: str = "legacy") -> dict[str, str]:
         if not texts:
             return {}
@@ -110,13 +120,20 @@ class Database:
             f"SELECT source_text, translated_text FROM translations WHERE provider=? AND text_hash IN ({placeholders})",
             [provider, *hashes],
         ).fetchall()
+        if rows:
+            now = datetime.now(UTC).isoformat()
+            self.connection.execute(
+                f"UPDATE translations SET last_hit_at=? WHERE provider=? AND text_hash IN ({placeholders})",
+                [now, provider, *hashes],
+            )
+            self.connection.commit()
         return {row["source_text"]: row["translated_text"] for row in rows}
 
     def save_translations(self, translations: dict[str, str], provider: str = "legacy") -> None:
         now = datetime.now(UTC).isoformat()
         self.connection.executemany(
-            "INSERT OR REPLACE INTO translations(text_hash,provider,source_text,translated_text,created_at) VALUES(?,?,?,?,?)",
-            [(text_hash(source), provider, source, target, now) for source, target in translations.items()],
+            "INSERT OR REPLACE INTO translations(text_hash,provider,source_text,translated_text,created_at,last_hit_at) VALUES(?,?,?,?,?,?)",
+            [(text_hash(source), provider, source, target, now, now) for source, target in translations.items()],
         )
         self.connection.commit()
 
@@ -129,13 +146,20 @@ class Database:
             f"SELECT source_text,summary_text FROM summaries WHERE provider=? AND text_hash IN ({placeholders})",
             [provider, *hashes],
         ).fetchall()
+        if rows:
+            now = datetime.now(UTC).isoformat()
+            self.connection.execute(
+                f"UPDATE summaries SET last_hit_at=? WHERE provider=? AND text_hash IN ({placeholders})",
+                [now, provider, *hashes],
+            )
+            self.connection.commit()
         return {row["source_text"]: row["summary_text"] for row in rows}
 
     def save_summaries(self, summaries: dict[str, str], provider: str) -> None:
         now = datetime.now(UTC).isoformat()
         self.connection.executemany(
-            "INSERT OR REPLACE INTO summaries(text_hash,provider,source_text,summary_text,created_at) VALUES(?,?,?,?,?)",
-            [(text_hash(source), provider, source, target, now) for source, target in summaries.items()],
+            "INSERT OR REPLACE INTO summaries(text_hash,provider,source_text,summary_text,created_at,last_hit_at) VALUES(?,?,?,?,?,?)",
+            [(text_hash(source), provider, source, target, now, now) for source, target in summaries.items()],
         )
         self.connection.commit()
 

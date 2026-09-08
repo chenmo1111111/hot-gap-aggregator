@@ -28,6 +28,7 @@ sources:
 
   qiuzhao:
     file: qiuzhao.json
+    delete_views: [已结束]
     field_mapping:
       $sync_id: 同步ID
       $sync_time: 更新时间

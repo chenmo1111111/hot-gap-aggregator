@@ -4,7 +4,7 @@ import asyncio
 import logging
 import os
 import re
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
 
@@ -147,6 +147,9 @@ class GuopinCollector(BaseCollector):
         provinces = [str(value).strip() for value in config.get("provinces", []) if str(value).strip()]
         job_nature = [str(value).strip() for value in config.get("job_nature", []) if str(value).strip()]
         limit = max(1, int(config.get("per_query_limit", 25)))
+        page_size = max(1, min(50, int(config.get("page_size", 20))))
+        max_pages = max(1, int(config.get("max_pages", (limit + page_size - 1) // page_size)))
+        lookback_days = max(1, int(config.get("lookback_days", 30)))
         if not keywords:
             raise SourceUnavailable("Guopin has no keywords", status="degraded")
         items: list[Item] = []
@@ -154,17 +157,29 @@ class GuopinCollector(BaseCollector):
         succeeded = 0
         for keyword in keywords:
             try:
-                body = {
-                    "search": {"page": 1, "page_size": limit, "keyword": keyword},
-                    "recom": {"update_time": True, "company_nature": True, "hot_job": True},
-                }
-                response = await self._post(endpoint, body)
-                payload = response.json()
-                parsed = parse_guopin(payload, keyword, provinces, limit)
-                if payload.get("data") is None:
-                    raise RuntimeError(f"Guopin API returned no data (code={payload.get('code')})")
+                keyword_items: list[Item] = []
+                for page in range(1, max_pages + 1):
+                    body = {
+                        "search": {"page": page, "page_size": page_size, "keyword": keyword},
+                        "recom": {"update_time": True, "company_nature": True, "hot_job": True},
+                    }
+                    response = await self._post(endpoint, body)
+                    payload = response.json()
+                    raw_rows = _rows(payload)
+                    if payload.get("data") is None:
+                        raise RuntimeError(f"Guopin API returned no data (code={payload.get('code')})")
+                    keyword_items.extend(parse_guopin(payload, keyword, provinces, page_size))
+                    if len(raw_rows) < page_size or len(keyword_items) >= limit:
+                        break
                 succeeded += 1
-                items.extend(item for item in parsed if not job_nature or not item.extra.get("recruitment_type") or item.extra.get("recruitment_type") in job_nature)
+                cutoff = datetime.now(UTC) - timedelta(days=lookback_days)
+                for item in keyword_items[:limit]:
+                    timestamp = self._timestamp(item)
+                    if timestamp and timestamp < cutoff.timestamp():
+                        continue
+                    if job_nature and item.extra.get("recruitment_type") and item.extra.get("recruitment_type") not in job_nature:
+                        continue
+                    items.append(item)
             except Exception as exc:
                 errors.append(f"{keyword}: {exc}")
         if not succeeded:

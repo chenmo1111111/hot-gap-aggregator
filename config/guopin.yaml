@@ -1,6 +1,9 @@
 # Verified against the current www.iguopin.com job bundle in September 2026.
 api_url: https://gp-api.iguopin.com/api/jobs/v1/recom-job
-keywords: [算法, 数据, 生物, 信息, 计算机]
+keywords: [算法, 数据, 生物, 信息, 计算机, 管理, 综合, 财务, 行政, 工程, 运营, 市场, 技术, 研究]
 provinces: [天津, 山东, 辽宁, 河北, 北京]
 job_nature: [校园招聘, 社会招聘]
-per_query_limit: 25
+lookback_days: 30
+page_size: 20
+max_pages: 3
+per_query_limit: 60

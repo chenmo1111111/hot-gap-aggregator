@@ -11,10 +11,13 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
+from app.collectors.haitou import HaitouCollector
 from app.collectors.scs import SCSCollector
+from app.collectors.wutongguo import WutongguoCollector
 from app.collectors.yingjiesheng import YingjieshengCollector
 from app.models import Item
 from app.notify import build_gongkao_events, notify_priority_alert
+from app.pipeline.prune import filter_current_items, load_retention, prune_database
 from app.store.database import Database
 from app.watchers.campus_jobs import CampusJobsWatcher
 from app.watchers.subsidy_watch import SubsidyWatcher
@@ -111,6 +114,7 @@ def _merge_server_gongkao(
         if url:
             seen_urls.add(url)
         combined.append(row)
+    combined, _ = filter_current_items(combined, load_retention())
     for rank, row in enumerate(combined, 1):
         row["rank"] = rank
 
@@ -156,6 +160,41 @@ def _load_server_jobs(target: Path) -> dict:
     return {"generated_at": "", "source": "jobs_official", "subsources": {}, "items": []}
 
 
+def prune_server_sidecars(data_dir: str | Path) -> dict[str, int]:
+    """Prune mainland-owned sidecars without ever rewriting CI-owned JSON."""
+    target = Path(data_dir)
+    policy = load_retention()
+    removed = {"jobs": 0, "gongkao": 0}
+    for filename, source in (
+        (SERVER_JOBS_FILENAME, "jobs"), (SERVER_GONGKAO_FILENAME, "gongkao"),
+    ):
+        path = target / filename
+        if not path.exists():
+            continue
+        try:
+            payload = json.loads(path.read_text(encoding="utf-8"))
+            rows = payload.get("items") if isinstance(payload, dict) else None
+            if not isinstance(rows, list):
+                continue
+            kept, count = filter_current_items(
+                [dict(row) for row in rows if isinstance(row, dict)], policy,
+            )
+            if not count:
+                continue
+            payload["items"] = kept
+            status = payload.get("status") if isinstance(payload.get("status"), dict) else {}
+            status["item_count"] = len(kept)
+            payload["status"] = status
+            _write_json(path, payload)
+            removed[source] = count
+        except (OSError, json.JSONDecodeError, TypeError, ValueError) as exc:
+            LOGGER.warning("Could not prune %s: %s", path, exc)
+    LOGGER.info(
+        "prune: jobs 删%d gongkao 删%d hot 删0", removed["jobs"], removed["gongkao"],
+    )
+    return removed
+
+
 def merge_campus_jobs_into_site(
     data_dir: str | Path, items: list[Item], generated_at: str,
     preserve_schools: set[str] | None = None,
@@ -181,6 +220,7 @@ def merge_campus_jobs_into_site(
         seen.add(url)
         row["rank"] = len(combined) + 1
         combined.append(row)
+    combined, _ = filter_current_items(combined, load_retention())
     subsources = payload.get("subsources") if isinstance(payload.get("subsources"), dict) else {}
     subsources["campus"] = {
         "status": "ok", "item_count": sum(1 for row in combined if row.get("extra", {}).get("subsource") == "campus"),
@@ -214,6 +254,7 @@ def merge_yingjiesheng_jobs_into_site(
         seen.add(url)
         row["rank"] = len(combined) + 1
         combined.append(row)
+    combined, _ = filter_current_items(combined, load_retention())
     subsources = payload.get("subsources") if isinstance(payload.get("subsources"), dict) else {}
     subsources["yingjiesheng"] = {
         "status": "ok",
@@ -299,17 +340,43 @@ async def run_campus_jobs(database: Database, data_dir: str | Path) -> dict[str,
 async def run_yingjiesheng(data_dir: str | Path) -> dict[str, object]:
     if not _enabled(os.getenv("YINGJIESHENG_ON_SERVER")):
         return {"status": "skipped", "reason": "YINGJIESHENG_ON_SERVER is not true"}
+    providers = [YingjieshengCollector(), HaitouCollector(), WutongguoCollector()]
+    results = await asyncio.gather(*(provider.fetch() for provider in providers), return_exceptions=True)
+    items: list[Item] = []
+    errors: list[str] = []
+    for provider, result in zip(providers, results, strict=True):
+        name = provider.__class__.__name__.removesuffix("Collector")
+        if isinstance(result, BaseException):
+            errors.append(f"{name}: {result}")
+        else:
+            items.extend(result)
+    if not items:
+        return {
+            "status": "degraded", "item_count": 0,
+            "error": "all mainland recruitment providers failed: " + "; ".join(errors),
+        }
     try:
-        items = await YingjieshengCollector().fetch()
-        if not items:
-            return {"status": "degraded", "item_count": 0, "error": "no recruitment items returned"}
+        unique: dict[tuple[str, str], Item] = {}
+        for item in items:
+            key = (item.title.casefold(), str(item.extra.get("company") or "").casefold())
+            if key in unique:
+                unique[key].extra["keywords_hit"] = list(dict.fromkeys([
+                    *unique[key].extra.get("keywords_hit", []),
+                    *item.extra.get("keywords_hit", []),
+                ]))
+            else:
+                unique[key] = item
+        items = list(unique.values())
         run_at = datetime.now(UTC).isoformat()
         merge_yingjiesheng_jobs_into_site(data_dir, items, run_at)
         counts: dict[str, int] = {}
         for item in items:
             name = str(item.extra.get("subsource") or "yingjiesheng")
             counts[name] = counts.get(name, 0) + 1
-        return {"status": "ok", "item_count": len(items), "subsources": counts}
+        return {
+            "status": "ok", "item_count": len(items), "subsources": counts,
+            "warnings": errors,
+        }
     except Exception as exc:
         # Preserve the previous good sidecar when either the primary site or
         # its configured fallback is unavailable.
@@ -328,6 +395,7 @@ async def main(
     output: dict[str, object] = {}
     data_dir = os.getenv("SERVER_SITE_DATA_DIR", "/var/www/hot-gap/data")
     try:
+        output["prune"] = prune_server_sidecars(data_dir)
         if run_scs_job:
             output["scs"] = await run_scs(database, data_dir)
         if run_subsidy_job:
@@ -342,6 +410,7 @@ async def main(
             output["yingjiesheng"] = await run_yingjiesheng(data_dir)
         if run_scs_job:
             output["heartbeat"] = str(write_server_heartbeat(data_dir))
+        output["database_prune"] = prune_database(database, load_retention())
         LOGGER.info(json.dumps({"event": "server_jobs_finished", **output}, ensure_ascii=False))
     finally:
         database.close()

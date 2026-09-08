@@ -11,7 +11,7 @@ import os
 import re
 import sqlite3
 from collections.abc import Mapping
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 from pathlib import Path
 from typing import Any
 from urllib.parse import urlsplit, urlunsplit
@@ -254,12 +254,28 @@ class EnrichmentCache:
                 "ALTER TABLE gongkao_first_seen ADD COLUMN backfilled INTEGER NOT NULL DEFAULT 0"
             )
             self.connection.commit()
+        enrichment_columns = {
+            str(row["name"])
+            for row in self.connection.execute("PRAGMA table_info(gongkao_enrichment)")
+        }
+        if "last_hit_at" not in enrichment_columns:
+            self.connection.execute("ALTER TABLE gongkao_enrichment ADD COLUMN last_hit_at TEXT")
+            self.connection.execute(
+                'UPDATE gongkao_enrichment SET last_hit_at="提取时间" WHERE last_hit_at IS NULL'
+            )
+            self.connection.commit()
 
     def get(self, article_id: str) -> dict[str, Any] | None:
         row = self.connection.execute(
             'SELECT article_id,"提取JSON","提取时间",source_hash,status,error '
             "FROM gongkao_enrichment WHERE article_id=?", (article_id,),
         ).fetchone()
+        if row:
+            self.connection.execute(
+                "UPDATE gongkao_enrichment SET last_hit_at=? WHERE article_id=?",
+                (datetime.now(CHINA_TZ).isoformat(), article_id),
+            )
+            self.connection.commit()
         return dict(row) if row else None
 
     def put(
@@ -268,10 +284,11 @@ class EnrichmentCache:
     ) -> None:
         self.connection.execute(
             'INSERT OR REPLACE INTO gongkao_enrichment('
-            'article_id,"提取JSON","提取时间",source_hash,status,error) VALUES(?,?,?,?,?,?)',
+            'article_id,"提取JSON","提取时间",source_hash,status,error,last_hit_at) VALUES(?,?,?,?,?,?,?)',
             (
                 article_id, json.dumps(dict(extracted), ensure_ascii=False),
                 datetime.now(CHINA_TZ).isoformat(), source_hash, status, error[:500],
+                datetime.now(CHINA_TZ).isoformat(),
             ),
         )
         self.connection.commit()
@@ -301,6 +318,14 @@ class EnrichmentCache:
 
     def close(self) -> None:
         self.connection.close()
+
+    def prune_idle(self, days: int = 90) -> int:
+        cutoff = (datetime.now(CHINA_TZ) - timedelta(days=max(1, days))).isoformat()
+        with self.connection:
+            return self.connection.execute(
+                'DELETE FROM gongkao_enrichment WHERE COALESCE(last_hit_at,"提取时间")<?',
+                (cutoff,),
+            ).rowcount
 
 
 class DeepSeekExtractor:
@@ -595,6 +620,9 @@ def main(argv: list[str] | None = None) -> int:
         enriched, stats = enrich_payload(
             payload, cache=cache, school_config=school_config, extractor=extractor,
             retry_failed=args.retry_failed,
+        )
+        stats["cache_pruned"] = cache.prune_idle(
+            int(os.getenv("GONGKAO_ENRICH_CACHE_MAX_IDLE_DAYS", "90"))
         )
     finally:
         cache.close()

@@ -1,0 +1,11 @@
+jobs:
+  delete_after_deadline: true
+  xjh_delete_after_event_days: 1
+gongkao:
+  keep_until_write_exam_plus_days: 7
+  no_write_date_signup_plus_days: 21
+hot_sources: [weibo, bilibili, douyin, github, telegram, zhihu, youtube, ai, tools]
+hot_max_age_days: 4
+snapshots_max_age_days: 45
+cache_max_idle_days: 90
+vacuum_min_size_mb: 50

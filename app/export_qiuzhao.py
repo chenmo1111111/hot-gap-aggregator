@@ -15,6 +15,8 @@ from typing import Any
 
 from dotenv import load_dotenv
 
+from app.pipeline.prune import filter_current_items, is_expired_item, load_retention
+
 
 def _text(value: object) -> str:
     return str(value or "").strip()
@@ -126,13 +128,22 @@ def normalize_snapshot_payload(payload: dict[str, Any]) -> dict[str, Any]:
 
 def write_qiuzhao(data_dir: str | Path) -> dict[str, Any]:
     target = Path(data_dir)
+    policy = load_retention()
     snapshot_path = target / "qiuzhao_wanqing.json"
     inputs: list[dict[str, Any]] = []
     if snapshot_path.exists():
         payload = json.loads(snapshot_path.read_text(encoding="utf-8"))
         if not isinstance(payload, dict):
             raise ValueError(f"{snapshot_path} must contain a JSON object")
-        inputs.append(normalize_snapshot_payload(payload))
+        snapshot = normalize_snapshot_payload(payload)
+        snapshot["items"] = [
+            row for row in snapshot["items"]
+            if not is_expired_item(
+                {"source": "jobs", "deadline": row.get("deadline"), "extra": {}}, policy,
+            )
+        ]
+        snapshot["status"]["item_count"] = len(snapshot["items"])
+        inputs.append(snapshot)
     for filename in ("jobs.json", "server-jobs.json"):
         source_path = target / filename
         if not source_path.exists():
@@ -140,7 +151,11 @@ def write_qiuzhao(data_dir: str | Path) -> dict[str, Any]:
         payload = json.loads(source_path.read_text(encoding="utf-8"))
         if not isinstance(payload, dict):
             raise ValueError(f"{source_path} must contain a JSON object")
-        inputs.append(normalize_jobs_payload(payload))
+        source_rows = payload.get("items") if isinstance(payload.get("items"), list) else []
+        kept, _ = filter_current_items(
+            [dict(row) for row in source_rows if isinstance(row, dict)], policy,
+        )
+        inputs.append(normalize_jobs_payload({**payload, "items": kept}))
     if not inputs:
         raise FileNotFoundError(f"No qiuzhao source found under {target}")
     # Feishu uses company + position as the stable identity. Keep the same

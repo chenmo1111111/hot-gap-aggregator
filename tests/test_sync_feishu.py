@@ -12,6 +12,7 @@ from app.sync_feishu import (
     DEFAULT_QIUZHAO_MAPPING,
     FeishuClient,
     date_to_millis,
+    delete_named_views,
     diff_records,
     map_gongkao,
     map_qiuzhao,
@@ -251,6 +252,16 @@ def test_sync_table_caps_every_write_batch_at_500() -> None:
     assert [len(item.args[2]) for item in client.batch_create.call_args_list] == [500, 1]
     sleep.assert_called_once_with(0.5)
     assert result["created"] == 501
+
+
+def test_delete_named_views_removes_only_obsolete_finished_view() -> None:
+    client = Mock()
+    client.list_views.return_value = [
+        {"view_id": "vew-ended", "view_name": "已结束"},
+        {"view_id": "vew-active", "view_name": "进行中"},
+    ]
+    assert delete_named_views(client, "app", "table", ["已结束"]) == ["已结束"]
+    client.delete_view.assert_called_once_with("app", "table", "vew-ended")
 
 
 def test_client_caches_token_and_refetches_it_once_after_401() -> None:

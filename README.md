@@ -163,6 +163,8 @@ python -m app.run --notify
 | `FEEDS_CONFIG` / `RSSHUB_BASE` / `RSSHUB_KEY` | 通用 feed 配置、私有 RSSHub 地址与访问密钥 |
 | `JOB_RADAR_CONFIG` | 岗位关键词与公司直达配置 |
 | `YINGJIESHENG_CONFIG` / `GUOPIN_CONFIG` | 应届生求职网与国聘配置 |
+| `HAITOU_CONFIG` / `WUTONGGUO_CONFIG` | 国内服务器上的海投网、梧桐果配置 |
+| `RETENTION_CONFIG` | 过期数据和历史缓存保留规则（默认 `config/retention.yaml`） |
 | `CAMPUS_JOBS_CONFIG` | 国内服务器高校就业网配置 |
 | `SUBSIDY_SOURCES_CONFIG` | 百度云人社公告与补贴政策页配置 |
 | `XUANDIAO_SOURCES_CONFIG` | 百度云五省选调公告配置 |

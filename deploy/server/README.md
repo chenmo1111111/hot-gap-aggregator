@@ -41,13 +41,16 @@ chmod 644 /etc/cron.d/hot-gap-jobs
 ```dotenv
 YINGJIESHENG_ON_SERVER=true
 YINGJIESHENG_CONFIG=config/yingjiesheng.yaml
+HAITOU_CONFIG=config/haitou.yaml
+WUTONGGUO_CONFIG=config/wutongguo.yaml
+RETENTION_CONFIG=config/retention.yaml
 SERVER_HEARTBEAT_PATH=/var/www/hot-gap/data/server-heartbeat.txt
 ```
 
-两小时主任务同时执行 `--scs --yingjiesheng`；应届生主站被 WAF 拦截时会尝试
-配置的 `fallback_source: haitou`。两边都失败时不会清空上一次成功写入的
-`server-jobs.json`。GitHub Actions 设置同名变量为 `true` 后会直接跳过该浏览器
-采集，因此仍能快速完成其它来源。
+两小时主任务同时执行 `--scs --yingjiesheng`；后一个开关会并行运行应届生、海投网
+和梧桐果，任一站失败都保留其它站结果。三个站都失败时不会清空上一版非过期
+`server-jobs.json`。海投/梧桐果单次请求 8 秒内快速降级。GitHub Actions 设置
+`YINGJIESHENG_ON_SERVER=true` 后会直接跳过这些国内站，仍能快速完成其它来源。
 
 主任务完成后原子更新 `server-heartbeat.txt`。独立小时检查发现时间戳超过 4 小时
 时，只发送一次“公考聚合主采集停了,GitHub Actions 每日兜底仍在”；下一次正常

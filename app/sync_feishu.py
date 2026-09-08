@@ -258,6 +258,30 @@ class FeishuClient:
             if not page_token:
                 raise FeishuAPIError("field pagination says has_more but has no page_token")
 
+    def list_views(self, app_token: str, table_id: str) -> list[dict[str, Any]]:
+        views: list[dict[str, Any]] = []
+        page_token: str | None = None
+        while True:
+            params: dict[str, Any] = {"page_size": 100}
+            if page_token:
+                params["page_token"] = page_token
+            payload = self._request(
+                "GET", f"/bitable/v1/apps/{app_token}/tables/{table_id}/views",
+                params=params,
+            )
+            data = payload.get("data") or {}
+            views.extend(row for row in data.get("items") or [] if isinstance(row, dict))
+            if not data.get("has_more"):
+                return views
+            page_token = str(data.get("page_token") or "")
+            if not page_token:
+                raise FeishuAPIError("view pagination says has_more but has no page_token")
+
+    def delete_view(self, app_token: str, table_id: str, view_id: str) -> None:
+        self._request(
+            "DELETE", f"/bitable/v1/apps/{app_token}/tables/{table_id}/views/{view_id}",
+        )
+
     def create_field(
         self, app_token: str, table_id: str, definition: Mapping[str, Any]
     ) -> dict[str, Any]:
@@ -878,6 +902,22 @@ def sync_table(
     }
 
 
+def delete_named_views(
+    client: FeishuClient, app_token: str, table_id: str, names: list[str],
+) -> list[str]:
+    wanted = {str(name).strip() for name in names if str(name).strip()}
+    deleted: list[str] = []
+    if not wanted:
+        return deleted
+    for view in client.list_views(app_token, table_id):
+        name = str(view.get("view_name") or view.get("name") or "").strip()
+        view_id = str(view.get("view_id") or "").strip()
+        if name in wanted and view_id:
+            client.delete_view(app_token, table_id, view_id)
+            deleted.append(name)
+    return deleted
+
+
 def load_config(path: str | Path) -> dict[str, Any]:
     config_path = Path(path)
     raw = yaml.safe_load(config_path.read_text(encoding="utf-8")) or {}
@@ -966,6 +1006,16 @@ def run() -> int:
             section = config["sources"][name]
             filename = str(section.get("file") or f"{name}.json")
             try:
+                delete_views = section.get("delete_views")
+                if isinstance(delete_views, list) and delete_views:
+                    try:
+                        deleted_views = delete_named_views(
+                            client, app_token, table_id, [str(value) for value in delete_views],
+                        )
+                        if deleted_views:
+                            LOGGER.info("%s deleted obsolete views: %s", name, deleted_views)
+                    except Exception as exc:
+                        LOGGER.warning("%s obsolete view cleanup skipped: %s", name, exc)
                 rows = _load_items(data_dir / filename)
                 if name == "gongkao":
                     rows, routed_rows, excluded_rows = partition_gongkao_rows(rows)
