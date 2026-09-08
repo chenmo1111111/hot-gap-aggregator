@@ -6,6 +6,7 @@ import pytest
 
 from app.sync_feishu import CHINA_TZ, FeishuAPIError
 from app.sync_feishu_public import (
+    GONGKAO_DEPRECATED_FIELDS,
     GONGKAO_SCHEMA,
     diff_public_records,
     ensure_public_schema,
@@ -32,15 +33,15 @@ def test_map_public_gongkao_uses_only_display_fields() -> None:
     })
 
     assert set(fields) == {
-        "公告标题", "日期", "首次收录", "类别", "招聘人数", "截止日期", "省份", "链接",
+        "公告标题", "首次收录", "类别", "招聘人数", "截止日期", "省份", "链接",
         "报名状态", "距截止天数", "细分类别", "限户籍", "限专业", "学历要求",
         "限应届", "服务期", "招录院校范围", "备注",
     }
     assert fields["类别"] == "事业单位"
     assert fields["招聘人数"] == "12"
     assert fields["链接"] == {"text": "查看公告", "link": "https://example.com/notice"}
-    assert fields["日期"] == int(datetime(2026, 9, 4, tzinfo=CHINA_TZ).timestamp() * 1000)
     assert fields["首次收录"] == int(datetime(2026, 9, 8, tzinfo=CHINA_TZ).timestamp() * 1000)
+    assert "日期" not in fields
     assert list(fields)[-1] == "备注"
 
 
@@ -174,17 +175,18 @@ def test_ensure_public_schema_deletes_only_declared_deprecated_fields() -> None:
     current.extend([
         {"field_id": "fld-bishi", "field_name": "笔试科目", "type": 1},
         {"field_id": "fld-school", "field_name": "本校可报", "type": 7},
+        {"field_id": "fld-date", "field_name": "日期", "type": 5},
     ])
     client.list_fields = lambda _app, _table: current
 
     changed = ensure_public_schema(
         client, "app", "table", GONGKAO_SCHEMA,
-        deprecated_fields=("笔试科目", "本校可报"),
+        deprecated_fields=GONGKAO_DEPRECATED_FIELDS,
     )
 
     assert changed is True
     assert client.created == []
-    assert client.deleted_fields == ["fld-bishi", "fld-school"]
+    assert client.deleted_fields == ["fld-bishi", "fld-school", "fld-date"]
 
 
 def test_diff_preserves_expired_missing_gongkao_row() -> None:

@@ -51,7 +51,6 @@ URL = 15
 
 GONGKAO_SCHEMA: tuple[dict[str, Any], ...] = (
     {"field_name": "公告标题", "type": TEXT},
-    {"field_name": "日期", "type": DATE, "property": {"date_formatter": "yyyy-MM-dd"}},
     {"field_name": "首次收录", "type": DATE, "property": {"date_formatter": "yyyy-MM-dd"}},
     {
         "field_name": "类别",
@@ -87,7 +86,7 @@ GONGKAO_SCHEMA: tuple[dict[str, Any], ...] = (
     {"field_name": "招录院校范围", "type": TEXT},
     {"field_name": "备注", "type": TEXT},
 )
-GONGKAO_DEPRECATED_FIELDS = ("笔试科目", "本校可报")
+GONGKAO_DEPRECATED_FIELDS = ("笔试科目", "本校可报", "日期")
 
 QIUZHAO_SCHEMA: tuple[dict[str, Any], ...] = (
     {"field_name": "公司名称", "type": TEXT},
@@ -210,7 +209,6 @@ def map_public_gongkao(row: Mapping[str, Any]) -> dict[str, Any]:
     category = str(extra.get("detail_category") or detail_category(row))
     return {
         "公告标题": str(title).strip(),
-        "日期": date_to_millis(_coalesce(row, "published_at|date|日期")),
         "首次收录": date_to_millis(extra.get("first_seen")),
         "类别": normalize_exam_type(_coalesce(row, "extra.exam_type|exam_type|类别")),
         "招聘人数": _recruit_count(row),
