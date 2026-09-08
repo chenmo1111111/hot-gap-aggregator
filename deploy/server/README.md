@@ -15,6 +15,8 @@ python3 -m venv .venv
 cp .env.server.example .env
 chmod 600 .env
 cp deploy/server/hot-gap-jobs.cron /etc/cron.d/hot-gap-jobs
+# 防止从 Windows 手工复制时 CRLF 让 cron 命令尾部出现 ^M。
+sed -i 's/\r$//' /etc/cron.d/hot-gap-jobs
 chmod 644 /etc/cron.d/hot-gap-jobs
 ```
 
@@ -82,6 +84,7 @@ XHS_SCHOOL_COOKIE_DOC='a1=...; webId=...; gid=...'
 
 ```bash
 cp deploy/server/hot-gap-jobs.cron /etc/cron.d/hot-gap-jobs
+sed -i 's/\r$//' /etc/cron.d/hot-gap-jobs
 chmod 644 /etc/cron.d/hot-gap-jobs
 systemctl restart cron
 ```
