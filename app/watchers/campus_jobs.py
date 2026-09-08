@@ -117,6 +117,12 @@ class CampusJobsWatcher(SubsidyWatcher):
         for event_key, entry in event_pairs:
             if event_key not in unseen:
                 continue
+            # Ordinary campus recruitment belongs in the website feed only.
+            # Robot notifications are reserved for time-sensitive selection
+            # notices (选调/定向), otherwise a busy school board is too noisy.
+            if not self._is_selection(entry["title"]):
+                self.database.mark_push_events([event_key])
+                continue
             alert = self._campus_alert(page, entry)
             if await self._deliver(alert):
                 self.database.mark_push_events([event_key])

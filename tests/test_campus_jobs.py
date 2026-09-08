@@ -56,4 +56,22 @@ async def test_campus_watcher_baseline_then_pushes_new_selection_to_both_feeds(m
     assert len(watcher.latest_items) == 2
     assert len(watcher.latest_gongkao_items) == 1
     assert watcher.latest_gongkao_items[0].extra["exam_type"] == "选调生"
+
+    # A newly discovered ordinary NEFU recruitment stays visible on the site,
+    # but is consumed without sending another robot notification.
+    html = html.replace(
+        "</ul>",
+        '<li><time>2026.09.08</time><a href="/campus/view/id/3">普通企业2027届校园招聘</a></li></ul>',
+    )
+    third = await watcher.run()
+    assert third["list_pages"][0]["status"] == "unchanged"
+    assert third["list_pages"][0]["pushed"] == "0"
+    assert len(sent) == 1
+    ordinary = next(item for item in watcher.latest_items if item.url.endswith("/id/3"))
+    assert ordinary.is_new is True
+
+    await watcher.run()
+    ordinary = next(item for item in watcher.latest_items if item.url.endswith("/id/3"))
+    assert ordinary.is_new is False
+    assert len(sent) == 1
     database.close()
