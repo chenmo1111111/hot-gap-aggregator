@@ -49,6 +49,7 @@ class GongkaoCollector(BaseCollector):
                     "startWriteTime": info.get("writtenExamTime"),
                 },
             ))
+        _annotate_record_kinds(items)
         return items
 
     @staticmethod
@@ -75,6 +76,7 @@ class GongkaoCollector(BaseCollector):
                     "examType": row.get("examType"), "exam_type": timeline_type(type_code, title),
                 },
             ))
+        _annotate_record_kinds(items)
         return items
 
     async def fetch(self) -> list[Item]:
@@ -146,3 +148,12 @@ def _timestamp(value: object) -> str | None:
 def _date(value: object) -> str | None:
     timestamp = _timestamp(value)
     return timestamp[:10] if timestamp else None
+
+
+def _annotate_record_kinds(items: list[Item]) -> None:
+    # Imported lazily to avoid the collectors package importing the pipeline
+    # while its own modules are still being initialized.
+    from app.pipeline.gongkao_classify import record_kind
+
+    for item in items:
+        item.extra["record_kind"] = record_kind(item.to_dict())

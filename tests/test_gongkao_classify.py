@@ -1,4 +1,9 @@
-from app.pipeline.gongkao_classify import detail_category
+from app.pipeline.gongkao_classify import (
+    detail_category,
+    is_public_gongkao_noise,
+    record_kind,
+    record_kind_needs_llm,
+)
 
 
 def test_upstream_business_type_wins_over_misleading_company_keyword() -> None:
@@ -33,3 +38,38 @@ def test_keywords_are_only_fallback_and_avoid_generic_company_guessing() -> None
     assert detail_category({
         "title": "某国有企业社区工作者招聘", "extra": {"exam_type": "社区工作者"},
     }) == "其它"
+
+
+def test_enterprise_campus_recruitment_routes_to_qiuzhao() -> None:
+    assert record_kind({
+        "title": "中国移动辽宁分公司2027届校园招聘",
+        "extra": {"exam_type": "国企招聘"},
+    }) == "秋招"
+    assert record_kind({
+        "title": "中国工商银行黑龙江省分行2027年度校园招聘",
+        "extra": {"exam_type": "银行"},
+    }) == "秋招"
+
+
+def test_public_entities_and_company_social_recruitment_stay_in_gongkao() -> None:
+    assert record_kind({
+        "title": "山东大学2027届公开招聘工作人员公告",
+        "extra": {"exam_type": "事业单位"},
+    }) == "公考"
+    assert record_kind({
+        "title": "某国有集团社会招聘公告",
+        "extra": {"exam_type": "国企招聘"},
+    }) == "公考"
+
+
+def test_ambiguous_campus_row_uses_llm_choice_and_fails_safe() -> None:
+    row = {"title": "星辰计划2027届校园招聘", "extra": {}}
+    assert record_kind_needs_llm(row) is True
+    assert record_kind(row) == "公考"
+    assert record_kind(row, llm_choice="秋招") == "秋招"
+
+
+def test_narrow_public_noise_filter() -> None:
+    assert is_public_gongkao_noise({"title": "某高校博士后招聘公告"}) is True
+    assert is_public_gongkao_noise({"title": "某学校教师引进公告"}) is True
+    assert is_public_gongkao_noise({"title": "某学校教师公开招聘公告"}) is False

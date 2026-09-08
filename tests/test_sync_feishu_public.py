@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from datetime import datetime
+from unittest.mock import Mock
 
 import pytest
 
@@ -9,11 +10,13 @@ from app.sync_feishu_public import (
     GONGKAO_DEPRECATED_FIELDS,
     GONGKAO_SCHEMA,
     diff_public_records,
+    ensure_instructions_table,
     ensure_public_schema,
     gongkao_key,
     map_public_gongkao,
     map_public_qiuzhao,
     qiuzhao_key,
+    slash_public_updates,
 )
 
 
@@ -43,6 +46,27 @@ def test_map_public_gongkao_uses_only_display_fields() -> None:
     assert fields["首次收录"] == int(datetime(2026, 9, 8, tzinfo=CHINA_TZ).timestamp() * 1000)
     assert "日期" not in fields
     assert list(fields)[-1] == "备注"
+
+
+def test_public_text_fields_use_slash_without_touching_typed_empty_fields() -> None:
+    gongkao = map_public_gongkao({
+        "title": "无人数公告", "url": "https://example.com/blank", "extra": {},
+    })
+    assert gongkao["招聘人数"] == "/"
+    assert gongkao["学历要求"] == "/"
+    assert gongkao["招录院校范围"] == "/"
+    assert gongkao["备注"] == "/"
+    assert gongkao["截止日期"] is None
+    assert gongkao["距截止天数"] is None
+    assert gongkao["报名状态"] is None
+
+    qiuzhao = map_public_qiuzhao({
+        "company_name": "公司", "position": "岗位", "announcement_url": "https://example.com/job",
+    })
+    assert qiuzhao["行业"] == "/"
+    assert qiuzhao["工作地点"] == "/"
+    assert qiuzhao["学历要求"] == "/"
+    assert qiuzhao["投递链接"] is None
 
 
 def test_map_public_selection_exposes_generic_school_scope_only() -> None:
@@ -93,6 +117,25 @@ def test_diff_public_records_creates_updates_deletes_and_deduplicates() -> None:
     assert [row["公告标题"] for row in creates] == ["新增"]
     assert updates == [{"record_id": "rec-update", "fields": source[0]}]
     assert deletes == ["rec-blank", "rec-delete"]
+
+
+def test_public_diff_treats_slash_as_empty_and_placeholder_backfill_runs_once() -> None:
+    source = [{
+        "公告标题": "公告", "链接": {"link": "https://a.test/1"}, "备注": "/",
+    }]
+    blank = [{
+        "record_id": "rec-1",
+        "fields": {"公告标题": "公告", "链接": {"link": "https://a.test/1"}, "备注": ""},
+    }]
+    filled = [{
+        "record_id": "rec-1",
+        "fields": {"公告标题": "公告", "链接": {"link": "https://a.test/1"}, "备注": "/"},
+    }]
+    assert diff_public_records(source, blank, gongkao_key) == ([], [], [])
+    assert slash_public_updates(source, blank, gongkao_key) == [
+        {"record_id": "rec-1", "fields": source[0]}
+    ]
+    assert slash_public_updates(source, filled, gongkao_key) == []
 
 
 class _SchemaClient:
@@ -199,3 +242,37 @@ def test_diff_preserves_expired_missing_gongkao_row() -> None:
         preserve_missing=lambda fields: fields.get("报名状态") == "已截止",
     )
     assert (creates, updates, deletes) == ([], [], [])
+
+
+def test_force_delete_removes_routed_expired_row() -> None:
+    existing = [{
+        "record_id": "rec-campus",
+        "fields": {"链接": {"link": "https://old.test/campus"}, "报名状态": "已截止"},
+    }]
+    creates, updates, deletes = diff_public_records(
+        [], existing, gongkao_key,
+        preserve_missing=lambda fields: fields.get("报名状态") == "已截止",
+        force_delete_keys={"url:https://old.test/campus"},
+    )
+    assert (creates, updates, deletes) == ([], [], ["rec-campus"])
+
+
+def test_instructions_table_is_created_and_seeded() -> None:
+    client = Mock()
+    client.list_tables.return_value = []
+    client.create_table.return_value = {"table_id": "tbl-guide", "name": "使用说明"}
+    client.list_fields.return_value = [
+        {"field_id": "fld-primary", "field_name": "多行文本", "type": 1, "is_primary": True},
+    ]
+    client.list_records.side_effect = [[], []]
+
+    table_id, result = ensure_instructions_table(client, "base")
+
+    assert table_id == "tbl-guide"
+    client.create_table.assert_called_once_with("base", "使用说明", default_view_name="使用说明")
+    assert client.batch_create.call_count == 1
+    created_rows = client.batch_create.call_args.args[2]
+    assert len(created_rows) == 10
+    assert created_rows[0]["视图"] == "总说明"
+    assert result["created"] == 10
+    assert result["table_created"] == 1

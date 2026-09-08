@@ -19,6 +19,7 @@ def test_gongkao_articles_fixture() -> None:
     assert item.hot_value == "报名中"
     assert item.extra["id"] == 101
     assert item.extra["sub"] == "announcement"
+    assert item.extra["record_kind"] in {"公考", "秋招"}
     assert item.extra["tags"] == ["国考", "遴选"]
     assert item.extra["province"] == "全国"
     assert item.extra["exam_type"] == "国考"

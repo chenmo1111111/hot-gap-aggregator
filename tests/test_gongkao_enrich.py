@@ -1,11 +1,13 @@
 from __future__ import annotations
 
+import sqlite3
 from datetime import date
 
 from app.pipeline.gongkao_enrich import (
     EnrichmentCache,
     calculate_signup_status,
     enrich_payload,
+    extract_recruit_count,
     is_my_school_eligible,
     parse_extraction_json,
     strip_article_html,
@@ -25,11 +27,13 @@ def test_signup_status_covers_urgent_start_and_expiry() -> None:
 def test_article_html_and_llm_json_are_normalized() -> None:
     html = "<style>ignore</style><div id='content'><p>笔试：行测和申论</p><script>x</script></div>"
     assert strip_article_html(html) == "笔试：行测和申论"
-    result = parse_extraction_json('```json\n{"xian_huji":"true","xuandiao_school_scope":"双一流建设高校"}\n```')
+    result = parse_extraction_json('```json\n{"xian_huji":"true","xuandiao_school_scope":"双一流建设高校","zhaopin_renshu":"53人","record_kind":"公考"}\n```')
     assert "bishi_kemu" not in result
     assert result["xuandiao_school_scope"] == "双一流建设高校"
     assert result["xian_huji"] is True
     assert result["xian_zhuanye"] is False
+    assert result["zhaopin_renshu"] == "53人"
+    assert result["record_kind"] == "公考"
 
     government_html = "<header>菜单</header><div class='TRS_Editor'><p>招录公告正文，要求本科及以上学历并参加公共基础知识笔试。</p></div><footer>版权</footer>"
     assert strip_webpage_html(government_html).startswith("招录公告正文")
@@ -70,6 +74,8 @@ class _Extractor:
         return parse_extraction_json({
             "xueli": "本科及以上",
             "xian_zhuanye": False,
+            "zhaopin_renshu": "25人",
+            "record_kind": "公考",
             "xuandiao_school_scope": "面向全国双一流建设高校" if include_xuandiao_scope else "",
         })
 
@@ -98,8 +104,10 @@ def test_enrichment_is_incremental_and_cache_is_reused(tmp_path) -> None:
     assert first_stats["extracted"] == 1
     assert second_stats["cached"] == 1
     assert second["items"][0]["extra"]["signup_status"] == "剩2天"
-    assert first["items"][0]["extra"]["first_seen"] == "2026-09-07"
-    assert second["items"][0]["extra"]["first_seen"] == "2026-09-07"
+    assert first["items"][0]["extra"]["first_seen"] == "2026-09-01"
+    assert second["items"][0]["extra"]["first_seen"] == "2026-09-01"
+    assert first["items"][0]["extra"]["recruit_count"] == "25人"
+    assert first["items"][0]["extra"]["record_kind"] == "公考"
     assert (extractor.fetches, extractor.extracts) == (1, 1)
 
 
@@ -166,3 +174,34 @@ def test_individual_page_fetch_failures_do_not_disable_later_rows(tmp_path) -> N
     assert stats["fenbi_extracted"] == 1
     assert enriched["items"][-1]["extra"]["enrichment_status"] == "ok"
     assert extractor.fetches == 4
+
+
+def test_first_seen_uses_earliest_source_date_and_backfills_legacy_row_once(tmp_path) -> None:
+    path = tmp_path / "legacy.db"
+    connection = sqlite3.connect(path)
+    connection.execute(
+        "CREATE TABLE gongkao_first_seen(record_key TEXT PRIMARY KEY, first_seen TEXT NOT NULL)"
+    )
+    connection.execute(
+        "INSERT INTO gongkao_first_seen(record_key,first_seen) VALUES(?,?)",
+        ("announcement:99", "2026-09-08"),
+    )
+    connection.commit()
+    connection.close()
+
+    cache = EnrichmentCache(path)
+    try:
+        assert cache.get_or_create_first_seen(
+            "announcement:99", date(2026, 9, 8), source_date=date(2026, 8, 31)
+        ) == "2026-08-31"
+        assert cache.get_or_create_first_seen(
+            "announcement:99", date(2026, 9, 9), source_date=date(2026, 8, 20)
+        ) == "2026-08-31"
+    finally:
+        cache.close()
+
+
+def test_recruit_count_regex_avoids_cohort_year_and_keeps_unit() -> None:
+    assert extract_recruit_count({"title": "2027届校园招聘，计划招聘53人"}) == "53人"
+    assert extract_recruit_count({"summary": "本次招录200名工作人员"}) == "200名"
+    assert extract_recruit_count({"title": "2027届校园招聘"}) == ""

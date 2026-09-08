@@ -33,9 +33,11 @@ from app.sync_feishu import (
     _load_items,
     _recruit_count,
     date_to_millis,
+    merge_qiuzhao_rows,
     normalize,
     normalize_company_type,
     normalize_exam_type,
+    partition_gongkao_rows,
 )
 from app.pipeline.gongkao_classify import detail_category
 from app.pipeline.gongkao_enrich import calculate_signup_status
@@ -107,6 +109,27 @@ QIUZHAO_SCHEMA: tuple[dict[str, Any], ...] = (
     {"field_name": "投递链接", "type": URL},
     {"field_name": "公告链接", "type": URL},
     {"field_name": "备注", "type": TEXT},
+)
+
+INSTRUCTIONS_SCHEMA: tuple[dict[str, Any], ...] = (
+    {"field_name": "视图", "type": TEXT},
+    {"field_name": "给谁看", "type": TEXT},
+    {"field_name": "怎么用", "type": TEXT},
+)
+INSTRUCTIONS_ROWS: tuple[dict[str, str], ...] = (
+    {
+        "视图": "总说明", "给谁看": "所有人",
+        "怎么用": "数据每天05:00代码自动同步粉笔全国全量+组织部选调，已滤掉企业校招、教师引进、博士后噪音。",
+    },
+    {"视图": "全部信息", "给谁看": "所有人", "怎么用": "查看全部考公考编机会，按首次收录降序浏览最新公告。"},
+    {"视图": "今日必做", "给谁看": "所有人", "怎么用": "报名中且5天内截止的，每天先看这个。"},
+    {"视图": "进行中", "给谁看": "正在报名的人", "怎么用": "只看尚未截止的机会，再按地区和学历筛选。"},
+    {"视图": "本周截止", "给谁看": "容易错过截止时间的人", "怎么用": "集中处理未来7天内截止的报名。"},
+    {"视图": "选调·本校可报", "给谁看": "研究生", "怎么用": "看「招录院校范围」并对照自己的学校，最终以公告原文为准。"},
+    {"视图": "国企央企", "给谁看": "想进国企的人", "怎么用": "查看国企央企社会招聘；企业校园招聘已自动转入秋招表。"},
+    {"视图": "事业单位", "给谁看": "备考事业编的人", "怎么用": "集中查看事业单位公告，优先核对学历、户籍和截止日期。"},
+    {"视图": "银行", "给谁看": "想进银行的人", "怎么用": "查看银行社会招聘；银行校园招聘已自动转入秋招表。"},
+    {"视图": "已结束", "给谁看": "需要复盘的人", "怎么用": "查看已截止公告，作为考情和往年时间参考。"},
 )
 
 
@@ -207,11 +230,11 @@ def map_public_gongkao(row: Mapping[str, Any]) -> dict[str, Any]:
     limited_huji = _bool_value(extra.get("xian_huji"))
     limited_major = _bool_value(extra.get("xian_zhuanye"))
     category = str(extra.get("detail_category") or detail_category(row))
-    return {
+    fields = {
         "公告标题": str(title).strip(),
         "首次收录": date_to_millis(extra.get("first_seen")),
         "类别": normalize_exam_type(_coalesce(row, "extra.exam_type|exam_type|类别")),
-        "招聘人数": _recruit_count(row),
+        "招聘人数": _recruit_count(row) or "/",
         "截止日期": date_to_millis(end),
         "省份": str(extra.get("province") or row.get("province") or "全国").strip(),
         "链接": link,
@@ -219,20 +242,21 @@ def map_public_gongkao(row: Mapping[str, Any]) -> dict[str, Any]:
         "距截止天数": days_left,
         "细分类别": category,
         "限户籍": (
-            (extra.get("huji_shuoming") or "是") if limited_huji else ("不限" if extracted else "")
+            (extra.get("huji_shuoming") or "是") if limited_huji else ("不限" if extracted else "/")
         ),
         "限专业": (
-            (extra.get("zhuanye_shuoming") or "是") if limited_major else ("不限" if extracted else "")
+            (extra.get("zhuanye_shuoming") or "是") if limited_major else ("不限" if extracted else "/")
         ),
-        "学历要求": extra.get("xueli") or "",
+        "学历要求": extra.get("xueli") or "/",
         "限应届": _bool_value(extra.get("xian_yingjie")),
-        "服务期": extra.get("fuwu_qi") or "",
+        "服务期": extra.get("fuwu_qi") or "/",
         "招录院校范围": (
             str(extra.get("xuandiao_school_scope") or "名单见公告")
-            if category == "选调生" and extracted else ""
+            if category == "选调生" and extracted else "/"
         ),
-        "备注": _coalesce(row, "extra.notes|notes|备注"),
+        "备注": _coalesce(row, "extra.notes|notes|备注") or "/",
     }
+    return fields
 
 
 def map_public_qiuzhao(row: Mapping[str, Any]) -> dict[str, Any]:
@@ -246,11 +270,11 @@ def map_public_qiuzhao(row: Mapping[str, Any]) -> dict[str, Any]:
         "企业性质": normalize_company_type(
             _coalesce(row, "company_type|enterprise_type|extra.company_type|企业性质")
         ),
-        "行业": _coalesce(row, "industry|extra.industry|行业"),
+        "行业": _coalesce(row, "industry|extra.industry|行业") or "/",
         "招聘岗位": str(position).strip(),
-        "工作地点": _coalesce(row, "location|work_location|city|extra.city|工作地点"),
-        "学历要求": _coalesce(row, "education|extra.education|学历要求"),
-        "届次": _coalesce(row, "cohort|graduation_year|extra.cohort|届次"),
+        "工作地点": _coalesce(row, "location|work_location|city|extra.city|工作地点") or "/",
+        "学历要求": _coalesce(row, "education|extra.education|学历要求") or "/",
+        "届次": _coalesce(row, "cohort|graduation_year|extra.cohort|届次") or "/",
         "是否笔试": _bool_value(
             _coalesce(row, "written_test|has_written_test|extra.written_test|是否笔试")
         ),
@@ -262,7 +286,7 @@ def map_public_qiuzhao(row: Mapping[str, Any]) -> dict[str, Any]:
             _coalesce(row, "announcement_url|source_url|extra.announcement_url|url|公告链接"),
             "查看公告",
         ),
-        "备注": _coalesce(row, "notes|extra.notes|备注"),
+        "备注": _coalesce(row, "notes|extra.notes|备注") or "/",
     }
 
 
@@ -296,6 +320,7 @@ def diff_public_records(
     existing_records: Iterable[dict[str, Any]],
     key_fn: Callable[[Mapping[str, Any]], str],
     preserve_missing: Callable[[Mapping[str, Any]], bool] | None = None,
+    force_delete_keys: set[str] | None = None,
 ) -> tuple[list[dict[str, Any]], list[dict[str, Any]], list[str]]:
     source_by_key: dict[str, dict[str, Any]] = {}
     for fields in source_fields:
@@ -333,9 +358,30 @@ def diff_public_records(
         str(record["record_id"])
         for key, record in existing_by_key.items()
         if key not in source_by_key
-        and not (preserve_missing and preserve_missing(record.get("fields") or {}))
+        and (
+            key in (force_delete_keys or set())
+            or not (preserve_missing and preserve_missing(record.get("fields") or {}))
+        )
     )
     return creates, updates, deletes
+
+
+def slash_public_updates(
+    source_fields: Iterable[dict[str, Any]],
+    existing_records: Iterable[dict[str, Any]],
+    key_fn: Callable[[Mapping[str, Any]], str],
+) -> list[dict[str, Any]]:
+    source_by_key = {key_fn(fields): fields for fields in source_fields if key_fn(fields)}
+    updates: list[dict[str, Any]] = []
+    for record in existing_records:
+        old = record.get("fields") or {}
+        desired = source_by_key.get(key_fn(old))
+        if desired and any(
+            value == "/" and _cell_text(old.get(name)).strip() == ""
+            for name, value in desired.items()
+        ):
+            updates.append({"record_id": record["record_id"], "fields": desired})
+    return updates
 
 
 def sync_public_table(
@@ -346,6 +392,7 @@ def sync_public_table(
     mapper: Callable[[Mapping[str, Any]], dict[str, Any]],
     key_fn: Callable[[Mapping[str, Any]], str],
     preserve_missing: Callable[[Mapping[str, Any]], bool] | None = None,
+    force_delete_keys: set[str] | None = None,
 ) -> dict[str, int]:
     mapped: list[dict[str, Any]] = []
     skipped = 0
@@ -357,7 +404,13 @@ def sync_public_table(
             LOGGER.warning("skip invalid public source row %d: %s", index, exc)
     existing = client.list_records(app_token, table_id)
     creates, updates, deletes = diff_public_records(
-        mapped, existing, key_fn, preserve_missing=preserve_missing
+        mapped, existing, key_fn, preserve_missing=preserve_missing,
+        force_delete_keys=force_delete_keys,
+    )
+    update_ids = {str(record["record_id"]) for record in updates}
+    updates.extend(
+        record for record in slash_public_updates(mapped, existing, key_fn)
+        if str(record["record_id"]) not in update_ids
     )
     operations = [
         *((client.batch_create, batch) for batch in _batches(creates)),
@@ -385,6 +438,48 @@ def load_public_config(path: str | Path) -> dict[str, Any]:
         if not str(value.get(name) or "").strip():
             raise ValueError(f"public sync config is missing {name}")
     return value
+
+
+def instruction_key(fields: Mapping[str, Any]) -> str:
+    value = normalize(_cell_text(fields.get("视图")))
+    return f"view:{value}" if value else ""
+
+
+def ensure_instructions_table(
+    client: FeishuClient, app_token: str, *, table_name: str = "使用说明"
+) -> tuple[str, dict[str, int]]:
+    table = next(
+        (item for item in client.list_tables(app_token) if str(item.get("name") or "") == table_name),
+        None,
+    )
+    created = table is None
+    if table is None:
+        table = client.create_table(app_token, table_name, default_view_name="使用说明")
+    table_id = str(table.get("table_id") or "")
+    if not table_id:
+        raise FeishuAPIError(f"找不到数据表 {table_name} 的 table_id")
+    initialized = ensure_public_schema(client, app_token, table_id, INSTRUCTIONS_SCHEMA)
+    result = sync_public_table(
+        client,
+        app_token,
+        table_id,
+        list(INSTRUCTIONS_ROWS),
+        lambda row: dict(row),
+        instruction_key,
+        preserve_missing=lambda _fields: True,
+    )
+    result["table_created"] = int(created)
+    result["schema_initialized"] = int(initialized)
+    return table_id, result
+
+
+def _gongkao_force_delete_keys(rows: Iterable[Mapping[str, Any]]) -> set[str]:
+    keys: set[str] = set()
+    for row in rows:
+        url = _link_url(_coalesce(row, "url|announcement_url|extra.announcement_url|链接"))
+        if url:
+            keys.add(f"url:{url.casefold()}")
+    return keys
 
 
 def run(argv: list[str] | None = None) -> int:
@@ -445,15 +540,47 @@ def run(argv: list[str] | None = None) -> int:
                     deprecated_fields=deprecated_fields,
                 )
                 rows = _load_items(data_dir / filename)
+                force_delete_keys: set[str] | None = None
+                if name == "gongkao_public":
+                    rows, routed_rows, excluded_rows = partition_gongkao_rows(rows)
+                    force_delete_keys = _gongkao_force_delete_keys((*routed_rows, *excluded_rows))
+                    LOGGER.info(
+                        "public gongkao routing: kept=%d routed_to_qiuzhao=%d excluded_noise=%d",
+                        len(rows), len(routed_rows), len(excluded_rows),
+                    )
+                else:
+                    gongkao_filename = str(gongkao_source.get("file") or "gongkao_enriched.json")
+                    try:
+                        raw_gongkao = _load_items(data_dir / gongkao_filename)
+                    except Exception as exc:
+                        LOGGER.warning("cannot load public Gongkao routes for Qiuzhao sync: %s", exc)
+                    else:
+                        _, routed_rows, _ = partition_gongkao_rows(raw_gongkao)
+                        rows = merge_qiuzhao_rows(rows, routed_rows)
                 result = sync_public_table(
                     client, app_token, table_id, rows, mapper, key_fn,
                     preserve_missing=preserve_missing,
+                    force_delete_keys=force_delete_keys,
                 )
                 result["schema_initialized"] = int(initialized)
                 LOGGER.info("%s sync complete: %s", name, result)
             except Exception:
                 failed = True
                 LOGGER.exception("%s sync failed", name)
+        try:
+            instructions_table_id, result = ensure_instructions_table(
+                client,
+                app_token,
+                table_name=str(config.get("instructions_table_name") or "使用说明"),
+            )
+            LOGGER.info(
+                "instructions sync complete: table_id=%s result=%s",
+                instructions_table_id,
+                result,
+            )
+        except Exception:
+            failed = True
+            LOGGER.exception("instructions sync failed")
     return 1 if failed else 0
 
 

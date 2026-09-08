@@ -21,7 +21,7 @@ import yaml
 from dotenv import load_dotenv
 from selectolax.parser import HTMLParser
 
-from app.pipeline.gongkao_classify import detail_category
+from app.pipeline.gongkao_classify import detail_category, record_kind, record_kind_needs_llm
 from app.sync_feishu import CHINA_TZ, _date_value, normalize_exam_type
 
 
@@ -41,14 +41,17 @@ xian_zhuanye(是否限专业：true/false)，zhuanye_shuoming(专业要求简述
 xueli(学历要求，如'本科及以上'/'硕士'/'不限')，
 xian_yingjie(是否限应届：true/false)，
 fuwu_qi(有无最低服务年限，如'5年'/'无')，
+zhaopin_renshu(招聘人数，如'53人'/'若干'/'200名'，公告没写填'/')，
+record_kind(只能填'公考'或'秋招'：企业校园招聘填'秋招'，公务员/事业单位/选调/教师/医疗/军队文职及企业社会招聘填'公考')，
 bei_zhu(其它关键限制一句话)"""
 XUANDIAO_SCOPE_PROMPT = """
 选调生公告还需输出字段：xuandiao_school_scope(招录院校范围，用一句可独立展示的话概括，例如'面向全国重点建设高校（含985/211/双一流）'、'面向本省高校'、'指定XX所高校（名单见公告）'、'双一流建设高校'、'不限'；无法判断填'名单见公告')"""
 EXTRACTION_KEYS = (
     "xian_huji", "huji_shuoming", "xian_zhuanye", "zhuanye_shuoming",
-    "xueli", "xian_yingjie", "fuwu_qi", "bei_zhu", "xuandiao_school_scope",
+    "xueli", "xian_yingjie", "fuwu_qi", "zhaopin_renshu", "record_kind",
+    "bei_zhu", "xuandiao_school_scope",
 )
-ENRICHMENT_SCHEMA_VERSION = 2
+ENRICHMENT_SCHEMA_VERSION = 3
 WATCHER_SUBSOURCES = {"xuandiao", "scs", "campus"}
 WEBPAGE_CONTENT_SELECTORS = (
     "article", "main", "#content", "#zoom", ".article-content", ".detail-content",
@@ -211,6 +214,10 @@ def parse_extraction_json(value: str | Mapping[str, Any]) -> dict[str, Any]:
         item = raw.get(key, False if key in {"xian_huji", "xian_zhuanye", "xian_yingjie"} else "")
         if key in {"xian_huji", "xian_zhuanye", "xian_yingjie"}:
             result[key] = item is True or str(item).strip().casefold() in {"true", "1", "是", "有"}
+        elif key == "record_kind":
+            result[key] = str(item).strip() if str(item).strip() in {"公考", "秋招"} else ""
+        elif key == "zhaopin_renshu":
+            result[key] = str(item or "/").strip() or "/"
         else:
             result[key] = str(item or "").strip()
     return result
@@ -234,9 +241,19 @@ class EnrichmentCache:
             );
             CREATE TABLE IF NOT EXISTS gongkao_first_seen (
                 record_key TEXT PRIMARY KEY,
-                first_seen TEXT NOT NULL
+                first_seen TEXT NOT NULL,
+                backfilled INTEGER NOT NULL DEFAULT 1
             );
         """)
+        first_seen_columns = {
+            str(row["name"])
+            for row in self.connection.execute("PRAGMA table_info(gongkao_first_seen)")
+        }
+        if "backfilled" not in first_seen_columns:
+            self.connection.execute(
+                "ALTER TABLE gongkao_first_seen ADD COLUMN backfilled INTEGER NOT NULL DEFAULT 0"
+            )
+            self.connection.commit()
 
     def get(self, article_id: str) -> dict[str, Any] | None:
         row = self.connection.execute(
@@ -259,15 +276,26 @@ class EnrichmentCache:
         )
         self.connection.commit()
 
-    def get_or_create_first_seen(self, record_key: str, first_seen: date) -> str:
-        value = first_seen.isoformat()
+    def get_or_create_first_seen(
+        self, record_key: str, first_seen: date, *, source_date: date | None = None
+    ) -> str:
+        value = (source_date or first_seen).isoformat()
         self.connection.execute(
-            "INSERT OR IGNORE INTO gongkao_first_seen(record_key,first_seen) VALUES(?,?)",
+            "INSERT OR IGNORE INTO gongkao_first_seen(record_key,first_seen,backfilled) VALUES(?,?,1)",
             (record_key, value),
         )
         row = self.connection.execute(
-            "SELECT first_seen FROM gongkao_first_seen WHERE record_key=?", (record_key,),
+            "SELECT first_seen,backfilled FROM gongkao_first_seen WHERE record_key=?", (record_key,),
         ).fetchone()
+        if row and not int(row["backfilled"]):
+            replacement = source_date.isoformat() if source_date else str(row["first_seen"])
+            self.connection.execute(
+                "UPDATE gongkao_first_seen SET first_seen=?,backfilled=1 WHERE record_key=?",
+                (replacement, record_key),
+            )
+            row = self.connection.execute(
+                "SELECT first_seen,backfilled FROM gongkao_first_seen WHERE record_key=?", (record_key,),
+            ).fetchone()
         self.connection.commit()
         return str(row["first_seen"] if row else value)
 
@@ -375,6 +403,38 @@ def _first_seen_key(item: Mapping[str, Any], extra: Mapping[str, Any]) -> str:
     return "fallback:" + hashlib.sha256(stable.encode("utf-8")).hexdigest()
 
 
+def _first_seen_source_date(item: Mapping[str, Any], extra: Mapping[str, Any]) -> date | None:
+    candidates = [
+        _date_value(item.get("published_at")),
+        _date_value(extra.get("updateTime")),
+        _date_value(extra.get("enrollStartTime")),
+        _date_value(extra.get("startSignUpTime")),
+        _date_value(item.get("报名开始")),
+    ]
+    values = [value for value in candidates if value is not None]
+    return min(values) if values else None
+
+
+def extract_recruit_count(row: Mapping[str, Any]) -> str:
+    """Extract a conservative headcount from already-collected text."""
+    extra = row.get("extra") if isinstance(row.get("extra"), Mapping) else {}
+    for value in (
+        extra.get("recruit_count"), extra.get("recruitment_count"), extra.get("headcount"),
+        extra.get("zhaopin_renshu"), row.get("recruit_count"), row.get("招录人数"),
+    ):
+        text = str(value or "").strip()
+        if text and text != "/":
+            return text
+    haystack = " ".join(str(value or "") for value in (
+        row.get("title_zh"), row.get("title"), row.get("summary_zh"), row.get("summary"),
+    ))
+    match = re.search(
+        r"(?:计划)?(?:招录|招聘|招考)(?:工作人员|人员|岗位)?\s*([0-9]{1,5}|若干)\s*([人名])",
+        haystack,
+    )
+    return f"{match.group(1)}{match.group(2)}" if match else ""
+
+
 def _enrichment_source(
     item: Mapping[str, Any], extra: Mapping[str, Any]
 ) -> tuple[str, str, str] | None:
@@ -383,7 +443,7 @@ def _enrichment_source(
         # Keep the legacy numeric cache key so existing Fenbi extractions remain reusable.
         return "fenbi", article_id, article_id
     subsource = str(extra.get("subsource") or "").strip().casefold()
-    if subsource not in WATCHER_SUBSOURCES:
+    if subsource not in WATCHER_SUBSOURCES and not record_kind_needs_llm(item):
         return None
     url = _canonical_web_url(
         item.get("url") or item.get("announcement_url") or extra.get("announcement_url")
@@ -431,9 +491,13 @@ def enrich_payload(
         extra["signup_status"] = status
         extra["days_left"] = days
         extra["detail_category"] = detail_category(item)
+        if count := extract_recruit_count(item):
+            extra["recruit_count"] = count
+        extra["record_kind"] = record_kind(item, llm_choice=extra.get("record_kind"))
         first_seen_date = today or datetime.now(CHINA_TZ).date()
         extra["first_seen"] = cache.get_or_create_first_seen(
-            _first_seen_key(item, extra), first_seen_date
+            _first_seen_key(item, extra), first_seen_date,
+            source_date=_first_seen_source_date(item, extra),
         )
 
         enrichment_source = _enrichment_source(item, extra)
@@ -483,6 +547,8 @@ def enrich_payload(
                     extracted["_apply_url"] = apply_url
                 cache.put(cache_key, source_hash, extracted)
                 _merge_extracted(extra, extracted, "ok")
+                if count := extract_recruit_count({**item, "extra": extra}):
+                    extra["recruit_count"] = count
                 stats["extracted"] += 1
                 stats[f"{source_kind}_extracted"] += 1
                 failure_streak = 0
@@ -496,6 +562,7 @@ def enrich_payload(
                 if failure_streak >= 3:
                     extraction_available = False
                     LOGGER.warning("DeepSeek/announcement source unavailable after 3 consecutive failures; skip remaining uncached rows")
+        extra["record_kind"] = record_kind(item, llm_choice=extra.get("record_kind"))
         item["extra"] = extra
         items.append(item)
     output["items"] = items

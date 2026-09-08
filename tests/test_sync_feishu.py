@@ -14,7 +14,11 @@ from app.sync_feishu import (
     diff_records,
     map_gongkao,
     map_qiuzhao,
+    merge_qiuzhao_rows,
     normalize,
+    partition_gongkao_rows,
+    routed_qiuzhao_row,
+    slash_placeholder_updates,
     split_region,
     sync_table,
 )
@@ -84,6 +88,8 @@ def test_gongkao_mapping_clamps_expired_days_and_marks_waiting_for_exam() -> Non
     assert fields["距截止天数"] == 0
     assert fields["报名状态"] == "待笔试"
     assert fields["招录类型"] == "其他"
+    assert fields["招录人数"] == "/"
+    assert fields["备注"] == "/"
 
 
 def test_qiuzhao_mapping_and_normalized_sync_id() -> None:
@@ -169,6 +175,45 @@ def test_diff_treats_feishu_numeric_strings_as_source_numbers() -> None:
     assert diff_records(source, existing) == ([], [], [])
 
 
+def test_diff_treats_slash_and_blank_as_equal_but_backfill_is_one_time() -> None:
+    source = [{"同步ID": "1", "更新时间": 200, "备注": "/", "来源": "自动"}]
+    blank = [{
+        "record_id": "rec-1",
+        "fields": {"同步ID": "1", "更新时间": 100, "备注": "", "来源": "自动"},
+    }]
+    filled = [{
+        "record_id": "rec-1",
+        "fields": {"同步ID": "1", "更新时间": 100, "备注": "/", "来源": "自动"},
+    }]
+    assert diff_records(source, blank) == ([], [], [])
+    assert slash_placeholder_updates(source, blank) == [
+        {"record_id": "rec-1", "fields": source[0]}
+    ]
+    assert slash_placeholder_updates(source, filled) == []
+
+
+def test_gongkao_enterprise_campus_row_is_converted_and_merged_into_qiuzhao() -> None:
+    row = {
+        "title": "中国移动辽宁分公司2027届校园招聘",
+        "url": "https://example.com/campus",
+        "published_at": "2026-09-08",
+        "extra": {
+            "id": "g1", "exam_type": "国企招聘", "province": "辽宁",
+            "endSignUpTime": "2026-10-01", "xueli": "本科及以上",
+        },
+    }
+    kept, routed, excluded = partition_gongkao_rows([row])
+    assert kept == [] and excluded == []
+    assert len(routed) == 1
+    converted = routed_qiuzhao_row(row)
+    assert converted["company_name"] == "中国移动辽宁分公司"
+    assert converted["position"] == row["title"]
+    assert converted["cohort"] == "2027届"
+    assert converted["deadline"] == "2026-10-01"
+    assert converted["source_label"] == "公考源路由"
+    assert len(merge_qiuzhao_rows([], routed)) == 1
+
+
 def test_sync_table_uses_fake_client_and_batches_diff_operations() -> None:
     client = Mock()
     client.list_records.return_value = [
@@ -227,6 +272,27 @@ def test_client_caches_token_and_refetches_it_once_after_401() -> None:
         assert client.list_records("base", "table") == []
         assert client.list_records("base", "table") == []
     assert calls == {"auth": 2, "records": 3}
+
+
+def test_client_lists_and_creates_bitable_tables() -> None:
+    def handler(request: httpx.Request) -> httpx.Response:
+        if request.url.path.endswith("/tenant_access_token/internal"):
+            return httpx.Response(200, json={
+                "code": 0, "tenant_access_token": "token", "expire": 7200,
+            })
+        if request.method == "GET":
+            return httpx.Response(200, json={
+                "code": 0, "data": {"items": [{"table_id": "tbl-old", "name": "公考"}], "has_more": False},
+            })
+        assert request.method == "POST"
+        assert request.read()
+        return httpx.Response(200, json={
+            "code": 0, "data": {"table_id": "tbl-guide", "name": "使用说明"},
+        })
+
+    with FeishuClient("app-id", "secret", transport=httpx.MockTransport(handler)) as client:
+        assert client.list_tables("base")[0]["table_id"] == "tbl-old"
+        assert client.create_table("base", "使用说明")["table_id"] == "tbl-guide"
 
 
 def test_default_mapping_has_every_required_feishu_field() -> None:

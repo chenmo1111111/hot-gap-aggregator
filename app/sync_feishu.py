@@ -27,6 +27,10 @@ GONGKAO_EXAM_TYPES = (
     "军队文职", "国企", "银行", "其他",
 )
 QIUZHAO_COMPANY_TYPES = ("央企", "国企", "民企", "外企", "银行", "事业单位", "其他")
+GONGKAO_TEXT_FIELDS = {"同步ID", "地区", "招录单位·公告", "招录人数", "备注"}
+QIUZHAO_TEXT_FIELDS = {
+    "同步ID", "公司名称", "行业", "招聘岗位", "工作地点", "学历要求", "届次", "备注",
+}
 PROVINCES = {
     "北京", "天津", "河北", "山西", "内蒙古", "辽宁", "吉林", "黑龙江", "上海", "江苏",
     "浙江", "安徽", "福建", "江西", "山东", "河南", "湖北", "湖南", "广东", "广西", "海南",
@@ -194,6 +198,42 @@ class FeishuClient:
             page_token = str(data.get("page_token") or "")
             if not page_token:
                 raise FeishuAPIError("record pagination says has_more but has no page_token")
+
+    def list_tables(self, app_token: str) -> list[dict[str, Any]]:
+        tables: list[dict[str, Any]] = []
+        page_token: str | None = None
+        while True:
+            params: dict[str, Any] = {"page_size": 100}
+            if page_token:
+                params["page_token"] = page_token
+            payload = self._request(
+                "GET", f"/bitable/v1/apps/{app_token}/tables", params=params,
+            )
+            data = payload.get("data") or {}
+            tables.extend(row for row in data.get("items") or [] if isinstance(row, dict))
+            if not data.get("has_more"):
+                return tables
+            page_token = str(data.get("page_token") or "")
+            if not page_token:
+                raise FeishuAPIError("table pagination says has_more but has no page_token")
+
+    def create_table(
+        self, app_token: str, name: str, *, default_view_name: str = "全部"
+    ) -> dict[str, Any]:
+        payload = self._request(
+            "POST",
+            f"/bitable/v1/apps/{app_token}/tables",
+            json={"table": {"name": name, "default_view_name": default_view_name}},
+        )
+        data = payload.get("data") or {}
+        table = data.get("table") if isinstance(data, Mapping) else {}
+        if not isinstance(table, Mapping):
+            table = {}
+        if not table and isinstance(data, Mapping):
+            table = data
+        if not isinstance(table, dict) or not str(table.get("table_id") or ""):
+            raise FeishuAPIError("create table response did not contain table_id")
+        return dict(table)
 
     def list_fields(self, app_token: str, table_id: str) -> list[dict[str, Any]]:
         fields: list[dict[str, Any]] = []
@@ -464,13 +504,120 @@ def _signup_status(start: object, end: object, written: object, today: date) -> 
 def _recruit_count(row: Mapping[str, Any]) -> str | None:
     explicit = _coalesce(
         row,
-        "extra.recruit_count|extra.recruitment_count|extra.headcount|recruit_count|招录人数",
+        "extra.recruit_count|extra.recruitment_count|extra.headcount|extra.zhaopin_renshu|recruit_count|招录人数",
     )
     if explicit not in (None, ""):
         return str(explicit)
-    summary = str(_coalesce(row, "summary_zh|summary") or "")
-    match = re.search(r"(?:招考|招录|招聘)人数[：:]?\s*([0-9,，]+)", summary)
-    return match.group(1).replace(",", "").replace("，", "") if match else None
+    text = " ".join(str(value or "") for value in (
+        row.get("title_zh"), row.get("title"), row.get("summary_zh"), row.get("summary"),
+    ))
+    match = re.search(
+        r"(?:招考|招录|招聘)人数[：:]?\s*([0-9,，]{1,7}|若干)\s*([人名]?)",
+        text,
+    )
+    if not match:
+        match = re.search(
+            r"(?:计划)?(?:招考|招录|招聘)(?:工作人员|人员|岗位)?\s*"
+            r"([0-9,，]{1,7}|若干)\s*([人名])",
+            text,
+        )
+    if not match:
+        return None
+    number = match.group(1).replace(",", "").replace("，", "")
+    return number + (match.group(2) or "")
+
+
+def _text_or_slash(value: object) -> str:
+    text = _cell_text(value).strip()
+    return text if text and text != "/" else "/"
+
+
+def _fill_text_placeholders(fields: dict[str, Any], names: set[str]) -> dict[str, Any]:
+    for name in names.intersection(fields):
+        fields[name] = _text_or_slash(fields.get(name))
+    return fields
+
+
+def _gongkao_company_name(row: Mapping[str, Any]) -> str:
+    extra = row.get("extra") if isinstance(row.get("extra"), Mapping) else {}
+    explicit = _coalesce(row, "company_name|company|extra.company|extra.unit|单位")
+    if explicit:
+        return str(explicit).strip()
+    title = str(row.get("title_zh") or row.get("title") or "").strip()
+    cleaned = re.sub(r"^20\d{2}(?:年度)?届?", "", title).strip(" ：:｜|-—")
+    marker = re.search(
+        r"(?:20\d{2}(?:年度)?届?|春季|秋季)?(?:全球|全国)?(?:校园招聘|校招)", cleaned
+    )
+    candidate = cleaned[: marker.start()] if marker else ""
+    return candidate.strip(" ：:｜|-—") or title
+
+
+def routed_qiuzhao_row(row: Mapping[str, Any]) -> dict[str, Any]:
+    """Convert one enterprise campus row collected by Gongkao into Qiuzhao shape."""
+    extra = row.get("extra") if isinstance(row.get("extra"), Mapping) else {}
+    title = str(row.get("title_zh") or row.get("title") or "").strip()
+    cohort_match = re.search(r"(20\d{2}届)", title)
+    from app.pipeline.gongkao_classify import detail_category
+
+    category = detail_category(row)
+    company_type = category if category in {"央企", "国企", "银行"} else _coalesce(
+        row, "company_type|extra.company_type"
+    )
+    url = _coalesce(row, "url|announcement_url|extra.announcement_url")
+    return {
+        "company_name": _gongkao_company_name(row),
+        "company_type": company_type,
+        "industry": _coalesce(row, "industry|extra.industry"),
+        "position": title,
+        "location": _coalesce(row, "location|city|extra.location|extra.city|extra.province"),
+        "education": _coalesce(row, "education|extra.education|extra.xueli"),
+        "cohort": cohort_match.group(1) if cohort_match else None,
+        "deadline": _coalesce(row, "deadline|extra.deadline|extra.endSignUpTime"),
+        "written_test": _coalesce(row, "written_test|extra.written_test"),
+        "apply_url": _coalesce(row, "apply_url|extra.apply_url") or url,
+        "announcement_url": url,
+        "updated_at": _coalesce(row, "extra.first_seen|published_at"),
+        "notes": _coalesce(row, "notes|extra.notes|extra.bei_zhu"),
+        "source_label": "公考源路由",
+        "upstream_source": "gongkao_routed",
+        "extra": {"record_kind": "秋招", "original_id": extra.get("id")},
+    }
+
+
+def partition_gongkao_rows(
+    rows: Iterable[Mapping[str, Any]], *, exclude_public_noise: bool = True
+) -> tuple[list[Mapping[str, Any]], list[dict[str, Any]], list[Mapping[str, Any]]]:
+    from app.pipeline.gongkao_classify import is_public_gongkao_noise, record_kind
+
+    gongkao: list[Mapping[str, Any]] = []
+    qiuzhao: list[dict[str, Any]] = []
+    excluded: list[Mapping[str, Any]] = []
+    for row in rows:
+        extra = row.get("extra") if isinstance(row.get("extra"), Mapping) else {}
+        kind = record_kind(row, llm_choice=extra.get("record_kind"))
+        if kind == "秋招":
+            qiuzhao.append(routed_qiuzhao_row(row))
+        elif exclude_public_noise and is_public_gongkao_noise(row):
+            excluded.append(row)
+        else:
+            gongkao.append(row)
+    return gongkao, qiuzhao, excluded
+
+
+def merge_qiuzhao_rows(
+    primary: Iterable[Mapping[str, Any]], routed: Iterable[Mapping[str, Any]]
+) -> list[Mapping[str, Any]]:
+    merged: list[Mapping[str, Any]] = []
+    seen: set[str] = set()
+    for row in (*list(primary), *list(routed)):
+        company = _coalesce(row, "company_name|company|extra.company|公司名称")
+        position = _coalesce(row, "position|job|job_name|title_zh|title|招聘岗位")
+        key = f"{normalize(company)}|{normalize(position)}"
+        if key == "|" or key in seen:
+            continue
+        seen.add(key)
+        merged.append(row)
+    return merged
 
 
 def _apply_mapping(
@@ -519,7 +666,7 @@ def map_gongkao(
     fields = _apply_mapping(row, field_mapping or DEFAULT_GONGKAO_MAPPING, derived)
     if not fields.get((field_mapping or DEFAULT_GONGKAO_MAPPING).get("$sync_id", "同步ID")):
         raise ValueError("公考记录缺少 extra.id，无法生成同步ID")
-    return fields
+    return _fill_text_placeholders(fields, GONGKAO_TEXT_FIELDS)
 
 
 def map_qiuzhao(
@@ -558,7 +705,8 @@ def map_qiuzhao(
         "$announcement_link": _link(announcement_url, "查看公告"),
         "$source": "自动" + (f"·{label}" if (label := str(_coalesce(row, "source_label|extra.source_label") or "").strip()) else ""),
     }
-    return _apply_mapping(row, field_mapping or DEFAULT_QIUZHAO_MAPPING, derived)
+    fields = _apply_mapping(row, field_mapping or DEFAULT_QIUZHAO_MAPPING, derived)
+    return _fill_text_placeholders(fields, QIUZHAO_TEXT_FIELDS)
 
 
 def _cell_text(value: object) -> str:
@@ -583,8 +731,12 @@ def _comparable(value: object) -> object:
     # Bitable returns date and number cells as decimal strings in some API
     # responses, while write payloads use JSON numbers.  Treat those wire
     # representations as equal so an unchanged row is not updated forever.
-    if isinstance(value, str) and value.strip().lstrip("-").isdigit():
-        return int(value.strip())
+    if isinstance(value, str):
+        stripped = value.strip()
+        if stripped in {"", "/"}:
+            return ""
+        if stripped.lstrip("-").isdigit():
+            return int(stripped)
     return value
 
 
@@ -638,6 +790,35 @@ def diff_records(
     return creates, updates, deletes
 
 
+def slash_placeholder_updates(
+    source_records: Iterable[dict[str, Any]],
+    existing_records: Iterable[dict[str, Any]],
+    *,
+    sync_id_field: str = "同步ID",
+    source_field: str = "来源",
+) -> list[dict[str, Any]]:
+    """Backfill visible '/' values once, while normal diff treats '/' as empty."""
+    source_by_id = {
+        _cell_text(fields.get(sync_id_field)).strip(): fields
+        for fields in source_records
+        if _cell_text(fields.get(sync_id_field)).strip()
+    }
+    updates: list[dict[str, Any]] = []
+    for record in existing_records:
+        old = record.get("fields") or {}
+        if not _cell_text(old.get(source_field)).strip().startswith("自动"):
+            continue
+        desired = source_by_id.get(_cell_text(old.get(sync_id_field)).strip())
+        if not desired:
+            continue
+        if any(
+            value == "/" and _cell_text(old.get(name)).strip() == ""
+            for name, value in desired.items()
+        ):
+            updates.append({"record_id": record["record_id"], "fields": desired})
+    return updates
+
+
 def _batches(rows: list[Any], size: int = BATCH_SIZE) -> Iterable[list[Any]]:
     for start in range(0, len(rows), size):
         yield rows[start : start + size]
@@ -671,6 +852,13 @@ def sync_table(
         sync_id_field=sync_id_field,
         source_field=source_field,
         updated_at_field=updated_at_field,
+    )
+    update_ids = {str(record["record_id"]) for record in updates}
+    updates.extend(
+        record for record in slash_placeholder_updates(
+            mapped, existing, sync_id_field=sync_id_field, source_field=source_field,
+        )
+        if str(record["record_id"]) not in update_ids
     )
     write_batches = [
         *((client.batch_create, batch) for batch in _batches(creates)),
@@ -776,6 +964,22 @@ def run() -> int:
             filename = str(section.get("file") or f"{name}.json")
             try:
                 rows = _load_items(data_dir / filename)
+                if name == "gongkao":
+                    rows, routed_rows, excluded_rows = partition_gongkao_rows(rows)
+                    LOGGER.info(
+                        "gongkao routing: kept=%d routed_to_qiuzhao=%d excluded_noise=%d",
+                        len(rows), len(routed_rows), len(excluded_rows),
+                    )
+                else:
+                    gongkao_section = config["sources"]["gongkao"]
+                    gongkao_filename = str(gongkao_section.get("file") or "gongkao.json")
+                    try:
+                        raw_gongkao = _load_items(data_dir / gongkao_filename)
+                    except Exception as exc:
+                        LOGGER.warning("cannot load Gongkao routes for Qiuzhao sync: %s", exc)
+                    else:
+                        _, routed_rows, _ = partition_gongkao_rows(raw_gongkao)
+                        rows = merge_qiuzhao_rows(rows, routed_rows)
                 result = sync_table(
                     client, app_token, table_id, rows, mapper, section["field_mapping"]
                 )
