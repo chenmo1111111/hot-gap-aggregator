@@ -21,6 +21,7 @@ import yaml
 from dotenv import load_dotenv
 from selectolax.parser import HTMLParser
 
+from app.pipeline.gongkao_classify import detail_category
 from app.sync_feishu import CHINA_TZ, _date_value, normalize_exam_type
 
 
@@ -35,17 +36,19 @@ FENBI_DETAIL_PARAMS = {
     "client_context_id": "",
 }
 DEEPSEEK_SYSTEM_PROMPT = """从下面这段招考公告提取信息，只输出 JSON，字段：
-bishi_kemu(笔试科目，如'行测+申论'/'公共基础知识'/'专业课'，没写填'')，
 xian_huji(是否限户籍：true/false)，huji_shuoming(限户籍的说明，如'限山东省户籍')，
 xian_zhuanye(是否限专业：true/false)，zhuanye_shuoming(专业要求简述)，
 xueli(学历要求，如'本科及以上'/'硕士'/'不限')，
 xian_yingjie(是否限应届：true/false)，
 fuwu_qi(有无最低服务年限，如'5年'/'无')，
 bei_zhu(其它关键限制一句话)"""
+XUANDIAO_SCOPE_PROMPT = """
+选调生公告还需输出字段：xuandiao_school_scope(招录院校范围，用一句可独立展示的话概括，例如'面向全国重点建设高校（含985/211/双一流）'、'面向本省高校'、'指定XX所高校（名单见公告）'、'双一流建设高校'、'不限'；无法判断填'名单见公告')"""
 EXTRACTION_KEYS = (
-    "bishi_kemu", "xian_huji", "huji_shuoming", "xian_zhuanye",
-    "zhuanye_shuoming", "xueli", "xian_yingjie", "fuwu_qi", "bei_zhu",
+    "xian_huji", "huji_shuoming", "xian_zhuanye", "zhuanye_shuoming",
+    "xueli", "xian_yingjie", "fuwu_qi", "bei_zhu", "xuandiao_school_scope",
 )
+ENRICHMENT_SCHEMA_VERSION = 2
 WATCHER_SUBSOURCES = {"xuandiao", "scs", "campus"}
 WEBPAGE_CONTENT_SELECTORS = (
     "article", "main", "#content", "#zoom", ".article-content", ".detail-content",
@@ -71,27 +74,6 @@ def calculate_signup_status(
     if start_date or end_date:
         return "报名中", days_left
     return None, None
-
-
-def detail_category(row: Mapping[str, Any]) -> str:
-    extra = row.get("extra") if isinstance(row.get("extra"), Mapping) else {}
-    exam_type = normalize_exam_type(extra.get("exam_type") or row.get("exam_type"))
-    tags = extra.get("tags") if isinstance(extra.get("tags"), list) else []
-    text = " ".join(str(value or "") for value in (
-        row.get("title_zh"), row.get("title"), extra.get("exam_type"), *tags,
-    ))
-    if any(marker in text for marker in ("银行", "农信社", "信用社", "村镇银行")):
-        return "银行"
-    if any(marker in text for marker in ("央企", "中央企业", "中央直属")):
-        return "央企"
-    if exam_type == "国企" or any(marker in text for marker in ("国企", "国有企业", "国资委")):
-        return "国企"
-    if exam_type == "事业单位" or "事业单位" in text or "事业编" in text:
-        return "事业单位"
-    return {
-        "教师": "教师", "医疗": "医疗", "选调生": "选调", "三支一扶": "三支一扶",
-        "国考": "公务员", "省考": "公务员", "公安": "公务员", "军队文职": "公务员",
-    }.get(exam_type, "其他")
 
 
 def _normalized_school(value: object) -> str:
@@ -250,6 +232,10 @@ class EnrichmentCache:
                 status TEXT NOT NULL,
                 error TEXT
             );
+            CREATE TABLE IF NOT EXISTS gongkao_first_seen (
+                record_key TEXT PRIMARY KEY,
+                first_seen TEXT NOT NULL
+            );
         """)
 
     def get(self, article_id: str) -> dict[str, Any] | None:
@@ -272,6 +258,18 @@ class EnrichmentCache:
             ),
         )
         self.connection.commit()
+
+    def get_or_create_first_seen(self, record_key: str, first_seen: date) -> str:
+        value = first_seen.isoformat()
+        self.connection.execute(
+            "INSERT OR IGNORE INTO gongkao_first_seen(record_key,first_seen) VALUES(?,?)",
+            (record_key, value),
+        )
+        row = self.connection.execute(
+            "SELECT first_seen FROM gongkao_first_seen WHERE record_key=?", (record_key,),
+        ).fetchone()
+        self.connection.commit()
+        return str(row["first_seen"] if row else value)
 
     def close(self) -> None:
         self.connection.close()
@@ -321,7 +319,10 @@ class DeepSeekExtractor:
             raise ValueError(f"公告不是可直接解析的 HTML 页面: {content_type or 'unknown'}")
         return strip_webpage_html(_decode_web_response(response))
 
-    def extract(self, text: str) -> dict[str, Any]:
+    def extract(self, text: str, *, include_xuandiao_scope: bool = False) -> dict[str, Any]:
+        system_prompt = DEEPSEEK_SYSTEM_PROMPT + (
+            XUANDIAO_SCOPE_PROMPT if include_xuandiao_scope else ""
+        )
         response = self.client.post(
             f"{self.base_url}/chat/completions",
             headers={"Authorization": f"Bearer {self.api_key}"},
@@ -330,7 +331,7 @@ class DeepSeekExtractor:
                 "temperature": 0,
                 "response_format": {"type": "json_object"},
                 "messages": [
-                    {"role": "system", "content": DEEPSEEK_SYSTEM_PROMPT},
+                    {"role": "system", "content": system_prompt},
                     {"role": "user", "content": text[:60000]},
                 ],
             },
@@ -346,6 +347,7 @@ class DeepSeekExtractor:
 def _source_hash(item: Mapping[str, Any]) -> str:
     extra = item.get("extra") if isinstance(item.get("extra"), Mapping) else {}
     stable = {
+        "schema_version": ENRICHMENT_SCHEMA_VERSION,
         "title": item.get("title_zh") or item.get("title"),
         "url": item.get("url"),
         "summary": item.get("summary_zh") or item.get("summary"),
@@ -355,6 +357,22 @@ def _source_hash(item: Mapping[str, Any]) -> str:
     }
     value = json.dumps(stable, ensure_ascii=False, sort_keys=True, default=str)
     return hashlib.sha256(value.encode("utf-8")).hexdigest()
+
+
+def _first_seen_key(item: Mapping[str, Any], extra: Mapping[str, Any]) -> str:
+    identifier = str(extra.get("id") or item.get("id") or "").strip()
+    if identifier:
+        kind = str(extra.get("subsource") or extra.get("sub") or item.get("source") or "gongkao")
+        return f"{kind}:{identifier}"
+    url_key = url_cache_key(
+        str(item.get("url") or item.get("announcement_url") or extra.get("announcement_url") or "")
+    )
+    if url_key:
+        return url_key
+    stable = "|".join(str(value or "").strip() for value in (
+        item.get("title_zh") or item.get("title"), extra.get("province") or item.get("province"),
+    ))
+    return "fallback:" + hashlib.sha256(stable.encode("utf-8")).hexdigest()
 
 
 def _enrichment_source(
@@ -413,7 +431,10 @@ def enrich_payload(
         extra["signup_status"] = status
         extra["days_left"] = days
         extra["detail_category"] = detail_category(item)
-        extra["my_school_eligible"] = is_my_school_eligible(item, school_config)
+        first_seen_date = today or datetime.now(CHINA_TZ).date()
+        extra["first_seen"] = cache.get_or_create_first_seen(
+            _first_seen_key(item, extra), first_seen_date
+        )
 
         enrichment_source = _enrichment_source(item, extra)
         source_hash = _source_hash(item)
@@ -453,7 +474,10 @@ def enrich_payload(
                 items.append(item)
                 continue
             try:
-                extracted = extractor.extract(article_text)
+                extracted = extractor.extract(
+                    article_text,
+                    include_xuandiao_scope=extra["detail_category"] == "选调生",
+                )
                 apply_url = str(getattr(extractor, "last_apply_url", "") or "").strip()
                 if apply_url:
                     extracted["_apply_url"] = apply_url

@@ -374,8 +374,8 @@ function LoginScreen({ onAuthenticated }: { onAuthenticated: () => Promise<void>
       <p className="mt-2 text-sm font-bold">每天 05:00 更新的个人报考机会清单</p>
       <ul className="mt-4 space-y-2 text-xs leading-5 text-[var(--muted)]">
         <li>粉笔全量公告 + 组织部选调公告，自动聚合更新</li>
-        <li>提炼笔试、户籍、专业、学历、应届与服务期限制</li>
-        <li>自动判断“东北林业大学能否报”，减少逐条翻附件</li>
+        <li>提炼户籍、专业、学历、应届与服务期限制</li>
+        <li>自动概括选调招录院校范围；个人版继续支持本校匹配</li>
         <li>每天早晨推送最该处理的 10 个机会</li>
         <li>1 个全量表 + 9 个预置视图，打开即可筛选</li>
       </ul>

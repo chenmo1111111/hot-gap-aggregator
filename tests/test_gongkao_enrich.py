@@ -25,8 +25,9 @@ def test_signup_status_covers_urgent_start_and_expiry() -> None:
 def test_article_html_and_llm_json_are_normalized() -> None:
     html = "<style>ignore</style><div id='content'><p>笔试：行测和申论</p><script>x</script></div>"
     assert strip_article_html(html) == "笔试：行测和申论"
-    result = parse_extraction_json('```json\n{"bishi_kemu":"行测+申论","xian_huji":"true"}\n```')
-    assert result["bishi_kemu"] == "行测+申论"
+    result = parse_extraction_json('```json\n{"xian_huji":"true","xuandiao_school_scope":"双一流建设高校"}\n```')
+    assert "bishi_kemu" not in result
+    assert result["xuandiao_school_scope"] == "双一流建设高校"
     assert result["xian_huji"] is True
     assert result["xian_zhuanye"] is False
 
@@ -64,9 +65,13 @@ class _Extractor:
         self.fetches += 1
         return "这是一段来自政府网站且长度足够的公告正文，明确写明本科及以上学历。"
 
-    def extract(self, _text: str):
+    def extract(self, _text: str, *, include_xuandiao_scope: bool = False):
         self.extracts += 1
-        return parse_extraction_json({"xueli": "本科及以上", "xian_zhuanye": False})
+        return parse_extraction_json({
+            "xueli": "本科及以上",
+            "xian_zhuanye": False,
+            "xuandiao_school_scope": "面向全国双一流建设高校" if include_xuandiao_scope else "",
+        })
 
 
 def test_enrichment_is_incremental_and_cache_is_reused(tmp_path) -> None:
@@ -85,14 +90,16 @@ def test_enrichment_is_incremental_and_cache_is_reused(tmp_path) -> None:
         )
         second, second_stats = enrich_payload(
             payload, cache=cache, school_config=config, extractor=extractor,
-            today=date(2026, 9, 7),
+            today=date(2026, 9, 8),
         )
     finally:
         cache.close()
     assert first["items"][0]["extra"]["xueli"] == "本科及以上"
     assert first_stats["extracted"] == 1
     assert second_stats["cached"] == 1
-    assert second["items"][0]["extra"]["signup_status"] == "剩3天"
+    assert second["items"][0]["extra"]["signup_status"] == "剩2天"
+    assert first["items"][0]["extra"]["first_seen"] == "2026-09-07"
+    assert second["items"][0]["extra"]["first_seen"] == "2026-09-07"
     assert (extractor.fetches, extractor.extracts) == (1, 1)
 
 
@@ -126,6 +133,7 @@ def test_watcher_url_enrichment_uses_hashed_url_cache(tmp_path) -> None:
     assert first_stats["skipped"] == 1
     assert second_stats["cached"] == 1
     assert first["items"][0]["extra"]["xueli"] == "本科及以上"
+    assert first["items"][0]["extra"]["xuandiao_school_scope"] == "面向全国双一流建设高校"
     assert second["items"][1]["extra"]["enrichment_status"] == "未提取"
     assert (extractor.fetches, extractor.extracts) == (1, 1)
 

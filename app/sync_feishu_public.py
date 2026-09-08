@@ -37,7 +37,8 @@ from app.sync_feishu import (
     normalize_company_type,
     normalize_exam_type,
 )
-from app.pipeline.gongkao_enrich import calculate_signup_status, detail_category
+from app.pipeline.gongkao_classify import detail_category
+from app.pipeline.gongkao_enrich import calculate_signup_status
 
 
 LOGGER = logging.getLogger(__name__)
@@ -51,6 +52,7 @@ URL = 15
 GONGKAO_SCHEMA: tuple[dict[str, Any], ...] = (
     {"field_name": "公告标题", "type": TEXT},
     {"field_name": "日期", "type": DATE, "property": {"date_formatter": "yyyy-MM-dd"}},
+    {"field_name": "首次收录", "type": DATE, "property": {"date_formatter": "yyyy-MM-dd"}},
     {
         "field_name": "类别",
         "type": SINGLE_SELECT,
@@ -63,7 +65,6 @@ GONGKAO_SCHEMA: tuple[dict[str, Any], ...] = (
     {"field_name": "截止日期", "type": DATE, "property": {"date_formatter": "yyyy-MM-dd"}},
     {"field_name": "省份", "type": TEXT},
     {"field_name": "链接", "type": URL},
-    {"field_name": "备注", "type": TEXT},
     {
         "field_name": "报名状态", "type": SINGLE_SELECT,
         "property": {"options": [{"name": name} for name in (
@@ -74,17 +75,19 @@ GONGKAO_SCHEMA: tuple[dict[str, Any], ...] = (
     {
         "field_name": "细分类别", "type": SINGLE_SELECT,
         "property": {"options": [{"name": name} for name in (
-            "国企", "央企", "事业单位", "银行", "教师", "医疗", "公务员", "选调", "三支一扶", "其他",
+            "国企", "央企", "事业单位", "银行", "教师", "医疗", "公务员", "选调生",
+            "三支一扶", "公安警察", "军队文职", "其它",
         )]},
     },
-    {"field_name": "笔试科目", "type": TEXT},
     {"field_name": "限户籍", "type": TEXT},
     {"field_name": "限专业", "type": TEXT},
     {"field_name": "学历要求", "type": TEXT},
     {"field_name": "限应届", "type": CHECKBOX},
     {"field_name": "服务期", "type": TEXT},
-    {"field_name": "本校可报", "type": CHECKBOX},
+    {"field_name": "招录院校范围", "type": TEXT},
+    {"field_name": "备注", "type": TEXT},
 )
+GONGKAO_DEPRECATED_FIELDS = ("笔试科目", "本校可报")
 
 QIUZHAO_SCHEMA: tuple[dict[str, Any], ...] = (
     {"field_name": "公司名称", "type": TEXT},
@@ -126,6 +129,8 @@ def ensure_public_schema(
     app_token: str,
     table_id: str,
     schema: tuple[dict[str, Any], ...],
+    *,
+    deprecated_fields: tuple[str, ...] = (),
 ) -> bool:
     """Ensure a display-only schema, adding fields without touching live data."""
     current = client.list_fields(app_token, table_id)
@@ -135,7 +140,8 @@ def ensure_public_schema(
         name in by_name and int(by_name[name].get("type") or 0) == int(definition["type"])
         for name, definition in zip(expected_names, schema)
     ) and bool(by_name.get(expected_names[0], {}).get("is_primary"))
-    if exact:
+    deprecated_present = [name for name in deprecated_fields if name in by_name]
+    if exact and not deprecated_present:
         return False
 
     records = client.list_records(app_token, table_id)
@@ -156,7 +162,11 @@ def ensure_public_schema(
         missing = [definition for definition in schema if definition["field_name"] not in by_name]
         for definition in missing:
             client.create_field(app_token, table_id, definition)
-        return bool(missing)
+        for name in deprecated_present:
+            field_id = str(by_name[name].get("field_id") or "")
+            if field_id and not by_name[name].get("is_primary"):
+                client.delete_field(app_token, table_id, field_id)
+        return bool(missing or deprecated_present)
 
     primary = next((field for field in current if field.get("is_primary")), None)
     if not primary:
@@ -197,19 +207,19 @@ def map_public_gongkao(row: Mapping[str, Any]) -> dict[str, Any]:
     extracted = str(extra.get("enrichment_status") or "") == "ok"
     limited_huji = _bool_value(extra.get("xian_huji"))
     limited_major = _bool_value(extra.get("xian_zhuanye"))
+    category = str(extra.get("detail_category") or detail_category(row))
     return {
         "公告标题": str(title).strip(),
         "日期": date_to_millis(_coalesce(row, "published_at|date|日期")),
+        "首次收录": date_to_millis(extra.get("first_seen")),
         "类别": normalize_exam_type(_coalesce(row, "extra.exam_type|exam_type|类别")),
         "招聘人数": _recruit_count(row),
         "截止日期": date_to_millis(end),
         "省份": str(extra.get("province") or row.get("province") or "全国").strip(),
         "链接": link,
-        "备注": _coalesce(row, "extra.notes|notes|备注"),
         "报名状态": status,
         "距截止天数": days_left,
-        "细分类别": str(extra.get("detail_category") or detail_category(row)),
-        "笔试科目": extra.get("bishi_kemu") or ("" if extracted else "未提取"),
+        "细分类别": category,
         "限户籍": (
             (extra.get("huji_shuoming") or "是") if limited_huji else ("不限" if extracted else "")
         ),
@@ -219,7 +229,11 @@ def map_public_gongkao(row: Mapping[str, Any]) -> dict[str, Any]:
         "学历要求": extra.get("xueli") or "",
         "限应届": _bool_value(extra.get("xian_yingjie")),
         "服务期": extra.get("fuwu_qi") or "",
-        "本校可报": _bool_value(extra.get("my_school_eligible")),
+        "招录院校范围": (
+            str(extra.get("xuandiao_school_scope") or "名单见公告")
+            if category == "选调生" and extracted else ""
+        ),
+        "备注": _coalesce(row, "extra.notes|notes|备注"),
     }
 
 
@@ -411,6 +425,7 @@ def run(argv: list[str] | None = None) -> int:
             map_public_gongkao,
             gongkao_key,
             lambda fields: _cell_text(fields.get("报名状态")).strip() == "已截止",
+            GONGKAO_DEPRECATED_FIELDS,
         ),
         (
             "qiuzhao_public",
@@ -420,13 +435,17 @@ def run(argv: list[str] | None = None) -> int:
             map_public_qiuzhao,
             qiuzhao_key,
             None,
+            (),
         ),
     )
     failed = False
     with FeishuClient(app_id, app_secret) as client:
-        for name, table_id, schema, filename, mapper, key_fn, preserve_missing in jobs:
+        for name, table_id, schema, filename, mapper, key_fn, preserve_missing, deprecated_fields in jobs:
             try:
-                initialized = ensure_public_schema(client, app_token, table_id, schema)
+                initialized = ensure_public_schema(
+                    client, app_token, table_id, schema,
+                    deprecated_fields=deprecated_fields,
+                )
                 rows = _load_items(data_dir / filename)
                 result = sync_public_table(
                     client, app_token, table_id, rows, mapper, key_fn,

@@ -20,7 +20,8 @@ import httpx
 import yaml
 from dotenv import load_dotenv
 
-from app.pipeline.gongkao_enrich import calculate_signup_status, detail_category
+from app.pipeline.gongkao_classify import detail_category
+from app.pipeline.gongkao_enrich import calculate_signup_status
 from app.sync_feishu import CHINA_TZ, _coalesce, _load_items
 
 

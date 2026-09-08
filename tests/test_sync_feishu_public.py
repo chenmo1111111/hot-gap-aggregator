@@ -26,20 +26,38 @@ def test_map_public_gongkao_uses_only_display_fields() -> None:
             "province": "山东省",
             "recruit_count": "12",
             "endSignUpTime": "2026-09-11",
+            "first_seen": "2026-09-08",
             "notes": "联考",
         },
     })
 
     assert set(fields) == {
-        "公告标题", "日期", "类别", "招聘人数", "截止日期", "省份", "链接", "备注",
-        "报名状态", "距截止天数", "细分类别", "笔试科目", "限户籍", "限专业",
-        "学历要求", "限应届", "服务期", "本校可报",
+        "公告标题", "日期", "首次收录", "类别", "招聘人数", "截止日期", "省份", "链接",
+        "报名状态", "距截止天数", "细分类别", "限户籍", "限专业", "学历要求",
+        "限应届", "服务期", "招录院校范围", "备注",
     }
     assert fields["类别"] == "事业单位"
     assert fields["招聘人数"] == "12"
     assert fields["链接"] == {"text": "查看公告", "link": "https://example.com/notice"}
     assert fields["日期"] == int(datetime(2026, 9, 4, tzinfo=CHINA_TZ).timestamp() * 1000)
-    assert fields["笔试科目"] == "未提取"
+    assert fields["首次收录"] == int(datetime(2026, 9, 8, tzinfo=CHINA_TZ).timestamp() * 1000)
+    assert list(fields)[-1] == "备注"
+
+
+def test_map_public_selection_exposes_generic_school_scope_only() -> None:
+    fields = map_public_gongkao({
+        "title": "辽宁定向选调公告",
+        "url": "https://example.com/xuandiao",
+        "extra": {
+            "exam_type": "选调生", "detail_category": "选调生",
+            "enrichment_status": "ok", "xuandiao_school_scope": "指定40所高校（名单见公告）",
+            "my_school_eligible": True,
+        },
+    })
+
+    assert fields["招录院校范围"] == "指定40所高校（名单见公告）"
+    assert "本校可报" not in fields
+    assert "笔试科目" not in fields
 
 
 def test_map_public_qiuzhao_uses_visible_natural_key() -> None:
@@ -144,6 +162,29 @@ def test_ensure_public_schema_only_adds_missing_fields_to_live_table() -> None:
     assert [field["field_name"] for field in client.created] == [
         field["field_name"] for field in GONGKAO_SCHEMA[8:]
     ]
+
+
+def test_ensure_public_schema_deletes_only_declared_deprecated_fields() -> None:
+    client = _SchemaClient(records=[{"record_id": "rec-live", "fields": {"公告标题": "保留"}}])
+    current = [
+        {"field_id": f"fld-{index}", "field_name": definition["field_name"],
+         "type": definition["type"], "is_primary": index == 0}
+        for index, definition in enumerate(GONGKAO_SCHEMA)
+    ]
+    current.extend([
+        {"field_id": "fld-bishi", "field_name": "笔试科目", "type": 1},
+        {"field_id": "fld-school", "field_name": "本校可报", "type": 7},
+    ])
+    client.list_fields = lambda _app, _table: current
+
+    changed = ensure_public_schema(
+        client, "app", "table", GONGKAO_SCHEMA,
+        deprecated_fields=("笔试科目", "本校可报"),
+    )
+
+    assert changed is True
+    assert client.created == []
+    assert client.deleted_fields == ["fld-bishi", "fld-school"]
 
 
 def test_diff_preserves_expired_missing_gongkao_row() -> None:
