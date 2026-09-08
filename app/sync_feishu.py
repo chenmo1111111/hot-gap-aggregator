@@ -10,6 +10,7 @@ from collections.abc import Iterable, Mapping
 from datetime import date, datetime, timedelta, timezone, tzinfo
 from pathlib import Path
 from typing import Any
+from urllib.parse import urlsplit
 
 import httpx
 import yaml
@@ -341,6 +342,21 @@ def normalize(value: object) -> str:
     return "".join(character for character in text if character.isalnum())
 
 
+def actionable_apply_url(value: object) -> str:
+    """Return a real external application URL, never an information/calendar page."""
+    text = str(value or "").strip()
+    try:
+        parsed = urlsplit(text)
+    except ValueError:
+        return ""
+    if parsed.scheme not in {"http", "https"} or not parsed.hostname:
+        return ""
+    host = parsed.hostname.casefold().rstrip(".")
+    if host == "fenbi.com" or host.endswith(".fenbi.com"):
+        return ""
+    return text
+
+
 def _get_path(row: Mapping[str, Any], path: str) -> Any:
     current: Any = row
     for part in path.split("."):
@@ -601,7 +617,10 @@ def routed_qiuzhao_row(row: Mapping[str, Any]) -> dict[str, Any]:
         "cohort": cohort_match.group(1) if cohort_match else None,
         "deadline": _coalesce(row, "deadline|extra.deadline|extra.endSignUpTime"),
         "written_test": _coalesce(row, "written_test|extra.written_test"),
-        "apply_url": _coalesce(row, "apply_url|extra.apply_url") or url,
+        # A Fenbi calendar/detail page is an announcement source, not an
+        # employer application portal.  Leave this blank unless enrichment
+        # found a verified external recruitment URL.
+        "apply_url": actionable_apply_url(_coalesce(row, "apply_url|extra.apply_url")) or None,
         "announcement_url": url,
         "updated_at": _coalesce(row, "extra.first_seen|published_at"),
         "notes": _coalesce(row, "notes|extra.notes|extra.bei_zhu"),
@@ -711,7 +730,9 @@ def map_qiuzhao(
     deadline = _coalesce(
         row, "deadline|application_deadline|end_time|extra.deadline|网申截止"
     )
-    apply_url = _coalesce(row, "apply_url|application_url|extra.apply_url|url|投递链接")
+    apply_url = actionable_apply_url(
+        _coalesce(row, "apply_url|application_url|extra.apply_url|投递链接")
+    )
     announcement_url = _coalesce(
         row, "announcement_url|source_url|extra.announcement_url|url|公告链接"
     )

@@ -33,6 +33,7 @@ from app.sync_feishu import (
     _load_items,
     _recruit_count,
     date_to_millis,
+    actionable_apply_url,
     merge_qiuzhao_rows,
     normalize,
     normalize_company_type,
@@ -279,7 +280,9 @@ def map_public_qiuzhao(row: Mapping[str, Any]) -> dict[str, Any]:
             _coalesce(row, "written_test|has_written_test|extra.written_test|是否笔试")
         ),
         "投递链接": _link(
-            _coalesce(row, "apply_url|application_url|extra.apply_url|url|投递链接"),
+            actionable_apply_url(
+                _coalesce(row, "apply_url|application_url|extra.apply_url|投递链接")
+            ),
             "立即投递",
         ),
         "公告链接": _link(

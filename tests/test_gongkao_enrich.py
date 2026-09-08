@@ -7,6 +7,7 @@ from app.pipeline.gongkao_enrich import (
     EnrichmentCache,
     calculate_signup_status,
     enrich_payload,
+    extract_official_apply_url,
     extract_recruit_count,
     is_my_school_eligible,
     parse_extraction_json,
@@ -41,6 +42,25 @@ def test_article_html_and_llm_json_are_normalized() -> None:
         "https://gov.example/a?id=1#other"
     )
     assert url_cache_key("http://127.0.0.1/private") == ""
+
+
+def test_official_apply_url_extraction_rejects_fenbi_calendar() -> None:
+    html = """
+    <a href="https://www.fenbi.com/page/kaoshidetail/123">粉笔考试日历</a>
+    <p>请登录 cms.hotjob.cn 查看职位并投递简历。</p>
+    """
+    assert extract_official_apply_url(html) == "https://cms.hotjob.cn"
+    assert extract_official_apply_url(
+        '<a href="https://www.fenbi.com/page/kaoshidetail/123">立即报名</a>'
+    ) == ""
+
+
+def test_official_apply_url_extraction_prefers_labeled_application_link() -> None:
+    html = """
+    <a href="https://company.example/about">公司介绍</a>
+    <a href="https://career.company.example/campus/apply">立即投递</a>
+    """
+    assert extract_official_apply_url(html) == "https://career.company.example/campus/apply"
 
 
 def test_selection_school_uses_explicit_list_before_fallback() -> None:

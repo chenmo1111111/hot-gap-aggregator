@@ -101,6 +101,17 @@ def test_map_public_qiuzhao_uses_visible_natural_key() -> None:
     assert qiuzhao_key(fields) == "job:示例公司|研发工程师"
 
 
+def test_public_qiuzhao_rejects_fenbi_calendar_as_application_url() -> None:
+    fields = map_public_qiuzhao({
+        "company_name": "招商证券",
+        "position": "2027届校园招聘",
+        "apply_url": "https://www.fenbi.com/page/kaoshidetail/123",
+        "announcement_url": "https://www.fenbi.com/page/kaoshidetail/123",
+    })
+    assert fields["投递链接"] is None
+    assert fields["公告链接"]["link"].startswith("https://www.fenbi.com/")
+
+
 def test_diff_public_records_creates_updates_deletes_and_deduplicates() -> None:
     source = [
         {"公告标题": "保留但更新", "链接": {"text": "查看公告", "link": "https://a.test/1"}},

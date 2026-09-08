@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import html as html_lib
 import hashlib
 import ipaddress
 import json
@@ -14,7 +15,7 @@ from collections.abc import Mapping
 from datetime import date, datetime, timedelta
 from pathlib import Path
 from typing import Any
-from urllib.parse import urlsplit, urlunsplit
+from urllib.parse import urljoin, urlsplit, urlunsplit
 
 import httpx
 import yaml
@@ -22,7 +23,7 @@ from dotenv import load_dotenv
 from selectolax.parser import HTMLParser
 
 from app.pipeline.gongkao_classify import detail_category, record_kind, record_kind_needs_llm
-from app.sync_feishu import CHINA_TZ, _date_value, normalize_exam_type
+from app.sync_feishu import CHINA_TZ, _date_value, actionable_apply_url, normalize_exam_type
 
 
 LOGGER = logging.getLogger(__name__)
@@ -58,6 +59,14 @@ WEBPAGE_CONTENT_SELECTORS = (
     ".pages_content", ".TRS_Editor", ".zwxl-article", ".article", ".content",
 )
 META_CHARSET_RE = re.compile(br"charset\s*=\s*['\"]?([a-zA-Z0-9_-]+)", re.I)
+APPLY_HOST_HINTS = ("hotjob", "career", "jobs", "job", "recruit", "campus", "zhaopin", "join")
+APPLY_PATH_HINTS = ("apply", "position", "job", "career", "campus", "recruit", "join")
+APPLY_TEXT_HINTS = ("立即报名", "立即投递", "投递简历", "申请职位", "招聘官网", "报名入口", "查看职位")
+ABSOLUTE_URL_RE = re.compile(r"https?://[^\s<>'\"）)]+", re.I)
+BARE_RECRUIT_HOST_RE = re.compile(
+    r"(?<![@\w])((?:[a-z0-9-]+\.)+(?:com|cn|net|org)(?:/[a-z0-9_./?=&%+#~-]*)?)",
+    re.I,
+)
 
 
 def calculate_signup_status(
@@ -152,6 +161,46 @@ def strip_webpage_html(html: str) -> str:
         return max(candidates, key=len)
     body = tree.body
     return " ".join(body.text(separator=" ", strip=True).split()) if body else ""
+
+
+def extract_official_apply_url(document: str, base_url: str = "") -> str:
+    """Find the best external recruitment/application link in an announcement."""
+    decoded = html_lib.unescape(str(document or "")).replace("\\/", "/")
+    candidates: list[tuple[int, int, str]] = []
+    seen: set[str] = set()
+
+    def add(raw_url: object, label: str = "", order: int = 0) -> None:
+        raw = str(raw_url or "").strip().strip("'\"，。；;、")
+        if not raw or raw.startswith(("javascript:", "mailto:", "tel:", "#")):
+            return
+        resolved = urljoin(base_url, raw)
+        safe = actionable_apply_url(resolved)
+        if not safe or safe in seen:
+            return
+        parsed = urlsplit(safe)
+        if re.search(r"\.(?:jpg|jpeg|png|gif|svg|css|js|pdf|docx?|xlsx?|zip)(?:$|\?)", parsed.path, re.I):
+            return
+        host = (parsed.hostname or "").casefold()
+        path = (parsed.path + "?" + parsed.query).casefold()
+        label_folded = label.casefold()
+        score = 0
+        score += 6 * sum(hint in label_folded for hint in APPLY_TEXT_HINTS)
+        score += 4 * sum(hint in host for hint in APPLY_HOST_HINTS)
+        score += 2 * sum(hint in path for hint in APPLY_PATH_HINTS)
+        if score <= 0:
+            return
+        seen.add(safe)
+        candidates.append((score, -order, safe))
+
+    tree = HTMLParser(decoded)
+    for order, node in enumerate(tree.css("a[href]")):
+        add(node.attributes.get("href"), node.text(separator=" ", strip=True), order)
+    text = tree.text(separator=" ", strip=True)
+    for order, match in enumerate(ABSOLUTE_URL_RE.finditer(decoded), start=10_000):
+        add(match.group(0), "", order)
+    for order, match in enumerate(BARE_RECRUIT_HOST_RE.finditer(text), start=20_000):
+        add("https://" + match.group(1), "", order)
+    return max(candidates)[2] if candidates else ""
 
 
 def _decode_web_response(response: httpx.Response) -> str:
@@ -344,9 +393,7 @@ class DeepSeekExtractor:
         response = self.client.get(FENBI_DETAIL_URL, params=params)
         response.raise_for_status()
         html = response.content.decode("utf-8", errors="replace")
-        tree = HTMLParser(html)
-        apply_node = tree.css_first("a.register-button[href]") or tree.css_first("a.position-button[href]")
-        self.last_apply_url = str(apply_node.attributes.get("href") or "") if apply_node else ""
+        self.last_apply_url = extract_official_apply_url(html, str(response.url))
         return strip_article_html(html)
 
     def fetch_url(self, url: str) -> str:
@@ -370,7 +417,9 @@ class DeepSeekExtractor:
             for marker in ("application/pdf", "application/octet-stream", "application/msword")
         ):
             raise ValueError(f"公告不是可直接解析的 HTML 页面: {content_type or 'unknown'}")
-        return strip_webpage_html(_decode_web_response(response))
+        html = _decode_web_response(response)
+        self.last_apply_url = extract_official_apply_url(html, str(response.url))
+        return strip_webpage_html(html)
 
     def extract(self, text: str, *, include_xuandiao_scope: bool = False) -> dict[str, Any]:
         system_prompt = DEEPSEEK_SYSTEM_PROMPT + (
@@ -482,8 +531,10 @@ def _merge_extracted(extra: dict[str, Any], extracted: Mapping[str, Any], status
         if key in extracted:
             extra[key] = extracted[key]
     extra["enrichment_status"] = status
-    if extracted.get("_apply_url"):
-        extra["apply_url"] = str(extracted["_apply_url"])
+    if apply_url := actionable_apply_url(extracted.get("_apply_url")):
+        extra["apply_url"] = apply_url
+    elif "apply_url" in extra and not actionable_apply_url(extra.get("apply_url")):
+        extra.pop("apply_url", None)
 
 
 def enrich_payload(
@@ -498,7 +549,7 @@ def enrich_payload(
     stats = {
         "items": len(source_items), "extracted": 0, "fenbi_extracted": 0,
         "url_extracted": 0, "cached": 0, "failed": 0, "fetch_failed": 0,
-        "llm_failed": 0, "skipped": 0,
+        "llm_failed": 0, "skipped": 0, "apply_url_backfilled": 0,
     }
     items: list[dict[str, Any]] = []
     failure_streak = 0
@@ -532,7 +583,36 @@ def enrich_payload(
         if cached and cached["source_hash"] == source_hash and (
             cached["status"] == "ok" or not retry_failed
         ):
-            _merge_extracted(extra, json.loads(cached["提取JSON"]), str(cached["status"]))
+            cached_extracted = json.loads(cached["提取JSON"])
+            # Older cache rows predate official application-link discovery.
+            # For routed campus jobs, fetch the announcement once more without
+            # spending another LLM call, then mark the lightweight backfill done.
+            if (
+                extra.get("record_kind") == "秋招"
+                and "_apply_url_checked_v1" not in cached_extracted
+                and enrichment_source is not None
+                and extraction_available
+                and extractor is not None
+            ):
+                source_kind, _, source_value = enrichment_source
+                try:
+                    if source_kind == "fenbi":
+                        extractor.fetch_article(source_value)
+                    else:
+                        extractor.fetch_url(source_value)
+                    cached_extracted["_apply_url_checked_v1"] = True
+                    if apply_url := actionable_apply_url(
+                        getattr(extractor, "last_apply_url", "")
+                    ):
+                        cached_extracted["_apply_url"] = apply_url
+                        stats["apply_url_backfilled"] += 1
+                    cache.put(
+                        cache_key, source_hash, cached_extracted,
+                        status=str(cached["status"]), error=str(cached.get("error") or ""),
+                    )
+                except Exception as exc:
+                    LOGGER.warning("application URL backfill failed for %s: %s", source_value, exc)
+            _merge_extracted(extra, cached_extracted, str(cached["status"]))
             stats["cached"] += 1
         elif enrichment_source is None:
             extra["enrichment_status"] = "未提取"
@@ -567,7 +647,8 @@ def enrich_payload(
                     article_text,
                     include_xuandiao_scope=extra["detail_category"] == "选调生",
                 )
-                apply_url = str(getattr(extractor, "last_apply_url", "") or "").strip()
+                extracted["_apply_url_checked_v1"] = True
+                apply_url = actionable_apply_url(getattr(extractor, "last_apply_url", ""))
                 if apply_url:
                     extracted["_apply_url"] = apply_url
                 cache.put(cache_key, source_hash, extracted)
@@ -579,7 +660,11 @@ def enrich_payload(
                 failure_streak = 0
             except Exception as exc:
                 LOGGER.warning("DeepSeek enrichment failed for %s: %s", source_value, exc)
-                cache.put(cache_key, source_hash, {}, status="未提取", error=str(exc))
+                link_only: dict[str, Any] = {"_apply_url_checked_v1": True}
+                if apply_url := actionable_apply_url(getattr(extractor, "last_apply_url", "")):
+                    link_only["_apply_url"] = apply_url
+                    _merge_extracted(extra, link_only, "未提取")
+                cache.put(cache_key, source_hash, link_only, status="未提取", error=str(exc))
                 extra["enrichment_status"] = "未提取"
                 stats["failed"] += 1
                 stats["llm_failed"] += 1

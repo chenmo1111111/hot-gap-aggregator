@@ -11,6 +11,7 @@ from app.sync_feishu import (
     DEFAULT_GONGKAO_MAPPING,
     DEFAULT_QIUZHAO_MAPPING,
     FeishuClient,
+    actionable_apply_url,
     date_to_millis,
     delete_named_views,
     diff_records,
@@ -122,6 +123,19 @@ def test_qiuzhao_mapping_writes_collector_source_label() -> None:
     assert fields["来源"] == "自动·国聘"
 
 
+def test_qiuzhao_never_uses_fenbi_calendar_as_application_url() -> None:
+    row = {
+        "company_name": "招商证券", "position": "2027届校园招聘",
+        "url": "https://www.fenbi.com/page/kaoshidetail/123",
+        "announcement_url": "https://www.fenbi.com/page/kaoshidetail/123",
+        "apply_url": "https://www.fenbi.com/page/kaoshidetail/123",
+    }
+    fields = map_qiuzhao(row, now=NOW)
+    assert fields["投递链接"] is None
+    assert fields["公告链接"]["link"].startswith("https://www.fenbi.com/")
+    assert actionable_apply_url("https://cms.hotjob.cn/") == "https://cms.hotjob.cn/"
+
+
 def test_diff_creates_updates_deletes_and_completely_ignores_manual_rows() -> None:
     source = [
         {"同步ID": "same", "更新时间": 200, "公司名称": "A", "来源": "自动"},
@@ -197,7 +211,7 @@ def test_diff_treats_slash_and_blank_as_equal_but_backfill_is_one_time() -> None
 def test_gongkao_enterprise_campus_row_is_converted_and_merged_into_qiuzhao() -> None:
     row = {
         "title": "中国移动辽宁分公司2027届校园招聘",
-        "url": "https://example.com/campus",
+        "url": "https://www.fenbi.com/page/kaoshidetail/123",
         "published_at": "2026-09-08",
         "extra": {
             "id": "g1", "exam_type": "国企招聘", "province": "辽宁",
@@ -212,6 +226,8 @@ def test_gongkao_enterprise_campus_row_is_converted_and_merged_into_qiuzhao() ->
     assert converted["position"] == row["title"]
     assert converted["cohort"] == "2027届"
     assert converted["deadline"] == "2026-10-01"
+    assert converted["apply_url"] is None
+    assert converted["announcement_url"].startswith("https://www.fenbi.com/")
     assert converted["source_label"] == "公考源路由"
     assert len(merge_qiuzhao_rows([], routed)) == 1
 
