@@ -269,7 +269,7 @@ def test_instructions_table_is_created_and_seeded() -> None:
     table_id, result = ensure_instructions_table(client, "base")
 
     assert table_id == "tbl-guide"
-    client.create_table.assert_called_once_with("base", "使用说明", default_view_name="使用说明")
+    client.create_table.assert_called_once_with("base", "使用说明")
     assert client.batch_create.call_count == 1
     created_rows = client.batch_create.call_args.args[2]
     assert len(created_rows) == 10

@@ -454,7 +454,7 @@ def ensure_instructions_table(
     )
     created = table is None
     if table is None:
-        table = client.create_table(app_token, table_name, default_view_name="使用说明")
+        table = client.create_table(app_token, table_name)
     table_id = str(table.get("table_id") or "")
     if not table_id:
         raise FeishuAPIError(f"找不到数据表 {table_name} 的 table_id")

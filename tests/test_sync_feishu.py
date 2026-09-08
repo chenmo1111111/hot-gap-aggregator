@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from datetime import datetime
 from unittest.mock import Mock, call, patch
 
@@ -275,6 +276,8 @@ def test_client_caches_token_and_refetches_it_once_after_401() -> None:
 
 
 def test_client_lists_and_creates_bitable_tables() -> None:
+    create_bodies: list[dict[str, object]] = []
+
     def handler(request: httpx.Request) -> httpx.Response:
         if request.url.path.endswith("/tenant_access_token/internal"):
             return httpx.Response(200, json={
@@ -285,7 +288,7 @@ def test_client_lists_and_creates_bitable_tables() -> None:
                 "code": 0, "data": {"items": [{"table_id": "tbl-old", "name": "公考"}], "has_more": False},
             })
         assert request.method == "POST"
-        assert request.read()
+        create_bodies.append(json.loads(request.read()))
         return httpx.Response(200, json={
             "code": 0, "data": {"table_id": "tbl-guide", "name": "使用说明"},
         })
@@ -293,6 +296,7 @@ def test_client_lists_and_creates_bitable_tables() -> None:
     with FeishuClient("app-id", "secret", transport=httpx.MockTransport(handler)) as client:
         assert client.list_tables("base")[0]["table_id"] == "tbl-old"
         assert client.create_table("base", "使用说明")["table_id"] == "tbl-guide"
+    assert create_bodies == [{"table": {"name": "使用说明"}}]
 
 
 def test_default_mapping_has_every_required_feishu_field() -> None:

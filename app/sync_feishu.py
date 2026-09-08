@@ -218,12 +218,15 @@ class FeishuClient:
                 raise FeishuAPIError("table pagination says has_more but has no page_token")
 
     def create_table(
-        self, app_token: str, name: str, *, default_view_name: str = "全部"
+        self, app_token: str, name: str, *, default_view_name: str | None = None
     ) -> dict[str, Any]:
+        table_payload: dict[str, Any] = {"name": name}
+        if default_view_name:
+            table_payload["default_view_name"] = default_view_name
         payload = self._request(
             "POST",
             f"/bitable/v1/apps/{app_token}/tables",
-            json={"table": {"name": name, "default_view_name": default_view_name}},
+            json={"table": table_payload},
         )
         data = payload.get("data") or {}
         table = data.get("table") if isinstance(data, Mapping) else {}
