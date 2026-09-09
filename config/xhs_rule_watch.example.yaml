@@ -17,3 +17,8 @@ watch_articles:
   # 在这里补充“虚拟卡券商品发布及宣传规范”等详情页 URL。
 
 check_interval_hours: 8
+
+impact_analysis:
+  enabled: true
+  shop_manage_url: "https://ark.xiaohongshu.com/app-item/list/shelf"
+  urgent_within_days: 7

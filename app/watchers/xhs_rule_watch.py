@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import asyncio
+import argparse
 import hashlib
 import json
 import logging
@@ -74,6 +75,8 @@ COOKIE_EXPIRED_MESSAGE = (
 )
 Notifier = Callable[[dict[str, str]], Awaitable[dict[str, str]]]
 Judge = Callable[[str], Awaitable[str]]
+ShopRefresher = Callable[[dict[str, Any]], Awaitable[dict[str, Any]]]
+ImpactAnalyzer = Callable[[dict[str, Any], dict[str, Any]], Awaitable[dict[str, Any]]]
 
 
 class XhsCookieInvalid(SourceUnavailable):
@@ -225,6 +228,8 @@ class XhsRuleWatcher:
         self, database: Database, config_path: str | Path | None = None, *,
         judge: Judge | None = None, notifier: Notifier | None = None,
         alerts_path: str | Path | None = None, confirmation_delay_seconds: float = 60,
+        shop_refresher: ShopRefresher | None = None,
+        impact_analyzer: ImpactAnalyzer | None = None,
     ) -> None:
         self.database = database
         self.config_path = Path(config_path or os.getenv("XHS_RULE_WATCH_CONFIG", "config/xhs_rule_watch.yaml"))
@@ -232,6 +237,9 @@ class XhsRuleWatcher:
         self.notifier = notifier or notify_subsidy_alert
         self._custom_notifier = notifier is not None
         self.confirmation_delay_seconds = confirmation_delay_seconds
+        self.shop_refresher = shop_refresher
+        self.impact_analyzer = impact_analyzer
+        self._runtime_config: dict[str, Any] = {}
         default_data_dir = Path(os.getenv("SERVER_SITE_DATA_DIR", "public/data"))
         self.alerts_path = Path(alerts_path) if alerts_path else default_data_dir / "alerts.json"
 
@@ -243,6 +251,7 @@ class XhsRuleWatcher:
 
     async def run(self) -> dict[str, Any]:
         config = self.load_config()
+        self._runtime_config = config
         try:
             scraped = await self._scrape(config)
         except XhsCookieInvalid as exc:
@@ -444,19 +453,128 @@ class XhsRuleWatcher:
             return {"name": name, "status": "model-degraded"}
         old_announced = str(previous.get("announced_at") or "未标注")
         old_effective = str(previous.get("effective_at") or "未标注")
-        summary = (
-            f"规则《{name}》疑似更新 | 公示 {old_announced}→{current['announced_at'] or '未标注'}"
-            f" | 生效 {old_effective}→{current['effective_at'] or '未标注'}"
-            f" | 抓取于 {datetime.now(CHINA_TZ).date().isoformat()} | {impact}"
+        impact_result = await self._run_impact_analysis(
+            article, previous, current, material_change_summary=impact,
         )
-        alert = self._alert(
-            title=name, url=url, kind="规则更新", summary=summary, priority="highest",
-        )
+        if impact_result is None:
+            summary = (
+                f"规则《{name}》疑似更新 | 公示 {old_announced}→{current['announced_at'] or '未标注'}"
+                f" | 生效 {old_effective}→{current['effective_at'] or '未标注'}"
+                f" | 抓取于 {datetime.now(CHINA_TZ).date().isoformat()} | {impact}"
+            )
+            alert = self._alert(
+                title=name, url=url, kind="规则更新", summary=summary, priority="highest",
+            )
+        else:
+            title, summary, priority, analysis, shop_snapshot = impact_result
+            alert = self._alert(
+                title=title, url=url, kind="规则影响分析", summary=summary, priority=priority,
+                extra={"impact_analysis": analysis, "shop_item_count": len(shop_snapshot.get("items") or [])},
+            )
         if await self._deliver(alert):
             self.database.mark_push_events([event_key])
             self._save_article(url, current)
             return {"name": name, "status": "pushed", "summary": summary}
         return {"name": name, "status": "notification-degraded"}
+
+    async def _run_impact_analysis(
+        self, article: dict[str, Any], previous: dict[str, Any], current: dict[str, str], *,
+        material_change_summary: str, manual: bool = False,
+    ) -> tuple[str, str, str, dict[str, Any], dict[str, Any]] | None:
+        impact_config = self._runtime_config.get("impact_analysis") or {}
+        if not isinstance(impact_config, dict) or (not manual and not impact_config.get("enabled", False)):
+            return None
+        shop_manage_url = str(
+            impact_config.get("shop_manage_url")
+            or "https://ark.xiaohongshu.com/app-item/list/shelf"
+        )
+        if self.shop_refresher is not None:
+            shop_snapshot = await self.shop_refresher(impact_config)
+        else:
+            from app.watchers.xhs_shop_items import XhsShopItems
+
+            snapshot_path = os.getenv("XHS_SHOP_ITEMS_PATH", "data/xhs_shop_items.json")
+            shop_snapshot = await XhsShopItems(snapshot_path).refresh(shop_manage_url)
+
+        external_links = list(dict.fromkeys(
+            link.rstrip(".,") for link in re.findall(r"https?://[^\s<>\"'，。]+", current["content_text"])
+        ))
+        rule = {
+            "name": str(article.get("name") or "规则正文"),
+            "col_id": self._rule_id(str(article.get("url") or "")),
+            "url": str(article.get("url") or ""),
+            "announced_at_old": str(previous.get("announced_at") or ""),
+            "announced_at": current["announced_at"],
+            "effective_at_old": str(previous.get("effective_at") or ""),
+            "effective_at": current["effective_at"],
+            "content_text": current["content_text"],
+            "external_links": external_links,
+            "material_change_summary": material_change_summary,
+            "manual_trigger": manual,
+        }
+        if self.impact_analyzer is not None:
+            analysis = await self.impact_analyzer(rule, shop_snapshot)
+        else:
+            from app.pipeline.xhs_rule_impact import DeepSeekRuleImpactAnalyzer
+
+            analysis = await DeepSeekRuleImpactAnalyzer().analyze(rule, shop_snapshot)
+
+        from app.pipeline.xhs_rule_impact import format_impact_notification
+
+        title, summary, priority = format_impact_notification(
+            rule["name"], rule["announced_at_old"] or "未标注",
+            rule["announced_at"] or "未标注", rule["effective_at"] or "未标注",
+            analysis, len(shop_snapshot.get("items") or []),
+            urgent_within_days=int(impact_config.get("urgent_within_days") or 7),
+            manual=manual,
+        )
+        return title, summary, priority, analysis, shop_snapshot
+
+    async def analyze(self, rule_id: str) -> dict[str, Any]:
+        """Force a current-rule shop impact analysis for operator verification."""
+        config = self.load_config()
+        self._runtime_config = config
+        normalised = rule_id.strip().strip("/")
+        article = next((
+            row for row in config.get("watch_articles", [])
+            if isinstance(row, dict) and self._rule_id(str(row.get("url") or "")) == normalised
+        ), None)
+        if article is None:
+            article = {
+                "name": f"规则 {normalised}",
+                "url": f"https://school.xiaohongshu.com/rule/detail/{normalised}",
+            }
+        scraped = await self._scrape({"list_pages": [], "watch_articles": [article]})
+        capture = scraped.get("articles", [])[0] if scraped.get("articles") else None
+        if not capture or capture[1] is None:
+            raise RuntimeError("manual rule content capture failed")
+        current = extract_article_metadata(capture[1])
+        previous = self.database.get_xhs_rule_snapshot(str(article["url"])) or current
+        result = await self._run_impact_analysis(
+            article, previous, current, material_change_summary="手动触发现行规则核对", manual=True,
+        )
+        if result is None:
+            raise RuntimeError("impact analysis is unavailable")
+        title, summary, priority, analysis, shop_snapshot = result
+        alert = self._alert(
+            title=title, url=str(article["url"]), kind="手动触发·规则影响分析",
+            summary=summary, priority=priority,
+            extra={"impact_analysis": analysis, "shop_item_count": len(shop_snapshot.get("items") or [])},
+        )
+        delivered = await self._deliver(alert)
+        return {
+            "status": "pushed" if delivered else "notification-degraded",
+            "manual": True,
+            "rule_id": normalised,
+            "shop_item_count": len(shop_snapshot.get("items") or []),
+            "shop_snapshot_stale": bool(shop_snapshot.get("stale")),
+            "analysis": analysis,
+        }
+
+    @staticmethod
+    def _rule_id(url: str) -> str:
+        match = re.search(r"/rule/detail/(\d+/\d+)", url)
+        return match.group(1) if match else url.rstrip("/").rsplit("/", 1)[-1]
 
     def _save_article(self, url: str, current: dict[str, str]) -> None:
         self.database.save_xhs_rule_snapshot(
@@ -481,7 +599,7 @@ class XhsRuleWatcher:
             return True
         return False
 
-    async def _deliver(self, alert: dict[str, str]) -> bool:
+    async def _deliver(self, alert: dict[str, Any]) -> bool:
         site_written = True
         try:
             self._write_alert(alert)
@@ -494,7 +612,7 @@ class XhsRuleWatcher:
             return site_written and any(value == "ok" for value in status.values())
         return site_written
 
-    def _write_alert(self, alert: dict[str, str]) -> None:
+    def _write_alert(self, alert: dict[str, Any]) -> None:
         self.alerts_path.parent.mkdir(parents=True, exist_ok=True)
         try:
             payload = json.loads(self.alerts_path.read_text(encoding="utf-8"))
@@ -510,17 +628,23 @@ class XhsRuleWatcher:
         temporary.replace(self.alerts_path)
 
     @staticmethod
-    def _alert(title: str, url: str, kind: str, summary: str, priority: str) -> dict[str, str]:
+    def _alert(
+        title: str, url: str, kind: str, summary: str, priority: str,
+        extra: dict[str, Any] | None = None,
+    ) -> dict[str, Any]:
         created = datetime.now(UTC).isoformat(timespec="seconds")
         tag = f"【小红书规则·{kind}】"
         message = f"{tag}{title}｜{summary}｜{url}｜{created}"
-        return {
+        alert: dict[str, Any] = {
             "id": hashlib.sha256(message.encode("utf-8")).hexdigest()[:20],
             "tag": tag, "category_label": "小红书规则", "region": kind,
             "type": kind, "title": title, "url": url, "date": created[:10],
             "summary": summary, "message": message, "priority": priority,
             "created_at": created,
         }
+        if extra:
+            alert.update(extra)
+        return alert
 
     async def _llm_judge(self, prompt: str) -> str:
         zhipu_key, deepseek_key = os.getenv("ZHIPU_API_KEY"), os.getenv("DEEPSEEK_API_KEY")
@@ -547,12 +671,16 @@ class XhsRuleWatcher:
         raise RuntimeError(f"xhs rule model failed: {last_error}")
 
 
-async def main() -> None:
+async def main(argv: list[str] | None = None) -> None:
+    parser = argparse.ArgumentParser(description="Watch Xiaohongshu rules and analyze shop impact")
+    parser.add_argument("--analyze", metavar="COL/ID", help="force impact analysis for a current rule")
+    arguments = parser.parse_args(argv)
     load_dotenv()
     logging.basicConfig(level=logging.INFO, format="%(message)s")
     database = Database(os.getenv("SERVER_DATABASE", "data/server.db"))
     try:
-        result = await XhsRuleWatcher(database).run()
+        watcher = XhsRuleWatcher(database)
+        result = await watcher.analyze(arguments.analyze) if arguments.analyze else await watcher.run()
         LOGGER.info(json.dumps({"event": "xhs_rule_watch_finished", **result}, ensure_ascii=False))
     finally:
         database.close()

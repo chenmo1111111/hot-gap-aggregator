@@ -313,5 +313,91 @@ async def test_cookie_failure_alerts_once_without_raising(monkeypatch, tmp_path)
     database.close()
 
 
+@pytest.mark.asyncio
+async def test_manual_analyze_path_refreshes_shop_and_pushes_with_marker(monkeypatch, tmp_path) -> None:
+    config = tmp_path / "xhs.yaml"
+    config.write_text(
+        "list_pages: []\nwatch_articles:\n"
+        "  - {name: 类目明细, url: 'https://school.xiaohongshu.com/rule/detail/26/2981'}\n"
+        "impact_analysis:\n  enabled: true\n  shop_manage_url: 'https://ark.test/items'\n  urgent_within_days: 7\n",
+        encoding="utf-8",
+    )
+    database = Database(tmp_path / "watch.db")
+    delivered = []
+    calls = []
+
+    async def refresh(settings):
+        calls.append(("shop", settings["shop_manage_url"]))
+        return {"stale": False, "items": [{"item_id": "1", "title": "电子题库"}]}
+
+    async def analyze(rule, shop):
+        calls.append(("impact", rule["col_id"], len(shop["items"])))
+        return {
+            "verdict": "review", "summary": "建议核对", "affected_items": [],
+            "action_plan": ["核对类目"], "manual_checks": [], "deadline": rule["effective_at"],
+        }
+
+    async def notifier(alert):
+        delivered.append(alert)
+        return {"feishu": "ok"}
+
+    watcher = XhsRuleWatcher(
+        database, config, notifier=notifier, alerts_path=tmp_path / "alerts.json",
+        shop_refresher=refresh, impact_analyzer=analyze,
+    )
+    article = {"name": "类目明细", "url": "https://school.xiaohongshu.com/rule/detail/26/2981"}
+    monkeypatch.setattr(watcher, "_scrape", lambda _config: async_value({
+        "lists": [], "articles": [(article, fixture_body("xhs_rule_article_new.html"), None)],
+    }))
+    result = await watcher.analyze("26/2981")
+    assert result["status"] == "pushed" and result["manual"] is True
+    assert calls == [("shop", "https://ark.test/items"), ("impact", "26/2981", 1)]
+    assert "【手动触发】" in delivered[0]["summary"]
+    assert delivered[0]["impact_analysis"]["verdict"] == "review"
+    database.close()
+
+
+@pytest.mark.asyncio
+async def test_shop_impact_runs_only_after_confirmed_material_change(tmp_path) -> None:
+    database = Database(tmp_path / "watch.db")
+    calls = []
+
+    async def judge(_prompt):
+        return '{"changed": true, "impact": "电子资源类目限制改变"}'
+
+    async def refresh(_settings):
+        calls.append("shop")
+        return {"stale": False, "items": [{"item_id": "1", "title": "题库"}]}
+
+    async def analyze(_rule, _shop):
+        calls.append("impact")
+        return {
+            "verdict": "review", "summary": "核对", "affected_items": [],
+            "action_plan": [], "manual_checks": [], "deadline": "2026-09-08",
+        }
+
+    async def notifier(_alert):
+        return {"feishu": "ok"}
+
+    watcher = XhsRuleWatcher(
+        database, tmp_path / "unused.yaml", judge=judge, notifier=notifier,
+        alerts_path=tmp_path / "alerts.json", shop_refresher=refresh, impact_analyzer=analyze,
+    )
+    watcher._runtime_config = {
+        "impact_analysis": {"enabled": True, "shop_manage_url": "https://ark.test/items"},
+    }
+    article = {"name": "类目规则", "url": "https://school.test/rule/detail/26/2981"}
+    old, new = fixture_body("xhs_rule_article_old.html"), fixture_body("xhs_rule_article_new.html")
+    await watcher._process_article(article, old)
+    await watcher._process_article(article, old)
+    assert calls == []
+    await watcher._process_article(article, new, new + " 页面随机尾巴")
+    assert calls == []
+    result = await watcher._process_article(article, new, new)
+    assert result["status"] == "pushed"
+    assert calls == ["shop", "impact"]
+    database.close()
+
+
 async def async_value(value):
     return value

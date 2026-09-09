@@ -80,12 +80,26 @@ SERVER_HEARTBEAT_PATH=/var/www/hot-gap/data/server-heartbeat.txt
 XHS_RULE_WATCH_CONFIG=config/xhs_rule_watch.yaml
 XHS_SCHOOL_COOKIE_JSON='[{"name":"web_session","value":"...","domain":".xiaohongshu.com","path":"/"}]'
 XHS_SCHOOL_COOKIE_DOC='a1=...; webId=...; gid=...'
+XHS_SHOP_ITEMS_PATH=data/xhs_shop_items.json
+DEEPSEEK_API_KEY=replace-with-server-only-secret
 ```
 
 第一项粘贴 Cookie-Editor 导出的完整 JSON 数组，第二项粘贴页面 Console 里的
 `document.cookie`。真实值不得提交到 Git。登录失效后会通过飞书、Bark 或站内
-`alerts.json` 提醒重新导出。正文首次运行只建立基线；以后公示/生效/修订日期、
-腾讯文档链接或正文变化才交给模型判断。安装或升级后把 cron 模板复制到系统：
+`alerts.json` 提醒重新导出。正文首次运行只建立基线；以后仅当公示日期、生效日期
+或腾讯文档链接变化且两次抓取一致，并经模型确认确有实质变化后才告警。
+
+确认变化后，watcher 会打开千帆商品管理页，捕获当前后台商品列表请求并用 httpx
+翻页拉取全部在售商品，快照写到 `data/xhs_shop_items.json`，再仅通过 DeepSeek 做
+逐商品影响分析。商品接口失败时保留上次快照并标记 `stale: true`，分析结论至少为
+“建议核对”，不会误报“无需改动”。可手动验证当前规则（该命令会真实推送并带
+“手动触发”标记）：
+
+```bash
+.venv/bin/python -m app.watchers.xhs_rule_watch --analyze 26/2981
+```
+
+安装或升级后把 cron 模板复制到系统：
 
 ```bash
 cp deploy/server/hot-gap-jobs.cron /etc/cron.d/hot-gap-jobs

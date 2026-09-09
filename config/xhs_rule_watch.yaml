@@ -17,3 +17,8 @@ watch_articles:
   - {name: 小红书定向准入类目管理规则, url: "https://school.xiaohongshu.com/rule/detail/26/3059"}
 
 check_interval_hours: 8
+
+impact_analysis:
+  enabled: true
+  shop_manage_url: "https://ark.xiaohongshu.com/app-item/list/shelf"
+  urgent_within_days: 7
