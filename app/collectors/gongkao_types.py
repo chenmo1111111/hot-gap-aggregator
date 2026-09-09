@@ -23,8 +23,17 @@ TYPE_TAG_PRIORITY = (
 
 def title_type(title: object) -> str | None:
     value = str(title or "")
+    if any(marker in value for marker in (
+        "军队文职", "部队文职", "直接选拔招录军官", "直接选拔招录警官",
+        "直接选拔招录军（警）官", "直接选拔招录军(警)官",
+    )):
+        return "军队文职"
     if any(marker in value for marker in ("中央选调", "定向选调", "选调生", "选调")):
         return "选调生"
+    if "三支一扶" in value:
+        return "三支一扶"
+    if "事业单位" in value:
+        return "事业单位"
     if any(marker in value for marker in ("国考", "国家公务员", "中央机关及其直属机构")):
         return "国考"
     return None

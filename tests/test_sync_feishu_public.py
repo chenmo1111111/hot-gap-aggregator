@@ -39,12 +39,14 @@ def test_map_public_gongkao_uses_only_display_fields() -> None:
         "公告标题", "首次收录", "类别", "招聘人数", "截止日期", "省份", "链接",
         "报名状态", "距截止天数", "细分类别", "限户籍", "限专业", "学历要求",
         "限应届", "服务期", "招录院校范围", "备注",
+        "来源",
     }
     assert fields["类别"] == "事业单位"
     assert fields["招聘人数"] == "12"
     assert fields["链接"] == {"text": "查看公告", "link": "https://example.com/notice"}
     assert fields["首次收录"] == int(datetime(2026, 9, 8, tzinfo=CHINA_TZ).timestamp() * 1000)
     assert "日期" not in fields
+    assert fields["来源"] == "自动"
     assert list(fields)[-1] == "备注"
 
 
@@ -266,6 +268,32 @@ def test_force_delete_removes_routed_expired_row() -> None:
         force_delete_keys={"url:https://old.test/campus"},
     )
     assert (creates, updates, deletes) == ([], [], ["rec-campus"])
+
+
+def test_public_diff_never_updates_or_deletes_manual_rows() -> None:
+    source = [{
+        "公告标题": "自动标题", "链接": {"link": "https://same.test"}, "来源": "自动",
+    }]
+    manual = [{
+        "record_id": "rec-manual",
+        "fields": {"公告标题": "人工标题", "链接": {"link": "https://same.test"}, "来源": "手动"},
+    }]
+    assert diff_public_records(
+        source, manual, gongkao_key, source_field="来源",
+        force_delete_keys={"url:https://same.test"},
+    ) == ([], [], [])
+
+
+def test_public_diff_deletes_known_legacy_auto_but_preserves_unknown_blank_row() -> None:
+    existing = [
+        {"record_id": "rec-known", "fields": {"链接": {"link": "https://known.test"}}},
+        {"record_id": "rec-unknown", "fields": {"链接": {"link": "https://unknown.test"}}},
+    ]
+    creates, updates, deletes = diff_public_records(
+        [], existing, gongkao_key, source_field="来源",
+        known_auto_keys={"url:https://known.test"},
+    )
+    assert (creates, updates, deletes) == ([], [], ["rec-known"])
 
 
 def test_replaced_gongkao_links_are_collected_for_forced_deletion() -> None:

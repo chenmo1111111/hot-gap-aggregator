@@ -1,0 +1,15 @@
+# Fenbi chronological filters are the primary feed. These public list pages are
+# lightweight fallbacks when Fenbi has not indexed a newly published notice yet.
+sources:
+  - name: huatu
+    province: 全国
+    url: https://sydw.huatu.com/
+  - name: offcn
+    province: 全国
+    url: https://baokao.offcn.com/
+  - name: 81rc
+    province: 全国
+    url: https://81rc.81.cn/sy/gzdt_210283/index.html
+  - name: 81rc
+    province: 全国
+    url: https://81rc.81.cn/xpd/rczc/

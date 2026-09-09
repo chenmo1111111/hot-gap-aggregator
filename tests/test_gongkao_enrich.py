@@ -8,6 +8,7 @@ import httpx
 from app.pipeline.gongkao_enrich import (
     DeepSeekExtractor,
     EnrichmentCache,
+    _first_seen_source_date,
     _client_redirect_url,
     _likely_recruit_portal,
     calculate_signup_status,
@@ -35,12 +36,14 @@ def test_signup_status_covers_urgent_start_and_expiry() -> None:
 def test_article_html_and_llm_json_are_normalized() -> None:
     html = "<style>ignore</style><div id='content'><p>笔试：行测和申论</p><script>x</script></div>"
     assert strip_article_html(html) == "笔试：行测和申论"
-    result = parse_extraction_json('```json\n{"xian_huji":"true","xuandiao_school_scope":"双一流建设高校","zhaopin_renshu":"53人","record_kind":"公考"}\n```')
+    result = parse_extraction_json('```json\n{"xian_huji":"true","xuandiao_school_scope":"双一流建设高校","zhaopin_renshu":"53人","baoming_jiezhi":"2026-09-12","gongzuo_didian":"内蒙古·呼和浩特","record_kind":"公考"}\n```')
     assert "bishi_kemu" not in result
     assert result["xuandiao_school_scope"] == "双一流建设高校"
     assert result["xian_huji"] is True
     assert result["xian_zhuanye"] is False
     assert result["zhaopin_renshu"] == "53人"
+    assert result["baoming_jiezhi"] == "2026-09-12"
+    assert result["gongzuo_didian"] == "内蒙古·呼和浩特"
     assert result["record_kind"] == "公考"
 
     government_html = "<header>菜单</header><div class='TRS_Editor'><p>招录公告正文，要求本科及以上学历并参加公共基础知识笔试。</p></div><footer>版权</footer>"
@@ -322,6 +325,44 @@ def test_first_seen_uses_earliest_source_date_and_backfills_legacy_row_once(tmp_
         ) == "2026-08-31"
     finally:
         cache.close()
+
+
+def test_first_seen_source_prefers_announcement_publication_date() -> None:
+    assert _first_seen_source_date(
+        {"published_at": "2026-09-08"},
+        {"updateTime": "2026-09-09", "enrollStartTime": "2026-09-01"},
+    ) == date(2026, 9, 8)
+
+
+def test_enrichment_skips_old_uncached_rows_but_extracts_today(tmp_path) -> None:
+    class Extractor:
+        def __init__(self) -> None:
+            self.fetches: list[str] = []
+            self.last_apply_url = ""
+
+        def fetch_article(self, article_id: str) -> str:
+            self.fetches.append(article_id)
+            return "事业单位公开招聘公告正文，本科及以上学历，招聘10人。"
+
+        def extract(self, _text: str, *, include_xuandiao_scope: bool = False):
+            return {"xueli": "本科及以上", "zhaopin_renshu": "10人", "record_kind": "公考"}
+
+    payload = {"items": [
+        {"source": "gongkao", "title": "旧公告", "url": "https://old.test", "published_at": "2026-08-01", "extra": {"id": 1, "sub": "announcement"}},
+        {"source": "gongkao", "title": "今日公告", "url": "https://today.test", "published_at": "2026-09-09", "extra": {"id": 2, "sub": "announcement"}},
+    ]}
+    cache = EnrichmentCache(tmp_path / "cache.db")
+    extractor = Extractor()
+    try:
+        _output, stats = enrich_payload(
+            payload, cache=cache, school_config={}, extractor=extractor,
+            today=date(2026, 9, 9),
+        )
+    finally:
+        cache.close()
+    assert extractor.fetches == ["2"]
+    assert stats["old_uncached_skipped"] == 1
+    assert stats["extracted"] == 1
 
 
 def test_recruit_count_regex_avoids_cohort_year_and_keeps_unit() -> None:

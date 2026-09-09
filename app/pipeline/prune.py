@@ -30,6 +30,8 @@ class RetentionPolicy:
     xjh_delete_after_event_days: int = 1
     gongkao_write_plus_days: int = 7
     gongkao_signup_plus_days: int = 21
+    gongkao_public_signup_plus_days: int = 3
+    gongkao_public_written_plus_days: int = 7
     hot_sources: tuple[str, ...] = DEFAULT_HOT_SOURCES
     hot_max_age_days: int = 4
     snapshots_max_age_days: int = 45
@@ -50,6 +52,12 @@ def load_retention(path: str | Path | None = None) -> RetentionPolicy:
         xjh_delete_after_event_days=max(0, int(jobs.get("xjh_delete_after_event_days", 1))),
         gongkao_write_plus_days=max(0, int(gongkao.get("keep_until_write_exam_plus_days", 7))),
         gongkao_signup_plus_days=max(0, int(gongkao.get("no_write_date_signup_plus_days", 21))),
+        gongkao_public_signup_plus_days=max(
+            0, int(gongkao.get("public_signup_grace_days", 3))
+        ),
+        gongkao_public_written_plus_days=max(
+            0, int(gongkao.get("public_written_grace_days", 7))
+        ),
         hot_sources=hot_sources or DEFAULT_HOT_SOURCES,
         hot_max_age_days=max(1, int(raw.get("hot_max_age_days", 4))),
         snapshots_max_age_days=max(1, int(raw.get("snapshots_max_age_days", 45))),
@@ -143,6 +151,39 @@ def filter_current_items(
     rows: list[dict[str, Any]], policy: RetentionPolicy, *, today: date | None = None,
 ) -> tuple[list[dict[str, Any]], int]:
     kept = [row for row in rows if not is_expired_item(row, policy, today=today)]
+    for rank, row in enumerate(kept, 1):
+        row["rank"] = rank
+    return kept, len(rows) - len(kept)
+
+
+def is_expired_public_gongkao(
+    item: Mapping[str, Any], policy: RetentionPolicy, *, today: date | None = None,
+) -> bool:
+    """Apply the shorter retention window used by the sold/public table.
+
+    A known signup deadline wins.  Only when it is absent do we fall back to
+    the written-exam date, matching the product rule exactly.
+    """
+    current = today or datetime.now(UTC).date()
+    signup_end = _first_date(item, (
+        "extra.endSignUpTime", "extra.signup_end", "endSignUpTime",
+        "signup_end", "报名截止", "截止日期",
+    ))
+    if signup_end:
+        return current > signup_end + timedelta(days=policy.gongkao_public_signup_plus_days)
+    written = _first_date(item, (
+        "extra.startWriteTime", "extra.written_exam", "startWriteTime",
+        "written_exam", "笔试时间",
+    ))
+    return bool(
+        written and current > written + timedelta(days=policy.gongkao_public_written_plus_days)
+    )
+
+
+def filter_current_public_gongkao(
+    rows: list[dict[str, Any]], policy: RetentionPolicy, *, today: date | None = None,
+) -> tuple[list[dict[str, Any]], int]:
+    kept = [row for row in rows if not is_expired_public_gongkao(row, policy, today=today)]
     for rank, row in enumerate(kept, 1):
         row["rank"] = rank
     return kept, len(rows) - len(kept)

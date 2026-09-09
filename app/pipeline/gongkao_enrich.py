@@ -44,6 +44,10 @@ xueli(学历要求，如'本科及以上'/'硕士'/'不限')，
 xian_yingjie(是否限应届：true/false)，
 fuwu_qi(有无最低服务年限，如'5年'/'无')，
 zhaopin_renshu(招聘人数，如'53人'/'若干'/'200名'，公告没写填'/')，
+baoming_kaishi(报名开始日期，格式YYYY-MM-DD，没写填'')，
+baoming_jiezhi(报名截止日期，格式YYYY-MM-DD，没写填'')，
+bishi_shijian(笔试日期，格式YYYY-MM-DD，没写填'')，
+gongzuo_didian(工作地点，精确到公告明确写出的省/市，没写填'')，
 record_kind(只能填'公考'或'秋招'：企业校园招聘填'秋招'，公务员/事业单位/选调/教师/医疗/军队文职及企业社会招聘填'公考')，
 bei_zhu(其它关键限制一句话)"""
 XUANDIAO_SCOPE_PROMPT = """
@@ -51,10 +55,11 @@ XUANDIAO_SCOPE_PROMPT = """
 EXTRACTION_KEYS = (
     "xian_huji", "huji_shuoming", "xian_zhuanye", "zhuanye_shuoming",
     "xueli", "xian_yingjie", "fuwu_qi", "zhaopin_renshu", "record_kind",
-    "bei_zhu", "xuandiao_school_scope",
+    "bei_zhu", "xuandiao_school_scope", "baoming_kaishi", "baoming_jiezhi",
+    "bishi_shijian", "gongzuo_didian",
 )
 ENRICHMENT_SCHEMA_VERSION = 3
-WATCHER_SUBSOURCES = {"xuandiao", "scs", "campus"}
+WATCHER_SUBSOURCES = {"xuandiao", "scs", "campus", "huatu", "offcn", "81rc", "fallback"}
 WEBPAGE_CONTENT_SELECTORS = (
     "article", "main", "#content", "#zoom", ".article-content", ".detail-content",
     ".pages_content", ".TRS_Editor", ".zwxl-article", ".article", ".content",
@@ -395,7 +400,8 @@ class EnrichmentCache:
             CREATE TABLE IF NOT EXISTS gongkao_first_seen (
                 record_key TEXT PRIMARY KEY,
                 first_seen TEXT NOT NULL,
-                backfilled INTEGER NOT NULL DEFAULT 1
+                backfilled INTEGER NOT NULL DEFAULT 1,
+                published_backfilled INTEGER NOT NULL DEFAULT 1
             );
         """)
         first_seen_columns = {
@@ -405,6 +411,12 @@ class EnrichmentCache:
         if "backfilled" not in first_seen_columns:
             self.connection.execute(
                 "ALTER TABLE gongkao_first_seen ADD COLUMN backfilled INTEGER NOT NULL DEFAULT 0"
+            )
+            self.connection.commit()
+        if "published_backfilled" not in first_seen_columns:
+            self.connection.execute(
+                "ALTER TABLE gongkao_first_seen "
+                "ADD COLUMN published_backfilled INTEGER NOT NULL DEFAULT 0"
             )
             self.connection.commit()
         enrichment_columns = {
@@ -451,11 +463,13 @@ class EnrichmentCache:
     ) -> str:
         value = (source_date or first_seen).isoformat()
         self.connection.execute(
-            "INSERT OR IGNORE INTO gongkao_first_seen(record_key,first_seen,backfilled) VALUES(?,?,1)",
+            "INSERT OR IGNORE INTO gongkao_first_seen"
+            "(record_key,first_seen,backfilled,published_backfilled) VALUES(?,?,1,1)",
             (record_key, value),
         )
         row = self.connection.execute(
-            "SELECT first_seen,backfilled FROM gongkao_first_seen WHERE record_key=?", (record_key,),
+            "SELECT first_seen,backfilled,published_backfilled "
+            "FROM gongkao_first_seen WHERE record_key=?", (record_key,),
         ).fetchone()
         if row and not int(row["backfilled"]):
             replacement = source_date.isoformat() if source_date else str(row["first_seen"])
@@ -464,7 +478,19 @@ class EnrichmentCache:
                 (replacement, record_key),
             )
             row = self.connection.execute(
-                "SELECT first_seen,backfilled FROM gongkao_first_seen WHERE record_key=?", (record_key,),
+                "SELECT first_seen,backfilled,published_backfilled "
+                "FROM gongkao_first_seen WHERE record_key=?", (record_key,),
+            ).fetchone()
+        if row and not int(row["published_backfilled"]):
+            replacement = source_date.isoformat() if source_date else str(row["first_seen"])
+            self.connection.execute(
+                "UPDATE gongkao_first_seen SET first_seen=?,published_backfilled=1 "
+                "WHERE record_key=?",
+                (replacement, record_key),
+            )
+            row = self.connection.execute(
+                "SELECT first_seen,backfilled,published_backfilled "
+                "FROM gongkao_first_seen WHERE record_key=?", (record_key,),
             ).fetchone()
         self.connection.commit()
         return str(row["first_seen"] if row else value)
@@ -742,8 +768,13 @@ def _first_seen_key(item: Mapping[str, Any], extra: Mapping[str, Any]) -> str:
 
 
 def _first_seen_source_date(item: Mapping[str, Any], extra: Mapping[str, Any]) -> date | None:
+    # Announcement publication time is the public table's true "首次收录".
+    # Enrollment dates are only fallbacks when a source omitted publication time.
+    published = _date_value(item.get("published_at"))
+    if published is not None:
+        return published
     candidates = [
-        _date_value(item.get("published_at")),
+        _date_value(extra.get("issueTime")),
         _date_value(extra.get("updateTime")),
         _date_value(extra.get("enrollStartTime")),
         _date_value(extra.get("startSignUpTime")),
@@ -795,6 +826,17 @@ def _merge_extracted(extra: dict[str, Any], extracted: Mapping[str, Any], status
         if key in extracted:
             extra[key] = extracted[key]
     extra["enrichment_status"] = status
+    canonical = {
+        "baoming_kaishi": "startSignUpTime",
+        "baoming_jiezhi": "endSignUpTime",
+        "bishi_shijian": "startWriteTime",
+        "gongzuo_didian": "location",
+        "zhaopin_renshu": "recruit_count",
+    }
+    for extracted_name, extra_name in canonical.items():
+        value = str(extracted.get(extracted_name) or "").strip()
+        if value and value != "/":
+            extra[extra_name] = value
     if apply_url := actionable_apply_url(extracted.get("_apply_url")):
         extra["apply_url"] = apply_url
     elif "apply_url" in extra and not actionable_apply_url(extra.get("apply_url")):
@@ -840,6 +882,7 @@ def enrich_payload(
         "llm_failed": 0, "skipped": 0, "apply_url_backfilled": 0,
         "apply_url_searched": 0, "apply_url_search_found": 0,
         "apply_url_overridden": 0, "apply_instruction_added": 0,
+        "old_uncached_skipped": 0,
     }
     items: list[dict[str, Any]] = []
     failure_streak = 0
@@ -873,9 +916,15 @@ def enrich_payload(
             extra["apply_instruction"] = apply_instruction
             stats["apply_instruction_added"] += 1
         first_seen_date = today or datetime.now(CHINA_TZ).date()
+        source_date = _first_seen_source_date(item, extra)
+        publication_date = (
+            _date_value(item.get("published_at"))
+            or _date_value(extra.get("issueTime"))
+            or _date_value(extra.get("updateTime"))
+        )
         extra["first_seen"] = cache.get_or_create_first_seen(
             _first_seen_key(item, extra), first_seen_date,
-            source_date=_first_seen_source_date(item, extra),
+            source_date=source_date,
         )
 
         enrichment_source = _enrichment_source(item, extra)
@@ -950,6 +999,13 @@ def enrich_payload(
         elif enrichment_source is None:
             extra["enrichment_status"] = "未提取"
             stats["skipped"] += 1
+        elif cached is None and publication_date is not None and publication_date < first_seen_date:
+            # Expanding collector coverage must not trigger a costly historical
+            # full-table LLM pass. New announcements and changed cached records
+            # are still extracted immediately.
+            extra["enrichment_status"] = "未提取"
+            stats["skipped"] += 1
+            stats["old_uncached_skipped"] += 1
         elif not extraction_available or extractor is None:
             extra["enrichment_status"] = "未提取"
             stats["skipped"] += 1
@@ -1030,6 +1086,15 @@ def enrich_payload(
                     extraction_available = False
                     LOGGER.warning("DeepSeek/announcement source unavailable after 3 consecutive failures; skip remaining uncached rows")
         extra["record_kind"] = record_kind(item, llm_choice=extra.get("record_kind"))
+        status, days = calculate_signup_status(
+            extra.get("startSignUpTime") or item.get("报名开始"),
+            extra.get("endSignUpTime") or item.get("报名截止") or item.get("截止日期"),
+            today=today,
+        )
+        extra["signup_status"] = status
+        extra["days_left"] = days
+        if count := extract_recruit_count({**item, "extra": extra}):
+            extra["recruit_count"] = count
         if override_apply_url and extra["record_kind"] == "秋招":
             extra["apply_url"] = override_apply_url
         item["extra"] = extra

@@ -2,7 +2,9 @@ import json
 from datetime import UTC, date, datetime, timedelta
 
 from app.models import Item
-from app.pipeline.prune import RetentionPolicy, is_expired_item, prune_database
+from app.pipeline.prune import (
+    RetentionPolicy, is_expired_item, is_expired_public_gongkao, prune_database,
+)
 from app.store.database import Database, item_hash
 
 
@@ -32,6 +34,22 @@ def test_gongkao_written_plus_seven_and_signup_plus_twenty_one_boundaries() -> N
     assert is_expired_item(written, POLICY, today=date(2026, 9, 9))
     assert not is_expired_item(signup, POLICY, today=date(2026, 9, 22))
     assert is_expired_item(signup, POLICY, today=date(2026, 9, 23))
+
+
+def test_public_gongkao_deadline_plus_three_and_written_plus_seven() -> None:
+    signup = row("gongkao", extra={"endSignUpTime": "2026-09-05"})
+    written = row("gongkao", extra={"startWriteTime": "2026-09-01"})
+    assert not is_expired_public_gongkao(signup, POLICY, today=date(2026, 9, 8))
+    assert is_expired_public_gongkao(signup, POLICY, today=date(2026, 9, 9))
+    assert not is_expired_public_gongkao(written, POLICY, today=date(2026, 9, 8))
+    assert is_expired_public_gongkao(written, POLICY, today=date(2026, 9, 9))
+
+
+def test_public_gongkao_deadline_wins_over_written_date() -> None:
+    both = row("gongkao", extra={
+        "endSignUpTime": "2026-09-09", "startWriteTime": "2026-08-01",
+    })
+    assert not is_expired_public_gongkao(both, POLICY, today=date(2026, 9, 9))
 
 
 def test_prune_database_removes_expired_rows_old_history_and_idle_caches(tmp_path) -> None:

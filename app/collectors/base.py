@@ -33,14 +33,14 @@ class BaseCollector(ABC):
     async def fetch(self) -> list[Item]:
         raise NotImplementedError
 
-    async def request(self, url: str, **kwargs: Any) -> httpx.Response:
+    async def _request(self, method: str, url: str, **kwargs: Any) -> httpx.Response:
         headers = {"User-Agent": random.choice(USER_AGENTS), "Accept": "*/*"}
         headers.update(kwargs.pop("headers", {}))
         last_error: Exception | None = None
         async with httpx.AsyncClient(timeout=self.timeout, follow_redirects=True) as client:
             for attempt in range(self.retries + 1):
                 try:
-                    response = await client.get(url, headers=headers, **kwargs)
+                    response = await client.request(method, url, headers=headers, **kwargs)
                     response.raise_for_status()
                     return response
                 except (httpx.TimeoutException, httpx.HTTPError) as exc:
@@ -49,3 +49,8 @@ class BaseCollector(ABC):
                         await asyncio.sleep(0.35 * (2**attempt) + random.random() * 0.15)
         raise SourceUnavailable(f"{self.source} request failed: {last_error}", status="degraded")
 
+    async def request(self, url: str, **kwargs: Any) -> httpx.Response:
+        return await self._request("GET", url, **kwargs)
+
+    async def post(self, url: str, **kwargs: Any) -> httpx.Response:
+        return await self._request("POST", url, **kwargs)

@@ -1,9 +1,8 @@
-"""Synchronize simplified, read-only public Feishu Bitable tables.
+"""Synchronize simplified public Feishu Bitable tables.
 
-The public tables intentionally contain no technical sync-ID/source fields.
 Stable business keys are derived from announcement URLs for Gongkao and from
-company plus position for Qiuzhao.  Schema initialization is allowed only
-while a table has no non-empty records.
+company plus position for Qiuzhao. A hidden ``来源`` field protects rows marked
+``手动`` while allowing automatic retention cleanup.
 """
 
 from __future__ import annotations
@@ -12,6 +11,7 @@ import argparse
 import logging
 import os
 import time
+from datetime import datetime
 from collections.abc import Callable, Iterable, Mapping
 from pathlib import Path
 from typing import Any
@@ -42,6 +42,7 @@ from app.sync_feishu import (
 )
 from app.pipeline.gongkao_classify import detail_category
 from app.pipeline.gongkao_enrich import calculate_signup_status
+from app.pipeline.prune import filter_current_public_gongkao, load_retention
 
 
 LOGGER = logging.getLogger(__name__)
@@ -87,6 +88,10 @@ GONGKAO_SCHEMA: tuple[dict[str, Any], ...] = (
     {"field_name": "限应届", "type": CHECKBOX},
     {"field_name": "服务期", "type": TEXT},
     {"field_name": "招录院校范围", "type": TEXT},
+    {
+        "field_name": "来源", "type": SINGLE_SELECT,
+        "property": {"options": [{"name": "自动"}, {"name": "手动"}]},
+    },
     {"field_name": "备注", "type": TEXT},
 )
 GONGKAO_DEPRECATED_FIELDS = ("笔试科目", "本校可报", "日期")
@@ -130,7 +135,7 @@ INSTRUCTIONS_ROWS: tuple[dict[str, str], ...] = (
     {"视图": "国企央企", "给谁看": "想进国企的人", "怎么用": "查看国企央企社会招聘；企业校园招聘已自动转入秋招表。"},
     {"视图": "事业单位", "给谁看": "备考事业编的人", "怎么用": "集中查看事业单位公告，优先核对学历、户籍和截止日期。"},
     {"视图": "银行", "给谁看": "想进银行的人", "怎么用": "查看银行社会招聘；银行校园招聘已自动转入秋招表。"},
-    {"视图": "已结束", "给谁看": "需要复盘的人", "怎么用": "查看已截止公告，作为考情和往年时间参考。"},
+    {"视图": "已结束", "给谁看": "需要复盘的人", "怎么用": "查看截止后3天内的公告；更早的自动记录会清理。"},
 )
 
 
@@ -255,6 +260,7 @@ def map_public_gongkao(row: Mapping[str, Any]) -> dict[str, Any]:
             str(extra.get("xuandiao_school_scope") or "名单见公告")
             if category == "选调生" and extracted else "/"
         ),
+        "来源": "自动",
         "备注": _coalesce(row, "extra.notes|notes|备注") or "/",
     }
     return fields
@@ -324,6 +330,8 @@ def diff_public_records(
     key_fn: Callable[[Mapping[str, Any]], str],
     preserve_missing: Callable[[Mapping[str, Any]], bool] | None = None,
     force_delete_keys: set[str] | None = None,
+    source_field: str | None = None,
+    known_auto_keys: set[str] | None = None,
 ) -> tuple[list[dict[str, Any]], list[dict[str, Any]], list[str]]:
     source_by_key: dict[str, dict[str, Any]] = {}
     for fields in source_fields:
@@ -331,17 +339,37 @@ def diff_public_records(
         if key:
             source_by_key[key] = fields
 
-    existing_by_key: dict[str, dict[str, Any]] = {}
+    existing_groups: dict[str, list[dict[str, Any]]] = {}
     deletes: list[str] = []
     for record in existing_records:
         fields = record.get("fields") if isinstance(record.get("fields"), Mapping) else {}
         key = key_fn(fields)
         record_id = str(record.get("record_id") or "")
-        if not key or key in existing_by_key:
-            if record_id:
+        manual = bool(source_field and _cell_text(fields.get(source_field)).strip() == "手动")
+        if not key:
+            if record_id and not manual:
                 deletes.append(record_id)
             continue
-        existing_by_key[key] = record
+        existing_groups.setdefault(key, []).append(record)
+
+    existing_by_key: dict[str, dict[str, Any]] = {}
+    for key, records in existing_groups.items():
+        manual_rows = [
+            record for record in records
+            if source_field
+            and _cell_text((record.get("fields") or {}).get(source_field)).strip() == "手动"
+        ]
+        keep = manual_rows[0] if manual_rows else records[0]
+        existing_by_key[key] = keep
+        for duplicate in records:
+            if duplicate is keep:
+                continue
+            duplicate_fields = duplicate.get("fields") or {}
+            duplicate_manual = bool(
+                source_field and _cell_text(duplicate_fields.get(source_field)).strip() == "手动"
+            )
+            if not duplicate_manual and duplicate.get("record_id"):
+                deletes.append(str(duplicate["record_id"]))
 
     creates: list[dict[str, Any]] = []
     updates: list[dict[str, Any]] = []
@@ -351,21 +379,28 @@ def diff_public_records(
             creates.append(fields)
             continue
         old_fields = old.get("fields") or {}
+        if source_field and _cell_text(old_fields.get(source_field)).strip() == "手动":
+            continue
         if any(
             _public_comparable(old_fields.get(name)) != _public_comparable(value)
             for name, value in fields.items()
         ):
             updates.append({"record_id": old["record_id"], "fields": fields})
 
-    deletes.extend(
-        str(record["record_id"])
-        for key, record in existing_by_key.items()
-        if key not in source_by_key
-        and (
-            key in (force_delete_keys or set())
-            or not (preserve_missing and preserve_missing(record.get("fields") or {}))
-        )
-    )
+    for key, record in existing_by_key.items():
+        if key in source_by_key:
+            continue
+        fields = record.get("fields") or {}
+        source_value = _cell_text(fields.get(source_field)).strip() if source_field else ""
+        if source_value == "手动":
+            continue
+        forced = key in (force_delete_keys or set())
+        if source_field:
+            should_delete = forced or source_value == "自动" or key in (known_auto_keys or set())
+        else:
+            should_delete = forced or not (preserve_missing and preserve_missing(fields))
+        if should_delete and record.get("record_id"):
+            deletes.append(str(record["record_id"]))
     return creates, updates, deletes
 
 
@@ -373,11 +408,14 @@ def slash_public_updates(
     source_fields: Iterable[dict[str, Any]],
     existing_records: Iterable[dict[str, Any]],
     key_fn: Callable[[Mapping[str, Any]], str],
+    source_field: str | None = None,
 ) -> list[dict[str, Any]]:
     source_by_key = {key_fn(fields): fields for fields in source_fields if key_fn(fields)}
     updates: list[dict[str, Any]] = []
     for record in existing_records:
         old = record.get("fields") or {}
+        if source_field and _cell_text(old.get(source_field)).strip() == "手动":
+            continue
         desired = source_by_key.get(key_fn(old))
         if desired and any(
             value == "/" and _cell_text(old.get(name)).strip() == ""
@@ -396,6 +434,8 @@ def sync_public_table(
     key_fn: Callable[[Mapping[str, Any]], str],
     preserve_missing: Callable[[Mapping[str, Any]], bool] | None = None,
     force_delete_keys: set[str] | None = None,
+    source_field: str | None = None,
+    known_auto_keys: set[str] | None = None,
 ) -> dict[str, int]:
     mapped: list[dict[str, Any]] = []
     skipped = 0
@@ -408,11 +448,12 @@ def sync_public_table(
     existing = client.list_records(app_token, table_id)
     creates, updates, deletes = diff_public_records(
         mapped, existing, key_fn, preserve_missing=preserve_missing,
-        force_delete_keys=force_delete_keys,
+        force_delete_keys=force_delete_keys, source_field=source_field,
+        known_auto_keys=known_auto_keys,
     )
     update_ids = {str(record["record_id"]) for record in updates}
     updates.extend(
-        record for record in slash_public_updates(mapped, existing, key_fn)
+        record for record in slash_public_updates(mapped, existing, key_fn, source_field)
         if str(record["record_id"]) not in update_ids
     )
     operations = [
@@ -561,13 +602,32 @@ def run(argv: list[str] | None = None) -> int:
                 )
                 rows = _load_items(data_dir / filename)
                 force_delete_keys: set[str] | None = None
+                source_field: str | None = None
+                known_auto_keys: set[str] | None = None
                 if name == "gongkao_public":
                     rows, routed_rows, excluded_rows = partition_gongkao_rows(rows)
+                    all_current_rows = list(rows)
+                    known_auto_keys = set()
+                    for row in all_current_rows:
+                        try:
+                            key = gongkao_key(map_public_gongkao(row))
+                        except (TypeError, ValueError):
+                            continue
+                        if key:
+                            known_auto_keys.add(key)
+                    rows, expired_count = filter_current_public_gongkao(
+                        rows, load_retention(), today=datetime.now(CHINA_TZ).date(),
+                    )
+                    source_field = "来源"
                     force_delete_keys = _gongkao_force_delete_keys((*routed_rows, *excluded_rows))
                     force_delete_keys.update(_replaced_gongkao_link_keys(rows))
                     LOGGER.info(
                         "public gongkao routing: kept=%d routed_to_qiuzhao=%d excluded_noise=%d",
                         len(rows), len(routed_rows), len(excluded_rows),
+                    )
+                    LOGGER.info(
+                        "public gongkao retention: input=%d kept=%d expired=%d",
+                        len(all_current_rows), len(rows), expired_count,
                     )
                 else:
                     gongkao_filename = str(gongkao_source.get("file") or "gongkao_enriched.json")
@@ -582,6 +642,8 @@ def run(argv: list[str] | None = None) -> int:
                     client, app_token, table_id, rows, mapper, key_fn,
                     preserve_missing=preserve_missing,
                     force_delete_keys=force_delete_keys,
+                    source_field=source_field,
+                    known_auto_keys=known_auto_keys,
                 )
                 result["schema_initialized"] = int(initialized)
                 LOGGER.info("%s sync complete: %s", name, result)
