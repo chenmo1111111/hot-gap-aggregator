@@ -627,6 +627,11 @@ def routed_qiuzhao_row(row: Mapping[str, Any]) -> dict[str, Any]:
         row, "company_type|extra.company_type"
     )
     url = _coalesce(row, "url|announcement_url|extra.announcement_url")
+    notes = str(_coalesce(row, "notes|extra.notes|extra.bei_zhu") or "").strip()
+    apply_instruction = str(extra.get("apply_instruction") or "").strip()
+    if apply_instruction:
+        instruction_note = f"投递方式：{apply_instruction}"
+        notes = f"{notes}；{instruction_note}" if notes else instruction_note
     return {
         "company_name": _gongkao_company_name(row),
         "company_type": company_type,
@@ -643,7 +648,7 @@ def routed_qiuzhao_row(row: Mapping[str, Any]) -> dict[str, Any]:
         "apply_url": actionable_apply_url(_coalesce(row, "apply_url|extra.apply_url")) or None,
         "announcement_url": url,
         "updated_at": _coalesce(row, "extra.first_seen|published_at"),
-        "notes": _coalesce(row, "notes|extra.notes|extra.bei_zhu"),
+        "notes": notes or None,
         "source_label": "公考源路由",
         "upstream_source": "gongkao_routed",
         "extra": {"record_kind": "秋招", "original_id": extra.get("id")},

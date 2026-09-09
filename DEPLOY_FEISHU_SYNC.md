@@ -340,6 +340,16 @@ DeepSeek 结果缓存在
 .venv/bin/python -m app.pipeline.gongkao_enrich --retry-failed
 ```
 
+企业校园招聘的“投递链接”只接受企业官网或企业授权招聘系统，不再把粉笔考试日历、通用招聘
+平台首页当作报名入口。已人工核验的当期公告入口保存在
+`config/qiuzhao_apply_overrides.yaml`，以粉笔公告 ID 精确绑定并优先于搜索结果。若公告只提供
+邮箱、公众号或现场宣讲投递，链接保持空白，避免向使用者展示一个看似可报名、实际无法操作的
+网页。需要临时使用别处的覆盖表时可设置：
+
+```dotenv
+QIUZHAO_APPLY_OVERRIDES_CONFIG=/绝对路径/qiuzhao_apply_overrides.yaml
+```
+
 选调学校名单在 `config/xuandiao_schools.yaml`。只有官方公告或附件明确列出的院校才进入名单；
 没有可可靠提取的名单时保持空数组，再根据公告中的 `双一流 / 985 / 211` 文字做兜底。配置中的
 公告源可单独重跑提取（PDF 源要求系统已安装 `pdftotext`）：

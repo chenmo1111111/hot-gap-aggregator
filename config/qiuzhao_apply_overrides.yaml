@@ -1,0 +1,51 @@
+# 人工核验的企业校招投递入口。
+# 键是粉笔公告 ID；只放可在线操作的企业官网或企业授权招聘站。
+# 每日 enrich 会优先使用这里的地址，避免搜索引擎波动或误回粉笔考试日历。
+checked_at: "2026-09-09"
+overrides:
+  "468781417650176": "https://cam2027.iguopin.com/" # 中国机械总院 2027
+  "467100241252352": "https://biad2026.zhaopin.com/" # 北京建院 2026
+  "468753046066176": "https://itg.zhiye.com/" # 国贸股份
+  "468752588100609": "https://recruit.cscec.com/" # 中建一局建设发展
+  "468804618705920": "http://zp.aestit.com/" # 安徽省生态环境产业集团
+  "468751890798595": "https://campus.chinacnd.com/" # 建发股份
+  "468375351876608": "https://campus.pingan.com/pab" # 平安银行济南分行
+  "468598071250945": "https://zjtlcb.zhiye.com/" # 浙江泰隆商业银行
+  "468847390117888": "https://campus.51job.com/sdyd2027/" # 山东移动 2027
+  "468479797385216": "https://campus.pingan.com/pab" # 平安银行石家庄分行
+  "468524137731072": "https://www.hotjob.cn/wt/Sinochem/web/index" # 中化蓝天
+  "468690205169664": "https://www.cqrc.net/gzw/index/" # 重庆三峡担保集团（公告指定国企优聘报名）
+  "468663469104128": "https://myjob.hzbank.com.cn/" # 杭州银行
+  "468457465076736": "https://recruit.cscec.com/" # 中建四局交通公司
+  "468819680450560": "https://cnnc.zhiye.com/zwlb/?PageIndex=1&class=2&p=3%5E-1%2C1%5E681" # 中国核电
+  "911802": "https://gcoreinc.hotjob.cn/" # 格科半导体
+  "911700": "https://www.grantthornton.cn/campus-recruitment" # 致同
+  "911547": "https://job.ccb.com/" # 建行深圳分行
+  "911055": "https://job.ccb.com/" # 建行四川分行
+  "911054": "https://career.cmbchina.com/home" # 招行北京分行
+  "910427": "https://job.icbc.com.cn/pc/index.html#/main/school/announDetail/31000000000010643003" # 工行重庆分行
+  "908004": "https://job.grandpharma.cn/" # 远大医药
+  "907879": "https://career.abchina.com.cn/" # 农行西藏分行
+  "907820": "https://zhaopin.he.chinamobile.com/job/ZpIndex/jobs#jobs" # 河北移动
+  "907606": "https://career.abchina.com.cn/" # 农行内蒙古分行
+  "907546": "https://zhaopin.tcl.com/campus" # TCL 华星
+  "907544": "http://campus.51job.com/bjrcb2027" # 北京农商银行
+  "907542": "https://campus.51job.com/te/" # 泰科电子
+  "906880": "https://app.mokahr.com/campus-recruitment/kingdeehr/166565?locale=zh-CN" # 金蝶
+  "906808": "https://cms.hotjob.cn/" # 招商证券
+  "906713": "https://career.abchina.com.cn/" # 农行福建分行
+  "906699": "https://career.abchina.com.cn/" # 农行山东分行
+  "906571": "https://psbc2027.zhaopin.com/" # 邮储银行安徽分行
+
+# 下列公告经核对只提供邮箱、公众号或宣讲会投递，因此不伪造网页入口；
+# 同步时会把真实操作方式写进秋招表“备注”。
+instructions:
+  "468685506501632": "按意向子公司发送邮件，邮箱清单见公告"
+  "468704468686848": "按意向子公司发送邮件，邮箱清单见公告"
+  "468892156712962": "发送简历至 ztswhr@126.com"
+  "468796476512256": "按意向下属单位招聘系统或官方招聘公众号投递，详见公告"
+  "468847906281472": "发送简历至 zhangqiang@sepco3.com"
+  "911101": "参加校园宣讲会现场投递，具体场次见公告"
+  "911052": "未核实到官方在线入口，请按公告中的官方联系方式投递"
+  "911050": "关注“鹏新旭招聘”公众号网申，或发送简历至 Career@pensun.com"
+  "906728": "发送简历至 Lyxz.campus@lingyiitech.com"

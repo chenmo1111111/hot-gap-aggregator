@@ -226,6 +226,7 @@ def test_gongkao_enterprise_campus_row_is_converted_and_merged_into_qiuzhao() ->
         "extra": {
             "id": "g1", "exam_type": "国企招聘", "province": "辽宁",
             "endSignUpTime": "2026-10-01", "xueli": "本科及以上",
+            "apply_instruction": "发送简历至 hr@example.com",
         },
     }
     kept, routed, excluded = partition_gongkao_rows([row])
@@ -239,6 +240,7 @@ def test_gongkao_enterprise_campus_row_is_converted_and_merged_into_qiuzhao() ->
     assert converted["apply_url"] is None
     assert converted["announcement_url"].startswith("https://www.fenbi.com/")
     assert converted["source_label"] == "公考源路由"
+    assert converted["notes"] == "投递方式：发送简历至 hr@example.com"
     assert len(merge_qiuzhao_rows([], routed)) == 1
 
 

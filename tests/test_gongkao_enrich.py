@@ -15,6 +15,8 @@ from app.pipeline.gongkao_enrich import (
     extract_official_apply_url,
     extract_recruit_count,
     is_my_school_eligible,
+    load_apply_url_overrides,
+    load_apply_instructions,
     parse_extraction_json,
     strip_article_html,
     strip_webpage_html,
@@ -75,6 +77,67 @@ def test_official_apply_url_extraction_prefers_labeled_application_link() -> Non
     <a href="https://career.company.example/campus/apply">立即投递</a>
     """
     assert extract_official_apply_url(html) == "https://career.company.example/campus/apply"
+
+
+def test_verified_apply_url_override_wins_without_network(tmp_path) -> None:
+    config_path = tmp_path / "overrides.yaml"
+    config_path.write_text(
+        'overrides:\n  "123": "https://career.company.example/campus"\n'
+        '  "bad": "https://www.fenbi.com/page/kaoshidetail/9"\n'
+        'instructions:\n  "456": "发送简历至 hr@example.com"\n',
+        encoding="utf-8",
+    )
+    overrides = load_apply_url_overrides(config_path)
+    assert overrides == {"123": "https://career.company.example/campus"}
+    assert load_apply_instructions(config_path) == {
+        "456": "发送简历至 hr@example.com"
+    }
+
+    payload = {"items": [{
+        "title": "某企业2027届校园招聘",
+        "url": "https://www.fenbi.com/page/kaoshidetail/123",
+        "extra": {"id": 123, "sub": "announcement", "record_kind": "秋招"},
+    }]}
+    cache = EnrichmentCache(tmp_path / "cache.db")
+    try:
+        enriched, stats = enrich_payload(
+            payload,
+            cache=cache,
+            school_config={},
+            extractor=None,
+            apply_url_overrides=overrides,
+            today=date(2026, 9, 9),
+        )
+    finally:
+        cache.close()
+    assert enriched["items"][0]["extra"]["apply_url"] == (
+        "https://career.company.example/campus"
+    )
+    assert stats["apply_url_searched"] == 0
+    assert stats["apply_url_overridden"] == 1
+
+
+def test_non_url_application_instruction_is_added_to_extra(tmp_path) -> None:
+    payload = {"items": [{
+        "title": "某集团2027届校园招聘",
+        "extra": {"id": 456, "record_kind": "秋招"},
+    }]}
+    cache = EnrichmentCache(tmp_path / "cache.db")
+    try:
+        enriched, stats = enrich_payload(
+            payload,
+            cache=cache,
+            school_config={},
+            extractor=None,
+            apply_instructions={"456": "发送简历至 hr@example.com"},
+            today=date(2026, 9, 9),
+        )
+    finally:
+        cache.close()
+    assert enriched["items"][0]["extra"]["apply_instruction"] == (
+        "发送简历至 hr@example.com"
+    )
+    assert stats["apply_instruction_added"] == 1
 
 
 def test_web_search_follows_information_result_to_official_portal() -> None:

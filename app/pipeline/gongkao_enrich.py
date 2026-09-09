@@ -109,6 +109,39 @@ def load_school_config(path: str | Path) -> dict[str, Any]:
     return raw
 
 
+def load_apply_url_overrides(path: str | Path) -> dict[str, str]:
+    """Load manually verified application URLs keyed by source article ID."""
+    config_path = Path(path)
+    if not config_path.exists():
+        return {}
+    raw = yaml.safe_load(config_path.read_text(encoding="utf-8")) or {}
+    candidates = raw.get("overrides", raw) if isinstance(raw, Mapping) else {}
+    if not isinstance(candidates, Mapping):
+        raise ValueError("application URL overrides must be a YAML mapping")
+    result: dict[str, str] = {}
+    for article_id, value in candidates.items():
+        url = actionable_apply_url(value)
+        if url:
+            result[str(article_id).strip()] = url
+    return result
+
+
+def load_apply_instructions(path: str | Path) -> dict[str, str]:
+    """Load verified non-URL application instructions keyed by article ID."""
+    config_path = Path(path)
+    if not config_path.exists():
+        return {}
+    raw = yaml.safe_load(config_path.read_text(encoding="utf-8")) or {}
+    candidates = raw.get("instructions", {}) if isinstance(raw, Mapping) else {}
+    if not isinstance(candidates, Mapping):
+        raise ValueError("application instructions must be a YAML mapping")
+    return {
+        str(article_id).strip(): str(value).strip()
+        for article_id, value in candidates.items()
+        if str(article_id).strip() and str(value).strip()
+    }
+
+
 def is_my_school_eligible(row: Mapping[str, Any], config: Mapping[str, Any]) -> bool:
     extra = row.get("extra") if isinstance(row.get("extra"), Mapping) else {}
     if normalize_exam_type(extra.get("exam_type") or row.get("exam_type")) != "选调生":
@@ -793,6 +826,8 @@ def _search_apply_url(
 def enrich_payload(
     payload: Mapping[str, Any], *, cache: EnrichmentCache,
     school_config: Mapping[str, Any], extractor: DeepSeekExtractor | None,
+    apply_url_overrides: Mapping[str, str] | None = None,
+    apply_instructions: Mapping[str, str] | None = None,
     today: date | None = None, retry_failed: bool = False,
 ) -> tuple[dict[str, Any], dict[str, int]]:
     output = dict(payload)
@@ -804,6 +839,7 @@ def enrich_payload(
         "url_extracted": 0, "cached": 0, "failed": 0, "fetch_failed": 0,
         "llm_failed": 0, "skipped": 0, "apply_url_backfilled": 0,
         "apply_url_searched": 0, "apply_url_search_found": 0,
+        "apply_url_overridden": 0, "apply_instruction_added": 0,
     }
     items: list[dict[str, Any]] = []
     failure_streak = 0
@@ -824,6 +860,18 @@ def enrich_payload(
         if count := extract_recruit_count(item):
             extra["recruit_count"] = count
         extra["record_kind"] = record_kind(item, llm_choice=extra.get("record_kind"))
+        override_apply_url = actionable_apply_url(
+            (apply_url_overrides or {}).get(str(extra.get("id") or "").strip())
+        )
+        if override_apply_url and extra["record_kind"] == "秋招":
+            extra["apply_url"] = override_apply_url
+            stats["apply_url_overridden"] += 1
+        apply_instruction = str(
+            (apply_instructions or {}).get(str(extra.get("id") or "").strip()) or ""
+        ).strip()
+        if apply_instruction and extra["record_kind"] == "秋招":
+            extra["apply_instruction"] = apply_instruction
+            stats["apply_instruction_added"] += 1
         first_seen_date = today or datetime.now(CHINA_TZ).date()
         extra["first_seen"] = cache.get_or_create_first_seen(
             _first_seen_key(item, extra), first_seen_date,
@@ -844,6 +892,7 @@ def enrich_payload(
             # spending another LLM call, then mark the lightweight backfill done.
             if (
                 extra.get("record_kind") == "秋招"
+                and not override_apply_url
                 and "_apply_url_checked_v1" not in cached_extracted
                 and enrichment_source is not None
                 and extraction_available
@@ -869,6 +918,7 @@ def enrich_payload(
                     LOGGER.warning("application URL backfill failed for %s: %s", source_value, exc)
             if (
                 extra.get("record_kind") == "秋招"
+                and not override_apply_url
                 and not actionable_apply_url(cached_extracted.get("_apply_url"))
                 and "_apply_url_search_checked_v2" not in cached_extracted
                 and extraction_available
@@ -919,7 +969,7 @@ def enrich_payload(
                 # domains or the later Feishu sync.
                 LOGGER.warning("%s announcement fetch failed for %s: %s", source_kind, source_value, exc)
                 link_only: dict[str, Any] = {"_apply_url_checked_v1": True}
-                if extra.get("record_kind") == "秋招":
+                if extra.get("record_kind") == "秋招" and not override_apply_url:
                     search_result = _search_apply_url(extractor, item, extra, stats)
                     if search_result is not None:
                         if search_result:
@@ -940,7 +990,7 @@ def enrich_payload(
                 )
                 extracted["_apply_url_checked_v1"] = True
                 apply_url = actionable_apply_url(getattr(extractor, "last_apply_url", ""))
-                if not apply_url and extra.get("record_kind") == "秋招":
+                if not apply_url and extra.get("record_kind") == "秋招" and not override_apply_url:
                     search_result = _search_apply_url(
                         extractor, item, extra, stats, article_text
                     )
@@ -962,7 +1012,7 @@ def enrich_payload(
                 if apply_url := actionable_apply_url(getattr(extractor, "last_apply_url", "")):
                     link_only["_apply_url"] = apply_url
                     _merge_extracted(extra, link_only, "未提取")
-                elif extra.get("record_kind") == "秋招":
+                elif extra.get("record_kind") == "秋招" and not override_apply_url:
                     search_result = _search_apply_url(
                         extractor, item, extra, stats, article_text
                     )
@@ -980,6 +1030,8 @@ def enrich_payload(
                     extraction_available = False
                     LOGGER.warning("DeepSeek/announcement source unavailable after 3 consecutive failures; skip remaining uncached rows")
         extra["record_kind"] = record_kind(item, llm_choice=extra.get("record_kind"))
+        if override_apply_url and extra["record_kind"] == "秋招":
+            extra["apply_url"] = override_apply_url
         item["extra"] = extra
         items.append(item)
     output["items"] = items
@@ -996,11 +1048,20 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--output", default="gongkao_enriched.json")
     parser.add_argument("--cache", default=os.getenv("GONGKAO_ENRICH_CACHE", "/var/lib/hot-gap/gongkao-enrichment.db"))
     parser.add_argument("--schools", default=os.getenv("XUANDIAO_SCHOOLS_CONFIG", "config/xuandiao_schools.yaml"))
+    parser.add_argument(
+        "--apply-url-overrides",
+        default=os.getenv(
+            "QIUZHAO_APPLY_OVERRIDES_CONFIG",
+            "config/qiuzhao_apply_overrides.yaml",
+        ),
+    )
     parser.add_argument("--retry-failed", action="store_true")
     args = parser.parse_args(argv)
     data_dir = Path(args.data_dir)
     payload = json.loads((data_dir / args.input).read_text(encoding="utf-8"))
     school_config = load_school_config(args.schools)
+    apply_url_overrides = load_apply_url_overrides(args.apply_url_overrides)
+    apply_instructions = load_apply_instructions(args.apply_url_overrides)
     api_key = os.getenv("DEEPSEEK_API_KEY", "").strip()
     extractor = DeepSeekExtractor(
         api_key,
@@ -1011,6 +1072,8 @@ def main(argv: list[str] | None = None) -> int:
     try:
         enriched, stats = enrich_payload(
             payload, cache=cache, school_config=school_config, extractor=extractor,
+            apply_url_overrides=apply_url_overrides,
+            apply_instructions=apply_instructions,
             retry_failed=args.retry_failed,
         )
         stats["cache_pruned"] = cache.prune_idle(
