@@ -175,7 +175,7 @@ def _urgent(effective_at: str, within_days: int, today: date | None = None) -> b
     except (TypeError, ValueError):
         return False
     remaining = (effective - (today or date.today())).days
-    return -1 <= remaining <= within_days
+    return -within_days <= remaining <= within_days
 
 
 def format_impact_notification(

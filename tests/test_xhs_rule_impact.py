@@ -16,6 +16,18 @@ def snapshot(*, stale=False, items=True):
     }
 
 
+def test_recently_effective_rule_is_still_marked_urgent() -> None:
+    analysis = {
+        "verdict": "review", "summary": "核对", "affected_items": [],
+        "action_plan": [], "manual_checks": [], "deadline": "2026-09-03",
+    }
+    _, message, _ = format_impact_notification(
+        "类目规则", "2026-08-01", "2026-09-01", "2026-09-03", analysis, 3,
+        urgent_within_days=7, today=date(2026, 9, 9),
+    )
+    assert "紧急" in message
+
+
 @pytest.mark.asyncio
 async def test_no_change_message() -> None:
     async def caller(_system, _user):
