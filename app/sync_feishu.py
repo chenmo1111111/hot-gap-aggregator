@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import html
 import logging
 import os
 import re
@@ -344,7 +345,13 @@ def normalize(value: object) -> str:
 
 def actionable_apply_url(value: object) -> str:
     """Return a real external application URL, never an information/calendar page."""
-    text = str(value or "").strip()
+    text = html.unescape(str(value or "")).strip()
+    markdown = re.search(r"\[[^\]]*\]\((https?://[^)]+)\)", text, re.I)
+    if markdown:
+        text = markdown.group(1)
+    text = text.replace(r"\.", ".").replace(r"\/", "/")
+    text = re.split(r"(?:&q;|&quot;|[\s{}<>\"'，。；、])", text, maxsplit=1)[0]
+    text = text.rstrip(")]!?.,;:")
     try:
         parsed = urlsplit(text)
     except ValueError:
@@ -356,6 +363,16 @@ def actionable_apply_url(value: object) -> str:
     if parsed.scheme not in {"http", "https"} or not host:
         return ""
     if host == "fenbi.com" or host.endswith(".fenbi.com"):
+        return ""
+    try:
+        ascii_host = host.encode("idna").decode("ascii")
+    except UnicodeError:
+        return ""
+    if not re.fullmatch(r"[a-z0-9.-]+", ascii_host) or ".." in ascii_host:
+        return ""
+    if host in {"zhaopin.com", "www.zhaopin.com", "51job.com", "www.51job.com"} and (
+        parsed.path in {"", "/"}
+    ):
         return ""
     return text
 

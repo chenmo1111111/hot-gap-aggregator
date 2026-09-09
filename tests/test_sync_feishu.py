@@ -134,6 +134,16 @@ def test_qiuzhao_never_uses_fenbi_calendar_as_application_url() -> None:
     assert fields["投递链接"] is None
     assert fields["公告链接"]["link"].startswith("https://www.fenbi.com/")
     assert actionable_apply_url("https://cms.hotjob.cn/") == "https://cms.hotjob.cn/"
+    assert actionable_apply_url(
+        "[www.moon-tech.com](http://www.moon-tech.com)"
+    ) == "http://www.moon-tech.com"
+    assert actionable_apply_url(r"https://zhaopin.faw\.com.cn/campus") == (
+        "https://zhaopin.faw.com.cn/campus"
+    )
+    assert actionable_apply_url(
+        "https://maxwealthfund.hotjob.cn&q;},&q;affixinfos&q;"
+    ) == "https://maxwealthfund.hotjob.cn"
+    assert actionable_apply_url("https://www.zhaopin.com/") == ""
 
 
 def test_diff_creates_updates_deletes_and_completely_ignores_manual_rows() -> None:
