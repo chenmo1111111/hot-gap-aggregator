@@ -65,7 +65,7 @@ APPLY_PATH_HINTS = ("apply", "position", "job", "career", "campus", "recruit", "
 APPLY_TEXT_HINTS = ("立即报名", "立即投递", "投递简历", "申请职位", "招聘官网", "报名入口", "查看职位")
 RECRUIT_PORTAL_HOST_HINTS = (
     "hotjob", "career", "jobs", "job", "recruit", "campus", "zhaopin", "join",
-    "mokahr", "zhiye", "hirede", "workdayjobs", "51job",
+    "mokahr", "zhiye", "hirede", "workdayjobs", "51job", "rczp", "iguopin",
 )
 NON_PORTAL_HOST_SUFFIXES = (
     "edu.cn", "gov.cn", "fenbi.com", "zhihu.com", "weixin.qq.com", "qq.com",
@@ -181,6 +181,8 @@ def extract_official_apply_url(document: str, base_url: str = "") -> str:
 
     def add(raw_url: object, label: str = "", order: int = 0) -> None:
         raw = str(raw_url or "").strip().strip("'\"，。；;、")
+        if raw.startswith(("http://", "https://")):
+            raw = re.split(r"[\u3000-\u9fff]", raw, maxsplit=1)[0].rstrip("，。；;、")
         if not raw or raw.startswith(("javascript:", "mailto:", "tel:", "#")):
             return
         resolved = urljoin(base_url, raw)
@@ -214,29 +216,62 @@ def extract_official_apply_url(document: str, base_url: str = "") -> str:
 
 
 def _likely_recruit_portal(url: object) -> bool:
-    safe = actionable_apply_url(url)
+    safe = _canonical_web_url(url)
     if not safe:
         return False
     parsed = urlsplit(safe)
     host = (parsed.hostname or "").casefold().rstrip(".")
+    if host == "campus.yingjiesheng.com" or host.endswith(".campus.yingjiesheng.com"):
+        return True
     if any(host == suffix or host.endswith("." + suffix) for suffix in NON_PORTAL_HOST_SUFFIXES):
         return False
     path = parsed.path.casefold()
+    if re.search(r"\.(?:ico|jpg|jpeg|png|gif|svg|css|js|pdf|docx?|xlsx?|zip)$", path):
+        return False
     return any(hint in host for hint in RECRUIT_PORTAL_HOST_HINTS) or any(
         hint in path for hint in ("/career", "/jobs", "/job/", "/recruit", "/campus", "/apply")
     )
+
+
+def _client_redirect_url(document: str, base_url: str) -> str:
+    patterns = (
+        r"window\.location\.replace\(\s*['\"]([^'\"]+)",
+        r"http-equiv=['\"]?refresh['\"]?[^>]+content=['\"][^'\"]*url=['\"]?([^'\" >]+)",
+    )
+    for pattern in patterns:
+        if match := re.search(pattern, document, re.I):
+            return _canonical_web_url(urljoin(base_url, html_lib.unescape(match.group(1))))
+    return ""
 
 
 def _company_search_name(item: Mapping[str, Any], extra: Mapping[str, Any]) -> str:
     explicit = next((str(value).strip() for value in (
         item.get("company_name"), item.get("company"), extra.get("company"), extra.get("unit"),
     ) if str(value or "").strip()), "")
-    if explicit:
-        return explicit
     title = str(item.get("title_zh") or item.get("title") or "").strip()
-    title = re.sub(r"^20\d{2}(?:年度)?届?", "", title).strip(" ：:｜|-—")
-    marker = re.search(r"(?:20\d{2}(?:年度)?届?|春季|秋季)?(?:全球|全国)?(?:校园招聘|校招)", title)
-    return title[: marker.start()].strip(" ：:｜|-—") if marker else title
+
+    def clean(value: str) -> str:
+        value = re.sub(r"^(?:直签|招聘\d+[人名]?)\s*[丨|·：:]\s*", "", value).strip()
+        value = re.split(
+            r"20\d{2}(?:年度|年|届)?|(?:全球|全国)?(?:校园招聘|校招)", value, maxsplit=1,
+        )[0]
+        return value.strip(" ：:｜|,，-—、")
+
+    return clean(explicit) or clean(title) or explicit or title
+
+
+def _company_matches(text: str, company: str) -> bool:
+    compact = re.sub(r"\s+", "", str(text or ""))
+    base = re.sub(
+        r"(?:股份)?有限公司$|有限责任公司$|集团公司$|集团$", "", company
+    ).strip()
+    terms = {company.strip(), base}
+    if len(base) >= 8:
+        terms.add(base[:6])
+    for marker in ("集团", "银行", "证券", "期货", "航空", "移动", "核电"):
+        if marker in base:
+            terms.add(base[: base.index(marker) + len(marker)])
+    return any(len(term) >= 4 and term in compact for term in terms)
 
 
 def _decode_web_response(response: httpx.Response) -> str:
@@ -457,65 +492,164 @@ class DeepSeekExtractor:
         self.last_apply_url = extract_official_apply_url(html, str(response.url))
         return strip_webpage_html(html)
 
-    def search_official_apply_url(self, company: str, title: str) -> str:
+    def search_official_apply_url(
+        self, company: str, title: str, article_text: str = ""
+    ) -> str:
         """Search the public web and verify an employer/ATS application page."""
         company = str(company or "").strip()
         title = str(title or "").strip()
         if not company and not title:
             return ""
-        response = self.client.get(
-            "https://cn.bing.com/search",
-            params={"q": f'"{company}" "{title}" 官网 投递', "format": "rss", "count": "8"},
-            headers={
-                "User-Agent": "Mozilla/5.0 (compatible; hot-gap-link-finder/1.0)",
-                "Accept": "application/rss+xml,application/xml,text/xml,text/html",
-            },
-        )
-        response.raise_for_status()
-        try:
-            root = ET.fromstring(response.content)
-        except ET.ParseError as exc:
-            raise ValueError("搜索服务未返回可解析的 RSS") from exc
-
-        company_key = re.sub(r"(?:股份)?有限公司$", "", company).strip()
-        result_items = root.findall(".//item")[:8]
+        headers = {
+            "User-Agent": "Mozilla/5.0 (compatible; hot-gap-link-finder/1.1)",
+            "Accept": "text/html,application/xhtml+xml,application/rss+xml,application/xml",
+        }
         inspected_pages = 0
-        for result in result_items:
-            link = str(result.findtext("link") or "").strip()
-            result_title = str(result.findtext("title") or "")
-            description = html_lib.unescape(str(result.findtext("description") or ""))
-            context = f"{result_title} {description}"
-            if company_key and company_key not in context and company not in context:
-                continue
-            if _likely_recruit_portal(link):
-                return actionable_apply_url(link)
-
-            # University/employment-news results often quote the official ATS
-            # URL even when Fenbi itself does not. Inspect at most four such
-            # pages and only accept a link that looks like a recruitment portal.
-            if not actionable_apply_url(link):
-                continue
-            if inspected_pages >= 4:
+        search_succeeded = False
+        target_year_match = re.search(r"20\d{2}", title)
+        target_year = target_year_match.group(0) if target_year_match else ""
+        company_names = [company]
+        for match in re.finditer(
+            r"[\u4e00-\u9fff]{2,32}(?:股份有限公司|有限责任公司|有限公司|集团)",
+            article_text,
+        ):
+            candidate = match.group(0)
+            if candidate not in company_names:
+                company_names.append(candidate)
+            if len(company_names) >= 3:
                 break
-            inspected_pages += 1
-            try:
-                page = self.client.get(
-                    link,
-                    headers={
-                        "User-Agent": "Mozilla/5.0 (compatible; hot-gap-link-finder/1.0)",
-                        "Accept": "text/html,application/xhtml+xml",
-                    },
-                )
-                page.raise_for_status()
-                page_html = _decode_web_response(page)
-                page_text = strip_webpage_html(page_html)
-                if company_key and company_key not in f"{context} {page_text}":
+        portal_phrases: list[str] = []
+        for match in re.finditer(
+            r"[\u4e00-\u9fffA-Za-z0-9]{2,24}(?:人才招聘网|招聘系统|招聘官网|招聘平台)",
+            article_text,
+        ):
+            phrase = match.group(0)
+            for marker in ("请登录", "电脑登录", "登录", "请访问", "访问", "进入", "前往"):
+                if marker in phrase:
+                    phrase = phrase.rsplit(marker, 1)[-1]
+            if phrase not in portal_phrases:
+                portal_phrases.append(phrase)
+            if len(portal_phrases) >= 2:
+                break
+
+        def year_compatible(value: str) -> bool:
+            years = set(re.findall(r"20\d{2}", value))
+            return not target_year or not years or target_year in years
+
+        def evaluate(results: list[tuple[str, str]], match_names: list[str]) -> str:
+            nonlocal inspected_pages
+            for link, context in results:
+                if not any(_company_matches(context, name) for name in match_names):
                     continue
-                candidate = extract_official_apply_url(page_html, str(page.url))
-                if _likely_recruit_portal(candidate):
+                if not year_compatible(f"{link} {context}"):
+                    continue
+                if _likely_recruit_portal(link):
+                    return actionable_apply_url(link)
+                canonical_link = _canonical_web_url(link)
+                if not canonical_link or inspected_pages >= 8:
+                    continue
+                inspected_pages += 1
+                try:
+                    page = self.client.get(canonical_link, headers=headers)
+                    page.raise_for_status()
+                    page_html = _decode_web_response(page)
+                    if redirect_url := _client_redirect_url(page_html, str(page.url)):
+                        page = self.client.get(redirect_url, headers=headers)
+                        page.raise_for_status()
+                        page_html = _decode_web_response(page)
+                    page_text = strip_webpage_html(page_html)
+                    combined = f"{context} {page_text}"
+                    if not any(_company_matches(combined, name) for name in match_names):
+                        continue
+                    if not year_compatible(f"{page.url} {combined}"):
+                        continue
+                    if _likely_recruit_portal(str(page.url)):
+                        return actionable_apply_url(str(page.url))
+                    candidate = extract_official_apply_url(page_html, str(page.url))
+                    if _likely_recruit_portal(candidate):
+                        return candidate
+                except (httpx.HTTPError, ValueError):
+                    continue
+            return ""
+
+        # Short brand-oriented queries work substantially better for Chinese
+        # companies than quoting the full (often very long) announcement title.
+        queries: list[tuple[str, list[str]]] = [
+            (f'"{name}" {target_year} 校园招聘官网'.strip(), company_names)
+            for name in company_names
+        ]
+        queries.extend((f'"{phrase}"', [phrase, *company_names]) for phrase in portal_phrases)
+        queries.append((f'"{company}" 招聘系统', company_names))
+        for query, match_names in queries[:6]:
+            try:
+                response = self.client.get(
+                    "https://cn.bing.com/search",
+                    params={"q": query, "format": "rss", "count": "10"},
+                    headers=headers,
+                )
+                response.raise_for_status()
+                root = ET.fromstring(response.content)
+                search_succeeded = True
+                results = [
+                    (
+                        str(result.findtext("link") or "").strip(),
+                        f'{result.findtext("title") or ""} '
+                        f'{html_lib.unescape(str(result.findtext("description") or ""))}',
+                    )
+                    for result in root.findall(".//item")[:10]
+                ]
+                if candidate := evaluate(results, match_names):
                     return candidate
-            except (httpx.HTTPError, ValueError):
+            except (httpx.HTTPError, ET.ParseError, ValueError):
                 continue
+
+        # Bing has weak recall for some Chinese company names. Sogou and 360
+        # are fallbacks; redirect results are opened and subjected to the same
+        # company/portal verification before anything is written.
+        try:
+            response = self.client.get(
+                "https://www.sogou.com/web",
+                params={"query": f'{company} {target_year} 校园招聘官网'.strip()},
+                headers=headers,
+            )
+            response.raise_for_status()
+            tree = HTMLParser(_decode_web_response(response))
+            search_succeeded = True
+            results = [
+                (
+                    urljoin(str(response.url), str(node.attributes.get("href") or "")),
+                    node.text(separator=" ", strip=True),
+                )
+                for node in tree.css("h3 a[href]")[:10]
+            ]
+            if candidate := evaluate(results, company_names):
+                return candidate
+        except (httpx.HTTPError, ValueError):
+            pass
+
+        try:
+            response = self.client.get(
+                "https://www.so.com/s",
+                params={"q": f'"{company}" {target_year} 校园招聘官网'.strip()},
+                headers=headers,
+            )
+            response.raise_for_status()
+            tree = HTMLParser(_decode_web_response(response))
+            search_succeeded = True
+            results = [
+                (
+                    urljoin(str(response.url), str(node.attributes.get("href") or "")),
+                    node.text(separator=" ", strip=True),
+                )
+                for node in tree.css("h3 a[href]")[:10]
+            ]
+            if candidate := evaluate(results, company_names):
+                return candidate
+        except (httpx.HTTPError, ValueError):
+            pass
+
+        if not search_succeeded:
+            raise ValueError("搜索服务暂时不可用")
         return ""
 
     def extract(self, text: str, *, include_xuandiao_scope: bool = False) -> dict[str, Any]:
@@ -635,7 +769,8 @@ def _merge_extracted(extra: dict[str, Any], extracted: Mapping[str, Any], status
 
 
 def _search_apply_url(
-    extractor: object, item: Mapping[str, Any], extra: Mapping[str, Any], stats: dict[str, int]
+    extractor: object, item: Mapping[str, Any], extra: Mapping[str, Any], stats: dict[str, int],
+    article_text: str = "",
 ) -> str | None:
     search = getattr(extractor, "search_official_apply_url", None)
     if not callable(search):
@@ -645,6 +780,7 @@ def _search_apply_url(
         result = actionable_apply_url(search(
             _company_search_name(item, extra),
             str(item.get("title_zh") or item.get("title") or ""),
+            article_text,
         ))
     except Exception as exc:
         LOGGER.warning("official application URL search failed: %s", exc)
@@ -702,6 +838,7 @@ def enrich_payload(
             cached["status"] == "ok" or not retry_failed
         ):
             cached_extracted = json.loads(cached["提取JSON"])
+            article_text_for_search = ""
             # Older cache rows predate official application-link discovery.
             # For routed campus jobs, fetch the announcement once more without
             # spending another LLM call, then mark the lightweight backfill done.
@@ -715,9 +852,9 @@ def enrich_payload(
                 source_kind, _, source_value = enrichment_source
                 try:
                     if source_kind == "fenbi":
-                        extractor.fetch_article(source_value)
+                        article_text_for_search = extractor.fetch_article(source_value)
                     else:
-                        extractor.fetch_url(source_value)
+                        article_text_for_search = extractor.fetch_url(source_value)
                     cached_extracted["_apply_url_checked_v1"] = True
                     if apply_url := actionable_apply_url(
                         getattr(extractor, "last_apply_url", "")
@@ -733,15 +870,27 @@ def enrich_payload(
             if (
                 extra.get("record_kind") == "秋招"
                 and not actionable_apply_url(cached_extracted.get("_apply_url"))
-                and "_apply_url_search_checked_v1" not in cached_extracted
+                and "_apply_url_search_checked_v2" not in cached_extracted
                 and extraction_available
                 and extractor is not None
             ):
-                search_result = _search_apply_url(extractor, item, extra, stats)
+                if not article_text_for_search and enrichment_source is not None:
+                    source_kind, _, source_value = enrichment_source
+                    try:
+                        article_text_for_search = (
+                            extractor.fetch_article(source_value)
+                            if source_kind == "fenbi"
+                            else extractor.fetch_url(source_value)
+                        )
+                    except Exception as exc:
+                        LOGGER.warning("announcement refetch before URL search failed: %s", exc)
+                search_result = _search_apply_url(
+                    extractor, item, extra, stats, article_text_for_search
+                )
                 if search_result is not None:
                     if search_result:
                         cached_extracted["_apply_url"] = search_result
-                    cached_extracted["_apply_url_search_checked_v1"] = True
+                    cached_extracted["_apply_url_search_checked_v2"] = True
                     cache.put(
                         cache_key, source_hash, cached_extracted,
                         status=str(cached["status"]), error=str(cached.get("error") or ""),
@@ -775,7 +924,7 @@ def enrich_payload(
                     if search_result is not None:
                         if search_result:
                             link_only["_apply_url"] = search_result
-                        link_only["_apply_url_search_checked_v1"] = True
+                        link_only["_apply_url_search_checked_v2"] = True
                 cache.put(cache_key, source_hash, link_only, status="未提取", error=str(exc))
                 _merge_extracted(extra, link_only, "未提取")
                 extra["enrichment_status"] = "未提取"
@@ -792,10 +941,12 @@ def enrich_payload(
                 extracted["_apply_url_checked_v1"] = True
                 apply_url = actionable_apply_url(getattr(extractor, "last_apply_url", ""))
                 if not apply_url and extra.get("record_kind") == "秋招":
-                    search_result = _search_apply_url(extractor, item, extra, stats)
+                    search_result = _search_apply_url(
+                        extractor, item, extra, stats, article_text
+                    )
                     if search_result is not None:
                         apply_url = search_result
-                        extracted["_apply_url_search_checked_v1"] = True
+                        extracted["_apply_url_search_checked_v2"] = True
                 if apply_url:
                     extracted["_apply_url"] = apply_url
                 cache.put(cache_key, source_hash, extracted)
@@ -812,12 +963,14 @@ def enrich_payload(
                     link_only["_apply_url"] = apply_url
                     _merge_extracted(extra, link_only, "未提取")
                 elif extra.get("record_kind") == "秋招":
-                    search_result = _search_apply_url(extractor, item, extra, stats)
+                    search_result = _search_apply_url(
+                        extractor, item, extra, stats, article_text
+                    )
                     if search_result:
                         link_only["_apply_url"] = search_result
                         _merge_extracted(extra, link_only, "未提取")
                     if search_result is not None:
-                        link_only["_apply_url_search_checked_v1"] = True
+                        link_only["_apply_url_search_checked_v2"] = True
                 cache.put(cache_key, source_hash, link_only, status="未提取", error=str(exc))
                 extra["enrichment_status"] = "未提取"
                 stats["failed"] += 1

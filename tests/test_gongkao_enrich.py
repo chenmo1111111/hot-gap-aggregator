@@ -8,6 +8,8 @@ import httpx
 from app.pipeline.gongkao_enrich import (
     DeepSeekExtractor,
     EnrichmentCache,
+    _client_redirect_url,
+    _likely_recruit_portal,
     calculate_signup_status,
     enrich_payload,
     extract_official_apply_url,
@@ -56,6 +58,15 @@ def test_official_apply_url_extraction_rejects_fenbi_calendar() -> None:
     assert extract_official_apply_url(
         '<a href="https://www.fenbi.com/page/kaoshidetail/123">立即报名</a>'
     ) == ""
+    assert extract_official_apply_url(
+        "请前往https://career.cmbchina.com选择校园招聘并投递简历"
+    ) == "https://career.cmbchina.com"
+    assert _client_redirect_url(
+        '<script>window.location.replace("https://career.example/apply")</script>',
+        "https://search.example/result",
+    ) == "https://career.example/apply"
+    assert _likely_recruit_portal("https://img01.51jobcdn.com/logo.ico") is False
+    assert _likely_recruit_portal("https://cnnc.zhiye.com/xiaoyuan") is True
 
 
 def test_official_apply_url_extraction_prefers_labeled_application_link() -> None:

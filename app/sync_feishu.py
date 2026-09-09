@@ -349,9 +349,12 @@ def actionable_apply_url(value: object) -> str:
         parsed = urlsplit(text)
     except ValueError:
         return ""
-    if parsed.scheme not in {"http", "https"} or not parsed.hostname:
+    try:
+        host = (parsed.hostname or "").casefold().rstrip(".")
+    except ValueError:
         return ""
-    host = parsed.hostname.casefold().rstrip(".")
+    if parsed.scheme not in {"http", "https"} or not host:
+        return ""
     if host == "fenbi.com" or host.endswith(".fenbi.com"):
         return ""
     return text
