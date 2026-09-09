@@ -80,7 +80,6 @@ class GongkaoCollector(BaseCollector):
         return items
 
     async def fetch(self) -> list[Item]:
-        timeline_params = {**self.common_params, "districtId": 0, "type": -1, "offset": 0, "size": 50}
         article_requests = [
             self.request(
                 self.article_endpoint,
@@ -90,21 +89,15 @@ class GongkaoCollector(BaseCollector):
         ]
         results = await asyncio.gather(
             *article_requests,
-            self.request(self.timeline_endpoint, params=timeline_params),
             return_exceptions=True,
         )
         items: list[Item] = []
         errors: list[str] = []
-        for offset, result in zip(self.article_offsets, results[:-1], strict=True):
+        for offset, result in zip(self.article_offsets, results, strict=True):
             if isinstance(result, Exception):
                 errors.append(f"article offset={offset}: {result}")
             else:
                 items.extend(self.parse_articles(result.json()))
-        timeline_result = results[-1]
-        if isinstance(timeline_result, Exception):
-            errors.append(f"timeline: {timeline_result}")
-        else:
-            items.extend(self.parse_timeline(timeline_result.json()))
         if not items:
             raise SourceUnavailable("; ".join(errors) or "Fenbi returned no items", status="degraded")
         unique: dict[tuple[str, str], Item] = {}

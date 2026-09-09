@@ -664,6 +664,9 @@ def partition_gongkao_rows(
     qiuzhao: list[dict[str, Any]] = []
     excluded: list[Mapping[str, Any]] = []
     for row in rows:
+        if is_fenbi_timeline_row(row):
+            excluded.append(row)
+            continue
         extra = row.get("extra") if isinstance(row.get("extra"), Mapping) else {}
         kind = record_kind(row, llm_choice=extra.get("record_kind"))
         if kind == "秋招":
@@ -673,6 +676,25 @@ def partition_gongkao_rows(
         else:
             gongkao.append(row)
     return gongkao, qiuzhao, excluded
+
+
+def is_fenbi_timeline_row(row: Mapping[str, Any]) -> bool:
+    """Identify Fenbi exam-calendar rows while retaining external official URLs."""
+    extra = row.get("extra") if isinstance(row.get("extra"), Mapping) else {}
+    raw_url = str(
+        _coalesce(row, "url|announcement_url|extra.announcement_url|链接") or ""
+    ).strip()
+    parsed = urlsplit(raw_url)
+    host = (parsed.hostname or "").casefold()
+    path = parsed.path.casefold().rstrip("/")
+    is_fenbi = host == "fenbi.com" or host.endswith(".fenbi.com")
+    if is_fenbi and any(
+        marker in path for marker in ("/page/exam-timeline-detail/", "/page/kaoshidetail/")
+    ):
+        return True
+    return str(extra.get("sub") or "").strip().casefold() == "timeline" and (
+        not raw_url or is_fenbi
+    )
 
 
 def merge_qiuzhao_rows(

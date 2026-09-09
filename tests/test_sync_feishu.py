@@ -221,10 +221,10 @@ def test_diff_treats_slash_and_blank_as_equal_but_backfill_is_one_time() -> None
 def test_gongkao_enterprise_campus_row_is_converted_and_merged_into_qiuzhao() -> None:
     row = {
         "title": "中国移动辽宁分公司2027届校园招聘",
-        "url": "https://www.fenbi.com/page/kaoshidetail/123",
+        "url": "https://hera-webapp.fenbi.com/api/website/article/detail?id=123",
         "published_at": "2026-09-08",
         "extra": {
-            "id": "g1", "exam_type": "国企招聘", "province": "辽宁",
+            "id": "g1", "sub": "announcement", "exam_type": "国企招聘", "province": "辽宁",
             "endSignUpTime": "2026-10-01", "xueli": "本科及以上",
             "apply_instruction": "发送简历至 hr@example.com",
         },
@@ -238,10 +238,36 @@ def test_gongkao_enterprise_campus_row_is_converted_and_merged_into_qiuzhao() ->
     assert converted["cohort"] == "2027届"
     assert converted["deadline"] == "2026-10-01"
     assert converted["apply_url"] is None
-    assert converted["announcement_url"].startswith("https://www.fenbi.com/")
+    assert converted["announcement_url"].startswith("https://hera-webapp.fenbi.com/")
     assert converted["source_label"] == "公考源路由"
     assert converted["notes"] == "投递方式：发送简历至 hr@example.com"
     assert len(merge_qiuzhao_rows([], routed)) == 1
+
+
+def test_fenbi_timeline_rows_are_excluded_but_official_overrides_survive() -> None:
+    timeline_rows = [
+        {
+            "title": "粉笔新版日历",
+            "url": "https://www.fenbi.com/page/exam-timeline-detail/910775",
+            "extra": {"id": 910775, "sub": "timeline"},
+        },
+        {
+            "title": "粉笔旧版日历",
+            "url": "http://fenbi.com/page/kaoshidetail/907334",
+            "extra": {"id": 907334, "sub": "timeline"},
+        },
+    ]
+    official_override = {
+        "title": "已补到官网的公告",
+        "url": "https://gov.example/notice/1",
+        "extra": {"id": 123, "sub": "timeline", "preferred_link_source": "feishu_sheet"},
+    }
+
+    kept, routed, excluded = partition_gongkao_rows([*timeline_rows, official_override])
+
+    assert kept == [official_override]
+    assert routed == []
+    assert excluded == timeline_rows
 
 
 def test_sync_table_uses_fake_client_and_batches_diff_operations() -> None:

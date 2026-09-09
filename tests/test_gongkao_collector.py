@@ -59,16 +59,12 @@ async def test_gongkao_fetches_four_article_pages_and_deduplicates(monkeypatch, 
             calls.append(("article", offset))
             article_id = 100 if offset == 50 else offset + 100
             return Response({"data": {"articles": [{"id": article_id, "title": f"公告{offset}"}]}})
-        calls.append(("timeline", int(params["offset"])))
-        return Response({"datas": [{"id": 100, "topic": "考试日历"}]})
+        raise AssertionError("the Fenbi timeline endpoint must not be requested")
 
     monkeypatch.setattr(collector, "request", request)
     items = await collector.fetch()
 
     assert [offset for kind, offset in calls if kind == "article"] == [0, 50, 100, 150]
-    # The duplicate article ID from offset 50 is removed, but a timeline with
-    # the same numeric ID remains because it is a different record kind.
     assert [(item.extra["sub"], item.extra["id"]) for item in items] == [
         ("announcement", 100), ("announcement", 200), ("announcement", 250),
-        ("timeline", 100),
     ]
