@@ -67,6 +67,15 @@ class Database:
                 revised_at TEXT, document_url TEXT, content_hash TEXT NOT NULL,
                 content_text TEXT NOT NULL, checked_at TEXT NOT NULL
             );
+            CREATE TABLE IF NOT EXISTS xhs_rule_notified (
+                rule_id TEXT NOT NULL, published_at TEXT NOT NULL,
+                notified_at TEXT NOT NULL,
+                PRIMARY KEY (rule_id, published_at)
+            );
+            CREATE TABLE IF NOT EXISTS xhs_rule_run_state (
+                singleton INTEGER PRIMARY KEY CHECK (singleton = 1),
+                last_successful_run TEXT NOT NULL, updated_at TEXT NOT NULL
+            );
         """)
         snapshot_columns = {row["name"] for row in self.connection.execute("PRAGMA table_info(snapshots)")}
         if "payload" not in snapshot_columns:
@@ -245,6 +254,44 @@ class Database:
             "url,announced_at,effective_at,revised_at,document_url,content_hash,content_text,checked_at"
             ") VALUES(?,?,?,?,?,?,?,?)",
             (url, announced_at, effective_at, revised_at, document_url, content_hash, content_text, checked_at),
+        )
+        self.connection.commit()
+
+    def get_xhs_rule_last_successful_run(self) -> str | None:
+        row = self.connection.execute(
+            "SELECT last_successful_run FROM xhs_rule_run_state WHERE singleton=1"
+        ).fetchone()
+        return str(row["last_successful_run"]) if row else None
+
+    def save_xhs_rule_last_successful_run(self, run_date: str) -> None:
+        now = datetime.now(UTC).isoformat()
+        self.connection.execute(
+            "INSERT OR REPLACE INTO xhs_rule_run_state(singleton,last_successful_run,updated_at) "
+            "VALUES(1,?,?)",
+            (run_date, now),
+        )
+        self.connection.commit()
+
+    def unseen_xhs_rule_notifications(self, keys: list[tuple[str, str]]) -> set[tuple[str, str]]:
+        if not keys:
+            return set()
+        unseen = set(keys)
+        for rule_id, published_at in keys:
+            row = self.connection.execute(
+                "SELECT 1 FROM xhs_rule_notified WHERE rule_id=? AND published_at=?",
+                (rule_id, published_at),
+            ).fetchone()
+            if row:
+                unseen.discard((rule_id, published_at))
+        return unseen
+
+    def mark_xhs_rule_notifications(self, keys: list[tuple[str, str]]) -> None:
+        if not keys:
+            return
+        now = datetime.now(UTC).isoformat()
+        self.connection.executemany(
+            "INSERT OR IGNORE INTO xhs_rule_notified(rule_id,published_at,notified_at) VALUES(?,?,?)",
+            [(rule_id, published_at, now) for rule_id, published_at in keys],
         )
         self.connection.commit()
 

@@ -16,8 +16,7 @@ watch_articles:
   - {name: 小红书定向准入类目管理规则, url: "https://school.xiaohongshu.com/rule/detail/26/3059"}
   # 在这里补充“虚拟卡券商品发布及宣传规范”等详情页 URL。
 
-check_interval_hours: 8
-stale_rule_days: 14
+check_interval_hours: 24
 
 impact_analysis:
   enabled: true

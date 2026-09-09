@@ -72,8 +72,8 @@ SERVER_HEARTBEAT_PATH=/var/www/hot-gap/data/server-heartbeat.txt
 
 ## 小红书电商规则监控
 
-监控使用桌面 Chromium 登录小红书学习中心，每 8 小时检查“规则修订、规则新增、
-意见征集”和配置中的重点规则正文。Cookie 只放服务器
+监控使用桌面 Chromium 登录小红书学习中心，每天检查“规则修订、规则新增、
+意见征集”列表。Cookie 只放服务器
 `/opt/hot-gap-aggregator/.env`：
 
 ```dotenv
@@ -86,15 +86,16 @@ DEEPSEEK_API_KEY=replace-with-server-only-secret
 
 第一项粘贴 Cookie-Editor 导出的完整 JSON 数组，第二项粘贴页面 Console 里的
 `document.cookie`。真实值不得提交到 Git。登录失效后会通过飞书、Bark 或站内
-`alerts.json` 提醒重新导出。正文首次运行只建立基线；以后仅当公示日期、生效日期
-或腾讯文档链接变化且两次抓取一致，并经模型确认确有实质变化后才告警。
+`alerts.json` 提醒重新导出。首次运行会把当前匹配规则的 `(rule_id, 发布日期)` 全部
+写入已通知台账，不发送历史消息；以后对上次成功运行以来并额外回看 2 天的新发布日期
+抓取正文。同一规则只有发布日期改变才会形成新的通知键，因此不会在第二天重复发送。
 
-确认变化后，watcher 会打开千帆商品管理页，捕获当前后台商品列表请求并用 httpx
+发现新发布日期后，watcher 会打开千帆商品管理页，捕获当前后台商品列表请求并用 httpx
 翻页拉取全部在售商品，快照写到 `data/xhs_shop_items.json`，再仅通过 DeepSeek 做
 逐商品影响分析。商品接口失败时保留上次快照并标记 `stale: true`，分析结论至少为
-“建议核对”，不会误报“无需改动”。配置中的 `stale_rule_days: 14` 会静默吸收生效
-超过 14 天的旧规则变化。可手动分析当前规则；默认只向 stdout 输出，不写网站也不
-发飞书：
+“建议核对”。AI 无论返回 `no_change`、`review` 还是 `action_required` 都会写网站并
+发送飞书；AI 调用失败则以“建议人工核对”的降级结果继续通知。可手动分析当前规则；
+默认只向 stdout 输出，不写网站也不发飞书：
 
 ```bash
 .venv/bin/python -m app.watchers.xhs_rule_watch --analyze 26/2981

@@ -218,3 +218,44 @@ def format_impact_notification(
         lines.extend(f"· {value}" for value in checks)
     lines.append(f"截止：{analysis.get('deadline') or effective_at or '未标注'}")
     return f"{marker}{name} · 在售商品影响", "\n".join(lines), "highest" if verdict == "action_required" else "normal"
+
+
+def format_new_rule_notification(
+    name: str, published_at: str, effective_at: str,
+    analysis: dict[str, Any], item_count: int, *, urgent_within_days: int = 7,
+    today: date | None = None,
+) -> tuple[str, str, str]:
+    """Format an always-send notification for a newly published rule."""
+    verdict = analysis.get("verdict")
+    lines = [
+        f"【小红书新规则】{name}",
+        f"发布 {published_at} ｜ 生效 {effective_at}",
+        f"AI 商品影响分析（对照在售 {item_count} 个）：",
+    ]
+    if verdict == "no_change":
+        lines.append("不涉及你当前在售的商品类目，无需处理，可留意。")
+        return f"{name} · 新规则", "\n".join(lines), "normal"
+
+    label = "🔴需要改动" if verdict == "action_required" else "🟡建议核对"
+    urgent = f"（距今不足{urgent_within_days}天，紧急）" if _urgent(
+        effective_at, urgent_within_days, today,
+    ) else ""
+    lines.append(f"{label}{urgent}：{analysis.get('summary') or '需人工核对'}")
+    affected = analysis.get("affected_items") or []
+    risk_labels = {"high": "高", "medium": "中", "low": "低"}
+    for row in affected[:10]:
+        lines.append(
+            f"· 「{row.get('title') or row.get('item_id') or '未命名商品'}」"
+            f"{risk_labels.get(row.get('risk'), '中')}风险：{row.get('why') or '需核对'}"
+            f" → {row.get('suggestion') or '人工复核'}"
+        )
+    actions = analysis.get("action_plan") or []
+    if actions:
+        lines.append("待办：")
+        lines.extend(f"{index}. {value}" for index, value in enumerate(actions, 1))
+    checks = analysis.get("manual_checks") or []
+    if checks:
+        lines.append("需人工核对：")
+        lines.extend(f"· {value}" for value in checks)
+    lines.append(f"截止：{analysis.get('deadline') or effective_at or '未标注'}")
+    return f"{name} · 新规则", "\n".join(lines), "highest" if verdict == "action_required" else "normal"

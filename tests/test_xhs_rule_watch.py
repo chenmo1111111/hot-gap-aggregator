@@ -7,27 +7,58 @@ from selectolax.parser import HTMLParser
 
 from app.store.database import Database
 from app.watchers.xhs_rule_watch import (
-    RULE_CHANGE_PROMPT,
     XhsCookieInvalid,
     XhsRuleWatcher,
-    article_changed,
-    captures_match,
+    detail_url_from_text,
     extract_article_metadata,
     extract_external_links,
     extract_rule_text_window,
     merge_xhs_cookies,
-    parse_model_decision,
+    parse_published_date,
     parse_rule_list_text,
-    stale_rule,
 )
 
 
 FIXTURES = Path(__file__).parent / "fixtures"
+TODAY = date(2026, 9, 9)
 
 
 def fixture_body(name: str) -> str:
     tree = HTMLParser((FIXTURES / name).read_text(encoding="utf-8"))
     return tree.body.text(separator="\n", strip=True)
+
+
+def write_config(path: Path) -> None:
+    path.write_text(
+        "list_pages:\n  - {name: 规则修订, url: 'https://school.test/list/17'}\n"
+        "title_keywords: [类目, 卡券, 规则]\n"
+        "watch_articles:\n"
+        "  - {name: 月度类目规则, url: 'https://school.xiaohongshu.com/rule/detail/26/2981'}\n"
+        "impact_analysis:\n  enabled: true\n  shop_manage_url: 'https://ark.test/items'\n"
+        "  urgent_within_days: 7\n",
+        encoding="utf-8",
+    )
+
+
+def rule(rule_id: str, published_at: str, title: str = "电子资源类目规则") -> dict[str, str]:
+    return {
+        "rule_id": rule_id,
+        "published_at": published_at,
+        "title": title,
+        "url": f"https://school.xiaohongshu.com/rule/detail/{rule_id}",
+        "date": published_at,
+        "kind": "修订",
+        "prefix": "关于修订",
+        "list_name": "规则修订",
+        "list_url": "https://school.test/list/17",
+    }
+
+
+def scrape_result(rows: list[dict[str, str]], *, complete: bool = True):
+    return rows, [{
+        "name": "规则修订", "status": "ok" if complete else "degraded",
+        "item_count": len(rows), "resolved": len(rows), "unresolved": 0,
+    }], complete
 
 
 def test_cookie_sources_merge_with_json_precedence_and_playwright_fields() -> None:
@@ -51,302 +82,210 @@ def test_cookie_sources_merge_with_json_precedence_and_playwright_fields() -> No
     assert by_name["gid"]["value"] == "a=b"
 
 
-def test_list_regex_splits_rules_and_article_metadata_extracts_dates_and_document() -> None:
+def test_list_and_article_parsers_extract_dates_ids_and_links() -> None:
     rows = parse_rule_list_text(fixture_body("xhs_rule_list.html"), "规则修订")
     assert [(row["kind"], row["title"], row["date"]) for row in rows] == [
         ("修订", "小红书虚拟卡券商品发布规范", "2026年09月05日"),
         ("新增", "网络工具类目定向准入规则", "2026年09月04日"),
         ("修订", "生鲜食品运输规范", "2026年09月03日"),
     ]
-    old = extract_article_metadata(fixture_body("xhs_rule_article_old.html"))
-    new = extract_article_metadata(fixture_body("xhs_rule_article_new.html"))
-    assert old["announced_at"] == "2026-08-01"
-    assert old["effective_at"] == "2026-08-08"
-    assert old["revised_at"] == "2026-08-01"
-    assert old["document_url"].endswith("e3_demo_old")
-    assert old["content_hash"] != new["content_hash"]
-    assert old["external_links"] == [old["document_url"]]
+    assert parse_published_date("2026年09月05日") == date(2026, 9, 5)
+    assert parse_published_date("2026-09-05") == date(2026, 9, 5)
+    assert detail_url_from_text(
+        "onclick=go('/rule/detail/26/2981?from=list')", "https://school.xiaohongshu.com/rule/list/17",
+    ) == "https://school.xiaohongshu.com/rule/detail/26/2981"
+    metadata = extract_article_metadata(fixture_body("xhs_rule_article_old.html"))
+    assert metadata["announced_at"] == "2026-08-01"
+    assert metadata["effective_at"] == "2026-08-08"
+    assert metadata["document_url"].endswith("e3_demo_old")
+    assert metadata["external_links"] == [metadata["document_url"]]
     assert extract_external_links("https://a.test/x https://a.test/x https://b.test/y。") == [
         "https://a.test/x", "https://b.test/y",
     ]
-    assert article_changed(old, new)
-    assert not article_changed(old, old)
-    links_only = dict(old, external_links=[*old["external_links"], "https://example.test/appendix"])
-    assert article_changed(old, links_only)
-    assert captures_match(old, old)
-    assert not captures_match(old, new)
     assert extract_rule_text_window(fixture_body("xhs_rule_article_old.html")).startswith("本规则于")
-    assert parse_model_decision('{"changed": false, "impact": ""}') == (False, "")
 
 
-@pytest.mark.asyncio
-async def test_list_push_log_deduplicates_and_filters_irrelevant_titles(monkeypatch, tmp_path) -> None:
-    config = tmp_path / "xhs.yaml"
-    config.write_text(
-        "list_pages:\n  - {name: 规则修订, url: 'https://school.test/list'}\n"
-        "title_keywords: [虚拟卡券, 网络工具]\n"
-        "focus_keywords: [虚拟卡券]\nwatch_articles: []\n",
-        encoding="utf-8",
-    )
+def test_notification_ledger_and_last_successful_run_persist(tmp_path) -> None:
     database = Database(tmp_path / "watch.db")
-    delivered: list[dict[str, str]] = []
-
-    async def notifier(alert: dict[str, str]) -> dict[str, str]:
-        delivered.append(alert)
-        return {"feishu": "ok"}
-
-    alerts_path = tmp_path / "alerts.json"
-    watcher = XhsRuleWatcher(database, config, notifier=notifier, alerts_path=alerts_path)
-    page = {"name": "规则修订", "url": "https://school.test/list"}
-    monkeypatch.setattr(watcher, "_scrape", lambda _config: async_value({
-        "lists": [(page, fixture_body("xhs_rule_list.html"))], "articles": [],
-    }))
-    first = await watcher.run()
-    second = await watcher.run()
-    assert first["list_pages"][0] == {"name": "规则修订", "status": "pushed", "item_count": 2, "pushed": 2}
-    assert second["list_pages"][0]["status"] == "unchanged"
-    assert len(delivered) == 2
-    assert delivered[0]["priority"] == "highest"
-    assert "重点关注" in delivered[0]["summary"]
-    assert delivered[1]["priority"] == "normal"
-    alerts = json.loads(alerts_path.read_text(encoding="utf-8"))
-    assert len(alerts["items"]) == 2
-    assert {item["id"] for item in alerts["items"]} == {item["id"] for item in delivered}
+    keys = [("26/2981", "2026-08-27"), ("26/3059", "2026-09-01")]
+    assert database.unseen_xhs_rule_notifications(keys) == set(keys)
+    database.mark_xhs_rule_notifications([keys[0]])
+    assert database.unseen_xhs_rule_notifications(keys) == {keys[1]}
+    assert database.get_xhs_rule_last_successful_run() is None
+    database.save_xhs_rule_last_successful_run("2026-09-09")
+    assert database.get_xhs_rule_last_successful_run() == "2026-09-09"
     database.close()
 
 
 @pytest.mark.asyncio
-async def test_article_baseline_then_diff_judgment_and_one_push(monkeypatch, tmp_path) -> None:
+async def test_cold_start_baselines_every_current_rule_without_push(monkeypatch, tmp_path) -> None:
     config = tmp_path / "xhs.yaml"
-    config.write_text(
-        "list_pages: []\nwatch_articles:\n"
-        "  - {name: 定向准入, url: 'https://school.test/detail/1'}\n",
-        encoding="utf-8",
-    )
+    write_config(config)
     database = Database(tmp_path / "watch.db")
-    judgments: list[str] = []
-    delivered: list[dict[str, str]] = []
+    delivered: list[dict] = []
 
-    async def judge(prompt: str) -> str:
-        judgments.append(prompt)
-        return '{"changed": true, "impact": "影响虚拟卡券个人店经营，建议立即下架自查。"}'
-
-    async def notifier(alert: dict[str, str]) -> dict[str, str]:
+    async def notifier(alert):
         delivered.append(alert)
         return {"feishu": "ok"}
 
-    alerts_path = tmp_path / "alerts.json"
-    watcher = XhsRuleWatcher(database, config, judge=judge, notifier=notifier, alerts_path=alerts_path)
-    article = {"name": "定向准入", "url": "https://school.test/detail/1"}
-    monkeypatch.setattr(watcher, "_scrape", lambda _config: async_value({
-        "lists": [], "articles": [(article, fixture_body("xhs_rule_article_old.html"))],
-    }))
-    assert (await watcher.run())["watch_articles"][0]["status"] == "baseline"
-
-    monkeypatch.setattr(watcher, "_scrape", lambda _config: async_value({
-        "lists": [], "articles": [(
-            article, fixture_body("xhs_rule_article_new.html"), fixture_body("xhs_rule_article_new.html"),
-        )],
-    }))
-    assert (await watcher.run())["watch_articles"][0]["status"] == "pushed"
-    assert (await watcher.run())["watch_articles"][0]["status"] == "unchanged"
-    assert len(judgments) == 1
-    assert "电子资源" in RULE_CHANGE_PROMPT and "教育" in RULE_CHANGE_PROMPT
-    assert '"changed": true' in RULE_CHANGE_PROMPT
-    assert len(delivered) == 1
-    assert delivered[0]["priority"] == "highest"
-    alerts = json.loads(alerts_path.read_text(encoding="utf-8"))
-    assert alerts["items"] == delivered
-    stored = database.get_xhs_rule_snapshot(article["url"])
-    assert stored and stored["effective_at"] == "2026-09-08"
-    database.close()
-
-
-@pytest.mark.asyncio
-async def test_all_unchanged_fields_update_check_time_without_model_or_push(tmp_path) -> None:
-    database = Database(tmp_path / "watch.db")
-    judgments: list[str] = []
-    delivered: list[dict[str, str]] = []
-
-    async def judge(prompt: str) -> str:
-        judgments.append(prompt)
-        return '{"changed": true, "impact": "不应调用"}'
-
-    async def notifier(alert: dict[str, str]) -> dict[str, str]:
-        delivered.append(alert)
-        return {"feishu": "ok"}
-
+    rows = [rule("26/2981", "2026-08-27"), rule("26/3059", "2026-09-08")]
     watcher = XhsRuleWatcher(
-        database, tmp_path / "unused.yaml", judge=judge, notifier=notifier,
-        alerts_path=tmp_path / "alerts.json",
+        database, config, notifier=notifier, alerts_path=tmp_path / "alerts.json",
+        today_provider=lambda: TODAY,
     )
-    article = {"name": "定向准入", "url": "https://school.test/detail/1"}
-    old = fixture_body("xhs_rule_article_old.html")
-    assert (await watcher._process_article(article, old))["status"] == "baseline"
-    first_checked = database.get_xhs_rule_snapshot(article["url"])["checked_at"]
-    assert (await watcher._process_article(article, old))["status"] == "unchanged"
-    second_checked = database.get_xhs_rule_snapshot(article["url"])["checked_at"]
-    assert second_checked >= first_checked
-    assert judgments == []
+    monkeypatch.setattr(watcher, "_scrape_rule_lists", lambda *_: async_value(scrape_result(rows)))
+    result = await watcher.run()
+    assert result["mode"] == "baseline"
+    assert result["rules_seen"] == 2 and result["notified"] == 0
+    assert database.unseen_xhs_rule_notifications([
+        ("26/2981", "2026-08-27"), ("26/3059", "2026-09-08"),
+    ]) == set()
+    assert database.get_xhs_rule_last_successful_run() == "2026-09-09"
     assert delivered == []
     assert not (tmp_path / "alerts.json").exists()
     database.close()
 
 
 @pytest.mark.asyncio
-async def test_changed_but_two_captures_disagree_is_not_pushed(tmp_path) -> None:
-    database = Database(tmp_path / "watch.db")
-    delivered: list[dict[str, str]] = []
-
-    async def notifier(alert: dict[str, str]) -> dict[str, str]:
-        delivered.append(alert)
-        return {"feishu": "ok"}
-
-    watcher = XhsRuleWatcher(
-        database, tmp_path / "unused.yaml", notifier=notifier,
-        alerts_path=tmp_path / "alerts.json",
-    )
-    article = {"name": "定向准入", "url": "https://school.test/detail/1"}
-    old, new = fixture_body("xhs_rule_article_old.html"), fixture_body("xhs_rule_article_new.html")
-    await watcher._process_article(article, old)
-    result = await watcher._process_article(article, new, new + " 页面随机尾巴")
-    assert result["status"] == "confirmation-mismatch"
-    assert delivered == []
-    assert database.get_xhs_rule_snapshot(article["url"])["effective_at"] == "2026-08-08"
-    database.close()
-
-
-@pytest.mark.asyncio
-@pytest.mark.parametrize(
-    ("model_result", "expected_status"),
-    [
-        ('{"changed": false, "impact": ""}', "changed-no-impact"),
-        ("不是 JSON", "model-degraded"),
-    ],
-)
-async def test_model_false_or_invalid_response_does_not_push(tmp_path, model_result, expected_status) -> None:
-    database = Database(tmp_path / f"{expected_status}.db")
-    delivered: list[dict[str, str]] = []
-
-    async def judge(_prompt: str) -> str:
-        return model_result
-
-    async def notifier(alert: dict[str, str]) -> dict[str, str]:
-        delivered.append(alert)
-        return {"feishu": "ok"}
-
-    watcher = XhsRuleWatcher(
-        database, tmp_path / "unused.yaml", judge=judge, notifier=notifier,
-        alerts_path=tmp_path / "alerts.json",
-    )
-    article = {"name": "定向准入", "url": "https://school.test/detail/1"}
-    old, new = fixture_body("xhs_rule_article_old.html"), fixture_body("xhs_rule_article_new.html")
-    await watcher._process_article(article, old)
-    assert (await watcher._process_article(article, new, new))["status"] == expected_status
-    assert delivered == []
-    database.close()
-
-
-@pytest.mark.asyncio
-async def test_model_failure_does_not_push_or_advance_snapshot(tmp_path) -> None:
-    database = Database(tmp_path / "watch.db")
-    delivered: list[dict[str, str]] = []
-
-    async def judge(_prompt: str) -> str:
-        raise RuntimeError("provider unavailable")
-
-    async def notifier(alert: dict[str, str]) -> dict[str, str]:
-        delivered.append(alert)
-        return {"feishu": "ok"}
-
-    watcher = XhsRuleWatcher(
-        database, tmp_path / "unused.yaml", judge=judge, notifier=notifier,
-        alerts_path=tmp_path / "alerts.json",
-    )
-    article = {"name": "定向准入", "url": "https://school.test/detail/1"}
-    old, new = fixture_body("xhs_rule_article_old.html"), fixture_body("xhs_rule_article_new.html")
-    await watcher._process_article(article, old)
-    assert (await watcher._process_article(article, new, new))["status"] == "model-degraded"
-    assert delivered == []
-    assert database.get_xhs_rule_snapshot(article["url"])["effective_at"] == "2026-08-08"
-    database.close()
-
-
-@pytest.mark.asyncio
-async def test_true_change_push_uses_stable_container_hash_key(tmp_path) -> None:
-    database = Database(tmp_path / "watch.db")
-
-    async def judge(_prompt: str) -> str:
-        return '```json\n{"changed": true, "impact": "教育类目改为定向准入"}\n```'
-
-    async def notifier(_alert: dict[str, str]) -> dict[str, str]:
-        return {"feishu": "ok"}
-
-    watcher = XhsRuleWatcher(
-        database, tmp_path / "unused.yaml", judge=judge, notifier=notifier,
-        alerts_path=tmp_path / "alerts.json",
-    )
-    article = {"name": "定向准入", "url": "https://school.test/detail/1"}
-    old, new = fixture_body("xhs_rule_article_old.html"), fixture_body("xhs_rule_article_new.html")
-    await watcher._process_article(article, old)
-    result = await watcher._process_article(article, new, new)
-    assert result["status"] == "pushed"
-    content_hash = extract_article_metadata(new)["content_hash"]
-    event_key = f"xhs-rule:article:{content_hash}"
-    assert database.unseen_push_events([event_key]) == set()
-    assert "公示 2026-08-01→2026-09-01" in result["summary"]
-    assert "生效 2026-08-08→2026-09-08" in result["summary"]
-    database.close()
-
-
-@pytest.mark.asyncio
-async def test_cookie_failure_alerts_once_without_raising(monkeypatch, tmp_path) -> None:
+async def test_new_today_rule_pushes_even_when_ai_says_no_change_and_never_repeats(monkeypatch, tmp_path) -> None:
     config = tmp_path / "xhs.yaml"
-    config.write_text("list_pages: []\nwatch_articles: []\n", encoding="utf-8")
+    write_config(config)
     database = Database(tmp_path / "watch.db")
-    delivered: list[dict[str, str]] = []
+    database.save_xhs_rule_last_successful_run("2026-09-08")
+    delivered: list[dict] = []
+    calls: list[str] = []
+    clock = [TODAY]
 
-    async def notifier(alert: dict[str, str]) -> dict[str, str]:
+    async def notifier(alert):
         delivered.append(alert)
-        return {"bark": "ok"}
+        return {"feishu": "ok"}
 
-    async def expired(_config):
-        raise XhsCookieInvalid("login verification failed", status="degraded")
+    async def refresh(_settings):
+        calls.append("shop")
+        return {"stale": False, "items": [{"item_id": "1", "title": "电子题库"}]}
 
-    alerts_path = tmp_path / "alerts.json"
-    watcher = XhsRuleWatcher(database, config, notifier=notifier, alerts_path=alerts_path)
-    monkeypatch.setattr(watcher, "_scrape", expired)
-    assert (await watcher.run())["status"] == "degraded"
-    assert (await watcher.run())["status"] == "degraded"
+    async def analyze(_rule, _shop):
+        calls.append("impact")
+        return {
+            "verdict": "no_change", "summary": "无影响", "affected_items": [],
+            "action_plan": [], "manual_checks": [], "deadline": "2026-09-16",
+        }
+
+    watcher = XhsRuleWatcher(
+        database, config, notifier=notifier, alerts_path=tmp_path / "alerts.json",
+        shop_refresher=refresh, impact_analyzer=analyze, today_provider=lambda: clock[0],
+    )
+    rows = [rule("26/4000", "2026-09-09")]
+    monkeypatch.setattr(watcher, "_scrape_rule_lists", lambda *_: async_value(scrape_result(rows)))
+    monkeypatch.setattr(watcher, "_scrape", lambda *_: async_value({
+        "lists": [], "articles": [({"name": rows[0]["title"], "url": rows[0]["url"]}, fixture_body("xhs_rule_article_new.html"))],
+    }))
+
+    first = await watcher.run()
+    clock[0] = date(2026, 9, 10)
+    second = await watcher.run()
+    assert first["notified"] == 1 and first["status"] == "ok"
+    assert second["notified"] == 0 and second["pending"] == 0
+    assert calls == ["shop", "impact"]
     assert len(delivered) == 1
-    assert "重新导出" in delivered[0]["summary"]
-    alerts = json.loads(alerts_path.read_text(encoding="utf-8"))
-    assert alerts["items"] == delivered
+    assert "【小红书新规则】" in delivered[0]["summary"]
+    assert "不涉及你当前在售的商品类目" in delivered[0]["summary"]
+    assert json.loads((tmp_path / "alerts.json").read_text(encoding="utf-8"))["items"] == delivered
+    database.close()
+
+
+@pytest.mark.asyncio
+async def test_same_rule_id_with_new_monthly_publication_date_pushes_once(monkeypatch, tmp_path) -> None:
+    config = tmp_path / "xhs.yaml"
+    write_config(config)
+    database = Database(tmp_path / "watch.db")
+    database.save_xhs_rule_last_successful_run("2026-09-08")
+    database.mark_xhs_rule_notifications([("26/2981", "2026-08-27")])
+    delivered: list[dict] = []
+
+    async def notifier(alert):
+        delivered.append(alert)
+        return {"feishu": "ok"}
+
+    async def refresh(_settings):
+        return {"stale": False, "items": [{"item_id": "1", "title": "电子题库"}]}
+
+    async def analyze(_rule, _shop):
+        return {
+            "verdict": "review", "summary": "需核对", "affected_items": [],
+            "action_plan": ["检查类目"], "manual_checks": [], "deadline": "2026-09-16",
+        }
+
+    changed = rule("26/2981", "2026-09-09", "月度类目规则")
+    watcher = XhsRuleWatcher(
+        database, config, notifier=notifier, alerts_path=tmp_path / "alerts.json",
+        shop_refresher=refresh, impact_analyzer=analyze, today_provider=lambda: TODAY,
+    )
+    monkeypatch.setattr(watcher, "_scrape_rule_lists", lambda *_: async_value(scrape_result([changed])))
+    monkeypatch.setattr(watcher, "_scrape", lambda *_: async_value({
+        "lists": [], "articles": [(changed, fixture_body("xhs_rule_article_new.html"))],
+    }))
+    assert (await watcher.run())["notified"] == 1
+    assert (await watcher.run())["notified"] == 0
+    assert len(delivered) == 1
+    assert database.unseen_xhs_rule_notifications([("26/2981", "2026-09-09")]) == set()
+    database.close()
+
+
+@pytest.mark.asyncio
+async def test_failed_day_is_caught_up_by_two_day_window(monkeypatch, tmp_path) -> None:
+    config = tmp_path / "xhs.yaml"
+    write_config(config)
+    database = Database(tmp_path / "watch.db")
+    database.save_xhs_rule_last_successful_run("2026-09-07")
+    delivered: list[dict] = []
+
+    async def notifier(alert):
+        delivered.append(alert)
+        return {"feishu": "ok"}
+
+    async def refresh(_settings):
+        return {"stale": False, "items": [{"item_id": "1", "title": "课程"}]}
+
+    async def analyze(_rule, _shop):
+        return {
+            "verdict": "action_required", "summary": "需修改", "affected_items": [],
+            "action_plan": ["立即核对"], "manual_checks": [], "deadline": "2026-09-10",
+        }
+
+    yesterday = rule("26/5000", "2026-09-08")
+    watcher = XhsRuleWatcher(
+        database, config, notifier=notifier, alerts_path=tmp_path / "alerts.json",
+        shop_refresher=refresh, impact_analyzer=analyze, today_provider=lambda: TODAY,
+    )
+    monkeypatch.setattr(watcher, "_scrape_rule_lists", lambda *_: async_value(scrape_result([yesterday])))
+    monkeypatch.setattr(watcher, "_scrape", lambda *_: async_value({
+        "lists": [], "articles": [(yesterday, fixture_body("xhs_rule_article_new.html"))],
+    }))
+    result = await watcher.run()
+    assert result["window_start"] == "2026-09-05"
+    assert result["notified"] == 1
+    assert len(delivered) == 1
     database.close()
 
 
 @pytest.mark.asyncio
 async def test_manual_analyze_defaults_to_stdout_only_and_push_is_explicit(monkeypatch, tmp_path) -> None:
     config = tmp_path / "xhs.yaml"
-    config.write_text(
-        "list_pages: []\nwatch_articles:\n"
-        "  - {name: 类目明细, url: 'https://school.xiaohongshu.com/rule/detail/26/2981'}\n"
-        "impact_analysis:\n  enabled: true\n  shop_manage_url: 'https://ark.test/items'\n  urgent_within_days: 7\n",
-        encoding="utf-8",
-    )
+    write_config(config)
     database = Database(tmp_path / "watch.db")
-    delivered = []
-    calls = []
+    delivered: list[dict] = []
+    calls: list[str] = []
 
     async def refresh(settings):
-        calls.append(("shop", settings["shop_manage_url"]))
+        calls.append("shop")
         return {"stale": False, "items": [{"item_id": "1", "title": "电子题库"}]}
 
-    async def analyze(rule, shop):
-        calls.append(("impact", rule["col_id"], len(shop["items"])))
+    async def analyze(rule_data, shop):
+        calls.append("impact")
         return {
             "verdict": "review", "summary": "建议核对", "affected_items": [],
-            "action_plan": ["核对类目"], "manual_checks": [], "deadline": rule["effective_at"],
+            "action_plan": ["核对类目"], "manual_checks": [], "deadline": rule_data["effective_at"],
         }
 
     async def notifier(alert):
@@ -355,128 +294,42 @@ async def test_manual_analyze_defaults_to_stdout_only_and_push_is_explicit(monke
 
     watcher = XhsRuleWatcher(
         database, config, notifier=notifier, alerts_path=tmp_path / "alerts.json",
-        shop_refresher=refresh, impact_analyzer=analyze,
+        shop_refresher=refresh, impact_analyzer=analyze, today_provider=lambda: TODAY,
     )
-    article = {"name": "类目明细", "url": "https://school.xiaohongshu.com/rule/detail/26/2981"}
-    monkeypatch.setattr(watcher, "_scrape", lambda _config: async_value({
-        "lists": [], "articles": [(article, fixture_body("xhs_rule_article_new.html"), None)],
+    article = {"name": "月度类目规则", "url": "https://school.xiaohongshu.com/rule/detail/26/2981"}
+    monkeypatch.setattr(watcher, "_scrape", lambda *_: async_value({
+        "lists": [], "articles": [(article, fixture_body("xhs_rule_article_new.html"))],
     }))
     result = await watcher.analyze("26/2981")
-    assert result["status"] == "analyzed" and result["manual"] is True
-    assert result["push_requested"] is False
-    assert delivered == []
-    assert not (tmp_path / "alerts.json").exists()
-
+    assert result["status"] == "analyzed" and result["push_requested"] is False
+    assert delivered == [] and not (tmp_path / "alerts.json").exists()
     pushed = await watcher.analyze("26/2981", push=True)
     assert pushed["status"] == "pushed" and pushed["push_requested"] is True
-    assert calls == [
-        ("shop", "https://ark.test/items"), ("impact", "26/2981", 1),
-        ("shop", "https://ark.test/items"), ("impact", "26/2981", 1),
-    ]
+    assert calls == ["shop", "impact", "shop", "impact"]
     assert "【手动触发】" in delivered[0]["summary"]
-    assert delivered[0]["impact_analysis"]["verdict"] == "review"
     database.close()
 
 
 @pytest.mark.asyncio
-async def test_three_month_old_change_is_logged_and_suppressed_before_model(caplog, tmp_path) -> None:
+async def test_cookie_failure_alerts_once_without_raising(monkeypatch, tmp_path) -> None:
+    config = tmp_path / "xhs.yaml"
+    write_config(config)
     database = Database(tmp_path / "watch.db")
-    judgments = []
-    delivered = []
-
-    async def judge(_prompt):
-        judgments.append(True)
-        return '{"changed": true, "impact": "不应调用"}'
+    delivered: list[dict] = []
 
     async def notifier(alert):
         delivered.append(alert)
         return {"feishu": "ok"}
 
-    watcher = XhsRuleWatcher(
-        database, tmp_path / "unused.yaml", judge=judge, notifier=notifier,
-        alerts_path=tmp_path / "alerts.json", today_provider=lambda: date(2026, 9, 9),
-    )
-    watcher._runtime_config = {"stale_rule_days": 14}
-    article = {"name": "旧规则", "url": "https://school.test/rule/detail/26/1"}
-    baseline = fixture_body("xhs_rule_article_old.html")
-    stale = baseline.replace("2026-08-01", "2026-05-01").replace("2026-08-08", "2026-05-08")
-    await watcher._process_article(article, baseline)
-    with caplog.at_level("INFO"):
-        result = await watcher._process_article(article, stale, stale)
-    assert result["status"] == "stale-suppressed"
-    assert "suppressed as stale" in caplog.text
-    assert judgments == [] and delivered == []
-    assert database.get_xhs_rule_snapshot(article["url"])["effective_at"] == "2026-05-08"
-    assert stale_rule("2026-05-08", 14, date(2026, 9, 9))
-    database.close()
+    async def expired(*_args):
+        raise XhsCookieInvalid("login verification failed", status="degraded")
 
-
-@pytest.mark.asyncio
-async def test_next_week_change_pushes_normally(tmp_path) -> None:
-    database = Database(tmp_path / "watch.db")
-    delivered = []
-
-    async def judge(_prompt):
-        return '{"changed": true, "impact": "店铺类型限制改变"}'
-
-    async def notifier(alert):
-        delivered.append(alert)
-        return {"feishu": "ok"}
-
-    watcher = XhsRuleWatcher(
-        database, tmp_path / "unused.yaml", judge=judge, notifier=notifier,
-        alerts_path=tmp_path / "alerts.json", today_provider=lambda: date(2026, 9, 9),
-    )
-    watcher._runtime_config = {"stale_rule_days": 14}
-    article = {"name": "未来规则", "url": "https://school.test/rule/detail/26/2"}
-    baseline = fixture_body("xhs_rule_article_old.html")
-    future = baseline.replace("2026-08-01", "2026-09-09").replace("2026-08-08", "2026-09-16")
-    await watcher._process_article(article, baseline)
-    result = await watcher._process_article(article, future, future)
-    assert result["status"] == "pushed"
+    watcher = XhsRuleWatcher(database, config, notifier=notifier, alerts_path=tmp_path / "alerts.json")
+    monkeypatch.setattr(watcher, "_scrape_rule_lists", expired)
+    assert (await watcher.run())["status"] == "degraded"
+    assert (await watcher.run())["status"] == "degraded"
     assert len(delivered) == 1
-    database.close()
-
-
-@pytest.mark.asyncio
-async def test_shop_impact_runs_only_after_confirmed_material_change(tmp_path) -> None:
-    database = Database(tmp_path / "watch.db")
-    calls = []
-
-    async def judge(_prompt):
-        return '{"changed": true, "impact": "电子资源类目限制改变"}'
-
-    async def refresh(_settings):
-        calls.append("shop")
-        return {"stale": False, "items": [{"item_id": "1", "title": "题库"}]}
-
-    async def analyze(_rule, _shop):
-        calls.append("impact")
-        return {
-            "verdict": "review", "summary": "核对", "affected_items": [],
-            "action_plan": [], "manual_checks": [], "deadline": "2026-09-08",
-        }
-
-    async def notifier(_alert):
-        return {"feishu": "ok"}
-
-    watcher = XhsRuleWatcher(
-        database, tmp_path / "unused.yaml", judge=judge, notifier=notifier,
-        alerts_path=tmp_path / "alerts.json", shop_refresher=refresh, impact_analyzer=analyze,
-    )
-    watcher._runtime_config = {
-        "impact_analysis": {"enabled": True, "shop_manage_url": "https://ark.test/items"},
-    }
-    article = {"name": "类目规则", "url": "https://school.test/rule/detail/26/2981"}
-    old, new = fixture_body("xhs_rule_article_old.html"), fixture_body("xhs_rule_article_new.html")
-    await watcher._process_article(article, old)
-    await watcher._process_article(article, old)
-    assert calls == []
-    await watcher._process_article(article, new, new + " 页面随机尾巴")
-    assert calls == []
-    result = await watcher._process_article(article, new, new)
-    assert result["status"] == "pushed"
-    assert calls == ["shop", "impact"]
+    assert "重新导出" in delivered[0]["summary"]
     database.close()
 
 
