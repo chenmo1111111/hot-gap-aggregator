@@ -145,6 +145,8 @@ python -m app.run --notify
 
 支持配置 Bark (`BARK_URL`)、飞书自定义机器人 (`FEISHU_WEBHOOK`，开加签时再配 `FEISHU_SIGN_SECRET`)、Telegram Bot (`TG_BOT_TOKEN` + `TG_CHAT_ID`) 和 Server酱 (`SERVERCHAN_KEY`)。公考中，关注省份、重点考试类型或标题命中 `cities_focus` 任一条件都会触发新公告、报名前 1 天、截止前 2 天、笔试前 3 天提醒；仅在至少一个渠道发送成功后写入 push log 去重。
 
+小红书规则正文监控只以公示日期、生效日期和腾讯文档链接的变化作为主判据，并在 60 秒后进行第二次一致性确认。HTTP 日志会自动隐藏飞书 Webhook、Bark 地址和 API Key。若 Webhook 曾出现在旧日志、截图或聊天记录中，应立即在飞书机器人设置中重新生成，并只把新值写入服务器 `.env`；不要提交到仓库。
+
 ## 环境变量
 
 | 变量 | 用途 |

@@ -7,7 +7,7 @@ import logging
 import os
 import re
 from collections.abc import Awaitable, Callable
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
 
@@ -22,6 +22,7 @@ from app.store.database import Database
 
 LOGGER = logging.getLogger(__name__)
 UTC = timezone.utc
+CHINA_TZ = timezone(timedelta(hours=8))
 DESKTOP_USER_AGENT = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
     "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36"
@@ -38,6 +39,11 @@ REVISED_PATTERN = re.compile(
     r"本规则于\s*([\d-]+)\s*首次生效\s*[，,]\s*([\d-]+)\s*修订"
 )
 DOCUMENT_PATTERN = re.compile(r"https://doc\.weixin\.qq\.com/[^\s<>\"'，。]+")
+STRUCTURED_FIELDS = ("announced_at", "effective_at", "document_url")
+ARTICLE_SELECTORS = (
+    "article", "[class*='rule-detail']", "[class*='detail-content']",
+    "[class*='article-content']", "[class*='detail']", "[class*='content']",
+)
 RULE_CHANGE_PROMPT = """你是小红书电商规则风险监控助手。用户当前经营“电子资源”和“教育”类目，这两个类目是最高优先级；同时关注虚拟商品、虚拟卡券、激活码、知识付费、账号充值、生活娱乐充值、网络工具。
 
 对比下面规则的旧版和新版，重点判断：
@@ -48,8 +54,11 @@ RULE_CHANGE_PROMPT = """你是小红书电商规则风险监控助手。用户�
 5. 是否新增冻结、下架、清退、扣分或终止服务风险；
 6. 公示日、生效日和过渡期是否变化。
 
-若涉及电子资源或教育，输出不超过120字的一段话，格式为：“【电子资源/教育重点】变化：……；影响：现在能否继续经营及所需资质；时间：生效或截止时间；动作：立即要做什么。”信息不明确时写“需人工确认”，不要猜测。
-若只涉及其它关注类目，用同样结构简要输出并标明类目。完全无关则只输出 SKIP。
+只输出合法 JSON，不要 Markdown、代码块或额外说明：
+{{"changed": true, "impact": "不超过120字的一句话"}}
+只有确实存在影响经营的规则变化时 changed 才能为 true。若新旧内容实质相同、只改变排版/导航/登录信息，或没有证据证明相关规则改变，必须输出：
+{{"changed": false, "impact": ""}}
+信息不明确时 changed=false，不要猜测。
 
 规则名：{name}
 
@@ -73,6 +82,21 @@ class XhsCookieInvalid(SourceUnavailable):
 
 def _normalise_text(value: str) -> str:
     return " ".join(value.split())
+
+
+def extract_rule_text_window(text: str) -> str:
+    """Extract a stable rule span from body text when no content container exists."""
+    content = _normalise_text(text)
+    announced = ANNOUNCED_PATTERN.search(content)
+    revised_matches = list(REVISED_PATTERN.finditer(content))
+    if not announced or not revised_matches:
+        raise ValueError("rule content container/date boundary not found")
+    revised = revised_matches[-1]
+    start = min(announced.start(), revised.start())
+    end = max(announced.end(), revised.end())
+    if end - start < 40:
+        raise ValueError("rule content boundary is too short")
+    return content[start:end]
 
 
 def merge_xhs_cookies(json_text: str, document_cookie: str) -> list[dict[str, Any]]:
@@ -157,6 +181,8 @@ def parse_rule_list_text(text: str, list_name: str) -> list[dict[str, str]]:
 def extract_article_metadata(text: str) -> dict[str, str]:
     content = _normalise_text(text)
     announced = ANNOUNCED_PATTERN.search(content)
+    if not announced:
+        raise ValueError("rule announcement/effective dates not found in content container")
     revised = REVISED_PATTERN.search(content)
     document = DOCUMENT_PATTERN.search(content)
     return {
@@ -172,21 +198,40 @@ def extract_article_metadata(text: str) -> dict[str, str]:
 def article_changed(previous: dict[str, Any], current: dict[str, str]) -> bool:
     return any(
         str(previous.get(field) or "") != str(current.get(field) or "")
-        for field in ("announced_at", "effective_at", "revised_at", "document_url", "content_hash")
+        for field in STRUCTURED_FIELDS
     )
+
+
+def captures_match(first: dict[str, str], second: dict[str, str]) -> bool:
+    return all(first[field] == second[field] for field in (*STRUCTURED_FIELDS, "content_hash"))
+
+
+def parse_model_decision(value: str) -> tuple[bool, str]:
+    raw = value.strip()
+    match = re.search(r"\{.*\}", raw, re.S)
+    if not match:
+        raise ValueError("model response does not contain JSON")
+    payload = json.loads(match.group(0))
+    if not isinstance(payload, dict) or not isinstance(payload.get("changed"), bool):
+        raise ValueError("model response changed must be boolean")
+    impact = payload.get("impact", "")
+    if not isinstance(impact, str):
+        raise ValueError("model response impact must be a string")
+    return payload["changed"], _normalise_text(impact)[:240]
 
 
 class XhsRuleWatcher:
     def __init__(
         self, database: Database, config_path: str | Path | None = None, *,
         judge: Judge | None = None, notifier: Notifier | None = None,
-        alerts_path: str | Path | None = None,
+        alerts_path: str | Path | None = None, confirmation_delay_seconds: float = 60,
     ) -> None:
         self.database = database
         self.config_path = Path(config_path or os.getenv("XHS_RULE_WATCH_CONFIG", "config/xhs_rule_watch.yaml"))
         self.judge = judge or self._llm_judge
         self.notifier = notifier or notify_subsidy_alert
         self._custom_notifier = notifier is not None
+        self.confirmation_delay_seconds = confirmation_delay_seconds
         default_data_dir = Path(os.getenv("SERVER_SITE_DATA_DIR", "public/data"))
         self.alerts_path = Path(alerts_path) if alerts_path else default_data_dir / "alerts.json"
 
@@ -212,11 +257,19 @@ class XhsRuleWatcher:
         for page, text in scraped["lists"]:
             list_reports.append(await self._process_list(page, text, keywords, focus_keywords))
         article_reports = []
-        for article, text in scraped["articles"]:
-            article_reports.append(await self._process_article(article, text))
+        for capture in scraped["articles"]:
+            article, text = capture[0], capture[1]
+            if text is None:
+                article_reports.append({
+                    "name": str(article.get("name") or "规则正文"),
+                    "status": "degraded", "error": str(capture[3] if len(capture) > 3 else "content extraction failed"),
+                })
+                continue
+            confirmation = capture[2] if len(capture) > 2 else None
+            article_reports.append(await self._process_article(article, text, confirmation))
         return {"status": "ok", "list_pages": list_reports, "watch_articles": article_reports}
 
-    async def _scrape(self, config: dict[str, Any]) -> dict[str, list[tuple[dict[str, Any], str]]]:
+    async def _scrape(self, config: dict[str, Any]) -> dict[str, list[tuple[Any, ...]]]:
         try:
             cookies = merge_xhs_cookies(
                 os.getenv("XHS_SCHOOL_COOKIE_JSON", ""), os.getenv("XHS_SCHOOL_COOKIE_DOC", ""),
@@ -230,7 +283,7 @@ class XhsRuleWatcher:
         except ImportError as exc:
             raise SourceUnavailable("Playwright is not installed", status="degraded") from exc
 
-        output: dict[str, list[tuple[dict[str, Any], str]]] = {"lists": [], "articles": []}
+        output: dict[str, list[tuple[Any, ...]]] = {"lists": [], "articles": []}
         async with async_playwright() as playwright:
             browser = await playwright.chromium.launch(headless=True)
             try:
@@ -246,12 +299,23 @@ class XhsRuleWatcher:
                     if not isinstance(target, dict) or not str(target.get("url") or "").startswith("https://"):
                         continue
                     try:
-                        text = await self._page_text(page, str(target["url"]))
-                        output[section].append((target, text))
+                        if section == "articles":
+                            text = await self._page_article_text(page, str(target["url"]))
+                            confirmation = None
+                            previous = self.database.get_xhs_rule_snapshot(str(target["url"]))
+                            if previous is not None and article_changed(previous, extract_article_metadata(text)):
+                                await asyncio.sleep(self.confirmation_delay_seconds)
+                                confirmation = await self._page_article_text(page, str(target["url"]))
+                            output[section].append((target, text, confirmation))
+                        else:
+                            text = await self._page_text(page, str(target["url"]))
+                            output[section].append((target, text))
                     except SourceUnavailable:
                         raise
                     except Exception as exc:
                         LOGGER.warning("xhs rule page degraded (%s): %s", target.get("name"), str(exc).splitlines()[0])
+                        if section == "articles":
+                            output[section].append((target, None, None, str(exc).splitlines()[0]))
             finally:
                 await browser.close()
         if not output["lists"] and not output["articles"]:
@@ -278,6 +342,33 @@ class XhsRuleWatcher:
                 if attempt < 2:
                     await asyncio.sleep(0.5 * (2**attempt))
         raise RuntimeError(f"XHS rule page failed after retries: {last_error}")
+
+    @classmethod
+    async def _page_article_text(cls, page: Any, url: str) -> str:
+        body_text = await cls._page_text(page, url)
+        candidates: list[str] = []
+        for selector in ARTICLE_SELECTORS:
+            locator = page.locator(selector)
+            for index in range(min(await locator.count(), 20)):
+                try:
+                    text = _normalise_text(await locator.nth(index).inner_text())
+                except Exception:
+                    continue
+                if len(text) >= 80 and ANNOUNCED_PATTERN.search(text):
+                    candidates.append(text)
+        if candidates:
+            # The shortest matching node is normally the innermost article body,
+            # excluding navigation, account greetings and recommendation lists.
+            complete = [
+                text for text in candidates
+                if len(text) >= 120 and (REVISED_PATTERN.search(text) or DOCUMENT_PATTERN.search(text))
+            ]
+            content = min(complete or candidates, key=len)
+            extract_article_metadata(content)
+            return content
+        content = extract_rule_text_window(body_text)
+        extract_article_metadata(content)
+        return content
 
     async def _process_list(
         self, page: dict[str, Any], text: str, keywords: list[str], focus_keywords: list[str],
@@ -307,7 +398,9 @@ class XhsRuleWatcher:
                 pushed += 1
         return {"name": name, "status": "pushed" if pushed else "unchanged", "item_count": len(candidates), "pushed": pushed}
 
-    async def _process_article(self, article: dict[str, Any], text: str) -> dict[str, Any]:
+    async def _process_article(
+        self, article: dict[str, Any], text: str, confirmation_text: str | None = None,
+    ) -> dict[str, Any]:
         name, url = str(article.get("name") or "规则正文"), str(article.get("url") or "")
         current = extract_article_metadata(text)
         previous = self.database.get_xhs_rule_snapshot(url)
@@ -317,12 +410,19 @@ class XhsRuleWatcher:
         if not article_changed(previous, current):
             self._save_article(url, current)
             return {"name": name, "status": "unchanged"}
+        if not confirmation_text:
+            LOGGER.warning("xhs rule confirmation missing (%s); no snapshot or alert was written", name)
+            return {"name": name, "status": "confirmation-missing"}
+        try:
+            confirmed = extract_article_metadata(confirmation_text)
+        except ValueError as exc:
+            LOGGER.warning("xhs rule confirmation extraction failed (%s): %s", name, exc)
+            return {"name": name, "status": "confirmation-degraded"}
+        if not captures_match(current, confirmed):
+            LOGGER.warning("xhs rule captures were inconsistent (%s); ignoring unstable page", name)
+            return {"name": name, "status": "confirmation-mismatch"}
 
-        version_hash = hashlib.sha256(json.dumps(
-            {field: current[field] for field in ("announced_at", "effective_at", "revised_at", "document_url", "content_hash")},
-            ensure_ascii=False, sort_keys=True,
-        ).encode("utf-8")).hexdigest()
-        event_key = f"xhs-rule:article:{url}:{version_hash[:16]}"
+        event_key = f"xhs-rule:article:{current['content_hash']}"
         if event_key not in self.database.unseen_push_events([event_key]):
             self._save_article(url, current)
             return {"name": name, "status": "already-pushed"}
@@ -331,20 +431,31 @@ class XhsRuleWatcher:
             new=current["content_text"][-8_000:],
         )
         try:
-            verdict = _normalise_text(await self.judge(prompt))
+            changed, impact = parse_model_decision(await self.judge(prompt))
         except Exception as exc:
-            LOGGER.warning("xhs rule model degraded (%s): %s", name, exc)
-            verdict = "模型判断失败，请人工核对规则变化并检查相关类目。"
-        if not verdict or verdict.casefold() == "skip":
+            LOGGER.warning("xhs rule model response rejected (%s): %s; no alert was sent", name, exc)
+            return {"name": name, "status": "model-degraded"}
+        if not changed:
             self._save_article(url, current)
-            return {"name": name, "status": "changed-skip"}
+            LOGGER.info("xhs rule structured fields changed but model found no material impact (%s)", name)
+            return {"name": name, "status": "changed-no-impact"}
+        if not impact:
+            LOGGER.warning("xhs rule model returned changed=true without impact (%s); no alert was sent", name)
+            return {"name": name, "status": "model-degraded"}
+        old_announced = str(previous.get("announced_at") or "未标注")
+        old_effective = str(previous.get("effective_at") or "未标注")
+        summary = (
+            f"规则《{name}》疑似更新 | 公示 {old_announced}→{current['announced_at'] or '未标注'}"
+            f" | 生效 {old_effective}→{current['effective_at'] or '未标注'}"
+            f" | 抓取于 {datetime.now(CHINA_TZ).date().isoformat()} | {impact}"
+        )
         alert = self._alert(
-            title=name, url=url, kind="规则更新", summary=verdict, priority="highest",
+            title=name, url=url, kind="规则更新", summary=summary, priority="highest",
         )
         if await self._deliver(alert):
             self.database.mark_push_events([event_key])
             self._save_article(url, current)
-            return {"name": name, "status": "pushed", "summary": verdict}
+            return {"name": name, "status": "pushed", "summary": summary}
         return {"name": name, "status": "notification-degraded"}
 
     def _save_article(self, url: str, current: dict[str, str]) -> None:

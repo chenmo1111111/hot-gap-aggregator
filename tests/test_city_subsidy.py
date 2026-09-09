@@ -29,13 +29,15 @@ async def test_city_watcher_baselines_then_pushes_once(monkeypatch, tmp_path) ->
 
     async def judge(prompt: str) -> str:
         assert "三万元" in prompt and "两万元" in prompt
-        return "现在仍可申领，硕士补贴降至两万元，截止2026年10月31日。"
+        return '{"changed": true, "impact": "现在仍可申领，硕士补贴降至两万元，截止2026年10月31日。"}'
 
     async def notify(text: str, _title: str) -> dict[str, str]:
         pushed.append(text)
         return {"feishu": "ok"}
 
-    watcher = CitySubsidyWatcher(database, config, judge=judge, notifier=notify)
+    watcher = CitySubsidyWatcher(
+        database, config, judge=judge, notifier=notify, confirmation_delay_seconds=0,
+    )
     monkeypatch.setattr(watcher, "_fetch", lambda _url: _async_value(fixture("city_subsidy_old.html")))
     assert (await watcher.run())[0]["status"] == "baseline"
     monkeypatch.setattr(watcher, "_fetch", lambda _url: _async_value(fixture("city_subsidy_new.html")))

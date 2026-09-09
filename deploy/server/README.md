@@ -22,6 +22,8 @@ chmod 644 /etc/cron.d/hot-gap-jobs
 
 `config/subsidy_sources.yaml` 已包含目标地区的官方公告栏目和 3 个核心政策页。
 如需政策正文变化由模型判断，在 `.env` 填 `ZHIPU_API_KEY` 或 `DEEPSEEK_API_KEY`。
+
+`FEISHU_WEBHOOK`、`BARK_URL` 和模型 Key 只能保存在服务器 `.env`。旧版若曾在 systemd 日志中打印完整 Webhook，需要先在飞书重新生成机器人 Webhook、更新 `.env`，再恢复定时器；新版会自动脱敏 HTTP 请求日志。
 推送优先用飞书，其次 Bark；两者都不填则写入网站的 `data/alerts.json`。
 
 `config/xuandiao_sources.yaml` 监听黑龙江、辽宁、河北、天津、山东五省官方页面，

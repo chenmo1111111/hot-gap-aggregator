@@ -13,6 +13,7 @@ class CitySubsidyWatcher(SubsidyWatcher):
     def __init__(
         self, database: Database, config_path: str | Path | None = None, *,
         judge: Judge | None = None, notifier: Any = None,
+        confirmation_delay_seconds: float = 60,
     ) -> None:
         async def legacy_notifier(alert: dict[str, str]) -> dict[str, str]:
             message = alert["message"]
@@ -21,7 +22,10 @@ class CitySubsidyWatcher(SubsidyWatcher):
             return await notifier(message, "城市人才补贴变动")
 
         path = config_path or os.getenv("CITY_SUBSIDY_CONFIG", "config/city_subsidy.yaml")
-        super().__init__(database, path, judge=judge, notifier=legacy_notifier if notifier else None)
+        super().__init__(
+            database, path, judge=judge, notifier=legacy_notifier if notifier else None,
+            confirmation_delay_seconds=confirmation_delay_seconds,
+        )
 
     async def _fetch(self, url: str):
         return await super()._fetch_response(url)

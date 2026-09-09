@@ -289,3 +289,6 @@ sudo -u deploy test ! -w /etc/nginx && echo NGINX_PROTECTED
 - 可以忽略旧站，也可以进入 GitHub 仓库 `Settings` → `Pages` 关闭。
 - 前端数据请求均为 `./data/xxx.json` 相对路径，子域名根目录和 Vite base `/` 正好匹配，无需改前端。
 - `rsync --delete` 只针对专用目录 `/var/www/hot-gap`；不要把 `DEPLOY_SSH_PATH` 设置为 `/var/www` 或服务器根目录。
+# 推送密钥安全
+
+`FEISHU_WEBHOOK`、`BARK_URL` 和模型 API Key 只放服务器 `.env`。程序会对日志中的飞书机器人 token、Bearer token、查询参数密钥及已配置的推送地址脱敏。若旧版日志曾打印完整飞书 Webhook，请在飞书机器人设置中重新生成 Webhook，更新服务器 `.env` 后再启动 watcher。

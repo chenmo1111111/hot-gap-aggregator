@@ -28,9 +28,11 @@ DATE_RE = re.compile(r"(?<!\d)(20\d{2})[-年/.](\d{1,2})[-月/.](\d{1,2})(?:日)
 META_CHARSET_RE = re.compile(br"charset\s*=\s*['\"]?([a-zA-Z0-9_-]+)", re.I)
 MAIN_SELECTORS = (
     "main", "article", "#content", ".article-content", ".detail-content",
-    ".content", ".TRS_Editor", ".zwxl-article", "body",
+    ".content", ".TRS_Editor", ".zwxl-article",
 )
-POLICY_PROMPT = """以下是某城市人才补贴政策页的旧版和新版。判断补贴金额、申领条件（学历/年龄/社保/落户）、申领时间窗口、名额有没有变化。有变化输出一句话说明“现在还能不能领、金额多少、截止什么时候”；没有输出 SKIP。
+POLICY_PROMPT = """以下是某城市人才补贴政策页的旧版和新版。判断补贴金额、申领条件（学历/年龄/社保/落户）、申领时间窗口、名额有没有变化。
+只输出合法 JSON，不要代码块或额外文字：{{"changed": true/false, "impact": "一句话或空"}}。
+没有实质变化、只有页面导航/排版变化或信息不明确时，changed 必须为 false。
 
 地区：{region}
 政策：{name}
@@ -43,6 +45,19 @@ POLICY_PROMPT = """以下是某城市人才补贴政策页的旧版和新版。�
 """
 Judge = Callable[[str], Awaitable[str]]
 Notifier = Callable[[dict[str, str]], Awaitable[dict[str, str]]]
+
+
+def parse_policy_decision(value: str) -> tuple[bool, str]:
+    match = re.search(r"\{.*\}", value.strip(), re.S)
+    if not match:
+        raise ValueError("policy model response does not contain JSON")
+    payload = json.loads(match.group(0))
+    if not isinstance(payload, dict) or not isinstance(payload.get("changed"), bool):
+        raise ValueError("policy model response changed must be boolean")
+    impact = payload.get("impact", "")
+    if not isinstance(impact, str):
+        raise ValueError("policy model response impact must be a string")
+    return payload["changed"], " ".join(impact.split())[:240]
 
 
 def extract_main_text(html_text: str, selector: str | None = None) -> str:
@@ -126,13 +141,14 @@ class SubsidyWatcher:
     def __init__(
         self, database: Database, config_path: str | Path | None = None, *,
         judge: Judge | None = None, notifier: Notifier | None = None,
-        alerts_path: str | Path | None = None,
+        alerts_path: str | Path | None = None, confirmation_delay_seconds: float = 60,
     ) -> None:
         self.database = database
         self.config_path = Path(config_path or os.getenv("SUBSIDY_SOURCES_CONFIG", "config/subsidy_sources.yaml"))
         self.judge = judge or self._llm_judge
         self.notifier = notifier or notify_subsidy_alert
         self._custom_notifier = notifier is not None
+        self.confirmation_delay_seconds = confirmation_delay_seconds
         default_data_dir = Path(os.getenv("SERVER_SITE_DATA_DIR", "public/data"))
         self.alerts_path = Path(alerts_path) if alerts_path else default_data_dir / "alerts.json"
 
@@ -220,16 +236,31 @@ class SubsidyWatcher:
             return {"region": region, "name": name, "status": "baseline"}
         if previous["content_hash"] == content_hash:
             return {"region": region, "name": name, "status": "unchanged"}
-        event_key = f"{watch_key}:{content_hash}"
+        await asyncio.sleep(self.confirmation_delay_seconds)
+        confirmation = await self._fetch_response(url)
+        confirmation_html = decode_response(confirmation) if isinstance(confirmation, httpx.Response) else str(confirmation)
+        confirmation_content = extract_main_text(confirmation_html, str(page.get("selector") or "") or None)
+        confirmation_hash = hashlib.sha256(confirmation_content.encode("utf-8")).hexdigest()
+        if confirmation_hash != content_hash:
+            LOGGER.warning("subsidy policy captures were inconsistent (%s); ignoring unstable page", name)
+            return {"region": region, "name": name, "status": "confirmation-mismatch"}
+        event_key = f"subsidy:policy:{content_hash}"
         if event_key not in self.database.unseen_push_events([event_key]):
             self.database.save_watcher_state(watch_key, content_hash, content)
             return {"region": region, "name": name, "status": "already-pushed"}
         prompt = POLICY_PROMPT.format(region=region, name=name, old=previous["content_text"][-8000:], new=content[-8000:])
-        verdict = " ".join((await self.judge(prompt)).split()).strip()
-        if not verdict or verdict.upper() == "SKIP":
+        try:
+            changed, impact = parse_policy_decision(await self.judge(prompt))
+        except Exception as exc:
+            LOGGER.warning("subsidy policy model response rejected (%s): %s; no alert was sent", name, exc)
+            return {"region": region, "name": name, "status": "model-degraded"}
+        if not changed:
             self.database.save_watcher_state(watch_key, content_hash, content)
             return {"region": region, "name": name, "status": "changed-no-policy-diff"}
-        alert = self._alert(region, name, url, datetime.now(UTC).date().isoformat(), "政策变动", verdict)
+        if not impact:
+            LOGGER.warning("subsidy policy model returned changed=true without impact (%s); no alert was sent", name)
+            return {"region": region, "name": name, "status": "model-degraded"}
+        alert = self._alert(region, name, url, datetime.now(UTC).date().isoformat(), "政策变动", impact)
         if await self._deliver(alert):
             self.database.mark_push_events([event_key])
             self.database.save_watcher_state(watch_key, content_hash, content)
