@@ -92,11 +92,18 @@ DEEPSEEK_API_KEY=replace-with-server-only-secret
 确认变化后，watcher 会打开千帆商品管理页，捕获当前后台商品列表请求并用 httpx
 翻页拉取全部在售商品，快照写到 `data/xhs_shop_items.json`，再仅通过 DeepSeek 做
 逐商品影响分析。商品接口失败时保留上次快照并标记 `stale: true`，分析结论至少为
-“建议核对”，不会误报“无需改动”。可手动验证当前规则（该命令会真实推送并带
-“手动触发”标记）：
+“建议核对”，不会误报“无需改动”。配置中的 `stale_rule_days: 14` 会静默吸收生效
+超过 14 天的旧规则变化。可手动分析当前规则；默认只向 stdout 输出，不写网站也不
+发飞书：
 
 ```bash
 .venv/bin/python -m app.watchers.xhs_rule_watch --analyze 26/2981
+```
+
+只有明确需要验证通知链路时才增加 `--push`：
+
+```bash
+.venv/bin/python -m app.watchers.xhs_rule_watch --analyze 26/2981 --push
 ```
 
 安装或升级后把 cron 模板复制到系统：

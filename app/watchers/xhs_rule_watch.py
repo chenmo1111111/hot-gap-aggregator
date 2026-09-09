@@ -8,7 +8,7 @@ import logging
 import os
 import re
 from collections.abc import Awaitable, Callable
-from datetime import datetime, timedelta, timezone
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
 
@@ -40,7 +40,7 @@ REVISED_PATTERN = re.compile(
     r"本规则于\s*([\d-]+)\s*首次生效\s*[，,]\s*([\d-]+)\s*修订"
 )
 DOCUMENT_PATTERN = re.compile(r"https://doc\.weixin\.qq\.com/[^\s<>\"'，。]+")
-STRUCTURED_FIELDS = ("announced_at", "effective_at", "document_url")
+CHANGE_FIELDS = ("announced_at", "effective_at", "content_hash")
 ARTICLE_SELECTORS = (
     "article", "[class*='rule-detail']", "[class*='detail-content']",
     "[class*='article-content']", "[class*='detail']", "[class*='content']",
@@ -181,7 +181,13 @@ def parse_rule_list_text(text: str, list_name: str) -> list[dict[str, str]]:
     return rows
 
 
-def extract_article_metadata(text: str) -> dict[str, str]:
+def extract_external_links(text: str) -> list[str]:
+    return list(dict.fromkeys(
+        link.rstrip(".,") for link in re.findall(r"https?://[^\s<>\"'，。]+", text)
+    ))
+
+
+def extract_article_metadata(text: str) -> dict[str, Any]:
     content = _normalise_text(text)
     announced = ANNOUNCED_PATTERN.search(content)
     if not announced:
@@ -195,18 +201,41 @@ def extract_article_metadata(text: str) -> dict[str, str]:
         "document_url": document.group(0).rstrip(".,") if document else "",
         "content_text": content,
         "content_hash": hashlib.sha256(content.encode("utf-8")).hexdigest(),
+        "external_links": extract_external_links(content),
     }
 
 
-def article_changed(previous: dict[str, Any], current: dict[str, str]) -> bool:
+def _metadata_links(metadata: dict[str, Any]) -> tuple[str, ...]:
+    links = metadata.get("external_links")
+    if isinstance(links, list):
+        return tuple(sorted(str(link) for link in links if str(link).startswith("http")))
+    content = str(metadata.get("content_text") or "")
+    extracted = extract_external_links(content)
+    document_url = str(metadata.get("document_url") or "")
+    if document_url and document_url not in extracted:
+        extracted.append(document_url)
+    return tuple(sorted(extracted))
+
+
+def article_changed(previous: dict[str, Any], current: dict[str, Any]) -> bool:
     return any(
         str(previous.get(field) or "") != str(current.get(field) or "")
-        for field in STRUCTURED_FIELDS
+        for field in CHANGE_FIELDS
+    ) or _metadata_links(previous) != _metadata_links(current)
+
+
+def captures_match(first: dict[str, Any], second: dict[str, Any]) -> bool:
+    return all(first[field] == second[field] for field in CHANGE_FIELDS) and (
+        _metadata_links(first) == _metadata_links(second)
     )
 
 
-def captures_match(first: dict[str, str], second: dict[str, str]) -> bool:
-    return all(first[field] == second[field] for field in (*STRUCTURED_FIELDS, "content_hash"))
+def stale_rule(effective_at: str, stale_days: int, today: date) -> bool:
+    try:
+        effective = datetime.strptime(effective_at[:10], "%Y-%m-%d").date()
+    except (TypeError, ValueError):
+        return False
+    return effective < today and (today - effective).days > max(0, stale_days)
 
 
 def parse_model_decision(value: str) -> tuple[bool, str]:
@@ -230,6 +259,7 @@ class XhsRuleWatcher:
         alerts_path: str | Path | None = None, confirmation_delay_seconds: float = 60,
         shop_refresher: ShopRefresher | None = None,
         impact_analyzer: ImpactAnalyzer | None = None,
+        today_provider: Callable[[], date] | None = None,
     ) -> None:
         self.database = database
         self.config_path = Path(config_path or os.getenv("XHS_RULE_WATCH_CONFIG", "config/xhs_rule_watch.yaml"))
@@ -239,6 +269,7 @@ class XhsRuleWatcher:
         self.confirmation_delay_seconds = confirmation_delay_seconds
         self.shop_refresher = shop_refresher
         self.impact_analyzer = impact_analyzer
+        self.today_provider = today_provider or (lambda: datetime.now(CHINA_TZ).date())
         self._runtime_config: dict[str, Any] = {}
         default_data_dir = Path(os.getenv("SERVER_SITE_DATA_DIR", "public/data"))
         self.alerts_path = Path(alerts_path) if alerts_path else default_data_dir / "alerts.json"
@@ -431,6 +462,15 @@ class XhsRuleWatcher:
             LOGGER.warning("xhs rule captures were inconsistent (%s); ignoring unstable page", name)
             return {"name": name, "status": "confirmation-mismatch"}
 
+        stale_days = int(self._runtime_config.get("stale_rule_days") or 14)
+        if stale_rule(current["effective_at"], stale_days, self.today_provider()):
+            self._save_article(url, current)
+            LOGGER.info(
+                "xhs rule change suppressed as stale (%s): effective_at=%s stale_rule_days=%s",
+                name, current["effective_at"], stale_days,
+            )
+            return {"name": name, "status": "stale-suppressed"}
+
         event_key = f"xhs-rule:article:{current['content_hash']}"
         if event_key not in self.database.unseen_push_events([event_key]):
             self._save_article(url, current)
@@ -478,7 +518,7 @@ class XhsRuleWatcher:
         return {"name": name, "status": "notification-degraded"}
 
     async def _run_impact_analysis(
-        self, article: dict[str, Any], previous: dict[str, Any], current: dict[str, str], *,
+        self, article: dict[str, Any], previous: dict[str, Any], current: dict[str, Any], *,
         material_change_summary: str, manual: bool = False,
     ) -> tuple[str, str, str, dict[str, Any], dict[str, Any]] | None:
         impact_config = self._runtime_config.get("impact_analysis") or {}
@@ -496,9 +536,7 @@ class XhsRuleWatcher:
             snapshot_path = os.getenv("XHS_SHOP_ITEMS_PATH", "data/xhs_shop_items.json")
             shop_snapshot = await XhsShopItems(snapshot_path).refresh(shop_manage_url)
 
-        external_links = list(dict.fromkeys(
-            link.rstrip(".,") for link in re.findall(r"https?://[^\s<>\"'，。]+", current["content_text"])
-        ))
+        external_links = list(current.get("external_links") or [])
         rule = {
             "name": str(article.get("name") or "规则正文"),
             "col_id": self._rule_id(str(article.get("url") or "")),
@@ -530,7 +568,7 @@ class XhsRuleWatcher:
         )
         return title, summary, priority, analysis, shop_snapshot
 
-    async def analyze(self, rule_id: str) -> dict[str, Any]:
+    async def analyze(self, rule_id: str, *, push: bool = False) -> dict[str, Any]:
         """Force a current-rule shop impact analysis for operator verification."""
         config = self.load_config()
         self._runtime_config = config
@@ -556,15 +594,18 @@ class XhsRuleWatcher:
         if result is None:
             raise RuntimeError("impact analysis is unavailable")
         title, summary, priority, analysis, shop_snapshot = result
-        alert = self._alert(
-            title=title, url=str(article["url"]), kind="手动触发·规则影响分析",
-            summary=summary, priority=priority,
-            extra={"impact_analysis": analysis, "shop_item_count": len(shop_snapshot.get("items") or [])},
-        )
-        delivered = await self._deliver(alert)
+        delivered = False
+        if push:
+            alert = self._alert(
+                title=title, url=str(article["url"]), kind="手动触发·规则影响分析",
+                summary=summary, priority=priority,
+                extra={"impact_analysis": analysis, "shop_item_count": len(shop_snapshot.get("items") or [])},
+            )
+            delivered = await self._deliver(alert)
         return {
-            "status": "pushed" if delivered else "notification-degraded",
+            "status": "pushed" if push and delivered else "notification-degraded" if push else "analyzed",
             "manual": True,
+            "push_requested": push,
             "rule_id": normalised,
             "shop_item_count": len(shop_snapshot.get("items") or []),
             "shop_snapshot_stale": bool(shop_snapshot.get("stale")),
@@ -576,7 +617,7 @@ class XhsRuleWatcher:
         match = re.search(r"/rule/detail/(\d+/\d+)", url)
         return match.group(1) if match else url.rstrip("/").rsplit("/", 1)[-1]
 
-    def _save_article(self, url: str, current: dict[str, str]) -> None:
+    def _save_article(self, url: str, current: dict[str, Any]) -> None:
         self.database.save_xhs_rule_snapshot(
             url, announced_at=current["announced_at"], effective_at=current["effective_at"],
             revised_at=current["revised_at"], document_url=current["document_url"],
@@ -674,14 +715,21 @@ class XhsRuleWatcher:
 async def main(argv: list[str] | None = None) -> None:
     parser = argparse.ArgumentParser(description="Watch Xiaohongshu rules and analyze shop impact")
     parser.add_argument("--analyze", metavar="COL/ID", help="force impact analysis for a current rule")
+    parser.add_argument("--push", action="store_true", help="push a manual analysis to Feishu and alerts.json")
     arguments = parser.parse_args(argv)
+    if arguments.push and not arguments.analyze:
+        parser.error("--push requires --analyze COL/ID")
     load_dotenv()
     logging.basicConfig(level=logging.INFO, format="%(message)s")
     database = Database(os.getenv("SERVER_DATABASE", "data/server.db"))
     try:
         watcher = XhsRuleWatcher(database)
-        result = await watcher.analyze(arguments.analyze) if arguments.analyze else await watcher.run()
-        LOGGER.info(json.dumps({"event": "xhs_rule_watch_finished", **result}, ensure_ascii=False))
+        result = await watcher.analyze(arguments.analyze, push=arguments.push) if arguments.analyze else await watcher.run()
+        output = json.dumps({"event": "xhs_rule_watch_finished", **result}, ensure_ascii=False)
+        if arguments.analyze:
+            print(output)
+        else:
+            LOGGER.info(output)
     finally:
         database.close()
 

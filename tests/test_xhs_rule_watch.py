@@ -1,4 +1,5 @@
 import json
+from datetime import date
 from pathlib import Path
 
 import pytest
@@ -12,10 +13,12 @@ from app.watchers.xhs_rule_watch import (
     article_changed,
     captures_match,
     extract_article_metadata,
+    extract_external_links,
     extract_rule_text_window,
     merge_xhs_cookies,
     parse_model_decision,
     parse_rule_list_text,
+    stale_rule,
 )
 
 
@@ -62,8 +65,14 @@ def test_list_regex_splits_rules_and_article_metadata_extracts_dates_and_documen
     assert old["revised_at"] == "2026-08-01"
     assert old["document_url"].endswith("e3_demo_old")
     assert old["content_hash"] != new["content_hash"]
+    assert old["external_links"] == [old["document_url"]]
+    assert extract_external_links("https://a.test/x https://a.test/x https://b.test/y。") == [
+        "https://a.test/x", "https://b.test/y",
+    ]
     assert article_changed(old, new)
     assert not article_changed(old, old)
+    links_only = dict(old, external_links=[*old["external_links"], "https://example.test/appendix"])
+    assert article_changed(old, links_only)
     assert captures_match(old, old)
     assert not captures_match(old, new)
     assert extract_rule_text_window(fixture_body("xhs_rule_article_old.html")).startswith("本规则于")
@@ -154,7 +163,7 @@ async def test_article_baseline_then_diff_judgment_and_one_push(monkeypatch, tmp
 
 
 @pytest.mark.asyncio
-async def test_unchanged_structured_fields_ignore_body_noise_without_model_or_push(tmp_path) -> None:
+async def test_all_unchanged_fields_update_check_time_without_model_or_push(tmp_path) -> None:
     database = Database(tmp_path / "watch.db")
     judgments: list[str] = []
     delivered: list[dict[str, str]] = []
@@ -174,10 +183,13 @@ async def test_unchanged_structured_fields_ignore_body_noise_without_model_or_pu
     article = {"name": "定向准入", "url": "https://school.test/detail/1"}
     old = fixture_body("xhs_rule_article_old.html")
     assert (await watcher._process_article(article, old))["status"] == "baseline"
-    noisy = old + " 登录问候随机变化 2026-09-09 12:00"
-    assert (await watcher._process_article(article, noisy))["status"] == "unchanged"
+    first_checked = database.get_xhs_rule_snapshot(article["url"])["checked_at"]
+    assert (await watcher._process_article(article, old))["status"] == "unchanged"
+    second_checked = database.get_xhs_rule_snapshot(article["url"])["checked_at"]
+    assert second_checked >= first_checked
     assert judgments == []
     assert delivered == []
+    assert not (tmp_path / "alerts.json").exists()
     database.close()
 
 
@@ -314,7 +326,7 @@ async def test_cookie_failure_alerts_once_without_raising(monkeypatch, tmp_path)
 
 
 @pytest.mark.asyncio
-async def test_manual_analyze_path_refreshes_shop_and_pushes_with_marker(monkeypatch, tmp_path) -> None:
+async def test_manual_analyze_defaults_to_stdout_only_and_push_is_explicit(monkeypatch, tmp_path) -> None:
     config = tmp_path / "xhs.yaml"
     config.write_text(
         "list_pages: []\nwatch_articles:\n"
@@ -350,10 +362,79 @@ async def test_manual_analyze_path_refreshes_shop_and_pushes_with_marker(monkeyp
         "lists": [], "articles": [(article, fixture_body("xhs_rule_article_new.html"), None)],
     }))
     result = await watcher.analyze("26/2981")
-    assert result["status"] == "pushed" and result["manual"] is True
-    assert calls == [("shop", "https://ark.test/items"), ("impact", "26/2981", 1)]
+    assert result["status"] == "analyzed" and result["manual"] is True
+    assert result["push_requested"] is False
+    assert delivered == []
+    assert not (tmp_path / "alerts.json").exists()
+
+    pushed = await watcher.analyze("26/2981", push=True)
+    assert pushed["status"] == "pushed" and pushed["push_requested"] is True
+    assert calls == [
+        ("shop", "https://ark.test/items"), ("impact", "26/2981", 1),
+        ("shop", "https://ark.test/items"), ("impact", "26/2981", 1),
+    ]
     assert "【手动触发】" in delivered[0]["summary"]
     assert delivered[0]["impact_analysis"]["verdict"] == "review"
+    database.close()
+
+
+@pytest.mark.asyncio
+async def test_three_month_old_change_is_logged_and_suppressed_before_model(caplog, tmp_path) -> None:
+    database = Database(tmp_path / "watch.db")
+    judgments = []
+    delivered = []
+
+    async def judge(_prompt):
+        judgments.append(True)
+        return '{"changed": true, "impact": "不应调用"}'
+
+    async def notifier(alert):
+        delivered.append(alert)
+        return {"feishu": "ok"}
+
+    watcher = XhsRuleWatcher(
+        database, tmp_path / "unused.yaml", judge=judge, notifier=notifier,
+        alerts_path=tmp_path / "alerts.json", today_provider=lambda: date(2026, 9, 9),
+    )
+    watcher._runtime_config = {"stale_rule_days": 14}
+    article = {"name": "旧规则", "url": "https://school.test/rule/detail/26/1"}
+    baseline = fixture_body("xhs_rule_article_old.html")
+    stale = baseline.replace("2026-08-01", "2026-05-01").replace("2026-08-08", "2026-05-08")
+    await watcher._process_article(article, baseline)
+    with caplog.at_level("INFO"):
+        result = await watcher._process_article(article, stale, stale)
+    assert result["status"] == "stale-suppressed"
+    assert "suppressed as stale" in caplog.text
+    assert judgments == [] and delivered == []
+    assert database.get_xhs_rule_snapshot(article["url"])["effective_at"] == "2026-05-08"
+    assert stale_rule("2026-05-08", 14, date(2026, 9, 9))
+    database.close()
+
+
+@pytest.mark.asyncio
+async def test_next_week_change_pushes_normally(tmp_path) -> None:
+    database = Database(tmp_path / "watch.db")
+    delivered = []
+
+    async def judge(_prompt):
+        return '{"changed": true, "impact": "店铺类型限制改变"}'
+
+    async def notifier(alert):
+        delivered.append(alert)
+        return {"feishu": "ok"}
+
+    watcher = XhsRuleWatcher(
+        database, tmp_path / "unused.yaml", judge=judge, notifier=notifier,
+        alerts_path=tmp_path / "alerts.json", today_provider=lambda: date(2026, 9, 9),
+    )
+    watcher._runtime_config = {"stale_rule_days": 14}
+    article = {"name": "未来规则", "url": "https://school.test/rule/detail/26/2"}
+    baseline = fixture_body("xhs_rule_article_old.html")
+    future = baseline.replace("2026-08-01", "2026-09-09").replace("2026-08-08", "2026-09-16")
+    await watcher._process_article(article, baseline)
+    result = await watcher._process_article(article, future, future)
+    assert result["status"] == "pushed"
+    assert len(delivered) == 1
     database.close()
 
 
