@@ -29,6 +29,8 @@ def test_merge_keeps_base_first_and_skips_sheet_duplicates() -> None:
     assert output["status"]["base_item_count"] == 1
     assert output["status"]["sheet_added_count"] == 1
     assert output["status"]["sheet_duplicate_count"] == 2
+    assert output["status"]["sheet_merged_count"] == 2
+    assert output["items"][0]["url"] == "https://b.test/2"
     assert [item["rank"] for item in output["items"]] == [1, 2]
 
 
@@ -69,3 +71,56 @@ def test_merge_adds_server_watchers_before_sheet_and_assigns_stable_id() -> None
     assert watcher["extra"]["sub"] == "announcement"
     assert output["status"]["server_added_count"] == 1
     assert output["status"]["sheet_duplicate_count"] == 1
+    assert output["status"]["sheet_merged_count"] == 0
+
+
+def test_sheet_official_url_overrides_duplicate_fenbi_links() -> None:
+    title = "2027年度内蒙古自治区事业单位公开招聘工作人员公告"
+    base = {
+        "items": [
+            {
+                "title": title,
+                "url": "https://hera-webapp.fenbi.com/api/website/article/detail?id=468944",
+                "extra": {
+                    "id": 468944,
+                    "sub": "announcement",
+                    "province": "内蒙古",
+                    "endSignUpTime": 1789635600000,
+                },
+            },
+            {
+                "title": title,
+                "url": "https://www.fenbi.com/page/exam-timeline-detail/908859",
+                "extra": {"id": 908859, "sub": "timeline", "province": "内蒙古"},
+            },
+        ]
+    }
+    official = "http://www.impta.com.cn/shiyedanwei/202698223431.asp"
+    sheet = {
+        "items": [{
+            "title": title,
+            "url": official,
+            "published_at": "2026-09-08",
+            "extra": {
+                "id": "gongkao-sheet:official",
+                "subsource": "feishu_sheet",
+                "province": "内蒙古自治区",
+            },
+        }]
+    }
+
+    output = merge_gongkao_payloads(base, sheet)
+
+    assert [item["url"] for item in output["items"]] == [official, official]
+    assert output["items"][0]["extra"]["id"] == 468944
+    assert output["items"][0]["extra"]["endSignUpTime"] == 1789635600000
+    assert output["items"][0]["extra"]["preferred_link_source"] == "feishu_sheet"
+    assert output["items"][0]["extra"]["replaced_urls"] == [
+        "https://hera-webapp.fenbi.com/api/website/article/detail?id=468944"
+    ]
+    assert output["items"][1]["extra"]["replaced_urls"] == [
+        "https://www.fenbi.com/page/exam-timeline-detail/908859"
+    ]
+    assert output["status"]["sheet_added_count"] == 0
+    assert output["status"]["sheet_duplicate_count"] == 1
+    assert output["status"]["sheet_merged_count"] == 1

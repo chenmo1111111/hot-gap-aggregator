@@ -268,6 +268,25 @@ def test_force_delete_removes_routed_expired_row() -> None:
     assert (creates, updates, deletes) == ([], [], ["rec-campus"])
 
 
+def test_replaced_gongkao_links_are_collected_for_forced_deletion() -> None:
+    from app.sync_feishu_public import _replaced_gongkao_link_keys
+
+    rows = [{
+        "url": "https://official.test/notice",
+        "extra": {
+            "replaced_urls": [
+                "https://www.fenbi.com/page/exam-timeline-detail/908859",
+                "https://hera-webapp.fenbi.com/api/website/article/detail?id=468944",
+            ]
+        },
+    }]
+
+    assert _replaced_gongkao_link_keys(rows) == {
+        "url:https://www.fenbi.com/page/exam-timeline-detail/908859",
+        "url:https://hera-webapp.fenbi.com/api/website/article/detail?id=468944",
+    }
+
+
 def test_instructions_table_is_created_and_seeded() -> None:
     client = Mock()
     client.list_tables.return_value = []

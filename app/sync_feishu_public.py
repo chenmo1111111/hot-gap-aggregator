@@ -485,6 +485,23 @@ def _gongkao_force_delete_keys(rows: Iterable[Mapping[str, Any]]) -> set[str]:
     return keys
 
 
+def _replaced_gongkao_link_keys(rows: Iterable[Mapping[str, Any]]) -> set[str]:
+    """Return stale links superseded by an official watcher or Sheet URL."""
+    keys: set[str] = set()
+    for row in rows:
+        extra = row.get("extra") if isinstance(row.get("extra"), Mapping) else {}
+        replaced = (
+            extra.get("replaced_urls")
+            if isinstance(extra.get("replaced_urls"), list)
+            else []
+        )
+        for value in replaced:
+            url = _link_url(value)
+            if url:
+                keys.add(f"url:{url.casefold()}")
+    return keys
+
+
 def run(argv: list[str] | None = None) -> int:
     load_dotenv()
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
@@ -547,6 +564,7 @@ def run(argv: list[str] | None = None) -> int:
                 if name == "gongkao_public":
                     rows, routed_rows, excluded_rows = partition_gongkao_rows(rows)
                     force_delete_keys = _gongkao_force_delete_keys((*routed_rows, *excluded_rows))
+                    force_delete_keys.update(_replaced_gongkao_link_keys(rows))
                     LOGGER.info(
                         "public gongkao routing: kept=%d routed_to_qiuzhao=%d excluded_noise=%d",
                         len(rows), len(routed_rows), len(excluded_rows),

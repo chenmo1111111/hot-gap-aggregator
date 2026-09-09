@@ -25,6 +25,18 @@ def _normalize(value: object) -> str:
     return re.sub(r"[^\w]+", "", text, flags=re.UNICODE)
 
 
+def _normalize_province(value: object) -> str:
+    """Normalize equivalent province labels such as 内蒙古/内蒙古自治区."""
+    text = _text(value)
+    for suffix in (
+        "壮族自治区", "回族自治区", "维吾尔自治区", "特别行政区", "自治区", "省", "市",
+    ):
+        if text.endswith(suffix):
+            text = text[: -len(suffix)]
+            break
+    return _normalize(text)
+
+
 def _extra(item: Mapping[str, Any]) -> Mapping[str, Any]:
     value = item.get("extra")
     return value if isinstance(value, Mapping) else {}
@@ -48,11 +60,74 @@ def _identity_keys(item: Mapping[str, Any]) -> set[str]:
         or extra.get("url")
     )
     title = _normalize(item.get("title_zh") or item.get("title"))
-    province = _normalize(extra.get("province") or item.get("province"))
+    province = _normalize_province(extra.get("province") or item.get("province"))
     keys = {f"url:{url}"} if url else set()
     if title:
         keys.add(f"title:{title}|{province}")
     return keys
+
+
+def _has_value(value: object) -> bool:
+    return value not in (None, "", [], {})
+
+
+def _prefer_external_record(
+    existing: Mapping[str, Any],
+    preferred: Mapping[str, Any],
+    *,
+    source_name: str,
+) -> dict[str, Any]:
+    """Keep the stable collected record while preferring its external source link.
+
+    Fenbi often publishes the same notice as both an article and an exam-calendar
+    entry.  The captured Sheet or an official watcher may contain the actual
+    government announcement URL.  Preserve the existing ID (and therefore the
+    enrichment cache/sync identity), but use the higher-priority source's URL and
+    useful display fields.
+    """
+    result = dict(existing)
+    for name in ("title", "title_zh", "url", "published_at", "summary", "summary_zh"):
+        value = preferred.get(name)
+        if _has_value(value):
+            result[name] = value
+
+    existing_extra = dict(_extra(existing))
+    preferred_extra = dict(_extra(preferred))
+    replaced_urls = [
+        str(url).strip()
+        for url in existing_extra.get("replaced_urls", [])
+        if str(url).strip().startswith(("http://", "https://"))
+    ] if isinstance(existing_extra.get("replaced_urls"), list) else []
+    existing_url = str(existing.get("url") or "").strip()
+    preferred_url = str(
+        preferred.get("url") or preferred_extra.get("announcement_url") or ""
+    ).strip()
+    if (
+        existing_url.startswith(("http://", "https://"))
+        and preferred_url
+        and _canonical_url(existing_url) != _canonical_url(preferred_url)
+        and existing_url not in replaced_urls
+    ):
+        replaced_urls.append(existing_url)
+    stable_id = existing_extra.get("id")
+    stable_sub = existing_extra.get("sub")
+    for name, value in preferred_extra.items():
+        if _has_value(value):
+            existing_extra[name] = value
+    if _has_value(stable_id):
+        existing_extra["id"] = stable_id
+    if _has_value(stable_sub):
+        existing_extra["sub"] = stable_sub
+    preferred_id = preferred_extra.get("id")
+    if _has_value(preferred_id) and preferred_id != stable_id:
+        existing_extra[f"{source_name}_id"] = preferred_id
+    if _has_value(preferred_url):
+        existing_extra["announcement_url"] = preferred_url
+    if replaced_urls:
+        existing_extra["replaced_urls"] = replaced_urls
+    existing_extra["preferred_link_source"] = source_name
+    result["extra"] = existing_extra
+    return result
 
 
 def _items(payload: Mapping[str, Any], name: str) -> list[dict[str, Any]]:
@@ -78,21 +153,43 @@ def merge_gongkao_payloads(
     server_items = _items(server_payload, "server-gongkao.json") if server_payload else []
 
     merged: list[dict[str, Any]] = []
-    seen: set[str] = set()
+    key_indices: dict[str, set[int]] = {}
+    link_priorities: list[int] = []
     sheet_duplicate_count = 0
+    sheet_merged_count = 0
     server_duplicate_count = 0
-    # Existing Gongkao records are authoritative and retain their cardinality,
-    # IDs and order even if the upstream feed itself contains similar entries.
+    server_merged_count = 0
+
+    def remember(index: int, item: Mapping[str, Any]) -> None:
+        for key in _identity_keys(item):
+            key_indices.setdefault(key, set()).add(index)
+
+    def matching_indices(item: Mapping[str, Any]) -> set[int]:
+        return {
+            index
+            for key in _identity_keys(item)
+            for index in key_indices.get(key, set())
+        }
+    # Retain the stable IDs/order of the base feed.  Higher-priority sources may
+    # replace its display URL without discarding Fenbi's structured dates.
     for item in base_items:
-        seen.update(_identity_keys(item))
         item["rank"] = len(merged) + 1
         merged.append(item)
+        link_priorities.append(0)
+        remember(len(merged) - 1, item)
     # Mainland watcher records are official and take precedence over the
     # manually captured Sheet when both point at the same announcement.
     for item in server_items:
-        keys = _identity_keys(item)
-        if keys and seen.intersection(keys):
+        matches = matching_indices(item)
+        if matches:
             server_duplicate_count += 1
+            for index in matches:
+                merged[index] = _prefer_external_record(
+                    merged[index], item, source_name="official_watcher"
+                )
+                link_priorities[index] = 2
+                remember(index, merged[index])
+            server_merged_count += 1
             continue
         extra = dict(_extra(item))
         url = _canonical_url(item.get("url") or extra.get("announcement_url"))
@@ -101,19 +198,32 @@ def merge_gongkao_payloads(
             extra["id"] = f"watcher:{digest}"
         extra.setdefault("sub", "announcement")
         item["extra"] = extra
-        seen.update(keys)
         item["rank"] = len(merged) + 1
         merged.append(item)
+        link_priorities.append(2)
+        remember(len(merged) - 1, item)
     server_added_count = len(merged) - len(base_items)
 
     for item in sheet_items:
-        keys = _identity_keys(item)
-        if keys and seen.intersection(keys):
+        matches = matching_indices(item)
+        if matches:
             sheet_duplicate_count += 1
+            changed = False
+            for index in matches:
+                if link_priorities[index] >= 2:
+                    continue
+                merged[index] = _prefer_external_record(
+                    merged[index], item, source_name="feishu_sheet"
+                )
+                link_priorities[index] = 1
+                remember(index, merged[index])
+                changed = True
+            sheet_merged_count += int(changed)
             continue
-        seen.update(keys)
         item["rank"] = len(merged) + 1
         merged.append(item)
+        link_priorities.append(1)
+        remember(len(merged) - 1, item)
 
     base_status = base_payload.get("status")
     status = dict(base_status) if isinstance(base_status, Mapping) else {}
@@ -126,8 +236,10 @@ def merge_gongkao_payloads(
             "server_item_count": len(server_items),
             "server_added_count": server_added_count,
             "server_duplicate_count": server_duplicate_count,
+            "server_merged_count": server_merged_count,
             "sheet_added_count": len(merged) - len(base_items) - server_added_count,
             "sheet_duplicate_count": sheet_duplicate_count,
+            "sheet_merged_count": sheet_merged_count,
             "upstream_sources": [
                 "gongkao",
                 *(["gongkao_official"] if server_items else []),
@@ -185,7 +297,9 @@ def main() -> int:
                 "event": "gongkao_exported",
                 "item_count": len(output["items"]),
                 "sheet_added_count": output["status"]["sheet_added_count"],
+                "sheet_merged_count": output["status"]["sheet_merged_count"],
                 "server_added_count": output["status"]["server_added_count"],
+                "server_merged_count": output["status"]["server_merged_count"],
             },
             ensure_ascii=False,
         )
