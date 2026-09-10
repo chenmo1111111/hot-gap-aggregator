@@ -12,6 +12,21 @@ def test_marketing_title_and_fenbi_course_links_are_dropped() -> None:
     assert assess_gongkao(row("关于征集专项服务活动优质企业的公告", "https://example.gov.cn/x")).reason == "not_open_opportunity"
 
 
+def test_blacklist_words_do_not_drop_legitimate_organization_names() -> None:
+    titles = [
+        "自治区福利彩票发行中心2026年面向社会公开招聘公告",
+        "南昌市红谷滩区社会福利院公开招聘工作人员公告",
+        "中国福利会托儿所公开招聘工作人员公告",
+        "心理健康与智能评估分中心公开招聘专业技术人员公告",
+    ]
+
+    for title in titles:
+        decision = assess_gongkao(row(
+            title, "https://example.gov.cn/recruit", exam_type="事业单位",
+        ))
+        assert decision.action == "keep", (title, decision)
+
+
 def test_government_or_structured_announcement_is_kept() -> None:
     official = row("吉林省直事业单位公开招聘公告", "https://hrss.jl.gov.cn/x", exam_type="事业单位")
     structured = row(

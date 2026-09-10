@@ -20,6 +20,10 @@ TITLE_BLACKLIST = re.compile(
     r"默写表|时政积累|通勤",
     re.I,
 )
+TITLE_BLACKLIST_EXEMPTIONS = re.compile(
+    r"福利彩票|(?:社会)?福利院|中国福利会|评估分(?:中心|分中心|部|院)",
+    re.I,
+)
 LINK_BLACKLIST = re.compile(
     r"(?:^|//)(?:www\.)?fenbi\.com/(?:spa|kaoyan)(?:/|\?|$)|"
     r"(?:live|zhibo|course|kecheng|classroom|mall)[./_-]",
@@ -73,6 +77,12 @@ def _url(row: Mapping[str, Any]) -> str:
     ).strip()
 
 
+def _has_marketing_title(title: str) -> bool:
+    """Apply marketing keywords without dropping legitimate organization names."""
+    candidate = TITLE_BLACKLIST_EXEMPTIONS.sub("", title)
+    return TITLE_BLACKLIST.search(candidate) is not None
+
+
 def is_gov_domain(url: object) -> bool:
     try:
         host = (urlsplit(str(url or "")).hostname or "").casefold().rstrip(".")
@@ -107,7 +117,7 @@ def _set_extra(row: Any, name: str, value: object) -> None:
 def assess_gongkao(row: Mapping[str, Any]) -> FilterDecision:
     title = _title(row)
     url = _url(row)
-    if TITLE_BLACKLIST.search(title):
+    if _has_marketing_title(title):
         return FilterDecision("drop", "title_blacklist")
     if NON_OPPORTUNITY.search(title):
         return FilterDecision("drop", "not_open_opportunity")
