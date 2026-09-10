@@ -1,4 +1,4 @@
-"""Safety gate and alert helper for the two browser-captured paid tables."""
+"""Safety gate and alert helper for browser-captured paid sources."""
 
 from __future__ import annotations
 
@@ -29,6 +29,8 @@ def _normalize(value: object) -> str:
 
 def item_id(row: Mapping[str, Any], kind: str) -> str:
     extra = row.get("extra") if isinstance(row.get("extra"), Mapping) else {}
+    if kind == "xiaozhaoya":
+        return str(row.get("recruitmentId") or "").strip()
     if kind == "qiuzhao":
         return str(row.get("source_record_id") or "").strip() or (
             f"{_normalize(row.get('company_name'))}|{_normalize(row.get('position'))}"
@@ -43,11 +45,12 @@ def validate_and_commit(
     previous = _read(stable) if stable.exists() else {"items": []}
     new_items = fresh["items"]
     old_items = previous["items"]
-    minimum = math.ceil(len(old_items) * 0.9) if old_items else 1
+    ratio = 0.8 if kind == "xiaozhaoya" else 0.9
+    minimum = math.ceil(len(old_items) * ratio) if old_items else 1
     if len(new_items) < minimum:
         raise ValueError(
             f"{kind} count dropped from {len(old_items)} to {len(new_items)}; "
-            f"minimum allowed is {minimum} (90%)"
+            f"minimum allowed is {minimum} ({ratio:.0%})"
         )
     old_by_id = {item_id(row, kind): row for row in old_items if isinstance(row, Mapping)}
     new_ids = {item_id(row, kind) for row in new_items if isinstance(row, Mapping)}
@@ -121,7 +124,9 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser()
     commands = parser.add_subparsers(dest="command", required=True)
     validate = commands.add_parser("validate")
-    validate.add_argument("--kind", choices=("qiuzhao", "gongkao"), required=True)
+    validate.add_argument(
+        "--kind", choices=("qiuzhao", "gongkao", "xiaozhaoya"), required=True
+    )
     validate.add_argument("--candidate", type=Path, required=True)
     validate.add_argument("--stable", type=Path, required=True)
     validate.add_argument("--disappearance-log", type=Path, required=True)

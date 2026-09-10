@@ -25,6 +25,7 @@ const dataResponse = (url: string) => {
   if (url.endsWith('/data/gongkao_official_sites.json')) return json({ sites: [] });
   if (url.endsWith('/data/alerts.json')) return json({ generated_at: '', items: [] });
   if (url.endsWith('/data/job_quicklinks.json')) return json({ items: [] });
+  if (url.endsWith('/data/qiuzhao.json')) return json({ generated_at: '', items: [] });
   return null;
 };
 
@@ -209,6 +210,27 @@ describe('authenticated app bootstrap', () => {
     expect(screen.queryByText('腾讯算法岗')).not.toBeInTheDocument();
     fireEvent.click(screen.getByLabelText('只看央企'));
     expect(screen.getByText('央企数据岗')).toBeInTheDocument();
+  });
+
+  it('renders purchased-table Qiuzhao rows with source labels and removes event noise', async () => {
+    const fetchMock = vi.fn(async (input: RequestInfo | URL) => {
+      const url = String(input);
+      if (url === '/api/me') return json({ username: 'reader', is_admin: false });
+      if (url === '/api/settings') return json({ prefs: {}, updated_at: null });
+      if (url.endsWith('/data/qiuzhao.json')) return json({ generated_at: '2026-09-10T07:30:00+08:00', items: [
+        { company_name: '示例科技', company_type: '民企', position: '算法工程师', location: '北京', cohort: '2027届', deadline: '2026-10-01', apply_url: 'https://jobs.example.test/apply', source_label: '购买表-秋招' },
+        { company_name: '示例大学', position: '秋季双选会', announcement_url: 'https://jobs.example.test/event', source_label: '购买表-秋招' },
+      ] });
+      return dataResponse(url) ?? json({}, 404);
+    });
+    vi.stubGlobal('fetch', fetchMock);
+
+    render(<App />);
+    await screen.findByText('reader');
+    fireEvent.click(screen.getByRole('button', { name: '秋招' }));
+    expect(await screen.findByText('示例科技 · 算法工程师')).toBeInTheDocument();
+    expect(screen.getByText('购买表-秋招')).toBeInTheDocument();
+    expect(screen.queryByText(/秋季双选会/)).not.toBeInTheDocument();
   });
 
   it('keeps hot-list items before utility sources in the all tab', async () => {

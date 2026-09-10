@@ -1,42 +1,35 @@
-"""Public Xiaozhaoya aggregate collector.
-
-The public page decrypts its own API response in the browser.  Reading the
-page's Vue data avoids copying private cookies or depending on its encrypted
-wire format.  Only public fields already rendered to visitors are collected.
-"""
+"""Normalize and route a browser-captured Xiaozhaoya snapshot."""
 
 from __future__ import annotations
 
-import asyncio
 import html
 import re
-from datetime import date, datetime, timedelta
-from pathlib import Path
+from datetime import date
 from typing import Any, Mapping
 from urllib.parse import urljoin, urlsplit
 
-import httpx
-import yaml
-from playwright.async_api import async_playwright
-from selectolax.parser import HTMLParser
-
-from app.pipeline.gongkao_classify import record_kind
-from app.pipeline.gongkao_filter import is_gov_domain, title_noise_reason
+from app.models import Item
+from app.pipeline.gongkao_filter import filter_title_noise_items, is_gov_domain
 
 
-PUBLIC_MARKERS = (
-    "公务员", "事业单位", "事业编", "选调生", "三支一扶", "军队文职",
-    "公安招警", "人民警察", "机关公开招聘", "政府招聘",
-)
-CAMPUS_MARKERS = ("校园招聘", "校招", "春招", "秋招", "应届生", "毕业生")
+HOME_URL = "https://www.xiaozhaoya.com/home"
 URL_PATTERN = re.compile(r"https?://[^\s，。；、<>\"']+", re.I)
 DATE_PATTERN = re.compile(r"(20\d{2})[-/.年](\d{1,2})[-/.月](\d{1,2})")
+GONGKAO_PATTERN = re.compile(r"事业单位|机关|政策性岗位|选调|公务员")
+GOVERNMENT_TALENT_PATTERN = re.compile(
+    r"(?:政府|人社|组织部|机关).{0,20}人才引进|人才引进.{0,20}(?:政府|人社|组织部|机关)"
+)
 
 
 def _text(value: object) -> str:
-    if isinstance(value, list):
-        return "、".join(_text(item) for item in value if _text(item))
+    if isinstance(value, (list, tuple, set)):
+        return "、".join(part for item in value if (part := _text(item)))
     return str(value or "").strip()
+
+
+def _list_text(value: object) -> str:
+    text = _text(value)
+    return re.sub(r"\s*[,，;；|/]\s*", "、", text).strip("、")
 
 
 def _date(value: object) -> str:
@@ -51,53 +44,30 @@ def _date(value: object) -> str:
 
 def _candidate_urls(value: object) -> list[str]:
     text = html.unescape(_text(value)).replace(r"\/", "/")
-    if text.startswith(("http://", "https://")):
-        values = [text]
-    else:
-        values = URL_PATTERN.findall(text)
-    return [value.rstrip(")]},.!?;:") for value in values]
+    candidates = [text] if text.startswith(("http://", "https://")) else URL_PATTERN.findall(text)
+    return [candidate.rstrip(")]},.!?;:") for candidate in candidates]
 
 
-def resolve_public_url(value: object, *, base_url: str = "https://www.xiaozhaoya.com/home") -> str:
-    """Return a usable public URL and unwrap Xiaozhaoya redirect pages."""
+def resolve_public_url(value: object, *, base_url: str = HOME_URL) -> str:
+    """Return the first usable HTTP URL, rejecting the site's bare ``/`` placeholder."""
     candidates = _candidate_urls(value)
-    if not candidates:
-        text = _text(value)
-        if text.startswith("/") and text != "/":
-            candidates = [urljoin(base_url, text)]
+    text = _text(value)
+    if not candidates and text.startswith("/") and text != "/":
+        candidates = [urljoin(base_url, text)]
     for candidate in candidates:
         try:
             parsed = urlsplit(candidate)
         except ValueError:
             continue
-        if parsed.scheme not in {"http", "https"} or not parsed.hostname:
-            continue
-        host = parsed.hostname.casefold()
-        if not host.endswith("xiaozhaoya.com") or "redirect" not in parsed.path.casefold():
+        if parsed.scheme in {"http", "https"} and parsed.hostname:
             return candidate
-        try:
-            response = httpx.get(candidate, timeout=10, follow_redirects=True)
-            response.raise_for_status()
-        except httpx.HTTPError:
-            continue
-        final_host = (response.url.host or "").casefold()
-        if final_host and not final_host.endswith("xiaozhaoya.com"):
-            return str(response.url)
-        tree = HTMLParser(response.text)
-        for selector, attribute in (("a[href]", "href"), ("meta[http-equiv=refresh]", "content")):
-            for node in tree.css(selector):
-                target = _text(node.attributes.get(attribute))
-                if attribute == "content" and "url=" in target.casefold():
-                    target = re.split(r"url=", target, flags=re.I, maxsplit=1)[-1]
-                target = urljoin(candidate, target.strip(" '\""))
-                target_host = (urlsplit(target).hostname or "").casefold()
-                if target_host and not target_host.endswith("xiaozhaoya.com"):
-                    return target
     return ""
 
 
 def _company_type(value: object) -> str:
     text = _text(value)
+    if text == "事业单位":
+        return "事业单位"
     if "央" in text:
         return "央企"
     if "国" in text:
@@ -106,156 +76,194 @@ def _company_type(value: object) -> str:
         return "外企"
     if "银行" in text:
         return "银行"
-    if "事业" in text:
-        return "事业单位"
-    return "民企" if "民" in text else "其他"
-
-
-def _exam_type(title: str) -> str:
-    for marker, label in (
-        ("军队文职", "军队文职"), ("三支一扶", "三支一扶"), ("选调", "选调生"),
-        ("公务员", "公务员"), ("公安", "公安"), ("警察", "公安"),
-        ("事业单位", "事业单位"), ("事业编", "事业单位"),
-    ):
-        if marker in title:
-            return label
+    if "民" in text:
+        return "民企"
     return "其他"
 
 
-def split_records(records: list[Mapping[str, Any]]) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
-    """Normalize public rows and route each one into exactly one paid dataset."""
-    qiuzhao: list[dict[str, Any]] = []
-    gongkao: list[dict[str, Any]] = []
+def is_gongkao_record(row: Mapping[str, Any]) -> bool:
+    if _text(row.get("companyTypeName")) == "事业单位":
+        return True
+    text = " ".join(
+        (_text(row.get("announcementTitle")), _text(row.get("sourceName")))
+    )
+    return bool(GONGKAO_PATTERN.search(text) or GOVERNMENT_TALENT_PATTERN.search(text))
+
+
+def _exam_type(text: str) -> str:
+    for marker, label in (
+        ("选调", "选调生"),
+        ("公务员", "公务员"),
+        ("政策性岗位", "政策性岗位"),
+        ("机关", "公务员"),
+        ("事业单位", "事业单位"),
+    ):
+        if marker in text:
+            return label
+    return "事业单位" if "人才引进" in text else "其他"
+
+
+def record_to_item(row: Mapping[str, Any], *, rank: int) -> tuple[str, Item]:
+    """Convert one original record to the shared Item model and select its dataset."""
+    identifier = _text(row.get("recruitmentId"))
+    company = _text(row.get("fullName") or row.get("companyName"))
+    position = _list_text(row.get("jobTitle"))
+    announcement_title = _text(row.get("announcementTitle"))
+    title = announcement_title or position or company
+    application_url = resolve_public_url(row.get("applicationMethod"))
+    announcement_url = resolve_public_url(row.get("announcementLink"))
+    target_url = application_url or announcement_url
+    missing_link = not target_url
+    if missing_link:
+        target_url = HOME_URL
+    published = _date(row.get("announcementDate") or row.get("updateDate"))
+    city = _list_text(row.get("cityNameList"))
+    education = _list_text(row.get("educationLevelNameList"))
+    cohort = _list_text(row.get("graduationYearList"))
+    major = _list_text(row.get("majorRequirements"))
+    source_name = _text(row.get("sourceName"))
+    notes = "；".join(
+        part
+        for part in (
+            _text(row.get("companyProfile")),
+            _text(row.get("jobContent")),
+            _text(row.get("workAddress")),
+            "原记录未提供有效投递或公告链接，请在校招鸭站内检索" if missing_link else "",
+        )
+        if part
+    )
+    raw_extra = {
+        "id": f"xiaozhaoya:{identifier}",
+        "source_site": "xiaozhaoya",
+        "source_label": "校招鸭",
+        "upstream_source": "xiaozhaoya",
+        "recruitment_id": identifier,
+        "company": company,
+        "company_full_name": _text(row.get("fullName")),
+        "company_type": _company_type(row.get("companyTypeName")),
+        "industry": _text(row.get("industryName")),
+        "job_category": _list_text(row.get("jobCategoryNameList")),
+        "position": position,
+        "city": city,
+        "education": education,
+        "cohort": cohort,
+        "major": major,
+        "deadline": _date(row.get("applicationDeadline")),
+        "announcement_url": announcement_url,
+        "application_method": application_url,
+        "application_method_raw": _text(row.get("applicationMethod")),
+        "written_test": row.get("hasWrittenTest"),
+        "recruit_count": row.get("recruitmentCount"),
+        "work_address": _text(row.get("workAddress")),
+        "salary": _text(row.get("salary")),
+        "source_name": source_name,
+        "notes": notes,
+        "missing_external_url": missing_link,
+    }
+    if is_gongkao_record(row):
+        classification_text = f"{announcement_title} {source_name}"
+        raw_extra.update(
+            {
+                "sub": "announcement",
+                "unit": company,
+                "exam_type": _exam_type(classification_text),
+                "endSignUpTime": _date(row.get("applicationDeadline")) or None,
+                "has_announcement_structure": bool(
+                    published
+                    or _date(row.get("applicationDeadline"))
+                    or row.get("recruitmentCount")
+                ),
+                "government_source": is_gov_domain(target_url),
+            }
+        )
+        return "gongkao", Item(
+            source="gongkao",
+            rank=rank,
+            title=title,
+            title_zh=title,
+            url=target_url,
+            published_at=published or None,
+            summary_zh=notes or None,
+            extra=raw_extra,
+        )
+    return "qiuzhao", Item(
+        source="jobs",
+        rank=rank,
+        title=position or title,
+        title_zh=position or title,
+        url=target_url,
+        published_at=published or None,
+        summary_zh=notes or None,
+        extra=raw_extra,
+    )
+
+
+def _qiuzhao_row(item: Item) -> dict[str, Any]:
+    extra = item.extra
+    written = extra.get("written_test")
+    written_test = written if isinstance(written, bool) else "笔试" in _text(written)
+    return {
+        "company_name": _text(extra.get("company")),
+        "company_type": _text(extra.get("company_type")),
+        "industry": _text(extra.get("industry")),
+        "job_category": _text(extra.get("job_category")),
+        "position": _text(extra.get("position")) or item.title,
+        "location": _text(extra.get("city")),
+        "education": _text(extra.get("education")),
+        "major": _text(extra.get("major")),
+        "cohort": _text(extra.get("cohort")),
+        "deadline": _text(extra.get("deadline")),
+        "written_test": written_test,
+        "apply_url": item.url,
+        "announcement_url": _text(extra.get("announcement_url")) or item.url,
+        "notes": _text(extra.get("notes")),
+        "updated_at": item.published_at or "",
+        "source_record_id": _text(extra.get("id")),
+        "source_label": "校招鸭",
+        "upstream_source": "xiaozhaoya",
+        "extra": {
+            "source_site": "xiaozhaoya",
+            "source_name": _text(extra.get("source_name")),
+            "salary": _text(extra.get("salary")),
+            "work_address": _text(extra.get("work_address")),
+            "missing_external_url": bool(extra.get("missing_external_url")),
+        },
+    }
+
+
+def split_records(
+    records: list[Mapping[str, Any]],
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    """Convert, de-duplicate, noise-filter, and route raw snapshot rows."""
+    converted: list[tuple[str, Item]] = []
     seen: set[str] = set()
     for row in records:
-        identifier = _text(row.get("recruitmentId") or row.get("id"))
+        identifier = _text(row.get("recruitmentId"))
         if not identifier or identifier in seen:
             continue
         seen.add(identifier)
-        title = _text(row.get("announcementTitle") or row.get("jobTitle"))
-        company = _text(row.get("fullName") or row.get("companyName"))
-        position = _text(row.get("jobTitle") or title)
-        if not title or not company or title_noise_reason({"title": title}):
+        converted.append(record_to_item(row, rank=len(converted) + 1))
+
+    filtered_items, _, _ = filter_title_noise_items([item for _, item in converted])
+    kept = {id(item) for item in filtered_items}
+    qiuzhao: list[dict[str, Any]] = []
+    gongkao: list[dict[str, Any]] = []
+    for kind, item in converted:
+        if id(item) not in kept:
             continue
-        announcement_url = resolve_public_url(row.get("announcementLink"))
-        apply_url = resolve_public_url(
-            row.get("deliveryUrl") or row.get("applicationMethod") or row.get("announcementLink")
-        )
-        text = f"{title} {company} {_text(row.get('batchNameList'))}"
-        mapped = {
-            "title": title, "company": company,
-            "extra": {"business_type": 4 if any(marker in text for marker in CAMPUS_MARKERS) else 0},
-        }
-        public_kind = any(marker in text for marker in PUBLIC_MARKERS) and record_kind(mapped) == "公考"
-        published = _date(row.get("announcementDate") or row.get("updateDate"))
-        if public_kind:
-            target_url = announcement_url or apply_url
-            if not target_url:
-                continue
-            exam_type = _exam_type(text)
-            gongkao.append({
-                "source": "gongkao", "rank": len(gongkao) + 1,
-                "title": title, "title_zh": title, "url": target_url,
-                "published_at": published or None,
-                "summary_zh": _text(row.get("tip") or row.get("deliveryNotes")) or None,
-                "extra": {
-                    "id": f"xiaozhaoya:{identifier}", "sub": "announcement",
-                    "source_site": "xiaozhaoya", "source_label": "校招鸭",
-                    "upstream_source": "xiaozhaoya", "exam_type": exam_type,
-                    "province": _text(row.get("provinceNameList")),
-                    "city": _text(row.get("cityNameList")), "unit": company,
-                    "endSignUpTime": _date(row.get("applicationDeadline")) or None,
-                    "recruit_count": _text(row.get("recruitmentCount")),
-                    "education": _text(row.get("educationLevelNameList")),
-                    "has_announcement_structure": bool(
-                        published or _date(row.get("applicationDeadline")) or row.get("recruitmentCount")
-                    ),
-                    "government_source": is_gov_domain(target_url),
-                },
-            })
-            continue
-        qiuzhao.append({
-            "company_name": company,
-            "company_type": _company_type(row.get("companyTypeName")),
-            "industry": _text(row.get("industryName")),
-            "position": position,
-            "location": _text(row.get("cityNameList")),
-            "education": _text(row.get("educationLevelNameList")),
-            "cohort": _text(row.get("graduationYearList")),
-            "deadline": _date(row.get("applicationDeadline")),
-            "written_test": "笔试" in _text(row.get("hasWrittenTest")),
-            "apply_url": apply_url,
-            "announcement_url": announcement_url or apply_url,
-            "notes": _text(row.get("deliveryNotes") or row.get("tip")),
-            "updated_at": published,
-            "source_record_id": f"xiaozhaoya:{identifier}",
-            "source_label": "校招鸭",
-            "upstream_source": "xiaozhaoya",
-        })
+        if kind == "gongkao":
+            item.rank = len(gongkao) + 1
+            gongkao.append(item.to_dict())
+        else:
+            item.rank = len(qiuzhao) + 1
+            qiuzhao.append(_qiuzhao_row(item))
     return qiuzhao, gongkao
 
 
-class XiaozhaoyaCollector:
-    def __init__(self, config_path: str | Path = "config/xiaozhaoya.yaml") -> None:
-        raw = yaml.safe_load(Path(config_path).read_text(encoding="utf-8")) or {}
-        self.page_url = _text(raw.get("page_url")) or "https://www.xiaozhaoya.com/home"
-        self.page_size = max(12, int(raw.get("page_size") or 100))
-        self.max_pages = max(1, int(raw.get("max_pages") or 5))
-        self.max_age_days = max(1, int(raw.get("max_age_days") or 30))
-        self.interval = max(1.0, float(raw.get("request_interval_seconds") or 1))
-        self.minimum_items = max(1, int(raw.get("minimum_items") or 50))
-
-    async def fetch_records(self) -> list[dict[str, Any]]:
-        records: list[dict[str, Any]] = []
-        cutoff = date.today() - timedelta(days=self.max_age_days)
-        async with async_playwright() as playwright:
-            browser = await playwright.chromium.launch(headless=True)
-            try:
-                page = await browser.new_page(viewport={"width": 1440, "height": 900})
-                await page.goto(self.page_url, wait_until="domcontentloaded", timeout=90_000)
-                await page.wait_for_function(
-                    "() => [...document.querySelectorAll('*')].some(el => el.__vue__ && Array.isArray(el.__vue__.$data?.recruitmentList))",
-                    timeout=60_000,
-                )
-                for page_number in range(1, self.max_pages + 1):
-                    rows = await page.evaluate(
-                        """async ({pageNumber, pageSize}) => {
-                          const node = [...document.querySelectorAll('*')].find(
-                            el => el.__vue__ && Array.isArray(el.__vue__.$data?.recruitmentList)
-                          );
-                          if (!node) throw new Error('Xiaozhaoya Vue recruitment list was not found');
-                          const vm = node.__vue__;
-                          vm.$data.currentPage = pageNumber;
-                          vm.$data.pageSize = pageSize;
-                          vm.$data.sortRule = 'updateDate';
-                          await vm.fetchData();
-                          return JSON.parse(JSON.stringify(vm.$data.recruitmentList || []));
-                        }""",
-                        {"pageNumber": page_number, "pageSize": self.page_size},
-                    )
-                    if not isinstance(rows, list) or not rows:
-                        break
-                    records.extend(row for row in rows if isinstance(row, dict))
-                    dates = [_date(row.get("updateDate")) for row in rows if isinstance(row, dict)]
-                    parsed = [date.fromisoformat(value) for value in dates if value]
-                    if parsed and min(parsed) < cutoff:
-                        break
-                    await asyncio.sleep(self.interval)
-            finally:
-                await browser.close()
-        unique_records = list({
-            _text(row.get("recruitmentId") or row.get("id")): row
-            for row in records
-            if _text(row.get("recruitmentId") or row.get("id"))
-        }.values())
-        if len(unique_records) < self.minimum_items:
-            raise RuntimeError(
-                f"Xiaozhaoya capture too small: {len(unique_records)} < {self.minimum_items}; previous snapshot must be retained"
-            )
-        return unique_records
-
-    async def collect(self) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
-        return split_records(await self.fetch_records())
-
-
-__all__ = ["XiaozhaoyaCollector", "resolve_public_url", "split_records"]
+__all__ = [
+    "HOME_URL",
+    "is_gongkao_record",
+    "record_to_item",
+    "resolve_public_url",
+    "split_records",
+]

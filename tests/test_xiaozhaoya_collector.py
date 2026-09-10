@@ -1,5 +1,8 @@
 from __future__ import annotations
 
+from datetime import date
+
+from app.capture_xiaozhaoya import IncrementalStopPolicy, build_snapshot
 from app.collectors.xiaozhaoya import resolve_public_url, split_records
 
 
@@ -51,3 +54,31 @@ def test_split_records_routes_public_notice_to_gongkao() -> None:
 def test_resolve_public_url_ignores_bare_site_root() -> None:
     assert resolve_public_url("/") == ""
     assert resolve_public_url("官网：https://jobs.example.com/apply") == "https://jobs.example.com/apply"
+
+
+def test_incremental_capture_stops_after_two_fully_known_pages() -> None:
+    policy = IncrementalStopPolicy({"1", "2", "3"}, cutoff=date(2026, 9, 7))
+
+    assert policy.observe([{"recruitmentId": 1, "updateDate": "2026-09-10"}]) is None
+    assert policy.observe([{"recruitmentId": 2, "updateDate": "2026-09-09"}]) == "two_known_pages"
+
+
+def test_incremental_snapshot_preserves_previous_rows() -> None:
+    previous = {
+        "total": 2,
+        "items": [
+            {"recruitmentId": 1, "updateDate": "2026-09-09", "jobTitle": "旧岗位"},
+            {"recruitmentId": 2, "updateDate": "2026-09-08", "jobTitle": "保留岗位"},
+        ],
+    }
+
+    snapshot = build_snapshot(
+        [{"recruitmentId": 1, "updateDate": "2026-09-10", "jobTitle": "更新岗位"}],
+        total=2,
+        previous=previous,
+        full=False,
+        generated_at="2026-09-10T07:30:00+08:00",
+    )
+
+    assert [row["recruitmentId"] for row in snapshot["items"]] == [1, 2]
+    assert snapshot["items"][0]["jobTitle"] == "更新岗位"

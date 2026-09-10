@@ -17,6 +17,14 @@ type OfficialSite = { province: string; name: string; url: string };
 type AlertItem = { id: string; tag: string; region: string; type: string; title: string; url: string; date: string; summary?: string; created_at: string };
 type AlertFeed = { generated_at: string; items: AlertItem[] };
 type Quicklink = { name: string; url: string };
+type QiuzhaoItem = {
+  company_name: string; company_type?: string | null; industry?: string | null;
+  position: string; location?: string | null; education?: string | null;
+  cohort?: string | null; deadline?: string | null; written_test?: boolean | null;
+  apply_url?: string | null; announcement_url?: string | null; notes?: string | null;
+  source_label?: string | null;
+};
+type QiuzhaoFeed = { generated_at?: string | null; items: QiuzhaoItem[] };
 type SourceFeed = { generated_at: string; source: string; status: SourceState; items: Item[] };
 type ServerGongkaoFeed = SourceFeed & { subsources?: Record<string, { status: string; item_count: number; updated_at: string }> };
 type ServerJobsFeed = SourceFeed & { subsources?: Record<string, { status: string; item_count: number; updated_at: string }> };
@@ -364,7 +372,11 @@ function AlertsView({ feed }: { feed: AlertFeed }) {
   </section>;
 }
 
-function QiuzhaoLinks() {
+function QiuzhaoLinks({ items }: { items: QiuzhaoItem[] }) {
+  const visible = items.filter((item) => !isRecruitmentTitleNoise({
+    source: 'qiuzhao', rank: 0, title: item.position, title_zh: item.position,
+    url: item.apply_url || item.announcement_url || '', extra: {},
+  }));
   return <section className="mx-auto max-w-3xl">
     <div className="rounded-3xl border border-[var(--line)] bg-[var(--card)] p-6 shadow-sm sm:p-10">
       <span className="inline-flex rounded-full bg-[var(--soft)] px-3 py-1 text-xs font-black text-[var(--muted)]">27届 · 校园招聘</span>
@@ -378,6 +390,8 @@ function QiuzhaoLinks() {
       </div>
       <p className="mt-5 text-xs text-[var(--muted)]">需登录你的飞书账号，未登录会显示无权限</p>
     </div>
+    <div className="mt-8 flex items-end justify-between gap-3"><div><h2 className="text-xl font-black">最新秋招岗位</h2><p className="mt-1 text-xs text-[var(--muted)]">购买表、企业官网与校招聚合源合并去重</p></div><span className="font-mono text-xs text-[var(--muted)]">{visible.length} 条</span></div>
+    <div className="mt-4 grid gap-3">{visible.map((item, index) => { const url = item.apply_url || item.announcement_url || ''; return <article key={`${item.company_name}\0${item.position}\0${index}`} className="rounded-2xl border border-[var(--line)] bg-[var(--card)] p-5 shadow-sm"><div className="flex flex-wrap items-center gap-2 text-xs"><span className="rounded bg-cyan-100 px-2 py-1 font-black text-cyan-900">{item.source_label || '自动聚合'}</span>{item.company_type && <span className="rounded bg-[var(--soft)] px-2 py-1 font-bold">{item.company_type}</span>}{item.location && <span className="text-[var(--muted)]">📍 {item.location}</span>}{item.deadline && <span className="ml-auto text-[var(--muted)]">截止 {item.deadline}</span>}</div><h3 className="mt-3 text-lg font-black">{item.company_name} · {item.position}</h3><div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-xs text-[var(--muted)]">{item.industry && <span>行业：{item.industry}</span>}{item.education && <span>学历：{item.education}</span>}{item.cohort && <span>届次：{item.cohort}</span>}{item.written_test === true && <span>含笔试</span>}</div>{item.notes && <p className="mt-2 line-clamp-2 text-sm leading-6 text-[var(--muted)]">{item.notes}</p>}<div className="mt-4 flex justify-end">{url ? <a href={url} target="_blank" rel="noreferrer" className="rounded-full bg-[var(--ink)] px-4 py-2 text-xs font-black text-[var(--paper)]">查看 / 投递 →</a> : <span className="text-xs text-[var(--muted)]">链接待补充</span>}</div></article>; })}{visible.length === 0 && <div className="rounded-2xl border border-dashed border-[var(--line)] p-12 text-center text-[var(--muted)]">暂时没有可展示的秋招岗位。</div>}</div>
   </section>;
 }
 
@@ -488,6 +502,7 @@ function App() {
   const [sites, setSites] = useState<OfficialSite[]>([]);
   const [alerts, setAlerts] = useState<AlertFeed>({ generated_at: '', items: [] });
   const [jobQuicklinks, setJobQuicklinks] = useState<Quicklink[]>([]);
+  const [qiuzhaoItems, setQiuzhaoItems] = useState<QiuzhaoItem[]>([]);
   const [prefs, setPrefs] = useState<Prefs>(() => loadPrefs());
   const [prefsReady, setPrefsReady] = useState(false);
   const [settingsUpdatedAt, setSettingsUpdatedAt] = useState<string | null>(null);
@@ -533,7 +548,7 @@ function App() {
         return response.ok ? response.json() as Promise<T> : fallback;
       };
       const emptySourceFeed = (source: string): SourceFeed => ({ generated_at: '', source, status: { source, status: 'not_run', item_count: 0 }, items: [] });
-      const [baseFeed, nextS1Gongkao, nextServerGongkao, nextServerJobs, nextAi, nextTools, nextPapers, nextJobs, nextTrends, nextSites, nextAlerts, nextJobLinks, remoteSettings] = await Promise.all([
+      const [baseFeed, nextS1Gongkao, nextServerGongkao, nextServerJobs, nextAi, nextTools, nextPapers, nextJobs, nextTrends, nextSites, nextAlerts, nextJobLinks, nextQiuzhao, remoteSettings] = await Promise.all([
         readJson<Feed>('/data/all.json', { generated_at: '', items: [] }),
         readJson<ServerGongkaoFeed>('/data/gongkao_enriched.json', { ...emptySourceFeed('gongkao'), subsources: {} }),
         readJson<ServerGongkaoFeed>('/data/server-gongkao.json', { ...emptySourceFeed('gongkao_official'), subsources: {} }),
@@ -546,6 +561,7 @@ function App() {
         readJson<{ sites: OfficialSite[] }>('/data/gongkao_official_sites.json', { sites: [] }),
         readJson<AlertFeed>('/data/alerts.json', { generated_at: '', items: [] }),
         readJson<{ items: Quicklink[] }>('/data/job_quicklinks.json', { items: [] }),
+        readJson<QiuzhaoFeed>('/data/qiuzhao.json', { generated_at: '', items: [] }),
         readJson<{ prefs: Prefs; updated_at: string | null } | null>('/api/settings', null),
       ]);
       const nextFeed = mergeServerJobs(
@@ -569,7 +585,7 @@ function App() {
         ...sourceStates.get('jobs'), source: 'jobs', status: 'ok',
         item_count: mergedItems.filter((item) => item.source === 'jobs').length,
       });
-      setFeed({ ...nextFeed, items: mergedItems, sources: [...sourceStates.values()] }); setTrends(nextTrends); setSites(nextSites.sites); setAlerts(nextAlerts); setJobQuicklinks(nextJobLinks.items);
+      setFeed({ ...nextFeed, items: mergedItems, sources: [...sourceStates.values()] }); setTrends(nextTrends); setSites(nextSites.sites); setAlerts(nextAlerts); setJobQuicklinks(nextJobLinks.items); setQiuzhaoItems(nextQiuzhao.items);
       const localPrefs = loadPrefs();
       const merged = remoteSettings ? deepMergePrefs(localPrefs, remoteSettings.prefs) : localPrefs;
       savePrefs(merged); setPrefs(merged); setSettingsUpdatedAt(remoteSettings?.updated_at ?? null); setPrefsReady(true);
@@ -686,7 +702,7 @@ function App() {
     {settingsOpen && <div className="fixed inset-0 z-50"><button type="button" aria-label="关闭导航设置" className="absolute inset-0 h-full w-full bg-slate-950/60 backdrop-blur-sm" onClick={() => setSettingsOpen(false)} /><aside role="dialog" aria-modal="true" aria-labelledby="tab-settings-title" className="absolute inset-y-0 right-0 flex w-full max-w-md flex-col border-l border-[var(--line)] bg-[var(--card)] text-[var(--ink)] shadow-2xl"><div className="flex items-start justify-between border-b border-[var(--line)] px-5 py-5"><div><h2 id="tab-settings-title" className="text-xl font-black">导航设置</h2><p className="mt-1 text-xs text-[var(--muted)]">{syncing ? '正在同步…' : settingsUpdatedAt ? `已同步 · 上次 ${new Date(settingsUpdatedAt).toLocaleString('zh-CN')}` : '偏好保存在本机，服务恢复后会自动同步'}</p></div><button type="button" aria-label="关闭" className="rounded-full bg-[var(--soft)] px-3 py-1.5 text-sm font-bold" onClick={() => setSettingsOpen(false)}>×</button></div><div className="flex-1 overflow-y-auto p-4"><div className="mb-3 flex items-center justify-between rounded-xl border border-[var(--line)] bg-[var(--paper)] px-4 py-3"><span className="font-bold">全部</span><span className="rounded-full bg-[var(--soft)] px-2.5 py-1 text-[11px] text-[var(--muted)]">固定首位</span></div><div className="grid gap-2">{tabOrder.slice(1).map((tab, index, adjustable) => { const hidden = hiddenTabs.includes(tab); return <div key={tab} className={`flex items-center gap-2 rounded-xl border border-[var(--line)] bg-[var(--paper)] px-3 py-3 ${hidden ? 'opacity-65' : ''}`}><span className="min-w-0 flex-1 truncate font-bold">{tabLabel(tab)}</span><button type="button" aria-label={`${tabLabel(tab)}上移`} disabled={index === 0} onClick={() => moveTab(tab, -1)} className="h-8 w-8 rounded-full bg-[var(--soft)] text-sm font-black disabled:cursor-not-allowed disabled:opacity-30">↑</button><button type="button" aria-label={`${tabLabel(tab)}下移`} disabled={index === adjustable.length - 1} onClick={() => moveTab(tab, 1)} className="h-8 w-8 rounded-full bg-[var(--soft)] text-sm font-black disabled:cursor-not-allowed disabled:opacity-30">↓</button><label className="flex cursor-pointer items-center gap-1.5 rounded-full bg-[var(--soft)] px-2.5 py-1.5 text-xs font-bold"><input type="checkbox" checked={!hidden} onChange={() => toggleTab(tab)} className="accent-cyan-500" /><span>{hidden ? '隐藏' : '显示'}</span></label></div>; })}</div><button type="button" onClick={restoreTabs} className="mt-4 w-full rounded-full border border-[var(--line)] bg-[var(--paper)] px-4 py-3 text-sm font-bold transition hover:border-cyan-400">恢复默认</button>{user?.is_admin && <AdminPanel />}</div></aside></div>}
     <section className="mx-auto w-full min-w-0 max-w-6xl px-4 py-5 sm:px-6 sm:py-8">
       {active === 'all' && pinned.length > 0 && <section className="mb-9 rounded-3xl border border-orange-200 bg-gradient-to-br from-orange-50 to-amber-50 p-5 text-slate-950 dark:border-orange-900 dark:from-orange-950/30 dark:to-amber-950/20 dark:text-white"><div className="mb-4"><span className="rounded-full bg-orange-500 px-3 py-1 text-xs font-black text-white">全网都在关注</span><p className="mt-2 text-xs opacity-60">至少 3 个平台同时出现的热点信号</p></div><div className="grid gap-3 sm:grid-cols-2">{pinned.map((item) => <button key={item.cluster_id} onClick={(event) => showCluster(event, item)} className="rounded-2xl bg-white/70 p-4 text-left shadow-sm dark:bg-black/20"><b className="line-clamp-2">{item.title_zh || item.title}</b><small className="mt-2 block text-orange-600">{item.cluster_size} 个平台正在讨论 →</small></button>)}</div></section>}
-      {active === 'trends' ? <TrendView trends={trends} /> : active === 'alerts' ? <AlertsView feed={alerts} /> : active === 'xiaohongshu' ? <XhsView items={items} /> : active === 'gongkao' ? <GongkaoView items={items} sites={sites} provinces={gongkaoProvinces} onProvincesChange={(next) => updatePrefs({ gongkao_provinces: next })} /> : active === 'papers' ? <PapersView items={items} deadlines={deadlines} deadlineState={deadlineState} onlyPriority={papersOnlyPriority} onToggle={() => updatePrefs({ papers_only_priority: !papersOnlyPriority })} unavailable={unavailable} error={state?.error} onCluster={showCluster} /> : active === 'jobs' ? <JobsView items={items} quicklinks={jobQuicklinks} unavailable={unavailable} error={state?.error} /> : active === 'ai' ? <AiView items={items} unavailable={unavailable} error={state?.error} /> : active === 'tools' ? <ToolsView items={items} unavailable={unavailable} error={state?.error} /> : active === 'qiuzhao' ? <QiuzhaoLinks /> : <><div className="mb-4 flex items-center justify-between gap-3 text-xs text-[var(--muted)]"><span>{active === 'all' ? '全网信号流' : `${sourceNames[active]}热榜`}</span>{highlightCluster ? <button className="rounded-full bg-orange-100 px-3 py-1 font-bold text-orange-700" onClick={() => setHighlightCluster(null)}>正在高亮同簇 · 清除</button> : <span>{items.length} 条</span>}</div><div className="grid gap-3">{items.map((item) => <HotCard key={`${item.source}-${item.rank}-${item.url}`} item={item} onCluster={showCluster} highlight={highlightCluster ? item.cluster_id === highlightCluster : undefined} />)}{feed && items.length === 0 && <div className="rounded-2xl border border-dashed border-[var(--line)] p-12 text-center text-[var(--muted)]">{unavailable ? <><p className="font-bold text-[var(--ink)]">这个来源暂不可用</p><p className="mt-2 text-xs">{state?.error || '采集端已安全降级，不影响其它来源。'}</p></> : '这个来源暂时没有数据。'}</div>}</div></>}
+      {active === 'trends' ? <TrendView trends={trends} /> : active === 'alerts' ? <AlertsView feed={alerts} /> : active === 'xiaohongshu' ? <XhsView items={items} /> : active === 'gongkao' ? <GongkaoView items={items} sites={sites} provinces={gongkaoProvinces} onProvincesChange={(next) => updatePrefs({ gongkao_provinces: next })} /> : active === 'papers' ? <PapersView items={items} deadlines={deadlines} deadlineState={deadlineState} onlyPriority={papersOnlyPriority} onToggle={() => updatePrefs({ papers_only_priority: !papersOnlyPriority })} unavailable={unavailable} error={state?.error} onCluster={showCluster} /> : active === 'jobs' ? <JobsView items={items} quicklinks={jobQuicklinks} unavailable={unavailable} error={state?.error} /> : active === 'ai' ? <AiView items={items} unavailable={unavailable} error={state?.error} /> : active === 'tools' ? <ToolsView items={items} unavailable={unavailable} error={state?.error} /> : active === 'qiuzhao' ? <QiuzhaoLinks items={qiuzhaoItems} /> : <><div className="mb-4 flex items-center justify-between gap-3 text-xs text-[var(--muted)]"><span>{active === 'all' ? '全网信号流' : `${sourceNames[active]}热榜`}</span>{highlightCluster ? <button className="rounded-full bg-orange-100 px-3 py-1 font-bold text-orange-700" onClick={() => setHighlightCluster(null)}>正在高亮同簇 · 清除</button> : <span>{items.length} 条</span>}</div><div className="grid gap-3">{items.map((item) => <HotCard key={`${item.source}-${item.rank}-${item.url}`} item={item} onCluster={showCluster} highlight={highlightCluster ? item.cluster_id === highlightCluster : undefined} />)}{feed && items.length === 0 && <div className="rounded-2xl border border-dashed border-[var(--line)] p-12 text-center text-[var(--muted)]">{unavailable ? <><p className="font-bold text-[var(--ink)]">这个来源暂不可用</p><p className="mt-2 text-xs">{state?.error || '采集端已安全降级，不影响其它来源。'}</p></> : '这个来源暂时没有数据。'}</div>}</div></>}
     </section>
   </main>;
 }

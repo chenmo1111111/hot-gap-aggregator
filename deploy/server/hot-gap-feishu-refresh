@@ -20,6 +20,9 @@ qiuzhao_data="$data_dir/qiuzhao_wanqing.json"
 gongkao_incoming=/home/deploy/.gongkao_sheet.json.incoming
 gongkao_persistent="$persistent_dir/gongkao_sheet.json"
 gongkao_data="$data_dir/gongkao_sheet.json"
+xiaozhaoya_incoming=/home/deploy/.xiaozhaoya.json.incoming
+xiaozhaoya_persistent="$persistent_dir/xiaozhaoya.json"
+xiaozhaoya_data="$data_dir/xiaozhaoya.json"
 
 cd "$project"
 if [[ -f "$alert_incoming" ]]; then
@@ -112,15 +115,55 @@ PY
   fi
 fi
 
+if [[ -f "$xiaozhaoya_incoming" ]]; then
+  if "$project/.venv/bin/python" - "$xiaozhaoya_incoming" "$xiaozhaoya_persistent" <<'PY'
+import json
+import math
+import sys
+
+path, previous_path = sys.argv[1:3]
+with open(path, encoding="utf-8") as handle:
+    payload = json.load(handle)
+items = payload.get("items") if isinstance(payload, dict) else None
+previous_count = 0
+try:
+    with open(previous_path, encoding="utf-8") as handle:
+        previous_count = len(json.load(handle).get("items") or [])
+except (OSError, ValueError, TypeError):
+    pass
+minimum = math.ceil(previous_count * .8) if previous_count else 1
+if not isinstance(items, list) or len(items) < minimum:
+    raise SystemExit(f"incoming Xiaozhaoya snapshot failed validation: {len(items) if isinstance(items, list) else 0} < {minimum} (80% of previous)")
+required = {"recruitmentId", "updateDate", "companyName", "jobTitle"}
+for index, item in enumerate(items):
+    if not isinstance(item, dict) or not required.issubset(item):
+        raise SystemExit(f"incoming Xiaozhaoya snapshot has invalid item {index}")
+PY
+  then
+    /usr/bin/install -o root -g root -m 644 "$xiaozhaoya_incoming" "$xiaozhaoya_persistent.tmp"
+    /usr/bin/mv -f -- "$xiaozhaoya_persistent.tmp" "$xiaozhaoya_persistent"
+    /usr/bin/rm -f -- "$xiaozhaoya_incoming"
+  else
+    rejected="${xiaozhaoya_incoming}.rejected.$(/usr/bin/date +%Y%m%d%H%M%S)"
+    /usr/bin/mv -- "$xiaozhaoya_incoming" "$rejected"
+    echo "Xiaozhaoya incoming rejected; previous snapshot retained at $xiaozhaoya_persistent" >&2
+  fi
+fi
+
 if [[ -f "$qiuzhao_persistent" ]]; then
   /usr/bin/install -o deploy -g deploy -m 664 "$qiuzhao_persistent" "$qiuzhao_data"
 fi
 if [[ -f "$gongkao_persistent" ]]; then
   /usr/bin/install -o deploy -g deploy -m 664 "$gongkao_persistent" "$gongkao_data"
 fi
+if [[ -f "$xiaozhaoya_persistent" ]]; then
+  /usr/bin/install -o deploy -g deploy -m 664 "$xiaozhaoya_persistent" "$xiaozhaoya_data"
+fi
 
 cd "$project"
-.venv/bin/python -m app.collect_xiaozhaoya || echo "Xiaozhaoya collection degraded; previous snapshots retained" >&2
+if [[ -f "$xiaozhaoya_data" ]]; then
+  .venv/bin/python -m app.collect_xiaozhaoya
+fi
 .venv/bin/python -m app.collect_gongkao
 .venv/bin/python -m app.export_qiuzhao
 .venv/bin/python -m app.export_gongkao
