@@ -75,6 +75,9 @@ jobs:
           # Yingjiesheng is owned by the mainland runner; JobsCollector skips
           # it immediately here and the deployed server-jobs.json is preserved.
           YINGJIESHENG_ON_SERVER: "true"
+          # Gongkao is collected and synced only by the mainland S1 runner.
+          # Do not let the US GitHub runner create an empty/stale snapshot.
+          GONGKAO_ON_SERVER: "true"
           GUOPIN_CONFIG: config/guopin.yaml
           RSSHUB_BASE: ${{ secrets.RSSHUB_BASE }}
           RSSHUB_KEY: ${{ secrets.RSSHUB_KEY }}
@@ -156,7 +159,7 @@ jobs:
           ssh-keyscan -p "$SSH_PORT" -H "$SSH_HOST" >> ~/.ssh/known_hosts 2>/dev/null || true
           # These files are generated and persisted by mainland-only server jobs.
           # Excluding the wildcard also protects future server-owned sidecars.
-          rsync -az --delete --exclude='data/alerts.json' --exclude='data/server-*.json' --exclude='data/server-heartbeat.txt' -e "ssh -i ~/.ssh/deploy_key -p $SSH_PORT -o StrictHostKeyChecking=accept-new" \
+          rsync -az --delete --exclude='data/alerts.json' --exclude='data/gongkao*.json' --exclude='data/server-gongkao.json' --exclude='data/gongkao_feishu.json' --exclude='data/server-*.json' --exclude='data/server-heartbeat.txt' -e "ssh -i ~/.ssh/deploy_key -p $SSH_PORT -o StrictHostKeyChecking=accept-new" \
             site/ "$SSH_USER@$SSH_HOST:$SSH_PATH/"
           echo "Deployed $(du -sh site | cut -f1) to $SSH_HOST:$SSH_PATH"
 

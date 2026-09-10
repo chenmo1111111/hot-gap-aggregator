@@ -4,6 +4,7 @@ import asyncio
 import argparse
 import json
 import logging
+import os
 import time
 from datetime import datetime, timezone
 
@@ -27,6 +28,30 @@ UTC = timezone.utc
 from app.store.exporter import export_json
 
 LOGGER = logging.getLogger("hot-gap")
+
+
+def _enabled(value: object) -> bool:
+    return str(value or "").strip().casefold() in {"1", "true", "yes", "on"}
+
+
+def build_collectors() -> list[BaseCollector]:
+    """Build the collection set without touching S1-owned Gongkao snapshots.
+
+    GitHub Actions sets GONGKAO_ON_SERVER=true.  Omitting the collector from
+    the source list is important: exporter only rewrites files for sources in
+    this list, so the already-deployed Gongkao JSON remains untouched.
+    """
+    collectors: list[BaseCollector] = [
+        WeiboCollector(), BilibiliCollector(), GitHubCollector(), YouTubeCollector(),
+        DouyinCollector(), TelegramCollector(),
+    ]
+    if not _enabled(os.getenv("GONGKAO_ON_SERVER")):
+        collectors.append(GongkaoCollector())
+    collectors.extend([
+        XiaohongshuCollector(), PapersCollector(), ConfDeadlinesCollector(),
+        NowcoderCollector(), JobsCollector(), FeedsCollector(),
+    ])
+    return collectors
 
 
 def log_event(event: str, **fields: object) -> None:
@@ -54,11 +79,7 @@ async def main(send_notifications: bool = False, retranslate: bool = False) -> N
         removed_translations, removed_summaries = database.clear_caches_except("zhipu")
         log_event("translation_cache_reset", provider="zhipu", translations=removed_translations, summaries=removed_summaries)
     translator = create_translator(database)
-    collectors: list[BaseCollector] = [
-        WeiboCollector(), BilibiliCollector(), GitHubCollector(), YouTubeCollector(),
-        DouyinCollector(), TelegramCollector(), GongkaoCollector(),
-        XiaohongshuCollector(), PapersCollector(), ConfDeadlinesCollector(), NowcoderCollector(), JobsCollector(), FeedsCollector(),
-    ]
+    collectors = build_collectors()
     sources = [collector.source for collector in collectors]
     log_event("run_started", run_at=run_at, sources=sources)
     results = await asyncio.gather(*(collect_one(collector) for collector in collectors))

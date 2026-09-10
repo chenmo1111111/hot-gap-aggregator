@@ -1,0 +1,20 @@
+cache_ttl_hours: 24
+minimum_title_similarity: 0.80
+search_interval_seconds: 1.0
+concurrency: 3
+suffixes:
+  - .gov.cn
+  - .cas.cn
+  - .edu.cn
+  - .org.cn
+known_hosts:
+  - impta.com.cn
+  - www.impta.com.cn
+  - 81rc.81.cn
+  - cpta.com.cn
+  - www.cpta.com.cn
+  - hbrc.com.cn
+  - www.hbrc.com.cn
+  - shacs.gov.cn
+  - gkzp.renshenet.org.cn
+  - job.mohrss.gov.cn

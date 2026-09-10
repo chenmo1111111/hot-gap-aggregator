@@ -18,6 +18,9 @@ from app.collectors.gov_list import GovListCollector
 from app.collectors.gongkao_types import article_province, article_type, timeline_type
 from app.models import Item
 from app.pipeline.gongkao_filter import filter_gongkao_items
+from app.pipeline.gongkao_filter import is_gov_domain
+from app.pipeline.gongkao_normalize import normalize_notice_title, normalize_province
+from app.pipeline.gov_link_resolver import GovLinkResolver
 
 UTC = timezone.utc
 CHINA_TZ = timezone(timedelta(hours=8))
@@ -107,6 +110,7 @@ class GongkaoCollector(BaseCollector):
                     "has_announcement_structure": bool(info),
                     "location": "·".join(dict.fromkeys(location_tags)) or None,
                     "education": education,
+                    "businessType": row.get("businessType"),
                 },
             ))
         _annotate_record_kinds(items)
@@ -252,6 +256,11 @@ class GongkaoCollector(BaseCollector):
         )
 
     async def fetch(self) -> list[Item]:
+        if str(os.getenv("GONGKAO_ON_SERVER") or "").strip().casefold() in {
+            "1", "true", "yes", "on",
+        }:
+            LOGGER.info("Gongkao collection skipped: S1 owns this data")
+            return []
         # Authoritative portals are fetched first.  Fenbi and the legacy
         # fallback pages run afterwards so total request concurrency never
         # exceeds five.
@@ -290,7 +299,10 @@ class GongkaoCollector(BaseCollector):
             if isinstance(result, Exception):
                 errors.append(f"article offset={offset}: {result}")
             else:
-                items.extend(self.parse_articles(result.json()))
+                hot_items = self.parse_articles(result.json())
+                items.extend(item for item in hot_items if (
+                    item.extra.get("has_announcement_structure") or is_gov_domain(item.url)
+                ))
         for result in results[len(article_requests):]:
             if isinstance(result, Exception):
                 errors.append(str(result))
@@ -299,6 +311,19 @@ class GongkaoCollector(BaseCollector):
                 items.extend(result)
         if not items:
             raise SourceUnavailable("; ".join(errors) or "Fenbi returned no items", status="degraded")
+        if str(os.getenv("GONGKAO_RESOLVE_OFFICIAL_LINKS", "true")).strip().casefold() not in {
+            "0", "false", "no", "off",
+        }:
+            resolver: GovLinkResolver | None = None
+            try:
+                resolver = GovLinkResolver()
+                resolver_stats = await resolver.resolve_items(items)
+                LOGGER.info("Gongkao official-link resolver: %s", resolver_stats)
+            except Exception as exc:
+                LOGGER.warning("Gongkao official-link resolver degraded: %s", exc)
+            finally:
+                if resolver is not None:
+                    resolver.close()
         items = _deduplicate_items(items)
         items, filter_stats, filtered_samples = filter_gongkao_items(items, keep_review=True)
         self.filter_stats = filter_stats
@@ -386,11 +411,46 @@ def _decode_html(content: bytes) -> str:
 
 
 def _semantic_key(item: Item) -> tuple[str, str]:
-    title = re.sub(r"[^\w]+", "", item.title.casefold())
-    province = re.sub(r"(?:壮族|回族|维吾尔)?自治区$|省$|市$", "", str(
-        item.extra.get("province") or "全国"
-    ))
-    return title, province
+    return normalize_notice_title(item.title), normalize_province(item.extra.get("province"))
+
+
+SOURCE_PRIORITY = {
+    "government": 40,
+    "resolved": 30,
+    "huatu": 20,
+    "offcn": 20,
+    "fenbi": 10,
+}
+
+
+def _source_priority(item: Item) -> int:
+    return SOURCE_PRIORITY.get(str(item.extra.get("source_site") or "").casefold(), 0)
+
+
+def _prefer_duplicate(existing: Item, candidate: Item) -> None:
+    """Promote authoritative fields while preserving the existing stable ID."""
+    if _source_priority(candidate) <= _source_priority(existing):
+        return
+    old_url = existing.url
+    existing.url = candidate.url
+    existing.title = candidate.title
+    existing.title_zh = candidate.title_zh
+    if candidate.published_at:
+        existing.published_at = candidate.published_at
+    province = normalize_province(candidate.extra.get("province"))
+    if province:
+        existing.extra["province"] = province
+    for name in (
+        "source_site", "subsource", "government_source", "gov_source_name",
+        "announcement_url", "issueTime", "exam_type",
+    ):
+        if candidate.extra.get(name) not in (None, ""):
+            existing.extra[name] = candidate.extra[name]
+    existing.extra["preferred_link_source"] = candidate.extra.get("source_site")
+    if old_url and old_url != candidate.url:
+        replaced = existing.extra.setdefault("replaced_urls", [])
+        if old_url not in replaced:
+            replaced.append(old_url)
 
 
 def _deduplicate_items(items: list[Item]) -> list[Item]:
@@ -400,21 +460,12 @@ def _deduplicate_items(items: list[Item]) -> list[Item]:
     for item in items:
         id_key = (str(item.extra.get("sub") or ""), str(item.extra.get("id") or ""))
         if id_key[1] and id_key in by_id:
+            _prefer_duplicate(by_id[id_key], item)
             continue
         semantic = _semantic_key(item)
         existing = by_semantic.get(semantic)
         if existing is not None:
-            if (
-                str(existing.extra.get("source_site") or "") == "fenbi"
-                and str(item.extra.get("source_site") or "") in {"huatu", "offcn"}
-            ):
-                old_url = existing.url
-                existing.url = item.url
-                existing.extra["fallback_url"] = item.url
-                existing.extra["preferred_link_source"] = item.extra.get("source_site")
-                existing.extra.setdefault("replaced_urls", []).append(old_url)
-                if item.published_at:
-                    existing.published_at = item.published_at
+            _prefer_duplicate(existing, item)
             continue
         output.append(item)
         if id_key[1]:

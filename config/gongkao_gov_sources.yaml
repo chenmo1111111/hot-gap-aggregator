@@ -1,149 +1,173 @@
-# Authoritative list pages used by app.collectors.gov_list.
-# Empty selectors intentionally enable the collector's conservative generic
-# anchor/date parser.  A site-specific selector can be added without code.
-# seed_items are official-link fallbacks for portals that intermittently block
-# automated list requests. They expire under the same 45-day retention rule.
+# Government-first Gongkao list sources. Every HTML source has explicit,
+# site-verified selectors. A successful HTTP response is not counted unless
+# dated notice rows are parsed.
+seed_max_hours: 72
 seed_items:
-  - title: 2027年度内蒙古自治区事业单位公开招聘工作人员公告
-    published_at: 2026-09-08
-    url: http://www.impta.com.cn/shiyedanwei/202698223431.asp
-    source: 内蒙古人事考试网
-    province: 内蒙古
-    category: 事业单位
-  - title: 2026年吉林省省直事业单位公开招聘工作人员（含专项招聘高校毕业生）公告（12号）
-    published_at: 2026-09-07
-    url: https://hrss.jl.gov.cn/rsrc/sydwrsgl/gkzp/202609/t20260908_9703119.html
-    source: 吉林省人社厅
-    province: 吉林
-    category: 事业单位
-  - title: 湖南省2026年省直事业单位第四次公开招聘工作人员公告
-    published_at: 2026-09-08
-    url: https://rst.hunan.gov.cn/rst/xxgk/zpzl/sydwzp/202609/t20260908_34059489.html
-    source: 湖南省人社厅
-    province: 湖南
-    category: 事业单位
-  - title: 2026－2027年度直接选拔招录军（警）官工作全面展开
-    published_at: 2026-09-07
-    url: https://81rc.81.cn/sy/gzdt_210283/16484161.html
-    source: 军队人才网
-    province: 全国
-    category: 军队文职
-  - title: 上海市2027年度选调应届优秀大学毕业生公告
-    published_at: 2026-09-08
-    url: https://shacs.gov.cn/dynamic/article/1351
-    source: 上海市公务员局
-    province: 上海
-    category: 选调生
+  # Emergency only. Set GONGKAO_DISABLE_SEEDS=true for acceptance.
+  - {title: 2027年度内蒙古自治区事业单位公开招聘工作人员公告, published_at: 2026-09-08, url: "http://www.impta.com.cn/shiyedanwei/202698223431.asp", source: 内蒙古人事考试网, province: 内蒙古, category: 事业单位}
+  - {title: 2026年吉林省省直事业单位公开招聘工作人员（含专项招聘高校毕业生）公告（12号）, published_at: 2026-09-07, url: "https://hrss.jl.gov.cn/rsrc/sydwrsgl/gkzp/202609/t20260908_9703119.html", source: 吉林省人社厅, province: 吉林, category: 事业单位}
+  - {title: 湖南省2026年省直事业单位第四次公开招聘工作人员公告, published_at: 2026-09-08, url: "https://rst.hunan.gov.cn/rst/xxgk/zpzl/sydwzp/202609/t20260908_34059489.html", source: 湖南省人社厅, province: 湖南, category: 事业单位}
+  - {title: 2026－2027年度直接选拔招录军（警）官工作全面展开, published_at: 2026-09-07, url: "http://81rc.81.cn/sy/gzdt_210283/16484161.html", source: 军队人才网, province: 全国, category: 军队文职}
+  - {title: 上海市2027年度选调应届优秀大学毕业生公告, published_at: 2026-09-08, url: "https://shacs.gov.cn/dynamic/article/1351", source: 上海市公务员局, province: 上海, category: 选调生}
 
 sources:
-  - name: 黑龙江省人社厅-公开招聘
+  - name: 黑龙江省人社厅-通知公告
     province: 黑龙江
     category: 事业单位
     list_url: https://hrss.hlj.gov.cn/hrss/c111741/list.shtml
     engine: html
+    item_selector: li
+    title_selector: a[title]
+    link_selector: a[title]
+    date_selector: span.date
     date_format: "%Y-%m-%d"
+    fixture: heilongjiang.html
 
   - name: 辽宁省人社厅-公示公告
     province: 辽宁
     category: 事业单位
     list_url: https://rst.ln.gov.cn/rst/zxzx/gsgg/index.shtml
     engine: html
+    item_selector: li
+    title_selector: a[title]
+    link_selector: a[title]
+    date_selector: span.time
     date_format: "%Y-%m-%d"
+    fixture: liaoning.html
 
   - name: 吉林省人社厅-公开招聘公告
     province: 吉林
     category: 事业单位
-    list_url: https://hrss.jl.gov.cn/rsrc/sydwrsgl/gkzp/
+    list_url: https://hrss.jl.gov.cn/rsrc/sydwrsgl/gkzp/index.html
     engine: html
-    date_format: "%Y-%m-%d"
+    item_selector: li
+    title_selector: a:nth-of-type(2)
+    link_selector: a:nth-of-type(2)
+    date_selector: span
+    date_format: "[%Y-%m-%d]"
+    fixture: jilin.html
 
   - name: 河北人才网-通知公告
     province: 河北
     category: 事业单位
-    list_url: https://www.hbrc.com.cn/web/class?cid=1003
+    list_url: "https://www.hbrc.com.cn/web/class?cid=1003"
     engine: html
-    date_format: "%Y-%m-%d"
+    encoding: gb18030
+    item_selector: li.dw-class-article-li
+    title_selector: span.dw-class-article-text
+    link_selector: a.dw-class-article-a
+    date_selector: span.dw-class-article-date
+    date_format: "[%Y-%m-%d]"
+    fixture: hebei.html
 
   - name: 天津市人社局-事业单位公开招聘
     province: 天津
     category: 事业单位
     list_url: https://hrss.tj.gov.cn/ztzl/ztzl1/sydwgkzp/
     engine: html
+    item_selector: li
+    title_selector: span.overSpanLong
+    link_selector: a[title]
+    date_selector: span.fr
     date_format: "%Y-%m-%d"
+    fixture: tianjin.html
 
   - name: 山东省人社厅-事业单位招聘
     province: 山东
     category: 事业单位
     list_url: https://hrss.shandong.gov.cn/channels/ch00232/
     engine: html
+    item_selector: li.pagedContent
+    title_selector: span.news_box01_title
+    link_selector: a[title]
+    date_selector: span:last-child
     date_format: "%Y-%m-%d"
+    fixture: shandong.html
 
   - name: 北京市人社局-事业单位公开招聘
     province: 北京
     category: 事业单位
     list_url: https://rsj.beijing.gov.cn/xxgk/gkzp/index.html
     engine: html
+    item_selector: li
+    title_selector: a[title]
+    link_selector: a[title]
+    date_selector: span
     date_format: "%Y-%m-%d"
+    fixture: beijing.html
 
-  - name: 内蒙古人事考试网-事业单位招考
+  - name: 内蒙古人事考试网-事业单位公告
     province: 内蒙古
     category: 事业单位
-    list_url: https://www.impta.com.cn/more.asp?ttt=31
+    list_url: "http://www.impta.com.cn/more.asp?ttt=42"
     engine: html
+    encoding: gb18030
+    item_selector: 'tr[bgcolor="#FFFFFF"]'
+    title_selector: td:first-child a[href]
+    link_selector: td:first-child a[href]
+    date_selector: td:nth-child(2)
     date_format: "%Y/%m/%d"
+    fixture: neimenggu.html
 
-  - name: 湖南省人社厅-事业单位公开招聘
+  - name: 湖南省人社厅-事业单位招聘
     province: 湖南
     category: 事业单位
-    list_url: https://rst.hunan.gov.cn/xxgk/zpzl/sydwzp/index.html
+    list_url: http://rst.hunan.gov.cn/rst/xxgk/zpzl/sydwzp/index.html
     engine: html
+    item_selector: div.xxgkzd-box li
+    title_selector: a[href]
+    link_selector: a[href]
+    date_selector: span
     date_format: "%Y-%m-%d"
-
-  - name: 上海公务员局-招录公告
-    province: 上海
-    category: 选调生
-    list_url: https://shacs.gov.cn/
-    engine: html
-    date_format: "%Y-%m-%d"
-
-  - name: 人社部-中央事业单位公开招聘
-    province: 全国
-    category: 事业单位
-    list_url: https://www.mohrss.gov.cn/SYrlzyhshbzb/fwyd/SYkaoshizhaopin/zyhgjjgsydwgkzp/
-    engine: html
-    date_format: "%Y-%m-%d"
-
-  - name: 中国人事考试网-通知公告
-    province: 全国
-    category: 事业单位
-    list_url: http://www.cpta.com.cn/notice.html
-    engine: html
-    date_format: "%Y-%m-%d"
+    fixture: hunan.html
 
   - name: 军队人才网-文职工作动态
     province: 全国
     category: 军队文职
-    list_url: https://81rc.81.cn/wzry/gzdt/index.html
+    list_url: http://81rc.81.cn/wzry/gzdt/index.html
     engine: html
-    date_format: "%Y-%m-%d"
-
-  - name: 军队人才网-最新招录工作动态
-    province: 全国
-    category: 军队文职
-    list_url: https://81rc.81.cn/sy/gzdt_210283/index.html
-    engine: html
-    date_format: "%Y-%m-%d"
+    item_selector: div.left-news li
+    title_selector: a[href]
+    link_selector: a[href]
+    date_selector: span
+    date_format: "%Y-%m-%d %H:%M"
+    fixture: military.html
 
   - name: 军队人才网-各单位招考动态
     province: 全国
     category: 军队文职
-    list_url: https://81rc.81.cn/wzry/jwjgbmhddwzkdt/index.html
+    list_url: http://81rc.81.cn/wzry/jwjgbmhddwzkdt/index.html
     engine: html
-    date_format: "%Y-%m-%d"
+    item_selector: div.left-news li
+    title_selector: a[href]
+    link_selector: a[href]
+    date_selector: span
+    date_format: "%Y-%m-%d %H:%M"
+    fixture: military_units.html
 
-  - name: 中国科学院-人才招聘
+  - name: 事业单位公开招聘服务平台
     province: 全国
     category: 事业单位
-    list_url: https://jobs.cas.cn/
-    engine: html
+    list_url: https://job.mohrss.gov.cn/cjobs/institution/listInstitution
+    engine: playwright
+    item_selector: li
+    title_selector: a[href]
+    link_selector: a[href]
+    date_selector: span
     date_format: "%Y-%m-%d"
+    fixture: mohrss_joint.html
+
+  - name: 中国科学院国家授时中心-人才招聘
+    province: 全国
+    category: 事业单位
+    list_url: https://ntsc.cas.cn/xwzx_/rczp/
+    list_urls:
+      - https://ntsc.cas.cn/xwzx_/rczp/
+      - http://ntsc.cas.cn/xwzx_/rczp/
+    engine: html
+    item_selector: li
+    title_selector: a[href]
+    link_selector: a[href]
+    date_selector: span
+    date_format: "%Y-%m-%d"
+    fixture: cas.html

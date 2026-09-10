@@ -167,6 +167,13 @@ def record_kind(row: Mapping[str, Any], *, llm_choice: object = None) -> str:
     an enterprise.  Ambiguous rows may use the LLM's strict two-way answer;
     without it we fail safe and keep the row in Gongkao.
     """
+    extra = _extra(row)
+    try:
+        business_type = int(extra.get("businessType") or extra.get("business_type") or 0)
+    except (TypeError, ValueError):
+        business_type = 0
+    if business_type == 4:
+        return "秋招"
     text = _classification_text(row)
     if not any(marker in text for marker in CAMPUS_MARKERS):
         return "公考"

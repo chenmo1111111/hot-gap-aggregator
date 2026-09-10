@@ -19,12 +19,13 @@ from selectolax.parser import HTMLParser, Node
 
 from app.collectors.base import BaseCollector, SourceUnavailable, USER_AGENTS
 from app.models import Item
+from app.pipeline.gongkao_normalize import normalize_province
 
 
 LOGGER = logging.getLogger(__name__)
 CHINA_TZ = timezone(timedelta(hours=8))
 DATE_RE = re.compile(r"(?<!\d)(20\d{2})[-/.年](\d{1,2})[-/.月](\d{1,2})(?:日)?")
-NOTICE_WORDS = ("公告", "招录", "招考", "招聘", "选调", "三支一扶", "文职", "军官", "警官")
+NOTICE_WORDS = ("公告", "招录", "招考", "招聘", "选调", "三支一扶", "文职", "军官", "警官", "招聘启事")
 
 
 def _get_path(value: object, path: str) -> object:
@@ -63,11 +64,14 @@ def _source_date(value: object, source: Mapping[str, Any]) -> date | None:
     return _date_from_text(text)
 
 
-def _decode(content: bytes) -> str:
-    for encoding in ("utf-8", "gb18030"):
+def _decode(content: bytes, declared_encoding: object = "") -> str:
+    head = content[:2048].decode("ascii", errors="ignore")
+    meta = re.search(r"charset\s*=\s*['\"]?([\w-]+)", head, re.I)
+    candidates = [str(declared_encoding or "").strip(), meta.group(1) if meta else "", "utf-8", "gb18030"]
+    for encoding in dict.fromkeys(value for value in candidates if value):
         try:
             return content.decode(encoding)
-        except UnicodeDecodeError:
+        except (UnicodeDecodeError, LookupError):
             continue
     return content.decode("utf-8", errors="replace")
 
@@ -96,16 +100,33 @@ class GovListCollector(BaseCollector):
             return []
         raw = yaml.safe_load(self.config_path.read_text(encoding="utf-8")) or {}
         rows = raw.get("sources", []) if isinstance(raw, Mapping) else []
-        return [dict(row) for row in rows if isinstance(row, Mapping) and row.get("list_url")]
+        output = [dict(row) for row in rows if isinstance(row, Mapping) and row.get("list_url")]
+        for source in output:
+            engine = str(source.get("engine") or "html").casefold()
+            if engine in {"html", "playwright"}:
+                required = ("item_selector", "title_selector", "link_selector", "date_selector")
+                missing = [name for name in required if not str(source.get(name) or "").strip()]
+                if missing:
+                    raise ValueError(
+                        f"{source.get('name') or source.get('list_url')}: empty selectors: {', '.join(missing)}"
+                    )
+        return output
 
     def load_seed_items(self) -> list[Item]:
         """Load a small official-URL safety net for intermittently blocked portals."""
+        if str(os.getenv("GONGKAO_DISABLE_SEEDS") or "").strip().casefold() in {
+            "1", "true", "yes", "on",
+        }:
+            return []
         if not self.config_path.exists():
             return []
         raw = yaml.safe_load(self.config_path.read_text(encoding="utf-8")) or {}
         rows = raw.get("seed_items", []) if isinstance(raw, Mapping) else []
         today = datetime.now(CHINA_TZ).date()
-        cutoff = today - timedelta(days=45)
+        max_hours = max(1, int(raw.get("seed_max_hours") or 72)) if isinstance(raw, Mapping) else 72
+        # Config currently stores dates, so 72 hours is represented as three
+        # calendar days.  Expired emergency rows cannot silently become a data source.
+        cutoff = today - timedelta(hours=max_hours)
         output: list[Item] = []
         for row in rows:
             if not isinstance(row, Mapping):
@@ -127,7 +148,7 @@ class GovListCollector(BaseCollector):
                     "subsource": "government", "source_site": "government",
                     "government_source": True,
                     "gov_source_name": str(row.get("source") or "政府官网兜底"),
-                    "province": str(row.get("province") or "全国").removesuffix("省"),
+                    "province": normalize_province(row.get("province")),
                     "exam_type": str(row.get("category") or "事业单位"),
                     "issueTime": published.isoformat(), "announcement_url": url,
                 },
@@ -187,7 +208,7 @@ class GovListCollector(BaseCollector):
                     "subsource": "government", "source_site": "government",
                     "government_source": True,
                     "gov_source_name": str(source.get("name") or "政府公开招聘"),
-                    "province": str(source.get("province") or "全国").removesuffix("省"),
+                    "province": normalize_province(source.get("province")),
                     "exam_type": str(source.get("category") or "事业单位"),
                     "issueTime": published.isoformat(),
                     "announcement_url": href,
@@ -227,28 +248,49 @@ class GovListCollector(BaseCollector):
                     "subsource": "government", "source_site": "government",
                     "government_source": True,
                     "gov_source_name": str(source.get("name") or "政府公开招聘"),
-                    "province": str(source.get("province") or "全国").removesuffix("省"),
+                    "province": normalize_province(source.get("province")),
                     "exam_type": str(source.get("category") or "事业单位"),
                     "issueTime": published.isoformat(), "announcement_url": link,
                 },
             ))
         return output
 
-    async def _html(self, source: Mapping[str, Any]) -> str:
-        url = str(source["list_url"])
+    @staticmethod
+    def _source_urls(source: Mapping[str, Any]) -> list[str]:
+        explicit = source.get("list_urls")
+        if isinstance(explicit, list):
+            urls = [str(value).strip() for value in explicit if str(value).strip()]
+            if urls:
+                return urls
+        template = str(source.get("page_url_template") or "").strip()
+        if template:
+            start = int(source.get("page_start") or 1)
+            count = max(1, int(source.get("page_count") or 1))
+            return [template.format(page=page) for page in range(start, start + count)]
+        return [str(source["list_url"])]
+
+    async def _html(self, source: Mapping[str, Any], url: str) -> str:
         engine = str(source.get("engine") or "html").casefold()
         if engine != "playwright":
             response = await self.request(url, headers={"Accept": "text/html,application/xhtml+xml"})
             await asyncio.sleep(self.request_interval)
-            return _decode(response.content)
+            return _decode(response.content, source.get("encoding") or response.encoding)
         from playwright.async_api import async_playwright
 
         async with async_playwright() as playwright:
             browser = await playwright.chromium.launch(headless=True)
             page = await browser.new_page(user_agent=USER_AGENTS[0])
             try:
-                await page.goto(url, wait_until="networkidle", timeout=30_000)
-                return await page.content()
+                last_error: Exception | None = None
+                for attempt in range(self.retries + 1):
+                    try:
+                        await page.goto(url, wait_until="networkidle", timeout=30_000)
+                        return await page.content()
+                    except Exception as exc:
+                        last_error = exc
+                        if attempt < self.retries:
+                            await asyncio.sleep(0.5 * (2**attempt))
+                raise SourceUnavailable(f"playwright failed after retries: {last_error}", status="degraded")
             finally:
                 await browser.close()
 
@@ -268,7 +310,23 @@ class GovListCollector(BaseCollector):
                     items = self.parse_api(response.json(), source)
                     await asyncio.sleep(self.request_interval)
                 else:
-                    items = self.parse_html(await self._html(source), source)
+                    items = []
+                    seen: set[str] = set()
+                    page_errors: list[str] = []
+                    for url in self._source_urls(source):
+                        page_source = dict(source)
+                        page_source["list_url"] = url
+                        try:
+                            page_items = self.parse_html(await self._html(page_source, url), page_source)
+                        except Exception as exc:
+                            page_errors.append(f"{url}: {exc}")
+                            continue
+                        for item in page_items:
+                            if item.url not in seen:
+                                seen.add(item.url)
+                                items.append(item)
+                    if not items and page_errors:
+                        raise SourceUnavailable("; ".join(page_errors), status="degraded")
             return name, items, None
         except Exception as exc:  # one government portal must never block the others
             return name, [], str(exc)
@@ -300,7 +358,7 @@ class GovListCollector(BaseCollector):
                 "count": len(items),
                 "last_7_days": sum(value >= today - timedelta(days=7) for value in dates),
                 "last_30_days": sum(value >= today - timedelta(days=30) for value in dates),
-                "error": error or "",
+                "error": error or ("reachable_but_no_recent_dated_rows" if not items else ""),
             }
             if error:
                 LOGGER.warning("Government Gongkao source failed: %s: %s", name, error)

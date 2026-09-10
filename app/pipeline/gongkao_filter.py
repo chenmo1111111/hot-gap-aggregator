@@ -88,7 +88,10 @@ def is_gov_domain(url: object) -> bool:
         host = (urlsplit(str(url or "")).hostname or "").casefold().rstrip(".")
     except ValueError:
         return False
-    return host.endswith(".gov.cn") or host == "gov.cn" or host in OFFICIAL_HOSTS
+    return (
+        host.endswith(".gov.cn") or host == "gov.cn" or host.endswith(".cas.cn")
+        or host in OFFICIAL_HOSTS
+    )
 
 
 def has_structured_announcement(row: Mapping[str, Any]) -> bool:
@@ -127,6 +130,11 @@ def assess_gongkao(row: Mapping[str, Any]) -> FilterDecision:
     from app.pipeline.gongkao_classify import detail_category, record_kind
 
     extra = _extra(row)
+    if (
+        str(extra.get("source_site") or "").casefold() == "fenbi"
+        and extra.get("official_link_unresolved") is True
+    ):
+        return FilterDecision("review", "fenbi_without_verified_official_link")
     kind = record_kind(row, llm_choice=extra.get("record_kind"))
     if kind == "秋招":
         return FilterDecision("route_qiuzhao", "enterprise_campus")

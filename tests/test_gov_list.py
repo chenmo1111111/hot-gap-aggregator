@@ -1,6 +1,13 @@
 from datetime import date
+from pathlib import Path
+
+import pytest
+import yaml
 
 from app.collectors.gov_list import GovListCollector
+
+
+ROOT = Path(__file__).resolve().parents[1]
 
 
 def test_parse_html_extracts_recent_official_rows_and_skips_old_rows() -> None:
@@ -52,3 +59,29 @@ sources: []
     assert len(items) == 1
     assert items[0].url == "https://rst.hunan.gov.cn/notice/1.html"
     assert items[0].extra["province"] == "湖南"
+
+
+def test_seed_items_can_be_disabled_for_acceptance(monkeypatch) -> None:
+    monkeypatch.setenv("GONGKAO_DISABLE_SEEDS", "true")
+    collector = GovListCollector(ROOT / "config" / "gongkao_gov_sources.yaml")
+    assert collector.load_seed_items() == []
+
+
+def test_html_source_rejects_empty_selectors(tmp_path) -> None:
+    config = tmp_path / "invalid.yaml"
+    config.write_text("sources:\n  - name: invalid\n    list_url: https://example.com\n    engine: html\n", encoding="utf-8")
+    with pytest.raises(ValueError, match="empty selectors"):
+        GovListCollector(config).load_sources()
+
+
+@pytest.mark.parametrize(
+    "source",
+    (yaml.safe_load((ROOT / "config" / "gongkao_gov_sources.yaml").read_text(encoding="utf-8")) or {})["sources"],
+    ids=lambda source: source["name"],
+)
+def test_each_real_gov_fixture_parses_three_dated_rows(source) -> None:
+    fixture = ROOT / "tests" / "fixtures" / "gov" / source["fixture"]
+    html = fixture.read_text(encoding="utf-8")
+    items = GovListCollector.parse_html(html, source, today=date(2026, 9, 10))
+    assert len(items) >= 3
+    assert all(item.published_at and len(item.published_at) == 10 for item in items)

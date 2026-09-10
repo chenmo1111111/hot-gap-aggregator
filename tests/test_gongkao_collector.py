@@ -5,8 +5,9 @@ from pathlib import Path
 
 import pytest
 
-from app.collectors.gongkao import GongkaoCollector
+from app.collectors.gongkao import GongkaoCollector, _deduplicate_items, _semantic_key
 from app.collectors.gongkao_types import article_type, timeline_type
+from app.models import Item
 
 FIXTURES = Path(__file__).parent / "fixtures"
 
@@ -46,6 +47,7 @@ def test_selection_and_national_exam_types_are_normalized() -> None:
 async def test_gongkao_fetches_hot_and_chronological_pages_with_bounded_concurrency(
     monkeypatch, tmp_path,
 ) -> None:
+    monkeypatch.setenv("GONGKAO_RESOLVE_OFFICIAL_LINKS", "false")
     collector = GongkaoCollector(tmp_path / "missing.yaml", tmp_path / "missing-fallback.yaml")
     calls: list[tuple[str, int]] = []
     active = 0
@@ -112,6 +114,32 @@ def test_chronological_article_uses_issue_time_and_structured_headcount() -> Non
     assert item.published_at.startswith("2026-09-08")
     assert item.extra["recruit_count"] == "53"
     assert item.extra["position_count"] == 41
+
+
+def test_business_type_four_is_routed_to_qiuzhao() -> None:
+    item = GongkaoCollector.parse_articles({"data": {"articles": [{
+        "id": 88, "title": "中国一汽2027届校园招聘公告", "businessType": 4,
+        "announcementArticleInfoRet": {"recruitNumRet": "100"},
+    }]}})[0]
+    assert item.extra["businessType"] == 4
+    assert item.extra["record_kind"] == "秋招"
+
+
+def test_semantic_key_removes_headcount_suffix_and_normalizes_province() -> None:
+    left = Item("gongkao", 1, "某省事业单位公开招聘公告（8825人）", "", "https://fenbi.test", extra={"province": "内蒙古自治区"})
+    right = Item("gongkao", 2, "某省事业单位公开招聘公告", "", "https://gov.test", extra={"province": "内蒙古"})
+    assert _semantic_key(left) == _semantic_key(right)
+
+
+def test_authoritative_duplicate_replaces_fenbi_fields() -> None:
+    fenbi = Item("gongkao", 1, "某省事业单位公开招聘公告（53人）", "粉笔标题", "https://fenbi.com/a", published_at="2026-09-10", extra={"id": "1", "sub": "announcement", "province": "山东省", "source_site": "fenbi"})
+    official = Item("gongkao", 2, "某省事业单位公开招聘公告", "官方标题", "https://hrss.shandong.gov.cn/a", published_at="2026-09-08", extra={"id": "gov:2", "sub": "announcement", "province": "山东", "source_site": "government", "government_source": True})
+    rows = _deduplicate_items([fenbi, official])
+    assert len(rows) == 1
+    assert rows[0].url == official.url
+    assert rows[0].title == official.title
+    assert rows[0].published_at == "2026-09-08"
+    assert rows[0].extra["source_site"] == "government"
 
 
 def test_fallback_list_extracts_recent_title_date_link_and_province() -> None:

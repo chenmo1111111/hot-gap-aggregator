@@ -32,6 +32,18 @@ def _write_atomic(path: Path, payload: dict) -> None:
 
 
 async def collect_gongkao(data_dir: str | Path | None = None) -> dict:
+    target = Path(data_dir or os.getenv("SITE_DATA_DIR", "site/public/data")) / "gongkao.json"
+    if str(os.getenv("GONGKAO_ON_SERVER") or "").strip().casefold() in {
+        "1", "true", "yes", "on",
+    }:
+        if target.exists():
+            return json.loads(target.read_text(encoding="utf-8"))
+        return {
+            "generated_at": datetime.now(timezone.utc).isoformat(),
+            "source": "gongkao",
+            "status": {"source": "gongkao", "status": "skipped", "item_count": 0},
+            "items": [],
+        }
     collector = GongkaoCollector()
     items = await collector.fetch()
     generated_at = datetime.now(timezone.utc).isoformat()
@@ -47,7 +59,6 @@ async def collect_gongkao(data_dir: str | Path | None = None) -> dict:
         },
         "items": [item.to_dict() for item in items],
     }
-    target = Path(data_dir or os.getenv("SITE_DATA_DIR", "site/public/data")) / "gongkao.json"
     _write_atomic(target, payload)
     return payload
 
