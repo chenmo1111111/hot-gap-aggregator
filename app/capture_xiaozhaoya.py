@@ -234,11 +234,21 @@ async def _captcha_visible(page: Any) -> bool:
     return any(CAPTCHA_URL_PATTERN.search(frame.url or "") for frame in page.frames[1:])
 
 
+async def _login_required_visible(page: Any) -> bool:
+    login_button = page.get_by_role("button", name="立即登录", exact=True)
+    return bool(await login_button.count()) and await login_button.first.is_visible()
+
+
 async def _wait_for_home(page: Any, *, login: bool) -> dict[str, Any]:
     deadline = asyncio.get_running_loop().time() + (600 if login else 90)
     while asyncio.get_running_loop().time() < deadline:
         if await _captcha_visible(page):
             raise CaptchaBlocked("校招鸭抓取被验证码拦截")
+        if await _login_required_visible(page):
+            if login:
+                await page.wait_for_timeout(1_000)
+                continue
+            raise LoginRequired("校招鸭登录态已失效，请用 --login 重新登录")
         state = await page.evaluate(HOME_STATE_SCRIPT)
         if state.get("found") and isinstance(state.get("rows"), list) and state["rows"]:
             return state
