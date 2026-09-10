@@ -52,6 +52,13 @@ def test_public_gongkao_deadline_wins_over_written_date() -> None:
     assert not is_expired_public_gongkao(both, POLICY, today=date(2026, 9, 9))
 
 
+def test_public_gongkao_without_exam_dates_expires_after_45_days() -> None:
+    recent = row("gongkao", published_at="2026-07-26")
+    old = row("gongkao", published_at="2026-07-25")
+    assert not is_expired_public_gongkao(recent, POLICY, today=date(2026, 9, 9))
+    assert is_expired_public_gongkao(old, POLICY, today=date(2026, 9, 9))
+
+
 def test_prune_database_removes_expired_rows_old_history_and_idle_caches(tmp_path) -> None:
     database = Database(tmp_path / "hot.db")
     now = datetime(2026, 9, 8, 12, tzinfo=UTC)

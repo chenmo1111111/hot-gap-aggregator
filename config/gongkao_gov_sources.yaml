@@ -1,0 +1,149 @@
+# Authoritative list pages used by app.collectors.gov_list.
+# Empty selectors intentionally enable the collector's conservative generic
+# anchor/date parser.  A site-specific selector can be added without code.
+# seed_items are official-link fallbacks for portals that intermittently block
+# automated list requests. They expire under the same 45-day retention rule.
+seed_items:
+  - title: 2027年度内蒙古自治区事业单位公开招聘工作人员公告
+    published_at: 2026-09-08
+    url: http://www.impta.com.cn/shiyedanwei/202698223431.asp
+    source: 内蒙古人事考试网
+    province: 内蒙古
+    category: 事业单位
+  - title: 2026年吉林省省直事业单位公开招聘工作人员（含专项招聘高校毕业生）公告（12号）
+    published_at: 2026-09-07
+    url: https://hrss.jl.gov.cn/rsrc/sydwrsgl/gkzp/202609/t20260908_9703119.html
+    source: 吉林省人社厅
+    province: 吉林
+    category: 事业单位
+  - title: 湖南省2026年省直事业单位第四次公开招聘工作人员公告
+    published_at: 2026-09-08
+    url: https://rst.hunan.gov.cn/rst/xxgk/zpzl/sydwzp/202609/t20260908_34059489.html
+    source: 湖南省人社厅
+    province: 湖南
+    category: 事业单位
+  - title: 2026－2027年度直接选拔招录军（警）官工作全面展开
+    published_at: 2026-09-07
+    url: https://81rc.81.cn/sy/gzdt_210283/16484161.html
+    source: 军队人才网
+    province: 全国
+    category: 军队文职
+  - title: 上海市2027年度选调应届优秀大学毕业生公告
+    published_at: 2026-09-08
+    url: https://shacs.gov.cn/dynamic/article/1351
+    source: 上海市公务员局
+    province: 上海
+    category: 选调生
+
+sources:
+  - name: 黑龙江省人社厅-公开招聘
+    province: 黑龙江
+    category: 事业单位
+    list_url: https://hrss.hlj.gov.cn/hrss/c111741/list.shtml
+    engine: html
+    date_format: "%Y-%m-%d"
+
+  - name: 辽宁省人社厅-公示公告
+    province: 辽宁
+    category: 事业单位
+    list_url: https://rst.ln.gov.cn/rst/zxzx/gsgg/index.shtml
+    engine: html
+    date_format: "%Y-%m-%d"
+
+  - name: 吉林省人社厅-公开招聘公告
+    province: 吉林
+    category: 事业单位
+    list_url: https://hrss.jl.gov.cn/rsrc/sydwrsgl/gkzp/
+    engine: html
+    date_format: "%Y-%m-%d"
+
+  - name: 河北人才网-通知公告
+    province: 河北
+    category: 事业单位
+    list_url: https://www.hbrc.com.cn/web/class?cid=1003
+    engine: html
+    date_format: "%Y-%m-%d"
+
+  - name: 天津市人社局-事业单位公开招聘
+    province: 天津
+    category: 事业单位
+    list_url: https://hrss.tj.gov.cn/ztzl/ztzl1/sydwgkzp/
+    engine: html
+    date_format: "%Y-%m-%d"
+
+  - name: 山东省人社厅-事业单位招聘
+    province: 山东
+    category: 事业单位
+    list_url: https://hrss.shandong.gov.cn/channels/ch00232/
+    engine: html
+    date_format: "%Y-%m-%d"
+
+  - name: 北京市人社局-事业单位公开招聘
+    province: 北京
+    category: 事业单位
+    list_url: https://rsj.beijing.gov.cn/xxgk/gkzp/index.html
+    engine: html
+    date_format: "%Y-%m-%d"
+
+  - name: 内蒙古人事考试网-事业单位招考
+    province: 内蒙古
+    category: 事业单位
+    list_url: https://www.impta.com.cn/more.asp?ttt=31
+    engine: html
+    date_format: "%Y/%m/%d"
+
+  - name: 湖南省人社厅-事业单位公开招聘
+    province: 湖南
+    category: 事业单位
+    list_url: https://rst.hunan.gov.cn/xxgk/zpzl/sydwzp/index.html
+    engine: html
+    date_format: "%Y-%m-%d"
+
+  - name: 上海公务员局-招录公告
+    province: 上海
+    category: 选调生
+    list_url: https://shacs.gov.cn/
+    engine: html
+    date_format: "%Y-%m-%d"
+
+  - name: 人社部-中央事业单位公开招聘
+    province: 全国
+    category: 事业单位
+    list_url: https://www.mohrss.gov.cn/SYrlzyhshbzb/fwyd/SYkaoshizhaopin/zyhgjjgsydwgkzp/
+    engine: html
+    date_format: "%Y-%m-%d"
+
+  - name: 中国人事考试网-通知公告
+    province: 全国
+    category: 事业单位
+    list_url: http://www.cpta.com.cn/notice.html
+    engine: html
+    date_format: "%Y-%m-%d"
+
+  - name: 军队人才网-文职工作动态
+    province: 全国
+    category: 军队文职
+    list_url: https://81rc.81.cn/wzry/gzdt/index.html
+    engine: html
+    date_format: "%Y-%m-%d"
+
+  - name: 军队人才网-最新招录工作动态
+    province: 全国
+    category: 军队文职
+    list_url: https://81rc.81.cn/sy/gzdt_210283/index.html
+    engine: html
+    date_format: "%Y-%m-%d"
+
+  - name: 军队人才网-各单位招考动态
+    province: 全国
+    category: 军队文职
+    list_url: https://81rc.81.cn/wzry/jwjgbmhddwzkdt/index.html
+    engine: html
+    date_format: "%Y-%m-%d"
+
+  - name: 中国科学院-人才招聘
+    province: 全国
+    category: 事业单位
+    list_url: https://jobs.cas.cn/
+    engine: html
+    date_format: "%Y-%m-%d"

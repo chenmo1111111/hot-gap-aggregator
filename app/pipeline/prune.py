@@ -32,6 +32,7 @@ class RetentionPolicy:
     gongkao_signup_plus_days: int = 21
     gongkao_public_signup_plus_days: int = 3
     gongkao_public_written_plus_days: int = 7
+    gongkao_public_no_date_days: int = 45
     hot_sources: tuple[str, ...] = DEFAULT_HOT_SOURCES
     hot_max_age_days: int = 4
     snapshots_max_age_days: int = 45
@@ -57,6 +58,9 @@ def load_retention(path: str | Path | None = None) -> RetentionPolicy:
         ),
         gongkao_public_written_plus_days=max(
             0, int(gongkao.get("public_written_grace_days", 7))
+        ),
+        gongkao_public_no_date_days=max(
+            1, int(gongkao.get("public_no_date_max_age_days", 45))
         ),
         hot_sources=hot_sources or DEFAULT_HOT_SOURCES,
         hot_max_age_days=max(1, int(raw.get("hot_max_age_days", 4))),
@@ -175,8 +179,13 @@ def is_expired_public_gongkao(
         "extra.startWriteTime", "extra.written_exam", "startWriteTime",
         "written_exam", "笔试时间",
     ))
+    if written:
+        return current > written + timedelta(days=policy.gongkao_public_written_plus_days)
+    published = _first_date(item, (
+        "published_at", "extra.issueTime", "extra.first_seen", "首次收录",
+    ))
     return bool(
-        written and current > written + timedelta(days=policy.gongkao_public_written_plus_days)
+        published and current > published + timedelta(days=policy.gongkao_public_no_date_days)
     )
 
 

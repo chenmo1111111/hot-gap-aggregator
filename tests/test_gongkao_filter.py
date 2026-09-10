@@ -1,0 +1,34 @@
+from app.pipeline.gongkao_filter import assess_gongkao, filter_gongkao_items
+
+
+def row(title: str, url: str, **extra):
+    return {"title": title, "url": url, "extra": extra}
+
+
+def test_marketing_title_and_fenbi_course_links_are_dropped() -> None:
+    assert assess_gongkao(row("筑梦南粤师途5天直播", "https://example.gov.cn/x")).reason == "title_blacklist"
+    assert assess_gongkao(row("事业单位公开招聘公告", "https://fenbi.com/spa/course/1")).reason == "link_blacklist"
+    assert assess_gongkao(row("事业单位公开招聘拟聘用人员公示", "https://example.gov.cn/x")).reason == "not_open_opportunity"
+
+
+def test_government_or_structured_announcement_is_kept() -> None:
+    official = row("吉林省直事业单位公开招聘公告", "https://hrss.jl.gov.cn/x", exam_type="事业单位")
+    structured = row(
+        "山东事业单位公开招聘公告", "https://www.fenbi.com/page/x",
+        exam_type="事业单位", has_announcement_structure=True,
+    )
+    assert assess_gongkao(official).action == "keep"
+    assert assess_gongkao(structured).action == "keep"
+
+
+def test_enterprise_campus_is_routed_and_other_is_reviewed() -> None:
+    campus = row(
+        "中国移动2027届校园招聘", "https://example.gov.cn/x",
+        exam_type="国企", record_kind="秋招",
+    )
+    unknown = row("某项工作通知公告", "https://example.gov.cn/x")
+    assert assess_gongkao(campus).action == "route_qiuzhao"
+    assert assess_gongkao(unknown).action == "review"
+    kept, stats, _ = filter_gongkao_items([unknown], keep_review=False)
+    assert kept == []
+    assert stats["review"] == 1

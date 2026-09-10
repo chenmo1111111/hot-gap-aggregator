@@ -69,7 +69,10 @@ async def test_gongkao_fetches_hot_and_chronological_pages_with_bounded_concurre
                 offset = int(params["offset"])
                 calls.append(("article", offset))
                 article_id = 100 if offset == 50 else offset + 100
-                return Response({"data": {"articles": [{"id": article_id, "title": f"公告{offset}"}]}})
+                return Response({"data": {"articles": [{
+                    "id": article_id, "title": f"事业单位公开招聘公告{offset}",
+                    "announcementArticleInfoRet": {"recruitNumRet": "1"},
+                }]}})
             if url == collector.chronological_endpoint:
                 calls.append(("recent", int(params["offset"])))
                 if params["province"] == 2416 and params["exam"] == 4002:
@@ -77,6 +80,7 @@ async def test_gongkao_fetches_hot_and_chronological_pages_with_bounded_concurre
                     return Response({"data": {"articles": [{
                         "id": 999, "title": "内蒙古事业单位公开招聘公告",
                         "issueTime": now_ms,
+                        "announcementArticleInfoRet": {"recruitNumRet": "1"},
                     }]}})
                 return Response({"data": {"articles": []}})
             raise AssertionError("the Fenbi timeline endpoint must not be requested")

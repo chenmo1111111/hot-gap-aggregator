@@ -319,6 +319,30 @@ Ctrl-F 搜索自己的学校。`config/xuandiao_schools.yaml` 中的 `my_school`
 升级时会回填一次真实日期并写入迁移标记，此后不再改写。日期保存在
 `/var/lib/hot-gap/gongkao-enrichment.db` 的 `gongkao_first_seen` 表。
 
+### 公考公开表：政府一手源、字段与更新周期
+
+公考公开表以省级人社厅、人事考试网、军队人才网、中国人事考试网和中科院招聘网为主源，
+粉笔只保留具有正式公告结构的补充记录，不再把粉笔课程、营销页或无公告结构的热榜内容写入
+公开表。所有来源统一经过标题和链接垃圾过滤；企业校园招聘转入秋招表，无法可靠分类为公考的
+`其它`记录进入内部复核但默认不公开。
+
+公开表业务列按以下顺序展示（飞书主字段必须是文本，所以网页中需手动把“首次收录”拖到
+“公告标题”之前）：
+
+`首次收录 ｜ 类别 ｜ 公告标题 ｜ 招聘人数 ｜ 最低学历 ｜ 报名开始 ｜ 报名截止 ｜ 报名状态 ｜ 省份 ｜ 城市 ｜ 单位名称 ｜ 岗位性质 ｜ 限户籍 ｜ 限专业 ｜ 应届 ｜ 服务期 ｜ 招录院校范围 ｜ 备注 ｜ 链接`
+
+另有技术列 `同步ID` 和 `来源`，两个都应隐藏。永久保留的人工行把来源设为“手动”；自动清理
+绝不触碰手动行。`首次收录` 等于政府原文发布日期；省份统一去掉“省/市/自治区”后缀；城市
+取不到时保持空白。日期、数字和链接缺失时保持空白，不写字符串 `/`。
+
+S1 每 3 小时依次执行：政府列表与粉笔结构化补充采集 → 本地网页快照合并 → 公告详情增量提取
+→ 过期清理 → 飞书同步。单个政府站失败只记日志，不阻断其它站。公开表自动行的清理规则为：
+报名截止超过 3 天删除；没有报名截止但笔试超过 7 天删除；没有报名/笔试日期且发布日期超过
+45 天删除。报名状态按报名起止日期显示为未开始、报名中、剩 1–5 天或已截止。
+
+“使用说明”表由同步脚本自动维护，内容包括每 3 小时更新、工作日重点更新、筛选省份、城市可能
+为空、专业最终以岗位表为准及“一切以公告原文为准”的免责声明。
+
 ### 公告要点增量提取与选调院校配置
 
 服务器先生成 `gongkao_feishu.json`，再运行：
@@ -327,10 +351,10 @@ Ctrl-F 搜索自己的学校。`config/xuandiao_schools.yaml` 中的 `my_school`
 .venv/bin/python -m app.pipeline.gongkao_enrich
 ```
 
-结果写入 `gongkao_enriched.json`，公开表从该文件同步。粉笔热门公告列表仍作为兼容来源；主增量
-改为按发布时间倒序的省份×考试类别正式公告列表，覆盖北京、天津、河北、山东、辽宁、吉林、
-黑龙江、内蒙古以及全国联考，最多 5 个并发并带重试和节流。另以华图、中公和军队人才网近
-45 天列表作为缺漏兜底。粉笔正式公告按
+结果写入 `gongkao_enriched.json`，公开表从该文件同步。政府主源由
+`config/gongkao_gov_sources.yaml` 驱动，默认读取近 45 天列表，最多 5 个并发并带重试与节流；
+静态站用 httpx，只有明确配置为 `playwright` 的 JS 站才启动浏览器。粉笔按发布时间倒序的
+省份×考试类别列表和热门正式公告均只作补充。粉笔正式公告按
 `offset=0/50/100/150&num=50` 拉取四页并按公告 ID 去重，再通过详情接口
 `deviceType=3&app=web&av=100&hav=100&kav=100&client_context_id=` 获取 UTF-8 HTML，提取
 `#content` 正文。`export_gongkao` 同时合并服务器的 `server-gongkao.json`；其中选调公告、国家
@@ -385,7 +409,7 @@ FEISHU_DIGEST_SIGN_SECRET=
 .venv/bin/python -m app.notify_gongkao_digest --force
 ```
 
-服务器刷新顺序应为：`export_qiuzhao` → `export_gongkao` → `gongkao_enrich` → 内部表同步 →
+服务器刷新顺序应为：`collect_gongkao` → `export_qiuzhao` → `export_gongkao` → `gongkao_enrich` → 内部表同步 →
 公开表同步 → `notify_gongkao_digest`。秋招公开表字段保持不变，但会合并公考源中识别出的企业
 校园招聘；公考源记录保留原公告链接作为投递和公告入口。
 
@@ -441,8 +465,8 @@ powershell -ExecutionPolicy Bypass -File .\scripts\install_wanqing_task.ps1
 powershell -ExecutionPolicy Bypass -File .\scripts\run_wanqing_sync.ps1
 ```
 
-`/var/lib/hot-gap` 是持久真源，不受站点数据刷新影响；服务器每次 7/13/19 同步前都会从这里
-恢复工作副本。安全保护：抓取失败、登录过期、字段变化、秋招有效记录少于 450 条或公考有效公告
+`/var/lib/hot-gap` 是网页登录快照的持久真源，不受站点数据刷新影响；服务器每 3 小时同步前都会
+从这里恢复工作副本并刷新政府一手源。安全保护：抓取失败、登录过期、字段变化、秋招有效记录少于 450 条或公考有效公告
 少于 500 条时，脚本返回失败并保留上一次
 快照，不上传空文件，也不会导致飞书误删。连续失败且配置 `FEISHU_WEBHOOK` 或 `BARK_URL`
 时会告警。日志和截图位于 `%LOCALAPPDATA%\hot-gap-aggregator\wanqing`。
@@ -456,7 +480,9 @@ visudo -cf /etc/sudoers.d/hot-gap-feishu-refresh
 ```
 
 该辅助命令只进入 `/opt/hot-gap-aggregator` 执行两类导出与飞书同步，不访问
-`/opt/cuotiben`。服务器原有 `7,13,19` 同步任务可保留；文件锁会避免两个同步进程同时写表。
+`/opt/cuotiben`。服务器定时任务使用
+`0 */3 * * * /usr/local/sbin/hot-gap-feishu-refresh >> /var/log/hot-gap-feishu-sync.log 2>&1`；
+文件锁会避免两个同步进程同时写表。Windows 的 05:00 网页快照任务继续保留，两者职责不同。
 
 ## 更换 App Secret
 

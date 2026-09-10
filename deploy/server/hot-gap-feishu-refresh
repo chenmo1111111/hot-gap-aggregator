@@ -72,6 +72,7 @@ if [[ -f "$gongkao_persistent" ]]; then
 fi
 
 cd "$project"
+.venv/bin/python -m app.collect_gongkao
 .venv/bin/python -m app.export_qiuzhao
 .venv/bin/python -m app.export_gongkao
 .venv/bin/python -m app.pipeline.gongkao_enrich

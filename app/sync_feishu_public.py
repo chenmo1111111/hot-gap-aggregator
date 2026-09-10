@@ -8,8 +8,10 @@ company plus position for Qiuzhao. A hidden ``来源`` field protects rows marke
 from __future__ import annotations
 
 import argparse
+import hashlib
 import logging
 import os
+import re
 import time
 from datetime import datetime
 from collections.abc import Callable, Iterable, Mapping
@@ -54,6 +56,8 @@ CHECKBOX = 7
 URL = 15
 
 GONGKAO_SCHEMA: tuple[dict[str, Any], ...] = (
+    # Feishu requires the text primary field to stay first.  Public views can
+    # visually place 首次收录 before it; DEPLOY_FEISHU_SYNC.md documents that step.
     {"field_name": "公告标题", "type": TEXT},
     {"field_name": "首次收录", "type": DATE, "property": {"date_formatter": "yyyy-MM-dd"}},
     {
@@ -65,36 +69,36 @@ GONGKAO_SCHEMA: tuple[dict[str, Any], ...] = (
         )]},
     },
     {"field_name": "招聘人数", "type": TEXT},
-    {"field_name": "截止日期", "type": DATE, "property": {"date_formatter": "yyyy-MM-dd"}},
-    {"field_name": "省份", "type": TEXT},
-    {"field_name": "链接", "type": URL},
+    {"field_name": "最低学历", "type": TEXT},
+    {"field_name": "报名开始", "type": DATE, "property": {"date_formatter": "yyyy-MM-dd"}},
+    {"field_name": "报名截止", "type": DATE, "property": {"date_formatter": "yyyy-MM-dd"}},
     {
         "field_name": "报名状态", "type": SINGLE_SELECT,
         "property": {"options": [{"name": name} for name in (
             "未开始", "报名中", "剩1天", "剩2天", "剩3天", "剩4天", "剩5天", "已截止",
         )]},
     },
-    {"field_name": "距截止天数", "type": 2, "property": {"formatter": "0"}},
-    {
-        "field_name": "细分类别", "type": SINGLE_SELECT,
-        "property": {"options": [{"name": name} for name in (
-            "国企", "央企", "事业单位", "银行", "教师", "医疗", "公务员", "选调生",
-            "三支一扶", "公安警察", "军队文职", "其它",
-        )]},
-    },
+    {"field_name": "省份", "type": TEXT},
+    {"field_name": "城市", "type": TEXT},
+    {"field_name": "单位名称", "type": TEXT},
+    {"field_name": "岗位性质", "type": TEXT},
     {"field_name": "限户籍", "type": TEXT},
     {"field_name": "限专业", "type": TEXT},
-    {"field_name": "学历要求", "type": TEXT},
-    {"field_name": "限应届", "type": CHECKBOX},
+    {"field_name": "应届", "type": CHECKBOX},
     {"field_name": "服务期", "type": TEXT},
     {"field_name": "招录院校范围", "type": TEXT},
+    {"field_name": "备注", "type": TEXT},
+    {"field_name": "链接", "type": URL},
+    {"field_name": "同步ID", "type": TEXT},
     {
         "field_name": "来源", "type": SINGLE_SELECT,
         "property": {"options": [{"name": "自动"}, {"name": "手动"}]},
     },
-    {"field_name": "备注", "type": TEXT},
 )
-GONGKAO_DEPRECATED_FIELDS = ("笔试科目", "本校可报", "日期")
+GONGKAO_DEPRECATED_FIELDS = (
+    "笔试科目", "本校可报", "日期", "截止日期", "距截止天数", "细分类别",
+    "学历要求", "限应届",
+)
 
 QIUZHAO_SCHEMA: tuple[dict[str, Any], ...] = (
     {"field_name": "公司名称", "type": TEXT},
@@ -125,17 +129,17 @@ INSTRUCTIONS_SCHEMA: tuple[dict[str, Any], ...] = (
 INSTRUCTIONS_ROWS: tuple[dict[str, str], ...] = (
     {
         "视图": "总说明", "给谁看": "所有人",
-        "怎么用": "数据每天05:00代码自动同步粉笔全国全量+组织部选调，已滤掉企业校招、教师引进、博士后噪音。",
+        "怎么用": "政府一手源每3小时采集并同步，工作日重点更新；粉笔只作结构化补充。数据用于辅助报考，一切以公告原文为准。",
     },
-    {"视图": "全部信息", "给谁看": "所有人", "怎么用": "查看全部考公考编机会，按首次收录降序浏览最新公告。"},
-    {"视图": "今日必做", "给谁看": "所有人", "怎么用": "报名中且5天内截止的，每天先看这个。"},
-    {"视图": "进行中", "给谁看": "正在报名的人", "怎么用": "只看尚未截止的机会，再按地区和学历筛选。"},
-    {"视图": "本周截止", "给谁看": "容易错过截止时间的人", "怎么用": "集中处理未来7天内截止的报名。"},
-    {"视图": "选调·本校可报", "给谁看": "研究生", "怎么用": "看「招录院校范围」并对照自己的学校，最终以公告原文为准。"},
-    {"视图": "国企央企", "给谁看": "想进国企的人", "怎么用": "查看国企央企社会招聘；企业校园招聘已自动转入秋招表。"},
-    {"视图": "事业单位", "给谁看": "备考事业编的人", "怎么用": "集中查看事业单位公告，优先核对学历、户籍和截止日期。"},
-    {"视图": "银行", "给谁看": "想进银行的人", "怎么用": "查看银行社会招聘；银行校园招聘已自动转入秋招表。"},
-    {"视图": "已结束", "给谁看": "需要复盘的人", "怎么用": "查看截止后3天内的公告；更早的自动记录会清理。"},
+    {"视图": "更新频率", "给谁看": "所有人", "怎么用": "每3小时刷新一次；工作日晚间会再次同步当天新增公告。"},
+    {"视图": "筛选省份", "给谁看": "按地区报考的人", "怎么用": "先筛省份，再筛城市；部分省级或全国公告的城市可能为空。"},
+    {"视图": "专业与岗位表", "给谁看": "所有人", "怎么用": "限专业和最低学历是公告级摘要，最终资格必须以原文岗位表为准。"},
+    {"视图": "首次收录", "给谁看": "找最新公告的人", "怎么用": "等于政府页面真实发布日期，不是脚本运行日期。"},
+    {"视图": "报名状态", "给谁看": "所有人", "怎么用": "未开始=尚未开放；报名中=可报名；剩N天=1至5天截止；已截止=报名结束。"},
+    {"视图": "链接", "给谁看": "准备报名的人", "怎么用": "优先直达政府或招录单位原文；报名入口与资格条件以原文为准。"},
+    {"视图": "数据范围", "给谁看": "所有人", "怎么用": "覆盖公务员、事业单位、选调、三支一扶、公安和军队文职；企业校园招聘自动转入秋招表。"},
+    {"视图": "免责声明", "给谁看": "所有人", "怎么用": "本表只用于信息聚合和辅助投递，不构成报考资格判断或录用承诺。"},
+    {"视图": "空白字段", "给谁看": "所有人", "怎么用": "城市、人数或限制条件为空表示原文未明确或尚未完成提取，请直接查看公告及岗位表。"},
 )
 
 
@@ -226,9 +230,10 @@ def map_public_gongkao(row: Mapping[str, Any]) -> dict[str, Any]:
     link = _link(url, "查看公告")
     if not title or not link:
         raise ValueError("公考公开记录缺少公告标题或链接")
+    start = _coalesce(row, "extra.startSignUpTime|startSignUpTime|报名开始")
     end = _coalesce(row, "extra.endSignUpTime|endSignUpTime|报名截止|截止日期")
     status, days_left = calculate_signup_status(
-        _coalesce(row, "extra.startSignUpTime|startSignUpTime|报名开始"), end
+        start, end
     )
     status = str(extra.get("signup_status") or status or "").strip() or None
     days_left = extra.get("days_left") if extra.get("days_left") is not None else days_left
@@ -236,32 +241,42 @@ def map_public_gongkao(row: Mapping[str, Any]) -> dict[str, Any]:
     limited_huji = _bool_value(extra.get("xian_huji"))
     limited_major = _bool_value(extra.get("xian_zhuanye"))
     category = str(extra.get("detail_category") or detail_category(row))
+    raw_province = str(extra.get("province") or row.get("province") or "全国").strip()
+    province = re.sub(
+        r"(?:壮族|回族|维吾尔)?自治区$|特别行政区$|省$|市$", "", raw_province,
+    ) or "全国"
+    identifier = str(extra.get("id") or row.get("id") or "").strip()
+    if not identifier:
+        identifier = "url:" + hashlib.sha256(str(url).encode("utf-8")).hexdigest()[:24]
     fields = {
         "公告标题": str(title).strip(),
         "首次收录": date_to_millis(extra.get("first_seen")),
         "类别": normalize_exam_type(_coalesce(row, "extra.exam_type|exam_type|类别")),
         "招聘人数": _recruit_count(row) or "/",
-        "截止日期": date_to_millis(end),
-        "省份": str(extra.get("province") or row.get("province") or "全国").strip(),
-        "链接": link,
+        "最低学历": _coalesce(row, "extra.xueli|extra.education|education|学历要求") or "/",
+        "报名开始": date_to_millis(start),
+        "报名截止": date_to_millis(end),
         "报名状态": status,
-        "距截止天数": days_left,
-        "细分类别": category,
+        "省份": province,
+        "城市": _coalesce(row, "extra.city|city|城市") or "",
+        "单位名称": _coalesce(row, "extra.unit|unit|company|单位名称") or "/",
+        "岗位性质": _coalesce(row, "extra.position_nature|position_nature|岗位性质") or "/",
         "限户籍": (
             (extra.get("huji_shuoming") or "是") if limited_huji else ("不限" if extracted else "/")
         ),
         "限专业": (
             (extra.get("zhuanye_shuoming") or "是") if limited_major else ("不限" if extracted else "/")
         ),
-        "学历要求": extra.get("xueli") or "/",
-        "限应届": _bool_value(extra.get("xian_yingjie")),
+        "应届": _bool_value(extra.get("xian_yingjie")),
         "服务期": extra.get("fuwu_qi") or "/",
         "招录院校范围": (
             str(extra.get("xuandiao_school_scope") or "名单见公告")
             if category == "选调生" and extracted else "/"
         ),
+        "备注": _coalesce(row, "extra.bei_zhu|extra.notes|notes|备注") or "/",
+        "链接": link,
+        "同步ID": identifier,
         "来源": "自动",
-        "备注": _coalesce(row, "extra.notes|notes|备注") or "/",
     }
     return fields
 

@@ -48,6 +48,10 @@ baoming_kaishi(报名开始日期，格式YYYY-MM-DD，没写填'')，
 baoming_jiezhi(报名截止日期，格式YYYY-MM-DD，没写填'')，
 bishi_shijian(笔试日期，格式YYYY-MM-DD，没写填'')，
 gongzuo_didian(工作地点，精确到公告明确写出的省/市，没写填'')，
+province(省份，不带“省/市/自治区”后缀，没写填'')，
+city(城市，不带“市”后缀，没写填'')，
+unit_name(招录单位全称，没写填'')，
+position_nature(岗位性质，如'管理岗'/'专业技术岗'/'行政执法'，没写填'')，
 record_kind(只能填'公考'或'秋招'：企业校园招聘填'秋招'，公务员/事业单位/选调/教师/医疗/军队文职及企业社会招聘填'公考')，
 bei_zhu(其它关键限制一句话)"""
 XUANDIAO_SCOPE_PROMPT = """
@@ -56,10 +60,13 @@ EXTRACTION_KEYS = (
     "xian_huji", "huji_shuoming", "xian_zhuanye", "zhuanye_shuoming",
     "xueli", "xian_yingjie", "fuwu_qi", "zhaopin_renshu", "record_kind",
     "bei_zhu", "xuandiao_school_scope", "baoming_kaishi", "baoming_jiezhi",
-    "bishi_shijian", "gongzuo_didian",
+    "bishi_shijian", "gongzuo_didian", "province", "city", "unit_name",
+    "position_nature",
 )
 ENRICHMENT_SCHEMA_VERSION = 3
-WATCHER_SUBSOURCES = {"xuandiao", "scs", "campus", "huatu", "offcn", "81rc", "fallback"}
+WATCHER_SUBSOURCES = {
+    "xuandiao", "scs", "campus", "huatu", "offcn", "81rc", "fallback", "government",
+}
 WEBPAGE_CONTENT_SELECTORS = (
     "article", "main", "#content", "#zoom", ".article-content", ".detail-content",
     ".pages_content", ".TRS_Editor", ".zwxl-article", ".article", ".content",
@@ -832,10 +839,18 @@ def _merge_extracted(extra: dict[str, Any], extracted: Mapping[str, Any], status
         "bishi_shijian": "startWriteTime",
         "gongzuo_didian": "location",
         "zhaopin_renshu": "recruit_count",
+        "province": "province",
+        "city": "city",
+        "unit_name": "unit",
+        "position_nature": "position_nature",
     }
     for extracted_name, extra_name in canonical.items():
         value = str(extracted.get(extracted_name) or "").strip()
         if value and value != "/":
+            if extracted_name == "province":
+                value = re.sub(r"(?:壮族|回族|维吾尔)?自治区$|特别行政区$|省$|市$", "", value)
+            elif extracted_name == "city":
+                value = value.removesuffix("市")
             extra[extra_name] = value
     if apply_url := actionable_apply_url(extracted.get("_apply_url")):
         extra["apply_url"] = apply_url

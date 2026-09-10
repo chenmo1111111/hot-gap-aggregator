@@ -36,10 +36,10 @@ def test_map_public_gongkao_uses_only_display_fields() -> None:
     })
 
     assert set(fields) == {
-        "公告标题", "首次收录", "类别", "招聘人数", "截止日期", "省份", "链接",
-        "报名状态", "距截止天数", "细分类别", "限户籍", "限专业", "学历要求",
-        "限应届", "服务期", "招录院校范围", "备注",
-        "来源",
+        "公告标题", "首次收录", "类别", "招聘人数", "最低学历",
+        "报名开始", "报名截止", "报名状态", "省份", "城市", "单位名称",
+        "岗位性质", "限户籍", "限专业", "应届", "服务期",
+        "招录院校范围", "备注", "链接", "同步ID", "来源",
     }
     assert fields["类别"] == "事业单位"
     assert fields["招聘人数"] == "12"
@@ -47,7 +47,8 @@ def test_map_public_gongkao_uses_only_display_fields() -> None:
     assert fields["首次收录"] == int(datetime(2026, 9, 8, tzinfo=CHINA_TZ).timestamp() * 1000)
     assert "日期" not in fields
     assert fields["来源"] == "自动"
-    assert list(fields)[-1] == "备注"
+    assert fields["省份"] == "山东"
+    assert fields["同步ID"] == "url:2888a51e1ec64bad2cafe9ce"
 
 
 def test_public_text_fields_use_slash_without_touching_typed_empty_fields() -> None:
@@ -55,11 +56,11 @@ def test_public_text_fields_use_slash_without_touching_typed_empty_fields() -> N
         "title": "无人数公告", "url": "https://example.com/blank", "extra": {},
     })
     assert gongkao["招聘人数"] == "/"
-    assert gongkao["学历要求"] == "/"
+    assert gongkao["最低学历"] == "/"
     assert gongkao["招录院校范围"] == "/"
     assert gongkao["备注"] == "/"
-    assert gongkao["截止日期"] is None
-    assert gongkao["距截止天数"] is None
+    assert gongkao["报名开始"] is None
+    assert gongkao["报名截止"] is None
     assert gongkao["报名状态"] is None
 
     qiuzhao = map_public_qiuzhao({

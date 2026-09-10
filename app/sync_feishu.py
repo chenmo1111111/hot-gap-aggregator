@@ -659,6 +659,7 @@ def partition_gongkao_rows(
     rows: Iterable[Mapping[str, Any]], *, exclude_public_noise: bool = True
 ) -> tuple[list[Mapping[str, Any]], list[dict[str, Any]], list[Mapping[str, Any]]]:
     from app.pipeline.gongkao_classify import is_public_gongkao_noise, record_kind
+    from app.pipeline.gongkao_filter import assess_gongkao
 
     gongkao: list[Mapping[str, Any]] = []
     qiuzhao: list[dict[str, Any]] = []
@@ -668,8 +669,12 @@ def partition_gongkao_rows(
             excluded.append(row)
             continue
         extra = row.get("extra") if isinstance(row.get("extra"), Mapping) else {}
+        decision = assess_gongkao(row)
+        if decision.action in {"drop", "review"} or extra.get("needs_review") is True:
+            excluded.append(row)
+            continue
         kind = record_kind(row, llm_choice=extra.get("record_kind"))
-        if kind == "秋招":
+        if kind == "秋招" or decision.action == "route_qiuzhao":
             qiuzhao.append(routed_qiuzhao_row(row))
         elif exclude_public_noise and is_public_gongkao_noise(row):
             excluded.append(row)

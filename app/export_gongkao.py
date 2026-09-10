@@ -15,6 +15,8 @@ from urllib.parse import urlsplit, urlunsplit
 
 from dotenv import load_dotenv
 
+from app.pipeline.gongkao_filter import filter_gongkao_items
+
 
 def _text(value: object) -> str:
     return str(value or "").strip()
@@ -225,6 +227,11 @@ def merge_gongkao_payloads(
         link_priorities.append(1)
         remember(len(merged) - 1, item)
 
+    filter_input_count = len(merged)
+    merged, filter_stats, filtered_samples = filter_gongkao_items(merged, keep_review=True)
+    for index, item in enumerate(merged, 1):
+        item["rank"] = index
+
     base_status = base_payload.get("status")
     status = dict(base_status) if isinstance(base_status, Mapping) else {}
     status.update(
@@ -245,6 +252,9 @@ def merge_gongkao_payloads(
                 *(["gongkao_official"] if server_items else []),
                 *(["feishu_sheet"] if sheet_items else []),
             ],
+            "filter_input_count": filter_input_count,
+            "filter_stats": filter_stats,
+            "filtered_samples": filtered_samples,
         }
     )
     return {

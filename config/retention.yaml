@@ -6,6 +6,7 @@ gongkao:
   no_write_date_signup_plus_days: 21
   public_signup_grace_days: 3
   public_written_grace_days: 7
+  public_no_date_max_age_days: 45
 hot_sources: [weibo, bilibili, douyin, github, telegram, zhihu, youtube, ai, tools]
 hot_max_age_days: 4
 snapshots_max_age_days: 45

@@ -259,8 +259,11 @@ def test_fenbi_timeline_rows_are_excluded_but_official_overrides_survive() -> No
     ]
     official_override = {
         "title": "已补到官网的公告",
-        "url": "https://gov.example/notice/1",
-        "extra": {"id": 123, "sub": "timeline", "preferred_link_source": "feishu_sheet"},
+        "url": "https://rsj.beijing.gov.cn/notice/1",
+        "extra": {
+            "id": 123, "sub": "timeline", "preferred_link_source": "feishu_sheet",
+            "government_source": True, "exam_type": "事业单位",
+        },
     }
 
     kept, routed, excluded = partition_gongkao_rows([*timeline_rows, official_override])

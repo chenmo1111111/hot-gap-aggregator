@@ -9,7 +9,10 @@ def _item(identifier: str, title: str, url: str, province: str = "山东") -> di
     return {
         "title": title,
         "url": url,
-        "extra": {"id": identifier, "province": province},
+        "extra": {
+            "id": identifier, "province": province,
+            "exam_type": "事业单位", "has_announcement_structure": True,
+        },
     }
 
 
@@ -57,11 +60,14 @@ def test_merge_adds_server_watchers_before_sheet_and_assigns_stable_id() -> None
     server = {
         "items": [{
             "title": "辽宁定向选调公告",
-            "url": "https://gov.test/xuandiao/1",
-            "extra": {"subsource": "xuandiao", "province": "辽宁"},
+            "url": "https://rst.ln.gov.cn/xuandiao/1",
+            "extra": {
+                "subsource": "xuandiao", "province": "辽宁",
+                "exam_type": "选调生", "government_source": True,
+            },
         }]
     }
-    sheet = {"items": [_item("sheet", "重复的表格公告", "https://gov.test/xuandiao/1")]}
+    sheet = {"items": [_item("sheet", "重复的表格公告", "https://rst.ln.gov.cn/xuandiao/1")]}
 
     output = merge_gongkao_payloads(base, sheet, server)
 

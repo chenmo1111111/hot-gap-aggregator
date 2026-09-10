@@ -14,8 +14,10 @@ import yaml
 from selectolax.parser import HTMLParser
 
 from app.collectors.base import BaseCollector, SourceUnavailable
+from app.collectors.gov_list import GovListCollector
 from app.collectors.gongkao_types import article_province, article_type, timeline_type
 from app.models import Item
+from app.pipeline.gongkao_filter import filter_gongkao_items
 
 UTC = timezone.utc
 CHINA_TZ = timezone(timedelta(hours=8))
@@ -51,13 +53,23 @@ class GongkaoCollector(BaseCollector):
     def __init__(
         self, watch_config: str | Path | None = None,
         fallback_config: str | Path | None = None,
+        gov_config: str | Path | None = None,
     ) -> None:
         self.watch_config = Path(watch_config or os.getenv("GONGKAO_WATCH_CONFIG", "config/gongkao_watch.yaml"))
         self.fallback_config = Path(
             fallback_config
             or os.getenv("GONGKAO_FALLBACK_CONFIG", "config/gongkao_fallback_sources.yaml")
         )
+        effective_gov_config = (
+            gov_config if gov_config is not None
+            else fallback_config if fallback_config is not None
+            else None
+        )
+        self.gov_collector = GovListCollector(effective_gov_config)
         self._semaphore = asyncio.Semaphore(self.concurrency)
+        self.filter_stats: dict[str, int] = {}
+        self.filtered_samples: list[dict[str, str]] = []
+        self.source_counts: dict[str, int] = {}
 
     @staticmethod
     def parse_articles(payload: dict) -> list[Item]:
@@ -92,6 +104,7 @@ class GongkaoCollector(BaseCollector):
                     "issueTime": row.get("issueTime"), "updateTime": row.get("updateTime"),
                     "recruit_count": info.get("recruitNumRet") or info.get("recruitNum"),
                     "position_count": info.get("positionNum"), "source_site": "fenbi",
+                    "has_announcement_structure": bool(info),
                     "location": "·".join(dict.fromkeys(location_tags)) or None,
                     "education": education,
                 },
@@ -121,6 +134,11 @@ class GongkaoCollector(BaseCollector):
                     "endSignUpTime": row.get("endSignUpTime"), "startWriteTime": row.get("startWriteTime"),
                     "province": row.get("province") or "全国", "type": row.get("type"),
                     "examType": row.get("examType"), "exam_type": timeline_type(type_code, title),
+                    "source_site": "fenbi",
+                    "has_announcement_structure": bool(
+                        row.get("startSignUpTime") or row.get("endSignUpTime")
+                        or row.get("startWriteTime")
+                    ),
                 },
             ))
         _annotate_record_kinds(items)
@@ -234,6 +252,14 @@ class GongkaoCollector(BaseCollector):
         )
 
     async def fetch(self) -> list[Item]:
+        # Authoritative portals are fetched first.  Fenbi and the legacy
+        # fallback pages run afterwards so total request concurrency never
+        # exceeds five.
+        try:
+            gov_items = await self.gov_collector.fetch()
+        except SourceUnavailable as exc:
+            gov_items = []
+            LOGGER.warning("Government Gongkao collector degraded: %s", exc)
         article_requests = [
             self._limited_get(
                 self.article_endpoint,
@@ -257,7 +283,7 @@ class GongkaoCollector(BaseCollector):
             *article_requests, *recent_requests, *condition_requests, *fallback_requests,
             return_exceptions=True,
         )
-        items: list[Item] = []
+        items: list[Item] = list(gov_items)
         errors: list[str] = []
         hot_results = results[:len(article_requests)]
         for offset, result in zip(self.article_offsets, hot_results, strict=True):
@@ -274,10 +300,17 @@ class GongkaoCollector(BaseCollector):
         if not items:
             raise SourceUnavailable("; ".join(errors) or "Fenbi returned no items", status="degraded")
         items = _deduplicate_items(items)
+        items, filter_stats, filtered_samples = filter_gongkao_items(items, keep_review=True)
+        self.filter_stats = filter_stats
+        self.filtered_samples = filtered_samples
+        LOGGER.info("Gongkao trust filter: %s", filter_stats)
+        for sample in filtered_samples:
+            LOGGER.info("Gongkao filtered sample: %s", sample)
         source_counts: dict[str, int] = {}
         for item in items:
             site = str(item.extra.get("source_site") or "unknown")
             source_counts[site] = source_counts.get(site, 0) + 1
+        self.source_counts = source_counts
         LOGGER.info("Gongkao collector complete: total=%d sources=%s", len(items), source_counts)
         self._annotate_watch_targets(items)
         for index, item in enumerate(items, 1):
