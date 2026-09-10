@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-09-10T13:44:10.927826+00:00",
+  "generated_at": "2026-09-10T16:44:04.686393+00:00",
   "source": "jobs",
   "status": {
     "source": "jobs",
     "status": "ok",
-    "item_count": 162,
-    "duration_ms": 52403,
+    "item_count": 160,
+    "duration_ms": 56077,
     "error": null,
-    "run_at": "2026-09-10T13:44:10.927826+00:00"
+    "run_at": "2026-09-10T16:44:04.686393+00:00"
   },
   "items": [
     {
@@ -40,10 +40,6 @@
       "cluster_id": "26b315253e0f",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-07T16:44:18.106099+00:00",
-          "rank": 1
-        },
         {
           "run_at": "2026-09-07T19:44:02.804268+00:00",
           "rank": 1
@@ -159,6 +155,10 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 1
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 1
         }
       ]
     },
@@ -192,10 +192,6 @@
       "cluster_id": "a1d7411afe51",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-07T16:44:18.106099+00:00",
-          "rank": 15
-        },
         {
           "run_at": "2026-09-07T19:44:02.804268+00:00",
           "rank": 15
@@ -311,6 +307,10 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 2
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 2
         }
       ]
     },
@@ -344,10 +344,6 @@
       "cluster_id": "c9485f8259e4",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-07T16:44:18.106099+00:00",
-          "rank": 17
-        },
         {
           "run_at": "2026-09-07T19:44:02.804268+00:00",
           "rank": 17
@@ -463,6 +459,10 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 3
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 3
         }
       ]
     },
@@ -490,13 +490,17 @@
         "is_state_owned": true
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "7ce78f84ddfa",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
+          "rank": 4
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
           "rank": 4
         }
       ]
@@ -526,7 +530,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": 0,
       "cluster_id": "0c8819b33499",
       "cluster_size": 1,
       "rank_history": [
@@ -536,6 +540,10 @@
         },
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
+          "rank": 5
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
           "rank": 5
         }
       ]
@@ -564,13 +572,17 @@
         "is_state_owned": true
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "7ce78f84ddfa",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
+          "rank": 6
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
           "rank": 6
         }
       ]
@@ -600,7 +612,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": -2,
+      "rank_delta": 0,
       "cluster_id": "3cc03ac9854f",
       "cluster_size": 1,
       "rank_history": [
@@ -610,6 +622,10 @@
         },
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
+          "rank": 7
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
           "rank": 7
         }
       ]
@@ -639,7 +655,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": -2,
+      "rank_delta": 0,
       "cluster_id": "581a55b3d987",
       "cluster_size": 1,
       "rank_history": [
@@ -657,6 +673,10 @@
         },
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
+          "rank": 8
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
           "rank": 8
         }
       ]
@@ -686,7 +706,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": -2,
+      "rank_delta": 0,
       "cluster_id": "d095a16b6645",
       "cluster_size": 1,
       "rank_history": [
@@ -712,6 +732,10 @@
         },
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
+          "rank": 9
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
           "rank": 9
         }
       ]
@@ -741,7 +765,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": -2,
+      "rank_delta": 0,
       "cluster_id": "45c3bfc611fa",
       "cluster_size": 1,
       "rank_history": [
@@ -767,6 +791,10 @@
         },
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
+          "rank": 10
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
           "rank": 10
         }
       ]
@@ -796,7 +824,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": -2,
+      "rank_delta": 0,
       "cluster_id": "a1973c6ff845",
       "cluster_size": 1,
       "rank_history": [
@@ -822,6 +850,10 @@
         },
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
+          "rank": 11
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
           "rank": 11
         }
       ]
@@ -851,7 +883,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": -2,
+      "rank_delta": 0,
       "cluster_id": "c20ac6962b3b",
       "cluster_size": 1,
       "rank_history": [
@@ -877,6 +909,10 @@
         },
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
+          "rank": 12
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
           "rank": 12
         }
       ]
@@ -906,7 +942,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -2,
+      "rank_delta": 0,
       "cluster_id": "178c6996b17f",
       "cluster_size": 1,
       "rank_history": [
@@ -953,6 +989,10 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 13
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 13
         }
       ]
     },
@@ -981,7 +1021,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -2,
+      "rank_delta": 0,
       "cluster_id": "7e9f0d07e1ea",
       "cluster_size": 1,
       "rank_history": [
@@ -1028,6 +1068,10 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 14
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 14
         }
       ]
     },
@@ -1056,7 +1100,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -2,
+      "rank_delta": 0,
       "cluster_id": "1215d63bed89",
       "cluster_size": 1,
       "rank_history": [
@@ -1107,6 +1151,10 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 15
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 15
         }
       ]
     },
@@ -1135,7 +1183,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -2,
+      "rank_delta": 0,
       "cluster_id": "23c764e184f2",
       "cluster_size": 1,
       "rank_history": [
@@ -1182,6 +1230,10 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 16
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 16
         }
       ]
     },
@@ -1210,7 +1262,7 @@
       },
       "days_on_board": 3,
       "is_new": false,
-      "rank_delta": -2,
+      "rank_delta": 0,
       "cluster_id": "0e907fe34ad7",
       "cluster_size": 1,
       "rank_history": [
@@ -1301,6 +1353,10 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 17
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 17
         }
       ]
     },
@@ -1329,7 +1385,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -2,
+      "rank_delta": 0,
       "cluster_id": "818102511e85",
       "cluster_size": 1,
       "rank_history": [
@@ -1372,6 +1428,10 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 18
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 18
         }
       ]
     },
@@ -1380,9 +1440,9 @@
       "rank": 19,
       "title": "研究实习员",
       "title_zh": "研究实习员",
-      "url": "https://www.iguopin.com/job/detail?id=217196811402609730&source=campus",
+      "url": "https://www.iguopin.com/job/detail?id=217196810647635010&source=campus",
       "hot_value": null,
-      "summary_zh": "军事航天部队2026-2027年度直接选拔招录军官 岗位代码：QDE20260084 从事工作：电子数据处理与应用 招录学科专业：计算机科学与技术、数学、信息与通信工程、电子科学与技术 因军队招聘工作性质较为特殊，此岗位限男性报名 院校及学科层次要求：“双一流”建设高校及建设学科 咨询电话：400-8158181",
+      "summary_zh": "军事航天部队2026-2027年度直接选拔招录军官 岗位代码：QDE20260082 从事工作：图像数据处理与应用 招录学科专业：地图学与地理信息系统、摄影测量与遥感、计算机科学与技术 因军队招聘工作性质较为特殊，此岗位限男性报名 院校及学科层次要求：“双一流”建设高校及建设学科 咨询电话：400-8158181",
       "thumbnail": null,
       "published_at": "2026-09-07 17:45:26",
       "extra": {
@@ -1398,14 +1458,66 @@
         "is_central_soe": false,
         "is_state_owned": false
       },
-      "days_on_board": 1,
+      "days_on_board": 3,
       "is_new": true,
       "rank_delta": "new",
       "cluster_id": "8c9eb4b21b02",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-10T13:44:10.927826+00:00",
+          "run_at": "2026-09-08T13:43:58.036972+00:00",
+          "rank": 5
+        },
+        {
+          "run_at": "2026-09-08T16:44:19.685936+00:00",
+          "rank": 5
+        },
+        {
+          "run_at": "2026-09-08T19:44:25.068024+00:00",
+          "rank": 5
+        },
+        {
+          "run_at": "2026-09-08T22:44:03.549226+00:00",
+          "rank": 5
+        },
+        {
+          "run_at": "2026-09-09T01:43:55.197887+00:00",
+          "rank": 5
+        },
+        {
+          "run_at": "2026-09-09T04:44:17.590483+00:00",
+          "rank": 5
+        },
+        {
+          "run_at": "2026-09-09T05:34:28.698551+00:00",
+          "rank": 5
+        },
+        {
+          "run_at": "2026-09-09T07:27:19.952443+00:00",
+          "rank": 5
+        },
+        {
+          "run_at": "2026-09-09T07:44:12.888077+00:00",
+          "rank": 5
+        },
+        {
+          "run_at": "2026-09-09T10:43:59.360250+00:00",
+          "rank": 6
+        },
+        {
+          "run_at": "2026-09-09T13:44:08.778823+00:00",
+          "rank": 11
+        },
+        {
+          "run_at": "2026-09-10T07:44:17.977345+00:00",
+          "rank": 14
+        },
+        {
+          "run_at": "2026-09-10T10:44:16.536751+00:00",
+          "rank": 17
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
           "rank": 19
         }
       ]
@@ -1435,7 +1547,7 @@
       },
       "days_on_board": 3,
       "is_new": false,
-      "rank_delta": -2,
+      "rank_delta": 0,
       "cluster_id": "f4fec31d3f53",
       "cluster_size": 1,
       "rank_history": [
@@ -1522,6 +1634,10 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 20
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 20
         }
       ]
     },
@@ -1550,14 +1666,10 @@
       },
       "days_on_board": 4,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": 0,
       "cluster_id": "7d08fb32d5a9",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-07T16:44:18.106099+00:00",
-          "rank": 2
-        },
         {
           "run_at": "2026-09-07T19:44:02.804268+00:00",
           "rank": 2
@@ -1673,6 +1785,10 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 21
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 21
         }
       ]
     },
@@ -1701,7 +1817,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": 0,
       "cluster_id": "5d7a73ba52ec",
       "cluster_size": 1,
       "rank_history": [
@@ -1748,6 +1864,10 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 22
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 22
         }
       ]
     },
@@ -1776,7 +1896,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": 0,
       "cluster_id": "bf8208fadecd",
       "cluster_size": 1,
       "rank_history": [
@@ -1823,6 +1943,10 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 23
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 23
         }
       ]
     },
@@ -1851,14 +1975,10 @@
       },
       "days_on_board": 4,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": 0,
       "cluster_id": "f9a04c0d038b",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-07T16:44:18.106099+00:00",
-          "rank": 3
-        },
         {
           "run_at": "2026-09-07T19:44:02.804268+00:00",
           "rank": 3
@@ -1974,6 +2094,10 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 24
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 24
         }
       ]
     },
@@ -2002,7 +2126,7 @@
       },
       "days_on_board": 3,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": 0,
       "cluster_id": "82f94b9fac6f",
       "cluster_size": 1,
       "rank_history": [
@@ -2089,6 +2213,10 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 25
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 25
         }
       ]
     },
@@ -2117,7 +2245,7 @@
       },
       "days_on_board": 3,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": 0,
       "cluster_id": "a02fc3b9cec2",
       "cluster_size": 1,
       "rank_history": [
@@ -2204,6 +2332,10 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 26
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 26
         }
       ]
     },
@@ -2232,7 +2364,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": 0,
       "cluster_id": "5867ecd1a1d4",
       "cluster_size": 1,
       "rank_history": [
@@ -2275,6 +2407,10 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 27
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 27
         }
       ]
     },
@@ -2303,7 +2439,7 @@
       },
       "days_on_board": 3,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": 0,
       "cluster_id": "0ce9c28542d6",
       "cluster_size": 1,
       "rank_history": [
@@ -2390,6 +2526,10 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 28
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 28
         }
       ]
     },
@@ -2418,14 +2558,10 @@
       },
       "days_on_board": 4,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": 0,
       "cluster_id": "ac3f77c188b2",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-07T16:44:18.106099+00:00",
-          "rank": 4
-        },
         {
           "run_at": "2026-09-07T19:44:02.804268+00:00",
           "rank": 4
@@ -2541,6 +2677,10 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 29
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 29
         }
       ]
     },
@@ -2569,7 +2709,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": 0,
       "cluster_id": "430a4c00e823",
       "cluster_size": 1,
       "rank_history": [
@@ -2616,6 +2756,10 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 30
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 30
         }
       ]
     },
@@ -2644,7 +2788,7 @@
       },
       "days_on_board": 3,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": 0,
       "cluster_id": "11bbb5486d1d",
       "cluster_size": 1,
       "rank_history": [
@@ -2695,6 +2839,10 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 31
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 31
         }
       ]
     },
@@ -2723,7 +2871,7 @@
       },
       "days_on_board": 3,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": 0,
       "cluster_id": "4c4ab1e8d14b",
       "cluster_size": 1,
       "rank_history": [
@@ -2810,6 +2958,10 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 32
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 32
         }
       ]
     },
@@ -2838,7 +2990,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": 0,
       "cluster_id": "7da12047c90a",
       "cluster_size": 1,
       "rank_history": [
@@ -2885,6 +3037,10 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 33
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 33
         }
       ]
     },
@@ -2913,7 +3069,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": 0,
       "cluster_id": "95fa41717f85",
       "cluster_size": 1,
       "rank_history": [
@@ -2956,6 +3112,10 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 34
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 34
         }
       ]
     },
@@ -2984,7 +3144,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": 0,
       "cluster_id": "68231303c833",
       "cluster_size": 1,
       "rank_history": [
@@ -3027,6 +3187,10 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 35
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 35
         }
       ]
     },
@@ -3055,7 +3219,7 @@
       },
       "days_on_board": 3,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": 0,
       "cluster_id": "66acd32f13c3",
       "cluster_size": 1,
       "rank_history": [
@@ -3142,6 +3306,10 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 36
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 36
         }
       ]
     },
@@ -3170,7 +3338,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": 0,
       "cluster_id": "1489ec785ad1",
       "cluster_size": 1,
       "rank_history": [
@@ -3217,6 +3385,10 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 37
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 37
         }
       ]
     },
@@ -3245,7 +3417,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": 0,
       "cluster_id": "ca7504fe5dfd",
       "cluster_size": 1,
       "rank_history": [
@@ -3292,6 +3464,10 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 38
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 38
         }
       ]
     },
@@ -3320,7 +3496,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": 0,
       "cluster_id": "0b1877e9946f",
       "cluster_size": 1,
       "rank_history": [
@@ -3367,6 +3543,10 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 39
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 39
         }
       ]
     },
@@ -3395,7 +3575,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": 0,
       "cluster_id": "8bc40f5d6bdc",
       "cluster_size": 1,
       "rank_history": [
@@ -3442,6 +3622,10 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 40
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 40
         }
       ]
     },
@@ -3484,6 +3668,10 @@
         },
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
+          "rank": 41
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
           "rank": 41
         }
       ]
@@ -3528,71 +3716,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 42
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 42
         }
       ]
     },
     {
       "source": "jobs",
       "rank": 43,
-      "title": "综合管理岗",
-      "title_zh": "综合管理岗",
-      "url": "https://www.iguopin.com/job/detail?id=216436761289556424&source=social",
-      "hot_value": null,
-      "summary_zh": "岗位职责: 1.负责党建、纪检、财务、人事、行政等日常工作； 2.撰写公文材料，建立健全管理制度，负责重大活动和重大事项的协调督办； 3.负责会议、宣传、法务、合作交流、办公保障等工作； 4.完成领导交办的其他事项。 任职要求: 1.具有中华人民共和国国籍,中共党员； 2.具有三年以上相关工作经历，具备扎实的文字写作能力，能够熟练使用Word、Excel、PPT等办公软件； 3.具备高度责任感，认",
-      "thumbnail": null,
-      "published_at": "2026-09-02 11:08:08",
-      "extra": {
-        "subsource": "guopin",
-        "company": "中国工业互联网研究院",
-        "city": "北京",
-        "education": "硕士",
-        "company_type": "其他",
-        "recruitment_type": "社会招聘",
-        "keywords_hit": [
-          "综合"
-        ],
-        "is_central_soe": false,
-        "is_state_owned": false
-      },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 1,
-      "cluster_id": "6214812fba55",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-09T04:44:17.590483+00:00",
-          "rank": 20
-        },
-        {
-          "run_at": "2026-09-09T05:34:28.698551+00:00",
-          "rank": 19
-        },
-        {
-          "run_at": "2026-09-09T07:27:19.952443+00:00",
-          "rank": 19
-        },
-        {
-          "run_at": "2026-09-09T07:44:12.888077+00:00",
-          "rank": 19
-        },
-        {
-          "run_at": "2026-09-09T10:43:59.360250+00:00",
-          "rank": 21
-        },
-        {
-          "run_at": "2026-09-10T10:44:16.536751+00:00",
-          "rank": 44
-        },
-        {
-          "run_at": "2026-09-10T13:44:10.927826+00:00",
-          "rank": 43
-        }
-      ]
-    },
-    {
-      "source": "jobs",
-      "rank": 44,
       "title": "技术总监（基础技术研发方向）",
       "title_zh": "技术总监（基础技术研发方向）",
       "url": "https://www.iguopin.com/job/detail?id=216312856751112592&source=social",
@@ -3702,12 +3835,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 44
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 43
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 45,
+      "rank": 44,
       "title": "司库管理岗",
       "title_zh": "司库管理岗",
       "url": "https://www.iguopin.com/job/detail?id=216330217948447079&source=campus",
@@ -3777,12 +3914,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 45
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 44
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 46,
+      "rank": 45,
       "title": "信息安全专员",
       "title_zh": "信息安全专员",
       "url": "https://www.iguopin.com/job/detail?id=216299452627943786&source=social",
@@ -3809,10 +3950,6 @@
       "cluster_id": "d7efb68b8466",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-07T16:44:18.106099+00:00",
-          "rank": 5
-        },
         {
           "run_at": "2026-09-07T19:44:02.804268+00:00",
           "rank": 5
@@ -3928,12 +4065,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 46
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 45
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 47,
+      "rank": 46,
       "title": "技术主管",
       "title_zh": "技术主管",
       "url": "https://www.iguopin.com/job/detail?id=216292654114144556&source=campus",
@@ -3967,12 +4108,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 47
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 46
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 48,
+      "rank": 47,
       "title": "金融业务岗",
       "title_zh": "金融业务岗",
       "url": "https://www.iguopin.com/job/detail?id=216196320849821940&source=campus",
@@ -4042,6 +4187,49 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 48
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 47
+        }
+      ]
+    },
+    {
+      "source": "jobs",
+      "rank": 48,
+      "title": "代码安全审计",
+      "title_zh": "代码安全审计",
+      "url": "https://www.iguopin.com/job/detail?id=216168464614686948&source=social",
+      "hot_value": null,
+      "summary_zh": "岗位职责： 1、进行源代码安全方面的审计，包括智能合约等。 2、WEB系统的白盒/黑盒安全测试。 3、挖掘C++/JAVA/Go/Solidity程序中未知的安全漏洞和代码缺陷，并对漏洞进行验证，编制安全加固报告。 4、能对常见的漏洞原因、原理、可利用性、风险程度等相关分析报告，如sql注入，xss，csrf，命令执行，文件包含，任意文件下载/读取。文件上传，越权/未授权操作等漏洞。 5、跟踪和分",
+      "thumbnail": null,
+      "published_at": "2026-08-31 15:13:36",
+      "extra": {
+        "subsource": "guopin",
+        "company": "北京计算机技术及应用研究所",
+        "city": "北京",
+        "education": "硕士",
+        "company_type": "事业单位",
+        "recruitment_type": "社会招聘",
+        "keywords_hit": [
+          "计算机"
+        ],
+        "is_central_soe": false,
+        "is_state_owned": false
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "b3e5909e3142",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-10T10:44:16.536751+00:00",
+          "rank": 50
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 48
         }
       ]
     },
@@ -4070,7 +4258,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 2,
+      "rank_delta": 0,
       "cluster_id": "30669c4608af",
       "cluster_size": 1,
       "rank_history": [
@@ -4080,6 +4268,10 @@
         },
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
+          "rank": 49
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
           "rank": 49
         }
       ]
@@ -4109,7 +4301,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 2,
+      "rank_delta": 0,
       "cluster_id": "fa3abdbec6a9",
       "cluster_size": 1,
       "rank_history": [
@@ -4156,6 +4348,10 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 50
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 50
         }
       ]
     },
@@ -4184,7 +4380,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 2,
+      "rank_delta": 0,
       "cluster_id": "185d91372ecf",
       "cluster_size": 1,
       "rank_history": [
@@ -4231,6 +4427,10 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 51
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 51
         }
       ]
     },
@@ -4259,7 +4459,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 2,
+      "rank_delta": 0,
       "cluster_id": "cc773bcbf692",
       "cluster_size": 1,
       "rank_history": [
@@ -4306,6 +4506,10 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 52
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 52
         }
       ]
     },
@@ -4334,7 +4538,7 @@
       },
       "days_on_board": 3,
       "is_new": false,
-      "rank_delta": 2,
+      "rank_delta": 0,
       "cluster_id": "22264f24c91d",
       "cluster_size": 1,
       "rank_history": [
@@ -4417,6 +4621,10 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 53
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 53
         }
       ]
     },
@@ -4444,8 +4652,8 @@
         "is_state_owned": true
       },
       "days_on_board": 3,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "19e6d40d1dbd",
       "cluster_size": 1,
       "rank_history": [
@@ -4500,6 +4708,10 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 54
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 54
         }
       ]
     },
@@ -4528,7 +4740,7 @@
       },
       "days_on_board": 3,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": 0,
       "cluster_id": "6e2c384bbcbe",
       "cluster_size": 1,
       "rank_history": [
@@ -4615,6 +4827,10 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 55
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 55
         }
       ]
     },
@@ -4643,7 +4859,7 @@
       },
       "days_on_board": 3,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": 0,
       "cluster_id": "7d08fb32d5a9",
       "cluster_size": 1,
       "rank_history": [
@@ -4730,6 +4946,10 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 56
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 56
         }
       ]
     },
@@ -4758,7 +4978,7 @@
       },
       "days_on_board": 3,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": 0,
       "cluster_id": "639aa9fa45da",
       "cluster_size": 1,
       "rank_history": [
@@ -4845,6 +5065,10 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 57
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 57
         }
       ]
     },
@@ -4873,7 +5097,7 @@
       },
       "days_on_board": 3,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": 0,
       "cluster_id": "cc95bb1ba5e7",
       "cluster_size": 1,
       "rank_history": [
@@ -4960,6 +5184,10 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 58
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 58
         }
       ]
     },
@@ -4988,14 +5216,10 @@
       },
       "days_on_board": 4,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": 0,
       "cluster_id": "497edf96b9a2",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-07T16:44:18.106099+00:00",
-          "rank": 6
-        },
         {
           "run_at": "2026-09-07T19:44:02.804268+00:00",
           "rank": 6
@@ -5111,6 +5335,10 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 59
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 59
         }
       ]
     },
@@ -5139,14 +5367,10 @@
       },
       "days_on_board": 4,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": 0,
       "cluster_id": "5e953b7dada3",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-07T16:44:18.106099+00:00",
-          "rank": 7
-        },
         {
           "run_at": "2026-09-07T19:44:02.804268+00:00",
           "rank": 7
@@ -5262,6 +5486,10 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 60
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 60
         }
       ]
     },
@@ -5290,7 +5518,7 @@
       },
       "days_on_board": 3,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": 0,
       "cluster_id": "9256859c8370",
       "cluster_size": 1,
       "rank_history": [
@@ -5377,6 +5605,10 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 61
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 61
         }
       ]
     },
@@ -5404,8 +5636,8 @@
         "is_state_owned": true
       },
       "days_on_board": 3,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "ca325d6b7dea",
       "cluster_size": 1,
       "rank_history": [
@@ -5487,6 +5719,10 @@
         },
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
+          "rank": 62
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
           "rank": 62
         }
       ]
@@ -5603,6 +5839,10 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 63
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 63
         }
       ]
     },
@@ -5717,6 +5957,10 @@
         },
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
+          "rank": 64
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
           "rank": 64
         }
       ]
@@ -5833,6 +6077,10 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 65
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 65
         }
       ]
     },
@@ -5907,6 +6155,10 @@
         },
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
+          "rank": 66
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
           "rank": 66
         }
       ]
@@ -6023,6 +6275,10 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 67
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 67
         }
       ]
     },
@@ -6097,6 +6353,10 @@
         },
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
+          "rank": 68
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
           "rank": 68
         }
       ]
@@ -6213,6 +6473,10 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 69
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 69
         }
       ]
     },
@@ -6242,8 +6506,8 @@
       "days_on_board": 3,
       "is_new": false,
       "rank_delta": 0,
-      "cluster_id": "a599ad6e2b56",
-      "cluster_size": 2,
+      "cluster_id": "885dc5469e9a",
+      "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-08T13:43:58.036972+00:00",
@@ -6327,6 +6591,10 @@
         },
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
+          "rank": 70
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
           "rank": 70
         }
       ]
@@ -6443,6 +6711,10 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 71
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 71
         }
       ]
     },
@@ -6518,6 +6790,10 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 72
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 72
         }
       ]
     },
@@ -6592,6 +6868,10 @@
         },
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
+          "rank": 73
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
           "rank": 73
         }
       ]
@@ -6708,6 +6988,10 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 74
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 74
         }
       ]
     },
@@ -6783,6 +7067,10 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 75
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 75
         }
       ]
     },
@@ -6811,7 +7099,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": 0,
       "cluster_id": "a198100d13a2",
       "cluster_size": 1,
       "rank_history": [
@@ -6854,12 +7142,95 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 76
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 76
         }
       ]
     },
     {
       "source": "jobs",
       "rank": 77,
+      "title": "行政党建岗",
+      "title_zh": "行政党建岗",
+      "url": "https://www.iguopin.com/job/detail?id=215299092417349137&source=campus",
+      "hot_value": null,
+      "summary_zh": "【岗位职责】 1.负责行政、党建相关工作。 【任职条件】 1.本科及以上学历，行政类、马克思类、新闻学类专业； 2.性别：不限； 3.政治面貌：中共党员； 4.外语水平：通过大学英语四六级； 5.有班级、学生会等干部工作经验优先； 6.具备一定的学习理解、沟通协调、数据分析能力，较强的文字表达能力，熟练操作各类常用办公软件； 7.具有较强的团队意识、责任意识，工作严谨、勤奋。",
+      "thumbnail": null,
+      "published_at": "2026-08-25 15:47:35",
+      "extra": {
+        "subsource": "guopin",
+        "company": "中国能源建设集团天津电力建设有限公司",
+        "city": "天津-河东区",
+        "education": "本科",
+        "company_type": "国企",
+        "recruitment_type": "校园招聘",
+        "keywords_hit": [
+          "行政"
+        ],
+        "is_central_soe": false,
+        "is_state_owned": true
+      },
+      "days_on_board": 3,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "22ff912bfc93",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-08T13:43:58.036972+00:00",
+          "rank": 51
+        },
+        {
+          "run_at": "2026-09-08T16:44:19.685936+00:00",
+          "rank": 54
+        },
+        {
+          "run_at": "2026-09-08T19:44:25.068024+00:00",
+          "rank": 53
+        },
+        {
+          "run_at": "2026-09-08T22:44:03.549226+00:00",
+          "rank": 52
+        },
+        {
+          "run_at": "2026-09-09T01:43:55.197887+00:00",
+          "rank": 52
+        },
+        {
+          "run_at": "2026-09-09T04:44:17.590483+00:00",
+          "rank": 52
+        },
+        {
+          "run_at": "2026-09-09T05:34:28.698551+00:00",
+          "rank": 52
+        },
+        {
+          "run_at": "2026-09-09T07:27:19.952443+00:00",
+          "rank": 52
+        },
+        {
+          "run_at": "2026-09-09T07:44:12.888077+00:00",
+          "rank": 52
+        },
+        {
+          "run_at": "2026-09-09T10:43:59.360250+00:00",
+          "rank": 53
+        },
+        {
+          "run_at": "2026-09-09T13:44:08.778823+00:00",
+          "rank": 76
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 77
+        }
+      ]
+    },
+    {
+      "source": "jobs",
+      "rank": 78,
       "title": "算法设计师",
       "title_zh": "算法设计师",
       "url": "https://www.iguopin.com/job/detail?id=214934120709490035&source=campus",
@@ -6882,7 +7253,7 @@
       },
       "days_on_board": 3,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": -1,
       "cluster_id": "1ecc110ddb64",
       "cluster_size": 1,
       "rank_history": [
@@ -6969,12 +7340,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 77
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 78
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 78,
+      "rank": 79,
       "title": "通信体系与算法设计",
       "title_zh": "通信体系与算法设计",
       "url": "https://www.iguopin.com/job/detail?id=214934118109021555&source=campus",
@@ -6997,14 +7372,10 @@
       },
       "days_on_board": 4,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": -1,
       "cluster_id": "c9ffbecd612c",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-07T16:44:18.106099+00:00",
-          "rank": 8
-        },
         {
           "run_at": "2026-09-07T19:44:02.804268+00:00",
           "rank": 8
@@ -7120,12 +7491,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 78
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 79
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 79,
+      "rank": 80,
       "title": "算法工程师（电磁方向）",
       "title_zh": "算法工程师（电磁方向）",
       "url": "https://www.iguopin.com/job/detail?id=214980580427695456&source=campus",
@@ -7148,7 +7523,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 2,
+      "rank_delta": -1,
       "cluster_id": "28cebef7bef7",
       "cluster_size": 1,
       "rank_history": [
@@ -7163,12 +7538,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 79
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 80
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 80,
+      "rank": 81,
       "title": "网络安全工程师",
       "title_zh": "网络安全工程师",
       "url": "https://www.iguopin.com/job/detail?id=214980580645799264&source=campus",
@@ -7191,7 +7570,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": -1,
       "cluster_id": "96efd0c655d1",
       "cluster_size": 1,
       "rank_history": [
@@ -7206,80 +7585,9 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 80
-        }
-      ]
-    },
-    {
-      "source": "jobs",
-      "rank": 81,
-      "title": "结构工程师",
-      "title_zh": "结构工程师",
-      "url": "https://www.iguopin.com/job/detail?id=214980579152627040&source=campus",
-      "hot_value": null,
-      "summary_zh": "【岗位职责】 1.负责信息系统结构相关部分的需求引导和归纳； 2.负责信息系统结构部分的设计、相关文档的编写； 3.负责信息系统实现中结构部分的技术把关 【任职资格】 1.学习力学相关专业课，专业课平均分在80分以上，拥有自动化设备研制经验的优先； 2.熟练掌握autoCAD、proe，了解3Dmax和SolidWorks等作图工具； 3.了解信息系统项目管理知识及自动化控制相关知识。",
-      "thumbnail": null,
-      "published_at": "2026-08-25 09:23:28",
-      "extra": {
-        "subsource": "guopin",
-        "company": "北京计算机技术及应用研究所",
-        "city": "北京",
-        "education": "硕士",
-        "company_type": "事业单位",
-        "recruitment_type": "校园招聘",
-        "keywords_hit": [
-          "计算机"
-        ],
-        "is_central_soe": false,
-        "is_state_owned": false
-      },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 1,
-      "cluster_id": "4d1b192c0177",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-09T13:44:08.778823+00:00",
-          "rank": 79
         },
         {
-          "run_at": "2026-09-09T16:43:59.875650+00:00",
-          "rank": 76
-        },
-        {
-          "run_at": "2026-09-09T19:43:58.509027+00:00",
-          "rank": 76
-        },
-        {
-          "run_at": "2026-09-09T22:44:19.966267+00:00",
-          "rank": 76
-        },
-        {
-          "run_at": "2026-09-10T01:44:08.714992+00:00",
-          "rank": 75
-        },
-        {
-          "run_at": "2026-09-10T04:44:01.564715+00:00",
-          "rank": 78
-        },
-        {
-          "run_at": "2026-09-10T05:27:24.546105+00:00",
-          "rank": 77
-        },
-        {
-          "run_at": "2026-09-10T07:23:06.991109+00:00",
-          "rank": 77
-        },
-        {
-          "run_at": "2026-09-10T07:44:17.977345+00:00",
-          "rank": 75
-        },
-        {
-          "run_at": "2026-09-10T10:44:16.536751+00:00",
-          "rank": 82
-        },
-        {
-          "run_at": "2026-09-10T13:44:10.927826+00:00",
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
           "rank": 81
         }
       ]
@@ -7287,156 +7595,6 @@
     {
       "source": "jobs",
       "rank": 82,
-      "title": "AI Agent开发工程师",
-      "title_zh": "AI Agent开发工程师",
-      "url": "https://www.iguopin.com/job/detail?id=214980579370730848&source=campus",
-      "hot_value": null,
-      "summary_zh": "【岗位职责】 1、负责AI Agent设计与业务落地开发 2、负责开源大模型私有化部署、模型微调或强化学习 【任职资格】 1、计算机、人工智能、软件工程、自动化等相关专业 2、熟练掌握Python，熟练使用主流AI Agent开发框架，如LangChain、LangGraph、Dify等 3、熟悉RAG系统搭建，掌握文档切片、知识库挂载、向量数据库调优及检索优化",
-      "thumbnail": null,
-      "published_at": "2026-08-25 09:23:28",
-      "extra": {
-        "subsource": "guopin",
-        "company": "北京计算机技术及应用研究所",
-        "city": "北京",
-        "education": "硕士",
-        "company_type": "事业单位",
-        "recruitment_type": "校园招聘",
-        "keywords_hit": [
-          "计算机"
-        ],
-        "is_central_soe": false,
-        "is_state_owned": false
-      },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 1,
-      "cluster_id": "a019de90b80f",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-09T13:44:08.778823+00:00",
-          "rank": 80
-        },
-        {
-          "run_at": "2026-09-09T16:43:59.875650+00:00",
-          "rank": 77
-        },
-        {
-          "run_at": "2026-09-09T19:43:58.509027+00:00",
-          "rank": 77
-        },
-        {
-          "run_at": "2026-09-09T22:44:19.966267+00:00",
-          "rank": 77
-        },
-        {
-          "run_at": "2026-09-10T01:44:08.714992+00:00",
-          "rank": 76
-        },
-        {
-          "run_at": "2026-09-10T04:44:01.564715+00:00",
-          "rank": 79
-        },
-        {
-          "run_at": "2026-09-10T05:27:24.546105+00:00",
-          "rank": 78
-        },
-        {
-          "run_at": "2026-09-10T07:23:06.991109+00:00",
-          "rank": 78
-        },
-        {
-          "run_at": "2026-09-10T07:44:17.977345+00:00",
-          "rank": 76
-        },
-        {
-          "run_at": "2026-09-10T10:44:16.536751+00:00",
-          "rank": 83
-        },
-        {
-          "run_at": "2026-09-10T13:44:10.927826+00:00",
-          "rank": 82
-        }
-      ]
-    },
-    {
-      "source": "jobs",
-      "rank": 83,
-      "title": "测试工程师",
-      "title_zh": "测试工程师",
-      "url": "https://www.iguopin.com/job/detail?id=214980579588834656&source=campus",
-      "hot_value": null,
-      "summary_zh": "【岗位职责】 负责业务系统测试用例设计、测试执行及测试报告编写 【任职资格】 1、计算机、人工智能、软件工程、自动化等相关专业 2、熟悉web、Android移动端测试，熟悉软件生命周期，精通软件测试方法，熟悉接口测试、安全及性能测试 3、熟悉常用Linux命令，熟悉软件测试基本理论、软件测试流程及各项规范",
-      "thumbnail": null,
-      "published_at": "2026-08-25 09:23:28",
-      "extra": {
-        "subsource": "guopin",
-        "company": "北京计算机技术及应用研究所",
-        "city": "北京",
-        "education": "硕士",
-        "company_type": "事业单位",
-        "recruitment_type": "校园招聘",
-        "keywords_hit": [
-          "计算机"
-        ],
-        "is_central_soe": false,
-        "is_state_owned": false
-      },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 1,
-      "cluster_id": "bc57b11e66ea",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-09T13:44:08.778823+00:00",
-          "rank": 81
-        },
-        {
-          "run_at": "2026-09-09T16:43:59.875650+00:00",
-          "rank": 78
-        },
-        {
-          "run_at": "2026-09-09T19:43:58.509027+00:00",
-          "rank": 78
-        },
-        {
-          "run_at": "2026-09-09T22:44:19.966267+00:00",
-          "rank": 78
-        },
-        {
-          "run_at": "2026-09-10T01:44:08.714992+00:00",
-          "rank": 77
-        },
-        {
-          "run_at": "2026-09-10T04:44:01.564715+00:00",
-          "rank": 80
-        },
-        {
-          "run_at": "2026-09-10T05:27:24.546105+00:00",
-          "rank": 79
-        },
-        {
-          "run_at": "2026-09-10T07:23:06.991109+00:00",
-          "rank": 79
-        },
-        {
-          "run_at": "2026-09-10T07:44:17.977345+00:00",
-          "rank": 77
-        },
-        {
-          "run_at": "2026-09-10T10:44:16.536751+00:00",
-          "rank": 84
-        },
-        {
-          "run_at": "2026-09-10T13:44:10.927826+00:00",
-          "rank": 83
-        }
-      ]
-    },
-    {
-      "source": "jobs",
-      "rank": 84,
       "title": "主管",
       "title_zh": "主管",
       "url": "https://www.iguopin.com/job/detail?id=215157474930460003&source=campus",
@@ -7459,7 +7617,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": 2,
       "cluster_id": "40b383348181",
       "cluster_size": 1,
       "rank_history": [
@@ -7506,12 +7664,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 84
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 82
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 85,
+      "rank": 83,
       "title": "规划论证工程师",
       "title_zh": "规划论证工程师",
       "url": "https://www.iguopin.com/job/detail?id=214980583581812064&source=campus",
@@ -7581,12 +7743,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 85
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 83
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 86,
+      "rank": 84,
       "title": "软件开发工程师-JAVA",
       "title_zh": "软件开发工程师-JAVA",
       "url": "https://www.iguopin.com/job/detail?id=214980583816693088&source=campus",
@@ -7609,7 +7775,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": 2,
       "cluster_id": "c88c7b3a6b8d",
       "cluster_size": 1,
       "rank_history": [
@@ -7656,12 +7822,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 86
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 84
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 87,
+      "rank": 85,
       "title": "解决方案工程师",
       "title_zh": "解决方案工程师",
       "url": "https://www.iguopin.com/job/detail?id=214980581551768928&source=campus",
@@ -7684,7 +7854,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 3,
+      "rank_delta": 2,
       "cluster_id": "4cfeaa66df7f",
       "cluster_size": 1,
       "rank_history": [
@@ -7695,12 +7865,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 87
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 85
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 88,
+      "rank": 86,
       "title": "软件工程师（安全应用）",
       "title_zh": "软件工程师（安全应用）",
       "url": "https://www.iguopin.com/job/detail?id=214980582004753760&source=campus",
@@ -7723,7 +7897,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": 2,
       "cluster_id": "6ef2dbbe2b83",
       "cluster_size": 1,
       "rank_history": [
@@ -7738,12 +7912,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 88
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 86
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 89,
+      "rank": 87,
       "title": "数据治理工程师",
       "title_zh": "数据治理工程师",
       "url": "https://www.iguopin.com/job/detail?id=214980583363708256&source=campus",
@@ -7766,7 +7944,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": 2,
       "cluster_id": "f2e6d03853de",
       "cluster_size": 1,
       "rank_history": [
@@ -7781,12 +7959,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 89
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 87
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 90,
+      "rank": 88,
       "title": "软件工程师（智能应用）",
       "title_zh": "软件工程师（智能应用）",
       "url": "https://www.iguopin.com/job/detail?id=214980581769872736&source=campus",
@@ -7809,7 +7991,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": 2,
       "cluster_id": "d9939e0c7c6a",
       "cluster_size": 1,
       "rank_history": [
@@ -7856,12 +8038,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 90
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 88
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 91,
+      "rank": 89,
       "title": "Java开发工程师",
       "title_zh": "Java开发工程师",
       "url": "https://www.iguopin.com/job/detail?id=214980582692619616&source=campus",
@@ -7884,7 +8070,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": 2,
       "cluster_id": "a8516a3a9824",
       "cluster_size": 1,
       "rank_history": [
@@ -7931,12 +8117,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 91
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 89
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 92,
+      "rank": 90,
       "title": "算法工程师",
       "title_zh": "算法工程师",
       "url": "https://www.iguopin.com/job/detail?id=215145607516390771&source=campus",
@@ -7959,7 +8149,7 @@
       },
       "days_on_board": 3,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": 2,
       "cluster_id": "7d08fb32d5a9",
       "cluster_size": 1,
       "rank_history": [
@@ -8046,12 +8236,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 92
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 90
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 93,
+      "rank": 91,
       "title": "解决方案工程师（智能安全方向）",
       "title_zh": "解决方案工程师（智能安全方向）",
       "url": "https://www.iguopin.com/job/detail?id=215126894008337779&source=campus",
@@ -8074,7 +8268,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": 2,
       "cluster_id": "bee828d43541",
       "cluster_size": 1,
       "rank_history": [
@@ -8121,12 +8315,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 93
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 91
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 94,
+      "rank": 92,
       "title": "软件工程师",
       "title_zh": "软件工程师",
       "url": "https://www.iguopin.com/job/detail?id=215126893773456755&source=campus",
@@ -8149,7 +8347,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": 2,
       "cluster_id": "360f67b7259b",
       "cluster_size": 1,
       "rank_history": [
@@ -8164,12 +8362,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 94
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 92
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 95,
+      "rank": 93,
       "title": "财务专员",
       "title_zh": "财务专员",
       "url": "https://www.iguopin.com/job/detail?id=214249288945894396&source=campus",
@@ -8192,7 +8394,7 @@
       },
       "days_on_board": 3,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": 2,
       "cluster_id": "19e6d40d1dbd",
       "cluster_size": 1,
       "rank_history": [
@@ -8279,12 +8481,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 95
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 93
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 96,
+      "rank": 94,
       "title": "自控工程师（生物质热电/生物质颗粒）",
       "title_zh": "自控工程师（生物质热电/生物质颗粒）",
       "url": "https://www.iguopin.com/job/detail?id=214864410320045397&source=social",
@@ -8307,14 +8513,10 @@
       },
       "days_on_board": 4,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": 2,
       "cluster_id": "03dc39708618",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-07T16:44:18.106099+00:00",
-          "rank": 9
-        },
         {
           "run_at": "2026-09-07T19:44:02.804268+00:00",
           "rank": 9
@@ -8430,12 +8632,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 96
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 94
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 97,
+      "rank": 95,
       "title": "算法工程师",
       "title_zh": "算法工程师",
       "url": "https://www.iguopin.com/job/detail?id=214934078732895603&source=campus",
@@ -8458,7 +8664,7 @@
       },
       "days_on_board": 3,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": 2,
       "cluster_id": "7d08fb32d5a9",
       "cluster_size": 1,
       "rank_history": [
@@ -8533,12 +8739,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 97
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 95
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 98,
+      "rank": 96,
       "title": "机械技术",
       "title_zh": "机械技术",
       "url": "https://www.iguopin.com/job/detail?id=215029752149312867&source=campus",
@@ -8561,7 +8771,7 @@
       },
       "days_on_board": 3,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": 2,
       "cluster_id": "5175d84ac378",
       "cluster_size": 1,
       "rank_history": [
@@ -8648,12 +8858,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 98
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 96
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 99,
+      "rank": 97,
       "title": "算法研发",
       "title_zh": "算法研发",
       "url": "https://www.iguopin.com/job/detail?id=214728339481429344&source=campus",
@@ -8676,14 +8890,10 @@
       },
       "days_on_board": 4,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": 2,
       "cluster_id": "eb985fe5e486",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-07T16:44:18.106099+00:00",
-          "rank": 10
-        },
         {
           "run_at": "2026-09-07T19:44:02.804268+00:00",
           "rank": 10
@@ -8799,12 +9009,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 99
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 97
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 100,
+      "rank": 98,
       "title": "大模型算法研发",
       "title_zh": "大模型算法研发",
       "url": "https://www.iguopin.com/job/detail?id=214730788166436192&source=campus",
@@ -8827,14 +9041,10 @@
       },
       "days_on_board": 4,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": 2,
       "cluster_id": "df0d490631b6",
       "cluster_size": 2,
       "rank_history": [
-        {
-          "run_at": "2026-09-07T16:44:18.106099+00:00",
-          "rank": 11
-        },
         {
           "run_at": "2026-09-07T19:44:02.804268+00:00",
           "rank": 11
@@ -8950,12 +9160,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 100
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 98
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 101,
+      "rank": 99,
       "title": "智能化总体设计",
       "title_zh": "智能化总体设计",
       "url": "https://www.iguopin.com/job/detail?id=214736280104207732&source=campus",
@@ -8978,7 +9192,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": 2,
       "cluster_id": "09d935fa8f02",
       "cluster_size": 1,
       "rank_history": [
@@ -9025,12 +9239,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 101
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 99
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 102,
+      "rank": 100,
       "title": "飞行器总体设计",
       "title_zh": "飞行器总体设计",
       "url": "https://www.iguopin.com/job/detail?id=214736528809657715&source=campus",
@@ -9053,7 +9271,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": 2,
       "cluster_id": "26c9e55829e1",
       "cluster_size": 1,
       "rank_history": [
@@ -9100,12 +9318,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 102
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 100
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 103,
+      "rank": 101,
       "title": "武器系统总体设计",
       "title_zh": "武器系统总体设计",
       "url": "https://www.iguopin.com/job/detail?id=214736510237279587&source=campus",
@@ -9128,7 +9350,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": 2,
       "cluster_id": "e8ff3c27b0ab",
       "cluster_size": 1,
       "rank_history": [
@@ -9175,12 +9397,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 103
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 101
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 104,
+      "rank": 102,
       "title": "可靠性工程总体设计",
       "title_zh": "可靠性工程总体设计",
       "url": "https://www.iguopin.com/job/detail?id=214736388065592661&source=campus",
@@ -9203,7 +9429,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": 2,
       "cluster_id": "92f6ae120030",
       "cluster_size": 1,
       "rank_history": [
@@ -9250,12 +9476,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 104
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 102
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 105,
+      "rank": 103,
       "title": "软硬件开发总体设计",
       "title_zh": "软硬件开发总体设计",
       "url": "https://www.iguopin.com/job/detail?id=214736321560708440&source=campus",
@@ -9278,7 +9508,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": 2,
       "cluster_id": "992913b2a52d",
       "cluster_size": 1,
       "rank_history": [
@@ -9325,12 +9555,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 105
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 103
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 106,
+      "rank": 104,
       "title": "软件设计",
       "title_zh": "软件设计",
       "url": "https://www.iguopin.com/job/detail?id=214736341458486616&source=campus",
@@ -9353,7 +9587,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": 2,
       "cluster_id": "122b9b64abda",
       "cluster_size": 1,
       "rank_history": [
@@ -9400,12 +9634,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 106
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 104
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 107,
+      "rank": 105,
       "title": "指控系统总体设计",
       "title_zh": "指控系统总体设计",
       "url": "https://www.iguopin.com/job/detail?id=214736485792875861&source=campus",
@@ -9428,7 +9666,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": 2,
       "cluster_id": "383b5fa9e13f",
       "cluster_size": 1,
       "rank_history": [
@@ -9475,12 +9713,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 107
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 105
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 108,
+      "rank": 106,
       "title": "仿真系统总体设计",
       "title_zh": "仿真系统总体设计",
       "url": "https://www.iguopin.com/job/detail?id=214736370717951348&source=campus",
@@ -9503,7 +9745,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": 2,
       "cluster_id": "09086bcc933c",
       "cluster_size": 1,
       "rank_history": [
@@ -9550,12 +9792,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 108
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 106
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 109,
+      "rank": 107,
       "title": "飞行器结构总体设计",
       "title_zh": "飞行器结构总体设计",
       "url": "https://www.iguopin.com/job/detail?id=214736399172109684&source=campus",
@@ -9578,7 +9824,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": 2,
       "cluster_id": "0fde5b92c862",
       "cluster_size": 1,
       "rank_history": [
@@ -9625,12 +9871,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 109
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 107
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 110,
+      "rank": 108,
       "title": "电气系统总体设计",
       "title_zh": "电气系统总体设计",
       "url": "https://www.iguopin.com/job/detail?id=214736411906016597&source=campus",
@@ -9653,7 +9903,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": 2,
       "cluster_id": "0e62d73ba139",
       "cluster_size": 1,
       "rank_history": [
@@ -9700,12 +9950,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 110
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 108
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 111,
+      "rank": 109,
       "title": "探测制导总体设计",
       "title_zh": "探测制导总体设计",
       "url": "https://www.iguopin.com/job/detail?id=214736445124904308&source=campus",
@@ -9728,7 +9982,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": 2,
       "cluster_id": "e888c082578d",
       "cluster_size": 1,
       "rank_history": [
@@ -9775,12 +10029,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 111
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 109
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 112,
+      "rank": 110,
       "title": "体系总体设计",
       "title_zh": "体系总体设计",
       "url": "https://www.iguopin.com/job/detail?id=214736297451849076&source=campus",
@@ -9803,7 +10061,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": 2,
       "cluster_id": "8d32831ba7dc",
       "cluster_size": 1,
       "rank_history": [
@@ -9850,12 +10108,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 112
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 110
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 113,
+      "rank": 111,
       "title": "制导控制系统总体设计",
       "title_zh": "制导控制系统总体设计",
       "url": "https://www.iguopin.com/job/detail?id=214736467405047155&source=campus",
@@ -9878,7 +10140,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": 2,
       "cluster_id": "eecf3e5fd823",
       "cluster_size": 1,
       "rank_history": [
@@ -9925,12 +10187,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 113
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 111
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 114,
+      "rank": 112,
       "title": "技术专员",
       "title_zh": "技术专员",
       "url": "https://www.iguopin.com/job/detail?id=214724034246739279&source=campus",
@@ -9953,7 +10219,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": 2,
       "cluster_id": "af7092ceeffb",
       "cluster_size": 1,
       "rank_history": [
@@ -9996,12 +10262,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 114
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 112
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 115,
+      "rank": 113,
       "title": "肿瘤生物治疗技术方向",
       "title_zh": "肿瘤生物治疗技术方向",
       "url": "https://www.iguopin.com/job/detail?id=214698981937120628&source=social",
@@ -10024,14 +10294,10 @@
       },
       "days_on_board": 4,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": 2,
       "cluster_id": "c9575c7d4400",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-07T16:44:18.106099+00:00",
-          "rank": 12
-        },
         {
           "run_at": "2026-09-07T19:44:02.804268+00:00",
           "rank": 12
@@ -10147,17 +10413,21 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 115
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 113
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 116,
+      "rank": 114,
       "title": "工艺工程师",
       "title_zh": "工艺工程师",
-      "url": "https://www.iguopin.com/job/detail?id=214733355952899443&source=campus",
+      "url": "https://www.iguopin.com/job/detail?id=214733704046576998&source=campus",
       "hot_value": null,
-      "summary_zh": "岗位职责】 (1)可以按照产品测试需求，独立完成或协助完成自动化通用级测试工装的设计、仿真、发布及调试等相关工作； (2)运用主流EDA工具独立完成原理图、PCB、嵌入式软件及上位机软件开发工作； (3)改进测试过程中出现的问题，联合产品研发人员修正产品设计问题，优化器件选型。 【任职资格】 (1)熟练掌握Candence、AltiumDesigner、Multisim、CAD等电路仿真和设计软件",
+      "summary_zh": "【岗位职责】 1.负责产品工艺设计，包括工艺文件编制、工艺流程优化、各类工艺报告编写等； 2.负责项目全周期生产过程的工艺技术指导，解决各阶段的工艺技术问题； 3.负责工装夹具设计，新设备、新工艺、新材料的引进、验证和应用。 【任职资格】 1.机械、材料、化工等专业的高校应届毕业生； 2.应具备扎实的专业基础知识和良好的团队协作能力。",
       "thumbnail": null,
       "published_at": "2026-08-21 17:23:38",
       "extra": {
@@ -10173,57 +10443,64 @@
         "is_central_soe": false,
         "is_state_owned": false
       },
-      "days_on_board": 2,
+      "days_on_board": 1,
       "is_new": true,
       "rank_delta": "new",
       "cluster_id": "83378e190329",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-09T13:44:08.778823+00:00",
+          "run_at": "2026-09-10T10:44:16.536751+00:00",
           "rank": 117
         },
         {
-          "run_at": "2026-09-09T16:43:59.875650+00:00",
-          "rank": 116
-        },
-        {
-          "run_at": "2026-09-09T19:43:58.509027+00:00",
-          "rank": 115
-        },
-        {
-          "run_at": "2026-09-09T22:44:19.966267+00:00",
-          "rank": 116
-        },
-        {
-          "run_at": "2026-09-10T01:44:08.714992+00:00",
-          "rank": 115
-        },
-        {
-          "run_at": "2026-09-10T04:44:01.564715+00:00",
-          "rank": 118
-        },
-        {
-          "run_at": "2026-09-10T05:27:24.546105+00:00",
-          "rank": 117
-        },
-        {
-          "run_at": "2026-09-10T07:23:06.991109+00:00",
-          "rank": 116
-        },
-        {
-          "run_at": "2026-09-10T07:44:17.977345+00:00",
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
           "rank": 114
-        },
-        {
-          "run_at": "2026-09-10T13:44:10.927826+00:00",
-          "rank": 116
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 117,
+      "rank": 115,
+      "title": "2027届-七部-结构设计工程师",
+      "title_zh": "2027届-七部-结构设计工程师",
+      "url": "https://www.iguopin.com/job/detail?id=214721401280529780&source=campus",
+      "hot_value": null,
+      "summary_zh": "职位描述： 1、负责加固计算机、加固服务器和加固笔记本机械结构设计； 2、负责设计方案论证，编写方案报告； 3、负责机械结构材料选用； 4、负责产品的设计验证和改进； 5、负责相关技术文档编写； 任职资格： 1、机械设计专业硕士研究生学历； 2、具备电子产品结构设计经验，熟练使用PRO/E、AutoCAD等机械设计软件； 3、了解机加生产工艺； 4、为人正直、诚信，有较强的事业心，具有分析问题和解",
+      "thumbnail": null,
+      "published_at": "2026-08-21 15:56:18",
+      "extra": {
+        "subsource": "guopin",
+        "company": "北京计算机技术及应用研究所",
+        "city": "北京",
+        "education": "硕士",
+        "company_type": "事业单位",
+        "recruitment_type": "校园招聘",
+        "keywords_hit": [
+          "计算机"
+        ],
+        "is_central_soe": false,
+        "is_state_owned": false
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "4d975de2013e",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-10T10:44:16.536751+00:00",
+          "rank": 118
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 115
+        }
+      ]
+    },
+    {
+      "source": "jobs",
+      "rank": 116,
       "title": "2027届-七部-软件开发工程师",
       "title_zh": "2027届-七部-软件开发工程师",
       "url": "https://www.iguopin.com/job/detail?id=214721135428765044&source=campus",
@@ -10246,7 +10523,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 2,
+      "rank_delta": 1,
       "cluster_id": "4705db88c6d9",
       "cluster_size": 1,
       "rank_history": [
@@ -10293,12 +10570,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 117
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 116
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 118,
+      "rank": 117,
       "title": "数据库及大数据技术",
       "title_zh": "数据库及大数据技术",
       "url": "https://www.iguopin.com/job/detail?id=214581520806118481&source=campus",
@@ -10321,14 +10602,10 @@
       },
       "days_on_board": 4,
       "is_new": false,
-      "rank_delta": 2,
+      "rank_delta": 1,
       "cluster_id": "5d9080f695a7",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-07T16:44:18.106099+00:00",
-          "rank": 13
-        },
         {
           "run_at": "2026-09-07T19:44:02.804268+00:00",
           "rank": 13
@@ -10444,12 +10721,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 118
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 117
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 119,
+      "rank": 118,
       "title": "综合部综合事务岗（燕龙）",
       "title_zh": "综合部综合事务岗（燕龙）",
       "url": "https://www.iguopin.com/job/detail?id=214569982074291285&source=social",
@@ -10472,7 +10753,7 @@
       },
       "days_on_board": 3,
       "is_new": false,
-      "rank_delta": 2,
+      "rank_delta": 1,
       "cluster_id": "76fe0829fde2",
       "cluster_size": 1,
       "rank_history": [
@@ -10559,12 +10840,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 119
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 118
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 120,
+      "rank": 119,
       "title": "市场经理",
       "title_zh": "市场经理",
       "url": "https://www.iguopin.com/job/detail?id=214552746789962828&source=social",
@@ -10586,20 +10871,24 @@
         "is_state_owned": false
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": 1,
       "cluster_id": "d4db332fe5bd",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 120
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 119
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 121,
+      "rank": 120,
       "title": "算法实习生",
       "title_zh": "算法实习生",
       "url": "https://www.iguopin.com/job/detail?id=214441181021471827&source=campus",
@@ -10709,12 +10998,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 121
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 120
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 122,
+      "rank": 121,
       "title": "大模型开发工程师(J12031)",
       "title_zh": "大模型开发工程师(J12031)",
       "url": "https://www.iguopin.com/job/detail?id=214431036459713621&source=social",
@@ -10784,12 +11077,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 122
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 121
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 123,
+      "rank": 122,
       "title": "领军人才-合成生物学",
       "title_zh": "领军人才-合成生物学",
       "url": "https://www.iguopin.com/job/detail?id=214289015044572157&source=social",
@@ -10816,10 +11113,6 @@
       "cluster_id": "63c856790c97",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-07T14:19:50.796169+00:00",
-          "rank": 14
-        },
         {
           "run_at": "2026-09-07T16:44:18.106099+00:00",
           "rank": 14
@@ -10935,12 +11228,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 123
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 122
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 124,
+      "rank": 123,
       "title": "林业工程师",
       "title_zh": "林业工程师",
       "url": "https://www.iguopin.com/job/detail?id=214290414264386557&source=social",
@@ -11010,12 +11307,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 124
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 123
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 125,
+      "rank": 124,
       "title": "未来食品研发博士后",
       "title_zh": "未来食品研发博士后",
       "url": "https://www.iguopin.com/job/detail?id=214296069276697593&source=campus",
@@ -11038,7 +11339,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 3,
+      "rank_delta": 1,
       "cluster_id": "703c645760c0",
       "cluster_size": 1,
       "rank_history": [
@@ -11085,12 +11386,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 125
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 124
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 126,
+      "rank": 125,
       "title": "装备制造研发博士后",
       "title_zh": "装备制造研发博士后",
       "url": "https://www.iguopin.com/job/detail?id=214296728470291448&source=campus",
@@ -11160,12 +11465,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 126
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 125
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 127,
+      "rank": 126,
       "title": "特色食品研发博士后",
       "title_zh": "特色食品研发博士后",
       "url": "https://www.iguopin.com/job/detail?id=214295406123680765&source=campus",
@@ -11188,7 +11497,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 2,
+      "rank_delta": 1,
       "cluster_id": "96322b71e23d",
       "cluster_size": 1,
       "rank_history": [
@@ -11235,12 +11544,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 127
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 126
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 128,
+      "rank": 127,
       "title": "算法工程师",
       "title_zh": "算法工程师",
       "url": "https://www.iguopin.com/job/detail?id=214283871838012414&source=campus",
@@ -11263,7 +11576,7 @@
       },
       "days_on_board": 3,
       "is_new": false,
-      "rank_delta": 2,
+      "rank_delta": 1,
       "cluster_id": "7d08fb32d5a9",
       "cluster_size": 1,
       "rank_history": [
@@ -11350,12 +11663,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 128
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 127
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 129,
+      "rank": 128,
       "title": "计算生物学高级研究助理",
       "title_zh": "计算生物学高级研究助理",
       "url": "https://www.iguopin.com/job/detail?id=214149912009376728&source=campus",
@@ -11378,14 +11695,10 @@
       },
       "days_on_board": 4,
       "is_new": false,
-      "rank_delta": 2,
+      "rank_delta": 1,
       "cluster_id": "0e88d002d91b",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-07T16:44:18.106099+00:00",
-          "rank": 16
-        },
         {
           "run_at": "2026-09-07T19:44:02.804268+00:00",
           "rank": 16
@@ -11501,12 +11814,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 129
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 128
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 130,
+      "rank": 129,
       "title": "算法工程师",
       "title_zh": "算法工程师",
       "url": "https://www.iguopin.com/job/detail?id=214141054427857889&source=social",
@@ -11529,7 +11846,7 @@
       },
       "days_on_board": 3,
       "is_new": false,
-      "rank_delta": 2,
+      "rank_delta": 1,
       "cluster_id": "7d08fb32d5a9",
       "cluster_size": 1,
       "rank_history": [
@@ -11616,12 +11933,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 130
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 129
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 131,
+      "rank": 130,
       "title": "算法工程师",
       "title_zh": "算法工程师",
       "url": "https://www.iguopin.com/job/detail?id=214130766957773691&source=campus",
@@ -11643,8 +11964,8 @@
         "is_state_owned": true
       },
       "days_on_board": 3,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": 1,
       "cluster_id": "7d08fb32d5a9",
       "cluster_size": 1,
       "rank_history": [
@@ -11703,12 +12024,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 131
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 130
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 132,
+      "rank": 131,
       "title": "ADC研发高级经理负责人",
       "title_zh": "ADC研发高级经理负责人",
       "url": "https://www.iguopin.com/job/detail?id=214122348620546963&source=social",
@@ -11731,7 +12056,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 2,
+      "rank_delta": 1,
       "cluster_id": "19c8faa2d588",
       "cluster_size": 1,
       "rank_history": [
@@ -11778,12 +12103,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 132
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 131
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 133,
+      "rank": 132,
       "title": "医学总监",
       "title_zh": "医学总监",
       "url": "https://www.iguopin.com/job/detail?id=214122348620612499&source=social",
@@ -11806,7 +12135,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 2,
+      "rank_delta": 1,
       "cluster_id": "fd468bd3ebf7",
       "cluster_size": 1,
       "rank_history": [
@@ -11853,12 +12182,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 133
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 132
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 134,
+      "rank": 133,
       "title": "医学经理",
       "title_zh": "医学经理",
       "url": "https://www.iguopin.com/job/detail?id=214122348620678035&source=social",
@@ -11881,7 +12214,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": 1,
       "cluster_id": "9618027c3675",
       "cluster_size": 1,
       "rank_history": [
@@ -11928,12 +12261,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 134
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 133
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 135,
+      "rank": 134,
       "title": "项目调研研究员-病毒免疫方向（博士后）",
       "title_zh": "项目调研研究员-病毒免疫方向（博士后）",
       "url": "https://www.iguopin.com/job/detail?id=214123166040064913&source=social",
@@ -12003,12 +12340,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 135
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 134
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 136,
+      "rank": 135,
       "title": "项目调研研究员-肿瘤免疫方向（博士后）",
       "title_zh": "项目调研研究员-肿瘤免疫方向（博士后）",
       "url": "https://www.iguopin.com/job/detail?id=214122870794617742&source=social",
@@ -12078,12 +12419,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 136
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 135
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 137,
+      "rank": 136,
       "title": "大模型开发工程师(J12100)",
       "title_zh": "大模型开发工程师(J12100)",
       "url": "https://www.iguopin.com/job/detail?id=214122024971273108&source=social",
@@ -12153,12 +12498,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 137
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 136
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 138,
+      "rank": 137,
       "title": "咨询顾问",
       "title_zh": "咨询顾问",
       "url": "https://www.iguopin.com/job/detail?id=213683650661712722&source=campus",
@@ -12252,12 +12601,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 138
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 137
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 139,
+      "rank": 138,
       "title": "海洋科技研究",
       "title_zh": "海洋科技研究",
       "url": "https://www.iguopin.com/job/detail?id=213671378329535316&source=social",
@@ -12363,6 +12716,125 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 139
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 138
+        }
+      ]
+    },
+    {
+      "source": "jobs",
+      "rank": 139,
+      "title": "信息化管理岗",
+      "title_zh": "信息化管理岗",
+      "url": "https://www.iguopin.com/job/detail?id=199477222518558898&source=social",
+      "hot_value": null,
+      "summary_zh": "主要岗位职责 1、负责汇总统计集团下属单位文件及数据，按要求向集团上级部委报送各类数据报表、调研报告、总结材料等。 2、协助组织数字化领域专家研讨会、评审会和培训交流会等，负责会议材料准备、会务协调、会议纪要及后续跟踪落实。 3、承担部门综合事务性工作，协调内外部沟通联络，担任部门保密员、安全员、采购员等。 4、定期跟踪AI等数字化前沿技术动态，开展应用研究分析，形成技术应用建议。 5、完成领导交",
+      "thumbnail": null,
+      "published_at": "2026-08-14 10:40:17",
+      "extra": {
+        "subsource": "guopin",
+        "company": "航天通信中心",
+        "city": "北京-海淀区",
+        "education": "本科",
+        "company_type": "事业单位",
+        "recruitment_type": "社会招聘",
+        "keywords_hit": [
+          "信息"
+        ],
+        "is_central_soe": false,
+        "is_state_owned": false
+      },
+      "days_on_board": 3,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "e198ff3e5b4d",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-08T13:43:58.036972+00:00",
+          "rank": 81
+        },
+        {
+          "run_at": "2026-09-08T16:44:19.685936+00:00",
+          "rank": 85
+        },
+        {
+          "run_at": "2026-09-08T19:44:25.068024+00:00",
+          "rank": 84
+        },
+        {
+          "run_at": "2026-09-08T22:44:03.549226+00:00",
+          "rank": 82
+        },
+        {
+          "run_at": "2026-09-09T01:43:55.197887+00:00",
+          "rank": 83
+        },
+        {
+          "run_at": "2026-09-09T04:44:17.590483+00:00",
+          "rank": 84
+        },
+        {
+          "run_at": "2026-09-09T05:34:28.698551+00:00",
+          "rank": 83
+        },
+        {
+          "run_at": "2026-09-09T07:27:19.952443+00:00",
+          "rank": 83
+        },
+        {
+          "run_at": "2026-09-09T07:44:12.888077+00:00",
+          "rank": 82
+        },
+        {
+          "run_at": "2026-09-09T10:43:59.360250+00:00",
+          "rank": 83
+        },
+        {
+          "run_at": "2026-09-09T13:44:08.778823+00:00",
+          "rank": 144
+        },
+        {
+          "run_at": "2026-09-09T16:43:59.875650+00:00",
+          "rank": 143
+        },
+        {
+          "run_at": "2026-09-09T19:43:58.509027+00:00",
+          "rank": 141
+        },
+        {
+          "run_at": "2026-09-09T22:44:19.966267+00:00",
+          "rank": 143
+        },
+        {
+          "run_at": "2026-09-10T01:44:08.714992+00:00",
+          "rank": 141
+        },
+        {
+          "run_at": "2026-09-10T04:44:01.564715+00:00",
+          "rank": 143
+        },
+        {
+          "run_at": "2026-09-10T05:27:24.546105+00:00",
+          "rank": 142
+        },
+        {
+          "run_at": "2026-09-10T07:23:06.991109+00:00",
+          "rank": 141
+        },
+        {
+          "run_at": "2026-09-10T07:44:17.977345+00:00",
+          "rank": 140
+        },
+        {
+          "run_at": "2026-09-10T10:44:16.536751+00:00",
+          "rank": 141
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 139
         }
       ]
     },
@@ -12391,7 +12863,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 2,
+      "rank_delta": 0,
       "cluster_id": "1c9683b22058",
       "cluster_size": 1,
       "rank_history": [
@@ -12438,127 +12910,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 140
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 140
         }
       ]
     },
     {
       "source": "jobs",
       "rank": 141,
-      "title": "算法工程师",
-      "title_zh": "算法工程师",
-      "url": "https://www.iguopin.com/job/detail?id=213526201338167966&source=social",
-      "hot_value": null,
-      "summary_zh": "岗位职责： 1、从0到1实现多模态时序分析与算法，研究前沿技术并应用落地； 2、负责机器学习、深度学习相关算法实现，算法优化和性能评估； 3、负责基于人﹣机﹣环境多元数据相关算法研究、设计、实现和优化； 4、负责前沿算法研究与算法、技术创新工作，解决研发过程中的技术问题； 5、负责模型优化部署以及工程化。 任职要求：1、具备多模态时序数据分析与算法研究经验，有脑电、心电、脉搏、皮电、肌电、眼动经验",
-      "thumbnail": null,
-      "published_at": "2026-08-13 10:19:11",
-      "extra": {
-        "subsource": "guopin",
-        "company": "北京津发科技股份有限公司",
-        "city": "北京-海淀区",
-        "education": "硕士",
-        "company_type": "民营企业",
-        "recruitment_type": "社会招聘",
-        "keywords_hit": [
-          "算法"
-        ],
-        "is_central_soe": false,
-        "is_state_owned": false
-      },
-      "days_on_board": 3,
-      "is_new": false,
-      "rank_delta": 2,
-      "cluster_id": "7d08fb32d5a9",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-08T13:43:58.036972+00:00",
-          "rank": 86
-        },
-        {
-          "run_at": "2026-09-08T16:44:19.685936+00:00",
-          "rank": 90
-        },
-        {
-          "run_at": "2026-09-08T19:44:25.068024+00:00",
-          "rank": 89
-        },
-        {
-          "run_at": "2026-09-08T22:44:03.549226+00:00",
-          "rank": 87
-        },
-        {
-          "run_at": "2026-09-09T01:43:55.197887+00:00",
-          "rank": 88
-        },
-        {
-          "run_at": "2026-09-09T04:44:17.590483+00:00",
-          "rank": 89
-        },
-        {
-          "run_at": "2026-09-09T05:34:28.698551+00:00",
-          "rank": 88
-        },
-        {
-          "run_at": "2026-09-09T07:27:19.952443+00:00",
-          "rank": 88
-        },
-        {
-          "run_at": "2026-09-09T07:44:12.888077+00:00",
-          "rank": 87
-        },
-        {
-          "run_at": "2026-09-09T10:43:59.360250+00:00",
-          "rank": 88
-        },
-        {
-          "run_at": "2026-09-09T13:44:08.778823+00:00",
-          "rank": 147
-        },
-        {
-          "run_at": "2026-09-09T16:43:59.875650+00:00",
-          "rank": 146
-        },
-        {
-          "run_at": "2026-09-09T19:43:58.509027+00:00",
-          "rank": 144
-        },
-        {
-          "run_at": "2026-09-09T22:44:19.966267+00:00",
-          "rank": 146
-        },
-        {
-          "run_at": "2026-09-10T01:44:08.714992+00:00",
-          "rank": 144
-        },
-        {
-          "run_at": "2026-09-10T04:44:01.564715+00:00",
-          "rank": 146
-        },
-        {
-          "run_at": "2026-09-10T05:27:24.546105+00:00",
-          "rank": 145
-        },
-        {
-          "run_at": "2026-09-10T07:23:06.991109+00:00",
-          "rank": 144
-        },
-        {
-          "run_at": "2026-09-10T07:44:17.977345+00:00",
-          "rank": 143
-        },
-        {
-          "run_at": "2026-09-10T10:44:16.536751+00:00",
-          "rank": 143
-        },
-        {
-          "run_at": "2026-09-10T13:44:10.927826+00:00",
-          "rank": 141
-        }
-      ]
-    },
-    {
-      "source": "jobs",
-      "rank": 142,
       "title": "生物药早研方向-领袖生",
       "title_zh": "生物药早研方向-领袖生",
       "url": "https://www.iguopin.com/job/detail?id=213523965707027097&source=campus",
@@ -12581,7 +12942,7 @@
       },
       "days_on_board": 3,
       "is_new": false,
-      "rank_delta": 2,
+      "rank_delta": 1,
       "cluster_id": "5b93e341814b",
       "cluster_size": 1,
       "rank_history": [
@@ -12668,12 +13029,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 142
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 141
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 143,
+      "rank": 142,
       "title": "技术专家",
       "title_zh": "技术专家",
       "url": "https://www.iguopin.com/job/detail?id=213396838634487844&source=social",
@@ -12696,7 +13061,7 @@
       },
       "days_on_board": 3,
       "is_new": false,
-      "rank_delta": 2,
+      "rank_delta": 1,
       "cluster_id": "8dc589628882",
       "cluster_size": 1,
       "rank_history": [
@@ -12783,12 +13148,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 143
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 142
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 144,
+      "rank": 143,
       "title": "生物样本技术负责人",
       "title_zh": "生物样本技术负责人",
       "url": "https://www.iguopin.com/job/detail?id=213391454976868388&source=social",
@@ -12810,15 +13179,11 @@
         "is_state_owned": false
       },
       "days_on_board": 4,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": 1,
       "cluster_id": "11fe63c3f81d",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-07T14:19:50.796169+00:00",
-          "rank": 18
-        },
         {
           "run_at": "2026-09-07T16:44:18.106099+00:00",
           "rank": 18
@@ -12934,12 +13299,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 144
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 143
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 145,
+      "rank": 144,
       "title": "博士后（生物方向）",
       "title_zh": "博士后（生物方向）",
       "url": "https://www.iguopin.com/job/detail?id=213274757158666283&source=campus",
@@ -12966,10 +13335,6 @@
       "cluster_id": "28d934796933",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-07T16:44:18.106099+00:00",
-          "rank": 19
-        },
         {
           "run_at": "2026-09-07T19:44:02.804268+00:00",
           "rank": 19
@@ -13085,12 +13450,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 145
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 144
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 146,
+      "rank": 145,
       "title": "研究人员",
       "title_zh": "研究人员",
       "url": "https://www.iguopin.com/job/detail?id=213282596883267623&source=campus",
@@ -13114,8 +13483,8 @@
       "days_on_board": 3,
       "is_new": false,
       "rank_delta": 1,
-      "cluster_id": "b71a202782ab",
-      "cluster_size": 2,
+      "cluster_id": "c7889ef810b0",
+      "cluster_size": 3,
       "rank_history": [
         {
           "run_at": "2026-09-08T13:43:58.036972+00:00",
@@ -13180,127 +13549,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 146
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 145
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 147,
-      "title": "博士后岗位（细胞生物学、生物医用材料、临床医学）",
-      "title_zh": "博士后岗位（细胞生物学、生物医用材料、临床医学）",
-      "url": "https://www.iguopin.com/job/detail?id=213278354579652644&source=social",
-      "hot_value": null,
-      "summary_zh": "1、人ADSCs-iPSCs重编程及工程化iPSCs的构建； 2、脂肪间充质干细胞复合可降解水凝胶用于难愈性创面治疗的研究； 3、 iPSCs -终末分化诱导及皮肤类器官构建；",
-      "thumbnail": null,
-      "published_at": "2026-08-11 16:10:22",
-      "extra": {
-        "subsource": "guopin",
-        "company": "北京瑷格干细胞科技有限公司",
-        "city": "北京-大兴区",
-        "education": "博士",
-        "company_type": "民营企业",
-        "recruitment_type": "社会招聘",
-        "keywords_hit": [
-          "生物"
-        ],
-        "is_central_soe": false,
-        "is_state_owned": false
-      },
-      "days_on_board": 3,
-      "is_new": false,
-      "rank_delta": 1,
-      "cluster_id": "72b030976449",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-08T13:43:58.036972+00:00",
-          "rank": 95
-        },
-        {
-          "run_at": "2026-09-08T16:44:19.685936+00:00",
-          "rank": 99
-        },
-        {
-          "run_at": "2026-09-08T19:44:25.068024+00:00",
-          "rank": 98
-        },
-        {
-          "run_at": "2026-09-08T22:44:03.549226+00:00",
-          "rank": 96
-        },
-        {
-          "run_at": "2026-09-09T01:43:55.197887+00:00",
-          "rank": 97
-        },
-        {
-          "run_at": "2026-09-09T04:44:17.590483+00:00",
-          "rank": 98
-        },
-        {
-          "run_at": "2026-09-09T05:34:28.698551+00:00",
-          "rank": 97
-        },
-        {
-          "run_at": "2026-09-09T07:27:19.952443+00:00",
-          "rank": 97
-        },
-        {
-          "run_at": "2026-09-09T07:44:12.888077+00:00",
-          "rank": 96
-        },
-        {
-          "run_at": "2026-09-09T10:43:59.360250+00:00",
-          "rank": 97
-        },
-        {
-          "run_at": "2026-09-09T13:44:08.778823+00:00",
-          "rank": 153
-        },
-        {
-          "run_at": "2026-09-09T16:43:59.875650+00:00",
-          "rank": 152
-        },
-        {
-          "run_at": "2026-09-09T19:43:58.509027+00:00",
-          "rank": 150
-        },
-        {
-          "run_at": "2026-09-09T22:44:19.966267+00:00",
-          "rank": 152
-        },
-        {
-          "run_at": "2026-09-10T01:44:08.714992+00:00",
-          "rank": 150
-        },
-        {
-          "run_at": "2026-09-10T04:44:01.564715+00:00",
-          "rank": 152
-        },
-        {
-          "run_at": "2026-09-10T05:27:24.546105+00:00",
-          "rank": 151
-        },
-        {
-          "run_at": "2026-09-10T07:23:06.991109+00:00",
-          "rank": 150
-        },
-        {
-          "run_at": "2026-09-10T07:44:17.977345+00:00",
-          "rank": 149
-        },
-        {
-          "run_at": "2026-09-10T10:44:16.536751+00:00",
-          "rank": 148
-        },
-        {
-          "run_at": "2026-09-10T13:44:10.927826+00:00",
-          "rank": 147
-        }
-      ]
-    },
-    {
-      "source": "jobs",
-      "rank": 148,
+      "rank": 146,
       "title": "Data Science Intern 107974",
       "title_zh": "Data Science Intern 107974",
       "url": "https://tencent.wd1.myworkdayjobs.com/Tencent_Careers/job/Singapore-CapitaSky/Data-Science-Intern--Analytics---6-month-internship_R107974",
@@ -13317,14 +13575,10 @@
       },
       "days_on_board": 7,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": 2,
       "cluster_id": "e5794d9db6eb",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-07T16:44:18.106099+00:00",
-          "rank": 30
-        },
         {
           "run_at": "2026-09-07T19:44:02.804268+00:00",
           "rank": 29
@@ -13440,12 +13694,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 148
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 146
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 149,
+      "rank": 147,
       "title": "Data Science Intern",
       "title_zh": "Data Science Intern",
       "url": "https://tencent.wd1.myworkdayjobs.com/Tencent_Careers/job/Singapore-CapitaSky/Game-Engine-R-D-Specialist_R106237-1",
@@ -13462,14 +13720,10 @@
       },
       "days_on_board": 8,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": 2,
       "cluster_id": "58f9c55a2a00",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-07T16:44:18.106099+00:00",
-          "rank": 31
-        },
         {
           "run_at": "2026-09-07T19:44:02.804268+00:00",
           "rank": 30
@@ -13585,12 +13839,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 149
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 147
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 150,
+      "rank": 148,
       "title": "Data Science Intern 107259",
       "title_zh": "Data Science Intern 107259",
       "url": "https://tencent.wd1.myworkdayjobs.com/Tencent_Careers/job/Singapore-CapitaSky/Data-Science-Intern_R107259-2",
@@ -13607,14 +13865,10 @@
       },
       "days_on_board": 8,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": 2,
       "cluster_id": "93dd669d01c2",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-07T16:44:18.106099+00:00",
-          "rank": 32
-        },
         {
           "run_at": "2026-09-07T19:44:02.804268+00:00",
           "rank": 31
@@ -13730,12 +13984,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 150
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 148
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 151,
+      "rank": 149,
       "title": "Data Science Intern 107361",
       "title_zh": "Data Science Intern 107361",
       "url": "https://tencent.wd1.myworkdayjobs.com/Tencent_Careers/job/Singapore-CapitaSky/Data-Science-Intern_R107361-1",
@@ -13752,14 +14010,10 @@
       },
       "days_on_board": 8,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": 2,
       "cluster_id": "b781642bb044",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-07T16:44:18.106099+00:00",
-          "rank": 33
-        },
         {
           "run_at": "2026-09-07T19:44:02.804268+00:00",
           "rank": 32
@@ -13875,12 +14129,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 151
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 149
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 152,
+      "rank": 150,
       "title": "腾讯云-大数据产品客户成功经理-for 海外",
       "title_zh": "腾讯云-大数据产品客户成功经理-for 海外",
       "url": "http://careers.tencent.com/jobdesc.html?postId=2047217902628794368",
@@ -13897,14 +14155,10 @@
       },
       "days_on_board": 8,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": 2,
       "cluster_id": "97af6ca01a6b",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-07T16:44:18.106099+00:00",
-          "rank": 34
-        },
         {
           "run_at": "2026-09-07T19:44:02.804268+00:00",
           "rank": 33
@@ -14020,12 +14274,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 152
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 150
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 153,
+      "rank": 151,
       "title": "腾讯安全-高级算法工程师-特征挖掘- for海外",
       "title_zh": "腾讯安全-高级算法工程师-特征挖掘- for海外",
       "url": "http://careers.tencent.com/jobdesc.html?postId=2053728820720218112",
@@ -14042,14 +14300,10 @@
       },
       "days_on_board": 8,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": 2,
       "cluster_id": "618f1d5e4cfa",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-07T16:44:18.106099+00:00",
-          "rank": 35
-        },
         {
           "run_at": "2026-09-07T19:44:02.804268+00:00",
           "rank": 34
@@ -14165,12 +14419,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 153
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 151
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 154,
+      "rank": 152,
       "title": "AIプログラマー｜AI Programmer",
       "title_zh": "AIプログラマー｜AI Programmer",
       "url": "https://tencent.wd1.myworkdayjobs.com/Tencent_Careers/job/Japan-Tokyo-Business-Tower/AI-AI-Programmer_R107230-1",
@@ -14187,14 +14445,10 @@
       },
       "days_on_board": 8,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": 2,
       "cluster_id": "bbc7ae494f3b",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-07T16:44:18.106099+00:00",
-          "rank": 36
-        },
         {
           "run_at": "2026-09-07T19:44:02.804268+00:00",
           "rank": 35
@@ -14310,12 +14564,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 154
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 152
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 155,
+      "rank": 153,
       "title": "光子 AI-AI Infra工程师",
       "title_zh": "光子 AI-AI Infra工程师",
       "url": "http://careers.tencent.com/jobdesc.html?postId=2066702542833893376",
@@ -14332,14 +14590,10 @@
       },
       "days_on_board": 8,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": 2,
       "cluster_id": "9f84d3c11ab6",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-07T16:44:18.106099+00:00",
-          "rank": 37
-        },
         {
           "run_at": "2026-09-07T19:44:02.804268+00:00",
           "rank": 36
@@ -14455,12 +14709,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 155
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 153
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 156,
+      "rank": 154,
       "title": "光子 AI-AI应用开发工程师",
       "title_zh": "光子 AI-AI应用开发工程师",
       "url": "http://careers.tencent.com/jobdesc.html?postId=2008789833664847872",
@@ -14477,14 +14735,10 @@
       },
       "days_on_board": 8,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": 2,
       "cluster_id": "26f809b3b4f2",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-07T16:44:18.106099+00:00",
-          "rank": 38
-        },
         {
           "run_at": "2026-09-07T19:44:02.804268+00:00",
           "rank": 37
@@ -14600,12 +14854,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 156
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 154
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 157,
+      "rank": 155,
       "title": "AI产品经理-AI平台（Agent）方向",
       "title_zh": "AI产品经理-AI平台（Agent）方向",
       "url": "http://careers.tencent.com/jobdesc.html?postId=2088450750270324736",
@@ -14622,14 +14880,10 @@
       },
       "days_on_board": 8,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": 2,
       "cluster_id": "0c89e3274bcc",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-07T16:44:18.106099+00:00",
-          "rank": 39
-        },
         {
           "run_at": "2026-09-07T19:44:02.804268+00:00",
           "rank": 38
@@ -14745,12 +14999,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 157
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 155
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 158,
+      "rank": 156,
       "title": "AI Compute Strategy Manager",
       "title_zh": "AI Compute Strategy Manager",
       "url": "https://tencent.wd1.myworkdayjobs.com/Tencent_Careers/job/China-Shenzhen/AI-Compute-Strategy-Manager_R107955-2",
@@ -14767,14 +15025,10 @@
       },
       "days_on_board": 8,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": 2,
       "cluster_id": "1e7abf180d12",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-07T16:44:18.106099+00:00",
-          "rank": 40
-        },
         {
           "run_at": "2026-09-07T19:44:02.804268+00:00",
           "rank": 39
@@ -14890,12 +15144,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 158
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 156
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 159,
+      "rank": 157,
       "title": "光子 AI-AI 游戏策划-创新项目",
       "title_zh": "光子 AI-AI 游戏策划-创新项目",
       "url": "http://careers.tencent.com/jobdesc.html?postId=2077246093283995648",
@@ -14916,10 +15174,6 @@
       "cluster_id": "91cd6fd59645",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-07T16:44:18.106099+00:00",
-          "rank": 41
-        },
         {
           "run_at": "2026-09-07T19:44:02.804268+00:00",
           "rank": 40
@@ -15035,12 +15289,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 159
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 157
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 160,
+      "rank": 158,
       "title": "Cloud & AI Solution Architect",
       "title_zh": "Cloud & AI Solution Architect",
       "url": "https://tencent.wd1.myworkdayjobs.com/Tencent_Careers/job/Germany-Frankfurt/Cloud---AI-Solution-Architect_R107761",
@@ -15056,15 +15314,11 @@
         ]
       },
       "days_on_board": 8,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": 2,
       "cluster_id": "e3185c058637",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-06T07:11:28.258275+00:00",
-          "rank": 13
-        },
         {
           "run_at": "2026-09-06T07:44:03.798060+00:00",
           "rank": 13
@@ -15180,12 +15434,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 160
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 158
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 161,
+      "rank": 159,
       "title": "ゲームAIリサーチインターン｜Game AI Research Intern 106377",
       "title_zh": "ゲームAIリサーチインターン｜Game AI Research Intern 106377",
       "url": "https://tencent.wd1.myworkdayjobs.com/Tencent_Careers/job/Japan-Tokyo-Business-Tower/AI-Game-AI-Research-Intern_R106377-1",
@@ -15201,15 +15459,11 @@
         ]
       },
       "days_on_board": 8,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": 2,
       "cluster_id": "8c10a17236bf",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-05T05:04:16.938707+00:00",
-          "rank": 14
-        },
         {
           "run_at": "2026-09-05T07:44:06.628615+00:00",
           "rank": 14
@@ -15325,12 +15579,16 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 161
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 159
         }
       ]
     },
     {
       "source": "jobs",
-      "rank": 162,
+      "rank": 160,
       "title": "腾讯云大数据基础产品-Data+AI研发工程师",
       "title_zh": "腾讯云大数据基础产品-Data+AI研发工程师",
       "url": "http://careers.tencent.com/jobdesc.html?postId=2052284145601789952",
@@ -15347,7 +15605,7 @@
       },
       "days_on_board": 7,
       "is_new": false,
-      "rank_delta": -2,
+      "rank_delta": 2,
       "cluster_id": "3de2e4cb3a01",
       "cluster_size": 1,
       "rank_history": [
@@ -15454,6 +15712,10 @@
         {
           "run_at": "2026-09-10T13:44:10.927826+00:00",
           "rank": 162
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 160
         }
       ]
     }
