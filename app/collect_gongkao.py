@@ -27,6 +27,7 @@ def _write_atomic(path: Path, payload: dict) -> None:
         json.dump(payload, handle, ensure_ascii=False, indent=2)
         handle.write("\n")
         temporary = Path(handle.name)
+    temporary.chmod(0o644)
     temporary.replace(path)
 
 
