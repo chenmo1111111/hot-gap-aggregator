@@ -1,7 +1,7 @@
 [CmdletBinding()]
 param(
-    [string]$TaskName = "HotGap-Wanqing-Feishu-0700",
-    [string]$RunAt = "05:00"
+    [string]$TaskName = "HotGap-Purchased-Tables-0730",
+    [string]$RunAt = "07:30"
 )
 
 $ErrorActionPreference = "Stop"
@@ -26,8 +26,8 @@ $settings = New-ScheduledTaskSettingsSet `
     -StartWhenAvailable `
     -MultipleInstances IgnoreNew `
     -ExecutionTimeLimit (New-TimeSpan -Minutes 45) `
-    -RestartCount 2 `
-    -RestartInterval (New-TimeSpan -Minutes 5) `
+    -RestartCount 1 `
+    -RestartInterval (New-TimeSpan -Minutes 30) `
     -AllowStartIfOnBatteries `
     -DontStopIfGoingOnBatteries
 $principal = New-ScheduledTaskPrincipal `
@@ -40,9 +40,13 @@ $task = New-ScheduledTask `
     -Trigger $trigger `
     -Settings $settings `
     -Principal $principal `
-    -Description "Wake at 05:00 daily, capture Qiuzhao and Gongkao, then sync both to Feishu."
+    -Description "Wake at 07:30 daily, capture both purchased tables, retry once after 30 minutes, then refresh S1 and Feishu."
 
 Register-ScheduledTask -TaskName $TaskName -InputObject $task -Force | Out-Null
+$legacyTask = "HotGap-Wanqing-Feishu-0700"
+if ($TaskName -ne $legacyTask -and (Get-ScheduledTask -TaskName $legacyTask -ErrorAction SilentlyContinue)) {
+    Unregister-ScheduledTask -TaskName $legacyTask -Confirm:$false
+}
 $registered = Get-ScheduledTask -TaskName $TaskName
 $info = Get-ScheduledTaskInfo -TaskName $TaskName
 

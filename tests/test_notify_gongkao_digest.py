@@ -48,3 +48,16 @@ def test_card_contains_title_rows_and_public_link() -> None:
     assert card["card"]["header"]["title"]["content"] == "【今日必做 · 公考】2026-09-07　共 1 个报名中"
     body = card["card"]["elements"][0]["text"]["content"]
     assert "2天" in body and "测试公告" in body and "[→ 报名](https://example.test/one)" in body
+
+
+def test_card_contains_daily_volume_when_supplied() -> None:
+    selected, total = select_top10([_row("one", "测试公告", 2)], today=date(2026, 9, 7))
+    card = build_card(
+        selected, current_count=total, today=date(2026, 9, 7),
+        table_url="https://table.test", gongkao_new=6, qiuzhao_new=35,
+    )
+    content = "\n".join(
+        str(element.get("text", {}).get("content", "")) for element in card["card"]["elements"]
+    )
+    assert "公考 **6** 条" in content
+    assert "秋招 **35** 条" in content

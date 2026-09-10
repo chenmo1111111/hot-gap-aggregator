@@ -102,3 +102,21 @@ def test_write_qiuzhao_prefers_manual_row_for_same_company_and_position(tmp_path
     result = write_qiuzhao(tmp_path)
 
     assert result["items"] == [manual]
+
+
+def test_write_qiuzhao_merges_xiaozhaoya_snapshot(tmp_path) -> None:
+    (tmp_path / "jobs.json").write_text(json.dumps({
+        "items": [{"title": "已有岗位", "extra": {"company": "已有公司"}}],
+    }, ensure_ascii=False), encoding="utf-8")
+    row = {
+        "company_name": "校招鸭公司", "position": "研发岗",
+        "source_record_id": "xiaozhaoya:1", "source_label": "校招鸭",
+    }
+    (tmp_path / "xiaozhaoya_qiuzhao.json").write_text(
+        json.dumps({"items": [row]}, ensure_ascii=False), encoding="utf-8",
+    )
+
+    result = write_qiuzhao(tmp_path)
+
+    assert result["items"][0] == row
+    assert "xiaozhaoya" in result["status"]["upstream_source"]

@@ -14,6 +14,7 @@ import yaml
 
 from app.collectors.base import BaseCollector, SourceUnavailable
 from app.models import Item
+from app.pipeline.gongkao_filter import filter_title_noise_items
 
 UTC = timezone.utc
 
@@ -124,7 +125,7 @@ class NowcoderCollector(BaseCollector):
             seen.add(item.url)
             deduplicated.append(item)
         limit = max(1, int(config.get("limit", 30)))
-        output = deduplicated[:limit]
+        output, self.filter_stats, self.filtered_samples = filter_title_noise_items(deduplicated[:limit])
         for rank, item in enumerate(output, 1):
             item.rank = rank
         return output

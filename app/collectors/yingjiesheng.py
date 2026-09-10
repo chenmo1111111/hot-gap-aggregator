@@ -15,6 +15,7 @@ from selectolax.parser import HTMLParser
 
 from app.collectors.base import BaseCollector, SourceUnavailable, USER_AGENTS
 from app.models import Item
+from app.pipeline.gongkao_filter import filter_title_noise_items
 
 
 LOGGER = logging.getLogger(__name__)
@@ -291,19 +292,19 @@ class YingjieshengCollector(BaseCollector):
         if not keywords:
             raise SourceUnavailable("Yingjiesheng has no keywords", status="degraded")
         import asyncio
+        # 宣讲会/行程不是可投递岗位，不再请求或生成这类条目。
         results = await asyncio.gather(
             self._fetch_search(keywords, cities, types, limit, fallback_source, fallback_url),
-            self._fetch_xjh(cities, limit),
             return_exceptions=True,
         )
         merged: list[Item] = []
         errors: list[str] = []
-        for name, result in zip(("search", "xjh"), results, strict=True):
+        for name, result in zip(("search",), results, strict=True):
             if isinstance(result, BaseException):
                 errors.append(f"{name}: {result}")
             else:
                 merged.extend(result)
-        if len(errors) == 2:
+        if len(errors) == 1:
             raise SourceUnavailable("All Yingjiesheng providers failed: " + "; ".join(errors), status="degraded")
         if errors:
             LOGGER.warning("Yingjiesheng partial failure: %s", "; ".join(errors))
@@ -323,6 +324,7 @@ class YingjieshengCollector(BaseCollector):
             else:
                 unique[key] = item
         output = sorted(unique.values(), key=lambda item: (-len(item.extra.get("keywords_hit", [])), -self._timestamp(item)))
+        output, self.filter_stats, self.filtered_samples = filter_title_noise_items(output)
         for rank, item in enumerate(output, 1):
             item.rank = rank
         return output

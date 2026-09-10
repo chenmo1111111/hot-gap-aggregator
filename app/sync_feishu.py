@@ -669,8 +669,11 @@ def partition_gongkao_rows(
             excluded.append(row)
             continue
         extra = row.get("extra") if isinstance(row.get("extra"), Mapping) else {}
-        decision = assess_gongkao(row)
-        if decision.action in {"drop", "review"} or extra.get("needs_review") is True:
+        decision = assess_gongkao(row, profile="feishu")
+        # Re-evaluate with the strict Feishu profile.  The input snapshot is
+        # annotated using the website profile, so its historical
+        # ``needs_review`` flag must not override this fresh decision.
+        if decision.action in {"drop", "review"}:
             excluded.append(row)
             continue
         kind = record_kind(row, llm_choice=extra.get("record_kind"))

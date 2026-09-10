@@ -14,6 +14,7 @@ from selectolax.parser import HTMLParser
 
 from app.collectors.base import BaseCollector, SourceUnavailable
 from app.models import Item
+from app.pipeline.gongkao_filter import filter_title_noise_items
 
 
 LOGGER = logging.getLogger(__name__)
@@ -131,6 +132,7 @@ class WutongguoCollector(BaseCollector):
             -len(item.extra.get("keywords_hit", [])),
             -(datetime.fromisoformat(str(item.published_at)).replace(tzinfo=UTC).timestamp() if item.published_at else 0),
         ))
+        items, self.filter_stats, self.filtered_samples = filter_title_noise_items(items)
         for rank, item in enumerate(items, 1):
             item.rank = rank
         return items

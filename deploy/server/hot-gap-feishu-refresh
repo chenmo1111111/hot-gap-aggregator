@@ -22,36 +22,58 @@ gongkao_data="$data_dir/gongkao_sheet.json"
 
 /usr/bin/install -d -o root -g root -m 755 "$persistent_dir"
 if [[ -f "$qiuzhao_incoming" ]]; then
-  "$project/.venv/bin/python" - "$qiuzhao_incoming" <<'PY'
+  if "$project/.venv/bin/python" - "$qiuzhao_incoming" "$qiuzhao_persistent" <<'PY'
 import json
+import math
 import sys
 
-path = sys.argv[1]
+path, previous_path = sys.argv[1:3]
 with open(path, encoding="utf-8") as handle:
     payload = json.load(handle)
 items = payload.get("items") if isinstance(payload, dict) else None
-if not isinstance(items, list) or len(items) < 450:
-    raise SystemExit("incoming Wanqing snapshot failed validation: expected at least 450 items")
+previous_count = 0
+try:
+    with open(previous_path, encoding="utf-8") as handle:
+        previous_count = len(json.load(handle).get("items") or [])
+except (OSError, ValueError, TypeError):
+    pass
+minimum = math.ceil(previous_count * .9) if previous_count else 450
+if not isinstance(items, list) or len(items) < minimum:
+    raise SystemExit(f"incoming Wanqing snapshot failed validation: {len(items) if isinstance(items, list) else 0} < {minimum} (90% of previous)")
 for index, item in enumerate(items):
     if not isinstance(item, dict) or not item.get("company_name") or not item.get("position"):
         raise SystemExit(f"incoming Wanqing snapshot has invalid item {index}")
 PY
-  /usr/bin/install -o root -g root -m 644 "$qiuzhao_incoming" "$qiuzhao_persistent.tmp"
-  /usr/bin/mv -f -- "$qiuzhao_persistent.tmp" "$qiuzhao_persistent"
-  /usr/bin/rm -f -- "$qiuzhao_incoming"
+  then
+    /usr/bin/install -o root -g root -m 644 "$qiuzhao_incoming" "$qiuzhao_persistent.tmp"
+    /usr/bin/mv -f -- "$qiuzhao_persistent.tmp" "$qiuzhao_persistent"
+    /usr/bin/rm -f -- "$qiuzhao_incoming"
+  else
+    rejected="${qiuzhao_incoming}.rejected.$(/usr/bin/date +%Y%m%d%H%M%S)"
+    /usr/bin/mv -- "$qiuzhao_incoming" "$rejected"
+    echo "Wanqing incoming rejected; previous snapshot retained at $qiuzhao_persistent" >&2
+  fi
 fi
 
 if [[ -f "$gongkao_incoming" ]]; then
-  "$project/.venv/bin/python" - "$gongkao_incoming" <<'PY'
+  if "$project/.venv/bin/python" - "$gongkao_incoming" "$gongkao_persistent" <<'PY'
 import json
+import math
 import sys
 
-path = sys.argv[1]
+path, previous_path = sys.argv[1:3]
 with open(path, encoding="utf-8") as handle:
     payload = json.load(handle)
 items = payload.get("items") if isinstance(payload, dict) else None
-if not isinstance(items, list) or len(items) < 500:
-    raise SystemExit("incoming Gongkao Sheet snapshot failed validation: expected at least 500 items")
+previous_count = 0
+try:
+    with open(previous_path, encoding="utf-8") as handle:
+        previous_count = len(json.load(handle).get("items") or [])
+except (OSError, ValueError, TypeError):
+    pass
+minimum = math.ceil(previous_count * .9) if previous_count else 500
+if not isinstance(items, list) or len(items) < minimum:
+    raise SystemExit(f"incoming Gongkao Sheet snapshot failed validation: {len(items) if isinstance(items, list) else 0} < {minimum} (90% of previous)")
 for index, item in enumerate(items):
     extra = item.get("extra") if isinstance(item, dict) else None
     if (
@@ -63,9 +85,15 @@ for index, item in enumerate(items):
     ):
         raise SystemExit(f"incoming Gongkao Sheet snapshot has invalid item {index}")
 PY
-  /usr/bin/install -o root -g root -m 644 "$gongkao_incoming" "$gongkao_persistent.tmp"
-  /usr/bin/mv -f -- "$gongkao_persistent.tmp" "$gongkao_persistent"
-  /usr/bin/rm -f -- "$gongkao_incoming"
+  then
+    /usr/bin/install -o root -g root -m 644 "$gongkao_incoming" "$gongkao_persistent.tmp"
+    /usr/bin/mv -f -- "$gongkao_persistent.tmp" "$gongkao_persistent"
+    /usr/bin/rm -f -- "$gongkao_incoming"
+  else
+    rejected="${gongkao_incoming}.rejected.$(/usr/bin/date +%Y%m%d%H%M%S)"
+    /usr/bin/mv -- "$gongkao_incoming" "$rejected"
+    echo "Gongkao Sheet incoming rejected; previous snapshot retained at $gongkao_persistent" >&2
+  fi
 fi
 
 if [[ -f "$qiuzhao_persistent" ]]; then
@@ -76,10 +104,12 @@ if [[ -f "$gongkao_persistent" ]]; then
 fi
 
 cd "$project"
+.venv/bin/python -m app.collect_xiaozhaoya || echo "Xiaozhaoya collection degraded; previous snapshots retained" >&2
 .venv/bin/python -m app.collect_gongkao
 .venv/bin/python -m app.export_qiuzhao
 .venv/bin/python -m app.export_gongkao
 .venv/bin/python -m app.pipeline.gongkao_enrich
+.venv/bin/python -m app.daily_volume
 .venv/bin/python -m app.sync_feishu
 .venv/bin/python -m app.sync_feishu_public
 .venv/bin/python -m app.notify_gongkao_digest

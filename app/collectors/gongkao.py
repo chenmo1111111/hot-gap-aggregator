@@ -288,8 +288,15 @@ class GongkaoCollector(BaseCollector):
             for province_id in (0, *FOCUS_PROVINCES.values())
         ] + [self._condition_combo(None, 16)]
         fallback_requests = [self._fetch_fallback_source(source) for source in self._fallback_sources()]
+        timeline_requests = [
+            self._limited_get(
+                self.timeline_endpoint,
+                params={**self.common_params, "districtId": 0, "type": -1, "offset": 0, "size": 200},
+            )
+        ]
         results = await asyncio.gather(
             *article_requests, *recent_requests, *condition_requests, *fallback_requests,
+            *timeline_requests,
             return_exceptions=True,
         )
         items: list[Item] = list(gov_items)
@@ -299,16 +306,23 @@ class GongkaoCollector(BaseCollector):
             if isinstance(result, Exception):
                 errors.append(f"article offset={offset}: {result}")
             else:
-                hot_items = self.parse_articles(result.json())
-                items.extend(item for item in hot_items if (
-                    item.extra.get("has_announcement_structure") or is_gov_domain(item.url)
-                ))
-        for result in results[len(article_requests):]:
+                # The website profile deliberately retains Fenbi discoveries,
+                # including rows that do not yet have complete application
+                # fields.  The Feishu profile applies the stricter gate later.
+                items.extend(self.parse_articles(result.json()))
+        supplemental_end = len(results) - len(timeline_requests)
+        for result in results[len(article_requests):supplemental_end]:
             if isinstance(result, Exception):
                 errors.append(str(result))
                 LOGGER.warning("Gongkao supplemental source failed: %s", result)
             else:
                 items.extend(result)
+        for result in results[supplemental_end:]:
+            if isinstance(result, Exception):
+                errors.append(f"timeline: {result}")
+                LOGGER.warning("Gongkao timeline source failed: %s", result)
+            else:
+                items.extend(self.parse_timeline(result.json()))
         if not items:
             raise SourceUnavailable("; ".join(errors) or "Fenbi returned no items", status="degraded")
         if str(os.getenv("GONGKAO_RESOLVE_OFFICIAL_LINKS", "true")).strip().casefold() not in {
@@ -317,7 +331,7 @@ class GongkaoCollector(BaseCollector):
             resolver: GovLinkResolver | None = None
             try:
                 resolver = GovLinkResolver()
-                resolver_stats = await resolver.resolve_items(items)
+                resolver_stats = await resolver.resolve_items(items, timeline_only=True)
                 LOGGER.info("Gongkao official-link resolver: %s", resolver_stats)
             except Exception as exc:
                 LOGGER.warning("Gongkao official-link resolver degraded: %s", exc)
@@ -325,7 +339,7 @@ class GongkaoCollector(BaseCollector):
                 if resolver is not None:
                     resolver.close()
         items = _deduplicate_items(items)
-        items, filter_stats, filtered_samples = filter_gongkao_items(items, keep_review=True)
+        items, filter_stats, filtered_samples = filter_gongkao_items(items, profile="site")
         self.filter_stats = filter_stats
         self.filtered_samples = filtered_samples
         LOGGER.info("Gongkao trust filter: %s", filter_stats)

@@ -144,6 +144,14 @@ def write_qiuzhao(data_dir: str | Path) -> dict[str, Any]:
         ]
         snapshot["status"]["item_count"] = len(snapshot["items"])
         inputs.append(snapshot)
+    xiaozhaoya_path = target / "xiaozhaoya_qiuzhao.json"
+    if xiaozhaoya_path.exists():
+        payload = json.loads(xiaozhaoya_path.read_text(encoding="utf-8"))
+        if not isinstance(payload, dict):
+            raise ValueError(f"{xiaozhaoya_path} must contain a JSON object")
+        snapshot = normalize_snapshot_payload(payload)
+        snapshot["status"]["upstream_source"] = "xiaozhaoya"
+        inputs.append(snapshot)
     for filename in ("jobs.json", "server-jobs.json"):
         source_path = target / filename
         if not source_path.exists():

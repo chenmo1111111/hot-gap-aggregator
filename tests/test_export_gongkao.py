@@ -168,3 +168,22 @@ def test_government_link_is_not_overwritten_by_sheet_or_watcher_snapshot() -> No
     assert output["items"][0]["extra"]["province"] == "湖南"
     assert output["status"]["server_merged_count"] == 0
     assert output["status"]["sheet_merged_count"] == 0
+
+
+def test_write_gongkao_merges_xiaozhaoya_snapshot(tmp_path) -> None:
+    (tmp_path / "gongkao.json").write_text(
+        json.dumps({"items": [_item("base", "基础公告", "https://a.test/1")]}, ensure_ascii=False),
+        encoding="utf-8",
+    )
+    xiaozhaoya = _item(
+        "xiaozhaoya:1", "事业单位补充公告", "https://rsj.example.gov.cn/notice/1"
+    )
+    (tmp_path / "xiaozhaoya_gongkao.json").write_text(
+        json.dumps({"items": [xiaozhaoya]}, ensure_ascii=False), encoding="utf-8",
+    )
+
+    result = write_gongkao(tmp_path)
+
+    assert len(result["items"]) == 2
+    assert result["status"]["xiaozhaoya_item_count"] == 1
+    assert "xiaozhaoya" in result["status"]["upstream_sources"]

@@ -98,7 +98,7 @@ def _lark_text(value: object) -> str:
 
 def build_card(
     items: list[Mapping[str, Any]], *, current_count: int, today: date,
-    table_url: str,
+    table_url: str, gongkao_new: int | None = None, qiuzhao_new: int | None = None,
 ) -> dict[str, Any]:
     title = f"【今日必做 · 公考】{today.isoformat()}　共 {current_count} 个报名中"
     lines = []
@@ -110,11 +110,18 @@ def build_card(
         link = str(item.get("url") or "")
         lines.append(f"{prefix}　[→ 报名]({link})" if link else prefix)
     content = "\n\n".join(lines) if lines else "今天没有新的待处理报名事项。"
-    elements: list[dict[str, Any]] = [
+    elements: list[dict[str, Any]] = []
+    if gongkao_new is not None or qiuzhao_new is not None:
+        elements.append({
+            "tag": "div", "text": {"tag": "lark_md", "content": (
+                f"今日新增：公考 **{gongkao_new or 0}** 条 · 秋招 **{qiuzhao_new or 0}** 条"
+            )},
+        })
+    elements.extend([
         {"tag": "div", "text": {"tag": "lark_md", "content": content}},
         {"tag": "hr"},
         {"tag": "div", "text": {"tag": "lark_md", "content": f"[查看完整公考机会表]({table_url})"}},
-    ]
+    ])
     return {
         "msg_type": "interactive",
         "card": {
@@ -209,7 +216,16 @@ def main(argv: list[str] | None = None) -> int:
         ).strip()
         if not table_url:
             raise ValueError("GONGKAO_PUBLIC_TABLE_URL or gongkao_table_url is required")
-        payload = build_card(selected, current_count=current_count, today=current, table_url=table_url)
+        volume = {}
+        try:
+            volume_payload = json.loads((Path(args.data_dir) / "daily-volume.json").read_text(encoding="utf-8"))
+            volume = next((row for row in reversed(volume_payload.get("history", [])) if row.get("date") == current.isoformat()), {})
+        except (OSError, ValueError, TypeError, json.JSONDecodeError):
+            pass
+        payload = build_card(
+            selected, current_count=current_count, today=current, table_url=table_url,
+            gongkao_new=volume.get("gongkao_new"), qiuzhao_new=volume.get("qiuzhao_new"),
+        )
         secret = os.getenv("FEISHU_DIGEST_SIGN_SECRET", "").strip()
         if secret:
             _sign_payload(payload, secret)

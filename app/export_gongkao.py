@@ -254,7 +254,7 @@ def merge_gongkao_payloads(
         remember(len(merged) - 1, item)
 
     filter_input_count = len(merged)
-    merged, filter_stats, filtered_samples = filter_gongkao_items(merged, keep_review=True)
+    merged, filter_stats, filtered_samples = filter_gongkao_items(merged, profile="site")
     for index, item in enumerate(merged, 1):
         item["rank"] = index
 
@@ -299,6 +299,18 @@ def write_gongkao(data_dir: str | Path) -> dict[str, Any]:
     base_payload = json.loads(base_path.read_text(encoding="utf-8"))
     if not isinstance(base_payload, dict):
         raise ValueError("gongkao.json must contain a JSON object")
+    xiaozhaoya_path = target / "xiaozhaoya_gongkao.json"
+    xiaozhaoya_count = 0
+    if xiaozhaoya_path.exists():
+        value = json.loads(xiaozhaoya_path.read_text(encoding="utf-8"))
+        if not isinstance(value, dict):
+            raise ValueError("xiaozhaoya_gongkao.json must contain a JSON object")
+        xiaozhaoya_items = _items(value, "xiaozhaoya_gongkao.json")
+        xiaozhaoya_count = len(xiaozhaoya_items)
+        base_payload = {
+            **base_payload,
+            "items": [*_items(base_payload, "gongkao.json"), *xiaozhaoya_items],
+        }
     sheet_payload: dict[str, Any] | None = None
     if sheet_path.exists():
         value = json.loads(sheet_path.read_text(encoding="utf-8"))
@@ -314,6 +326,11 @@ def write_gongkao(data_dir: str | Path) -> dict[str, Any]:
         server_payload = value
 
     output = merge_gongkao_payloads(base_payload, sheet_payload, server_payload)
+    output["status"]["xiaozhaoya_item_count"] = xiaozhaoya_count
+    if xiaozhaoya_count:
+        output["status"]["upstream_sources"] = [
+            *output["status"]["upstream_sources"], "xiaozhaoya",
+        ]
     destination = target / "gongkao_feishu.json"
     temporary = destination.with_suffix(".json.tmp")
     temporary.write_text(json.dumps(output, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
@@ -336,6 +353,7 @@ def main() -> int:
                 "sheet_merged_count": output["status"]["sheet_merged_count"],
                 "server_added_count": output["status"]["server_added_count"],
                 "server_merged_count": output["status"]["server_merged_count"],
+                "xiaozhaoya_item_count": output["status"].get("xiaozhaoya_item_count", 0),
             },
             ensure_ascii=False,
         )

@@ -22,7 +22,7 @@ TITLE_NOISE_TERMS = (
     "面试通知", "体检公告", "体检通知", "考察公告", "递补公告", "递补通知", "违纪违规",
     "取消资格", "延期公告", "更正公告", "调剂公告", "双选会", "招聘会", "宣讲会",
     "拟招募", "体检安排",
-    "宣讲", "校园行", "直播", "回放", "讲座", "公开课", "训练营", "冲刺班", "刷题",
+    "宣讲", "校园行", "名企双选", "直播", "回放", "讲座", "公开课", "训练营", "冲刺班", "刷题",
     "资料", "讲义", "题库", "图书", "礼包", "打卡", "进群", "领取", "准考证",
     # Existing high-noise Fenbi marketing phrases remain covered by the shared gate.
     "系统班", "每日一练", "优惠", "特惠", "密训", "模考", "估分", "夸夸", "超大杯",
@@ -48,6 +48,11 @@ NON_OPPORTUNITY = re.compile(
 STRUCTURED_FIELDS = (
     "startSignUpTime", "endSignUpTime", "startWriteTime", "recruit_count",
     "position_count", "baoming_kaishi", "baoming_jiezhi", "岗位表",
+)
+PUBLIC_INFORMATION_FIELDS = (
+    "startSignUpTime", "endSignUpTime", "baoming_kaishi", "baoming_jiezhi",
+    "signup_start", "signup_deadline", "application_deadline", "registration_deadline",
+    "recruit_count", "position_count", "zhaopin_renshu", "招聘人数", "岗位数",
 )
 OFFICIAL_HOSTS = {
     "www.impta.com.cn", "impta.com.cn", "81rc.81.cn", "jobs.cas.cn",
@@ -201,7 +206,56 @@ def _set_extra(row: Any, name: str, value: object) -> None:
         extra[name] = value
 
 
-def assess_gongkao(row: Mapping[str, Any]) -> FilterDecision:
+def is_fenbi_timeline(row: Mapping[str, Any]) -> bool:
+    extra = _extra(row)
+    url = _url(row)
+    try:
+        parsed = urlsplit(url)
+        host = (parsed.hostname or "").casefold()
+        path = parsed.path.casefold()
+    except ValueError:
+        host = path = ""
+    is_fenbi = host == "fenbi.com" or host.endswith(".fenbi.com")
+    return (
+        (str(extra.get("sub") or "").casefold() == "timeline" and (not url or is_fenbi))
+        or (is_fenbi and any(marker in path for marker in (
+            "/page/kaoshidetail/", "/page/exam-timeline-detail/",
+        )))
+    )
+
+
+def has_public_information(row: Mapping[str, Any]) -> bool:
+    extra = _extra(row)
+    return any(
+        value not in (None, "", [], {}, 0, "0")
+        for name in PUBLIC_INFORMATION_FIELDS
+        for value in (row.get(name), extra.get(name))
+    )
+
+
+def _is_fenbi(row: Mapping[str, Any]) -> bool:
+    extra = _extra(row)
+    try:
+        host = (urlsplit(_url(row)).hostname or "").casefold()
+    except ValueError:
+        host = ""
+    return str(extra.get("source_site") or "").casefold() == "fenbi" or (
+        host == "fenbi.com" or host.endswith(".fenbi.com")
+    )
+
+
+def _is_purchased_gongkao(row: Mapping[str, Any]) -> bool:
+    extra = _extra(row)
+    values = (
+        row.get("source_label"), extra.get("source_label"), extra.get("upstream_source"),
+        extra.get("source_site"), extra.get("preferred_link_source"),
+    )
+    return any(str(value or "").casefold() in {
+        "购买表-公考", "feishu_sheet", "gongkao_sheet",
+    } for value in values)
+
+
+def assess_gongkao(row: Mapping[str, Any], *, profile: str = "site") -> FilterDecision:
     title = _title(row)
     url = _url(row)
     if title_noise_reason(row):
@@ -214,14 +268,34 @@ def assess_gongkao(row: Mapping[str, Any]) -> FilterDecision:
     from app.pipeline.gongkao_classify import detail_category, record_kind
 
     extra = _extra(row)
-    if (
-        str(extra.get("source_site") or "").casefold() == "fenbi"
-        and extra.get("official_link_unresolved") is True
-    ):
-        return FilterDecision("review", "fenbi_without_verified_official_link")
     kind = record_kind(row, llm_choice=extra.get("record_kind"))
     if kind == "秋招":
         return FilterDecision("route_qiuzhao", "enterprise_campus")
+
+    if profile == "feishu":
+        if is_fenbi_timeline(row):
+            return FilterDecision("review", "fenbi_timeline_without_official_link")
+        if _is_fenbi(row):
+            if str(extra.get("sub") or "").casefold() == "announcement" and has_public_information(row):
+                return FilterDecision("keep", "fenbi_announcement_with_information")
+            return FilterDecision("review", "fenbi_without_public_information")
+        if is_gov_domain(url) or _is_purchased_gongkao(row):
+            if detail_category(row) == "其它":
+                return FilterDecision("review", "category_other")
+            return FilterDecision("keep", "trusted_announcement")
+        return FilterDecision("review", "nonofficial_without_verified_link")
+
+    # The website is the discovery layer: Fenbi timelines and incomplete
+    # announcements remain visible, while obviously noisy/non-opportunity rows
+    # were already removed above.
+    if _is_fenbi(row):
+        if is_fenbi_timeline(row):
+            return FilterDecision("review", "fenbi_timeline_site_only")
+        if extra.get("official_link_unresolved") is True:
+            return FilterDecision("review", "fenbi_without_verified_official_link")
+        if detail_category(row) == "其它":
+            return FilterDecision("review", "category_other")
+        return FilterDecision("keep", "fenbi_discovery")
 
     trusted = is_gov_domain(url) or has_structured_announcement(row)
     if not trusted:
@@ -233,8 +307,11 @@ def assess_gongkao(row: Mapping[str, Any]) -> FilterDecision:
 
 
 def filter_gongkao_items(
-    rows: Iterable[T], *, keep_review: bool = True,
+    rows: Iterable[T], *, profile: str = "site", keep_review: bool | None = None,
 ) -> tuple[list[T], dict[str, int], list[dict[str, str]]]:
+    if profile not in {"site", "feishu"}:
+        raise ValueError("profile must be 'site' or 'feishu'")
+    include_review = profile == "site" if keep_review is None else keep_review
     kept: list[T] = []
     stats = {
         "input": 0, "kept": 0, "routed": 0, "review": 0, "dropped": 0,
@@ -244,7 +321,7 @@ def filter_gongkao_items(
     for row in rows:
         stats["input"] += 1
         mapped = _mapping(row)
-        decision = assess_gongkao(mapped)
+        decision = assess_gongkao(mapped, profile=profile)
         _set_extra(row, "filter_action", decision.action)
         _set_extra(row, "filter_reason", decision.reason)
         _set_extra(row, "needs_review", decision.action == "review")
@@ -259,7 +336,7 @@ def filter_gongkao_items(
             stats["routed"] += 1
         elif decision.action == "review":
             stats["review"] += 1
-            if not keep_review:
+            if not include_review:
                 continue
         else:
             stats["kept"] += 1

@@ -45,6 +45,14 @@ def test_shared_title_noise_terms_and_sample_accounting() -> None:
     assert [sample["title"] for sample in samples] == [item["title"] for item in noisy]
 
 
+def test_all_requested_recruitment_event_terms_are_noise() -> None:
+    for term in (
+        "宣讲会", "宣讲", "双选会", "招聘会", "空中宣讲", "校园行",
+        "校招行程", "校园宣讲", "专场招聘会", "名企双选",
+    ):
+        assert title_noise_reason(row(f"某企业{term}", "https://example.com/job")) == "title_noise"
+
+
 def test_post_selection_wording_is_shared_title_noise() -> None:
     assert title_noise_reason(row("三支一扶拟招募人员公示", "https://example.gov.cn/4")) == "title_noise"
     assert title_noise_reason(row("事业单位公开招聘体检安排", "https://example.gov.cn/5")) == "title_noise"
@@ -84,6 +92,32 @@ def test_unresolved_fenbi_discovery_is_review_only() -> None:
     decision = assess_gongkao(unresolved)
     assert decision.action == "review"
     assert decision.reason == "fenbi_without_verified_official_link"
+
+
+def test_site_keeps_fenbi_timeline_but_feishu_rejects_it() -> None:
+    timeline = row(
+        "某省事业单位考试日历", "https://www.fenbi.com/page/kaoshidetail/123",
+        source_site="fenbi", sub="timeline", endSignUpTime="2026-10-01",
+    )
+    assert assess_gongkao(timeline, profile="site").action == "review"
+    assert assess_gongkao(timeline, profile="feishu").reason == "fenbi_timeline_without_official_link"
+    site_rows, _, _ = filter_gongkao_items([timeline], profile="site")
+    table_rows, _, _ = filter_gongkao_items([timeline], profile="feishu")
+    assert site_rows == [timeline]
+    assert table_rows == []
+
+
+def test_feishu_accepts_only_information_rich_fenbi_announcements() -> None:
+    rich = row(
+        "事业单位公开招聘公告", "https://hera-webapp.fenbi.com/api/website/article/detail?id=1",
+        source_site="fenbi", sub="announcement", recruit_count="53",
+    )
+    empty = row(
+        "事业单位公开招聘公告", "https://hera-webapp.fenbi.com/api/website/article/detail?id=2",
+        source_site="fenbi", sub="announcement",
+    )
+    assert assess_gongkao(rich, profile="feishu").reason == "fenbi_announcement_with_information"
+    assert assess_gongkao(empty, profile="feishu").action == "review"
 
 
 def test_enterprise_campus_is_routed_and_other_is_reviewed() -> None:

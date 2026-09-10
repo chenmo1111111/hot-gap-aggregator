@@ -85,7 +85,13 @@ async def test_gongkao_fetches_hot_and_chronological_pages_with_bounded_concurre
                         "announcementArticleInfoRet": {"recruitNumRet": "1"},
                     }]}})
                 return Response({"data": {"articles": []}})
-            raise AssertionError("the Fenbi timeline endpoint must not be requested")
+            if url == collector.timeline_endpoint:
+                calls.append(("timeline", int(params["offset"])))
+                return Response({"datas": [{
+                    "id": 777, "topic": "事业单位考试日历", "examType": 2,
+                    "endSignUpTime": "2026-10-01",
+                }]})
+            raise AssertionError(f"unexpected endpoint: {url}")
         finally:
             active -= 1
 
@@ -99,8 +105,9 @@ async def test_gongkao_fetches_hot_and_chronological_pages_with_bounded_concurre
     assert [offset for kind, offset in calls if kind == "article"] == [0, 50, 100, 150]
     assert [(item.extra["sub"], item.extra["id"]) for item in items] == [
         ("announcement", 100), ("announcement", 200), ("announcement", 250),
-        ("announcement", 999),
+        ("announcement", 999), ("timeline", 777),
     ]
+    assert ("timeline", 0) in calls
     assert max_active <= 5
 
 

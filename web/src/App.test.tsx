@@ -9,6 +9,7 @@ const json = (body: unknown, status = 200) => new Response(JSON.stringify(body),
 
 const dataResponse = (url: string) => {
   if (url.endsWith('/data/all.json')) return json({ generated_at: '2026-09-03T00:00:00Z', sources: [], items: [] });
+  if (url.endsWith('/data/gongkao_enriched.json')) return json({ generated_at: '', source: 'gongkao', status: { source: 'gongkao', status: 'not_run', item_count: 0 }, items: [] });
   if (url.endsWith('/data/server-gongkao.json')) return json({ generated_at: '', source: 'gongkao_official', status: { source: 'gongkao_official', status: 'not_run', item_count: 0 }, items: [] });
   if (url.endsWith('/data/server-jobs.json')) return json({ generated_at: '', source: 'jobs_official', status: { source: 'jobs_official', status: 'not_run', item_count: 0 }, items: [] });
   if (url.endsWith('/data/ai.json')) return json({ generated_at: '', source: 'ai', status: { source: 'ai', status: 'ok', item_count: 1 }, items: [{ source: 'feed', rank: 1, title: '新的 AI 研究动态', title_zh: '新的 AI 研究动态', url: 'https://example.test/ai', summary_zh: '来自机器之心的摘要', published_at: '2026-09-03T00:00:00Z', extra: { tab: 'ai', feed_name: '机器之心' } }] });

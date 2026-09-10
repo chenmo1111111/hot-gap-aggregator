@@ -243,7 +243,7 @@ cd /path/to/hot-gap-aggregator
 .venv/bin/python -m app.sync_feishu_public
 ```
 
-服务器辅助命令会在内部表同步成功后继续同步公开表，因此 Windows 每天 05:00 抓取完成后会
+服务器辅助命令会在内部表同步成功后继续同步公开表，因此 Windows 每天 07:30 抓取完成后会
 立即更新两套表，S1 的 07:00、13:00、19:00 任务也会刷新公开表。
 
 ### 公开公考表的 9 个业务视图
@@ -413,7 +413,7 @@ FEISHU_DIGEST_SIGN_SECRET=
 公开表同步 → `notify_gongkao_digest`。秋招公开表字段保持不变，但会合并公考源中识别出的企业
 校园招聘；公考源记录保留原公告链接作为投递和公告入口。
 
-## 每天 5 点自动刷新秋招和公考网页源
+## 每天 07:30 自动刷新秋招和公考购买表
 
 两个来源表只允许网页查看，不能通过你的自建应用 OpenAPI 导出。因此抓取任务运行在 Windows
 电脑上，使用独立的 Playwright 浏览器配置保存登录会话；仓库、`.env` 和服务器都不保存来源表
@@ -442,21 +442,23 @@ cd "C:\Users\Administrator\Desktop\简历\hot-gap-aggregator"
 ```
 
 脚本识别到可访问账号后会读取整张表；公告链接列即使在屏幕右侧不可见也能完整取得。然后使用
-“以管理员身份运行”的 PowerShell 注册每天 5:00 自动唤醒任务：
+“以管理员身份运行”的 PowerShell 注册每天 07:30 自动唤醒任务：
 
 ```powershell
 cd "C:\Users\Administrator\Desktop\简历\hot-gap-aggregator"
 powershell -ExecutionPolicy Bypass -File .\scripts\install_wanqing_task.ps1
 ```
 
-计划任务 `HotGap-Wanqing-Feishu-0700`（名称为兼容旧安装而保留）会在每天北京时间 5:00
+计划任务 `HotGap-Purchased-Tables-0730` 会在每天北京时间 07:30
 唤醒电脑并调用
 `scripts/run_wanqing_sync.ps1`：
 先刷新秋招并读取最新 500 条，再刷新公考表并读取全部有效公告，分别保存诊断截图、上传到 S1
 待处理文件，然后调用受限命令把快照原子保存到 `/var/lib/hot-gap/`。服务器生成秋招文件及
 `gongkao_feishu.json` 后，再同步到自己的飞书表。一张来源抓取失败时，另一张仍可更新，失败来源
-继续使用服务器上的上一次有效快照。
-电脑在 7:00 必须开机且用户仍保持登录；允许唤醒定时器在交流供电下应为启用状态。电脑可以
+继续使用服务器上的上一次有效快照。任一快照低于上一版条数的 90% 会被判为异常；恰好消失的
+条目会写入 `disappeared-items.jsonl`，不会静默丢失。失败会立即推送飞书和 Bark；计划任务在
+30 分钟后自动重试一次，连续两次失败时标题升级为“⚠️数据可能已过期”。
+电脑在 07:30 必须开机且用户仍保持登录；允许唤醒定时器在交流供电下应为启用状态。电脑可以
 睡眠，任务会将其唤醒；电脑已关机或用户已注销时不能运行。错过执行时间后，任务会在系统恢复
 可用时尽快补跑。无需预先打开或手动刷新飞书页面：每次运行都会重新访问页面、获取最新表版本
 并请求最新记录。也可以随时手动执行：
@@ -466,8 +468,8 @@ powershell -ExecutionPolicy Bypass -File .\scripts\run_wanqing_sync.ps1
 ```
 
 `/var/lib/hot-gap` 是网页登录快照的持久真源，不受站点数据刷新影响；服务器每 3 小时同步前都会
-从这里恢复工作副本并刷新政府一手源。安全保护：抓取失败、登录过期、字段变化、秋招有效记录少于 450 条或公考有效公告
-少于 500 条时，脚本返回失败并保留上一次
+从这里恢复工作副本并刷新政府一手源。安全保护：抓取失败、登录过期、字段变化、或新数据少于
+上一版的 90% 时，脚本返回失败并保留上一次
 快照，不上传空文件，也不会导致飞书误删。连续失败且配置 `FEISHU_WEBHOOK` 或 `BARK_URL`
 时会告警。日志和截图位于 `%LOCALAPPDATA%\hot-gap-aggregator\wanqing`。
 
@@ -482,7 +484,15 @@ visudo -cf /etc/sudoers.d/hot-gap-feishu-refresh
 该辅助命令只进入 `/opt/hot-gap-aggregator` 执行两类导出与飞书同步，不访问
 `/opt/cuotiben`。服务器定时任务使用
 `0 */3 * * * /usr/local/sbin/hot-gap-feishu-refresh >> /var/log/hot-gap-feishu-sync.log 2>&1`；
-文件锁会避免两个同步进程同时写表。Windows 的 05:00 网页快照任务继续保留，两者职责不同。
+文件锁会避免两个同步进程同时写表。Windows 的 07:30 网页快照任务与 S1 每 3 小时采集职责不同。
+
+S1 刷新还会维护 `data/daily-volume.json`（最近 30 天）：公考按公告首次收录日统计，秋招按
+稳定 ID 首次出现日统计。08:00 后若秋招当天新增少于 20 条或公考少于 3 条，会每天最多提醒
+一次；每日 Top10 卡片同时显示当天公考、秋招新增量。
+
+校招鸭公开页以独立快照接入。匿名访问目前只公开最新 12 条，因此系统只采集这段公开预览，
+不复用私人 Cookie、不绕过登录；公开预览少于 10 条时沿用旧快照。聚合源评估和下一批候选见
+`docs/AGGREGATOR_SOURCE_EVALUATION_2026-09-10.md`。
 
 ## 更换 App Secret
 

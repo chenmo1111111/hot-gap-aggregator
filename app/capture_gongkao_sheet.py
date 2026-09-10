@@ -323,6 +323,7 @@ def build_snapshot(
                 "url": url,
                 "published_at": published,
                 "summary": "；".join(part for part in note_parts if part),
+                "source_label": "购买表-公考",
                 "extra": {
                     "id": f"gongkao-sheet:{sync_hash}",
                     "subsource": "feishu_sheet",
@@ -334,6 +335,8 @@ def build_snapshot(
                     "endSignUpTime": deadline,
                     "fresh_graduate": "应届" in f"{title}{source_note}{education}",
                     "notes": "；".join(part for part in note_parts if part),
+                    "source_label": "购买表-公考",
+                    "upstream_source": "feishu_sheet",
                 },
             }
         )
@@ -352,6 +355,7 @@ def build_snapshot(
             "source": "gongkao",
             "item_count": len(selected),
             "upstream_source": "feishu_sheet",
+            "source_label": "购买表-公考",
             "source_sheet": str(config.get("source_sheet") or "公务员&事业单位等重大考试专栏"),
             "source_rows": max(0, len(rows) - header_index - 1),
             "deduplicated_by": "announcement_url",
@@ -548,7 +552,7 @@ def main() -> int:
         count = _failure_count(failure_path) + 1
         _atomic_write(failure_path, {"count": count, "last_error": str(exc)})
         LOGGER.exception("Gongkao sheet capture failed; previous snapshot preserved")
-        if count >= 2 and (os.getenv("FEISHU_WEBHOOK") or os.getenv("BARK_URL")):
+        if os.getenv("CAPTURE_RUNNER_MANAGED") != "1" and count >= 2 and (os.getenv("FEISHU_WEBHOOK") or os.getenv("BARK_URL")):
             _notify(f"飞书公考表抓取连续失败 {count} 次：{exc}")
         return 1
 

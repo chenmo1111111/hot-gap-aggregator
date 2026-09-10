@@ -180,6 +180,7 @@ def build_snapshot(
             ),
             "notes": notes,
             "updated_at": int(_raw_value(record, updated_field) or 0),
+            "source_label": "购买表-秋招",
             "upstream_source": "wanqing_feishu",
         })
         if len(selected) >= max_items:
@@ -197,6 +198,7 @@ def build_snapshot(
             "source": "qiuzhao",
             "item_count": len(selected),
             "upstream_source": "wanqing_feishu",
+            "source_label": "购买表-秋招",
             "source_view": str(config.get("source_view") or "27届秋招🍁"),
             "source_total_records": len(records),
             "source_matched_records": len(filtered),
@@ -397,7 +399,7 @@ def main() -> int:
         count = _failure_count(failure_path) + 1
         _atomic_write(failure_path, {"count": count, "last_error": str(exc)})
         LOGGER.exception("wanqing capture failed; previous snapshot preserved")
-        if count >= 2 and (os.getenv("FEISHU_WEBHOOK") or os.getenv("BARK_URL")):
+        if os.getenv("CAPTURE_RUNNER_MANAGED") != "1" and count >= 2 and (os.getenv("FEISHU_WEBHOOK") or os.getenv("BARK_URL")):
             _notify(f"婉清秋招抓取连续失败 {count} 次：{exc}")
         return 1
 

@@ -221,10 +221,18 @@ class GovLinkResolver:
             "official_link_unresolved": False,
         })
 
-    async def resolve_items(self, items: Iterable[Item]) -> dict[str, int]:
+    async def resolve_items(
+        self, items: Iterable[Item], *, timeline_only: bool = False,
+    ) -> dict[str, int]:
         groups: dict[str, list[Item]] = {}
         for item in items:
             if str(item.extra.get("source_site") or "").casefold() != "fenbi" or self.policy.allows(item.url):
+                continue
+            if timeline_only and not (
+                str(item.extra.get("sub") or "").casefold() == "timeline"
+                or "/page/kaoshidetail/" in item.url.casefold()
+                or "/page/exam-timeline-detail/" in item.url.casefold()
+            ):
                 continue
             key = normalize_notice_title(item.title)
             if key:
