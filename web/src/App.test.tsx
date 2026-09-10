@@ -116,10 +116,11 @@ describe('authenticated app bootstrap', () => {
       });
       if (url.endsWith('/data/server-gongkao.json')) return json({
         generated_at: '2026-09-04T00:00:00Z', source: 'gongkao_official',
-        status: { source: 'gongkao_official', status: 'ok', item_count: 2 },
+        status: { source: 'gongkao_official', status: 'ok', item_count: 3 },
         items: [
           { source: 'gongkao', rank: 1, title: '中央机关公告', title_zh: '中央机关公告', url: 'https://scs.test/1', extra: { subsource: 'scs', exam_type: '国考', province: '全国' } },
           { source: 'gongkao', rank: 2, title: '黑龙江选调公告', title_zh: '黑龙江选调公告', url: 'https://xuandiao.test/1', extra: { subsource: 'xuandiao', exam_type: '选调生', province: '黑龙江' } },
+          { source: 'gongkao', rank: 3, title: '中央机关拟录用名单公示', title_zh: '中央机关拟录用名单公示', url: 'https://scs.test/noise', extra: { subsource: 'scs', exam_type: '国考', province: '全国' } },
         ],
       });
       return dataResponse(url) ?? json({}, 404);
@@ -132,6 +133,7 @@ describe('authenticated app bootstrap', () => {
     expect(await screen.findByText('中央机关公告')).toBeInTheDocument();
     expect(screen.getByText('黑龙江选调公告')).toBeInTheDocument();
     expect(screen.getByText('粉笔时间线')).toBeInTheDocument();
+    expect(screen.queryByText('中央机关拟录用名单公示')).not.toBeInTheDocument();
     expect(screen.getByText('国家公务员局')).toBeInTheDocument();
     expect(screen.getByText('官方选调')).toBeInTheDocument();
   });
@@ -189,8 +191,9 @@ describe('authenticated app bootstrap', () => {
         { source: 'jobs', rank: 1, title: '腾讯算法岗', title_zh: '腾讯算法岗', url: 'https://jobs.test/tencent', extra: { company: '腾讯', city: '北京', keywords_hit: ['算法'] } },
         { source: 'jobs', rank: 2, title: '央企数据岗', title_zh: '央企数据岗', url: 'https://jobs.test/guopin', extra: { subsource: 'guopin', company: '中央示例集团', city: '天津', is_central_soe: true } },
       ] });
-      if (url.endsWith('/data/server-jobs.json')) return json({ generated_at: '2026-09-07T01:00:00Z', source: 'jobs_official', status: { source: 'jobs_official', status: 'ok', item_count: 1 }, items: [
+      if (url.endsWith('/data/server-jobs.json')) return json({ generated_at: '2026-09-07T01:00:00Z', source: 'jobs_official', status: { source: 'jobs_official', status: 'ok', item_count: 2 }, items: [
         { source: 'jobs', rank: 1, title: '林大宣讲会', title_zh: '林大宣讲会', url: 'https://nefu.test/1', extra: { subsource: 'campus', company: '示例科技', city: '哈尔滨', school: '东北林业大学' } },
+        { source: 'jobs', rank: 2, title: '林大研发岗招聘', title_zh: '林大研发岗招聘', url: 'https://nefu.test/2', extra: { subsource: 'campus', company: '示例科技', city: '哈尔滨', school: '东北林业大学' } },
       ] });
       return dataResponse(url) ?? json({}, 404);
     });
@@ -198,7 +201,8 @@ describe('authenticated app bootstrap', () => {
     render(<App />);
     await screen.findByText('reader');
     fireEvent.click(screen.getByRole('button', { name: '岗位' }));
-    expect(await screen.findByText('林大宣讲会')).toBeInTheDocument();
+    expect(await screen.findByText('林大研发岗招聘')).toBeInTheDocument();
+    expect(screen.queryByText('林大宣讲会')).not.toBeInTheDocument();
     fireEvent.change(screen.getByLabelText('岗位来源'), { target: { value: 'guopin' } });
     expect(screen.getByText('央企数据岗')).toBeInTheDocument();
     expect(screen.queryByText('腾讯算法岗')).not.toBeInTheDocument();

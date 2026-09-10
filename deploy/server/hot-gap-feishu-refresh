@@ -6,6 +6,10 @@ if [[ "${HOT_GAP_FEISHU_LOCKED:-}" != "1" ]]; then
     /usr/bin/flock -w 300 /run/lock/hot-gap-feishu-sync.lock "$0"
 fi
 
+# Acceptance runs and production refreshes must never let emergency seed rows
+# hide a broken or empty government source.
+export GONGKAO_DISABLE_SEEDS=true
+
 project=/opt/hot-gap-aggregator
 persistent_dir=/var/lib/hot-gap
 data_dir=/var/www/hot-gap/data

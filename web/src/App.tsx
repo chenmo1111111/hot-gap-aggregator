@@ -45,13 +45,55 @@ const hiddenTabsFromPrefs = (prefs: Prefs) => {
   return [...new Set(prefStringArray(prefs, 'tab_hidden').filter((tab) => allowed.has(tab)))];
 };
 
+// The collectors are the primary noise gate. Keep this small display-time
+// equivalent as a safety net for server-owned sidecars written by older jobs.
+const titleNoiseExemptions = /福利彩票|(?:社会)?福利院|中国福利会|评估分(?:中心|分中心|部|院)/gi;
+const nonTransferTitleNoise = /空中宣讲|专场招聘|校招行程|福利发放|报名入口|操作指南|温馨提示|名单公示|拟录用|拟聘用|拟录取|拟引进|拟考察|资格复审|资格审查|资格确认|成绩公布|成绩查询|笔试成绩|面试成绩|面试公告|面试通知|体检公告|体检通知|考察公告|递补公告|递补通知|违纪违规|取消资格|延期公告|更正公告|双选会|招聘会|宣讲会|拟招募|体检安排|宣讲|校园行|直播|回放|讲座|公开课|训练营|冲刺班|刷题|资料|讲义|题库|图书|礼包|打卡|进群|领取|准考证|系统班|每日一练|优惠|特惠|密训|模考|估分|夸夸|超大杯|默写表|时政积累|通勤|福利/i;
+const transferNotice = /调剂公告/i;
+const signupDeadlineFields = [
+  'endSignUpTime', 'baoming_jiezhi', 'signup_deadline', 'application_deadline',
+  'registration_deadline', 'deadline', '报名截止', '报名结束',
+];
+
+const hasFutureSignupDeadline = (item: Item) => {
+  const extra = item.extra ?? {};
+  const values = signupDeadlineFields.map((field) => extra[field]);
+  const titleDeadline = (item.title_zh || item.title || '').match(
+    /(?:报名(?:截止|结束)|截止日期).{0,16}(20\d{2}[-/.年]\d{1,2}[-/.月]\d{1,2}日?)/,
+  );
+  if (titleDeadline) values.push(titleDeadline[1]);
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  return values.some((value) => {
+    if (value === undefined || value === null || value === '') return false;
+    const normalized = String(value).trim()
+      .replace(/年|\//g, '-').replace(/月/g, '-').replace(/日/g, '');
+    const match = normalized.match(/20\d{2}-\d{1,2}-\d{1,2}/);
+    if (!match) return false;
+    const parsed = new Date(`${match[0]}T00:00:00`);
+    return !Number.isNaN(parsed.getTime()) && parsed >= today;
+  });
+};
+
+const isRecruitmentTitleNoise = (item: Item) => {
+  const title = (item.title_zh || item.title || '').replace(titleNoiseExemptions, '');
+  if (nonTransferTitleNoise.test(title)) return true;
+  return transferNotice.test(title) && !hasFutureSignupDeadline(item);
+};
+
 const mergeServerGongkao = (feed: Feed, officialFeed: ServerGongkaoFeed): Feed => {
-  const officialItems = officialFeed.items.filter((item) => item.source === 'gongkao');
-  if (officialItems.length === 0) return feed;
+  const cleanFeed = {
+    ...feed,
+    items: feed.items.filter((item) => item.source !== 'gongkao' || !isRecruitmentTitleNoise(item)),
+  };
+  const officialItems = officialFeed.items.filter(
+    (item) => item.source === 'gongkao' && !isRecruitmentTitleNoise(item),
+  );
+  if (officialItems.length === 0) return cleanFeed;
 
   // A previous release wrote official rows into all.json directly. Drop those
   // stale copies and let the server-owned sidecar be authoritative for them.
-  const ciItems = feed.items.filter((item) => !['scs', 'xuandiao'].includes(String(item.extra?.subsource || '')));
+  const ciItems = cleanFeed.items.filter((item) => !['scs', 'xuandiao'].includes(String(item.extra?.subsource || '')));
   const firstGongkaoIndex = ciItems.findIndex((item) => item.source === 'gongkao');
   const itemsWithOfficial = [...ciItems];
   itemsWithOfficial.splice(firstGongkaoIndex < 0 ? itemsWithOfficial.length : firstGongkaoIndex, 0, ...officialItems);
@@ -79,10 +121,16 @@ const mergeServerGongkao = (feed: Feed, officialFeed: ServerGongkaoFeed): Feed =
 };
 
 const mergeServerJobs = (feed: Feed, serverFeed: ServerJobsFeed): Feed => {
-  const serverItems = serverFeed.items.filter((item) => item.source === 'jobs');
-  if (serverItems.length === 0) return feed;
+  const cleanFeed = {
+    ...feed,
+    items: feed.items.filter((item) => item.source !== 'jobs' || !isRecruitmentTitleNoise(item)),
+  };
+  const serverItems = serverFeed.items.filter(
+    (item) => item.source === 'jobs' && !isRecruitmentTitleNoise(item),
+  );
+  if (serverItems.length === 0) return cleanFeed;
   const serverOwned = new Set(['campus', 'yingjiesheng', 'xjh', 'haitou', 'wutongguo']);
-  const ciItems = feed.items.filter((item) => !(item.source === 'jobs' && serverOwned.has(String(item.extra?.subsource || ''))));
+  const ciItems = cleanFeed.items.filter((item) => !(item.source === 'jobs' && serverOwned.has(String(item.extra?.subsource || ''))));
   const firstJobsIndex = ciItems.findIndex((item) => item.source === 'jobs');
   const merged = [...ciItems];
   merged.splice(firstJobsIndex < 0 ? merged.length : firstJobsIndex, 0, ...serverItems);

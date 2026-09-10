@@ -68,6 +68,11 @@ def test_seed_items_can_be_disabled_for_acceptance(monkeypatch) -> None:
     assert collector.load_seed_items() == []
 
 
+def test_server_refresh_always_disables_seed_items() -> None:
+    script = (ROOT / "deploy" / "server" / "hot-gap-feishu-refresh").read_text(encoding="utf-8")
+    assert "export GONGKAO_DISABLE_SEEDS=true" in script
+
+
 def test_html_source_rejects_empty_selectors(tmp_path) -> None:
     config = tmp_path / "invalid.yaml"
     config.write_text("sources:\n  - name: invalid\n    list_url: https://example.com\n    engine: html\n", encoding="utf-8")
