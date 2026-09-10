@@ -120,3 +120,16 @@ def test_write_qiuzhao_merges_xiaozhaoya_snapshot(tmp_path) -> None:
 
     assert result["items"][0] == row
     assert "xiaozhaoya" in result["status"]["upstream_source"]
+
+
+def test_write_qiuzhao_filters_event_noise_from_server_jobs(tmp_path) -> None:
+    (tmp_path / "server-jobs.json").write_text(json.dumps({
+        "items": [
+            {"title": "某集团 宣讲会", "extra": {"company": "某集团"}},
+            {"title": "某集团 研发工程师", "extra": {"company": "某集团"}},
+        ],
+    }, ensure_ascii=False), encoding="utf-8")
+
+    result = write_qiuzhao(tmp_path)
+
+    assert [row["position"] for row in result["items"]] == ["某集团 研发工程师"]

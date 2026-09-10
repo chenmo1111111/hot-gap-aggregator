@@ -15,6 +15,7 @@ from typing import Any
 
 from dotenv import load_dotenv
 
+from app.pipeline.gongkao_filter import filter_title_noise_items
 from app.pipeline.prune import filter_current_items, is_expired_item, load_retention
 
 
@@ -160,8 +161,11 @@ def write_qiuzhao(data_dir: str | Path) -> dict[str, Any]:
         if not isinstance(payload, dict):
             raise ValueError(f"{source_path} must contain a JSON object")
         source_rows = payload.get("items") if isinstance(payload.get("items"), list) else []
+        source_rows, _, _ = filter_title_noise_items(
+            [dict(row) for row in source_rows if isinstance(row, dict)],
+        )
         kept, _ = filter_current_items(
-            [dict(row) for row in source_rows if isinstance(row, dict)], policy,
+            source_rows, policy,
         )
         inputs.append(normalize_jobs_payload({**payload, "items": kept}))
     if not inputs:
