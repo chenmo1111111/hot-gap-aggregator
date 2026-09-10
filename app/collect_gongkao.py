@@ -6,7 +6,7 @@ import asyncio
 import json
 import logging
 import os
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from tempfile import NamedTemporaryFile
 
@@ -33,7 +33,7 @@ def _write_atomic(path: Path, payload: dict) -> None:
 async def collect_gongkao(data_dir: str | Path | None = None) -> dict:
     collector = GongkaoCollector()
     items = await collector.fetch()
-    generated_at = datetime.now(UTC).isoformat()
+    generated_at = datetime.now(timezone.utc).isoformat()
     payload = {
         "generated_at": generated_at,
         "source": "gongkao",
