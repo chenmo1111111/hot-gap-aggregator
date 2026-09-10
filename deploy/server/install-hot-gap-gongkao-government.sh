@@ -8,7 +8,6 @@ backup="$project/.deploy-backups/${stamp}-before-gongkao-government"
 cron_backup="/root/crontab.before-hot-gap-government-${stamp}"
 files=(
   app/collect_gongkao.py
-  app/collectors/__init__.py
   app/collectors/gongkao.py
   app/collectors/gov_list.py
   app/export_gongkao.py
