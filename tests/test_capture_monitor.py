@@ -31,6 +31,27 @@ def test_capture_drop_below_ninety_percent_keeps_previous_snapshot(tmp_path) -> 
     assert candidate.exists()
 
 
+def test_xiaozhaoya_uses_eighty_percent_safety_gate(tmp_path) -> None:
+    stable = tmp_path / "xiaozhaoya.json"
+    candidate = tmp_path / "xiaozhaoya.candidate.json"
+    stable.write_text(
+        json.dumps({"items": [{"recruitmentId": index} for index in range(100)]}),
+        encoding="utf-8",
+    )
+    candidate.write_text(
+        json.dumps({"items": [{"recruitmentId": index} for index in range(79)]}),
+        encoding="utf-8",
+    )
+
+    with pytest.raises(ValueError, match="80%"):
+        validate_and_commit(
+            candidate,
+            stable,
+            kind="xiaozhaoya",
+            disappearance_log=tmp_path / "missing.jsonl",
+        )
+
+
 def test_capture_success_logs_disappeared_items_and_commits(tmp_path) -> None:
     stable = tmp_path / "stable.json"
     candidate = tmp_path / "candidate.json"

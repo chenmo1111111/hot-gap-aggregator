@@ -106,7 +106,7 @@ def _exam_type(text: str) -> str:
 def record_to_item(row: Mapping[str, Any], *, rank: int) -> tuple[str, Item]:
     """Convert one original record to the shared Item model and select its dataset."""
     identifier = _text(row.get("recruitmentId"))
-    company = _text(row.get("fullName") or row.get("companyName"))
+    company = _text(row.get("companyName") or row.get("fullName"))
     position = _list_text(row.get("jobTitle"))
     announcement_title = _text(row.get("announcementTitle"))
     title = announcement_title or position or company
@@ -189,8 +189,8 @@ def record_to_item(row: Mapping[str, Any], *, rank: int) -> tuple[str, Item]:
     return "qiuzhao", Item(
         source="jobs",
         rank=rank,
-        title=position or title,
-        title_zh=position or title,
+        title=title,
+        title_zh=title,
         url=target_url,
         published_at=published or None,
         summary_zh=notes or None,

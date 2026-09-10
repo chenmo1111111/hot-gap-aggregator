@@ -251,7 +251,7 @@ def _is_purchased_gongkao(row: Mapping[str, Any]) -> bool:
         extra.get("source_site"), extra.get("preferred_link_source"),
     )
     return any(str(value or "").casefold() in {
-        "购买表-公考", "feishu_sheet", "gongkao_sheet",
+        "购买表-公考", "feishu_sheet", "gongkao_sheet", "校招鸭", "xiaozhaoya",
     } for value in values)
 
 

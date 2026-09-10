@@ -225,7 +225,7 @@ async (pageNumber) => {
 
 
 async def _captcha_visible(page: Any) -> bool:
-    if CAPTCHA_URL_PATTERN.search(page.url) and "/home" not in page.url:
+    if CAPTCHA_URL_PATTERN.search(page.url):
         return True
     for selector in CAPTCHA_SELECTORS:
         locator = page.locator(selector)
@@ -256,6 +256,10 @@ async def _fetch_page(
         await asyncio.wait_for(page.evaluate(FETCH_PAGE_SCRIPT, page_number), timeout=60)
     except TimeoutError as exc:
         raise CaptchaBlocked("校招鸭 recruitmentList 长时间未更新") from exc
+    except Exception as exc:
+        if await _captcha_visible(page):
+            raise CaptchaBlocked("校招鸭抓取被验证码拦截") from exc
+        raise CaptureError(f"校招鸭第 {page_number} 页 fetchData 失败") from exc
     await page.wait_for_timeout(round(delay * 1_000))
     deadline = asyncio.get_running_loop().time() + 25
     while asyncio.get_running_loop().time() < deadline:
@@ -315,6 +319,8 @@ async def capture(
         page = context.pages[0] if context.pages else await context.new_page()
         try:
             await page.goto(HOME_URL, wait_until="domcontentloaded", timeout=120_000)
+            if login:
+                print("请在弹出的专用浏览器中登录校招鸭；检测到首页数据后会自动继续。")
             initial = await _wait_for_home(page, login=login)
             if login:
                 print("已检测到校招鸭登录态，开始抓取。")
