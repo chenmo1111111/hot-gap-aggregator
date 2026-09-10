@@ -27,7 +27,7 @@ LINK_BLACKLIST = re.compile(
 )
 NON_OPPORTUNITY = re.compile(
     r"拟录用|拟聘用|录用名单|聘用名单|成绩(?:公告|查询|公示)|资格复审|"
-    r"面试名单|体检名单|递补|征集.{0,8}企业|招聘会邀请函|选聘法律顾问",
+    r"面试名单|体检名单|递补|征集.{0,20}企业|招聘会邀请函|选聘法律顾问",
     re.I,
 )
 STRUCTURED_FIELDS = (

@@ -72,6 +72,16 @@ def test_public_text_fields_use_slash_without_touching_typed_empty_fields() -> N
     assert qiuzhao["投递链接"] is None
 
 
+def test_public_gongkao_normalizes_placeholder_province_to_nationwide() -> None:
+    fields = map_public_gongkao({
+        "title": "军队文职公告",
+        "url": "http://81rc.81.cn/sy/gzdt_210283/16484161.html",
+        "extra": {"province": "详见正文", "exam_type": "军队文职"},
+    })
+
+    assert fields["省份"] == "全国"
+
+
 def test_map_public_selection_exposes_generic_school_scope_only() -> None:
     fields = map_public_gongkao({
         "title": "辽宁定向选调公告",

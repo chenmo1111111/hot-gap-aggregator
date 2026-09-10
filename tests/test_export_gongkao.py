@@ -130,3 +130,41 @@ def test_sheet_official_url_overrides_duplicate_fenbi_links() -> None:
     assert output["status"]["sheet_added_count"] == 0
     assert output["status"]["sheet_duplicate_count"] == 1
     assert output["status"]["sheet_merged_count"] == 1
+
+
+def test_government_link_is_not_overwritten_by_sheet_or_watcher_snapshot() -> None:
+    title = "湖南省2026年省直事业单位第四次公开招聘公告"
+    official = "https://rst.hunan.gov.cn/rst/xxgk/zpzl/sydwzp/202609/t20260908_34059489.html"
+    base = {
+        "items": [{
+            "title": title,
+            "url": official,
+            "published_at": "2026-09-08",
+            "extra": {
+                "id": "gov:hunan-4", "province": "湖南", "exam_type": "事业单位",
+                "government_source": True,
+            },
+        }]
+    }
+    watcher = {
+        "items": [{
+            "title": title,
+            "url": "https://mp.weixin.qq.com/s/old-watcher-copy",
+            "extra": {"province": "详见正文", "exam_type": "事业单位"},
+        }]
+    }
+    sheet = {
+        "items": [{
+            "title": title,
+            "url": "https://mp.weixin.qq.com/s/old-sheet-copy",
+            "extra": {"province": "湖南省", "exam_type": "事业单位"},
+        }]
+    }
+
+    output = merge_gongkao_payloads(base, sheet, watcher)
+
+    assert len(output["items"]) == 1
+    assert output["items"][0]["url"] == official
+    assert output["items"][0]["extra"]["province"] == "湖南"
+    assert output["status"]["server_merged_count"] == 0
+    assert output["status"]["sheet_merged_count"] == 0

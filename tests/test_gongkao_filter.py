@@ -9,6 +9,7 @@ def test_marketing_title_and_fenbi_course_links_are_dropped() -> None:
     assert assess_gongkao(row("筑梦南粤师途5天直播", "https://example.gov.cn/x")).reason == "title_blacklist"
     assert assess_gongkao(row("事业单位公开招聘公告", "https://fenbi.com/spa/course/1")).reason == "link_blacklist"
     assert assess_gongkao(row("事业单位公开招聘拟聘用人员公示", "https://example.gov.cn/x")).reason == "not_open_opportunity"
+    assert assess_gongkao(row("关于征集专项服务活动优质企业的公告", "https://example.gov.cn/x")).reason == "not_open_opportunity"
 
 
 def test_government_or_structured_announcement_is_kept() -> None:

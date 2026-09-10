@@ -15,7 +15,7 @@ from urllib.parse import urlsplit, urlunsplit
 
 from dotenv import load_dotenv
 
-from app.pipeline.gongkao_filter import filter_gongkao_items
+from app.pipeline.gongkao_filter import filter_gongkao_items, is_gov_domain
 
 
 def _text(value: object) -> str:
@@ -71,6 +71,20 @@ def _identity_keys(item: Mapping[str, Any]) -> set[str]:
 
 def _has_value(value: object) -> bool:
     return value not in (None, "", [], {})
+
+
+def _link_priority(item: Mapping[str, Any], default: int) -> int:
+    """Rank links so an official government URL can never be overwritten.
+
+    Priority: government source/domain > official watcher > captured Sheet >
+    Fenbi/base feed.  The default identifies the ingestion path while the
+    record itself can promote an official URL to the highest priority.
+    """
+    extra = _extra(item)
+    url = item.get("url") or item.get("announcement_url") or extra.get("announcement_url")
+    if extra.get("government_source") or is_gov_domain(url):
+        return 3
+    return default
 
 
 def _prefer_external_record(
@@ -177,21 +191,29 @@ def merge_gongkao_payloads(
     for item in base_items:
         item["rank"] = len(merged) + 1
         merged.append(item)
-        link_priorities.append(0)
+        link_priorities.append(_link_priority(item, 0))
         remember(len(merged) - 1, item)
     # Mainland watcher records are official and take precedence over the
     # manually captured Sheet when both point at the same announcement.
     for item in server_items:
+        incoming_priority = _link_priority(item, 2)
         matches = matching_indices(item)
         if matches:
             server_duplicate_count += 1
+            changed = False
             for index in matches:
+                if (
+                    link_priorities[index] > incoming_priority
+                    or link_priorities[index] == 3
+                ):
+                    continue
                 merged[index] = _prefer_external_record(
                     merged[index], item, source_name="official_watcher"
                 )
-                link_priorities[index] = 2
+                link_priorities[index] = incoming_priority
                 remember(index, merged[index])
-            server_merged_count += 1
+                changed = True
+            server_merged_count += int(changed)
             continue
         extra = dict(_extra(item))
         url = _canonical_url(item.get("url") or extra.get("announcement_url"))
@@ -202,29 +224,33 @@ def merge_gongkao_payloads(
         item["extra"] = extra
         item["rank"] = len(merged) + 1
         merged.append(item)
-        link_priorities.append(2)
+        link_priorities.append(incoming_priority)
         remember(len(merged) - 1, item)
     server_added_count = len(merged) - len(base_items)
 
     for item in sheet_items:
+        incoming_priority = _link_priority(item, 1)
         matches = matching_indices(item)
         if matches:
             sheet_duplicate_count += 1
             changed = False
             for index in matches:
-                if link_priorities[index] >= 2:
+                if (
+                    link_priorities[index] > incoming_priority
+                    or link_priorities[index] == 3
+                ):
                     continue
                 merged[index] = _prefer_external_record(
                     merged[index], item, source_name="feishu_sheet"
                 )
-                link_priorities[index] = 1
+                link_priorities[index] = incoming_priority
                 remember(index, merged[index])
                 changed = True
             sheet_merged_count += int(changed)
             continue
         item["rank"] = len(merged) + 1
         merged.append(item)
-        link_priorities.append(1)
+        link_priorities.append(incoming_priority)
         remember(len(merged) - 1, item)
 
     filter_input_count = len(merged)

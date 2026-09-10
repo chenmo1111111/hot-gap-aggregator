@@ -242,6 +242,8 @@ def map_public_gongkao(row: Mapping[str, Any]) -> dict[str, Any]:
     limited_major = _bool_value(extra.get("xian_zhuanye"))
     category = str(extra.get("detail_category") or detail_category(row))
     raw_province = str(extra.get("province") or row.get("province") or "全国").strip()
+    if raw_province in {"详见正文", "见正文", "待定", "未知", "/", "-"}:
+        raw_province = "全国"
     province = re.sub(
         r"(?:壮族|回族|维吾尔)?自治区$|特别行政区$|省$|市$", "", raw_province,
     ) or "全国"
