@@ -23,8 +23,6 @@ files=(
   app/pipeline/gov_link_resolver.py
   app/sync_feishu.py
   config/xiaozhaoya.yaml
-  deploy/server/hot-gap-capture-alert
-  deploy/server/hot-gap-capture-alert.sudoers
   deploy/server/hot-gap-feishu-refresh
   deploy/server/install-hot-gap-link-volume.sh
 )
@@ -68,7 +66,6 @@ trap rollback EXIT
 
 tar -xzf "$archive" -C "$project"
 sed -i 's/\r$//' \
-  "$project/deploy/server/hot-gap-capture-alert" \
   "$project/deploy/server/hot-gap-feishu-refresh" \
   "$project/deploy/server/install-hot-gap-link-volume.sh"
 for relative in "${files[@]}"; do
@@ -80,13 +77,6 @@ done
 install -o root -g root -m 755 \
   "$project/deploy/server/hot-gap-feishu-refresh" \
   /usr/local/sbin/hot-gap-feishu-refresh
-install -o root -g root -m 755 \
-  "$project/deploy/server/hot-gap-capture-alert" \
-  /usr/local/sbin/hot-gap-capture-alert
-install -o root -g root -m 440 \
-  "$project/deploy/server/hot-gap-capture-alert.sudoers" \
-  /etc/sudoers.d/hot-gap-capture-alert
-visudo -cf /etc/sudoers.d/hot-gap-capture-alert
 
 cd "$project"
 .venv/bin/python -m py_compile \

@@ -91,12 +91,15 @@ function Send-FailureAlert([string]$reason) {
         $localFeishuSent = $false
         try { $localFeishuSent = [bool](($alertJson | ConvertFrom-Json).feishu_sent) } catch {}
         if (-not $localFeishuSent) {
-            $titleB64 = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes($title))
-            $bodyB64 = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes($body))
+            $alertPath = Join-Path $stateDir "capture-alert.json"
+            $alertPayload = @{ title = $title; message = $body } | ConvertTo-Json -Compress
+            [IO.File]::WriteAllText($alertPath, $alertPayload, (New-Object Text.UTF8Encoding($false)))
             $remote = "$sshUser@$sshHost"
-            $remoteAlert = "sudo /usr/local/sbin/hot-gap-capture-alert $titleB64 $bodyB64"
-            & ssh -i $sshKey -o BatchMode=yes $remote $remoteAlert | ForEach-Object { Write-Log "remote alert $_" }
-            if ($LASTEXITCODE -ne 0) { Write-Log "remote Feishu alert FAILED with code $LASTEXITCODE" }
+            & scp -q -i $sshKey -o BatchMode=yes $alertPath "${remote}:/home/deploy/.capture-alert.json.incoming"
+            if ($LASTEXITCODE -eq 0) {
+                & ssh -i $sshKey -o BatchMode=yes $remote "sudo /usr/local/sbin/hot-gap-feishu-refresh" | ForEach-Object { Write-Log "remote alert $_" }
+            }
+            if ($LASTEXITCODE -ne 0) { Write-Log "remote Feishu alert relay FAILED with code $LASTEXITCODE" }
         }
         if (Test-Path -LiteralPath $barkSender) {
             & powershell.exe -NoProfile -ExecutionPolicy Bypass -File $barkSender -Source Codex -Kind needs-input -Title $title -Body $body | Out-Null

@@ -106,6 +106,17 @@ def notify_feishu(title: str, message: str) -> bool:
     return True
 
 
+def notify_feishu_file(path: Path) -> bool:
+    value = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(value, Mapping):
+        raise ValueError("alert file must be a JSON object")
+    title = str(value.get("title") or "").strip()
+    message = str(value.get("message") or "").strip()
+    if not title or not message or len(title) > 200 or len(message) > 2_000:
+        raise ValueError("alert title/message is missing or too long")
+    return notify_feishu(title, message)
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser()
     commands = parser.add_subparsers(dest="command", required=True)
@@ -124,6 +135,8 @@ def main(argv: list[str] | None = None) -> int:
     alert_b64 = commands.add_parser("alert-b64")
     alert_b64.add_argument("--title-b64", required=True)
     alert_b64.add_argument("--message-b64", required=True)
+    alert_file = commands.add_parser("alert-file")
+    alert_file.add_argument("--path", type=Path, required=True)
     args = parser.parse_args(argv)
     if args.command == "validate":
         print(json.dumps(validate_and_commit(
@@ -136,10 +149,12 @@ def main(argv: list[str] | None = None) -> int:
         ), ensure_ascii=False))
     elif args.command == "alert":
         print(json.dumps({"feishu_sent": notify_feishu(args.title, args.message)}))
-    else:
+    elif args.command == "alert-b64":
         title = base64.b64decode(args.title_b64, validate=True).decode("utf-8")
         message = base64.b64decode(args.message_b64, validate=True).decode("utf-8")
         print(json.dumps({"feishu_sent": notify_feishu(title, message)}))
+    else:
+        print(json.dumps({"feishu_sent": notify_feishu_file(args.path)}))
     return 0
 
 

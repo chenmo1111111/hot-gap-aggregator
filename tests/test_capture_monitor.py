@@ -4,7 +4,7 @@ import json
 
 import pytest
 
-from app.capture_monitor import main, update_state, validate_and_commit
+from app.capture_monitor import main, notify_feishu_file, update_state, validate_and_commit
 
 
 def _write(path, count: int, prefix: str = "row") -> None:
@@ -67,3 +67,15 @@ def test_base64_alert_decodes_utf8(monkeypatch, capsys) -> None:
     ]) == 0
     assert calls == [("测试", "无需处理")]
     assert json.loads(capsys.readouterr().out)["feishu_sent"] is True
+
+
+def test_alert_file_validates_and_sends(monkeypatch, tmp_path) -> None:
+    alert = tmp_path / "alert.json"
+    alert.write_text(json.dumps({"title": "test", "message": "detail"}), encoding="utf-8")
+    calls: list[tuple[str, str]] = []
+    monkeypatch.setattr(
+        "app.capture_monitor.notify_feishu",
+        lambda title, message: calls.append((title, message)) or True,
+    )
+    assert notify_feishu_file(alert) is True
+    assert calls == [("test", "detail")]

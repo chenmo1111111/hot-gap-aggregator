@@ -13,12 +13,27 @@ export GONGKAO_DISABLE_SEEDS=true
 project=/opt/hot-gap-aggregator
 persistent_dir=/var/lib/hot-gap
 data_dir=/var/www/hot-gap/data
+alert_incoming=/home/deploy/.capture-alert.json.incoming
 qiuzhao_incoming=/home/deploy/.qiuzhao_wanqing.json.incoming
 qiuzhao_persistent="$persistent_dir/qiuzhao_wanqing.json"
 qiuzhao_data="$data_dir/qiuzhao_wanqing.json"
 gongkao_incoming=/home/deploy/.gongkao_sheet.json.incoming
 gongkao_persistent="$persistent_dir/gongkao_sheet.json"
 gongkao_data="$data_dir/gongkao_sheet.json"
+
+if [[ -f "$alert_incoming" ]]; then
+  if "$project/.venv/bin/python" -m app.capture_monitor \
+    alert-file --path "$alert_incoming"
+  then
+    /usr/bin/rm -f -- "$alert_incoming"
+    echo "Capture alert relayed through S1 Feishu webhook"
+    exit 0
+  else
+    rejected="${alert_incoming}.rejected.$(/usr/bin/date +%Y%m%d%H%M%S)"
+    /usr/bin/mv -- "$alert_incoming" "$rejected"
+    echo "Capture alert rejected; continuing the regular refresh" >&2
+  fi
+fi
 
 /usr/bin/install -d -o root -g root -m 755 "$persistent_dir"
 if [[ -f "$qiuzhao_incoming" ]]; then
