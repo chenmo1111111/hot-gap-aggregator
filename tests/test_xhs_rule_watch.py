@@ -195,6 +195,68 @@ async def test_new_today_rule_pushes_even_when_ai_says_no_change_and_never_repea
 
 
 @pytest.mark.asyncio
+async def test_external_document_refresh_precedes_impact_analysis(monkeypatch, tmp_path) -> None:
+    config = tmp_path / "xhs.yaml"
+    write_config(config)
+    config.write_text(
+        config.read_text(encoding="utf-8")
+        + "  external_documents:\n    enabled: true\n    snapshot_path: 'data/test-docs.json'\n",
+        encoding="utf-8",
+    )
+    database = Database(tmp_path / "watch.db")
+    captured_rules: list[dict] = []
+    calls: list[str] = []
+
+    async def refresh_shop(_settings):
+        return {
+            "stale": False,
+            "items": [{
+                "item_id": "1", "title": "电子题库",
+                "category_path": "教育 > 电子资源 > 题库",
+            }],
+        }
+
+    async def refresh_docs(links, settings):
+        calls.append("docs")
+        assert links and "e3_demo_new" in links[0]
+        assert "电子资源" in settings["focus_terms"]
+        return [{
+            "source_id": "doc.weixin.qq.com/sheet/e3_demo_new",
+            "source_url": "https://doc.weixin.qq.com/sheet/e3_demo_new",
+            "stale": False,
+            "content_text": "电子资源 > 题库：普通企业店可售",
+        }]
+
+    async def analyze(rule_data, _shop):
+        calls.append("impact")
+        captured_rules.append(rule_data)
+        return {
+            "verdict": "no_change", "summary": "仍可售", "affected_items": [],
+            "action_plan": [], "manual_checks": [], "deadline": "2026-09-16",
+        }
+
+    watcher = XhsRuleWatcher(
+        database,
+        config,
+        shop_refresher=refresh_shop,
+        external_docs_refresher=refresh_docs,
+        impact_analyzer=analyze,
+        today_provider=lambda: TODAY,
+    )
+    watcher._runtime_config = watcher.load_config()
+    current = extract_article_metadata(fixture_body("xhs_rule_article_new.html"))
+    await watcher._run_impact_analysis(
+        {"name": "月度类目规则", "url": "https://school.xiaohongshu.com/rule/detail/26/2981"},
+        current,
+        published_at="2026-09-09",
+        manual=True,
+    )
+    assert calls == ["docs", "impact"]
+    assert "普通企业店可售" in captured_rules[0]["external_documents"][0]["content_text"]
+    database.close()
+
+
+@pytest.mark.asyncio
 async def test_same_rule_id_with_new_monthly_publication_date_pushes_once(monkeypatch, tmp_path) -> None:
     config = tmp_path / "xhs.yaml"
     write_config(config)

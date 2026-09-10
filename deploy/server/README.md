@@ -81,6 +81,8 @@ XHS_RULE_WATCH_CONFIG=config/xhs_rule_watch.yaml
 XHS_SCHOOL_COOKIE_JSON='[{"name":"web_session","value":"...","domain":".xiaohongshu.com","path":"/"}]'
 XHS_SCHOOL_COOKIE_DOC='a1=...; webId=...; gid=...'
 XHS_SHOP_ITEMS_PATH=data/xhs_shop_items.json
+TENCENT_DOC_COOKIE_JSON='[{"name":"...","value":"...","domain":".docs.qq.com","path":"/"}]'
+XHS_EXTERNAL_DOCS_PATH=data/xhs_external_docs.json
 DEEPSEEK_API_KEY=replace-with-server-only-secret
 ```
 
@@ -89,6 +91,11 @@ DEEPSEEK_API_KEY=replace-with-server-only-secret
 `alerts.json` 提醒重新导出。首次运行会把当前匹配规则的 `(rule_id, 发布日期)` 全部
 写入已通知台账，不发送历史消息；以后对上次成功运行以来并额外回看 2 天的新发布日期
 抓取正文。同一规则只有发布日期改变才会形成新的通知键，因此不会在第二天重复发送。
+
+腾讯文档外链与小红书使用不同的登录域。先在浏览器登录腾讯文档并确认规则所附表格可见，
+再用 Cookie-Editor 导出腾讯文档域的完整 JSON 到 `TENCENT_DOC_COOKIE_JSON`。程序只会把
+这些 Cookie 发给 `doc.weixin.qq.com` / `docs.qq.com`，缓存中只保存去掉 `scode` 等访问参数
+后的地址。若未配置或 Cookie 失效，旧表格缓存会标记为 `stale`，通知仍会发送并要求人工核对。
 
 发现新发布日期后，watcher 会打开千帆商品管理页，捕获当前后台商品列表请求并用 httpx
 翻页拉取全部在售商品，快照写到 `data/xhs_shop_items.json`，再仅通过 DeepSeek 做

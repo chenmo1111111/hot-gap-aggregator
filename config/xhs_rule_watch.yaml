@@ -23,3 +23,8 @@ impact_analysis:
   enabled: true
   shop_manage_url: "https://ark.xiaohongshu.com/app-item/list/shelf"
   urgent_within_days: 7
+  external_documents:
+    enabled: true
+    snapshot_path: "data/xhs_external_docs.json"
+    timeout_seconds: 45
+    max_chars: 80000

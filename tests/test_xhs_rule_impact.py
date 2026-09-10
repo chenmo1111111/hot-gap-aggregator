@@ -87,13 +87,41 @@ async def test_deepseek_failure_returns_review_without_raising() -> None:
 
 
 @pytest.mark.asyncio
-async def test_external_document_always_requires_manual_check_and_blocks_no_change() -> None:
+async def test_unresolved_external_document_requires_manual_check_and_blocks_no_change() -> None:
     async def caller(_system, _user):
         return '{"verdict":"no_change","summary":"无影响","affected_items":[],"action_plan":[],"manual_checks":[],"deadline":"2026-10-01"}'
 
-    link = "https://doc.weixin.qq.com/sheet/demo"
+    link = "https://doc.weixin.qq.com/sheet/demo?scode=secret-value&tab=000001"
     result = await DeepSeekRuleImpactAnalyzer(caller).analyze(
         {"effective_at": "2026-10-01", "external_links": [link]}, snapshot(),
     )
     assert result["verdict"] == "review"
-    assert any(MANUAL_LINK_CHECK in row and link in row for row in result["manual_checks"])
+    assert any(MANUAL_LINK_CHECK in row and "sheet/demo" in row for row in result["manual_checks"])
+    assert all("secret-value" not in row for row in result["manual_checks"])
+
+
+@pytest.mark.asyncio
+async def test_fetched_external_document_is_used_and_does_not_force_review() -> None:
+    prompts: list[str] = []
+
+    async def caller(_system, user):
+        prompts.append(user)
+        return '{"verdict":"no_change","summary":"当前店铺类型仍可售","affected_items":[],"action_plan":[],"manual_checks":[],"deadline":"2026-10-01"}'
+
+    raw_link = "https://doc.weixin.qq.com/sheet/demo?scode=secret-value&tab=000001"
+    rule = {
+        "effective_at": "2026-10-01",
+        "external_links": [raw_link],
+        "external_documents": [{
+            "source_id": "doc.weixin.qq.com/sheet/demo?tab=000001",
+            "source_url": "https://doc.weixin.qq.com/sheet/demo?tab=000001",
+            "title": "类目可售明细",
+            "stale": False,
+            "content_text": "教育 > 电子资源 > 题库：普通企业店可售",
+        }],
+    }
+    result = await DeepSeekRuleImpactAnalyzer(caller).analyze(rule, snapshot())
+    assert result["verdict"] == "no_change"
+    assert result["manual_checks"] == []
+    assert "普通企业店可售" in prompts[0]
+    assert "secret-value" not in prompts[0]

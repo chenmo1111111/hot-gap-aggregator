@@ -10,6 +10,8 @@ from typing import Any
 
 import httpx
 
+from app.watchers.xhs_external_docs import document_identity, safe_document_url
+
 
 VERDICTS = {"no_change", "review", "action_required"}
 EXTERNAL_LINK_PATTERN = re.compile(r"https?://[^\s<>\"'，。]+")
@@ -37,6 +39,41 @@ def _strings(value: Any) -> list[str]:
     if not isinstance(value, list):
         return []
     return [str(row).strip() for row in value if str(row).strip()]
+
+
+def unresolved_external_links(rule: dict[str, Any]) -> list[str]:
+    resolved = {
+        str(row.get("source_id") or "")
+        for row in rule.get("external_documents", [])
+        if isinstance(row, dict)
+        and row.get("content_text")
+        and not row.get("stale")
+    }
+    return [
+        str(link) for link in rule.get("external_links", [])
+        if str(link).startswith("http") and document_identity(str(link)) not in resolved
+    ]
+
+
+def _rule_for_model(rule: dict[str, Any]) -> dict[str, Any]:
+    """Strip access parameters and collector errors before sending data to DeepSeek."""
+    cleaned = dict(rule)
+    cleaned["external_links"] = [
+        safe_document_url(str(link)) for link in rule.get("external_links", [])
+        if str(link).startswith("http")
+    ]
+    documents: list[dict[str, Any]] = []
+    for row in rule.get("external_documents", []):
+        if not isinstance(row, dict):
+            continue
+        documents.append({
+            "source_url": safe_document_url(str(row.get("source_url") or "")),
+            "title": str(row.get("title") or ""),
+            "stale": bool(row.get("stale")),
+            "content_text": str(row.get("content_text") or ""),
+        })
+    cleaned["external_documents"] = documents
+    return cleaned
 
 
 def normalise_analysis(
@@ -71,7 +108,7 @@ def normalise_analysis(
 
     if external_links:
         for link in external_links:
-            check = f"{MANUAL_LINK_CHECK}：{link}"
+            check = f"{MANUAL_LINK_CHECK}：{safe_document_url(link)}"
             if check not in result["manual_checks"]:
                 result["manual_checks"].append(check)
         if result["verdict"] == "no_change":
@@ -99,11 +136,9 @@ class DeepSeekRuleImpactAnalyzer:
         self.caller = caller or self._call_deepseek
 
     async def analyze(self, rule: dict[str, Any], shop_snapshot: dict[str, Any]) -> dict[str, Any]:
-        external_links = [
-            link.rstrip(".,") for link in rule.get("external_links", []) if str(link).startswith("http")
-        ]
+        external_links = unresolved_external_links(rule)
         deadline = str(rule.get("effective_at") or "")
-        user_prompt = self._prompt(rule, shop_snapshot)
+        user_prompt = self._prompt(_rule_for_model(rule), shop_snapshot)
         try:
             raw = await self.caller(SYSTEM_PROMPT, user_prompt)
             match = re.search(r"\{.*\}", raw.strip(), re.S)
@@ -130,7 +165,8 @@ class DeepSeekRuleImpactAnalyzer:
         return (
             "请比较规则变化并逐个核对在售商品。只输出符合下列结构的 JSON：\n"
             f"{json.dumps(schema, ensure_ascii=False)}\n"
-            "若正文出现腾讯文档或外部表格，必须加入 manual_checks，不能猜测 no_change。"
+            "external_documents 中是程序实际读取到的外部表格文本；应优先用它核对类目。"
+            "只有外部文档 stale、内容为空或证据仍不足时才加入 manual_checks，不能猜测 no_change。"
             "商品快照 stale 或为空时 verdict 至少 review。\n"
             f"规则：{json.dumps(rule, ensure_ascii=False)}\n"
             f"在售商品快照：{json.dumps(shop_snapshot, ensure_ascii=False)}"

@@ -54,6 +54,7 @@ COOKIE_EXPIRED_MESSAGE = (
 Notifier = Callable[[dict[str, Any]], Awaitable[dict[str, str]]]
 ShopRefresher = Callable[[dict[str, Any]], Awaitable[dict[str, Any]]]
 ImpactAnalyzer = Callable[[dict[str, Any], dict[str, Any]], Awaitable[dict[str, Any]]]
+ExternalDocsRefresher = Callable[[list[str], dict[str, Any]], Awaitable[list[dict[str, Any]]]]
 
 
 class XhsCookieInvalid(SourceUnavailable):
@@ -212,6 +213,7 @@ class XhsRuleWatcher:
         alerts_path: str | Path | None = None,
         shop_refresher: ShopRefresher | None = None,
         impact_analyzer: ImpactAnalyzer | None = None,
+        external_docs_refresher: ExternalDocsRefresher | None = None,
         today_provider: Callable[[], date] | None = None,
     ) -> None:
         self.database = database
@@ -220,6 +222,7 @@ class XhsRuleWatcher:
         self._custom_notifier = notifier is not None
         self.shop_refresher = shop_refresher
         self.impact_analyzer = impact_analyzer
+        self.external_docs_refresher = external_docs_refresher
         self.today_provider = today_provider or (lambda: datetime.now(CHINA_TZ).date())
         self._runtime_config: dict[str, Any] = {}
         default_data_dir = Path(os.getenv("SERVER_SITE_DATA_DIR", "public/data"))
@@ -573,6 +576,49 @@ class XhsRuleWatcher:
             "external_links": list(current.get("external_links") or []),
             "manual_trigger": manual,
         }
+        external_config = impact_config.get("external_documents") or {}
+        if not isinstance(external_config, dict):
+            external_config = {}
+        if rule["external_links"] and external_config.get("enabled", False):
+            focus_terms = [
+                value.strip()
+                for item in shop_snapshot.get("items") or []
+                if isinstance(item, dict)
+                for value in re.split(
+                    r"[>／/、|·]+",
+                    f"{item.get('category_path') or ''}>{item.get('title') or ''}",
+                )
+                if value.strip()
+            ]
+            settings = dict(external_config)
+            settings["focus_terms"] = focus_terms[:80]
+            try:
+                if self.external_docs_refresher is not None:
+                    external_documents = await self.external_docs_refresher(
+                        rule["external_links"], settings,
+                    )
+                else:
+                    from app.watchers.xhs_external_docs import XhsExternalDocs
+
+                    snapshot_path = os.getenv(
+                        "XHS_EXTERNAL_DOCS_PATH",
+                        str(external_config.get("snapshot_path") or "data/xhs_external_docs.json"),
+                    )
+                    collector = XhsExternalDocs(
+                        snapshot_path,
+                        timeout_seconds=float(external_config.get("timeout_seconds") or 45),
+                        max_chars=int(external_config.get("max_chars") or 80_000),
+                    )
+                    external_documents = await collector.refresh(
+                        rule["external_links"], focus_terms=focus_terms,
+                    )
+                rule["external_documents"] = external_documents
+            except Exception as exc:
+                LOGGER.warning(
+                    "xhs external document refresh failed; continuing with manual review: %s",
+                    type(exc).__name__,
+                )
+                rule["external_documents"] = []
         try:
             if self.impact_analyzer is not None:
                 analysis = await self.impact_analyzer(rule, shop_snapshot)
@@ -582,12 +628,16 @@ class XhsRuleWatcher:
                 analysis = await DeepSeekRuleImpactAnalyzer().analyze(rule, shop_snapshot)
         except Exception as exc:
             LOGGER.warning("xhs rule impact analysis failed; pushing review fallback: %s", exc)
-            from app.pipeline.xhs_rule_impact import fallback_analysis, normalise_analysis
+            from app.pipeline.xhs_rule_impact import (
+                fallback_analysis,
+                normalise_analysis,
+                unresolved_external_links,
+            )
 
             analysis = normalise_analysis(
                 fallback_analysis(current["effective_at"]),
                 shop_snapshot,
-                rule["external_links"],
+                unresolved_external_links(rule),
                 current["effective_at"],
             )
 

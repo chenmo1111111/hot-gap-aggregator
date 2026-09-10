@@ -31,6 +31,8 @@ sync.db
 public/data/server-*.json
 # Contains private shop titles/categories and is generated only on the server.
 data/xhs_shop_items.json
+# Contains cached rule-sheet text and must never contain the access URL query.
+data/xhs_external_docs.json
 
 # Editor, OS and debug files
 .DS_Store
