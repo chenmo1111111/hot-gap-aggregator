@@ -7,6 +7,7 @@ stamp="$(date +%Y%m%d-%H%M%S)"
 backup="$project/.deploy-backups/${stamp}-before-link-volume"
 static_root=/var/www/hot-gap
 files=(
+  app/capture_monitor.py
   app/collect_xiaozhaoya.py
   app/collectors/gongkao.py
   app/collectors/haitou.py
@@ -79,7 +80,7 @@ install -o root -g root -m 755 \
 
 cd "$project"
 .venv/bin/python -m py_compile \
-  app/collect_xiaozhaoya.py app/collectors/gongkao.py \
+  app/capture_monitor.py app/collect_xiaozhaoya.py app/collectors/gongkao.py \
   app/collectors/xiaozhaoya.py app/daily_volume.py \
   app/export_gongkao.py app/export_qiuzhao.py \
   app/notify_gongkao_digest.py app/pipeline/gongkao_filter.py \

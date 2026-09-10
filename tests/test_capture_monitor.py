@@ -4,7 +4,7 @@ import json
 
 import pytest
 
-from app.capture_monitor import update_state, validate_and_commit
+from app.capture_monitor import main, update_state, validate_and_commit
 
 
 def _write(path, count: int, prefix: str = "row") -> None:
@@ -54,3 +54,16 @@ def test_capture_failure_state_escalates_and_success_resets(tmp_path) -> None:
     assert second["consecutive_failures"] == 2
     assert restored["consecutive_failures"] == 0
     assert restored["last_success"]
+
+
+def test_base64_alert_decodes_utf8(monkeypatch, capsys) -> None:
+    calls: list[tuple[str, str]] = []
+    monkeypatch.setattr(
+        "app.capture_monitor.notify_feishu",
+        lambda title, message: calls.append((title, message)) or True,
+    )
+    assert main([
+        "alert-b64", "--title-b64", "5rWL6K+V", "--message-b64", "5peg6ZyA5aSE55CG",
+    ]) == 0
+    assert calls == [("测试", "无需处理")]
+    assert json.loads(capsys.readouterr().out)["feishu_sent"] is True

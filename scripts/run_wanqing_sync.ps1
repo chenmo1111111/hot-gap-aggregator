@@ -86,7 +86,18 @@ function Send-FailureAlert([string]$reason) {
         $separator = ConvertFrom-Utf8Base64 "77yb6L+e57ut5aSx6LSlIA=="
         $lastSuccessLabel = ConvertFrom-Utf8Base64 "IOasoe+8m+S4iuasoeaIkOWKn++8mg=="
         $body = "$reason$separator$($state.consecutive_failures)$lastSuccessLabel$lastSuccess"
-        & $python -m app.capture_monitor alert --title $title --message $body | ForEach-Object { Write-Log "alert $_" }
+        $alertJson = & $python -m app.capture_monitor alert --title $title --message $body
+        $alertJson | ForEach-Object { Write-Log "alert $_" }
+        $localFeishuSent = $false
+        try { $localFeishuSent = [bool](($alertJson | ConvertFrom-Json).feishu_sent) } catch {}
+        if (-not $localFeishuSent) {
+            $titleB64 = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes($title))
+            $bodyB64 = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes($body))
+            $remote = "$sshUser@$sshHost"
+            $remoteAlert = "cd /opt/hot-gap-aggregator && .venv/bin/python -m app.capture_monitor alert-b64 --title-b64 $titleB64 --message-b64 $bodyB64"
+            & ssh -i $sshKey -o BatchMode=yes $remote $remoteAlert | ForEach-Object { Write-Log "remote alert $_" }
+            if ($LASTEXITCODE -ne 0) { Write-Log "remote Feishu alert FAILED with code $LASTEXITCODE" }
+        }
         if (Test-Path -LiteralPath $barkSender) {
             & powershell.exe -NoProfile -ExecutionPolicy Bypass -File $barkSender -Source Codex -Kind needs-input -Title $title -Body $body | Out-Null
             Write-Log "Bark alert requested"

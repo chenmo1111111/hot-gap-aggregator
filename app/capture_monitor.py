@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import base64
 import json
 import math
 import os
@@ -120,6 +121,9 @@ def main(argv: list[str] | None = None) -> int:
     alert = commands.add_parser("alert")
     alert.add_argument("--title", required=True)
     alert.add_argument("--message", required=True)
+    alert_b64 = commands.add_parser("alert-b64")
+    alert_b64.add_argument("--title-b64", required=True)
+    alert_b64.add_argument("--message-b64", required=True)
     args = parser.parse_args(argv)
     if args.command == "validate":
         print(json.dumps(validate_and_commit(
@@ -130,8 +134,12 @@ def main(argv: list[str] | None = None) -> int:
         print(json.dumps(update_state(
             args.path, success=args.success, reason=args.reason,
         ), ensure_ascii=False))
-    else:
+    elif args.command == "alert":
         print(json.dumps({"feishu_sent": notify_feishu(args.title, args.message)}))
+    else:
+        title = base64.b64decode(args.title_b64, validate=True).decode("utf-8")
+        message = base64.b64decode(args.message_b64, validate=True).decode("utf-8")
+        print(json.dumps({"feishu_sent": notify_feishu(title, message)}))
     return 0
 
 
