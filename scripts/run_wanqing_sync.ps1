@@ -26,6 +26,13 @@ function Write-Log([string]$message) {
     Write-Output $line
 }
 
+# Windows PowerShell 5.1 treats a UTF-8 file without a BOM as the system ANSI
+# code page.  Keep this runner ASCII-only and decode user-facing Chinese text
+# at runtime so the scheduled task parses reliably on every Windows locale.
+function ConvertFrom-Utf8Base64([string]$value) {
+    return [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($value))
+}
+
 function Invoke-Capture([string]$label, [string]$kind, [string]$module, [string]$candidate, [string]$snapshot, [string]$incoming) {
     Write-Log "starting $label capture"
     if (Test-Path -LiteralPath $candidate) { Remove-Item -LiteralPath $candidate -Force }
@@ -70,9 +77,15 @@ function Send-FailureAlert([string]$reason) {
     try {
         $stateJson = & $python -m app.capture_monitor state --path $syncState --reason $reason
         $state = $stateJson | ConvertFrom-Json
-        $lastSuccess = if ($state.last_success) { [string]$state.last_success } else { "从未成功" }
-        $title = if ([int]$state.consecutive_failures -ge 2) { "⚠️数据可能已过期" } else { "购买表自动抓取失败" }
-        $body = "$reason；连续失败 $($state.consecutive_failures) 次；上次成功：$lastSuccess"
+        $lastSuccess = if ($state.last_success) { [string]$state.last_success } else { ConvertFrom-Utf8Base64 "5LuO5pyq5oiQ5Yqf" }
+        $title = if ([int]$state.consecutive_failures -ge 2) {
+            ConvertFrom-Utf8Base64 "4pqg77iP5pWw5o2u5Y+v6IO95bey6L+H5pyf"
+        } else {
+            ConvertFrom-Utf8Base64 "6LSt5Lmw6KGo6Ieq5Yqo5oqT5Y+W5aSx6LSl"
+        }
+        $separator = ConvertFrom-Utf8Base64 "77yb6L+e57ut5aSx6LSlIA=="
+        $lastSuccessLabel = ConvertFrom-Utf8Base64 "IOasoe+8m+S4iuasoeaIkOWKn++8mg=="
+        $body = "$reason$separator$($state.consecutive_failures)$lastSuccessLabel$lastSuccess"
         & $python -m app.capture_monitor alert --title $title --message $body | ForEach-Object { Write-Log "alert $_" }
         if (Test-Path -LiteralPath $barkSender) {
             & powershell.exe -NoProfile -ExecutionPolicy Bypass -File $barkSender -Source Codex -Kind needs-input -Title $title -Body $body | Out-Null
