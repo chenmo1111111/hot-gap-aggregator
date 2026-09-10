@@ -1,4 +1,10 @@
-from app.pipeline.gongkao_filter import assess_gongkao, filter_gongkao_items
+from datetime import date
+
+from app.pipeline.gongkao_filter import (
+    assess_gongkao,
+    filter_gongkao_items,
+    title_noise_reason,
+)
 
 
 def row(title: str, url: str, **extra):
@@ -6,9 +12,9 @@ def row(title: str, url: str, **extra):
 
 
 def test_marketing_title_and_fenbi_course_links_are_dropped() -> None:
-    assert assess_gongkao(row("筑梦南粤师途5天直播", "https://example.gov.cn/x")).reason == "title_blacklist"
+    assert assess_gongkao(row("筑梦南粤师途5天直播", "https://example.gov.cn/x")).reason == "title_noise"
     assert assess_gongkao(row("事业单位公开招聘公告", "https://fenbi.com/spa/course/1")).reason == "link_blacklist"
-    assert assess_gongkao(row("事业单位公开招聘拟聘用人员公示", "https://example.gov.cn/x")).reason == "not_open_opportunity"
+    assert assess_gongkao(row("事业单位公开招聘拟聘用人员公示", "https://example.gov.cn/x")).reason == "title_noise"
     assert assess_gongkao(row("关于征集专项服务活动优质企业的公告", "https://example.gov.cn/x")).reason == "not_open_opportunity"
 
 
@@ -25,6 +31,38 @@ def test_blacklist_words_do_not_drop_legitimate_organization_names() -> None:
             title, "https://example.gov.cn/recruit", exam_type="事业单位",
         ))
         assert decision.action == "keep", (title, decision)
+
+
+def test_shared_title_noise_terms_and_sample_accounting() -> None:
+    noisy = [
+        row("某高校秋季双选会通知", "https://example.gov.cn/1"),
+        row("事业单位招聘名单公示", "https://example.gov.cn/2"),
+        row("公务员考试成绩查询入口", "https://example.gov.cn/3"),
+    ]
+    kept, stats, samples = filter_gongkao_items(noisy)
+    assert kept == []
+    assert stats["dropped"] == stats["noise_dropped"] == 3
+    assert [sample["title"] for sample in samples] == [item["title"] for item in noisy]
+
+
+def test_post_selection_wording_is_shared_title_noise() -> None:
+    assert title_noise_reason(row("三支一扶拟招募人员公示", "https://example.gov.cn/4")) == "title_noise"
+    assert title_noise_reason(row("事业单位公开招聘体检安排", "https://example.gov.cn/5")) == "title_noise"
+
+
+def test_transfer_notice_requires_an_explicit_future_signup_deadline() -> None:
+    future = row(
+        "事业单位公开招聘调剂公告", "https://example.gov.cn/future",
+        exam_type="事业单位", endSignUpTime="2026-09-12",
+    )
+    expired = row(
+        "事业单位公开招聘调剂公告", "https://example.gov.cn/expired",
+        exam_type="事业单位", endSignUpTime="2026-09-09",
+    )
+    unknown = row("事业单位公开招聘调剂公告", "https://example.gov.cn/unknown")
+    assert title_noise_reason(future, today=date(2026, 9, 10)) is None
+    assert title_noise_reason(expired, today=date(2026, 9, 10)) == "title_noise"
+    assert title_noise_reason(unknown, today=date(2026, 9, 10)) == "title_noise"
 
 
 def test_government_or_structured_announcement_is_kept() -> None:

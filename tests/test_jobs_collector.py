@@ -30,6 +30,23 @@ async def test_jobs_collector_combines_sources_and_isolates_provider_failure() -
     assert items[0].rank == 1
 
 
+@pytest.mark.asyncio
+async def test_jobs_collector_reuses_shared_title_noise_filter() -> None:
+    useful = Item(
+        source="jobs", rank=1, title="算法工程师", title_zh="算法工程师",
+        url="https://jobs.example/apply", extra={"company": "示例公司"},
+    )
+    noisy = Item(
+        source="jobs", rank=2, title="示例公司空中宣讲会", title_zh="示例公司空中宣讲会",
+        url="https://jobs.example/talk", extra={"company": "示例公司"},
+    )
+    collector = JobsCollector([Provider([useful, noisy])])
+    items = await collector.fetch()
+    assert items == [useful]
+    assert collector.filter_stats == {"input": 2, "kept": 1, "noise_dropped": 1}
+    assert collector.filtered_samples[0]["title"] == "示例公司空中宣讲会"
+
+
 def test_jobs_collector_skips_yingjiesheng_when_server_owns_it(monkeypatch) -> None:
     monkeypatch.setenv("YINGJIESHENG_ON_SERVER", "true")
     providers = JobsCollector().providers

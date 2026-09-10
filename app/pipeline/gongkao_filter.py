@@ -10,15 +10,26 @@ from __future__ import annotations
 import re
 from collections.abc import Iterable, Mapping
 from dataclasses import dataclass
+from datetime import date, datetime, timedelta, timezone
 from typing import Any, TypeVar
 from urllib.parse import urlsplit
 
 
-TITLE_BLACKLIST = re.compile(
-    r"直播|回放|讲座|公开课|训练营|冲刺班|系统班|刷题|每日一练|资料|讲义|题库|"
-    r"图书|礼包|福利|打卡|进群|领取|优惠|特惠|密训|模考|估分|夸夸|超大杯|"
-    r"默写表|时政积累|通勤",
-    re.I,
+TITLE_NOISE_TERMS = (
+    "空中宣讲", "专场招聘", "校招行程", "福利发放", "报名入口", "操作指南", "温馨提示",
+    "名单公示", "拟录用", "拟聘用", "拟录取", "拟引进", "拟考察", "资格复审",
+    "资格审查", "资格确认", "成绩公布", "成绩查询", "笔试成绩", "面试成绩", "面试公告",
+    "面试通知", "体检公告", "体检通知", "考察公告", "递补公告", "递补通知", "违纪违规",
+    "取消资格", "延期公告", "更正公告", "调剂公告", "双选会", "招聘会", "宣讲会",
+    "拟招募", "体检安排",
+    "宣讲", "校园行", "直播", "回放", "讲座", "公开课", "训练营", "冲刺班", "刷题",
+    "资料", "讲义", "题库", "图书", "礼包", "打卡", "进群", "领取", "准考证",
+    # Existing high-noise Fenbi marketing phrases remain covered by the shared gate.
+    "系统班", "每日一练", "优惠", "特惠", "密训", "模考", "估分", "夸夸", "超大杯",
+    "默写表", "时政积累", "通勤", "福利",
+)
+TITLE_NOISE_BLACKLIST = re.compile(
+    "|".join(re.escape(term) for term in sorted(TITLE_NOISE_TERMS, key=len, reverse=True)), re.I,
 )
 TITLE_BLACKLIST_EXEMPTIONS = re.compile(
     r"福利彩票|(?:社会)?福利院|中国福利会|评估分(?:中心|分中心|部|院)",
@@ -30,8 +41,8 @@ LINK_BLACKLIST = re.compile(
     re.I,
 )
 NON_OPPORTUNITY = re.compile(
-    r"拟录用|拟聘用|录用名单|聘用名单|成绩(?:公告|查询|公示)|资格复审|"
-    r"面试名单|体检名单|递补|征集.{0,20}企业|招聘会邀请函|选聘法律顾问",
+    r"录用名单|聘用名单|成绩公示|面试名单|体检名单|递补|"
+    r"征集.{0,20}企业|招聘会邀请函|选聘法律顾问",
     re.I,
 )
 STRUCTURED_FIELDS = (
@@ -77,10 +88,83 @@ def _url(row: Mapping[str, Any]) -> str:
     ).strip()
 
 
-def _has_marketing_title(title: str) -> bool:
-    """Apply marketing keywords without dropping legitimate organization names."""
-    candidate = TITLE_BLACKLIST_EXEMPTIONS.sub("", title)
-    return TITLE_BLACKLIST.search(candidate) is not None
+DEADLINE_FIELDS = (
+    "endSignUpTime", "baoming_jiezhi", "signup_deadline", "application_deadline",
+    "registration_deadline", "deadline", "报名截止", "报名结束",
+)
+DATE_PATTERN = re.compile(r"(?<!\d)(20\d{2})[-/.年](\d{1,2})[-/.月](\d{1,2})(?:日)?")
+CHINA_TZ = timezone(timedelta(hours=8))
+
+
+def _as_date(value: object) -> date | None:
+    if value in (None, ""):
+        return None
+    if isinstance(value, (int, float)) or str(value).strip().isdigit():
+        try:
+            stamp = int(value)
+            if stamp > 10_000_000_000:
+                stamp //= 1000
+            return datetime.fromtimestamp(stamp, CHINA_TZ).date()
+        except (OSError, OverflowError, ValueError):
+            return None
+    match = DATE_PATTERN.search(str(value))
+    if not match:
+        return None
+    try:
+        return date(*(int(part) for part in match.groups()))
+    except ValueError:
+        return None
+
+
+def _has_future_signup_deadline(row: Mapping[str, Any], *, today: date) -> bool:
+    extra = _extra(row)
+    values = [row.get(field) for field in DEADLINE_FIELDS]
+    values.extend(extra.get(field) for field in DEADLINE_FIELDS)
+    title = _title(row)
+    title_deadline = re.search(
+        r"(?:报名(?:截止|结束)|截止日期).{0,16}(20\d{2}[-/.年]\d{1,2}[-/.月]\d{1,2}日?)",
+        title,
+    )
+    if title_deadline:
+        values.append(title_deadline.group(1))
+    return any((parsed := _as_date(value)) is not None and parsed >= today for value in values)
+
+
+def title_noise_reason(row: Any, *, today: date | None = None) -> str | None:
+    """Return the shared public-feed noise reason, preserving live transfer notices."""
+    mapped = _mapping(row)
+    candidate = TITLE_BLACKLIST_EXEMPTIONS.sub("", _title(mapped))
+    matches = list(TITLE_NOISE_BLACKLIST.finditer(candidate))
+    if not matches:
+        return None
+    current = today or datetime.now(CHINA_TZ).date()
+    if all(match.group(0).casefold() == "调剂公告" for match in matches):
+        if _has_future_signup_deadline(mapped, today=current):
+            return None
+    return "title_noise"
+
+
+def filter_title_noise_items(
+    rows: Iterable[T], *, today: date | None = None, sample_limit: int = 15,
+) -> tuple[list[T], dict[str, int], list[dict[str, str]]]:
+    """Apply the same title-noise policy to non-Gongkao feeds such as jobs."""
+    kept: list[T] = []
+    stats = {"input": 0, "kept": 0, "noise_dropped": 0}
+    samples: list[dict[str, str]] = []
+    for row in rows:
+        stats["input"] += 1
+        mapped = _mapping(row)
+        reason = title_noise_reason(mapped, today=today)
+        if reason:
+            stats["noise_dropped"] += 1
+            _set_extra(row, "filter_action", "drop")
+            _set_extra(row, "filter_reason", reason)
+            if len(samples) < sample_limit:
+                samples.append({"title": _title(mapped), "reason": reason, "url": _url(mapped)})
+            continue
+        stats["kept"] += 1
+        kept.append(row)
+    return kept, stats, samples
 
 
 def is_gov_domain(url: object) -> bool:
@@ -120,8 +204,8 @@ def _set_extra(row: Any, name: str, value: object) -> None:
 def assess_gongkao(row: Mapping[str, Any]) -> FilterDecision:
     title = _title(row)
     url = _url(row)
-    if _has_marketing_title(title):
-        return FilterDecision("drop", "title_blacklist")
+    if title_noise_reason(row):
+        return FilterDecision("drop", "title_noise")
     if NON_OPPORTUNITY.search(title):
         return FilterDecision("drop", "not_open_opportunity")
     if LINK_BLACKLIST.search(url):
@@ -152,7 +236,10 @@ def filter_gongkao_items(
     rows: Iterable[T], *, keep_review: bool = True,
 ) -> tuple[list[T], dict[str, int], list[dict[str, str]]]:
     kept: list[T] = []
-    stats = {"input": 0, "kept": 0, "routed": 0, "review": 0, "dropped": 0}
+    stats = {
+        "input": 0, "kept": 0, "routed": 0, "review": 0, "dropped": 0,
+        "noise_dropped": 0,
+    }
     samples: list[dict[str, str]] = []
     for row in rows:
         stats["input"] += 1
@@ -163,7 +250,9 @@ def filter_gongkao_items(
         _set_extra(row, "needs_review", decision.action == "review")
         if decision.action == "drop":
             stats["dropped"] += 1
-            if len(samples) < 10:
+            if decision.reason == "title_noise":
+                stats["noise_dropped"] += 1
+            if len(samples) < 15:
                 samples.append({"title": _title(mapped), "reason": decision.reason, "url": _url(mapped)})
             continue
         if decision.action == "route_qiuzhao":

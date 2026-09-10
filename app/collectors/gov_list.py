@@ -25,7 +25,7 @@ from app.pipeline.gongkao_normalize import normalize_province
 LOGGER = logging.getLogger(__name__)
 CHINA_TZ = timezone(timedelta(hours=8))
 DATE_RE = re.compile(r"(?<!\d)(20\d{2})[-/.年](\d{1,2})[-/.月](\d{1,2})(?:日)?")
-NOTICE_WORDS = ("公告", "招录", "招考", "招聘", "选调", "三支一扶", "文职", "军官", "警官", "招聘启事")
+NOTICE_WORDS = ("公告", "招录", "招考", "招聘", "招募", "选调", "三支一扶", "文职", "军官", "警官", "招聘启事")
 
 
 def _get_path(value: object, path: str) -> object:
@@ -53,12 +53,20 @@ def _date_from_text(value: object) -> date | None:
         return None
 
 
-def _source_date(value: object, source: Mapping[str, Any]) -> date | None:
+def _source_date(
+    value: object, source: Mapping[str, Any], *, current: date | None = None,
+) -> date | None:
     text = str(value or "").strip()
     date_format = str(source.get("date_format") or "").strip()
     if date_format:
         try:
-            return datetime.strptime(text, date_format).date()
+            parsed = datetime.strptime(text, date_format).date()
+            if source.get("yearless_date"):
+                reference = current or datetime.now(CHINA_TZ).date()
+                parsed = parsed.replace(year=reference.year)
+                if parsed > reference + timedelta(days=1):
+                    parsed = parsed.replace(year=reference.year - 1)
+            return parsed
         except ValueError:
             pass
     return _date_from_text(text)
@@ -100,7 +108,10 @@ class GovListCollector(BaseCollector):
             return []
         raw = yaml.safe_load(self.config_path.read_text(encoding="utf-8")) or {}
         rows = raw.get("sources", []) if isinstance(raw, Mapping) else []
-        output = [dict(row) for row in rows if isinstance(row, Mapping) and row.get("list_url")]
+        output = [
+            dict(row) for row in rows
+            if isinstance(row, Mapping) and row.get("list_url") and row.get("enabled", True)
+        ]
         for source in output:
             engine = str(source.get("engine") or "html").casefold()
             if engine in {"html", "playwright"}:
@@ -162,6 +173,11 @@ class GovListCollector(BaseCollector):
         current = today or datetime.now(CHINA_TZ).date()
         recent_days = max(1, int(source.get("recent_days") or 45))
         cutoff = current - timedelta(days=recent_days)
+        # Several Hanweb government portals wrap generated list rows in XML CDATA.
+        # Unwrapping it makes the saved response and the live response parse alike.
+        cdata_rows = re.findall(r"<!\[CDATA\[(.*?)\]\]>", document, flags=re.S)
+        if cdata_rows:
+            document = "<html><body>" + "\n".join(cdata_rows) + "</body></html>"
         tree = HTMLParser(document)
         item_selector = str(source.get("item_selector") or "").strip()
         nodes = tree.css(item_selector) if item_selector else tree.css("a[href]")
@@ -181,6 +197,9 @@ class GovListCollector(BaseCollector):
             ).split())
             if len(title) < 8 or not any(word in title for word in NOTICE_WORDS):
                 continue
+            title_include = str(source.get("title_include") or "").strip()
+            if title_include and re.search(title_include, title, re.I) is None:
+                continue
             href = urljoin(
                 str(source.get("list_url")),
                 str(link_node.attributes.get("href") if link_node else "").strip(),
@@ -195,7 +214,9 @@ class GovListCollector(BaseCollector):
                     if parent is None:
                         break
                     context += " " + _node_text(parent)
-            published = _source_date(_node_text(date_node) if date_node else context, source)
+            published = _source_date(
+                _node_text(date_node) if date_node else context, source, current=current,
+            )
             if not published or published < cutoff or published > current + timedelta(days=1):
                 continue
             seen.add(href)
@@ -229,11 +250,18 @@ class GovListCollector(BaseCollector):
             if not isinstance(row, Mapping):
                 continue
             title = str(_get_path(row, str(fields.get("title") or "title")) or "").strip()
-            link = urljoin(
-                str(source.get("list_url")),
-                str(_get_path(row, str(fields.get("link") or "url")) or ""),
+            title_include = str(source.get("title_include") or "").strip()
+            if title_include and re.search(title_include, title, re.I) is None:
+                continue
+            link_value = str(_get_path(row, str(fields.get("link") or "url")) or "")
+            link_template = str(source.get("link_template") or "").strip()
+            link = (
+                link_template.format(value=link_value)
+                if link_template else urljoin(str(source.get("list_url")), link_value)
             )
-            published = _source_date(_get_path(row, str(fields.get("date") or "date")), source)
+            published = _source_date(
+                _get_path(row, str(fields.get("date") or "date")), source, current=current,
+            )
             if (
                 len(title) < 8 or not link.startswith(("http://", "https://"))
                 or not published or not cutoff <= published <= current + timedelta(days=1)
@@ -306,6 +334,8 @@ class GovListCollector(BaseCollector):
                         kwargs["params"] = dict(source["params"])
                     if isinstance(source.get("json"), Mapping):
                         kwargs["json"] = dict(source["json"])
+                    if source.get("verify_tls") is False:
+                        kwargs["verify"] = False
                     response = await self._request(method, str(source["list_url"]), **kwargs)
                     items = self.parse_api(response.json(), source)
                     await asyncio.sleep(self.request_interval)

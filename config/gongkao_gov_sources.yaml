@@ -60,6 +60,56 @@ sources:
     date_format: "[%Y-%m-%d]"
     fixture: hebei.html
 
+  - name: 河北省人社厅-事业单位招聘
+    province: 河北
+    category: 事业单位
+    list_url: https://rst.hebei.gov.cn/
+    engine: playwright
+    item_selector: li
+    title_selector: p.title
+    link_selector: a[href]
+    date_selector: p.time
+    date_format: "%Y-%m-%d %H:%M:%S"
+    title_include: "公开招聘|公开选聘"
+    fixture: hebei_hrss.html
+
+  - name: 河北人事考试网-事业单位考试
+    province: 河北
+    category: 事业单位
+    list_url: https://www.hebpta.com.cn:8090/door/menuInfo
+    engine: api
+    params: {pageSize: 50}
+    items_path: data.leftCenterTabVOList.0.articleList
+    fields: {title: title, link: id, date: publishedDate}
+    link_template: "https://www.hebpta.com.cn/#/article?id=304&artId={value}"
+    date_format: "%Y-%m-%d %H:%M:%S"
+    fixture: hebei_exam.json
+
+  - name: 石家庄市人社局-招考招录
+    province: 河北
+    category: 事业单位
+    list_url: https://rsj.sjz.gov.cn/columns/cb3d71c6-1f88-4881-99e5-3ca252d801b0/index.html
+    engine: html
+    item_selector: div.notice_line
+    title_selector: div.notice_name > a
+    link_selector: div.notice_name > a
+    date_selector: span.notice_time
+    date_format: "%Y-%m-%d"
+    fixture: shijiazhuang.html
+
+  - name: 中国雄安官网-通知公告
+    province: 河北
+    category: 事业单位
+    list_url: https://www.xiongan.gov.cn/tzgg.html
+    engine: html
+    item_selector: ul.page-list > li
+    title_selector: a[href]
+    link_selector: a[href]
+    date_selector: span.date
+    date_format: "%Y-%m-%d"
+    title_include: "公开招聘|招聘公告|招考公告|招录公告|选调公告|三支一扶.*(?:公告|招募)"
+    verification_note: 当前页可达，但近两年首页样例不足3条开放招聘公告；保留通告栏目等待本地单招
+
   - name: 天津市人社局-事业单位公开招聘
     province: 天津
     category: 事业单位
@@ -72,6 +122,20 @@ sources:
     date_format: "%Y-%m-%d"
     fixture: tianjin.html
 
+  - name: 天津人事考试网-通知公告
+    province: 天津
+    category: 事业单位
+    list_url: https://hrss.tj.gov.cn/jsdw/rsksw/tzgg4/
+    engine: html
+    enabled: false
+    item_selector: li
+    title_selector: a[title]
+    link_selector: a[title]
+    date_selector: span
+    date_format: "[%m-%d]"
+    yearless_date: true
+    verification_note: 页面可达，但栏目主要发布职业资格考试与招聘后续通知，不作为开放岗位源
+
   - name: 山东省人社厅-事业单位招聘
     province: 山东
     category: 事业单位
@@ -83,6 +147,232 @@ sources:
     date_selector: span:last-child
     date_format: "%Y-%m-%d"
     fixture: shandong.html
+
+  - name: 山东人事考试信息网
+    province: 山东
+    category: 事业单位
+    list_url: https://rsks.sdhrss.gov.cn/
+    engine: html
+    enabled: false
+    item_selector: li
+    title_selector: a[href]
+    link_selector: a[href]
+    date_selector: span
+    date_format: "%Y-%m-%d"
+    verification_note: rsks.sdhrss.gov.cn 的 HTTP/HTTPS 均 DNS 解析失败
+
+  - name: 青岛市人社局-招聘简章
+    province: 山东
+    category: 事业单位
+    list_url: https://hrss.qingdao.gov.cn/ztzl_47/sydwzp_47/zpjz_47/mindex.shtml
+    engine: html
+    item_selector: li
+    title_selector: p a[title]
+    link_selector: p a[title]
+    date_selector: em
+    date_format: "【%Y-%m-%d】"
+    fixture: qingdao.html
+
+  - name: 青岛人事考试网-通知公告
+    province: 山东
+    category: 事业单位
+    list_url: https://hrss.qingdao.gov.cn/ztzl_47/rsks_47/tzgg_47/
+    engine: html
+    enabled: false
+    item_selector: li
+    title_selector: a[title]
+    link_selector: a[title]
+    date_selector: em
+    date_format: "【%Y-%m-%d】"
+    verification_note: 页面可达，但栏目为职业资格考试通知，不是政府招聘公告源
+
+  - name: 德州市人社局-事业单位招聘
+    province: 山东
+    category: 事业单位
+    list_url: https://hrss.dezhou.gov.cn/zpindex.html
+    engine: html
+    encoding: gb18030
+    item_selector: li
+    title_selector: a[href]
+    link_selector: a[href]
+    date_selector: span
+    date_format: "%Y-%m-%d"
+    fixture: dezhou.html
+
+  - name: 潍坊市人社局-通知公告
+    province: 山东
+    category: 事业单位
+    list_url: https://rsj.weifang.gov.cn/rsjzxzx/rsjtzgg/
+    engine: html
+    item_selector: li[table]
+    title_selector: a[title]
+    link_selector: a[title]
+    date_selector: span
+    date_format: "%Y-%m-%d"
+    title_include: "公开招聘|招聘公告|招考公告|招录公告|选调公告|三支一扶.*(?:公告|招募)"
+    fixture: weifang.html
+
+  - name: 济南市人社局-事业单位公开招聘
+    province: 山东
+    category: 事业单位
+    list_url: https://jnhrss.jinan.gov.cn/col/col18625/index.html
+    engine: playwright
+    item_selector: li
+    title_selector: a[href]
+    link_selector: a[href]
+    date_selector: span
+    date_format: "%Y年%m月%d日"
+    fixture: jinan.html
+
+  - name: 淄博市人社局-事业单位招聘
+    province: 山东
+    category: 事业单位
+    list_url: https://hrss.zibo.gov.cn/col/col2387/index.html
+    engine: html
+    item_selector: li
+    title_selector: a[title]
+    link_selector: a[title]
+    date_selector: span
+    date_format: "%Y-%m-%d"
+    fixture: zibo.html
+
+  - name: 烟台市人社局-事业单位招聘简章
+    province: 山东
+    category: 事业单位
+    list_url: https://rshj.yantai.gov.cn/col/col117627/index.html
+    engine: playwright
+    item_selector: li
+    title_selector: a[href]
+    link_selector: a[href]
+    date_selector: span
+    date_format: "%Y-%m-%d"
+    fixture: yantai.html
+
+  - name: 山西省人社厅-省直事业单位招聘
+    province: 山西
+    category: 事业单位
+    list_url: https://rst.shanxi.gov.cn/ztzl/zpxx/szsydwzpgg/
+    engine: html
+    item_selector: ul.second_right_ul > li
+    title_selector: a[href]
+    link_selector: a[href]
+    date_selector: span.pull-right
+    date_format: "%Y.%m.%d"
+    fixture: shanxi_hrss.html
+
+  - name: 山西人事考试网-事业单位考试
+    province: 山西
+    category: 事业单位
+    list_url: http://rst.shanxi.gov.cn/rsks/
+    engine: html
+    item_selector: "#main_con_item2 li.notices"
+    title_selector: a[title]
+    link_selector: a[title]
+    date_selector: em.mytime
+    date_format: "%Y-%m-%d"
+    fixture: shanxi_exam.html
+
+  - name: 太原市人社局-公示公告
+    province: 山西
+    category: 事业单位
+    list_url: https://rsj.taiyuan.gov.cn/gsgg.html
+    engine: html
+    item_selector: li
+    title_selector: a[href]
+    link_selector: a[href]
+    date_selector: span.riqi
+    date_format: "%Y-%m-%d"
+    title_include: "公开招聘|招聘公告|招考公告|招录公告|选调公告|三支一扶.*(?:公告|招募)"
+    verification_note: 栏目可达但当前无公开招聘公告，保留市级公示公告入口等待本地单招
+
+  - name: 晋中市政府-通知公告
+    province: 山西
+    category: 事业单位
+    list_url: https://www.sxjz.gov.cn/xwzx/tzgg
+    engine: html
+    item_selector: ul.pageTPList > li
+    title_selector: a[href]
+    link_selector: a[href]
+    date_selector: span.date
+    date_format: "%Y-%m-%d"
+    title_include: "公开招聘|招聘公告|招考公告|招录公告|选调公告|三支一扶.*(?:公告|招募)"
+    verification_note: 栏目可达但当前页无招聘公告，依靠招聘关键词等待本地单招
+
+  - name: 灵石县政府-人事招考
+    province: 山西
+    category: 事业单位
+    list_url: http://www.lingshi.gov.cn/xwzx/rszk
+    engine: html
+    item_selector: ul.newsList > li
+    title_selector: a[href]
+    link_selector: a[href]
+    date_selector: span.date
+    date_format: "%Y-%m-%d"
+    fixture: lingshi.html
+
+  - name: 大同市政府-公开招聘
+    province: 山西
+    category: 事业单位
+    list_url: https://www.dt.gov.cn/dtszf/jggggkzp/bmgklist.shtml
+    engine: html
+    item_selector: li
+    title_selector: a[title]
+    link_selector: a[title]
+    date_selector: span
+    date_format: "%Y-%m-%d"
+    fixture: datong.html
+
+  - name: 辽宁人事考试网
+    province: 辽宁
+    category: 事业单位
+    list_url: https://www.lnrsks.com/
+    engine: html
+    enabled: false
+    item_selector: li
+    title_selector: a[href]
+    link_selector: a[href]
+    date_selector: span
+    date_format: "%Y-%m-%d"
+    verification_note: HTTP 仅返回强制 HTTPS 网关页，HTTPS 无可解析招聘列表
+
+  - name: 大连市人社局-通知公告
+    province: 辽宁
+    category: 事业单位
+    list_url: https://rsj.dl.gov.cn/col/col4341/index.html
+    engine: html
+    item_selector: li.wip_col_listli
+    title_selector: a[title]
+    link_selector: a[title]
+    date_selector: span.bt-right
+    date_format: "[%Y-%m-%d]"
+    title_include: "公开招聘|招聘公告|招考公告|招录公告|选调公告|三支一扶.*(?:公告|招募)"
+    fixture: dalian.html
+
+  - name: 大连人事考试网
+    province: 辽宁
+    category: 事业单位
+    list_url: https://rsj.dl.gov.cn/col/col5606/index.html
+    engine: html
+    enabled: false
+    item_selector: li
+    title_selector: a[title]
+    link_selector: a[title]
+    date_selector: span
+    date_format: "%Y-%m-%d"
+    verification_note: 页面可达但栏目为职业资格考试通知，不是开放招聘公告源
+
+  - name: 沈阳市人社局-通知公告
+    province: 辽宁
+    category: 事业单位
+    list_url: https://rsj.shenyang.gov.cn/xwzx/tzgg/
+    engine: html
+    item_selector: li
+    title_selector: a[href]
+    link_selector: a[href]
+    date_selector: span.fr
+    date_format: "%Y-%m-%d"
+    title_include: "公开招聘|招聘公告|招考公告|招录公告|选调公告|三支一扶.*(?:公告|招募)"
+    verification_note: 当前通知公告首页仅有2条可被招聘关键词识别的真实样例，不用非招聘公告凑数
 
   - name: 北京市人社局-事业单位公开招聘
     province: 北京

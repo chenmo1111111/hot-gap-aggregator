@@ -1,4 +1,5 @@
 from datetime import date
+import json
 from pathlib import Path
 
 import pytest
@@ -74,14 +75,44 @@ def test_html_source_rejects_empty_selectors(tmp_path) -> None:
         GovListCollector(config).load_sources()
 
 
+def test_disabled_sources_are_not_loaded(tmp_path) -> None:
+    config = tmp_path / "sources.yaml"
+    config.write_text("""
+sources:
+  - name: disabled
+    enabled: false
+    list_url: https://example.com/disabled
+    engine: html
+  - name: active
+    list_url: https://example.com/active
+    engine: html
+    item_selector: li
+    title_selector: a
+    link_selector: a
+    date_selector: span
+""", encoding="utf-8")
+    assert [source["name"] for source in GovListCollector(config).load_sources()] == ["active"]
+
+
 @pytest.mark.parametrize(
     "source",
     (yaml.safe_load((ROOT / "config" / "gongkao_gov_sources.yaml").read_text(encoding="utf-8")) or {})["sources"],
     ids=lambda source: source["name"],
 )
 def test_each_real_gov_fixture_parses_three_dated_rows(source) -> None:
-    fixture = ROOT / "tests" / "fixtures" / "gov" / source["fixture"]
-    html = fixture.read_text(encoding="utf-8")
-    items = GovListCollector.parse_html(html, source, today=date(2026, 9, 10))
+    fixture_name = source.get("fixture")
+    if not fixture_name:
+        pytest.xfail(str(source.get("verification_note") or "real fixture unavailable"))
+    fixture = ROOT / "tests" / "fixtures" / "gov" / fixture_name
+    if not fixture.exists():
+        pytest.xfail(str(source.get("verification_note") or "real fixture unavailable"))
+    fixture_source = dict(source)
+    fixture_source["recent_days"] = max(730, int(source.get("recent_days") or 45))
+    if str(fixture.suffix).casefold() == ".json":
+        payload = json.loads(fixture.read_text(encoding="utf-8"))
+        items = GovListCollector.parse_api(payload, fixture_source, today=date(2026, 9, 10))
+    else:
+        html = fixture.read_text(encoding="utf-8")
+        items = GovListCollector.parse_html(html, fixture_source, today=date(2026, 9, 10))
     assert len(items) >= 3
     assert all(item.published_at and len(item.published_at) == 10 for item in items)

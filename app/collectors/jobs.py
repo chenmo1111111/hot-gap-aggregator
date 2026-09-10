@@ -10,6 +10,7 @@ from app.collectors.guopin import GuopinCollector
 from app.collectors.job_radar import JobRadarCollector
 from app.collectors.yingjiesheng import YingjieshengCollector
 from app.models import Item
+from app.pipeline.gongkao_filter import filter_title_noise_items
 
 
 LOGGER = logging.getLogger(__name__)
@@ -26,6 +27,8 @@ class JobsCollector(BaseCollector):
     source = "jobs"
 
     def __init__(self, providers: list[BaseCollector] | None = None) -> None:
+        self.filter_stats: dict[str, int] = {}
+        self.filtered_samples: list[dict[str, str]] = []
         if providers is not None:
             self.providers = providers
             return
@@ -68,7 +71,11 @@ class JobsCollector(BaseCollector):
                 old.extra["keywords_hit"] = list(dict.fromkeys([*old.extra.get("keywords_hit", []), *item.extra.get("keywords_hit", [])]))
             else:
                 unique[key] = item
-        output = sorted(unique.values(), key=lambda item: (-len(item.extra.get("keywords_hit", [])), -self._timestamp(item)))
+        filtered, self.filter_stats, self.filtered_samples = filter_title_noise_items(unique.values())
+        LOGGER.info("Jobs title-noise filter: %s", self.filter_stats)
+        for sample in self.filtered_samples:
+            LOGGER.info("Jobs filtered sample: %s", sample)
+        output = sorted(filtered, key=lambda item: (-len(item.extra.get("keywords_hit", [])), -self._timestamp(item)))
         for rank, item in enumerate(output, 1):
             item.rank = rank
         return output

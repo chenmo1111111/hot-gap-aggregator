@@ -36,8 +36,11 @@ class BaseCollector(ABC):
     async def _request(self, method: str, url: str, **kwargs: Any) -> httpx.Response:
         headers = {"User-Agent": random.choice(USER_AGENTS), "Accept": "*/*"}
         headers.update(kwargs.pop("headers", {}))
+        verify = kwargs.pop("verify", True)
         last_error: Exception | None = None
-        async with httpx.AsyncClient(timeout=self.timeout, follow_redirects=True) as client:
+        async with httpx.AsyncClient(
+            timeout=self.timeout, follow_redirects=True, verify=verify,
+        ) as client:
             for attempt in range(self.retries + 1):
                 try:
                     response = await client.request(method, url, headers=headers, **kwargs)
