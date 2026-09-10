@@ -21,6 +21,7 @@ gongkao_incoming=/home/deploy/.gongkao_sheet.json.incoming
 gongkao_persistent="$persistent_dir/gongkao_sheet.json"
 gongkao_data="$data_dir/gongkao_sheet.json"
 
+cd "$project"
 if [[ -f "$alert_incoming" ]]; then
   if "$project/.venv/bin/python" -m app.capture_monitor \
     alert-file --path "$alert_incoming"
