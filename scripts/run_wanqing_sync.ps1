@@ -118,7 +118,12 @@ try {
     $env:CAPTURE_RUNNER_MANAGED = "1"
     $qiuzhaoOk = Invoke-Capture "Wanqing Qiuzhao" "qiuzhao" "app.capture_wanqing" $qiuzhaoCandidate $qiuzhaoSnapshot "/home/deploy/.qiuzhao_wanqing.json.incoming"
     $gongkaoOk = Invoke-Capture "Feishu Sheet Gongkao" "gongkao" "app.capture_gongkao_sheet" $gongkaoCandidate $gongkaoSnapshot "/home/deploy/.gongkao_sheet.json.incoming"
-    $xiaozhaoyaOk = Invoke-Capture "Xiaozhaoya Home" "xiaozhaoya" "app.capture_xiaozhaoya" $xiaozhaoyaCandidate $xiaozhaoyaSnapshot "/home/deploy/.xiaozhaoya.json.incoming" @("--previous", $xiaozhaoyaSnapshot)
+    $xiaozhaoyaOk = $false
+    if (Test-Path -LiteralPath $xiaozhaoyaSnapshot) {
+        $xiaozhaoyaOk = Invoke-Capture "Xiaozhaoya Home" "xiaozhaoya" "app.capture_xiaozhaoya" $xiaozhaoyaCandidate $xiaozhaoyaSnapshot "/home/deploy/.xiaozhaoya.json.incoming" @("--previous", $xiaozhaoyaSnapshot)
+    } else {
+        Write-Log "skipping Xiaozhaoya until its one-time login snapshot is initialized"
+    }
 
     if (-not $qiuzhaoOk -and -not $gongkaoOk -and -not $xiaozhaoyaOk) {
         throw "all three captures failed; no server refresh attempted"
