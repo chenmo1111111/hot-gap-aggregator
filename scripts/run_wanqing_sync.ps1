@@ -94,7 +94,7 @@ function Send-FailureAlert([string]$reason) {
             $titleB64 = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes($title))
             $bodyB64 = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes($body))
             $remote = "$sshUser@$sshHost"
-            $remoteAlert = "cd /opt/hot-gap-aggregator && .venv/bin/python -m app.capture_monitor alert-b64 --title-b64 $titleB64 --message-b64 $bodyB64"
+            $remoteAlert = "sudo /usr/local/sbin/hot-gap-capture-alert $titleB64 $bodyB64"
             & ssh -i $sshKey -o BatchMode=yes $remote $remoteAlert | ForEach-Object { Write-Log "remote alert $_" }
             if ($LASTEXITCODE -ne 0) { Write-Log "remote Feishu alert FAILED with code $LASTEXITCODE" }
         }
