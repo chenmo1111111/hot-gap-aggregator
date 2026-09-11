@@ -18,12 +18,13 @@ def mail(
     subject: str,
     *,
     received_at: datetime | None = None,
+    sender: str = "校园招聘 <jobs@example.test>",
 ) -> MailMessage:
     return MailMessage(
         uid=uid,
         message_id=message_id,
         subject=subject,
-        sender="校园招聘 <jobs@example.test>",
+        sender=sender,
         received_at=received_at or datetime(2026, 9, 10, 1, 30, tzinfo=UTC),
         body="请在规定时间内完成，操作地址 https://u.hrtps.test/r/private-token",
     )
@@ -33,6 +34,13 @@ def test_keyword_prefilter_uses_only_subject_and_sender() -> None:
     assert matches_mail_keywords("三棵树 AI视频面试邀请", "招聘中心")
     assert matches_mail_keywords("普通通知", "校招服务 <jobs@example.test>")
     assert not matches_mail_keywords("普通通知", "系统消息 <notice@example.test>")
+    assert matches_mail_keywords(
+        "来自信锐网科的消息通知", "Moka招聘 <notice@mail.mokahr.co>"
+    )
+    assert not matches_mail_keywords(
+        "来自信锐网科的消息通知", "普通系统 <notice@example.test>"
+    )
+    assert not matches_mail_keywords("普通通知", "Moka招聘 <notice@mail.mokahr.co>")
 
 
 def test_html_mail_keeps_private_anchor_target_for_extraction() -> None:
@@ -191,6 +199,41 @@ async def test_uid_validity_change_does_not_skip_lower_new_uids(tmp_path) -> Non
     assert stats["new_deadlines"] == 1
     assert extractor.calls == ["<new-validity@example>"]
     assert store.get_state("last_uid") == "1"
+
+
+@pytest.mark.asyncio
+async def test_rescan_reconsiders_only_newly_matching_prefilter_misses(tmp_path) -> None:
+    store = MailboxStore(tmp_path / "mail.db")
+    store.initialize()
+    store.set_state("uid_validity", "123")
+    store.set_state("last_uid", "20")
+    signal = mail(
+        10,
+        "<moka-signal@example>",
+        "来自信锐网科的消息通知",
+        sender="Moka招聘 <notice@mail.mokahr.co>",
+    )
+    store.mark_processed(signal.message_id, signal.uid, "prefilter_miss")
+    extractor = FakeExtractor()
+
+    async def notify(_title: str, _body: str) -> bool:
+        return True
+
+    client = FakeClient([signal])
+    stats = await run_once(
+        store=store,
+        client=client,
+        extractor=extractor,
+        notifier=notify,
+        now=datetime(2026, 9, 11, 4, 0, tzinfo=UTC),
+        rescan_prefilter_misses=True,
+    )
+
+    assert client.calls == [(None, "123", 30)]
+    assert stats["reprocessed_prefilter_misses"] == 1
+    assert stats["new_deadlines"] == 1
+    assert extractor.calls == [signal.message_id]
+    assert store.processed_outcome(signal.message_id) == "deadline"
 
 
 @pytest.mark.asyncio

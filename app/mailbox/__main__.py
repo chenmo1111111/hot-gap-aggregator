@@ -163,6 +163,7 @@ async def run_once(
     extractor: DeepSeekMailboxExtractor | None = None,
     notifier: Callable[[str, str], Awaitable[bool]] = notify_bark,
     now: datetime | None = None,
+    rescan_prefilter_misses: bool = False,
 ) -> dict[str, int]:
     current = (now or datetime.now(UTC)).astimezone(UTC)
     store = store or MailboxStore()
@@ -173,7 +174,7 @@ async def run_once(
     last_uid = int(last_uid_raw) if last_uid_raw and last_uid_raw.isdigit() else None
     known_validity = store.get_state("uid_validity")
     uid_validity, messages, high_water_uid = client.fetch_messages(
-        last_uid=last_uid,
+        last_uid=None if rescan_prefilter_misses else last_uid,
         known_uid_validity=known_validity,
         initial_days=30,
     )
@@ -181,23 +182,33 @@ async def run_once(
         "fetched": len(messages), "prefiltered": 0, "new_deadlines": 0,
         "needs_review": 0, "non_actionable": 0, "deduplicated": 0,
         "new_notifications": 0, "due_notifications": 0,
+        "reprocessed_prefilter_misses": 0,
     }
     if known_validity and known_validity != uid_validity:
         last_uid = None
     highest_uid = last_uid or 0
     for mail in messages:
-        if mail.uid <= highest_uid:
+        keyword_match = matches_mail_keywords(mail.subject, mail.sender)
+        previous_outcome = store.processed_outcome(mail.message_id)
+        reconsidering = (
+            rescan_prefilter_misses
+            and previous_outcome == "prefilter_miss"
+            and keyword_match
+        )
+        if mail.uid <= highest_uid and not reconsidering:
             continue
-        if store.is_processed(mail.message_id):
+        if previous_outcome is not None and not reconsidering:
             stats["deduplicated"] += 1
-            highest_uid = mail.uid
+            highest_uid = max(highest_uid, mail.uid)
             store.set_state("last_uid", str(highest_uid))
             continue
-        if not matches_mail_keywords(mail.subject, mail.sender):
+        if not keyword_match:
             store.mark_processed(mail.message_id, mail.uid, "prefilter_miss")
-            highest_uid = mail.uid
+            highest_uid = max(highest_uid, mail.uid)
             store.set_state("last_uid", str(highest_uid))
             continue
+        if reconsidering:
+            stats["reprocessed_prefilter_misses"] += 1
         stats["prefiltered"] += 1
         try:
             result = await extractor.extract(mail)
@@ -215,7 +226,7 @@ async def run_once(
                     stats["needs_review"] += 1
                 if record["status"] != "expired" and await _notify_new(store, record, notifier):
                     stats["new_notifications"] += 1
-        highest_uid = mail.uid
+        highest_uid = max(highest_uid, mail.uid)
         store.set_state("last_uid", str(highest_uid))
     store.set_state("uid_validity", uid_validity)
     store.set_state("last_uid", str(max(highest_uid, high_water_uid)))
@@ -231,6 +242,11 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument(
         "--report", action="store_true",
         help="print a private masked deadline report without reading IMAP",
+    )
+    parser.add_argument(
+        "--rescan-prefilter-misses",
+        action="store_true",
+        help="reconsider recent messages previously rejected by the metadata prefilter",
     )
     arguments = parser.parse_args(argv)
     load_dotenv()
@@ -255,7 +271,9 @@ def main(argv: list[str] | None = None) -> int:
         print(json.dumps({"count": len(rows), "items": rows}, ensure_ascii=False, indent=2))
         return 0
     try:
-        stats = asyncio.run(run_once())
+        stats = asyncio.run(
+            run_once(rescan_prefilter_misses=arguments.rescan_prefilter_misses)
+        )
     except Exception as exc:
         LOGGER.error("mailbox reminder run failed: %s", type(exc).__name__)
         try:

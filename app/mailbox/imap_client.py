@@ -10,7 +10,7 @@ from email import policy
 from email.header import decode_header, make_header
 from email.message import EmailMessage
 from email.parser import BytesParser
-from email.utils import parsedate_to_datetime
+from email.utils import parseaddr, parsedate_to_datetime
 from html import unescape
 
 from selectolax.parser import HTMLParser
@@ -21,6 +21,7 @@ MAIL_KEYWORDS = re.compile(
     re.IGNORECASE,
 )
 INTERNALDATE_RE = re.compile(rb'INTERNALDATE "([^"]+)"')
+MOKA_NOTIFICATION_SUBJECT = re.compile(r"^来自.{1,80}的消息通知$")
 UTC = timezone.utc
 
 
@@ -96,7 +97,12 @@ def _received_at(metadata: bytes, message: EmailMessage) -> datetime:
 
 
 def matches_mail_keywords(subject: str, sender: str) -> bool:
-    return bool(MAIL_KEYWORDS.search(f"{subject}\n{sender}"))
+    if MAIL_KEYWORDS.search(f"{subject}\n{sender}"):
+        return True
+    sender_address = parseaddr(sender)[1].lower()
+    sender_domain = sender_address.rsplit("@", 1)[-1] if "@" in sender_address else ""
+    is_moka_sender = sender_domain == "mokahr.co" or sender_domain.endswith(".mokahr.co")
+    return is_moka_sender and bool(MOKA_NOTIFICATION_SUBJECT.fullmatch(subject.strip()))
 
 
 class ImapMailboxClient:

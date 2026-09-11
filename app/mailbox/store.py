@@ -105,19 +105,26 @@ class MailboxStore:
             )
 
     def is_processed(self, message_id: str) -> bool:
+        return self.processed_outcome(message_id) is not None
+
+    def processed_outcome(self, message_id: str) -> str | None:
         with self.connect() as connection:
             row = connection.execute(
-                "SELECT 1 FROM mailbox_messages WHERE message_id = ?", (message_id,)
+                "SELECT outcome FROM mailbox_messages WHERE message_id = ?", (message_id,)
             ).fetchone()
-        return row is not None
+        return str(row["outcome"]) if row is not None else None
 
     def mark_processed(self, message_id: str, imap_uid: int, outcome: str) -> None:
         with self.connect() as connection:
             connection.execute(
                 """
-                INSERT OR IGNORE INTO mailbox_messages(
+                INSERT INTO mailbox_messages(
                     message_id, imap_uid, outcome, processed_at
                 ) VALUES (?, ?, ?, ?)
+                ON CONFLICT(message_id) DO UPDATE SET
+                    imap_uid = excluded.imap_uid,
+                    outcome = excluded.outcome,
+                    processed_at = excluded.processed_at
                 """,
                 (message_id, imap_uid, outcome, utc_now()),
             )
@@ -154,9 +161,13 @@ class MailboxStore:
             )
             connection.execute(
                 """
-                INSERT OR IGNORE INTO mailbox_messages(
+                INSERT INTO mailbox_messages(
                     message_id, imap_uid, outcome, processed_at
                 ) VALUES (?, ?, 'deadline', ?)
+                ON CONFLICT(message_id) DO UPDATE SET
+                    imap_uid = excluded.imap_uid,
+                    outcome = excluded.outcome,
+                    processed_at = excluded.processed_at
                 """,
                 (str(record["message_id"]), imap_uid, now),
             )
