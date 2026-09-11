@@ -1,3 +1,4 @@
+import asyncio
 from datetime import date
 import json
 from pathlib import Path
@@ -170,6 +171,120 @@ def test_four_javascript_portals_require_rendered_content() -> None:
         assert GovListCollector.parse_html(challenge, source, today=date(2026, 9, 10)) == []
 
 
+@pytest.mark.asyncio
+async def test_playwright_sources_are_strictly_serial(monkeypatch) -> None:
+    collector = GovListCollector(ROOT / "config" / "gongkao_gov_sources.yaml")
+    collector.request_interval = 0
+    active = 0
+    max_active = 0
+
+    async def fake_html(source, url):
+        nonlocal active, max_active
+        active += 1
+        max_active = max(max_active, active)
+        try:
+            await asyncio.sleep(0.01)
+            return (
+                '<li><a href="/notice">事业单位公开招聘工作人员公告</a>'
+                '<span>2026-09-10</span></li>'
+            )
+        finally:
+            active -= 1
+
+    monkeypatch.setattr(collector, "_html", fake_html)
+    sources = [
+        {
+            "name": f"playwright-{index}", "engine": "playwright",
+            "list_url": f"https://example.com/{index}/", "province": "全国",
+            "category": "事业单位", "item_selector": "li",
+            "title_selector": "a", "link_selector": "a", "date_selector": "span",
+        }
+        for index in range(5)
+    ]
+
+    results = await asyncio.gather(*(collector._fetch_one(source) for source in sources))
+
+    assert max_active == 1
+    assert all(len(items) == 1 and error is None for _, items, error in results)
+
+
+@pytest.mark.asyncio
+async def test_html_sources_keep_the_existing_parallelism(monkeypatch) -> None:
+    collector = GovListCollector(ROOT / "config" / "gongkao_gov_sources.yaml")
+    active = 0
+    max_active = 0
+
+    async def fake_html(source, url):
+        nonlocal active, max_active
+        active += 1
+        max_active = max(max_active, active)
+        try:
+            await asyncio.sleep(0.01)
+            return (
+                '<li><a href="/notice">事业单位公开招聘工作人员公告</a>'
+                '<span>2026-09-10</span></li>'
+            )
+        finally:
+            active -= 1
+
+    monkeypatch.setattr(collector, "_html", fake_html)
+    sources = [
+        {
+            "name": f"html-{index}", "engine": "html",
+            "list_url": f"https://example.com/{index}/", "province": "全国",
+            "category": "事业单位", "item_selector": "li",
+            "title_selector": "a", "link_selector": "a", "date_selector": "span",
+        }
+        for index in range(5)
+    ]
+
+    results = await asyncio.gather(*(collector._fetch_one(source) for source in sources))
+
+    assert max_active == 5
+    assert all(len(items) == 1 and error is None for _, items, error in results)
+
+
+@pytest.mark.asyncio
+async def test_playwright_timeout_releases_slot_and_next_source_completes(monkeypatch) -> None:
+    collector = GovListCollector(ROOT / "config" / "gongkao_gov_sources.yaml")
+    assert collector.playwright_source_timeout == 60.0
+    collector.playwright_source_timeout = 0.02
+    cancelled = asyncio.Event()
+
+    async def fake_html(source, url):
+        if source["name"] == "hung":
+            try:
+                await asyncio.Event().wait()
+            finally:
+                cancelled.set()
+        return (
+            '<li><a href="/notice">事业单位公开招聘工作人员公告</a>'
+            '<span>2026-09-10</span></li>'
+        )
+
+    monkeypatch.setattr(collector, "_html", fake_html)
+    common = {
+        "engine": "playwright", "province": "全国", "category": "事业单位",
+        "item_selector": "li", "title_selector": "a", "link_selector": "a",
+        "date_selector": "span",
+    }
+    hung = {**common, "name": "hung", "list_url": "https://example.com/hung/"}
+    healthy = {**common, "name": "healthy", "list_url": "https://example.com/healthy/"}
+    monkeypatch.setattr(collector, "load_sources", lambda: [hung, healthy])
+    monkeypatch.setattr(collector, "load_seed_items", lambda: [])
+
+    items = await collector.fetch()
+
+    assert cancelled.is_set()
+    assert collector.stats["hung"] == {
+        "count": 0, "last_7_days": 0, "last_30_days": 0,
+        "error": "playwright source timed out after 0.02s",
+    }
+    assert collector.stats["healthy"]["count"] == 1
+    assert collector.stats["healthy"]["error"] == ""
+    assert len(items) == 1
+
+
 def test_seed_items_keep_official_links_for_blocked_portals(tmp_path) -> None:
     config = tmp_path / "gov.yaml"
     config.write_text("""
@@ -197,6 +312,18 @@ def test_seed_items_can_be_disabled_for_acceptance(monkeypatch) -> None:
 def test_server_refresh_always_disables_seed_items() -> None:
     script = (ROOT / "deploy" / "server" / "hot-gap-feishu-refresh").read_text(encoding="utf-8")
     assert "export GONGKAO_DISABLE_SEEDS=true" in script
+
+
+def test_server_refresh_cleans_only_stale_marked_playwright_processes() -> None:
+    script = (ROOT / "deploy" / "server" / "hot-gap-feishu-refresh").read_text(encoding="utf-8")
+    marker = GovListCollector.playwright_process_marker
+    assert marker in script
+    assert "HOT_GAP_PLAYWRIGHT_MAX_AGE_SECONDS:-600" in script
+    assert 'command_line" == *"chromium"*"--headless"*' in script
+    assert (
+        "\ncleanup_stale_hot_gap_playwright\n"
+        ".venv/bin/python -m app.collect_gongkao\n"
+    ) in script
 
 
 def test_html_source_rejects_empty_selectors(tmp_path) -> None:

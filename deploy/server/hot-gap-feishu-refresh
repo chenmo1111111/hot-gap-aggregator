@@ -163,10 +163,44 @@ if [[ -f "$xiaozhaoya_persistent" ]]; then
   /usr/bin/install -o deploy -g deploy -m 664 "$xiaozhaoya_persistent" "$xiaozhaoya_data"
 fi
 
+cleanup_stale_hot_gap_playwright() {
+  local max_age_seconds="${HOT_GAP_PLAYWRIGHT_MAX_AGE_SECONDS:-600}"
+  local pid elapsed command_line
+  local -a stale_pids=()
+
+  if [[ ! "$max_age_seconds" =~ ^[0-9]+$ ]]; then
+    echo "Invalid HOT_GAP_PLAYWRIGHT_MAX_AGE_SECONDS=$max_age_seconds; using 600" >&2
+    max_age_seconds=600
+  fi
+
+  while read -r pid elapsed command_line; do
+    [[ "$pid" =~ ^[0-9]+$ && "$elapsed" =~ ^[0-9]+$ ]] || continue
+    if (( elapsed >= max_age_seconds )) \
+      && [[ "$command_line" == *"chromium"*"--headless"* ]] \
+      && [[ "$command_line" == *"--hot-gap-gov-playwright"* ]]; then
+      stale_pids+=("$pid")
+    fi
+  done < <(/usr/bin/ps -eo pid=,etimes=,args=)
+
+  if (( ${#stale_pids[@]} == 0 )); then
+    return
+  fi
+
+  echo "Stopping stale HotGap Playwright Chromium processes: ${stale_pids[*]}"
+  /bin/kill -TERM "${stale_pids[@]}" 2>/dev/null || true
+  /bin/sleep 2
+  for pid in "${stale_pids[@]}"; do
+    if /bin/kill -0 "$pid" 2>/dev/null; then
+      /bin/kill -KILL "$pid" 2>/dev/null || true
+    fi
+  done
+}
+
 cd "$project"
 if [[ -f "$xiaozhaoya_data" ]]; then
   .venv/bin/python -m app.collect_xiaozhaoya
 fi
+cleanup_stale_hot_gap_playwright
 .venv/bin/python -m app.collect_gongkao
 .venv/bin/python -m app.export_qiuzhao
 .venv/bin/python -m app.export_gongkao

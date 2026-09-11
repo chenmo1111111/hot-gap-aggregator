@@ -124,6 +124,8 @@ class GovListCollector(BaseCollector):
     timeout = 18.0
     retries = 2
     concurrency = 5
+    playwright_source_timeout = 60.0
+    playwright_process_marker = "--hot-gap-gov-playwright"
     request_interval = 0.2
 
     def __init__(self, config_path: str | Path | None = None) -> None:
@@ -132,6 +134,7 @@ class GovListCollector(BaseCollector):
             or os.getenv("GONGKAO_GOV_SOURCES_CONFIG", "config/gongkao_gov_sources.yaml")
         )
         self._semaphore = asyncio.Semaphore(self.concurrency)
+        self._playwright_semaphore = asyncio.Semaphore(1)
         self.stats: dict[str, dict[str, int | str]] = {}
 
     def load_sources(self) -> list[dict[str, Any]]:
@@ -381,7 +384,10 @@ class GovListCollector(BaseCollector):
         async with async_playwright() as playwright:
             browser = await playwright.chromium.launch(
                 headless=True,
-                args=["--disable-blink-features=AutomationControlled"],
+                args=[
+                    "--disable-blink-features=AutomationControlled",
+                    self.playwright_process_marker,
+                ],
             )
             context = await browser.new_context(
                 user_agent=USER_AGENTS[0],
@@ -531,43 +537,68 @@ class GovListCollector(BaseCollector):
                             await asyncio.sleep(0.5 * (2**attempt))
                 raise SourceUnavailable(f"playwright failed after retries: {last_error}", status="degraded")
             finally:
-                await context.close()
-                await browser.close()
+                try:
+                    await context.close()
+                finally:
+                    # A context-close failure must not leave its Chromium process alive.
+                    await browser.close()
+
+    async def _fetch_source_items(
+        self, source: Mapping[str, Any], engine: str,
+    ) -> list[Item]:
+        if engine == "api":
+            method = str(source.get("method") or "GET").upper()
+            kwargs: dict[str, Any] = {}
+            if isinstance(source.get("params"), Mapping):
+                kwargs["params"] = dict(source["params"])
+            if isinstance(source.get("json"), Mapping):
+                kwargs["json"] = dict(source["json"])
+            kwargs["verify"] = _tls_verify(source)
+            response = await self._request(method, str(source["list_url"]), **kwargs)
+            items = self.parse_api(response.json(), source)
+            await asyncio.sleep(self.request_interval)
+            return items
+
+        items: list[Item] = []
+        seen: set[str] = set()
+        page_errors: list[str] = []
+        for url in await self._resolved_source_urls(source):
+            page_source = dict(source)
+            page_source["list_url"] = url
+            try:
+                page_items = self.parse_html(
+                    await self._html(page_source, url), page_source,
+                )
+            except Exception as exc:
+                page_errors.append(f"{url}: {exc}")
+                continue
+            for item in page_items:
+                if item.url not in seen:
+                    seen.add(item.url)
+                    items.append(item)
+        if not items and page_errors:
+            raise SourceUnavailable("; ".join(page_errors), status="degraded")
+        return items
 
     async def _fetch_one(self, source: Mapping[str, Any]) -> tuple[str, list[Item], str | None]:
         name = str(source.get("name") or source.get("list_url"))
+        engine = str(source.get("engine") or "html").casefold()
+        semaphore = (
+            self._playwright_semaphore if engine == "playwright" else self._semaphore
+        )
         try:
-            async with self._semaphore:
-                engine = str(source.get("engine") or "html").casefold()
-                if engine == "api":
-                    method = str(source.get("method") or "GET").upper()
-                    kwargs: dict[str, Any] = {}
-                    if isinstance(source.get("params"), Mapping):
-                        kwargs["params"] = dict(source["params"])
-                    if isinstance(source.get("json"), Mapping):
-                        kwargs["json"] = dict(source["json"])
-                    kwargs["verify"] = _tls_verify(source)
-                    response = await self._request(method, str(source["list_url"]), **kwargs)
-                    items = self.parse_api(response.json(), source)
-                    await asyncio.sleep(self.request_interval)
+            async with semaphore:
+                if engine == "playwright":
+                    try:
+                        items = await asyncio.wait_for(
+                            self._fetch_source_items(source, engine),
+                            timeout=self.playwright_source_timeout,
+                        )
+                    except TimeoutError:
+                        timeout = f"{self.playwright_source_timeout:g}"
+                        return name, [], f"playwright source timed out after {timeout}s"
                 else:
-                    items = []
-                    seen: set[str] = set()
-                    page_errors: list[str] = []
-                    for url in await self._resolved_source_urls(source):
-                        page_source = dict(source)
-                        page_source["list_url"] = url
-                        try:
-                            page_items = self.parse_html(await self._html(page_source, url), page_source)
-                        except Exception as exc:
-                            page_errors.append(f"{url}: {exc}")
-                            continue
-                        for item in page_items:
-                            if item.url not in seen:
-                                seen.add(item.url)
-                                items.append(item)
-                    if not items and page_errors:
-                        raise SourceUnavailable("; ".join(page_errors), status="degraded")
+                    items = await self._fetch_source_items(source, engine)
             return name, items, None
         except Exception as exc:  # one government portal must never block the others
             return name, [], str(exc)
