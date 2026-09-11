@@ -8,6 +8,7 @@ import yaml
 
 from app.store.database import Database
 from app.pipeline.trends import rank_history
+from app.recruitment_portals import export_recruitment_portals
 
 
 def export_json(database: Database, generated_at: str, sources: list[str], output_dir: str | Path = "public/data") -> None:
@@ -93,3 +94,6 @@ def export_json(database: Database, generated_at: str, sources: list[str], outpu
         (target / "job_quicklinks.json").write_text(
             json.dumps({"items": quicklinks}, ensure_ascii=False, indent=2), encoding="utf-8",
         )
+    portals_path = Path("config/recruitment_portals.yaml")
+    if portals_path.exists():
+        export_recruitment_portals(portals_path, target / "portals.json")

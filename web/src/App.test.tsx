@@ -26,6 +26,11 @@ const dataResponse = (url: string) => {
   if (url.endsWith('/data/alerts.json')) return json({ generated_at: '', items: [] });
   if (url.endsWith('/data/job_quicklinks.json')) return json({ items: [] });
   if (url.endsWith('/data/qiuzhao.json')) return json({ generated_at: '', items: [] });
+  if (url.endsWith('/data/portals.json')) return json({ generated_at: '', groups: [
+    { name: '官方平台', items: [{ name: '人社部', url: 'https://www.mohrss.gov.cn/', category: '官方平台' }] },
+    { name: '省人社厅', items: [{ name: '山东', url: 'https://hrss.shandong.gov.cn/', category: '省人社厅', province: '山东' }] },
+    { name: '央企', items: [{ name: '国家电网有限公司', url: 'https://www.sgcc.com.cn/', category: '央企' }] },
+  ] });
   return null;
 };
 
@@ -231,6 +236,24 @@ describe('authenticated app bootstrap', () => {
     expect(await screen.findByText('示例科技 · 算法工程师')).toBeInTheDocument();
     expect(screen.getByText('购买表-秋招')).toBeInTheDocument();
     expect(screen.queryByText(/秋季双选会/)).not.toBeInTheDocument();
+  });
+
+  it('renders searchable official recruitment portal groups as external links', async () => {
+    const fetchMock = vi.fn(async (input: RequestInfo | URL) => {
+      const url = String(input);
+      if (url === '/api/me') return json({ username: 'reader', is_admin: false });
+      if (url === '/api/settings') return json({ prefs: {}, updated_at: null });
+      return dataResponse(url) ?? json({}, 404);
+    });
+    vi.stubGlobal('fetch', fetchMock);
+    render(<App />);
+    await screen.findByText('reader');
+    fireEvent.click(screen.getByRole('button', { name: '官方招聘入口' }));
+    expect(await screen.findByRole('heading', { name: '官方招聘入口' })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /国家电网有限公司/ })).toHaveAttribute('href', 'https://www.sgcc.com.cn/');
+    fireEvent.change(screen.getByLabelText('搜索官方招聘入口'), { target: { value: '山东' } });
+    expect(screen.getByRole('link', { name: /山东/ })).toBeInTheDocument();
+    expect(screen.queryByRole('link', { name: /国家电网有限公司/ })).not.toBeInTheDocument();
   });
 
   it('keeps hot-list items before utility sources in the all tab', async () => {

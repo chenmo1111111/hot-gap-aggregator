@@ -8,6 +8,7 @@ import json
 import logging
 import os
 import re
+import ssl
 from collections.abc import Mapping
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
@@ -88,6 +89,22 @@ def _node_text(node: Node | None) -> str:
     return " ".join(node.text(separator=" ", strip=True).split()) if node is not None else ""
 
 
+def _tls_verify(source: Mapping[str, Any]) -> bool | ssl.SSLContext:
+    """Return the least-permissive TLS setting that a configured legacy site needs."""
+    verify_tls = source.get("verify_tls") is not False
+    if not source.get("legacy_tls"):
+        return verify_tls
+    context = ssl.create_default_context()
+    if not verify_tls:
+        context.check_hostname = False
+        context.verify_mode = ssl.CERT_NONE
+    context.set_ciphers("DEFAULT@SECLEVEL=1")
+    legacy_option = getattr(ssl, "OP_LEGACY_SERVER_CONNECT", 0)
+    if legacy_option:
+        context.options |= legacy_option
+    return context
+
+
 class GovListCollector(BaseCollector):
     source = "gongkao_gov"
     timeout = 18.0
@@ -156,7 +173,7 @@ class GovListCollector(BaseCollector):
                 url=url, published_at=published.isoformat(),
                 extra={
                     "id": f"gov:{digest}", "sub": "announcement",
-                    "subsource": "government", "source_site": "government",
+                    "subsource": "government", "source_site": "gov",
                     "government_source": True,
                     "gov_source_name": str(row.get("source") or "政府官网兜底"),
                     "province": normalize_province(row.get("province")),
@@ -200,10 +217,13 @@ class GovListCollector(BaseCollector):
             title_include = str(source.get("title_include") or "").strip()
             if title_include and re.search(title_include, title, re.I) is None:
                 continue
-            href = urljoin(
-                str(source.get("list_url")),
-                str(link_node.attributes.get("href") if link_node else "").strip(),
-            )
+            raw_href = str((link_node.attributes.get("href") if link_node else "") or "").strip()
+            href = urljoin(str(source.get("list_url")), raw_href)
+            if source.get("synthetic_link") and (
+                not raw_href or not href.startswith(("http://", "https://"))
+            ):
+                title_digest = hashlib.sha256(title.encode("utf-8")).hexdigest()[:16]
+                href = f"{str(source.get('list_url')).split('#', 1)[0]}#notice-{title_digest}"
             if not href.startswith(("http://", "https://")) or href in seen:
                 continue
             context = _node_text(node)
@@ -226,7 +246,7 @@ class GovListCollector(BaseCollector):
                 url=href, published_at=published.isoformat(),
                 extra={
                     "id": f"gov:{digest}", "sub": "announcement",
-                    "subsource": "government", "source_site": "government",
+                    "subsource": "government", "source_site": "gov",
                     "government_source": True,
                     "gov_source_name": str(source.get("name") or "政府公开招聘"),
                     "province": normalize_province(source.get("province")),
@@ -273,7 +293,7 @@ class GovListCollector(BaseCollector):
                 url=link, published_at=published.isoformat(),
                 extra={
                     "id": f"gov:{digest}", "sub": "announcement",
-                    "subsource": "government", "source_site": "government",
+                    "subsource": "government", "source_site": "gov",
                     "government_source": True,
                     "gov_source_name": str(source.get("name") or "政府公开招聘"),
                     "province": normalize_province(source.get("province")),
@@ -300,19 +320,30 @@ class GovListCollector(BaseCollector):
     async def _html(self, source: Mapping[str, Any], url: str) -> str:
         engine = str(source.get("engine") or "html").casefold()
         if engine != "playwright":
-            response = await self.request(url, headers={"Accept": "text/html,application/xhtml+xml"})
+            response = await self.request(
+                url,
+                headers={"Accept": "text/html,application/xhtml+xml"},
+                verify=_tls_verify(source),
+            )
             await asyncio.sleep(self.request_interval)
             return _decode(response.content, source.get("encoding") or response.encoding)
         from playwright.async_api import async_playwright
 
         async with async_playwright() as playwright:
             browser = await playwright.chromium.launch(headless=True)
-            page = await browser.new_page(user_agent=USER_AGENTS[0])
+            context = await browser.new_context(
+                user_agent=USER_AGENTS[0],
+                ignore_https_errors=source.get("verify_tls") is False,
+            )
+            page = await context.new_page()
             try:
                 last_error: Exception | None = None
                 for attempt in range(self.retries + 1):
                     try:
-                        await page.goto(url, wait_until="networkidle", timeout=30_000)
+                        await page.goto(url, wait_until="domcontentloaded", timeout=45_000)
+                        wait_ms = max(0, int(source.get("playwright_wait_ms") or 1800))
+                        if wait_ms:
+                            await page.wait_for_timeout(wait_ms)
                         return await page.content()
                     except Exception as exc:
                         last_error = exc
@@ -320,6 +351,7 @@ class GovListCollector(BaseCollector):
                             await asyncio.sleep(0.5 * (2**attempt))
                 raise SourceUnavailable(f"playwright failed after retries: {last_error}", status="degraded")
             finally:
+                await context.close()
                 await browser.close()
 
     async def _fetch_one(self, source: Mapping[str, Any]) -> tuple[str, list[Item], str | None]:
@@ -334,8 +366,7 @@ class GovListCollector(BaseCollector):
                         kwargs["params"] = dict(source["params"])
                     if isinstance(source.get("json"), Mapping):
                         kwargs["json"] = dict(source["json"])
-                    if source.get("verify_tls") is False:
-                        kwargs["verify"] = False
+                    kwargs["verify"] = _tls_verify(source)
                     response = await self._request(method, str(source["list_url"]), **kwargs)
                     items = self.parse_api(response.json(), source)
                     await asyncio.sleep(self.request_interval)

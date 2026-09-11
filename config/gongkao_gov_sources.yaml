@@ -38,7 +38,7 @@ sources:
   - name: 吉林省人社厅-公开招聘公告
     province: 吉林
     category: 事业单位
-    list_url: https://hrss.jl.gov.cn/rsrc/sydwrsgl/gkzp/index.html
+    list_url: http://hrss.jl.gov.cn/rsrc/sydwrsgl/gkzp/
     engine: html
     item_selector: li
     title_selector: a:nth-of-type(2)
@@ -63,15 +63,17 @@ sources:
   - name: 河北省人社厅-事业单位招聘
     province: 河北
     category: 事业单位
-    list_url: https://rst.hebei.gov.cn/
+    list_url: https://rst.hebei.gov.cn/a/kaoshizhaopin/
     engine: playwright
+    verify_tls: false
+    legacy_tls: true
     item_selector: li
     title_selector: p.title
     link_selector: a[href]
     date_selector: p.time
     date_format: "%Y-%m-%d %H:%M:%S"
     title_include: "公开招聘|公开选聘"
-    fixture: hebei_hrss.html
+    verification_note: 核验 URL 是 JavaScript 栏目壳；旧 TLS 已降级，渲染后暂未返回招聘条目
 
   - name: 河北人事考试网-事业单位考试
     province: 河北
@@ -251,7 +253,10 @@ sources:
   - name: 山西省人社厅-省直事业单位招聘
     province: 山西
     category: 事业单位
-    list_url: https://rst.shanxi.gov.cn/ztzl/zpxx/szsydwzpgg/
+    list_url: https://rst.shanxi.gov.cn/ztzl/zpxx/
+    list_urls:
+      - https://rst.shanxi.gov.cn/ztzl/zpxx/
+      - https://rst.shanxi.gov.cn/ztzl/zpxx/szsydwzpgg/
     engine: html
     item_selector: ul.second_right_ul > li
     title_selector: a[href]
@@ -327,13 +332,13 @@ sources:
     category: 事业单位
     list_url: https://www.lnrsks.com/
     engine: html
-    enabled: false
-    item_selector: li
+    enabled: true
+    item_selector: li, tr
     title_selector: a[href]
     link_selector: a[href]
     date_selector: span
     date_format: "%Y-%m-%d"
-    verification_note: HTTP 仅返回强制 HTTPS 网关页，HTTPS 无可解析招聘列表
+    fixture: liaoning_exam.html
 
   - name: 大连市人社局-通知公告
     province: 辽宁
@@ -377,7 +382,10 @@ sources:
   - name: 北京市人社局-事业单位公开招聘
     province: 北京
     category: 事业单位
-    list_url: https://rsj.beijing.gov.cn/xxgk/gkzp/index.html
+    list_url: http://rsj.beijing.gov.cn/xxgk/tzgg/
+    list_urls:
+      - http://rsj.beijing.gov.cn/xxgk/tzgg/
+      - https://rsj.beijing.gov.cn/xxgk/gkzp/index.html
     engine: html
     item_selector: li
     title_selector: a[title]
@@ -389,7 +397,10 @@ sources:
   - name: 内蒙古人事考试网-事业单位公告
     province: 内蒙古
     category: 事业单位
-    list_url: "http://www.impta.com.cn/more.asp?ttt=42"
+    list_url: http://rst.nmg.gov.cn/nmrsw/
+    list_urls:
+      - http://rst.nmg.gov.cn/nmrsw/
+      - "http://www.impta.com.cn/more.asp?ttt=42"
     engine: html
     encoding: gb18030
     item_selector: 'tr[bgcolor="#FFFFFF"]'
@@ -404,6 +415,8 @@ sources:
     category: 事业单位
     list_url: http://rst.hunan.gov.cn/rst/xxgk/zpzl/sydwzp/index.html
     engine: html
+    verify_tls: false
+    legacy_tls: true
     item_selector: div.xxgkzd-box li
     title_selector: a[href]
     link_selector: a[href]
@@ -461,3 +474,335 @@ sources:
     date_selector: span
     date_format: "%Y-%m-%d"
     fixture: cas.html
+  - name: 上海市人社局-事业单位公开招聘
+    province: 上海
+    category: 事业单位
+    list_url: https://rsj.sh.gov.cn/tsydwgkzp_17406/index.html
+    engine: html
+    item_selector: li, tr
+    title_selector: a[href]
+    link_selector: a[href]
+    date_selector: span, time
+    date_format: '%Y-%m-%d'
+    fixture: shanghai.html
+  - name: 江苏省人社厅-省属事业单位招聘
+    province: 江苏
+    category: 事业单位
+    list_url: https://jshrss.jiangsu.gov.cn/col/col78506/index.html
+    engine: playwright
+    item_selector: li
+    title_selector: a[href]
+    link_selector: a[href]
+    date_selector: i
+    date_format: '%Y-%m-%d'
+    playwright_wait_ms: 3000
+    fixture: jiangsu.html
+  - name: 浙江省人社厅-招聘公告
+    province: 浙江
+    category: 事业单位
+    list_url: https://rlsbt.zj.gov.cn/col/col1229743683/index.html
+    engine: playwright
+    item_selector: li[style*="height:50px"]
+    title_selector: a.bt_link
+    link_selector: a.bt_link
+    date_selector: span.bt_time
+    date_format: '%Y-%m-%d'
+    playwright_wait_ms: 3000
+    fixture: zhejiang.html
+  - name: 安徽省人社厅-事业单位公开招聘专栏
+    province: 安徽
+    category: 事业单位
+    list_url: https://hrss.ah.gov.cn/zxzx/ztzl/ahsszsydwgkzpzl/index.html
+    list_urls:
+    - https://hrss.ah.gov.cn/zxzx/ztzl/ahsszsydwgkzpzl/index.html
+    - https://hrss.ah.gov.cn/zxzx/ztzl/ahssydwgkzp/index.html
+    engine: html
+    verify_tls: false
+    item_selector: li
+    title_selector: a[title]
+    link_selector: a[title]
+    date_selector: span
+    date_format: '%Y-%m-%d'
+    verification_note: 证书链异常已按源关闭校验；真实列表可达，fixture 后续补录
+  - name: 福建省人社厅-招聘入口
+    province: 福建
+    category: 事业单位
+    list_url: https://rst.fujian.gov.cn/
+    engine: html
+    item_selector: li, tr
+    title_selector: a[href]
+    link_selector: a[href]
+    date_selector: span, time
+    date_format: '%Y-%m-%d'
+    title_include: 公开招聘|招聘公告|招考公告|招录公告|选调公告
+    verification_note: 输入仅为厅首页，未发现稳定招聘列表或 XHR，保留真实0条状态
+  - name: 江西人事考试网-事业单位
+    province: 江西
+    category: 事业单位
+    list_url: https://www.jxpta.com/
+    engine: playwright
+    verify_tls: false
+    legacy_tls: true
+    item_selector: li, tr
+    title_selector: a[href]
+    link_selector: a[href]
+    date_selector: span, time
+    date_format: '%Y-%m-%d'
+    playwright_wait_ms: 3000
+    fixture: jiangxi.html
+  - name: 河南省人社厅-事业单位招聘
+    province: 河南
+    category: 事业单位
+    list_url: https://ywzl.hrss.henan.gov.cn/viewCmsCac.do?cacId=4aef1408279926e601279e53eac517a5
+    engine: html
+    verify_tls: false
+    item_selector: li, tr
+    title_selector: a[href]
+    link_selector: a[href]
+    date_selector: span, time
+    date_format: '%Y-%m-%d'
+    fixture: henan.html
+  - name: 湖北省人社厅-招聘公告
+    province: 湖北
+    category: 事业单位
+    list_url: https://rst.hubei.gov.cn/
+    engine: html
+    item_selector: li, tr
+    title_selector: a[href]
+    link_selector: a[href]
+    date_selector: span, time
+    date_format: '%Y-%m-%d'
+    title_include: 公开招聘|招聘公告|招考公告|招录公告|选调公告
+    verification_note: 输入为厅首页，首页招聘命中不足3条
+  - name: 广东省人社厅-公示公告
+    province: 广东
+    category: 事业单位
+    list_url: https://hrss.gd.gov.cn/zwgk/gsgg/index.html
+    engine: html
+    item_selector: li, tr
+    title_selector: a[href]
+    link_selector: a[href]
+    date_selector: span, time
+    date_format: '%Y-%m-%d'
+    title_include: 公开招聘|招聘公告|招考公告|招录公告|选调公告|三支一扶.*(?:公告|招募)
+    verification_note: 栏目可达，开放招聘样例不足3条
+  - name: 广西人事考试网
+    province: 广西
+    category: 事业单位
+    list_url: https://www.gxpta.com.cn/
+    engine: html
+    item_selector: li, tr
+    title_selector: a[href]
+    link_selector: a[href]
+    date_selector: span, time
+    date_format: '%Y-%m-%d'
+    verification_note: 首页可达，近30天无3条开放招聘样例
+  - name: 海南省人社厅-事业单位公开招聘
+    province: 海南
+    category: 事业单位
+    list_url: https://hrss.hainan.gov.cn/hrss/sydwzp/list3.shtml
+    engine: html
+    verify_tls: false
+    item_selector: div.list_div
+    title_selector: div.list-right_title a[href]
+    link_selector: div.list-right_title a[href]
+    date_selector: td:first-child
+    date_format: 发布时间： %Y-%m-%d
+    fixture: hainan.html
+  - name: 重庆市人社局-2026事业单位公开招聘
+    province: 重庆
+    category: 事业单位
+    list_url: https://rlsbj.cq.gov.cn/zwxx_182/sydw/sydwgkzp2026/
+    engine: html
+    item_selector: li, tr
+    title_selector: a[href]
+    link_selector: a[href]
+    date_selector: span, time
+    date_format: '%Y-%m-%d'
+    fixture: chongqing.html
+  - name: 四川省人事考试专栏-事业单位
+    province: 四川
+    category: 事业单位
+    list_url: https://www.scpta.com.cn/front
+    engine: playwright
+    item_selector: li
+    title_selector: a[href]
+    link_selector: a[href]
+    date_selector: span
+    date_format: '%Y-%m-%d'
+    playwright_wait_ms: 3000
+    fixture: sichuan.html
+  - name: 贵州省人社厅-事业单位公开招聘
+    province: 贵州
+    category: 事业单位
+    list_url: https://rst.guizhou.gov.cn/zwgk/zdlyxx/sydwgkzp/
+    engine: html
+    item_selector: li, tr
+    title_selector: a[href]
+    link_selector: a[href]
+    date_selector: span, time
+    date_format: '%Y-%m-%d'
+    verification_note: 栏目可达；近30天开放招聘不足3条
+  - name: 云南省人社厅-事业单位招聘
+    province: 云南
+    category: 事业单位
+    list_url: https://hrss.yn.gov.cn/NewsLsit.aspx?ClassID=602
+    engine: html
+    item_selector: li, tr
+    title_selector: a[href]
+    link_selector: a[href]
+    date_selector: span, time
+    date_format: '%Y-%m-%d'
+    fixture: yunnan.html
+  - name: 西藏自治区人社厅-招聘公告
+    province: 西藏
+    category: 事业单位
+    list_url: https://hrss.xizang.gov.cn/
+    engine: html
+    item_selector: li, tr
+    title_selector: a[href]
+    link_selector: a[href]
+    date_selector: span, time
+    date_format: '%Y-%m-%d'
+    title_include: 公开招聘|招聘公告|招考公告|招录公告|选调公告
+    verification_note: 输入仅为厅首页，未找到稳定事业单位列表，保留真实0条状态
+  - name: 陕西省政府-招考招录
+    province: 陕西
+    category: 事业单位
+    list_url: http://www.shaanxi.gov.cn/xw/ztzl/zxzt/zkzl/
+    engine: html
+    item_selector: li, tr
+    title_selector: a[href]
+    link_selector: a[href]
+    date_selector: span, time
+    date_format: '%Y-%m-%d'
+    verification_note: 专题可达但当前列表由动态模块生成，保存样例不足3条
+  - name: 甘肃人事考试网-事业单位
+    province: 甘肃
+    category: 事业单位
+    list_url: https://ks.rst.gansu.gov.cn/ncms/wzlb.shtml?mkbh=gwysydwks
+    engine: html
+    verify_tls: false
+    item_selector: ul.ap > li
+    title_selector: a[title]
+    link_selector: a[title]
+    date_selector: span.you
+    date_format: '[%Y-%m-%d]'
+    fixture: gansu.html
+  - name: 青海人事考试信息网-事业单位
+    province: 青海
+    category: 事业单位
+    list_url: http://www.qhpta.com/ncms/sydwks.shtml
+    engine: html
+    encoding: gb18030
+    item_selector: li, tr
+    title_selector: a[href]
+    link_selector: a[href]
+    date_selector: span, time
+    date_format: '%Y-%m-%d'
+    fixture: qinghai.html
+  - name: 宁夏人事考试中心-事业单位招考
+    province: 宁夏
+    category: 事业单位
+    list_url: https://www.nxpta.com/sydwzk/index.html
+    engine: html
+    item_selector: p.title-li
+    title_selector: a[title]
+    link_selector: a[title]
+    date_selector: span
+    date_format: '%Y-%m-%d'
+    verification_note: 栏目可达但当前首页多为招聘后续公告，开放样例不足3条
+  - name: 新疆人社厅-事业单位
+    province: 新疆
+    category: 事业单位
+    list_url: https://rst.xinjiang.gov.cn/xjrst/c112746/list.shtml
+    engine: html
+    item_selector: li, tr
+    title_selector: a[href]
+    link_selector: a[href]
+    date_selector: span, time
+    date_format: '%Y-%m-%d'
+    verification_note: 原栏目404；已修正到人才人事-事业单位当前列表，fixture 后续补录
+  - name: 兵团考试信息网-通知公告
+    province: 新疆生产建设兵团
+    category: 事业单位
+    list_url: http://btpta.xjbt.gov.cn/tzgg/
+    engine: html
+    item_selector: li, tr
+    title_selector: a[href]
+    link_selector: a[href]
+    date_selector: span, time
+    date_format: '%Y-%m-%d'
+    fixture: bingtuan.html
+  - name: 人社部-中央事业单位公开招聘
+    province: 全国
+    category: 事业单位
+    list_url: https://www.mohrss.gov.cn/SYrlzyhshbzb/fwyd/SYkaoshizhaopin/zyhgjjgsydwgkzp/
+    engine: playwright
+    item_selector: li
+    title_selector: a[href]
+    link_selector: a[href]
+    date_selector: span
+    date_format: '%Y-%m-%d'
+    playwright_wait_ms: 2500
+    fixture: mohrss_central.html
+  - name: 国资委-中央企业招聘专题
+    province: 全国
+    category: 央企事业编
+    list_url: http://www.sasac.gov.cn/n2588035/n2588325/n2588350/index.html
+    engine: html
+    item_selector: li
+    title_selector: a[href]
+    link_selector: a[href]
+    date_selector: span
+    date_format: '%Y-%m-%d'
+    fixture: sasac.html
+  - name: 中国铁路人才招聘网
+    province: 全国
+    category: 央企事业编
+    list_url: https://rczp.china-railway.com.cn/
+    engine: playwright
+    item_selector: li
+    title_selector: a[href]
+    link_selector: a[href]
+    date_selector: span
+    date_format: '%Y-%m-%d'
+    playwright_wait_ms: 3000
+    synthetic_link: true
+    fixture: china_railway.html
+  - name: 中国烟草人才招聘
+    province: 全国
+    category: 央企事业编
+    list_url: http://www.tobacco.gov.cn/gjyc/zpxx/list.shtml
+    engine: html
+    item_selector: li
+    title_selector: a[href]
+    link_selector: a[href]
+    date_selector: span
+    date_format: '%Y-%m-%d'
+    fixture: tobacco.html
+  - name: 国家电网招聘
+    province: 全国
+    category: 央企事业编
+    list_url: https://zhaopin.sgcc.com.cn/sgcchr/static/home.html
+    engine: playwright
+    item_selector: li
+    title_selector: a[href]
+    link_selector: a[href]
+    date_selector: span
+    date_format: '%Y-%m-%d'
+    playwright_wait_ms: 5000
+    verification_note: 站点对当前出口返回HTTP 412，Playwright同样得到空页；保留真实0条状态，不用假数据
+  - name: 南方电网招聘
+    province: 全国
+    category: 央企事业编
+    list_url: https://zhaopin.csg.cn/#/notice-list
+    engine: playwright
+    item_selector: div.list > div.item
+    title_selector: span.title
+    link_selector: div.con
+    date_selector: div.date
+    date_format: '%Y-%m-%d %H:%M:%S'
+    playwright_wait_ms: 3500
+    synthetic_link: true
+    fixture: csg.html

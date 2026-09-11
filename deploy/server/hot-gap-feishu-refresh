@@ -170,6 +170,7 @@ fi
 .venv/bin/python -m app.collect_gongkao
 .venv/bin/python -m app.export_qiuzhao
 .venv/bin/python -m app.export_gongkao
+.venv/bin/python -m app.recruitment_portals --output "$data_dir/portals.json"
 .venv/bin/python -m app.pipeline.gongkao_enrich
 .venv/bin/python -m app.daily_volume
 .venv/bin/python -m app.sync_feishu

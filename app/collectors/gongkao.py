@@ -430,6 +430,7 @@ def _semantic_key(item: Item) -> tuple[str, str]:
 
 SOURCE_PRIORITY = {
     "government": 40,
+    "gov": 40,
     "resolved": 30,
     "huatu": 20,
     "offcn": 20,

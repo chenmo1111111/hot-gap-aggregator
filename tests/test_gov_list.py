@@ -1,11 +1,12 @@
 from datetime import date
 import json
 from pathlib import Path
+import ssl
 
 import pytest
 import yaml
 
-from app.collectors.gov_list import GovListCollector
+from app.collectors.gov_list import GovListCollector, _tls_verify
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -28,6 +29,16 @@ def test_parse_html_extracts_recent_official_rows_and_skips_old_rows() -> None:
     assert items[0].published_at == "2026-09-09"
     assert items[0].extra["province"] == "吉林"
     assert items[0].extra["government_source"] is True
+    assert items[0].extra["source_site"] == "gov"
+
+
+def test_tls_verify_builds_legacy_insecure_context_only_when_configured() -> None:
+    assert _tls_verify({}) is True
+    assert _tls_verify({"verify_tls": False}) is False
+    context = _tls_verify({"verify_tls": False, "legacy_tls": True})
+    assert isinstance(context, ssl.SSLContext)
+    assert context.verify_mode == ssl.CERT_NONE
+    assert context.check_hostname is False
 
 
 def test_parse_html_honors_yaml_selectors() -> None:
@@ -42,6 +53,23 @@ def test_parse_html_honors_yaml_selectors() -> None:
     items = GovListCollector.parse_html(html, source, today=date(2026, 9, 10))
     assert len(items) == 1
     assert items[0].extra["exam_type"] == "军队文职"
+
+
+def test_parse_html_can_make_stable_landing_links_for_click_only_lists() -> None:
+    html = """
+    <div class="item"><span class="title">南方电网2026年校园招聘公告</span><div class="con"></div><div class="date">2026-09-08 10:00:00</div></div>
+    <div class="item"><span class="title">南方电网2026年社会招聘公告</span><div class="con"></div><div class="date">2026-09-07 10:00:00</div></div>
+    """
+    source = {
+        "name": "南方电网", "province": "全国", "category": "央企事业编",
+        "list_url": "https://zhaopin.csg.cn/#/notice-list", "item_selector": ".item",
+        "title_selector": ".title", "link_selector": ".con", "date_selector": ".date",
+        "date_format": "%Y-%m-%d %H:%M:%S", "synthetic_link": True,
+    }
+    items = GovListCollector.parse_html(html, source, today=date(2026, 9, 10))
+    assert len(items) == 2
+    assert items[0].url.startswith("https://zhaopin.csg.cn/#notice-")
+    assert items[0].url != items[1].url
 
 
 def test_seed_items_keep_official_links_for_blocked_portals(tmp_path) -> None:
@@ -97,6 +125,24 @@ sources:
     date_selector: span
 """, encoding="utf-8")
     assert [source["name"] for source in GovListCollector(config).load_sources()] == ["active"]
+
+
+def test_config_covers_all_provincial_regions_and_replaces_obsolete_urls() -> None:
+    text = (ROOT / "config" / "gongkao_gov_sources.yaml").read_text(encoding="utf-8")
+    rows = (yaml.safe_load(text) or {})["sources"]
+    covered = {str(source.get("province")) for source in rows}
+    provinces = {
+        "北京", "天津", "河北", "山西", "内蒙古", "辽宁", "吉林", "黑龙江", "上海", "江苏",
+        "浙江", "安徽", "福建", "江西", "山东", "河南", "湖北", "湖南", "广东", "广西",
+        "海南", "重庆", "四川", "贵州", "云南", "西藏", "陕西", "甘肃", "青海", "宁夏", "新疆",
+    }
+    assert provinces <= covered
+    assert "新疆生产建设兵团" in covered
+    for obsolete in (
+        "hl.lss.gov.cn", "col/col45194", "col/col47831", "202.61.89.231",
+        "c100481/flm_list", "sydwgkzp2024", "def/def/index_1_1459",
+    ):
+        assert obsolete not in text
 
 
 @pytest.mark.parametrize(
