@@ -274,3 +274,10 @@ def test_mailbox_installer_checks_service_user_import_and_stable_startup() -> No
     assert "ActiveState --value" in installer
     assert "SubState --value" in installer
     assert "did not become stably active" in installer
+
+
+def test_mailbox_runtime_avoids_python_311_only_datetime_utc() -> None:
+    mailbox_dir = Path(__file__).parents[1] / "app/mailbox"
+    for source_path in mailbox_dir.glob("*.py"):
+        source = source_path.read_text(encoding="utf-8")
+        assert "from datetime import UTC" not in source

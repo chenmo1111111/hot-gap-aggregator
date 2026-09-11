@@ -5,7 +5,7 @@ import os
 import re
 import ssl
 from dataclasses import dataclass
-from datetime import UTC, datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from email import policy
 from email.header import decode_header, make_header
 from email.message import EmailMessage
@@ -21,6 +21,7 @@ MAIL_KEYWORDS = re.compile(
     re.IGNORECASE,
 )
 INTERNALDATE_RE = re.compile(rb'INTERNALDATE "([^"]+)"')
+UTC = timezone.utc
 
 
 @dataclass(frozen=True)

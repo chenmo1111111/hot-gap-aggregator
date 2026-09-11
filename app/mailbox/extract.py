@@ -5,7 +5,7 @@ import json
 import os
 import re
 from dataclasses import dataclass
-from datetime import UTC, datetime, timedelta, timezone
+from datetime import datetime, timedelta, timezone
 from typing import Any, Awaitable, Callable, Mapping
 from urllib.parse import urlsplit
 
@@ -15,6 +15,7 @@ from .imap_client import MailMessage
 
 
 CHINA_TZ = timezone(timedelta(hours=8), "Asia/Shanghai")
+UTC = timezone.utc
 ALLOWED_TYPES = {"AI视频面试", "笔试", "一站式面试", "其他"}
 ALLOWED_KINDS = {"relative_hours", "absolute", "unknown"}
 URL_RE = re.compile(r"https?://[^\s<>\"']+", re.IGNORECASE)

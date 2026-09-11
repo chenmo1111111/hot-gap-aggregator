@@ -2,12 +2,13 @@ from __future__ import annotations
 
 import os
 import sqlite3
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Mapping
 
 
 VALID_STATUSES = {"pending", "done", "expired", "needs_review"}
+UTC = timezone.utc
 
 
 def utc_now() -> str:

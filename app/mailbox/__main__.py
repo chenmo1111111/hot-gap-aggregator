@@ -5,7 +5,7 @@ import asyncio
 import json
 import logging
 import os
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 from typing import Awaitable, Callable
 from urllib.parse import urlsplit
 
@@ -19,6 +19,7 @@ from .store import MailboxStore
 
 LOGGER = logging.getLogger("hot_gap.mailbox")
 THRESHOLDS = ((24, "24h"), (6, "6h"), (1, "1h"))
+UTC = timezone.utc
 
 
 def _drop_privileges() -> None:
