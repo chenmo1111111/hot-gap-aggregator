@@ -138,11 +138,14 @@ for relative in "${files[@]}"; do
   chown root:root "$project/$relative"
   chmod 644 "$project/$relative"
 done
+chown root:root "$project/app/mailbox"
+chmod 755 "$project/app/mailbox"
 chmod 755 "$project/deploy/server/install-hot-gap-mailbox.sh"
 install -d -o www-data -g www-data -m 750 /var/lib/hot-gap-sync
 
 cd "$project"
 .venv/bin/python -m py_compile app/mailbox/*.py sync/app.py
+runuser -u www-data -- .venv/bin/python -c 'import sync.app'
 install -o root -g root -m 644 deploy/server/hot-gap-mailbox.cron "$cron_target"
 
 if [[ -f "$project/web/dist/index.html" ]]; then
@@ -157,7 +160,24 @@ else
 fi
 
 systemctl restart hot-gap-sync.service
-systemctl is-active --quiet hot-gap-sync.service
+service_ready=0
+for _ in {1..15}; do
+  sleep 1
+  if [[ "$(systemctl show hot-gap-sync.service --property=ActiveState --value)" == "active" \
+    && "$(systemctl show hot-gap-sync.service --property=SubState --value)" == "running" ]]; then
+    sleep 2
+    if [[ "$(systemctl show hot-gap-sync.service --property=ActiveState --value)" == "active" \
+      && "$(systemctl show hot-gap-sync.service --property=SubState --value)" == "running" ]]; then
+      service_ready=1
+      break
+    fi
+  fi
+done
+if [[ "$service_ready" -ne 1 ]]; then
+  systemctl --no-pager --full status hot-gap-sync.service || true
+  echo "hot-gap-sync.service did not become stably active" >&2
+  exit 1
+fi
 systemctl restart cron.service
 
 trap - EXIT

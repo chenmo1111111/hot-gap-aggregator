@@ -261,3 +261,16 @@ def test_mailbox_cron_is_independent_from_public_refresh() -> None:
     schedule = next(line for line in cron.splitlines() if line.startswith("*/20"))
     assert "hot-gap-feishu-refresh" not in schedule
     assert "sync_feishu" not in schedule
+
+
+def test_mailbox_installer_checks_service_user_import_and_stable_startup() -> None:
+    installer = (
+        Path(__file__).parents[1] / "deploy/server/install-hot-gap-mailbox.sh"
+    ).read_text(encoding="utf-8")
+
+    assert 'chmod 755 "$project/app/mailbox"' in installer
+    assert "runuser -u www-data -- .venv/bin/python -c 'import sync.app'" in installer
+    assert "service_ready=0" in installer
+    assert "ActiveState --value" in installer
+    assert "SubState --value" in installer
+    assert "did not become stably active" in installer
