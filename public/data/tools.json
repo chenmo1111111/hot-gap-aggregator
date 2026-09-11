@@ -1,18 +1,48 @@
 {
-  "generated_at": "2026-09-10T22:43:57.594732+00:00",
+  "generated_at": "2026-09-11T01:44:18.657508+00:00",
   "source": "tools",
   "status": {
     "source": "tools",
     "status": "ok",
     "item_count": 25,
-    "duration_ms": 13277,
+    "duration_ms": 10561,
     "error": null,
-    "run_at": "2026-09-10T22:43:57.594732+00:00"
+    "run_at": "2026-09-11T01:44:18.657508+00:00"
   },
   "items": [
     {
       "source": "feed",
-      "rank": 12,
+      "rank": 13,
+      "title": "派早报：商务部回应美国 AI 蒸馏指控",
+      "title_zh": "派早报：商务部回应美国 AI 蒸馏指控",
+      "url": "https://sspai.com/post/114439",
+      "hot_value": null,
+      "summary_zh": "商务部回应美国 AI 蒸馏指控 9 月 9 日，商务部官网发布 新闻稿 ，介绍商务部新闻发言人就美发布中国人工智能企业对美蒸馏活动相关网络安全公告答记者问的情况。 该问答指出，注意到美东时间 9 月 8 日，美国家安全局、网络安全与基础设施安全局、联邦调查局联合发布公告，指责中国人工智能企业对美开展「工业规模」蒸馏，获取美前沿模型能力，并向美企提出相关防御措施建议。 商务部表示，美方指控于事无凭，于法无据，是将蒸馏这一业内正常的技术和商业问题政治化、工具化，并在实践中搞双重标准。美方相关公告，是其在人工智能领域推行科技霸权、搞算力垄断，打压竞争的又一明证。中方对此坚决反对。 新闻发言人还说，蒸馏是人工智能领域各个模型间互相学习的通行做法，本质是中性技术手段，包括美企在内的全球模型企业都在用。多次单方面指责中国企业从事「工业规模」蒸馏，将行业通行做法抹黑为攻击行为，既反映了美方的焦虑，又体现",
+      "thumbnail": null,
+      "published_at": "2026-09-10T22:58:54+00:00",
+      "extra": {
+        "feed_name": "少数派",
+        "tab": "tools",
+        "route": "/sspai/index",
+        "translate": false,
+        "description": "商务部回应美国 AI 蒸馏指控 9 月 9 日，商务部官网发布 新闻稿 ，介绍商务部新闻发言人就美发布中国人工智能企业对美蒸馏活动相关网络安全公告答记者问的情况。 该问答指出，注意到美东时间 9 月 8 日，美国家安全局、网络安全与基础设施安全局、联邦调查局联合发布公告，指责中国人工智能企业对美开展「工业规模」蒸馏，获取美前沿模型能力，并向美企提出相关防御措施建议。 商务部表示，美方指控于事无凭，于法无据，是将蒸馏这一业内正常的技术和商业问题政治化、工具化，并在实践中搞双重标准。美方相关公告，是其在人工智能领域推行科技霸权、搞算力垄断，打压竞争的又一明证。中方对此坚决反对。 新闻发言人还说，蒸馏是人工智能领域各个模型间互相学习的通行做法，本质是中性技术手段，包括美企在内的全球模型企业都在用。多次单方面指责中国企业从事「工业规模」蒸馏，将行业通行做法抹黑为攻击行为，既反映了美方的焦虑，又体现",
+        "dedupe_key": "https://sspai.com/post/114439"
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "24e49143e9b6",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-11T01:44:18.657508+00:00",
+          "rank": 13
+        }
+      ]
+    },
+    {
+      "source": "feed",
+      "rank": 19,
       "title": "scvi-tools 1.5.1",
       "title_zh": "scvi-tools 1.5.1",
       "url": "https://github.com/scverse/scvi-tools/releases/tag/1.5.1",
@@ -28,9 +58,9 @@
         "description": "See the release notes for all changes. This release is available via PyPi: pip install scvi-tools Conda availability will follow (< 2 days typically) Please report any issues on GitHub .",
         "dedupe_key": "https://github.com/scverse/scvi-tools/releases/tag/1.5.1"
       },
-      "days_on_board": 1,
+      "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": -7,
       "cluster_id": "92de253c91a7",
       "cluster_size": 1,
       "rank_history": [
@@ -49,12 +79,16 @@
         {
           "run_at": "2026-09-10T22:43:57.594732+00:00",
           "rank": 12
+        },
+        {
+          "run_at": "2026-09-11T01:44:18.657508+00:00",
+          "rank": 19
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 19,
+      "rank": 30,
       "title": "App+1｜下一节：教学工作紧张忙碌，下一节课从从容容",
       "title_zh": "App+1｜下一节：教学工作紧张忙碌，下一节课从从容容",
       "url": "https://sspai.com/post/114384",
@@ -70,9 +104,9 @@
         "description": "Matrix 首页推荐 Matrix 是少数派的写作社区，我们主张分享真实的产品体验，有实用价值的经验与思考。我们会不定期挑选 Matrix 最优质的文章，展示来自用户的最真实的体验和观点。 文章代表作者个人观点，少数派仅对标题和排版略作修改。 2024 年我写过一篇文章 课表管理——iStudiez Pro + 日历 ，介绍了我特别喜欢的一款课表应用 iStudiez Pro。没想到不久后 iStudiez 就完全停止了运营，无法再进行同步。我又尝试过一些其他课表 app，却总找不到一款符合自己需要的，也慢慢产生了自己开发一款的念头。 虽然去年我开始学习 SwiftUI（ 见此 ），但真要自己从头开发一个 app 时却依旧无从下手。今年上半年断断续续用纸笔把基本界面画了出来，之后就一直拖延着、停留在本子上。直到这个暑假我学会如何利用 AI 辅助，才最终将教师课表 app「 下一节 」从纸",
         "dedupe_key": "https://sspai.com/post/114384"
       },
-      "days_on_board": 1,
+      "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": -11,
       "cluster_id": "85c5fb0a03e9",
       "cluster_size": 1,
       "rank_history": [
@@ -99,12 +133,16 @@
         {
           "run_at": "2026-09-10T22:43:57.594732+00:00",
           "rank": 19
+        },
+        {
+          "run_at": "2026-09-11T01:44:18.657508+00:00",
+          "rank": 30
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 43,
+      "rank": 54,
       "title": "派早报：Apple 发布 iPhone Duo 折叠屏等",
       "title_zh": "派早报：Apple 发布 iPhone Duo 折叠屏等",
       "url": "https://sspai.com/post/114394",
@@ -120,9 +158,9 @@
         "description": "Apple 发布 iPhone Duo 等多款新品 9 月 10 日，Apple 公司发布 iPhone Duo、iPhone 18 Pro 与 Pro Max、Apple Watch Series 12、Apple Watch Ultra 4 和 AirPods 5 等新品。 首款 iPhone 折叠屏 iPhone Duo 配备 7.6 英寸内屏和 5.4 英寸外屏，搭载 2 纳米制程 A20 Pro 芯片、4800 万像素主摄和超广角摄像头，并支持分屏多任务、Apple Pencil 与侧边 Touch ID。中国大陆起售价为 15,999 元，10 月 16 日晚 8 点预购，10 月 23 日发售。 少数派现场上手 iPhone Duo 产品外观图，图片来自 Apple iPhone 18 Pro 系列的核心升级是可变光圈：4800 万像素主摄可在 ƒ/1.48 至 ƒ/4 之间",
         "dedupe_key": "https://sspai.com/post/114394"
       },
-      "days_on_board": 2,
+      "days_on_board": 3,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": -11,
       "cluster_id": "99a32613d719",
       "cluster_size": 1,
       "rank_history": [
@@ -165,12 +203,16 @@
         {
           "run_at": "2026-09-10T22:43:57.594732+00:00",
           "rank": 43
+        },
+        {
+          "run_at": "2026-09-11T01:44:18.657508+00:00",
+          "rank": 54
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 44,
+      "rank": 55,
       "title": "一图流 | 一张图带你看完 2026 Apple 秋季发布会",
       "title_zh": "一图流 | 一张图带你看完 2026 Apple 秋季发布会",
       "url": "https://sspai.com/post/114393",
@@ -186,9 +228,9 @@
         "description": "今天凌晨，Apple 召开了 2026 秋季新品发布会。Apple 在本次发布会上推出了 iPhone 18 Pro 系列、iPhone Duo、Apple Watch Series 12、Apple Watch Ultra 4和 AirPods 5 等新品。如果你没有熬夜看发布会，不用担心，少数派不仅整理了发布会的详细回顾文章，还连夜赶制了发布会要点的一图流，让你用最简单直观的方式迅速了解本次发布会的全新动态。 关联阅读： 可以「折」的 iPhone 正式亮相：Apple 发布会看点回顾 > 关注 少数派小红书 ，感受精彩数字生活 🍃 > 实用、好用的 正版软件 ，少数派为你呈现 🚀",
         "dedupe_key": "https://sspai.com/post/114393"
       },
-      "days_on_board": 2,
+      "days_on_board": 3,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": -11,
       "cluster_id": "9f16b612d3cf",
       "cluster_size": 1,
       "rank_history": [
@@ -231,12 +273,16 @@
         {
           "run_at": "2026-09-10T22:43:57.594732+00:00",
           "rank": 44
+        },
+        {
+          "run_at": "2026-09-11T01:44:18.657508+00:00",
+          "rank": 55
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 45,
+      "rank": 56,
       "title": "可以「折」的 iPhone 正式亮相：Apple 发布会看点回顾",
       "title_zh": "可以「折」的 iPhone 正式亮相：Apple 发布会看点回顾",
       "url": "https://sspai.com/post/114392",
@@ -252,9 +298,9 @@
         "description": "9 月 10 日凌晨，Apple 召开新品发布会。推出了新一代的 iPhone 18 Pro 系列、Apple Watch Series 12、Apple Watch Ultra 4 以及 AirPods 5 系列。本次发布会上，iPhone 家族也迎来了首款可以折叠的 iPhone：iPhone Duo；Apple Watch 系列在例行升级处理器的基础上，改进了传感器，支持更密集地数据跟踪；AirPods 5 系列则在降价的基础上，带来了更强的降噪效果。 如果你没有熬夜看本次发布会，不用担心，少数派不仅整理了详细回顾文章，还连夜赶制了要点一图流，让你用最简单直观的方式迅速了解 Apple 新品的完整动态。 > 一图流 | 一张图带你看完 2026 Apple 秋季发布会 iPhone 18 Pro 系列：2nm 芯片、可变光圈还有更小「灵动岛」 A20 Pro 芯片先于 iPhone ",
         "dedupe_key": "https://sspai.com/post/114392"
       },
-      "days_on_board": 2,
+      "days_on_board": 3,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": -11,
       "cluster_id": "ac47139411a7",
       "cluster_size": 1,
       "rank_history": [
@@ -297,12 +343,16 @@
         {
           "run_at": "2026-09-10T22:43:57.594732+00:00",
           "rank": 45
+        },
+        {
+          "run_at": "2026-09-11T01:44:18.657508+00:00",
+          "rank": 56
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 49,
+      "rank": 60,
       "title": "我一定会回来……吗？小手用户与 iPhone 17 Pro Max 的一年",
       "title_zh": "我一定会回来……吗？小手用户与 iPhone 17 Pro Max 的一年",
       "url": "https://sspai.com/post/114366",
@@ -318,9 +368,9 @@
         "description": "25 年 10 月 17 号，我订的橙色 iPhone 17 Pro Max 寄到手了。那天是个周五，我本来很开心自己借朋友之手跑赢了黄牛，后来才发现是放货日，哪怕出门去线下我也能即刻拎台手机，各种颜色各种款式任君选择。 喜悦倒是没有被冲淡——彼时的我真的很想换台新手机。iPhone 13 mini 在手里用了四年，期间它经历了各式各样奇怪的同事，到头来能与它一起留下的只有一台 SE 3，其他的用着只会更惹人生气。它实在太旧了，换过一块电池也撑不过一天的工时。但我的手不大，之前买手机最看重的就是宽度，想实打实地握在手里操作，70 mm 以下才是安全区。显然，我面前已经没什么选项了。 最初我想买台 iPhone 17，因为它升级不小，在我这种轻度用户手里也绝对够用。可准备下单时，一个念头突然在我脑中挥之不去—— 为啥那么多人喜欢大手机呢？既然上了 70 mm 我都握不住，要不买个 Pro M",
         "dedupe_key": "https://sspai.com/post/114366"
       },
-      "days_on_board": 2,
+      "days_on_board": 3,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": -11,
       "cluster_id": "76002fecf43f",
       "cluster_size": 1,
       "rank_history": [
@@ -379,12 +429,16 @@
         {
           "run_at": "2026-09-10T22:43:57.594732+00:00",
           "rank": 49
+        },
+        {
+          "run_at": "2026-09-11T01:44:18.657508+00:00",
+          "rank": 60
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 52,
+      "rank": 64,
       "title": "华人世界被忽视的游戏主机：扩写中国家用游戏主机的时间线",
       "title_zh": "华人世界被忽视的游戏主机：扩写中国家用游戏主机的时间线",
       "url": "https://sspai.com/post/113842",
@@ -400,9 +454,9 @@
         "description": "Matrix 首页推荐 Matrix 是少数派的写作社区，我们主张分享真实的产品体验，有实用价值的经验与思考。我们会不定期挑选 Matrix 最优质的文章，展示来自用户的最真实的体验和观点。 文章代表作者个人观点，少数派仅对标题和排版略作修改。 2026 年 5 月 31 日，我在四川美术学院公共艺术学院「开放的六月」开展专家讲座《华人世界被忽视的游戏主机》，本文由讲座内容整理而来。 今天我演讲的标题叫《华人世界被忽视的游戏主机》，这曾经是我前几年写过的一系列文章的标题。而今天重新讲这个主题，是希望沿着之前的线索继续延伸，补全从 70 年代至今国产游戏机较完整的发展线索，并覆盖到今天仍然活跃在市场上的一些产品。也希望这次讲座能给潜在的创作者们，无论是独立游戏开发者，还是游戏专业的学生，提供一些可能用得上的创作线索。 打破刻板印象：不只是小霸王 在很多大众媒体的「怀旧向」文章里，一说到中国的",
         "dedupe_key": "https://sspai.com/post/113842"
       },
-      "days_on_board": 2,
+      "days_on_board": 3,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": -12,
       "cluster_id": "1090da35f924",
       "cluster_size": 1,
       "rank_history": [
@@ -469,12 +523,16 @@
         {
           "run_at": "2026-09-10T22:43:57.594732+00:00",
           "rank": 52
+        },
+        {
+          "run_at": "2026-09-11T01:44:18.657508+00:00",
+          "rank": 64
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 59,
+      "rank": 68,
       "title": "Velastar：喜欢仰望星空的你，有了一个探索异星的新选择",
       "title_zh": "Velastar：喜欢仰望星空的你，有了一个探索异星的新选择",
       "url": "https://sspai.com/post/113668",
@@ -490,9 +548,9 @@
         "description": "Matrix 首页推荐 Matrix 是少数派的写作社区，我们主张分享真实的产品体验，有实用价值的经验与思考。我们会不定期挑选 Matrix 最优质的文章，展示来自用户的最真实的体验和观点。 文章代表作者个人观点，少数派仅对标题和排版略作修改。 注：本文主要介绍新开发上线的 App「Velastar」——一款实时星空 App。举起手机即可认出 8000+ 颗真实恒星与 88 个星座以及星云星团；还能把观测点搬到火星、月球和木卫二，从异星地表仰望星空。内置银河规划与离线光污染地图，也可作为摄影好帮手。 因开发完成过于激动，写了很多童年回忆，如果只关心 App 功能，可以跳到一半以后阅读。 从童年回忆出发 天阶夜色凉如水，卧看牵牛织女星。 我常常觉得，这句诗写的就是我的童年。 我出生于1990年，在山东即墨的一个村子里长大。十岁以前，我们住在一栋带院子的老房子里。院子不大，却种了不少东西：杏树",
         "dedupe_key": "https://sspai.com/post/113668"
       },
-      "days_on_board": 2,
+      "days_on_board": 3,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": -9,
       "cluster_id": "b8b7e75908ff",
       "cluster_size": 1,
       "rank_history": [
@@ -567,12 +625,16 @@
         {
           "run_at": "2026-09-10T22:43:57.594732+00:00",
           "rank": 59
+        },
+        {
+          "run_at": "2026-09-11T01:44:18.657508+00:00",
+          "rank": 68
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 62,
+      "rank": 72,
       "title": "派早报：LG 电视被曝存在后门、《塞尔达传说：时之笛》重制版公布等",
       "title_zh": "派早报：LG 电视被曝存在后门、《塞尔达传说：时之笛》重制版公布等",
       "url": "https://sspai.com/post/114352",
@@ -588,9 +650,9 @@
         "description": "Arm 发布 C2 CPU 与新 Mali GPU 9 月 8 日，Arm 发布用于未来 Android 芯片的 C2-Ultra 与 C2-Pro CPU 核心 以及 Mali G2-Ultra NX GPU。在 CPU 规格上，单线程性能提升 15%、应用启动速度加快 12%、网页浏览提速 15%、群集级多线程性能提升 12%，本地 AI 加速直接内置于 CPU 而非分流至独立 NPU 或 TPU，最新 AI 模型运行性能提升最高达 1.7 倍；在 GPU 规格上，Mali G2-Ultra NX 整体性能提升 14%，通过神经加速直接集成进图形管线的方式支持 AI 原生图形，集成虚幻引擎 5 的 MegaLights 技术，具备低分辨率游戏超分辨率与插帧生成功能。 来源 索尼推出全画幅鱼眼变焦镜头 9 月 8 日，索尼推出旗下首款全画幅鱼眼变焦镜头 8-14mm f/3.5 Fish",
         "dedupe_key": "https://sspai.com/post/114352"
       },
-      "days_on_board": 2,
+      "days_on_board": 3,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": -10,
       "cluster_id": "c6574d96fe4b",
       "cluster_size": 1,
       "rank_history": [
@@ -669,12 +731,16 @@
         {
           "run_at": "2026-09-10T22:43:57.594732+00:00",
           "rank": 62
+        },
+        {
+          "run_at": "2026-09-11T01:44:18.657508+00:00",
+          "rank": 72
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 78,
+      "rank": 87,
       "title": "Apple「随航」的无感体验里，藏着多少流畅的秘密？",
       "title_zh": "Apple「随航」的无感体验里，藏着多少流畅的秘密？",
       "url": "https://sspai.com/post/113098",
@@ -690,9 +756,9 @@
         "description": "在 WWDC26 发布的 iPadOS 27 与 macOS Golden Gate 中，随航迎来了堪称史诗级的更新 —— 你可以通过 iPad 的触控屏，用手指完整操控随航中的 macOS。某种程度上这也印证了「Apple 即将推出触屏版 MacBook」的传闻。 开发者文档中关于「随航」触控新特性的介绍。 图源：Apple 若你已经加入 iPadOS 以及 macOS 的 Beta 计划，更新至 iPadOS 27 与 macOS Golden Gate 后即可直接在随航功能中体验到这一新特性。经笔者实测，当前 Beta 版本中触控的延迟几乎难以察觉，交互也足够流畅。不过由于 macOS App 大多针对的是键鼠的操作逻辑，大部分 App 尚未针对触控交互进行专门优化，目前大部分的点击与滑动操作，本质上只是由系统转译为相应的鼠标操作。 虽然在现阶段，相信你在体验一段时间后可能还是会更愿",
         "dedupe_key": "https://sspai.com/post/113098"
       },
-      "days_on_board": 3,
+      "days_on_board": 4,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": -9,
       "cluster_id": "e7d4f8c6da27",
       "cluster_size": 1,
       "rank_history": [
@@ -791,134 +857,16 @@
         {
           "run_at": "2026-09-10T22:43:57.594732+00:00",
           "rank": 78
+        },
+        {
+          "run_at": "2026-09-11T01:44:18.657508+00:00",
+          "rank": 87
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 79,
-      "title": "社区速递 157 | NuPhy 全铝磁轴键盘与派友拒绝算法的「反投喂」信息源",
-      "title_zh": "社区速递 157 | NuPhy 全铝磁轴键盘与派友拒绝算法的「反投喂」信息源",
-      "url": "https://sspai.com/post/114327",
-      "hot_value": null,
-      "summary_zh": "除了首页时间流和侧栏的精选展位，少数派 Matrix 社区还有很多优秀内容因条件所限无法得到有效曝光，因此我们决定重启 Matrix 周报，并在此基础上添加更多社区内容、作者投稿新玩意呈现给大家。 上周社区速递： 满血全功能磁吸转换头与手机 AI 通话的真实体验 🆕作者的新玩意 为了让作者的投稿尽快与广大读者见面，我们调整了《新玩意》栏目中作者投稿部分的呈现方式和周期，作者投稿的「新玩意」后续会迁移至本栏目。投稿渠道与奖励方式仍与以往完全一致，详情参见文末。 @Nnnobel：NuPhy 盲盒 & NuPhy BH65 磁轴键盘 NuPhy 家最近似乎在清库存，推出了盲盒系列，299 元。里面包含 Air V2 系列、Air 60 HE 与 BH65 这三把常规款以及 Air V3 系列、Field75 HE V2 和 WH80 的隐藏款。（补：目前活动已结束，但你仍可以在闲鱼以较低的价格",
-      "thumbnail": null,
-      "published_at": "2026-09-08T09:00:00+00:00",
-      "extra": {
-        "feed_name": "少数派",
-        "tab": "tools",
-        "route": "/sspai/index",
-        "translate": false,
-        "description": "除了首页时间流和侧栏的精选展位，少数派 Matrix 社区还有很多优秀内容因条件所限无法得到有效曝光，因此我们决定重启 Matrix 周报，并在此基础上添加更多社区内容、作者投稿新玩意呈现给大家。 上周社区速递： 满血全功能磁吸转换头与手机 AI 通话的真实体验 🆕作者的新玩意 为了让作者的投稿尽快与广大读者见面，我们调整了《新玩意》栏目中作者投稿部分的呈现方式和周期，作者投稿的「新玩意」后续会迁移至本栏目。投稿渠道与奖励方式仍与以往完全一致，详情参见文末。 @Nnnobel：NuPhy 盲盒 & NuPhy BH65 磁轴键盘 NuPhy 家最近似乎在清库存，推出了盲盒系列，299 元。里面包含 Air V2 系列、Air 60 HE 与 BH65 这三把常规款以及 Air V3 系列、Field75 HE V2 和 WH80 的隐藏款。（补：目前活动已结束，但你仍可以在闲鱼以较低的价格",
-        "dedupe_key": "https://sspai.com/post/114327"
-      },
-      "days_on_board": 3,
-      "is_new": false,
-      "rank_delta": 1,
-      "cluster_id": "4c38a879f847",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-08T10:44:02.843964+00:00",
-          "rank": 7
-        },
-        {
-          "run_at": "2026-09-08T13:43:58.036972+00:00",
-          "rank": 15
-        },
-        {
-          "run_at": "2026-09-08T16:44:19.685936+00:00",
-          "rank": 17
-        },
-        {
-          "run_at": "2026-09-08T19:44:25.068024+00:00",
-          "rank": 17
-        },
-        {
-          "run_at": "2026-09-08T22:44:03.549226+00:00",
-          "rank": 17
-        },
-        {
-          "run_at": "2026-09-09T01:43:55.197887+00:00",
-          "rank": 25
-        },
-        {
-          "run_at": "2026-09-09T04:44:17.590483+00:00",
-          "rank": 27
-        },
-        {
-          "run_at": "2026-09-09T05:34:28.698551+00:00",
-          "rank": 27
-        },
-        {
-          "run_at": "2026-09-09T07:27:19.952443+00:00",
-          "rank": 31
-        },
-        {
-          "run_at": "2026-09-09T07:44:12.888077+00:00",
-          "rank": 31
-        },
-        {
-          "run_at": "2026-09-09T10:43:59.360250+00:00",
-          "rank": 43
-        },
-        {
-          "run_at": "2026-09-09T13:44:08.778823+00:00",
-          "rank": 59
-        },
-        {
-          "run_at": "2026-09-09T16:43:59.875650+00:00",
-          "rank": 60
-        },
-        {
-          "run_at": "2026-09-09T19:43:58.509027+00:00",
-          "rank": 62
-        },
-        {
-          "run_at": "2026-09-09T22:44:19.966267+00:00",
-          "rank": 63
-        },
-        {
-          "run_at": "2026-09-10T01:44:08.714992+00:00",
-          "rank": 66
-        },
-        {
-          "run_at": "2026-09-10T04:44:01.564715+00:00",
-          "rank": 65
-        },
-        {
-          "run_at": "2026-09-10T05:27:24.546105+00:00",
-          "rank": 65
-        },
-        {
-          "run_at": "2026-09-10T07:23:06.991109+00:00",
-          "rank": 69
-        },
-        {
-          "run_at": "2026-09-10T10:44:16.536751+00:00",
-          "rank": 76
-        },
-        {
-          "run_at": "2026-09-10T13:44:10.927826+00:00",
-          "rank": 83
-        },
-        {
-          "run_at": "2026-09-10T16:44:04.686393+00:00",
-          "rank": 82
-        },
-        {
-          "run_at": "2026-09-10T19:44:07.942256+00:00",
-          "rank": 80
-        },
-        {
-          "run_at": "2026-09-10T22:43:57.594732+00:00",
-          "rank": 79
-        }
-      ]
-    },
-    {
-      "source": "feed",
-      "rank": 94,
+      "rank": 97,
       "title": "1.12.4",
       "title_zh": "1.12.4",
       "url": "https://github.com/scverse/scanpy/releases/tag/1.12.4",
@@ -934,16 +882,12 @@
         "description": "https://scanpy.readthedocs.io/en/stable/release-notes/index.html#v1-12-4",
         "dedupe_key": "https://github.com/scverse/scanpy/releases/tag/1.12.4"
       },
-      "days_on_board": 8,
+      "days_on_board": 9,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": -3,
       "cluster_id": "877b691e9b59",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-08T01:44:06.043965+00:00",
-          "rank": 96
-        },
         {
           "run_at": "2026-09-08T04:44:11.250894+00:00",
           "rank": 85
@@ -1059,12 +1003,16 @@
         {
           "run_at": "2026-09-10T22:43:57.594732+00:00",
           "rank": 94
+        },
+        {
+          "run_at": "2026-09-11T01:44:18.657508+00:00",
+          "rank": 97
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 96,
+      "rank": 98,
       "title": "1.13.0a2",
       "title_zh": "1.13.0a2",
       "url": "https://github.com/scverse/scanpy/releases/tag/1.13.0a2",
@@ -1080,16 +1028,12 @@
         "description": "https://scanpy.scverse.org/en/latest/release-notes/index.html#version-1-13",
         "dedupe_key": "https://github.com/scverse/scanpy/releases/tag/1.13.0a2"
       },
-      "days_on_board": 8,
+      "days_on_board": 9,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": -2,
       "cluster_id": "768fc0d2e613",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-08T01:44:06.043965+00:00",
-          "rank": 97
-        },
         {
           "run_at": "2026-09-08T04:44:11.250894+00:00",
           "rank": 86
@@ -1205,6 +1149,10 @@
         {
           "run_at": "2026-09-10T22:43:57.594732+00:00",
           "rank": 96
+        },
+        {
+          "run_at": "2026-09-11T01:44:18.657508+00:00",
+          "rank": 98
         }
       ]
     },
@@ -1226,16 +1174,12 @@
         "description": "https://scanpy.scverse.org/en/latest/release-notes/index.html#version-1-13",
         "dedupe_key": "https://github.com/scverse/scanpy/releases/tag/1.13.0a1"
       },
-      "days_on_board": 8,
+      "days_on_board": 9,
       "is_new": false,
       "rank_delta": 0,
       "cluster_id": "9da040e83623",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-08T01:44:06.043965+00:00",
-          "rank": 98
-        },
         {
           "run_at": "2026-09-08T04:44:11.250894+00:00",
           "rank": 87
@@ -1351,6 +1295,10 @@
         {
           "run_at": "2026-09-10T22:43:57.594732+00:00",
           "rank": 99
+        },
+        {
+          "run_at": "2026-09-11T01:44:18.657508+00:00",
+          "rank": 99
         }
       ]
     },
@@ -1372,16 +1320,12 @@
         "description": "https://scanpy.readthedocs.io/en/stable/release-notes/index.html#v1-12-3",
         "dedupe_key": "https://github.com/scverse/scanpy/releases/tag/1.12.3"
       },
-      "days_on_board": 8,
+      "days_on_board": 9,
       "is_new": false,
       "rank_delta": 0,
       "cluster_id": "1e7152d08b04",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-08T01:44:06.043965+00:00",
-          "rank": 99
-        },
         {
           "run_at": "2026-09-08T04:44:11.250894+00:00",
           "rank": 88
@@ -1497,6 +1441,10 @@
         {
           "run_at": "2026-09-10T22:43:57.594732+00:00",
           "rank": 100
+        },
+        {
+          "run_at": "2026-09-11T01:44:18.657508+00:00",
+          "rank": 100
         }
       ]
     },
@@ -1518,16 +1466,12 @@
         "description": "See the release notes for all changes. This release is available via PyPi: pip install scvi-tools Conda availability will follow (< 2 days typically) Please report any issues on GitHub .",
         "dedupe_key": "https://github.com/scverse/scvi-tools/releases/tag/1.5.0.post1"
       },
-      "days_on_board": 8,
+      "days_on_board": 9,
       "is_new": false,
       "rank_delta": 0,
       "cluster_id": "8a4eca2177ca",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-08T01:44:06.043965+00:00",
-          "rank": 100
-        },
         {
           "run_at": "2026-09-08T04:44:11.250894+00:00",
           "rank": 89
@@ -1643,6 +1587,10 @@
         {
           "run_at": "2026-09-10T22:43:57.594732+00:00",
           "rank": 101
+        },
+        {
+          "run_at": "2026-09-11T01:44:18.657508+00:00",
+          "rank": 101
         }
       ]
     },
@@ -1664,16 +1612,12 @@
         "description": "See the release notes for all changes. This release is available via PyPi: pip install scvi-tools Conda availability will follow (< 2 days typically) Please report any issues on GitHub .",
         "dedupe_key": "https://github.com/scverse/scvi-tools/releases/tag/1.5.0"
       },
-      "days_on_board": 8,
+      "days_on_board": 9,
       "is_new": false,
       "rank_delta": 0,
       "cluster_id": "8b146ac8159b",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-08T01:44:06.043965+00:00",
-          "rank": 101
-        },
         {
           "run_at": "2026-09-08T04:44:11.250894+00:00",
           "rank": 90
@@ -1789,6 +1733,10 @@
         {
           "run_at": "2026-09-10T22:43:57.594732+00:00",
           "rank": 102
+        },
+        {
+          "run_at": "2026-09-11T01:44:18.657508+00:00",
+          "rank": 102
         }
       ]
     },
@@ -1810,16 +1758,12 @@
         "description": "https://scanpy.readthedocs.io/en/stable/release-notes/index.html#v1-12-2",
         "dedupe_key": "https://github.com/scverse/scanpy/releases/tag/1.12.2"
       },
-      "days_on_board": 8,
+      "days_on_board": 9,
       "is_new": false,
       "rank_delta": 0,
       "cluster_id": "750772e94d46",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-08T01:44:06.043965+00:00",
-          "rank": 102
-        },
         {
           "run_at": "2026-09-08T04:44:11.250894+00:00",
           "rank": 91
@@ -1935,6 +1879,10 @@
         {
           "run_at": "2026-09-10T22:43:57.594732+00:00",
           "rank": 103
+        },
+        {
+          "run_at": "2026-09-11T01:44:18.657508+00:00",
+          "rank": 103
         }
       ]
     },
@@ -1956,16 +1904,12 @@
         "description": "Changes Additions Added uwot.init parameter to RunUMAP to optionally customize method of UMAP initialization ( #10386 ) Fixes Fixed bug in PrepSCTFindMarkers in the multi-model case that produced zero counts for some valid genes due to an incorrect filter for theta ( #10410 ) Fixed issue with FindClusters not setting metadata properly when a vector of resolutions is passed to resolution and a cust",
         "dedupe_key": "https://github.com/satijalab/seurat/releases/tag/v5.5.1"
       },
-      "days_on_board": 8,
+      "days_on_board": 9,
       "is_new": false,
       "rank_delta": 0,
       "cluster_id": "51b67338cbc0",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-08T01:44:06.043965+00:00",
-          "rank": 103
-        },
         {
           "run_at": "2026-09-08T04:44:11.250894+00:00",
           "rank": 92
@@ -2081,6 +2025,10 @@
         {
           "run_at": "2026-09-10T22:43:57.594732+00:00",
           "rank": 104
+        },
+        {
+          "run_at": "2026-09-11T01:44:18.657508+00:00",
+          "rank": 104
         }
       ]
     },
@@ -2102,16 +2050,12 @@
         "description": "See the release notes for all changes. This release is available via PyPi: pip install scvi-tools Conda availability will follow (< 2 days typically) Please report any issues on GitHub .",
         "dedupe_key": "https://github.com/scverse/scvi-tools/releases/tag/1.4.3"
       },
-      "days_on_board": 8,
+      "days_on_board": 9,
       "is_new": false,
       "rank_delta": 0,
       "cluster_id": "bbea1c662507",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-08T01:44:06.043965+00:00",
-          "rank": 105
-        },
         {
           "run_at": "2026-09-08T04:44:11.250894+00:00",
           "rank": 94
@@ -2227,6 +2171,10 @@
         {
           "run_at": "2026-09-10T22:43:57.594732+00:00",
           "rank": 106
+        },
+        {
+          "run_at": "2026-09-11T01:44:18.657508+00:00",
+          "rank": 106
         }
       ]
     },
@@ -2248,16 +2196,12 @@
         "description": "Changes Additions Added support for vars.to.regress and latent.data in ScaleData.IterableMatrix (BPCells) ( #10300 ) Added warning to SCTransform to notify that do.correct.umi is hard set to F when a reference SCT model is specified ( #10329 , #10366 ) Added warning to FindMarkers / FindAllMarkers when running on an IterableMatrix (BPCells) with column-major storage order ( #10365 ) Added plot_typ",
         "dedupe_key": "https://github.com/satijalab/seurat/releases/tag/v5.5.0"
       },
-      "days_on_board": 8,
+      "days_on_board": 9,
       "is_new": false,
       "rank_delta": 0,
       "cluster_id": "7c320a02a1ec",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-08T01:44:06.043965+00:00",
-          "rank": 106
-        },
         {
           "run_at": "2026-09-08T04:44:11.250894+00:00",
           "rank": 95
@@ -2373,6 +2317,10 @@
         {
           "run_at": "2026-09-10T22:43:57.594732+00:00",
           "rank": 107
+        },
+        {
+          "run_at": "2026-09-11T01:44:18.657508+00:00",
+          "rank": 107
         }
       ]
     },
@@ -2394,16 +2342,12 @@
         "description": "See the release notes for all changes. This release is available via PyPi: pip install scvi-tools Conda availability will follow (< 2 days typically) Please report any issues on GitHub .",
         "dedupe_key": "https://github.com/scverse/scvi-tools/releases/tag/1.4.2"
       },
-      "days_on_board": 8,
+      "days_on_board": 9,
       "is_new": false,
       "rank_delta": 0,
       "cluster_id": "05240d494324",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-08T01:44:06.043965+00:00",
-          "rank": 107
-        },
         {
           "run_at": "2026-09-08T04:44:11.250894+00:00",
           "rank": 96
@@ -2519,6 +2463,10 @@
         {
           "run_at": "2026-09-10T22:43:57.594732+00:00",
           "rank": 108
+        },
+        {
+          "run_at": "2026-09-11T01:44:18.657508+00:00",
+          "rank": 108
         }
       ]
     },
@@ -2540,16 +2488,12 @@
         "description": "Changes Additions Added support for 10x Space Ranger 4.0 outputs (Visium data with segmentations) Updated data loading functions Load10X_Spatial , Read10X_Image Updated GetTissueCoordinates.VisiumV2 Updated spatial visualization functions SpatialPlot , SingleSpatialPlot , SpatialDimPlot , SpatialFeaturePlot Added helper functions Read10X_Segmentations , Read10X_HD_GeoJson , Format10X_GeoJson_CellI",
         "dedupe_key": "https://github.com/satijalab/seurat/releases/tag/v5.4.0"
       },
-      "days_on_board": 8,
+      "days_on_board": 9,
       "is_new": false,
       "rank_delta": 0,
       "cluster_id": "0683b2051a3f",
       "cluster_size": 2,
       "rank_history": [
-        {
-          "run_at": "2026-09-08T01:44:06.043965+00:00",
-          "rank": 108
-        },
         {
           "run_at": "2026-09-08T04:44:11.250894+00:00",
           "rank": 97
@@ -2665,6 +2609,10 @@
         {
           "run_at": "2026-09-10T22:43:57.594732+00:00",
           "rank": 109
+        },
+        {
+          "run_at": "2026-09-11T01:44:18.657508+00:00",
+          "rank": 109
         }
       ]
     },
@@ -2686,16 +2634,12 @@
         "description": "Changes Additions Added option to use cluster_leiden from igraph when running Leiden clustering ( #9931 ) Added option to use umap2 from uwot when running UMAP ( #9918 ) Added option to use approx_pow parameter from uwot when running UMAP ( #9449 ) Updated LoadXenium to add support for Xenium protein data ( #10024 ) Added option to specify stroke size in FeaturePlot ( #10053 ) Added label.size.cut",
         "dedupe_key": "https://github.com/satijalab/seurat/releases/tag/v5.3.1"
       },
-      "days_on_board": 8,
+      "days_on_board": 9,
       "is_new": false,
       "rank_delta": 0,
       "cluster_id": "8235b0bff662",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-08T01:44:06.043965+00:00",
-          "rank": 110
-        },
         {
           "run_at": "2026-09-08T04:44:11.250894+00:00",
           "rank": 99
@@ -2811,6 +2755,10 @@
         {
           "run_at": "2026-09-10T22:43:57.594732+00:00",
           "rank": 110
+        },
+        {
+          "run_at": "2026-09-11T01:44:18.657508+00:00",
+          "rank": 110
         }
       ]
     },
@@ -2832,16 +2780,12 @@
         "description": "Bug releases and performance improvements, including: Refactoring and speed-up of sctransform Refactroring and speed-up of leverage score calcluation Fixes to variable feature selection, module score calculation, PseudobulkExpression, and other bugs that could cause errors in edge cases Improved testing, CI",
         "dedupe_key": "https://github.com/satijalab/seurat/releases/tag/v5.3.0"
       },
-      "days_on_board": 8,
+      "days_on_board": 9,
       "is_new": false,
       "rank_delta": 0,
       "cluster_id": "0ce572688cdd",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-08T01:44:06.043965+00:00",
-          "rank": 111
-        },
         {
           "run_at": "2026-09-08T04:44:11.250894+00:00",
           "rank": 100
@@ -2956,6 +2900,10 @@
         },
         {
           "run_at": "2026-09-10T22:43:57.594732+00:00",
+          "rank": 111
+        },
+        {
+          "run_at": "2026-09-11T01:44:18.657508+00:00",
           "rank": 111
         }
       ]
