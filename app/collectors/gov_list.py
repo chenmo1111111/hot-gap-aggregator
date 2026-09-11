@@ -26,7 +26,11 @@ from app.pipeline.gongkao_normalize import normalize_province
 LOGGER = logging.getLogger(__name__)
 CHINA_TZ = timezone(timedelta(hours=8))
 DATE_RE = re.compile(r"(?<!\d)(20\d{2})[-/.年](\d{1,2})[-/.月](\d{1,2})(?:日)?")
-NOTICE_WORDS = ("公告", "招录", "招考", "招聘", "招募", "选调", "三支一扶", "文职", "军官", "警官", "招聘启事")
+COMPACT_DATE_RE = re.compile(r"(?<!\d)(20\d{2})(\d{2})(\d{2})(?!\d)")
+NOTICE_WORDS = (
+    "公告", "招录", "招考", "招聘", "选调", "三支一扶", "文职", "军官", "警官",
+    "引才", "引进人才", "招募", "选聘", "公开选聘", "定向招聘",
+)
 
 
 def _get_path(value: object, path: str) -> object:
@@ -46,6 +50,16 @@ def _get_path(value: object, path: str) -> object:
 
 def _date_from_text(value: object) -> date | None:
     match = DATE_RE.search(str(value or ""))
+    if not match:
+        return None
+    try:
+        return date(int(match.group(1)), int(match.group(2)), int(match.group(3)))
+    except ValueError:
+        return None
+
+
+def _compact_date_from_text(value: object) -> date | None:
+    match = COMPACT_DATE_RE.search(str(value or ""))
     if not match:
         return None
     try:
@@ -238,6 +252,8 @@ class GovListCollector(BaseCollector):
             published = _source_date(
                 _node_text(date_node) if date_node else context, source, current=current,
             )
+            if not published and source.get("date_from_url"):
+                published = _compact_date_from_text(raw_href)
             if not published or published < cutoff or published > current + timedelta(days=1):
                 continue
             seen.add(href)
@@ -317,6 +333,37 @@ class GovListCollector(BaseCollector):
             count = max(1, int(source.get("page_count") or 1))
             return [template.format(page=page) for page in range(start, start + count)]
         return [str(source["list_url"])]
+
+    async def _resolved_source_urls(self, source: Mapping[str, Any]) -> list[str]:
+        discover_selector = str(source.get("discover_selector") or "").strip()
+        if not discover_selector:
+            return self._source_urls(source)
+        index_url = str(source["list_url"])
+        document = await self._html(source, index_url)
+        tree = HTMLParser(document)
+        title_pattern = str(source.get("discover_title_include") or "").strip()
+        limit = max(1, int(source.get("discover_limit") or 1))
+        output: list[str] = []
+        for node in tree.css(discover_selector):
+            link_node = node if node.attributes.get("href") else node.css_first("a[href]")
+            if link_node is None:
+                continue
+            title = " ".join(str(
+                link_node.attributes.get("title") or _node_text(link_node)
+            ).split())
+            if title_pattern and re.search(title_pattern, title, re.I) is None:
+                continue
+            href = urljoin(index_url, str(link_node.attributes.get("href") or "").strip())
+            if not href.startswith(("http://", "https://")) or href in output:
+                continue
+            output.append(href)
+            if len(output) >= limit:
+                break
+        if not output:
+            raise SourceUnavailable(
+                f"no current topic link matched {discover_selector}", status="degraded"
+            )
+        return output
 
     async def _html(self, source: Mapping[str, Any], url: str) -> str:
         engine = str(source.get("engine") or "html").casefold()
@@ -507,7 +554,7 @@ class GovListCollector(BaseCollector):
                     items = []
                     seen: set[str] = set()
                     page_errors: list[str] = []
-                    for url in self._source_urls(source):
+                    for url in await self._resolved_source_urls(source):
                         page_source = dict(source)
                         page_source["list_url"] = url
                         try:

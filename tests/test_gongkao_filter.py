@@ -56,6 +56,7 @@ def test_all_requested_recruitment_event_terms_are_noise() -> None:
 def test_post_selection_wording_is_shared_title_noise() -> None:
     assert title_noise_reason(row("三支一扶拟招募人员公示", "https://example.gov.cn/4")) == "title_noise"
     assert title_noise_reason(row("事业单位公开招聘体检安排", "https://example.gov.cn/5")) == "title_noise"
+    assert title_noise_reason(row("人才博览会引才拟聘人员公示", "https://example.gov.cn/6")) == "title_noise"
 
 
 def test_transfer_notice_requires_an_explicit_future_signup_deadline() -> None:

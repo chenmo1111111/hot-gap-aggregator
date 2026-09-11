@@ -6,6 +6,8 @@ import ssl
 import pytest
 import yaml
 
+from app.collectors.gongkao import NOTICE_WORDS as GONGKAO_NOTICE_WORDS
+from app.collectors.gov_list import NOTICE_WORDS as GOV_NOTICE_WORDS
 from app.collectors.gov_list import GovListCollector, _tls_verify
 
 
@@ -53,6 +55,63 @@ def test_parse_html_honors_yaml_selectors() -> None:
     items = GovListCollector.parse_html(html, source, today=date(2026, 9, 10))
     assert len(items) == 1
     assert items[0].extra["exam_type"] == "军队文职"
+
+
+def test_notice_words_include_real_recruitment_variants_in_both_collectors() -> None:
+    expected = {
+        "公告", "招录", "招考", "招聘", "选调", "三支一扶", "文职", "军官", "警官",
+        "引才", "引进人才", "招募", "选聘", "公开选聘", "定向招聘",
+    }
+    assert set(GOV_NOTICE_WORDS) == expected
+    assert set(GONGKAO_NOTICE_WORDS) == expected
+
+    html = "<ul>" + "".join(
+        f'<li><a href="/{index}">某事业单位2026年{label}</a><span>2026-09-10</span></li>'
+        for index, label in enumerate(("引才方案", "引进人才公告", "公开选聘工作人员", "定向招聘工作人员"))
+    ) + "</ul>"
+    source = {
+        "name": "关键词测试", "province": "贵州", "category": "事业单位",
+        "list_url": "https://example.gov.cn/list/", "item_selector": "li",
+        "title_selector": "a", "link_selector": "a", "date_selector": "span",
+    }
+    assert len(GovListCollector.parse_html(html, source, today=date(2026, 9, 11))) == 4
+
+
+def test_parse_html_can_read_compact_date_from_official_url() -> None:
+    html = """
+    <ul class="rows"><li><a href="./202609/t20260911_7212292.htm"
+      title="福建省某事业单位2026年公开招聘高层次人才公告">招聘公告</a></li></ul>
+    """
+    source = {
+        "name": "福建省人社厅", "province": "福建", "category": "事业单位",
+        "list_url": "https://rst.fujian.gov.cn/topic/", "item_selector": "li",
+        "title_selector": "a", "link_selector": "a", "date_selector": "span",
+        "date_from_url": True,
+    }
+    items = GovListCollector.parse_html(html, source, today=date(2026, 9, 11))
+    assert len(items) == 1
+    assert items[0].published_at == "2026-09-11"
+
+
+@pytest.mark.asyncio
+async def test_two_level_source_discovers_latest_matching_topic(monkeypatch) -> None:
+    collector = GovListCollector(ROOT / "config" / "gongkao_gov_sources.yaml")
+    index = (ROOT / "tests" / "fixtures" / "gov" / "shaanxi_index.html").read_text(
+        encoding="utf-8"
+    )
+
+    async def fake_html(source, url):
+        return index
+
+    monkeypatch.setattr(collector, "_html", fake_html)
+    urls = await collector._resolved_source_urls({
+        "name": "陕西省政府", "list_url": "http://www.shaanxi.gov.cn/xw/ztzl/zxzt/zkzl/",
+        "discover_selector": 'a[href*="sydwzp"]',
+        "discover_title_include": "事业单位.*公开招聘", "discover_limit": 1,
+    })
+    assert urls == [
+        "http://www.shaanxi.gov.cn/xw/ztzl/zxzt/zkzl/2026/26sydwzp/"
+    ]
 
 
 def test_parse_html_can_make_stable_landing_links_for_click_only_lists() -> None:
@@ -182,6 +241,27 @@ def test_config_covers_all_provincial_regions_and_replaces_obsolete_urls() -> No
         "c100481/flm_list", "sydwgkzp2024", "def/def/index_1_1459",
     ):
         assert obsolete not in text
+
+
+def test_corrected_province_urls_and_site_specific_parsers_are_configured() -> None:
+    rows = (yaml.safe_load(
+        (ROOT / "config" / "gongkao_gov_sources.yaml").read_text(encoding="utf-8")
+    ) or {})["sources"]
+    sources = {source["name"]: source for source in rows}
+    expected_urls = {
+        "福建省人社厅-招聘入口": "https://rst.fujian.gov.cn/zw/ztzl/zxzt/sydwrczp/",
+        "湖北省人社厅-招聘公告": "https://rst.hubei.gov.cn/bmdt/ztzl/ywzl/hbsszsydwgkzp/",
+        "西藏自治区人社厅-招聘公告": "http://hrss.xizang.gov.cn/zpxx/",
+        "广东省人社厅-事业单位招聘公告": "https://hrss.gd.gov.cn/zwgk/sydwzp/",
+        "广西人事考试网": "https://www.gxpta.com.cn/ksxm/sydwzpks/",
+    }
+    for name, url in expected_urls.items():
+        assert sources[name]["list_url"] == url
+    assert "/sydwzp/zpgg/" in sources["广东省人社厅-事业单位招聘公告"]["item_selector"]
+    assert sources["安徽省人社厅-事业单位公开招聘专栏"]["date_selector"] == "span.right.date"
+    shaanxi = sources["陕西省政府-招考招录"]
+    assert shaanxi["discover_selector"] == 'a[href*="sydwzp"]'
+    assert shaanxi["discover_limit"] == 1
 
 
 @pytest.mark.parametrize(

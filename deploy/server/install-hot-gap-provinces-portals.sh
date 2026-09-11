@@ -9,6 +9,7 @@ backup="$project/.deploy-backups/${stamp}-before-provinces-portals"
 files=(
   app/collectors/gongkao.py
   app/collectors/gov_list.py
+  app/pipeline/gongkao_filter.py
   app/recruitment_portals.py
   app/store/exporter.py
   config/gongkao_gov_sources.yaml
@@ -85,7 +86,7 @@ install -o root -g root -m 755 \
 cd "$project"
 .venv/bin/python -m py_compile \
   app/collectors/gongkao.py app/collectors/gov_list.py \
-  app/recruitment_portals.py app/store/exporter.py
+  app/pipeline/gongkao_filter.py app/recruitment_portals.py app/store/exporter.py
 .venv/bin/python -m app.recruitment_portals \
   --output "$static_root/data/portals.json"
 

@@ -27,7 +27,10 @@ CHINA_TZ = timezone(timedelta(hours=8))
 LOGGER = logging.getLogger(__name__)
 DATE_PATTERN = re.compile(r"(?<!\d)(20\d{2})[-/.年](\d{1,2})[-/.月](\d{1,2})(?:日)?")
 SHORT_DATE_PATTERN = re.compile(r"(?<!\d)(\d{1,2})[-/.月](\d{1,2})(?:日)?")
-NOTICE_WORDS = ("公告", "招录", "招聘", "招考", "选调", "三支一扶", "文职", "警官")
+NOTICE_WORDS = (
+    "公告", "招录", "招考", "招聘", "选调", "三支一扶", "文职", "军官", "警官",
+    "引才", "引进人才", "招募", "选聘", "公开选聘", "定向招聘",
+)
 
 # IDs are returned by /api/website/article/type and are stable Fenbi filter tags.
 FOCUS_PROVINCES = {

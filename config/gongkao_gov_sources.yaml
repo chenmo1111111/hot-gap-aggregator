@@ -518,24 +518,24 @@ sources:
     - https://hrss.ah.gov.cn/zxzx/ztzl/ahssydwgkzp/index.html
     engine: html
     verify_tls: false
-    item_selector: li
+    item_selector: ul.doc_list > li
+    title_selector: a.left[title]
+    link_selector: a.left[title]
+    date_selector: span.right.date
+    date_format: '%Y-%m-%d'
+    fixture: anhui.html
+  - name: 福建省人社厅-招聘入口
+    province: 福建
+    category: 事业单位
+    list_url: https://rst.fujian.gov.cn/zw/ztzl/zxzt/sydwrczp/
+    engine: html
+    item_selector: ul.zpfaul > li:has(a[title])
     title_selector: a[title]
     link_selector: a[title]
     date_selector: span
     date_format: '%Y-%m-%d'
-    verification_note: 证书链异常已按源关闭校验；真实列表可达，fixture 后续补录
-  - name: 福建省人社厅-招聘入口
-    province: 福建
-    category: 事业单位
-    list_url: https://rst.fujian.gov.cn/
-    engine: html
-    item_selector: li, tr
-    title_selector: a[href]
-    link_selector: a[href]
-    date_selector: span, time
-    date_format: '%Y-%m-%d'
-    title_include: 公开招聘|招聘公告|招考公告|招录公告|选调公告
-    verification_note: 输入仅为厅首页，未发现稳定招聘列表或 XHR，保留真实0条状态
+    date_from_url: true
+    fixture: fujian.html
   - name: 江西人事考试网-事业单位
     province: 江西
     category: 事业单位
@@ -565,38 +565,37 @@ sources:
   - name: 湖北省人社厅-招聘公告
     province: 湖北
     category: 事业单位
-    list_url: https://rst.hubei.gov.cn/
+    list_url: https://rst.hubei.gov.cn/bmdt/ztzl/ywzl/hbsszsydwgkzp/
     engine: html
-    item_selector: li, tr
-    title_selector: a[href]
-    link_selector: a[href]
-    date_selector: span, time
+    item_selector: 'li:has(a[href*="/zpgg/"])'
+    title_selector: 'a[href*="/zpgg/"]'
+    link_selector: 'a[href*="/zpgg/"]'
+    date_selector: span.date
     date_format: '%Y-%m-%d'
-    title_include: 公开招聘|招聘公告|招考公告|招录公告|选调公告
-    verification_note: 输入为厅首页，首页招聘命中不足3条
-  - name: 广东省人社厅-公示公告
+    fixture: hubei.html
+  - name: 广东省人社厅-事业单位招聘公告
     province: 广东
     category: 事业单位
-    list_url: https://hrss.gd.gov.cn/zwgk/gsgg/index.html
+    list_url: https://hrss.gd.gov.cn/zwgk/sydwzp/
     engine: html
-    item_selector: li, tr
-    title_selector: a[href]
-    link_selector: a[href]
-    date_selector: span, time
+    item_selector: 'li:has(a[href*="/sydwzp/zpgg/"])'
+    title_selector: 'a[href*="/sydwzp/zpgg/"]'
+    link_selector: 'a[href*="/sydwzp/zpgg/"]'
+    date_selector: span.pubDate
     date_format: '%Y-%m-%d'
     title_include: 公开招聘|招聘公告|招考公告|招录公告|选调公告|三支一扶.*(?:公告|招募)
-    verification_note: 栏目可达，开放招聘样例不足3条
+    fixture: guangdong.html
   - name: 广西人事考试网
     province: 广西
     category: 事业单位
-    list_url: https://www.gxpta.com.cn/
+    list_url: https://www.gxpta.com.cn/ksxm/sydwzpks/
     engine: html
-    item_selector: li, tr
-    title_selector: a[href]
-    link_selector: a[href]
-    date_selector: span, time
+    item_selector: ul.articles > li
+    title_selector: a[title]
+    link_selector: a[title]
+    date_selector: span
     date_format: '%Y-%m-%d'
-    verification_note: 首页可达，近30天无3条开放招聘样例
+    fixture: guangxi.html
   - name: 海南省人社厅-事业单位公开招聘
     province: 海南
     category: 事业单位
@@ -637,12 +636,12 @@ sources:
     category: 事业单位
     list_url: https://rst.guizhou.gov.cn/zwgk/zdlyxx/sydwgkzp/
     engine: html
-    item_selector: li, tr
-    title_selector: a[href]
-    link_selector: a[href]
-    date_selector: span, time
+    item_selector: div.right-list-box li
+    title_selector: a[title]
+    link_selector: a[title]
+    date_selector: span
     date_format: '%Y-%m-%d'
-    verification_note: 栏目可达；近30天开放招聘不足3条
+    fixture: guizhou.html
   - name: 云南省人社厅-事业单位招聘
     province: 云南
     category: 事业单位
@@ -657,26 +656,28 @@ sources:
   - name: 西藏自治区人社厅-招聘公告
     province: 西藏
     category: 事业单位
-    list_url: https://hrss.xizang.gov.cn/
+    list_url: http://hrss.xizang.gov.cn/zpxx/
     engine: html
-    item_selector: li, tr
-    title_selector: a[href]
-    link_selector: a[href]
-    date_selector: span, time
+    item_selector: div.gl-list-item
+    title_selector: a.nm[href]
+    link_selector: a.nm[href]
+    date_selector: div.date
     date_format: '%Y-%m-%d'
-    title_include: 公开招聘|招聘公告|招考公告|招录公告|选调公告
-    verification_note: 输入仅为厅首页，未找到稳定事业单位列表，保留真实0条状态
+    fixture: xizang.html
   - name: 陕西省政府-招考招录
     province: 陕西
     category: 事业单位
     list_url: http://www.shaanxi.gov.cn/xw/ztzl/zxzt/zkzl/
     engine: html
-    item_selector: li, tr
-    title_selector: a[href]
-    link_selector: a[href]
-    date_selector: span, time
+    discover_selector: 'a[href*="sydwzp"]'
+    discover_title_include: 事业单位.*公开招聘
+    discover_limit: 1
+    item_selector: ul.szf-index-item > li
+    title_selector: a[title]
+    link_selector: a[title]
+    date_selector: span
     date_format: '%Y-%m-%d'
-    verification_note: 专题可达但当前列表由动态模块生成，保存样例不足3条
+    fixture: shaanxi.html
   - name: 甘肃人事考试网-事业单位
     province: 甘肃
     category: 事业单位
