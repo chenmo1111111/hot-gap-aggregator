@@ -72,6 +72,45 @@ def test_parse_html_can_make_stable_landing_links_for_click_only_lists() -> None
     assert items[0].url != items[1].url
 
 
+def test_parse_html_can_make_unique_links_for_shared_landing_page() -> None:
+    html = """
+    <div class="row"><a href="/announcements">国家电网北京公司2026年招聘公告</a><time>2026-09-08</time></div>
+    <div class="row"><a href="/announcements">国家电网天津公司2026年招聘公告</a><time>2026-09-07</time></div>
+    """
+    source = {
+        "name": "国家电网", "province": "全国", "category": "央企事业编",
+        "list_url": "https://zhaopin.sgcc.com.cn/home.html", "item_selector": ".row",
+        "title_selector": "a", "link_selector": "a", "date_selector": "time",
+        "synthetic_link": True, "synthetic_link_always": True,
+    }
+    items = GovListCollector.parse_html(html, source, today=date(2026, 9, 10))
+    assert len(items) == 2
+    assert items[0].url != items[1].url
+
+
+def test_four_javascript_portals_require_rendered_content() -> None:
+    rows = (yaml.safe_load(
+        (ROOT / "config" / "gongkao_gov_sources.yaml").read_text(encoding="utf-8")
+    ) or {})["sources"]
+    sources = {
+        source["name"]: source for source in rows
+        if source["name"] in {
+            "人社部-中央事业单位公开招聘", "国家电网招聘",
+            "南方电网招聘", "中国铁路人才招聘网",
+        }
+    }
+    assert len(sources) == 4
+    assert all(source["engine"] == "playwright" for source in sources.values())
+    assert all(source["playwright_wait_until"] == "networkidle" for source in sources.values())
+    assert all(source.get("playwright_ready_selector") for source in sources.values())
+    assert sources["南方电网招聘"]["playwright_click_text"] == "招聘公告"
+    assert sources["中国铁路人才招聘网"]["playwright_page_size"] == "50"
+
+    challenge = "<html><script>window.$_ts='challenge'</script><body>招聘公告 2026-09-10</body></html>"
+    for source in sources.values():
+        assert GovListCollector.parse_html(challenge, source, today=date(2026, 9, 10)) == []
+
+
 def test_seed_items_keep_official_links_for_blocked_portals(tmp_path) -> None:
     config = tmp_path / "gov.yaml"
     config.write_text("""

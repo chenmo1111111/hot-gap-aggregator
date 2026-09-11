@@ -737,14 +737,17 @@ sources:
   - name: 人社部-中央事业单位公开招聘
     province: 全国
     category: 事业单位
-    list_url: https://www.mohrss.gov.cn/SYrlzyhshbzb/fwyd/SYkaoshizhaopin/zyhgjjgsydwgkzp/
+    list_url: https://www.mohrss.gov.cn/SYrlzyhshbzb/fwyd/SYkaoshizhaopin/zyhgjjgsydwgkzp/zpgg/
     engine: playwright
-    item_selector: li
+    item_selector: ul.rsb_ej_zpggList > li
     title_selector: a[href]
     link_selector: a[href]
     date_selector: span
     date_format: '%Y-%m-%d'
-    playwright_wait_ms: 2500
+    playwright_wait_until: networkidle
+    playwright_timeout_ms: 90000
+    playwright_ready_selector: ul.rsb_ej_zpggList > li
+    playwright_wait_ms: 3000
     fixture: mohrss_central.html
   - name: 国资委-中央企业招聘专题
     province: 全国
@@ -760,14 +763,22 @@ sources:
   - name: 中国铁路人才招聘网
     province: 全国
     category: 央企事业编
-    list_url: https://rczp.china-railway.com.cn/
+    list_url: https://rczp.china-railway.com.cn/page/recruitment/rec_info.html
     engine: playwright
-    item_selector: li
-    title_selector: a[href]
-    link_selector: a[href]
-    date_selector: span
+    item_selector: 'tr:has(td.table_con)'
+    title_selector: td.table_con a
+    link_selector: td.table_con a
+    date_selector: td.table_time
     date_format: '%Y-%m-%d'
-    playwright_wait_ms: 3000
+    playwright_wait_until: networkidle
+    playwright_timeout_ms: 90000
+    playwright_ready_selector: '#zpxx td.table_time'
+    playwright_wait_ms: 2500
+    playwright_page_size_selector: '#page select'
+    playwright_page_size: '50'
+    playwright_paginate_selector: '#page .layui-laypage-next:not(.layui-disabled)'
+    playwright_max_pages: 25
+    playwright_stop_older_days: 45
     synthetic_link: true
     fixture: china_railway.html
   - name: 中国烟草人才招聘
@@ -786,23 +797,33 @@ sources:
     category: 央企事业编
     list_url: https://zhaopin.sgcc.com.cn/sgcchr/static/home.html
     engine: playwright
-    item_selector: li
-    title_selector: a[href]
-    link_selector: a[href]
-    date_selector: span
+    item_selector: '#swiper-container2 ul.swiper-slide:not(.clone)'
+    title_selector: li.part2Info a[href]
+    link_selector: li.part2Info a[href]
+    date_selector: li.part2Time span
     date_format: '%Y-%m-%d'
+    playwright_wait_until: networkidle
+    playwright_timeout_ms: 90000
+    playwright_ready_selector: '#swiper-container2 ul.swiper-slide li.part2Info a'
     playwright_wait_ms: 5000
-    verification_note: 站点对当前出口返回HTTP 412，Playwright同样得到空页；保留真实0条状态，不用假数据
+    synthetic_link: true
+    synthetic_link_always: true
+    fixture: sgcc.html
   - name: 南方电网招聘
     province: 全国
     category: 央企事业编
-    list_url: https://zhaopin.csg.cn/#/notice-list
+    list_url: https://zhaopin.csg.cn/#/index
     engine: playwright
     item_selector: div.list > div.item
     title_selector: span.title
     link_selector: div.con
     date_selector: div.date
     date_format: '%Y-%m-%d %H:%M:%S'
+    playwright_wait_until: networkidle
+    playwright_timeout_ms: 90000
+    playwright_click_text: 招聘公告
+    playwright_click_exact: true
+    playwright_ready_selector: div.list > div.item
     playwright_wait_ms: 3500
     synthetic_link: true
     fixture: csg.html

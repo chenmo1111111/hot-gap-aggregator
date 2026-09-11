@@ -220,7 +220,8 @@ class GovListCollector(BaseCollector):
             raw_href = str((link_node.attributes.get("href") if link_node else "") or "").strip()
             href = urljoin(str(source.get("list_url")), raw_href)
             if source.get("synthetic_link") and (
-                not raw_href or not href.startswith(("http://", "https://"))
+                source.get("synthetic_link_always")
+                or not raw_href or not href.startswith(("http://", "https://"))
             ):
                 title_digest = hashlib.sha256(title.encode("utf-8")).hexdigest()[:16]
                 href = f"{str(source.get('list_url')).split('#', 1)[0]}#notice-{title_digest}"
@@ -327,12 +328,18 @@ class GovListCollector(BaseCollector):
             )
             await asyncio.sleep(self.request_interval)
             return _decode(response.content, source.get("encoding") or response.encoding)
+        from playwright.async_api import TimeoutError as PlaywrightTimeoutError
         from playwright.async_api import async_playwright
 
         async with async_playwright() as playwright:
-            browser = await playwright.chromium.launch(headless=True)
+            browser = await playwright.chromium.launch(
+                headless=True,
+                args=["--disable-blink-features=AutomationControlled"],
+            )
             context = await browser.new_context(
                 user_agent=USER_AGENTS[0],
+                locale="zh-CN",
+                timezone_id="Asia/Shanghai",
                 ignore_https_errors=source.get("verify_tls") is False,
             )
             page = await context.new_page()
@@ -340,10 +347,136 @@ class GovListCollector(BaseCollector):
                 last_error: Exception | None = None
                 for attempt in range(self.retries + 1):
                     try:
-                        await page.goto(url, wait_until="domcontentloaded", timeout=45_000)
+                        wait_until = str(
+                            source.get("playwright_wait_until") or "domcontentloaded"
+                        ).casefold()
+                        if wait_until not in {"commit", "domcontentloaded", "load", "networkidle"}:
+                            raise ValueError(f"unsupported Playwright wait_until: {wait_until}")
+                        timeout_ms = max(
+                            1_000, int(source.get("playwright_timeout_ms") or 45_000)
+                        )
+                        navigation_error: Exception | None = None
+                        try:
+                            await page.goto(url, wait_until=wait_until, timeout=timeout_ms)
+                        except PlaywrightTimeoutError as exc:
+                            # Long-polling SPAs may never become fully idle.  A configured
+                            # ready selector below remains the authoritative success signal.
+                            navigation_error = exc
+
+                        click_text = str(source.get("playwright_click_text") or "").strip()
+                        click_selector = str(source.get("playwright_click_selector") or "").strip()
+                        if click_text or click_selector:
+                            target = (
+                                page.locator(click_selector)
+                                if click_selector
+                                else page.get_by_text(
+                                    click_text,
+                                    exact=source.get("playwright_click_exact", True) is not False,
+                                )
+                            )
+                            if await target.count() == 0:
+                                raise SourceUnavailable(
+                                    f"Playwright action target not found: {click_selector or click_text}",
+                                    status="degraded",
+                                )
+                            await target.first.click(timeout=timeout_ms)
+                            try:
+                                await page.wait_for_load_state(wait_until, timeout=timeout_ms)
+                            except PlaywrightTimeoutError:
+                                pass
+
+                        ready_selector = str(
+                            source.get("playwright_ready_selector") or ""
+                        ).strip()
+                        if ready_selector:
+                            try:
+                                await page.locator(ready_selector).first.wait_for(
+                                    state="attached", timeout=timeout_ms,
+                                )
+                            except PlaywrightTimeoutError:
+                                if navigation_error is not None:
+                                    raise navigation_error
+                                raise
+                        elif navigation_error is not None:
+                            raise navigation_error
+
                         wait_ms = max(0, int(source.get("playwright_wait_ms") or 1800))
                         if wait_ms:
                             await page.wait_for_timeout(wait_ms)
+
+                        page_size_selector = str(
+                            source.get("playwright_page_size_selector") or ""
+                        ).strip()
+                        page_size = str(source.get("playwright_page_size") or "").strip()
+                        if page_size_selector and page_size:
+                            await page.select_option(page_size_selector, page_size)
+                            if wait_ms:
+                                await page.wait_for_timeout(wait_ms)
+                            if ready_selector:
+                                await page.locator(ready_selector).first.wait_for(
+                                    state="attached", timeout=timeout_ms,
+                                )
+
+                        paginate_selector = str(
+                            source.get("playwright_paginate_selector") or ""
+                        ).strip()
+                        if paginate_selector:
+                            item_selector = str(source.get("item_selector") or "").strip()
+                            max_pages = max(1, int(source.get("playwright_max_pages") or 1))
+                            stop_older_days = max(
+                                0, int(source.get("playwright_stop_older_days") or 0)
+                            )
+                            cutoff = datetime.now(CHINA_TZ).date() - timedelta(
+                                days=stop_older_days
+                            )
+                            fragments: list[str] = []
+                            page_signatures: set[str] = set()
+                            for _ in range(max_pages):
+                                rows = page.locator(item_selector)
+                                if await rows.count() == 0:
+                                    break
+                                page_fragments = await rows.evaluate_all(
+                                    "nodes => nodes.map(node => node.outerHTML)"
+                                )
+                                signature = hashlib.sha256(
+                                    "\n".join(page_fragments).encode("utf-8")
+                                ).hexdigest()
+                                if signature in page_signatures:
+                                    break
+                                page_signatures.add(signature)
+                                fragments.extend(page_fragments)
+                                page_dates = [
+                                    parsed for fragment in page_fragments
+                                    if (parsed := _date_from_text(fragment)) is not None
+                                ]
+                                if stop_older_days and page_dates and max(page_dates) < cutoff:
+                                    break
+                                next_link = page.locator(paginate_selector)
+                                if await next_link.count() == 0:
+                                    break
+                                before = " ".join(
+                                    (await rows.first.inner_text()).split()
+                                )
+                                await next_link.first.click(timeout=timeout_ms)
+                                changed = False
+                                for _ in range(40):
+                                    await page.wait_for_timeout(250)
+                                    current_rows = page.locator(item_selector)
+                                    if await current_rows.count() == 0:
+                                        continue
+                                    current = " ".join(
+                                        (await current_rows.first.inner_text()).split()
+                                    )
+                                    if current != before:
+                                        changed = True
+                                        break
+                                if not changed:
+                                    break
+                            if fragments:
+                                joined = "\n".join(fragments)
+                                if fragments[0].lstrip().casefold().startswith("<tr"):
+                                    joined = "<table><tbody>" + joined + "</tbody></table>"
+                                return "<html><body>" + joined + "</body></html>"
                         return await page.content()
                     except Exception as exc:
                         last_error = exc
