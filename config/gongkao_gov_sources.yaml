@@ -738,6 +738,17 @@ sources:
     playwright_ready_selector: ul.rsb_ej_zpggList > li
     playwright_wait_ms: 3000
     fixture: mohrss_central.html
+  - name: 中国公共招聘网
+    province: 全国
+    category: 事业单位
+    list_url: http://job.mohrss.gov.cn/cjobs/institution/listInstitution
+    engine: html
+    item_selector: tr
+    title_selector: td.zhaopin-title a[href]
+    link_selector: td.zhaopin-title a[href]
+    date_selector: 'td:nth-child(3)'
+    date_format: '%Y-%m-%d'
+    fixture: mohrss_public.html
   - name: 国资委-中央企业招聘专题
     province: 全国
     category: 央企事业编

@@ -12,6 +12,7 @@ from .haitou import HaitouCollector
 from .yingjiesheng import YingjieshengCollector
 from .wutongguo import WutongguoCollector
 from .nowcoder import NowcoderCollector
+from .official_jobs import OfficialJobsCollector
 from .papers import PapersCollector
 from .telegram import TelegramCollector
 from .weibo import WeiboCollector
@@ -20,5 +21,5 @@ from .youtube import YouTubeCollector
 
 __all__ = [
     "BilibiliCollector", "ConfDeadlinesCollector", "DouyinCollector", "FeedsCollector", "GitHubCollector", "GongkaoCollector", "GovListCollector", "JobRadarCollector", "JobsCollector", "GuopinCollector", "YingjieshengCollector", "NowcoderCollector",
-    "HaitouCollector", "WutongguoCollector", "PapersCollector", "TelegramCollector", "WeiboCollector", "XiaohongshuCollector", "YouTubeCollector",
+    "HaitouCollector", "WutongguoCollector", "OfficialJobsCollector", "PapersCollector", "TelegramCollector", "WeiboCollector", "XiaohongshuCollector", "YouTubeCollector",
 ]

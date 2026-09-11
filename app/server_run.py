@@ -12,6 +12,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 from app.collectors.haitou import HaitouCollector
+from app.collectors.official_jobs import OfficialJobsCollector
 from app.collectors.scs import SCSCollector
 from app.collectors.wutongguo import WutongguoCollector
 from app.collectors.yingjiesheng import YingjieshengCollector
@@ -30,6 +31,8 @@ UTC = timezone.utc
 SERVER_GONGKAO_FILENAME = "server-gongkao.json"
 SERVER_JOBS_FILENAME = "server-jobs.json"
 YINGJIESHENG_SUBSOURCES = {"yingjiesheng", "xjh", "haitou", "wutongguo"}
+OFFICIAL_JOB_SUBSOURCES = {"ncss", "chsi_talent"}
+MAIN_JOB_SUBSOURCES = YINGJIESHENG_SUBSOURCES | OFFICIAL_JOB_SUBSOURCES
 
 
 def _write_json(path: Path, payload: dict) -> None:
@@ -243,7 +246,7 @@ def merge_yingjiesheng_jobs_into_site(
     preserved = [
         row for row in payload.get("items", [])
         if isinstance(row, dict)
-        and str((row.get("extra") or {}).get("subsource") or "") not in YINGJIESHENG_SUBSOURCES
+        and str((row.get("extra") or {}).get("subsource") or "") not in MAIN_JOB_SUBSOURCES
     ]
     combined: list[dict] = []
     seen: set[str] = set()
@@ -261,6 +264,14 @@ def merge_yingjiesheng_jobs_into_site(
         "item_count": sum(
             1 for row in combined
             if str((row.get("extra") or {}).get("subsource") or "") in YINGJIESHENG_SUBSOURCES
+        ),
+        "updated_at": generated_at,
+    }
+    subsources["official_jobs"] = {
+        "status": "ok",
+        "item_count": sum(
+            1 for row in combined
+            if str((row.get("extra") or {}).get("subsource") or "") in OFFICIAL_JOB_SUBSOURCES
         ),
         "updated_at": generated_at,
     }
@@ -340,7 +351,10 @@ async def run_campus_jobs(database: Database, data_dir: str | Path) -> dict[str,
 async def run_yingjiesheng(data_dir: str | Path) -> dict[str, object]:
     if not _enabled(os.getenv("YINGJIESHENG_ON_SERVER")):
         return {"status": "skipped", "reason": "YINGJIESHENG_ON_SERVER is not true"}
-    providers = [YingjieshengCollector(), HaitouCollector(), WutongguoCollector()]
+    providers = [
+        YingjieshengCollector(), HaitouCollector(), WutongguoCollector(),
+        OfficialJobsCollector(),
+    ]
     results = await asyncio.gather(*(provider.fetch() for provider in providers), return_exceptions=True)
     items: list[Item] = []
     errors: list[str] = []

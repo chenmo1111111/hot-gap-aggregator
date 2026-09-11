@@ -24,6 +24,7 @@ def test_blacklist_words_do_not_drop_legitimate_organization_names() -> None:
         "南昌市红谷滩区社会福利院公开招聘工作人员公告",
         "中国福利会托儿所公开招聘工作人员公告",
         "心理健康与智能评估分中心公开招聘专业技术人员公告",
+        "北京师范大学图书馆2026年应届毕业生事业编制管理岗位招聘启事",
     ]
 
     for title in titles:

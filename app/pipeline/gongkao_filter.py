@@ -32,7 +32,7 @@ TITLE_NOISE_BLACKLIST = re.compile(
     "|".join(re.escape(term) for term in sorted(TITLE_NOISE_TERMS, key=len, reverse=True)), re.I,
 )
 TITLE_BLACKLIST_EXEMPTIONS = re.compile(
-    r"福利彩票|(?:社会)?福利院|中国福利会|评估分(?:中心|分中心|部|院)",
+    r"福利彩票|(?:社会)?福利院|中国福利会|评估分(?:中心|分中心|部|院)|图书馆",
     re.I,
 )
 LINK_BLACKLIST = re.compile(

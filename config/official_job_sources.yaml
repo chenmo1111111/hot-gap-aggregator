@@ -1,0 +1,49 @@
+sources:
+  - name: 国家大学生就业服务平台
+    subsource: ncss
+    engine: api
+    list_url: https://cg.ncss.cn/student/jobs/jobslist/ajax/
+    referer: https://cg.ncss.cn/student/jobs/index.html
+    items_path: data.list
+    keyword_param: jobName
+    keywords: [算法, 生物信息, 数据, 后端, 人工智能, 计算生物, 大模型]
+    recent_days: 45
+    params:
+      jobType: ''
+      areaCode: ''
+      monthPay: ''
+      industrySectors: ''
+      property: ''
+      categoryCode: ''
+      memberLevel: ''
+      recruitType: ''
+      offset: '1'
+      limit: '20'
+      keyUnits: ''
+      degreeCode: ''
+      sourcesName: ''
+      sourcesType: ''
+    fields:
+      title: jobName
+      company: recName
+      id: jobId
+      date: publishDate
+      city: areaCodeName
+      education: degreeName
+      company_type: recProperty
+    link_template: https://cg.ncss.cn/student/jobs/{id}/detail.html
+    fixture: ncss_jobs.json
+
+  - name: 教育部人才服务网
+    subsource: chsi_talent
+    engine: html
+    list_url: https://jybzp.chsi.com.cn/home/bul/announcement?sourcetyp=school
+    list_urls:
+      - https://jybzp.chsi.com.cn/home/bul/announcement?sourcetyp=school
+      - https://jybzp.chsi.com.cn/home/bul/announcement?sourcetyp=drus
+    item_selector: li.no-point
+    title_selector: a[href]
+    date_selector: span.time
+    keywords: [算法, 生物信息, 数据, 人工智能, 计算生物, 单细胞, 科研, 研究员, 博士后]
+    recent_days: 120
+    fixture: chsi_jobs.html

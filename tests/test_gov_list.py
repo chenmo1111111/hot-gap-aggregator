@@ -163,7 +163,13 @@ def test_four_javascript_portals_require_rendered_content() -> None:
     assert "事业单位公开招聘服务平台" not in {
         source["name"] for source in rows
     }
-    assert all("job.mohrss.gov.cn" not in source["list_url"] for source in rows)
+    public_jobs = next(source for source in rows if source["name"] == "中国公共招聘网")
+    assert public_jobs["list_url"] == (
+        "http://job.mohrss.gov.cn/cjobs/institution/listInstitution"
+    )
+    assert public_jobs["engine"] == "html"
+    assert public_jobs["item_selector"] == "tr"
+    assert public_jobs["date_selector"] == "td:nth-child(3)"
     assert all(source["engine"] == "playwright" for source in sources.values())
     assert all(source["playwright_wait_until"] == "networkidle" for source in sources.values())
     assert all(source.get("playwright_ready_selector") for source in sources.values())

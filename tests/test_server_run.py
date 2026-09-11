@@ -4,6 +4,7 @@ from datetime import UTC, datetime
 import pytest
 
 from app.models import Item
+from app.collectors.official_jobs import OfficialJobsCollector
 from app import server_run
 from app.server_run import (
     merge_campus_jobs_into_site, merge_scs_into_site,
@@ -79,6 +80,31 @@ def test_merge_yingjiesheng_preserves_campus_and_replaces_owned_rows(tmp_path) -
     sidecar = json.loads((tmp_path / "server-jobs.json").read_text(encoding="utf-8"))
     assert [row["url"] for row in sidecar["items"]] == ["https://haitou.test/new", "https://nefu.test/1"]
     assert sidecar["subsources"]["yingjiesheng"]["item_count"] == 1
+
+
+def test_merge_mainland_jobs_replaces_official_platform_rows(tmp_path) -> None:
+    old = Item(
+        source="jobs", rank=1, title="旧算法岗", title_zh="旧算法岗",
+        url="https://cg.ncss.cn/student/jobs/old/detail.html",
+        extra={"subsource": "ncss", "company": "旧公司"},
+    )
+    merge_yingjiesheng_jobs_into_site(tmp_path, [old], "2026-09-11T01:00:00+00:00")
+    fresh = Item(
+        source="jobs", rank=1, title="新算法岗", title_zh="新算法岗",
+        url="https://cg.ncss.cn/student/jobs/new/detail.html",
+        extra={"subsource": "ncss", "company": "新公司"},
+    )
+    merge_yingjiesheng_jobs_into_site(tmp_path, [fresh], "2026-09-11T02:00:00+00:00")
+
+    sidecar = json.loads((tmp_path / "server-jobs.json").read_text(encoding="utf-8"))
+    assert [row["url"] for row in sidecar["items"]] == [
+        "https://cg.ncss.cn/student/jobs/new/detail.html"
+    ]
+    assert sidecar["subsources"]["official_jobs"]["item_count"] == 1
+
+
+def test_mainland_runner_includes_lightweight_official_jobs_collector() -> None:
+    assert OfficialJobsCollector in server_run.run_yingjiesheng.__globals__.values()
 
 
 def test_write_server_heartbeat_is_atomic_and_uses_requested_time(tmp_path, monkeypatch) -> None:
