@@ -1,6 +1,8 @@
-page_url: "https://www.xiaozhaoya.com/home"
-page_size: 12
-max_pages: 1
-max_age_days: 30
-request_interval_seconds: 1.0
-minimum_items: 10
+api_origin: "https://internal-api-space.feishu.cn"
+initial_table_id: "tblkKIbEMShri8pB"
+initial_view_id: "vew4vJvx97"
+
+# This is a one-time foundation backfill. It must never be added to the 07:30 task.
+# The real page URL is read from XIAOZHAOYA_FEISHU_BASE_URL in local/server .env.
+page_size: 3000
+minimum_items: 1000

@@ -16,6 +16,7 @@ from urllib.parse import urlsplit, urlunsplit
 from dotenv import load_dotenv
 
 from app.pipeline.gongkao_filter import filter_gongkao_items, is_gov_domain
+from app.pipeline.prune import filter_current_items, load_retention
 
 
 def _text(value: object) -> str:
@@ -64,6 +65,12 @@ def _identity_keys(item: Mapping[str, Any]) -> set[str]:
     title = _normalize(item.get("title_zh") or item.get("title"))
     province = _normalize_province(extra.get("province") or item.get("province"))
     keys = {f"url:{url}"} if url else set()
+    recruitment_id = _text(extra.get("recruitment_id"))
+    stable_id = _text(extra.get("id"))
+    if not recruitment_id and stable_id.startswith("xiaozhaoya:"):
+        recruitment_id = stable_id.removeprefix("xiaozhaoya:")
+    if recruitment_id:
+        keys.add(f"recruitment:{recruitment_id}")
     if title:
         keys.add(f"title:{title}|{province}")
     return keys
@@ -301,15 +308,37 @@ def write_gongkao(data_dir: str | Path) -> dict[str, Any]:
         raise ValueError("gongkao.json must contain a JSON object")
     xiaozhaoya_path = target / "xiaozhaoya_gongkao.json"
     xiaozhaoya_count = 0
+    xiaozhaoya_input_count = 0
+    xiaozhaoya_retention_deleted_count = 0
+    xiaozhaoya_duplicate_count = 0
     if xiaozhaoya_path.exists():
         value = json.loads(xiaozhaoya_path.read_text(encoding="utf-8"))
         if not isinstance(value, dict):
             raise ValueError("xiaozhaoya_gongkao.json must contain a JSON object")
         xiaozhaoya_items = _items(value, "xiaozhaoya_gongkao.json")
+        xiaozhaoya_input_count = len(xiaozhaoya_items)
+        xiaozhaoya_items = [
+            {**item, "source": _text(item.get("source")) or "gongkao"}
+            for item in xiaozhaoya_items
+        ]
+        xiaozhaoya_items, xiaozhaoya_retention_deleted_count = filter_current_items(
+            xiaozhaoya_items, load_retention()
+        )
+        base_items = _items(base_payload, "gongkao.json")
+        known_keys = {key for item in base_items for key in _identity_keys(item)}
+        retained: list[dict[str, Any]] = []
+        for item in xiaozhaoya_items:
+            keys = _identity_keys(item)
+            if keys & known_keys:
+                xiaozhaoya_duplicate_count += 1
+                continue
+            retained.append(item)
+            known_keys.update(keys)
+        xiaozhaoya_items = retained
         xiaozhaoya_count = len(xiaozhaoya_items)
         base_payload = {
             **base_payload,
-            "items": [*_items(base_payload, "gongkao.json"), *xiaozhaoya_items],
+            "items": [*base_items, *xiaozhaoya_items],
         }
     sheet_payload: dict[str, Any] | None = None
     if sheet_path.exists():
@@ -327,6 +356,11 @@ def write_gongkao(data_dir: str | Path) -> dict[str, Any]:
 
     output = merge_gongkao_payloads(base_payload, sheet_payload, server_payload)
     output["status"]["xiaozhaoya_item_count"] = xiaozhaoya_count
+    output["status"]["xiaozhaoya_input_count"] = xiaozhaoya_input_count
+    output["status"]["xiaozhaoya_retention_deleted_count"] = (
+        xiaozhaoya_retention_deleted_count
+    )
+    output["status"]["xiaozhaoya_duplicate_count"] = xiaozhaoya_duplicate_count
     if xiaozhaoya_count:
         output["status"]["upstream_sources"] = [
             *output["status"]["upstream_sources"], "xiaozhaoya",

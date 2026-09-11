@@ -1,15 +1,35 @@
 from __future__ import annotations
 
 import json
-from datetime import date
 from pathlib import Path
 
-from app.capture_xiaozhaoya import IncrementalStopPolicy, build_snapshot
+from app.capture_xiaozhaoya import build_snapshot, load_config
 from app.collect_xiaozhaoya import run
 from app.collectors.xiaozhaoya import HOME_URL, resolve_public_url, split_records
 
 
 FIXTURE = Path(__file__).parent / "fixtures" / "xiaozhaoya_recruitment_list.json"
+
+
+def test_load_config_reads_private_base_url_from_environment(
+    tmp_path: Path, monkeypatch,
+) -> None:
+    config_path = tmp_path / "xiaozhaoya.yaml"
+    config_path.write_text(
+        "api_origin: https://internal-api-space.feishu.cn\n"
+        "initial_table_id: table-from-config\n",
+        encoding="utf-8",
+    )
+    monkeypatch.setenv(
+        "XIAOZHAOYA_FEISHU_BASE_URL",
+        "https://tenant.feishu.cn/base/private-token?table=table-from-url&view=view-from-url",
+    )
+
+    config = load_config(config_path)
+
+    assert config["page_url"].startswith("https://tenant.feishu.cn/base/")
+    assert config["app_token"] == "private-token"
+    assert config["initial_table_id"] == "table-from-config"
 
 
 def test_split_records_routes_campus_job_to_qiuzhao_with_source_label() -> None:
@@ -57,37 +77,95 @@ def test_split_records_routes_public_notice_to_gongkao() -> None:
     assert gongkao[0]["extra"]["source_label"] == "校招鸭"
 
 
+def test_split_records_routes_government_agency_base_row_to_gongkao() -> None:
+    qiuzhao, gongkao = split_records([{
+        "recruitmentId": 90002,
+        "updateDate": "2026-09-10",
+        "companyName": "某市机关",
+        "companyTypeName": "政府机关",
+        "announcementTitle": "某市机关招聘",
+        "jobTitle": "综合管理岗",
+        "announcementLink": "https://example.com/notice/90002",
+    }])
+
+    assert qiuzhao == []
+    assert gongkao[0]["extra"]["recruitment_id"] == "90002"
+
+
 def test_resolve_public_url_ignores_bare_site_root() -> None:
     assert resolve_public_url("/") == ""
     assert resolve_public_url("官网：https://jobs.example.com/apply") == "https://jobs.example.com/apply"
 
 
-def test_incremental_capture_stops_after_two_fully_known_pages() -> None:
-    policy = IncrementalStopPolicy({"1", "2", "3"}, cutoff=date(2026, 9, 7))
-
-    assert policy.observe([{"recruitmentId": 1, "updateDate": "2026-09-10"}]) is None
-    assert policy.observe([{"recruitmentId": 2, "updateDate": "2026-09-09"}]) == "two_known_pages"
-
-
-def test_incremental_snapshot_preserves_previous_rows() -> None:
-    previous = {
-        "total": 2,
-        "items": [
-            {"recruitmentId": 1, "updateDate": "2026-09-09", "jobTitle": "旧岗位"},
-            {"recruitmentId": 2, "updateDate": "2026-09-08", "jobTitle": "保留岗位"},
-        ],
+def test_base_snapshot_maps_real_feishu_field_shape_and_detail_id() -> None:
+    metadata = {
+        "fieldMap": {
+            "fld7GAjFoX": {"name": "公司名称", "type": 1},
+            "fld5YIB14J": {"name": "招聘岗位", "type": 1},
+            "fld6pVXeiP": {"name": "公告链接", "type": 15},
+            "fld3c8OxWn": {"name": "投递方式", "type": 15},
+            "fld7zxhBG1": {"name": "更新时间", "type": 1},
+            "fld70CcIc6": {"name": "截止时间", "type": 1},
+            "fld4xgSlJ4": {
+                "name": "企业性质", "type": 3,
+                "property": {"options": [{"id": "opt49Ybz3L", "name": "外企"}]},
+            },
+            "fldpH5TJKO": {
+                "name": "学历要求", "type": 4,
+                "property": {"options": [
+                    {"id": "optzUuZP9L", "name": "本科"},
+                    {"id": "optZljmSDv", "name": "硕士"},
+                ]},
+            },
+            "fldcQhaDut": {
+                "name": "批次", "type": 4,
+                "property": {"options": [
+                    {"id": "optQfy5bwB", "name": "实习"},
+                    {"id": "optIEDRBke", "name": "秋招专场"},
+                ]},
+            },
+        },
+        "viewMap": {
+            "vew4vJvx97": {"name": "🔥网申总表", "type": 1},
+            "vewmceLy67": {"name": "实习信息", "type": 1},
+        },
     }
+    chunks = [{"recordMap": {"rec27K2TNDnxAy": {
+        "fld7GAjFoX": {"value": [{"type": "text", "text": "高盛"}]},
+        "fld5YIB14J": {"value": [{"type": "text", "text": "暑期分析员;全职分析员"}]},
+        "fld6pVXeiP": {"value": [{
+            "type": "url", "text": "校招鸭详情",
+            "link": "https://www.xiaozhaoya.com/detail?id=41524",
+        }]},
+        "fld3c8OxWn": {"value": [{
+            "type": "url", "text": "官网投递", "link": "https://example.com/apply",
+        }]},
+        "fld7zxhBG1": {"value": [{"type": "text", "text": "2026-07-06"}]},
+        "fld70CcIc6": {"value": [{"type": "text", "text": "2026-10-05"}]},
+        "fld4xgSlJ4": {"value": "opt49Ybz3L"},
+        "fldpH5TJKO": {"value": ["optzUuZP9L", "optZljmSDv"]},
+        "fldcQhaDut": {"value": ["optQfy5bwB", "optIEDRBke"]},
+    }}}]
 
     snapshot = build_snapshot(
-        [{"recruitmentId": 1, "updateDate": "2026-09-10", "jobTitle": "更新岗位"}],
-        total=2,
-        previous=previous,
-        full=False,
-        generated_at="2026-09-10T07:30:00+08:00",
+        [("tblkKIbEMShri8pB", "🔥 26、27 校招汇总表", metadata, chunks)],
+        minimum_items=1,
+        generated_at="2026-09-11T09:00:00+08:00",
     )
 
-    assert [row["recruitmentId"] for row in snapshot["items"]] == [1, 2]
-    assert snapshot["items"][0]["jobTitle"] == "更新岗位"
+    assert snapshot["source"] == "xiaozhaoya_feishu_base"
+    assert snapshot["status"]["scheduled"] is False
+    assert snapshot["status"]["source_views"]["🔥 26、27 校招汇总表"] == [
+        "🔥网申总表", "实习信息",
+    ]
+    row = snapshot["items"][0]
+    assert row["recruitmentId"] == "41524"
+    assert row["companyName"] == "高盛"
+    assert row["companyTypeName"] == "外企"
+    assert row["educationLevelNameList"] == "本科、硕士"
+    assert row["batchNameList"] == "实习、秋招专场"
+    assert row["announcementTitle"] == "高盛招聘"
+    assert row["applicationMethod"] == "https://example.com/apply"
 
 
 def test_real_page_fixture_classification_link_priority_and_noise_filter() -> None:

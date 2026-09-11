@@ -6,10 +6,8 @@ $stateDir = if ($env:WANQING_STATE_DIR) { $env:WANQING_STATE_DIR } else { Join-P
 $profileDir = if ($env:WANQING_PROFILE_DIR) { $env:WANQING_PROFILE_DIR } else { Join-Path $stateDir "browser-profile" }
 $qiuzhaoSnapshot = Join-Path $stateDir "qiuzhao_wanqing.json"
 $gongkaoSnapshot = Join-Path $stateDir "gongkao_sheet.json"
-$xiaozhaoyaSnapshot = Join-Path $stateDir "xiaozhaoya.json"
 $qiuzhaoCandidate = Join-Path $stateDir "qiuzhao_wanqing.candidate.json"
 $gongkaoCandidate = Join-Path $stateDir "gongkao_sheet.candidate.json"
-$xiaozhaoyaCandidate = Join-Path $stateDir "xiaozhaoya.candidate.json"
 $sshKey = if ($env:HOT_GAP_DEPLOY_KEY) { $env:HOT_GAP_DEPLOY_KEY } else { Join-Path $env:USERPROFILE ".ssh\hotgap_deploy" }
 $sshHost = if ($env:HOT_GAP_DEPLOY_HOST) { $env:HOT_GAP_DEPLOY_HOST } else { "120.48.78.40" }
 $sshUser = if ($env:HOT_GAP_DEPLOY_USER) { $env:HOT_GAP_DEPLOY_USER } else { "deploy" }
@@ -118,15 +116,9 @@ try {
     $env:CAPTURE_RUNNER_MANAGED = "1"
     $qiuzhaoOk = Invoke-Capture "Wanqing Qiuzhao" "qiuzhao" "app.capture_wanqing" $qiuzhaoCandidate $qiuzhaoSnapshot "/home/deploy/.qiuzhao_wanqing.json.incoming"
     $gongkaoOk = Invoke-Capture "Feishu Sheet Gongkao" "gongkao" "app.capture_gongkao_sheet" $gongkaoCandidate $gongkaoSnapshot "/home/deploy/.gongkao_sheet.json.incoming"
-    $xiaozhaoyaOk = $false
-    if (Test-Path -LiteralPath $xiaozhaoyaSnapshot) {
-        $xiaozhaoyaOk = Invoke-Capture "Xiaozhaoya Home" "xiaozhaoya" "app.capture_xiaozhaoya" $xiaozhaoyaCandidate $xiaozhaoyaSnapshot "/home/deploy/.xiaozhaoya.json.incoming" @("--previous", $xiaozhaoyaSnapshot)
-    } else {
-        Write-Log "skipping Xiaozhaoya until its one-time login snapshot is initialized"
-    }
 
-    if (-not $qiuzhaoOk -and -not $gongkaoOk -and -not $xiaozhaoyaOk) {
-        throw "all three captures failed; no server refresh attempted"
+    if (-not $qiuzhaoOk -and -not $gongkaoOk) {
+        throw "both purchased-table captures failed; no server refresh attempted"
     }
 
     $remote = "$sshUser@$sshHost"
@@ -134,7 +126,7 @@ try {
     if ($LASTEXITCODE -ne 0) { throw "remote refresh exited with code $LASTEXITCODE" }
     Write-Log "server export and Feishu refresh completed"
 
-    if (-not $qiuzhaoOk -or -not $gongkaoOk -or -not $xiaozhaoyaOk) {
+    if (-not $qiuzhaoOk -or -not $gongkaoOk) {
         throw "one or more sources failed; successful sources were refreshed and failed sources retained their previous snapshots"
     }
     Push-Location $projectRoot

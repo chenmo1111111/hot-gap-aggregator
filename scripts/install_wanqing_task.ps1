@@ -40,7 +40,7 @@ $task = New-ScheduledTask `
     -Trigger $trigger `
     -Settings $settings `
     -Principal $principal `
-    -Description "Wake at 07:30 daily, capture Wanqing, Gongkao Sheet, and Xiaozhaoya, retry once after 30 minutes, then refresh S1 and Feishu."
+    -Description "Wake at 07:30 daily, capture Wanqing and Gongkao Sheet, retry once after 30 minutes, then refresh S1 and Feishu."
 
 Register-ScheduledTask -TaskName $TaskName -InputObject $task -Force | Out-Null
 $legacyTask = "HotGap-Wanqing-Feishu-0700"

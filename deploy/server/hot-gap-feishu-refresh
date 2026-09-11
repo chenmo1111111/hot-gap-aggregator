@@ -131,9 +131,12 @@ try:
         previous_count = len(json.load(handle).get("items") or [])
 except (OSError, ValueError, TypeError):
     pass
-minimum = math.ceil(previous_count * .8) if previous_count else 1
+minimum = max(1000, math.ceil(previous_count * .8))
 if not isinstance(items, list) or len(items) < minimum:
     raise SystemExit(f"incoming Xiaozhaoya snapshot failed validation: {len(items) if isinstance(items, list) else 0} < {minimum} (80% of previous)")
+status = payload.get("status") if isinstance(payload.get("status"), dict) else {}
+if payload.get("source") != "xiaozhaoya_feishu_base" or status.get("scheduled") is not False:
+    raise SystemExit("incoming Xiaozhaoya snapshot is not a one-time Feishu Base backfill")
 required = {"recruitmentId", "updateDate", "companyName", "jobTitle"}
 for index, item in enumerate(items):
     if not isinstance(item, dict) or not required.issubset(item):

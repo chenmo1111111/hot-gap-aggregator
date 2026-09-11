@@ -82,7 +82,7 @@ def _company_type(value: object) -> str:
 
 
 def is_gongkao_record(row: Mapping[str, Any]) -> bool:
-    if _text(row.get("companyTypeName")) == "事业单位":
+    if _text(row.get("companyTypeName")) in {"事业单位", "政府机关"}:
         return True
     text = " ".join(
         (_text(row.get("announcementTitle")), _text(row.get("sourceName")))

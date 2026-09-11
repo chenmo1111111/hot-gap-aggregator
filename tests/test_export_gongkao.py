@@ -187,3 +187,29 @@ def test_write_gongkao_merges_xiaozhaoya_snapshot(tmp_path) -> None:
     assert len(result["items"]) == 2
     assert result["status"]["xiaozhaoya_item_count"] == 1
     assert "xiaozhaoya" in result["status"]["upstream_sources"]
+
+
+def test_xiaozhaoya_foundation_deduplicates_recruitment_id_and_uses_retention(tmp_path) -> None:
+    (tmp_path / "gongkao.json").write_text(
+        json.dumps({"items": []}, ensure_ascii=False), encoding="utf-8"
+    )
+    first = _item("xiaozhaoya:77", "事业单位招聘公告", "https://a.test/77")
+    first["extra"]["recruitment_id"] = "77"
+    first["extra"]["endSignUpTime"] = "2099-12-31"
+    duplicate = _item("xiaozhaoya:77-copy", "另一标题", "https://b.test/77")
+    duplicate["extra"]["recruitment_id"] = "77"
+    duplicate["extra"]["endSignUpTime"] = "2099-12-31"
+    expired = _item("xiaozhaoya:88", "已过期招聘公告", "https://a.test/88")
+    expired["extra"]["recruitment_id"] = "88"
+    expired["extra"]["endSignUpTime"] = "2020-01-01"
+    (tmp_path / "xiaozhaoya_gongkao.json").write_text(
+        json.dumps({"items": [first, duplicate, expired]}, ensure_ascii=False),
+        encoding="utf-8",
+    )
+
+    result = write_gongkao(tmp_path)
+
+    assert [row["extra"]["recruitment_id"] for row in result["items"]] == ["77"]
+    assert result["status"]["xiaozhaoya_input_count"] == 3
+    assert result["status"]["xiaozhaoya_retention_deleted_count"] == 1
+    assert result["status"]["xiaozhaoya_duplicate_count"] == 1

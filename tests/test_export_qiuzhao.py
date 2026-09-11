@@ -122,6 +122,34 @@ def test_write_qiuzhao_merges_xiaozhaoya_snapshot(tmp_path) -> None:
     assert "xiaozhaoya" in result["status"]["upstream_source"]
 
 
+def test_daily_wanqing_wins_foundation_duplicate_and_expired_foundation_is_pruned(tmp_path) -> None:
+    daily = {
+        "company_name": "同一公司", "position": "研发岗",
+        "apply_url": "https://daily.example/apply", "deadline": "2099-12-31",
+    }
+    (tmp_path / "qiuzhao_wanqing.json").write_text(
+        json.dumps({"items": [daily]}, ensure_ascii=False), encoding="utf-8"
+    )
+    foundation = [
+        {
+            "company_name": "同一公司", "position": "研发岗",
+            "apply_url": "https://foundation.example/apply", "deadline": "2099-12-31",
+            "source_record_id": "xiaozhaoya:1",
+        },
+        {
+            "company_name": "过期公司", "position": "旧岗位",
+            "deadline": "2020-01-01", "source_record_id": "xiaozhaoya:2",
+        },
+    ]
+    (tmp_path / "xiaozhaoya_qiuzhao.json").write_text(
+        json.dumps({"items": foundation}, ensure_ascii=False), encoding="utf-8"
+    )
+
+    result = write_qiuzhao(tmp_path)
+
+    assert result["items"] == [daily]
+
+
 def test_write_qiuzhao_filters_event_noise_from_server_jobs(tmp_path) -> None:
     (tmp_path / "server-jobs.json").write_text(json.dumps({
         "items": [
