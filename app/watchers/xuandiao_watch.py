@@ -61,6 +61,7 @@ class XuandiaoWatcher(SubsidyWatcher):
         self, database: Database, config_path: str | Path | None = None, **kwargs: Any,
     ) -> None:
         path = config_path or os.getenv("XUANDIAO_SOURCES_CONFIG", "config/xuandiao_sources.yaml")
+        kwargs["standard_notifications"] = True
         super().__init__(database, path, **kwargs)
         self.latest_items: list[Item] = []
 

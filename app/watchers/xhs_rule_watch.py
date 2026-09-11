@@ -15,6 +15,7 @@ from urllib.parse import urljoin, urlparse
 
 import yaml
 from dotenv import load_dotenv
+from selectolax.parser import HTMLParser
 
 from app.collectors.base import SourceUnavailable
 from app.notify import notify_subsidy_alert
@@ -73,21 +74,6 @@ def parse_published_date(value: str) -> date:
         except ValueError:
             continue
     raise ValueError(f"invalid XHS rule published date: {value}")
-
-
-def extract_rule_text_window(text: str) -> str:
-    """Extract a stable rule span from body text when no content container exists."""
-    content = _normalise_text(text)
-    announced = ANNOUNCED_PATTERN.search(content)
-    revised_matches = list(REVISED_PATTERN.finditer(content))
-    if not announced or not revised_matches:
-        raise ValueError("rule content container/date boundary not found")
-    revised = revised_matches[-1]
-    start = min(announced.start(), revised.start())
-    end = max(announced.end(), revised.end())
-    if end - start < 40:
-        raise ValueError("rule content boundary is too short")
-    return content[start:end]
 
 
 def merge_xhs_cookies(json_text: str, document_cookie: str) -> list[dict[str, Any]]:
@@ -178,16 +164,52 @@ def extract_external_links(text: str) -> list[str]:
     ))
 
 
-def extract_article_metadata(text: str) -> dict[str, Any]:
-    content = _normalise_text(text)
-    announced = ANNOUNCED_PATTERN.search(content)
-    if not announced:
-        raise ValueError("rule announcement/effective dates not found in content container")
+def _article_container_text(html_text: str) -> str:
+    tree = HTMLParser(html_text)
+    for selector in ARTICLE_SELECTORS:
+        candidates: list[str] = []
+        for node in tree.css(selector):
+            text = _normalise_text(node.text(separator=" ", strip=True))
+            if len(text) >= 40 and text not in candidates:
+                candidates.append(text)
+        if not candidates:
+            continue
+        dated = [text for text in candidates if ANNOUNCED_PATTERN.search(text)]
+        if dated:
+            complete = [
+                text for text in dated
+                if len(text) >= 120
+                and (REVISED_PATTERN.search(text) or DOCUMENT_PATTERN.search(text))
+            ]
+            return min(complete or dated, key=len)
+        return max(candidates, key=len)
+    raise ValueError("rule article container not found")
+
+
+def extract_article_metadata(
+    html_text: str,
+    *,
+    today: date | None = None,
+    first_discovery: bool = False,
+) -> dict[str, Any]:
+    content = _article_container_text(html_text)
+    announced_matches = list(ANNOUNCED_PATTERN.finditer(content))
+    if not announced_matches:
+        raise ValueError("rule announcement/effective dates not found in article container")
+    announced = announced_matches[-1]
+    announced_at = date.fromisoformat(announced.group(1))
+    effective_at = date.fromisoformat(announced.group(2))
+    if effective_at < announced_at - timedelta(days=7):
+        raise ValueError("rule effective date is more than 7 days before announcement")
+    if first_discovery:
+        reference = today or datetime.now(CHINA_TZ).date()
+        if any(abs((value - reference).days) > 180 for value in (announced_at, effective_at)):
+            raise ValueError("new rule date is more than 180 days from discovery")
     revised = REVISED_PATTERN.search(content)
     document = DOCUMENT_PATTERN.search(content)
     return {
-        "announced_at": announced.group(1),
-        "effective_at": announced.group(2),
+        "announced_at": announced_at.isoformat(),
+        "effective_at": effective_at.isoformat(),
         "revised_at": revised.group(2) if revised else "",
         "document_url": document.group(0).rstrip(".,") if document else "",
         "content_text": content,
@@ -485,28 +507,8 @@ class XhsRuleWatcher:
 
     @classmethod
     async def _page_article_text(cls, page: Any, url: str) -> str:
-        body_text = await cls._page_text(page, url)
-        candidates: list[str] = []
-        for selector in ARTICLE_SELECTORS:
-            locator = page.locator(selector)
-            for index in range(min(await locator.count(), 20)):
-                try:
-                    text = _normalise_text(await locator.nth(index).inner_text())
-                except Exception:
-                    continue
-                if len(text) >= 80 and ANNOUNCED_PATTERN.search(text):
-                    candidates.append(text)
-        if candidates:
-            complete = [
-                text for text in candidates
-                if len(text) >= 120 and (REVISED_PATTERN.search(text) or DOCUMENT_PATTERN.search(text))
-            ]
-            content = min(complete or candidates, key=len)
-            extract_article_metadata(content)
-            return content
-        content = extract_rule_text_window(body_text)
-        extract_article_metadata(content)
-        return content
+        await cls._page_text(page, url)
+        return await page.content()
 
     async def _process_published_rule(self, rule: dict[str, str]) -> dict[str, Any]:
         article = {"name": rule["title"], "url": rule["url"]}
@@ -514,7 +516,12 @@ class XhsRuleWatcher:
         capture = scraped["articles"][0] if scraped.get("articles") else None
         if not capture or capture[1] is None:
             raise RuntimeError("published rule content capture failed")
-        current = extract_article_metadata(capture[1])
+        try:
+            current = extract_article_metadata(
+                capture[1], today=self.today_provider(), first_discovery=True,
+            )
+        except (TypeError, ValueError) as exc:
+            return await self._push_date_parse_failure(rule, str(exc).splitlines()[0])
         self._save_article(rule["url"], current)
         title, summary, priority, analysis, shop_snapshot = await self._run_impact_analysis(
             article, current, published_at=rule["published_at"], manual=False,
@@ -537,6 +544,32 @@ class XhsRuleWatcher:
         if await self._deliver(alert):
             return {"name": rule["title"], "status": "pushed", "summary": summary}
         return {"name": rule["title"], "status": "notification-degraded"}
+
+    async def _push_date_parse_failure(
+        self, rule: dict[str, str], reason: str,
+    ) -> dict[str, Any]:
+        summary = "日期解析失败，需要人工核对原文；系统未采用页面日期，也未生成行动项。"
+        alert = self._alert(
+            title=rule["title"], url=rule["url"], kind="新规则",
+            summary=summary, priority="highest",
+            extra={
+                "date_parse_failed": True,
+                "rule_id": rule["rule_id"],
+                "published_at": rule["published_at"],
+            },
+        )
+        stable_key = f"xhs-rule:published:{rule['rule_id']}:{rule['published_at']}"
+        alert["id"] = hashlib.sha256(stable_key.encode("utf-8")).hexdigest()[:20]
+        LOGGER.warning("xhs rule date parsing needs review (%s): %s", rule["title"], reason)
+        if await self._deliver(alert):
+            return {
+                "name": rule["title"], "status": "pushed", "summary": summary,
+                "date_parse_failed": True,
+            }
+        return {
+            "name": rule["title"], "status": "notification-degraded",
+            "date_parse_failed": True,
+        }
 
     async def _run_impact_analysis(
         self,
@@ -678,7 +711,32 @@ class XhsRuleWatcher:
         capture = scraped.get("articles", [])[0] if scraped.get("articles") else None
         if not capture or capture[1] is None:
             raise RuntimeError("manual rule content capture failed")
-        current = extract_article_metadata(capture[1])
+        try:
+            current = extract_article_metadata(
+                capture[1], today=self.today_provider(), first_discovery=True,
+            )
+        except (TypeError, ValueError) as exc:
+            summary = "日期解析失败，需要人工核对原文；系统未采用页面日期，也未生成行动项。"
+            delivered = False
+            if push:
+                alert = self._alert(
+                    title=str(article.get("name") or f"规则 {normalised}"),
+                    url=str(article["url"]), kind="手动触发·规则影响分析",
+                    summary=summary, priority="highest", extra={"date_parse_failed": True},
+                )
+                delivered = await self._deliver(alert)
+            return {
+                "status": "pushed" if push and delivered else "notification-degraded" if push else "needs-review",
+                "manual": True,
+                "push_requested": push,
+                "rule_id": normalised,
+                "date_parse_failed": True,
+                "reason": str(exc).splitlines()[0],
+                "summary": summary,
+                "shop_item_count": 0,
+                "shop_snapshot_stale": False,
+                "analysis": None,
+            }
         published_at = current["announced_at"] or self.today_provider().isoformat()
         title, summary, priority, analysis, shop_snapshot = await self._run_impact_analysis(
             article, current, published_at=published_at, manual=True,

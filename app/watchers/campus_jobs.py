@@ -67,6 +67,7 @@ class CampusJobsWatcher(SubsidyWatcher):
         self, database: Database, config_path: str | Path | None = None, **kwargs: Any,
     ) -> None:
         path = config_path or os.getenv("CAMPUS_JOBS_CONFIG", "config/campus_jobs_sources.yaml")
+        kwargs["standard_notifications"] = True
         super().__init__(database, path, **kwargs)
         self.latest_items: list[Item] = []
         self.latest_gongkao_items: list[Item] = []

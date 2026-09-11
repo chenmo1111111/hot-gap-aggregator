@@ -18,7 +18,7 @@ import yaml
 from dotenv import load_dotenv
 from selectolax.parser import HTMLParser
 
-from app.notify import notify_subsidy_alert
+from app.notify import notify_bark_alert, notify_subsidy_alert
 from app.store.database import Database
 
 
@@ -142,12 +142,17 @@ class SubsidyWatcher:
         self, database: Database, config_path: str | Path | None = None, *,
         judge: Judge | None = None, notifier: Notifier | None = None,
         alerts_path: str | Path | None = None, confirmation_delay_seconds: float = 60,
+        standard_notifications: bool = False,
     ) -> None:
         self.database = database
         self.config_path = Path(config_path or os.getenv("SUBSIDY_SOURCES_CONFIG", "config/subsidy_sources.yaml"))
         self.judge = judge or self._llm_judge
-        self.notifier = notifier or notify_subsidy_alert
+        self.notifier = notifier or (
+            notify_subsidy_alert if standard_notifications else notify_bark_alert
+        )
         self._custom_notifier = notifier is not None
+        self._standard_notifications = standard_notifications
+        self._runtime_config: dict[str, Any] = {}
         self.confirmation_delay_seconds = confirmation_delay_seconds
         default_data_dir = Path(os.getenv("SERVER_SITE_DATA_DIR", "public/data"))
         self.alerts_path = Path(alerts_path) if alerts_path else default_data_dir / "alerts.json"
@@ -167,6 +172,7 @@ class SubsidyWatcher:
 
     async def run(self) -> dict[str, list[dict[str, str]]]:
         config = self.load_config()
+        self._runtime_config = config
         keywords = [str(value).casefold() for value in config.get("title_keywords", []) if str(value).strip()]
         list_results: list[dict[str, str]] = []
         policy_results: list[dict[str, str]] = []
@@ -268,11 +274,20 @@ class SubsidyWatcher:
         return {"region": region, "name": name, "status": "notification-degraded"}
 
     async def _deliver(self, alert: dict[str, str]) -> bool:
-        if self._custom_notifier or os.getenv("FEISHU_WEBHOOK") or os.getenv("BARK_URL"):
-            statuses = await self.notifier(alert)
-            return any(status == "ok" for status in statuses.values())
-        self._write_alert(alert)
-        return True
+        try:
+            self._write_alert(alert)
+        except Exception as exc:
+            LOGGER.warning("subsidy alert site write failed: %s", exc)
+            return False
+        if self._standard_notifications:
+            if not (
+                self._custom_notifier or os.getenv("FEISHU_WEBHOOK") or os.getenv("BARK_URL")
+            ):
+                return True
+        elif not bool(self._runtime_config.get("subsidy_alert_bark_enabled", False)):
+            return True
+        statuses = await self.notifier(alert)
+        return any(status == "ok" for status in statuses.values())
 
     def _write_alert(self, alert: dict[str, str]) -> None:
         self.alerts_path.parent.mkdir(parents=True, exist_ok=True)

@@ -138,7 +138,8 @@ def write_qiuzhao(data_dir: str | Path) -> dict[str, Any]:
             raise ValueError(f"{snapshot_path} must contain a JSON object")
         snapshot = normalize_snapshot_payload(payload)
         snapshot["items"] = [
-            row for row in snapshot["items"]
+            {**row, "upstream_source": _text(row.get("upstream_source")) or "wanqing_feishu"}
+            for row in snapshot["items"]
             if not is_expired_item(
                 {"source": "jobs", "deadline": row.get("deadline"), "extra": {}}, policy,
             )
@@ -154,7 +155,8 @@ def write_qiuzhao(data_dir: str | Path) -> dict[str, Any]:
         snapshot["status"]["upstream_source"] = "xiaozhaoya"
         before_retention = len(snapshot["items"])
         snapshot["items"] = [
-            row for row in snapshot["items"]
+            {**row, "upstream_source": "xiaozhaoya"}
+            for row in snapshot["items"]
             if not is_expired_item(
                 {"source": "jobs", "deadline": row.get("deadline"), "extra": {}}, policy,
             )

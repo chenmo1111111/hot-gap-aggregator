@@ -12,7 +12,6 @@ from app.watchers.xhs_rule_watch import (
     detail_url_from_text,
     extract_article_metadata,
     extract_external_links,
-    extract_rule_text_window,
     merge_xhs_cookies,
     parse_published_date,
     parse_rule_list_text,
@@ -26,6 +25,10 @@ TODAY = date(2026, 9, 9)
 def fixture_body(name: str) -> str:
     tree = HTMLParser((FIXTURES / name).read_text(encoding="utf-8"))
     return tree.body.text(separator="\n", strip=True)
+
+
+def fixture_html(name: str) -> str:
+    return (FIXTURES / name).read_text(encoding="utf-8")
 
 
 def write_config(path: Path) -> None:
@@ -94,7 +97,7 @@ def test_list_and_article_parsers_extract_dates_ids_and_links() -> None:
     assert detail_url_from_text(
         "onclick=go('/rule/detail/26/2981?from=list')", "https://school.xiaohongshu.com/rule/list/17",
     ) == "https://school.xiaohongshu.com/rule/detail/26/2981"
-    metadata = extract_article_metadata(fixture_body("xhs_rule_article_old.html"))
+    metadata = extract_article_metadata(fixture_html("xhs_rule_article_old.html"))
     assert metadata["announced_at"] == "2026-08-01"
     assert metadata["effective_at"] == "2026-08-08"
     assert metadata["document_url"].endswith("e3_demo_old")
@@ -102,7 +105,33 @@ def test_list_and_article_parsers_extract_dates_ids_and_links() -> None:
     assert extract_external_links("https://a.test/x https://a.test/x https://b.test/y。") == [
         "https://a.test/x", "https://b.test/y",
     ]
-    assert extract_rule_text_window(fixture_body("xhs_rule_article_old.html")).startswith("本规则于")
+
+
+def test_article_parser_uses_last_date_inside_container_and_rejects_bad_dates() -> None:
+    html = """<!doctype html><html><body>
+      <div>本规则于 2024-01-01 公示，2024-01-08 生效</div>
+      <article>
+        <p>引用旧说明：本规则于 2025-03-05 公示，2025-03-12 生效。</p>
+        <p>当前声明：本规则于 2026-09-08 公示，2026-09-10 生效。</p>
+      </article>
+    </body></html>"""
+    metadata = extract_article_metadata(
+        html, today=date(2026, 9, 11), first_discovery=True,
+    )
+    assert metadata["announced_at"] == "2026-09-08"
+    assert metadata["effective_at"] == "2026-09-10"
+
+    invalid = """<article><p>规则正文足够长，用于测试日期合理性校验。
+      本规则于 2026-09-20 公示，2026-09-01 生效。</p></article>"""
+    with pytest.raises(ValueError, match="more than 7 days"):
+        extract_article_metadata(invalid)
+
+
+def test_article_parser_never_falls_back_to_whole_page_text() -> None:
+    html = """<html><body><main>页面导航和脚注里的旧声明，正文容器缺失。
+      本规则于 2025-03-05 公示，2025-03-12 生效。</main></body></html>"""
+    with pytest.raises(ValueError, match="article container not found"):
+        extract_article_metadata(html, today=date(2026, 9, 11), first_discovery=True)
 
 
 def test_notification_ledger_and_last_successful_run_persist(tmp_path) -> None:
@@ -178,7 +207,7 @@ async def test_new_today_rule_pushes_even_when_ai_says_no_change_and_never_repea
     rows = [rule("26/4000", "2026-09-09")]
     monkeypatch.setattr(watcher, "_scrape_rule_lists", lambda *_: async_value(scrape_result(rows)))
     monkeypatch.setattr(watcher, "_scrape", lambda *_: async_value({
-        "lists": [], "articles": [({"name": rows[0]["title"], "url": rows[0]["url"]}, fixture_body("xhs_rule_article_new.html"))],
+        "lists": [], "articles": [({"name": rows[0]["title"], "url": rows[0]["url"]}, fixture_html("xhs_rule_article_new.html"))],
     }))
 
     first = await watcher.run()
@@ -191,6 +220,58 @@ async def test_new_today_rule_pushes_even_when_ai_says_no_change_and_never_repea
     assert "【小红书新规则】" in delivered[0]["summary"]
     assert "不涉及你当前在售的商品类目" in delivered[0]["summary"]
     assert json.loads((tmp_path / "alerts.json").read_text(encoding="utf-8"))["items"] == delivered
+    database.close()
+
+
+@pytest.mark.asyncio
+async def test_stale_dates_on_new_rule_push_manual_review_without_deadline(monkeypatch, tmp_path) -> None:
+    config = tmp_path / "xhs.yaml"
+    write_config(config)
+    database = Database(tmp_path / "watch.db")
+    database.save_xhs_rule_last_successful_run("2026-09-10")
+    delivered: list[dict] = []
+    impact_calls: list[str] = []
+
+    async def notifier(alert):
+        delivered.append(alert)
+        return {"feishu": "ok"}
+
+    async def refresh(_settings):
+        impact_calls.append("shop")
+        return {"stale": False, "items": []}
+
+    async def analyze(_rule, _shop):
+        impact_calls.append("impact")
+        return {}
+
+    stale_rule = rule("18/3340", "2026-09-11", "交易导流违规管理细则")
+    stale_html = """<!doctype html><html><body><article>
+      <h1>交易导流违规管理细则</h1>
+      <p>规则正文说明平台对交易导流行为的治理要求和处理方式。</p>
+      <p>本规则于 2025-03-05 公示，2025-03-12 生效。</p>
+    </article></body></html>"""
+    watcher = XhsRuleWatcher(
+        database, config, notifier=notifier, alerts_path=tmp_path / "alerts.json",
+        shop_refresher=refresh, impact_analyzer=analyze,
+        today_provider=lambda: date(2026, 9, 11),
+    )
+    monkeypatch.setattr(
+        watcher, "_scrape_rule_lists", lambda *_: async_value(scrape_result([stale_rule])),
+    )
+    monkeypatch.setattr(watcher, "_scrape", lambda *_: async_value({
+        "lists": [], "articles": [(stale_rule, stale_html)],
+    }))
+
+    result = await watcher.run()
+
+    assert result["status"] == "ok" and result["notified"] == 1
+    assert result["rules"][0]["date_parse_failed"] is True
+    assert impact_calls == []
+    assert len(delivered) == 1
+    assert delivered[0]["date_parse_failed"] is True
+    assert "日期解析失败，需要人工核对原文" in delivered[0]["summary"]
+    assert "截止" not in delivered[0]["summary"]
+    assert "2025-03-12" not in delivered[0]["summary"]
     database.close()
 
 
@@ -244,7 +325,7 @@ async def test_external_document_refresh_precedes_impact_analysis(monkeypatch, t
         today_provider=lambda: TODAY,
     )
     watcher._runtime_config = watcher.load_config()
-    current = extract_article_metadata(fixture_body("xhs_rule_article_new.html"))
+    current = extract_article_metadata(fixture_html("xhs_rule_article_new.html"))
     await watcher._run_impact_analysis(
         {"name": "月度类目规则", "url": "https://school.xiaohongshu.com/rule/detail/26/2981"},
         current,
@@ -285,7 +366,7 @@ async def test_same_rule_id_with_new_monthly_publication_date_pushes_once(monkey
     )
     monkeypatch.setattr(watcher, "_scrape_rule_lists", lambda *_: async_value(scrape_result([changed])))
     monkeypatch.setattr(watcher, "_scrape", lambda *_: async_value({
-        "lists": [], "articles": [(changed, fixture_body("xhs_rule_article_new.html"))],
+        "lists": [], "articles": [(changed, fixture_html("xhs_rule_article_new.html"))],
     }))
     assert (await watcher.run())["notified"] == 1
     assert (await watcher.run())["notified"] == 0
@@ -322,7 +403,7 @@ async def test_failed_day_is_caught_up_by_two_day_window(monkeypatch, tmp_path) 
     )
     monkeypatch.setattr(watcher, "_scrape_rule_lists", lambda *_: async_value(scrape_result([yesterday])))
     monkeypatch.setattr(watcher, "_scrape", lambda *_: async_value({
-        "lists": [], "articles": [(yesterday, fixture_body("xhs_rule_article_new.html"))],
+        "lists": [], "articles": [(yesterday, fixture_html("xhs_rule_article_new.html"))],
     }))
     result = await watcher.run()
     assert result["window_start"] == "2026-09-05"
@@ -360,7 +441,7 @@ async def test_manual_analyze_defaults_to_stdout_only_and_push_is_explicit(monke
     )
     article = {"name": "月度类目规则", "url": "https://school.xiaohongshu.com/rule/detail/26/2981"}
     monkeypatch.setattr(watcher, "_scrape", lambda *_: async_value({
-        "lists": [], "articles": [(article, fixture_body("xhs_rule_article_new.html"))],
+        "lists": [], "articles": [(article, fixture_html("xhs_rule_article_new.html"))],
     }))
     result = await watcher.analyze("26/2981")
     assert result["status"] == "analyzed" and result["push_requested"] is False

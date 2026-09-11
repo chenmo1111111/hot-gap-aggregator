@@ -74,7 +74,9 @@ def test_write_qiuzhao_merges_wanqing_snapshot_with_collected_jobs(tmp_path) -> 
 
     result = write_qiuzhao(tmp_path)
 
-    assert result["items"][0] == snapshot["items"][0]
+    assert result["items"][0] == {
+        **snapshot["items"][0], "upstream_source": "wanqing_feishu",
+    }
     assert result["items"][1]["company_name"] == "旧公司"
     assert result["status"]["upstream_source"] == "wanqing_feishu+jobs"
     written = json.loads((tmp_path / "qiuzhao.json").read_text(encoding="utf-8"))
@@ -101,7 +103,7 @@ def test_write_qiuzhao_prefers_manual_row_for_same_company_and_position(tmp_path
 
     result = write_qiuzhao(tmp_path)
 
-    assert result["items"] == [manual]
+    assert result["items"] == [{**manual, "upstream_source": "wanqing_feishu"}]
 
 
 def test_write_qiuzhao_merges_xiaozhaoya_snapshot(tmp_path) -> None:
@@ -118,7 +120,7 @@ def test_write_qiuzhao_merges_xiaozhaoya_snapshot(tmp_path) -> None:
 
     result = write_qiuzhao(tmp_path)
 
-    assert result["items"][0] == row
+    assert result["items"][0] == {**row, "upstream_source": "xiaozhaoya"}
     assert "xiaozhaoya" in result["status"]["upstream_source"]
 
 
@@ -147,7 +149,7 @@ def test_daily_wanqing_wins_foundation_duplicate_and_expired_foundation_is_prune
 
     result = write_qiuzhao(tmp_path)
 
-    assert result["items"] == [daily]
+    assert result["items"] == [{**daily, "upstream_source": "wanqing_feishu"}]
 
 
 def test_write_qiuzhao_filters_event_noise_from_server_jobs(tmp_path) -> None:

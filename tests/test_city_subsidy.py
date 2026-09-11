@@ -23,7 +23,12 @@ def test_extract_main_text_ignores_navigation() -> None:
 @pytest.mark.asyncio
 async def test_city_watcher_baselines_then_pushes_once(monkeypatch, tmp_path) -> None:
     config = tmp_path / "city.yaml"
-    config.write_text("pages:\n  - city: 杭州\n    name: 应届生生活补贴\n    url: https://example.test/policy\n", encoding="utf-8")
+    config.write_text(
+        "pages:\n  - city: 杭州\n    name: 应届生生活补贴\n"
+        "    url: https://example.test/policy\n"
+        "subsidy_alert_bark_enabled: true\n",
+        encoding="utf-8",
+    )
     database = Database(tmp_path / "watch.db")
     pushed: list[str] = []
 
@@ -33,10 +38,11 @@ async def test_city_watcher_baselines_then_pushes_once(monkeypatch, tmp_path) ->
 
     async def notify(text: str, _title: str) -> dict[str, str]:
         pushed.append(text)
-        return {"feishu": "ok"}
+        return {"bark": "ok"}
 
     watcher = CitySubsidyWatcher(
-        database, config, judge=judge, notifier=notify, confirmation_delay_seconds=0,
+        database, config, judge=judge, notifier=notify,
+        confirmation_delay_seconds=0, alerts_path=tmp_path / "alerts.json",
     )
     monkeypatch.setattr(watcher, "_fetch", lambda _url: _async_value(fixture("city_subsidy_old.html")))
     assert (await watcher.run())[0]["status"] == "baseline"

@@ -81,5 +81,71 @@ async def test_one_failed_source_does_not_block_the_rest(monkeypatch, tmp_path) 
     database.close()
 
 
+@pytest.mark.asyncio
+async def test_subsidy_alert_writes_site_without_feishu_or_bark_by_default(monkeypatch, tmp_path) -> None:
+    config = tmp_path / "sources.yaml"
+    config.write_text(
+        "list_pages:\n  - region: 石家庄市\n    url: https://example.test/notices/\n"
+        "title_keywords: [补贴]\nsubsidy_alert_bark_enabled: false\n",
+        encoding="utf-8",
+    )
+    database = Database(tmp_path / "watch.db")
+    alerts = tmp_path / "alerts.json"
+    watcher = SubsidyWatcher(database, config, alerts_path=alerts)
+    calls: list[str] = []
+
+    async def unexpected_post(url: str, **_kwargs: object) -> None:
+        calls.append(url)
+
+    monkeypatch.setenv("FEISHU_WEBHOOK", "https://feishu.test/hook")
+    monkeypatch.setenv("BARK_URL", "https://bark.test/push")
+    monkeypatch.setattr("app.notify._post", unexpected_post)
+    monkeypatch.setattr(
+        watcher, "_fetch_response",
+        lambda _url: _async_value(fixture("subsidy_list_old.html")),
+    )
+    await watcher.run()
+    monkeypatch.setattr(
+        watcher, "_fetch_response",
+        lambda _url: _async_value(fixture("subsidy_list_new.html")),
+    )
+    assert (await watcher.run())["list_pages"][0]["status"] == "pushed"
+    assert calls == []
+    assert json.loads(alerts.read_text(encoding="utf-8"))["items"]
+    database.close()
+
+
+@pytest.mark.asyncio
+async def test_subsidy_optional_notification_uses_bark_only(monkeypatch, tmp_path) -> None:
+    config = tmp_path / "sources.yaml"
+    config.write_text(
+        "list_pages:\n  - region: 石家庄市\n    url: https://example.test/notices/\n"
+        "title_keywords: [补贴]\nsubsidy_alert_bark_enabled: true\n",
+        encoding="utf-8",
+    )
+    database = Database(tmp_path / "watch.db")
+    watcher = SubsidyWatcher(database, config, alerts_path=tmp_path / "alerts.json")
+    calls: list[str] = []
+
+    async def record_post(url: str, **_kwargs: object) -> None:
+        calls.append(url)
+
+    monkeypatch.setenv("FEISHU_WEBHOOK", "https://feishu.test/hook")
+    monkeypatch.setenv("BARK_URL", "https://bark.test/push")
+    monkeypatch.setattr("app.notify._post", record_post)
+    monkeypatch.setattr(
+        watcher, "_fetch_response",
+        lambda _url: _async_value(fixture("subsidy_list_old.html")),
+    )
+    await watcher.run()
+    monkeypatch.setattr(
+        watcher, "_fetch_response",
+        lambda _url: _async_value(fixture("subsidy_list_new.html")),
+    )
+    assert (await watcher.run())["list_pages"][0]["status"] == "pushed"
+    assert calls == ["https://bark.test/push"]
+    database.close()
+
+
 async def _async_value(value: str) -> str:
     return value

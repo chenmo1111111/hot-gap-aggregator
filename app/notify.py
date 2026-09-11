@@ -148,6 +148,23 @@ async def notify_subsidy_alert(alert: dict[str, str]) -> dict[str, str]:
     return {}
 
 
+async def notify_bark_alert(alert: dict[str, str]) -> dict[str, str]:
+    """Send one private watcher alert to Bark only; never fall back to Feishu."""
+    bark_url = os.getenv("BARK_URL", "").strip()
+    if not bark_url:
+        return {}
+    try:
+        await _post(bark_url, json={
+            "title": f"{alert.get('category_label', '补贴预警')}·{alert.get('region', '')}",
+            "body": alert.get("message", ""),
+            "group": "hot-gap",
+        })
+        return {"bark": "ok"}
+    except Exception as exc:
+        LOGGER.warning("Bark-only watcher notification failed: %s", exc)
+        return {"bark": "degraded"}
+
+
 def _feishu_payload(text: str) -> dict[str, object]:
     payload: dict[str, object] = {"msg_type": "text", "content": {"text": text}}
     secret = os.getenv("FEISHU_SIGN_SECRET")
