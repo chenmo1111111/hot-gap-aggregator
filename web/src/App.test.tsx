@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom/vitest';
-import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { cleanup, fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import App from './App';
 
@@ -110,6 +110,9 @@ describe('authenticated app bootstrap', () => {
 
     render(<App />);
     await screen.findByText('admin · 管理员');
+    const navButtons = within(screen.getByRole('navigation')).getAllByRole('button');
+    expect(navButtons[0]).toHaveTextContent('截止提醒');
+    expect(navButtons[1]).toHaveTextContent('全部');
     fireEvent.click(screen.getByRole('button', { name: '截止提醒' }));
     expect(await screen.findByRole('heading', { name: '三棵树' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: '需要你自己看' })).toBeInTheDocument();
