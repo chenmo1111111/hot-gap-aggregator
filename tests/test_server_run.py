@@ -103,6 +103,39 @@ def test_merge_mainland_jobs_replaces_official_platform_rows(tmp_path) -> None:
     assert sidecar["subsources"]["official_jobs"]["item_count"] == 1
 
 
+def test_merge_mainland_jobs_preserves_rows_from_failed_providers(tmp_path) -> None:
+    old_yingjiesheng = Item(
+        source="jobs", rank=1, title="旧后端岗位", title_zh="旧后端岗位",
+        url="https://q.yingjiesheng.com/jobdetail/old",
+        extra={"subsource": "yingjiesheng", "company": "旧公司"},
+    )
+    old_ncss = Item(
+        source="jobs", rank=2, title="旧算法岗位", title_zh="旧算法岗位",
+        url="https://cg.ncss.cn/student/jobs/old/detail.html",
+        extra={"subsource": "ncss", "company": "旧平台公司"},
+    )
+    merge_yingjiesheng_jobs_into_site(
+        tmp_path, [old_yingjiesheng, old_ncss], "2026-09-11T01:00:00+00:00",
+    )
+    fresh_ncss = Item(
+        source="jobs", rank=1, title="新算法岗位", title_zh="新算法岗位",
+        url="https://cg.ncss.cn/student/jobs/new/detail.html",
+        extra={"subsource": "ncss", "company": "新平台公司"},
+    )
+    merge_yingjiesheng_jobs_into_site(
+        tmp_path, [fresh_ncss], "2026-09-11T02:00:00+00:00",
+        preserve_subsources={"yingjiesheng"},
+    )
+
+    sidecar = json.loads((tmp_path / "server-jobs.json").read_text(encoding="utf-8"))
+    assert [row["url"] for row in sidecar["items"]] == [
+        "https://cg.ncss.cn/student/jobs/new/detail.html",
+        "https://q.yingjiesheng.com/jobdetail/old",
+    ]
+    assert sidecar["subsources"]["yingjiesheng"]["status"] == "degraded"
+    assert sidecar["subsources"]["official_jobs"]["status"] == "ok"
+
+
 def test_mainland_runner_includes_lightweight_official_jobs_collector() -> None:
     assert OfficialJobsCollector in server_run.run_yingjiesheng.__globals__.values()
 

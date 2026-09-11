@@ -76,6 +76,7 @@ class OfficialJobsCollector(BaseCollector):
             or os.getenv("OFFICIAL_JOB_SOURCES_CONFIG", "config/official_job_sources.yaml")
         )
         self.stats: dict[str, dict[str, int | str]] = {}
+        self.failed_subsources: set[str] = set()
         self.filter_stats: dict[str, int] = {}
         self.filtered_samples: list[dict[str, str]] = []
 
@@ -215,6 +216,7 @@ class OfficialJobsCollector(BaseCollector):
 
     async def fetch(self) -> list[Item]:
         sources = self.load_sources()
+        self.failed_subsources.clear()
         results = await asyncio.gather(
             *(self._fetch_source(source) for source in sources), return_exceptions=True,
         )
@@ -224,6 +226,7 @@ class OfficialJobsCollector(BaseCollector):
             name = str(source.get("name") or source.get("list_url"))
             if isinstance(result, BaseException):
                 self.stats[name] = {"count": 0, "error": str(result)}
+                self.failed_subsources.add(str(source.get("subsource") or ""))
                 errors.append(f"{name}: {result}")
                 continue
             self.stats[name] = {"count": len(result), "error": ""}

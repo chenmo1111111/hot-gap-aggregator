@@ -238,15 +238,20 @@ def merge_campus_jobs_into_site(
 
 def merge_yingjiesheng_jobs_into_site(
     data_dir: str | Path, items: list[Item], generated_at: str,
+    preserve_subsources: set[str] | None = None,
 ) -> None:
     """Replace only server-owned Yingjiesheng/fallback rows in the jobs sidecar."""
     target = Path(data_dir)
     target.mkdir(parents=True, exist_ok=True)
     payload = _load_server_jobs(target)
+    preserve_owned = preserve_subsources or set()
     preserved = [
         row for row in payload.get("items", [])
         if isinstance(row, dict)
-        and str((row.get("extra") or {}).get("subsource") or "") not in MAIN_JOB_SUBSOURCES
+        and (
+            str((row.get("extra") or {}).get("subsource") or "") not in MAIN_JOB_SUBSOURCES
+            or str((row.get("extra") or {}).get("subsource") or "") in preserve_owned
+        )
     ]
     combined: list[dict] = []
     seen: set[str] = set()
@@ -260,7 +265,7 @@ def merge_yingjiesheng_jobs_into_site(
     combined, _ = filter_current_items(combined, load_retention())
     subsources = payload.get("subsources") if isinstance(payload.get("subsources"), dict) else {}
     subsources["yingjiesheng"] = {
-        "status": "ok",
+        "status": "degraded" if preserve_owned & YINGJIESHENG_SUBSOURCES else "ok",
         "item_count": sum(
             1 for row in combined
             if str((row.get("extra") or {}).get("subsource") or "") in YINGJIESHENG_SUBSOURCES
@@ -268,7 +273,7 @@ def merge_yingjiesheng_jobs_into_site(
         "updated_at": generated_at,
     }
     subsources["official_jobs"] = {
-        "status": "ok",
+        "status": "degraded" if preserve_owned & OFFICIAL_JOB_SUBSOURCES else "ok",
         "item_count": sum(
             1 for row in combined
             if str((row.get("extra") or {}).get("subsource") or "") in OFFICIAL_JOB_SUBSOURCES
@@ -358,12 +363,23 @@ async def run_yingjiesheng(data_dir: str | Path) -> dict[str, object]:
     results = await asyncio.gather(*(provider.fetch() for provider in providers), return_exceptions=True)
     items: list[Item] = []
     errors: list[str] = []
+    preserve_subsources: set[str] = set()
     for provider, result in zip(providers, results, strict=True):
         name = provider.__class__.__name__.removesuffix("Collector")
         if isinstance(result, BaseException):
             errors.append(f"{name}: {result}")
+            if isinstance(provider, YingjieshengCollector):
+                preserve_subsources.update({"yingjiesheng", "xjh"})
+            elif isinstance(provider, HaitouCollector):
+                preserve_subsources.add("haitou")
+            elif isinstance(provider, WutongguoCollector):
+                preserve_subsources.add("wutongguo")
+            elif isinstance(provider, OfficialJobsCollector):
+                preserve_subsources.update(OFFICIAL_JOB_SUBSOURCES)
         else:
             items.extend(result)
+            if isinstance(provider, OfficialJobsCollector):
+                preserve_subsources.update(provider.failed_subsources)
     if not items:
         return {
             "status": "degraded", "item_count": 0,
@@ -382,14 +398,16 @@ async def run_yingjiesheng(data_dir: str | Path) -> dict[str, object]:
                 unique[key] = item
         items = list(unique.values())
         run_at = datetime.now(UTC).isoformat()
-        merge_yingjiesheng_jobs_into_site(data_dir, items, run_at)
+        merge_yingjiesheng_jobs_into_site(
+            data_dir, items, run_at, preserve_subsources=preserve_subsources,
+        )
         counts: dict[str, int] = {}
         for item in items:
             name = str(item.extra.get("subsource") or "yingjiesheng")
             counts[name] = counts.get(name, 0) + 1
         return {
             "status": "ok", "item_count": len(items), "subsources": counts,
-            "warnings": errors,
+            "warnings": errors, "preserved_subsources": sorted(preserve_subsources),
         }
     except Exception as exc:
         # Preserve the previous good sidecar when either the primary site or
