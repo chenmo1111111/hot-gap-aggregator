@@ -448,18 +448,6 @@ sources:
     date_format: "%Y-%m-%d %H:%M"
     fixture: military_units.html
 
-  - name: 事业单位公开招聘服务平台
-    province: 全国
-    category: 事业单位
-    list_url: https://job.mohrss.gov.cn/cjobs/institution/listInstitution
-    engine: playwright
-    item_selector: li
-    title_selector: a[href]
-    link_selector: a[href]
-    date_selector: span
-    date_format: "%Y-%m-%d"
-    fixture: mohrss_joint.html
-
   - name: 中国科学院国家授时中心-人才招聘
     province: 全国
     category: 事业单位

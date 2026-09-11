@@ -4,7 +4,13 @@ import json
 
 import pytest
 
-from app.capture_monitor import main, notify_feishu_file, update_state, validate_and_commit
+from app.capture_monitor import (
+    main,
+    notify_feishu_file,
+    notify_refresh_failure,
+    update_state,
+    validate_and_commit,
+)
 
 
 def _write(path, count: int, prefix: str = "row") -> None:
@@ -100,3 +106,29 @@ def test_alert_file_validates_and_sends(monkeypatch, tmp_path) -> None:
     )
     assert notify_feishu_file(alert) is True
     assert calls == [("test", "detail")]
+
+
+def test_refresh_failure_alerts_bark_and_feishu_and_writes_audit_record(
+    monkeypatch, tmp_path,
+) -> None:
+    calls: list[tuple[str, str]] = []
+
+    async def fake_notify(message: str, title: str):
+        calls.append((title, message))
+        return {"bark": "ok", "feishu": "degraded"}
+
+    monkeypatch.setattr(
+        "app.capture_monitor.notify_priority_alert", fake_notify,
+    )
+    record = tmp_path / "refresh-failures.jsonl"
+
+    providers = notify_refresh_failure(
+        "HotGap refresh 失败", "阶段：sync_feishu\n退出码：1",
+        record_path=record,
+    )
+
+    assert providers == {"bark": "ok", "feishu": "degraded"}
+    assert calls == [("HotGap refresh 失败", "阶段：sync_feishu\n退出码：1")]
+    payload = json.loads(record.read_text(encoding="utf-8"))
+    assert payload["providers"] == providers
+    assert payload["notified"] is True

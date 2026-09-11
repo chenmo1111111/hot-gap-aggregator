@@ -160,6 +160,10 @@ def test_four_javascript_portals_require_rendered_content() -> None:
         }
     }
     assert len(sources) == 4
+    assert "事业单位公开招聘服务平台" not in {
+        source["name"] for source in rows
+    }
+    assert all("job.mohrss.gov.cn" not in source["list_url"] for source in rows)
     assert all(source["engine"] == "playwright" for source in sources.values())
     assert all(source["playwright_wait_until"] == "networkidle" for source in sources.values())
     assert all(source.get("playwright_ready_selector") for source in sources.values())
@@ -322,8 +326,22 @@ def test_server_refresh_cleans_only_stale_marked_playwright_processes() -> None:
     assert 'command_line" == *"chromium"*"--headless"*' in script
     assert (
         "\ncleanup_stale_hot_gap_playwright\n"
+        "refresh_stage=collect_gongkao\n"
         ".venv/bin/python -m app.collect_gongkao\n"
     ) in script
+
+
+def test_server_refresh_alerts_on_any_failed_stage() -> None:
+    script = (ROOT / "deploy" / "server" / "hot-gap-feishu-refresh").read_text(
+        encoding="utf-8"
+    )
+    assert "set -Eeuo pipefail" in script
+    assert "trap 'notify_refresh_failure" in script
+    assert "refresh-alert-b64" in script
+    assert '--record "$persistent_dir/refresh-failures.jsonl"' in script
+    assert "refresh_stage=sync_feishu\n.venv/bin/python -m app.sync_feishu" in script
+    assert "refresh_stage=sync_feishu_public" in script
+    assert "/usr/bin/flock -E 200 -w 300" in script
 
 
 def test_html_source_rejects_empty_selectors(tmp_path) -> None:

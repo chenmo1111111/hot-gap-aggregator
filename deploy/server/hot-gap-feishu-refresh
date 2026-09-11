@@ -1,18 +1,57 @@
 #!/usr/bin/env bash
-set -euo pipefail
+set -Eeuo pipefail
+
+project=/opt/hot-gap-aggregator
+persistent_dir=/var/lib/hot-gap
+data_dir=/var/www/hot-gap/data
+refresh_stage=startup
+
+notify_refresh_failure() {
+  local failure_status="$1"
+  local failure_line="$2"
+  local failure_command="$3"
+  local title message title_b64 message_b64 alert_status
+
+  trap - ERR
+  set +e
+  title="HotGap refresh 失败"
+  printf -v message \
+    '主机：%s\n时间：%s\n阶段：%s\n退出码：%s\n脚本行：%s\n命令：%s\n日志：/var/log/hot-gap-feishu-sync.log' \
+    "$(hostname)" "$(date --iso-8601=seconds)" "$refresh_stage" \
+    "$failure_status" "$failure_line" "${failure_command:0:800}"
+  title_b64="$(printf '%s' "$title" | /usr/bin/base64 -w 0)"
+  message_b64="$(printf '%s' "$message" | /usr/bin/base64 -w 0)"
+  "$project/.venv/bin/python" -m app.capture_monitor refresh-alert-b64 \
+    --title-b64 "$title_b64" \
+    --message-b64 "$message_b64" \
+    --record "$persistent_dir/refresh-failures.jsonl"
+  alert_status=$?
+  if [[ $alert_status -ne 0 ]]; then
+    echo "Refresh failure alert delivery failed with status $alert_status" >&2
+  fi
+  exit "$failure_status"
+}
 
 if [[ "${HOT_GAP_FEISHU_LOCKED:-}" != "1" ]]; then
-  exec /usr/bin/env HOT_GAP_FEISHU_LOCKED=1 \
-    /usr/bin/flock -w 300 /run/lock/hot-gap-feishu-sync.lock "$0"
+  if /usr/bin/env HOT_GAP_FEISHU_LOCKED=1 \
+    /usr/bin/flock -E 200 -w 300 /run/lock/hot-gap-feishu-sync.lock "$0"; then
+    exit 0
+  else
+    status=$?
+  fi
+  if [[ $status -eq 200 ]]; then
+    refresh_stage=lock_wait
+    notify_refresh_failure "$status" "$LINENO" "flock wait exceeded 300 seconds"
+  fi
+  exit "$status"
 fi
+
+trap 'notify_refresh_failure "$?" "$LINENO" "$BASH_COMMAND"' ERR
 
 # Acceptance runs and production refreshes must never let emergency seed rows
 # hide a broken or empty government source.
 export GONGKAO_DISABLE_SEEDS=true
 
-project=/opt/hot-gap-aggregator
-persistent_dir=/var/lib/hot-gap
-data_dir=/var/www/hot-gap/data
 alert_incoming=/home/deploy/.capture-alert.json.incoming
 qiuzhao_incoming=/home/deploy/.qiuzhao_wanqing.json.incoming
 qiuzhao_persistent="$persistent_dir/qiuzhao_wanqing.json"
@@ -198,15 +237,27 @@ cleanup_stale_hot_gap_playwright() {
 
 cd "$project"
 if [[ -f "$xiaozhaoya_data" ]]; then
+  refresh_stage=collect_xiaozhaoya
   .venv/bin/python -m app.collect_xiaozhaoya
 fi
+refresh_stage=cleanup_stale_playwright
 cleanup_stale_hot_gap_playwright
+refresh_stage=collect_gongkao
 .venv/bin/python -m app.collect_gongkao
+refresh_stage=export_qiuzhao
 .venv/bin/python -m app.export_qiuzhao
+refresh_stage=export_gongkao
 .venv/bin/python -m app.export_gongkao
+refresh_stage=export_recruitment_portals
 .venv/bin/python -m app.recruitment_portals --output "$data_dir/portals.json"
+refresh_stage=gongkao_enrich
 .venv/bin/python -m app.pipeline.gongkao_enrich
+refresh_stage=daily_volume
 .venv/bin/python -m app.daily_volume
+refresh_stage=sync_feishu
 .venv/bin/python -m app.sync_feishu
+refresh_stage=sync_feishu_public
 .venv/bin/python -m app.sync_feishu_public
+refresh_stage=notify_gongkao_digest
 .venv/bin/python -m app.notify_gongkao_digest
+refresh_stage=complete

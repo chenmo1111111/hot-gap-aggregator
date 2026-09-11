@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import asyncio
 import base64
 import json
 import math
@@ -14,6 +15,8 @@ from typing import Any, Mapping
 
 import httpx
 from dotenv import load_dotenv
+
+from app.notify import notify_priority_alert
 
 
 def _read(path: Path) -> dict[str, Any]:
@@ -120,6 +123,24 @@ def notify_feishu_file(path: Path) -> bool:
     return notify_feishu(title, message)
 
 
+def notify_refresh_failure(
+    title: str, message: str, *, record_path: Path,
+) -> dict[str, str]:
+    """Persist a refresh failure and notify both independent alert providers."""
+    load_dotenv()
+    providers = asyncio.run(notify_priority_alert(message, title=title))
+    record_path.parent.mkdir(parents=True, exist_ok=True)
+    with record_path.open("a", encoding="utf-8") as handle:
+        handle.write(json.dumps({
+            "at": datetime.now().astimezone().isoformat(),
+            "title": title,
+            "message": message,
+            "providers": providers,
+            "notified": any(status == "ok" for status in providers.values()),
+        }, ensure_ascii=False) + "\n")
+    return providers
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser()
     commands = parser.add_subparsers(dest="command", required=True)
@@ -142,6 +163,16 @@ def main(argv: list[str] | None = None) -> int:
     alert_b64.add_argument("--message-b64", required=True)
     alert_file = commands.add_parser("alert-file")
     alert_file.add_argument("--path", type=Path, required=True)
+    refresh_alert = commands.add_parser("refresh-alert-b64")
+    refresh_alert.add_argument("--title-b64", required=True)
+    refresh_alert.add_argument("--message-b64", required=True)
+    refresh_alert.add_argument(
+        "--record", type=Path,
+        default=Path(os.getenv(
+            "HOT_GAP_REFRESH_FAILURE_LOG",
+            "/var/lib/hot-gap/refresh-failures.jsonl",
+        )),
+    )
     args = parser.parse_args(argv)
     if args.command == "validate":
         print(json.dumps(validate_and_commit(
@@ -158,8 +189,18 @@ def main(argv: list[str] | None = None) -> int:
         title = base64.b64decode(args.title_b64, validate=True).decode("utf-8")
         message = base64.b64decode(args.message_b64, validate=True).decode("utf-8")
         print(json.dumps({"feishu_sent": notify_feishu(title, message)}))
-    else:
+    elif args.command == "alert-file":
         print(json.dumps({"feishu_sent": notify_feishu_file(args.path)}))
+    else:
+        title = base64.b64decode(args.title_b64, validate=True).decode("utf-8")
+        message = base64.b64decode(args.message_b64, validate=True).decode("utf-8")
+        providers = notify_refresh_failure(
+            title, message, record_path=args.record,
+        )
+        print(json.dumps({
+            "providers": providers,
+            "notified": any(status == "ok" for status in providers.values()),
+        }))
     return 0
 
 
