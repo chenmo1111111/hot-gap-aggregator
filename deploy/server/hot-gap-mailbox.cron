@@ -1,0 +1,6 @@
+SHELL=/bin/bash
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+# Private admin mailbox reminders. This schedule is intentionally independent
+# from hot-gap-feishu-refresh and the public aggregation jobs.
+*/20 * * * * root cd /opt/hot-gap-aggregator && /usr/bin/flock -n /run/lock/hot-gap-mailbox.lock /usr/bin/timeout 14m /usr/bin/env MAILBOX_RUN_AS_USER=www-data .venv/bin/python -m app.mailbox >> /var/log/hot-gap-mailbox.log 2>&1

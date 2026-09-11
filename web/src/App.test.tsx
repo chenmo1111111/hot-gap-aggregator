@@ -71,6 +71,8 @@ describe('authenticated app bootstrap', () => {
 
     expect(await screen.findByText('tester')).toBeInTheDocument();
     await waitFor(() => expect(fetchMock.mock.calls.some(([url]) => String(url) === '/data/all.json')).toBe(true));
+    expect(screen.queryByRole('button', { name: '截止提醒' })).not.toBeInTheDocument();
+    expect(fetchMock.mock.calls.some(([url]) => String(url).startsWith('/api/admin/mail-deadlines'))).toBe(false);
     fireEvent.click(screen.getByRole('button', { name: '调整导航标签' }));
     expect(screen.queryByText('用户管理')).not.toBeInTheDocument();
   });
@@ -90,6 +92,33 @@ describe('authenticated app bootstrap', () => {
     fireEvent.click(screen.getByRole('button', { name: '调整导航标签' }));
     expect(await screen.findByText('用户管理')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: '创建账号' })).toBeInTheDocument();
+  });
+
+  it('shows private mailbox deadlines only to admins and removes completed rows', async () => {
+    const fetchMock = vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
+      const url = String(input);
+      if (url === '/api/me') return json({ username: 'admin', is_admin: true });
+      if (url === '/api/settings') return json({ prefs: {}, updated_at: null });
+      if (url.startsWith('/api/admin/mail-deadlines?')) return json({ items: [
+        { message_id: '<tree@example>', company: '三棵树', type: 'AI视频面试', deadline_at: '2099-09-13T01:30:00Z', action_url: 'https://u.hrtps.test/r/private', summary: '完成AI视频面试', received_at: '2026-09-10T01:30:00Z', status: 'pending', subject: '三棵树视频面试通知', sender: '招聘中心' },
+        { message_id: '<review@example>', company: '信锐网科', type: '其他', deadline_at: null, action_url: null, summary: '截止时间无法确认', received_at: '2026-09-10T02:00:00Z', status: 'needs_review', subject: '信锐网科面试安排', sender: '招聘中心' },
+      ] });
+      if (url === '/api/admin/mail-deadlines/status' && init?.method === 'POST') return json({ ok: true });
+      return dataResponse(url) ?? json({}, 404);
+    });
+    vi.stubGlobal('fetch', fetchMock);
+
+    render(<App />);
+    await screen.findByText('admin · 管理员');
+    fireEvent.click(screen.getByRole('button', { name: '截止提醒' }));
+    expect(await screen.findByRole('heading', { name: '三棵树' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: '需要你自己看' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: '信锐网科' })).toBeInTheDocument();
+    expect(screen.getByText('专属链接，勿转发')).toBeInTheDocument();
+    fireEvent.click(screen.getAllByRole('button', { name: '标记已完成' })[0]);
+    await waitFor(() => expect(screen.queryByRole('heading', { name: '三棵树' })).not.toBeInTheDocument());
+    const statusCall = fetchMock.mock.calls.find(([url]) => String(url) === '/api/admin/mail-deadlines/status');
+    expect(JSON.parse(String(statusCall?.[1]?.body))).toEqual({ message_id: '<tree@example>', status: 'done' });
   });
 
   it('renders RSSHub AI and tool entries in their logical tabs', async () => {

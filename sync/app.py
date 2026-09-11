@@ -19,6 +19,8 @@ from passlib.context import CryptContext
 from pydantic import BaseModel, Field
 from dotenv import load_dotenv
 
+from app.mailbox.store import MailboxStore, initialize_mailbox_database
+
 local_env = Path(".env")
 if local_env.is_file() and os.access(local_env, os.R_OK):
     load_dotenv(local_env)
@@ -51,6 +53,11 @@ class CreateUserBody(LoginBody):
 
 class PasswordBody(BaseModel):
     password: str = Field(min_length=1, max_length=256)
+
+
+class MailDeadlineStatusBody(BaseModel):
+    message_id: str = Field(min_length=1, max_length=998)
+    status: str = Field(pattern="^(done|pending)$")
 
 
 def utc_now() -> str:
@@ -105,17 +112,17 @@ def initialize_database() -> None:
             """
         )
         count = connection.execute("SELECT COUNT(*) FROM users").fetchone()[0]
-        if count:
-            return
-        username = os.getenv("ADMIN_USER", "").strip()
-        password = os.getenv("ADMIN_PASSWORD", "")
-        if not username or not password:
-            logger.critical("users table is empty; ADMIN_USER and ADMIN_PASSWORD are required")
-            raise RuntimeError("ADMIN_USER and ADMIN_PASSWORD are required for first startup")
-        connection.execute(
-            "INSERT INTO users(username, password_hash, is_admin, created_at) VALUES (?, ?, 1, ?)",
-            (username, hash_password(password), utc_now()),
-        )
+        if not count:
+            username = os.getenv("ADMIN_USER", "").strip()
+            password = os.getenv("ADMIN_PASSWORD", "")
+            if not username or not password:
+                logger.critical("users table is empty; ADMIN_USER and ADMIN_PASSWORD are required")
+                raise RuntimeError("ADMIN_USER and ADMIN_PASSWORD are required for first startup")
+            connection.execute(
+                "INSERT INTO users(username, password_hash, is_admin, created_at) VALUES (?, ?, 1, ?)",
+                (username, hash_password(password), utc_now()),
+            )
+    initialize_mailbox_database()
 
 
 def client_ip(request: Request) -> str:
@@ -333,4 +340,23 @@ def reset_password(
         )
     if cursor.rowcount == 0:
         raise HTTPException(status_code=404, detail="用户不存在")
+    return {"ok": True}
+
+
+@app.get("/api/admin/mail-deadlines")
+def list_mail_deadlines(
+    _: Annotated[dict[str, Any], Depends(admin_user)],
+    include_history: bool = False,
+) -> dict[str, Any]:
+    items = MailboxStore().list_deadlines(include_history=include_history)
+    return {"items": items, "count": len(items)}
+
+
+@app.post("/api/admin/mail-deadlines/status")
+def update_mail_deadline_status(
+    body: MailDeadlineStatusBody,
+    _: Annotated[dict[str, Any], Depends(admin_user)],
+) -> dict[str, bool]:
+    if not MailboxStore().set_status(body.message_id, body.status):
+        raise HTTPException(status_code=404, detail="提醒不存在")
     return {"ok": True}

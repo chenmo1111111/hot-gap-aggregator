@@ -2,6 +2,7 @@ import pytest
 from fastapi.testclient import TestClient
 
 from sync.app import PREFS_MAX_BYTES, app, initialize_database
+from app.mailbox.store import MailboxStore
 
 
 @pytest.fixture
@@ -103,3 +104,38 @@ def test_non_admin_cannot_access_admin_routes(client):
     assert login(client, "friend", "friend-pass").status_code == 200
     assert client.get("/api/admin/users").status_code == 403
     assert client.delete("/api/admin/users/admin").status_code == 403
+    assert client.get("/api/admin/mail-deadlines").status_code == 403
+    assert client.post(
+        "/api/admin/mail-deadlines/status",
+        json={"message_id": "<private@example>", "status": "done"},
+    ).status_code == 403
+
+
+def test_admin_mail_deadlines_are_private_and_done_rows_leave_default_list(client):
+    assert login(client).status_code == 200
+    store = MailboxStore()
+    store.add_deadline({
+        "message_id": "<private@example>",
+        "company": "三棵树",
+        "type": "AI视频面试",
+        "deadline_at": "2026-09-13T01:30:00+00:00",
+        "action_url": "https://u.hrtps.test/r/private-token",
+        "summary": "完成AI视频面试",
+        "received_at": "2026-09-10T01:30:00+00:00",
+        "status": "pending",
+        "subject": "三棵树面试通知",
+        "sender": "招聘中心",
+        "deadline_kind": "relative_hours",
+    }, imap_uid=1)
+
+    listed = client.get("/api/admin/mail-deadlines")
+    assert listed.status_code == 200
+    assert listed.json()["items"][0]["action_url"].endswith("private-token")
+    completed = client.post(
+        "/api/admin/mail-deadlines/status",
+        json={"message_id": "<private@example>", "status": "done"},
+    )
+    assert completed.status_code == 200
+    assert client.get("/api/admin/mail-deadlines").json()["items"] == []
+    history = client.get("/api/admin/mail-deadlines?include_history=true").json()["items"]
+    assert history[0]["status"] == "done"
