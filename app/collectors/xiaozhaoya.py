@@ -10,6 +10,7 @@ from urllib.parse import urljoin, urlsplit
 
 from app.models import Item
 from app.pipeline.gongkao_filter import filter_title_noise_items, is_gov_domain
+from app.pipeline.purchased_classify import classify_purchased_row
 
 
 HOME_URL = "https://www.xiaozhaoya.com/home"
@@ -82,6 +83,9 @@ def _company_type(value: object) -> str:
 
 
 def is_gongkao_record(row: Mapping[str, Any]) -> bool:
+    kind, _ = classify_purchased_row(row)
+    if kind == "公考":
+        return True
     if _text(row.get("companyTypeName")) in {"事业单位", "政府机关"}:
         return True
     text = " ".join(
@@ -132,6 +136,7 @@ def record_to_item(row: Mapping[str, Any], *, rank: int) -> tuple[str, Item]:
         )
         if part
     )
+    purchased_kind, organization_type = classify_purchased_row(row)
     raw_extra = {
         "id": f"xiaozhaoya:{identifier}",
         "source_site": "xiaozhaoya",
@@ -140,7 +145,12 @@ def record_to_item(row: Mapping[str, Any], *, rank: int) -> tuple[str, Item]:
         "recruitment_id": identifier,
         "company": company,
         "company_full_name": _text(row.get("fullName")),
-        "company_type": _company_type(row.get("companyTypeName")),
+        "company_type": (
+            organization_type
+            if _company_type(row.get("companyTypeName")) == "其他"
+            else _company_type(row.get("companyTypeName"))
+        ),
+        "organization_type": organization_type,
         "industry": _text(row.get("industryName")),
         "job_category": _list_text(row.get("jobCategoryNameList")),
         "position": position,
@@ -160,7 +170,7 @@ def record_to_item(row: Mapping[str, Any], *, rank: int) -> tuple[str, Item]:
         "notes": notes,
         "missing_external_url": missing_link,
     }
-    if is_gongkao_record(row):
+    if purchased_kind == "公考" or is_gongkao_record(row):
         classification_text = f"{announcement_title} {source_name}"
         raw_extra.update(
             {

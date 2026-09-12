@@ -26,6 +26,8 @@ import httpx
 import yaml
 from dotenv import load_dotenv
 
+from app.pipeline.purchased_classify import classify_purchased_row
+
 
 LOGGER = logging.getLogger(__name__)
 ALLOWED_COMPANY_TYPES = {"央企", "国企", "民企", "外企", "银行", "事业单位", "其他"}
@@ -121,11 +123,25 @@ def build_snapshot(
 
     cohort_options = {str(value) for value in filters.get("cohort_options") or []}
     batch_options = {str(value) for value in filters.get("batch_options") or []}
+    def should_include(record: Mapping[str, Any]) -> bool:
+        is_target_qiuzhao = (
+            _matches_option(record, str(fields["cohort"]), cohort_options)
+            and _matches_option(record, str(fields["batch"]), batch_options)
+        )
+        if is_target_qiuzhao:
+            return True
+        candidate = {
+            "company_name": _cell_text(record, str(fields["company"]), options),
+            "company_type": _cell_text(record, str(fields["company_type"]), options),
+            "position": _cell_text(record, str(fields["position"]), options),
+            "notes": _cell_text(record, str(fields["notes"]), options),
+        }
+        return classify_purchased_row(candidate)[0] == "公考"
+
     filtered = [
         (record_id, record)
         for record_id, record in records.items()
-        if _matches_option(record, str(fields["cohort"]), cohort_options)
-        and _matches_option(record, str(fields["batch"]), batch_options)
+        if should_include(record)
     ]
     updated_field = str(fields["updated_at"])
     filtered.sort(

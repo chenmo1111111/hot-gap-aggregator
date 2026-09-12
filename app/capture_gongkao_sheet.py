@@ -42,6 +42,21 @@ EXPECTED_HEADERS = (
     "公告链接",
     "备注",
 )
+INSTITUTION_HEADERS = (
+    "发布时间",
+    "招聘公告",
+    "招聘人数",
+    "最低学历要求",
+    "专业要求",
+    "岗位",
+    "单位名称",
+    "省份",
+    "城市",
+    "开始日期",
+    "截止日期",
+    "原标题",
+    "信息来源",
+)
 
 
 class CaptureError(RuntimeError):
@@ -187,7 +202,9 @@ def decode_cell_block(encoded: str) -> tuple[dict[str, int], list[list[object]]]
     return bounds, rows
 
 
-def decode_sheet_rows(envelope: Mapping[str, Any], sheet_id: str) -> list[list[object]]:
+def decode_sheet_rows(
+    envelope: Mapping[str, Any], sheet_id: str, *, allow_partial_blocks: bool = False
+) -> list[list[object]]:
     data = envelope.get("data") if isinstance(envelope.get("data"), Mapping) else {}
     snapshot = data.get("snapshot") if isinstance(data.get("snapshot"), Mapping) else {}
     blocks = snapshot.get("blocks") if isinstance(snapshot.get("blocks"), Mapping) else {}
@@ -212,14 +229,35 @@ def decode_sheet_rows(envelope: Mapping[str, Any], sheet_id: str) -> list[list[o
             continue
         block_id = str(meta.get("blockId") or "")
         encoded = blocks.get(block_id)
+        if not isinstance(encoded, str) and allow_partial_blocks:
+            continue
         if not isinstance(encoded, str):
             raise CaptureError(f"飞书响应缺少块 {block_id}")
         bounds, rows = decode_cell_block(encoded)
+        meta_range = meta.get("range") if isinstance(meta.get("range"), Mapping) else {}
+        row_start = int(meta_range.get("rowStart", bounds["row_start"]))
         for offset, row in enumerate(rows):
-            rows_by_number[bounds["row_start"] + offset] = row
+            rows_by_number[row_start + offset] = row
     if not rows_by_number:
         raise CaptureError("目标页签没有可解析行")
     return [rows_by_number[number] for number in sorted(rows_by_number)]
+
+
+def _sheet_block_metas(envelope: Mapping[str, Any], sheet_id: str) -> list[Mapping[str, Any]]:
+    data = envelope.get("data") if isinstance(envelope.get("data"), Mapping) else {}
+    snapshot = data.get("snapshot") if isinstance(data.get("snapshot"), Mapping) else {}
+    raw = snapshot.get("gzipBlockMeta")
+    if not isinstance(raw, str):
+        raise CaptureError("飞书表格响应缺少块索引")
+    try:
+        block_meta = json.loads(_decode_gzip_base64(raw).decode("utf-8"))
+    except (UnicodeDecodeError, json.JSONDecodeError) as exc:
+        raise CaptureError("飞书块索引无法解析") from exc
+    sheet_meta = block_meta.get(sheet_id) if isinstance(block_meta, Mapping) else None
+    metas = sheet_meta.get("cellBlockMetas") if isinstance(sheet_meta, Mapping) else None
+    if not isinstance(metas, list) or not metas:
+        raise CaptureError(f"飞书块索引不含目标页签 {sheet_id}")
+    return [meta for meta in metas if isinstance(meta, Mapping)]
 
 
 def _normalize(value: object) -> str:
@@ -274,31 +312,57 @@ def build_snapshot(
     *,
     generated_at: str | None = None,
 ) -> dict[str, Any]:
-    header_index = next(
-        (
-            index
-            for index, row in enumerate(rows)
-            if tuple(_text(value) for value in row[: len(EXPECTED_HEADERS)]) == EXPECTED_HEADERS
-        ),
-        None,
-    )
+    header_index: int | None = None
+    schema = ""
+    for index, row in enumerate(rows):
+        values = tuple(_text(value) for value in row)
+        if values[: len(EXPECTED_HEADERS)] == EXPECTED_HEADERS:
+            header_index, schema = index, "major_exams"
+            break
+        if values[: len(INSTITUTION_HEADERS)] == INSTITUTION_HEADERS:
+            header_index, schema = index, "institutions"
+            break
     if header_index is None:
         raise CaptureError("目标页签字段发生变化，未找到预期表头；旧快照已保留")
 
     selected: list[dict[str, Any]] = []
     seen: set[str] = set()
     for source_row, row in enumerate(rows[header_index + 1 :], start=header_index + 2):
-        padded = [*row[: len(EXPECTED_HEADERS)], *([""] * len(EXPECTED_HEADERS))]
-        published = _excel_date(padded[0])
-        category = _text(padded[1])
-        title = _text(padded[2])
-        recruit_count = _text(padded[3])
-        deadline = _excel_date(padded[4])
-        location = _text(padded[5])
-        province = _text(padded[6]) or "全国"
-        education = _text(padded[7])
-        url = _text(padded[8])
-        source_note = _text(padded[9])
+        if schema == "institutions":
+            padded = [*row[: len(INSTITUTION_HEADERS)], *([""] * len(INSTITUTION_HEADERS))]
+            published = _excel_date(padded[0])
+            category = "事业单位"
+            title = _text(padded[1])
+            recruit_count = _text(padded[2])
+            education = _text(padded[3])
+            major = _text(padded[4])
+            position = _text(padded[5])
+            unit = _text(padded[6])
+            province = _text(padded[7]) or "全国"
+            city = _text(padded[8])
+            signup_start = _excel_date(padded[9])
+            deadline = _excel_date(padded[10])
+            original_title = _text(padded[11])
+            url = _text(padded[12])
+            source_note = _text(padded[13]) if len(padded) > 13 else ""
+            if published and deadline and deadline < published:
+                deadline = ""
+            if published and signup_start and signup_start < published:
+                signup_start = ""
+            location = city or province
+        else:
+            padded = [*row[: len(EXPECTED_HEADERS)], *([""] * len(EXPECTED_HEADERS))]
+            published = _excel_date(padded[0])
+            category = _text(padded[1])
+            title = _text(padded[2])
+            recruit_count = _text(padded[3])
+            deadline = _excel_date(padded[4])
+            location = _text(padded[5])
+            province = _text(padded[6]) or "全国"
+            education = _text(padded[7])
+            url = _text(padded[8])
+            source_note = _text(padded[9])
+            major = position = unit = signup_start = original_title = ""
         if not title or not _url_key(url):
             continue
         dedupe_key = _url_key(url) or f"{_normalize(title)}|{_normalize(province)}"
@@ -313,7 +377,7 @@ def build_snapshot(
             note_parts.append(f"工作地点：{location}")
         if education:
             note_parts.append(f"学历要求：{education}")
-        city = _city_hint(location, province)
+        city = city if schema == "institutions" else _city_hint(location, province)
         selected.append(
             {
                 "source": "gongkao",
@@ -331,8 +395,13 @@ def build_snapshot(
                     "exam_type": category,
                     "province": province,
                     "city": city,
+                    "unit": unit or None,
+                    "position": position or None,
+                    "major": major or None,
                     "recruit_count": recruit_count,
+                    "startSignUpTime": signup_start or None,
                     "endSignUpTime": deadline,
+                    "original_title": original_title or None,
                     "fresh_graduate": "应届" in f"{title}{source_note}{education}",
                     "notes": "；".join(part for part in note_parts if part),
                     "source_label": "购买表-公考",
@@ -495,7 +564,51 @@ async def capture(
                 raise CaptureError(
                     f"飞书完整表接口失败（HTTP {response.status}, code={envelope.get('code')}, msg={envelope.get('msg')})"
                 )
-            rows = decode_sheet_rows(envelope, str(config["sheet_id"]))
+            if config.get("fetch_all_blocks"):
+                sheet_id = str(config["sheet_id"])
+                metas = _sheet_block_metas(envelope, sheet_id)
+                snapshot = envelope["data"]["snapshot"]
+                blocks = snapshot["blocks"]
+                # The endpoint caps one response at roughly ten blocks. Fetch
+                # bounded groups and merge them into the original envelope.
+                for offset in range(0, len(metas), 8):
+                    chunk = metas[offset : offset + 8]
+                    expected = {str(meta.get("blockId") or "") for meta in chunk}
+                    if expected.issubset(blocks):
+                        continue
+                    ranges = [meta.get("range") for meta in chunk if isinstance(meta.get("range"), Mapping)]
+                    if not ranges:
+                        continue
+                    cell_range = {
+                        "rowStart": min(int(value.get("rowStart") or 0) for value in ranges),
+                        "rowEnd": max(int(value.get("rowEnd") or 0) for value in ranges),
+                        "colStart": min(int(value.get("colStart") or 0) for value in ranges),
+                        "colEnd": max(int(value.get("colEnd") or 0) for value in ranges),
+                    }
+                    ranged_payload = {
+                        **request_payload,
+                        "sheetRange": {"sheetId": sheet_id, "range": cell_range},
+                    }
+                    ranged_response = await context.request.post(
+                        str(config["api_url"]),
+                        data=ranged_payload,
+                        headers={"Referer": page_url, "x-csrftoken": state["csrf"]},
+                        timeout=120_000,
+                    )
+                    ranged_envelope = await ranged_response.json()
+                    if ranged_response.status != 200 or ranged_envelope.get("code") != 0:
+                        raise CaptureError(
+                            f"飞书分块接口失败（HTTP {ranged_response.status}, code={ranged_envelope.get('code')}）"
+                        )
+                    ranged_snapshot = (ranged_envelope.get("data") or {}).get("snapshot") or {}
+                    for block_id, encoded in (ranged_snapshot.get("blocks") or {}).items():
+                        blocks.setdefault(block_id, encoded)
+                    await asyncio.sleep(0.1)
+            rows = decode_sheet_rows(
+                envelope,
+                str(config["sheet_id"]),
+                allow_partial_blocks=bool(config.get("allow_partial_blocks")),
+            )
             payload = build_snapshot(rows, config)
             _atomic_write(output_path, payload)
             return payload

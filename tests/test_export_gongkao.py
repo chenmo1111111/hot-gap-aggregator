@@ -213,3 +213,24 @@ def test_xiaozhaoya_foundation_deduplicates_recruitment_id_and_uses_retention(tm
     assert result["status"]["xiaozhaoya_input_count"] == 3
     assert result["status"]["xiaozhaoya_retention_deleted_count"] == 1
     assert result["status"]["xiaozhaoya_duplicate_count"] == 1
+
+
+def test_write_gongkao_merges_purchased_routed_sidecar(tmp_path) -> None:
+    (tmp_path / "gongkao.json").write_text(
+        json.dumps({"items": []}, ensure_ascii=False), encoding="utf-8"
+    )
+    routed = _item(
+        "purchased:wanqing_feishu:1",
+        "中国社科院考古研究所｜科研岗",
+        "https://example.com/public-1",
+    )
+    routed["extra"]["upstream_source"] = "wanqing_feishu"
+    (tmp_path / "purchased_gongkao.json").write_text(
+        json.dumps({"items": [routed]}, ensure_ascii=False), encoding="utf-8"
+    )
+
+    result = write_gongkao(tmp_path)
+
+    assert len(result["items"]) == 1
+    assert result["status"]["purchased_item_count"] == 1
+    assert "purchased_routed" in result["status"]["upstream_sources"]

@@ -24,10 +24,13 @@ ENTERPRISE_MARKERS = (
 PUBLIC_ENTITY_MARKERS = (
     "事业单位", "机关", "人民政府", "委员会", "公务员", "选调生", "三支一扶",
     "公安局", "税务局", "海关", "大学", "学院", "学校", "医院", "卫生院",
+    "农业农村局", "消防救援", "边防检查站", "疾病预防控制中心", "疾控中心",
+    "中国科学院", "中科院", "中国社会科学院", "中国社科院",
+    "中国农业科学院", "中国农科院", "研究所",
 )
 PUBLIC_TYPE_MARKERS = (
     "事业单位", "事业编", "公务员", "省考", "国考", "选调", "三支一扶", "教师",
-    "医疗", "卫生", "公安", "警察", "军队文职", "部队文职",
+    "医疗", "卫生", "公安", "警察", "招警", "军队文职", "部队文职",
 )
 
 
@@ -60,7 +63,13 @@ def _upstream_type(row: Mapping[str, Any]) -> str:
 def _is_central_soe(text: str) -> bool:
     if any(marker in text for marker in ("央企", "中央企业", "中央直属企业", "国务院国资委")):
         return True
-    return bool(re.search(r"(?:^|[：:\s])(?:中国|中核|中铁|中建|中交|中电|中航|中车|中粮)[^，。；]{0,24}(?:集团|公司|局|院)", text))
+    return bool(re.search(
+        r"(?:^|[：:\s])(?:"
+        r"中国[^，。；]{0,24}(?:集团|公司|局)|"
+        r"(?:中核|中铁|中建|中交|中电|中航|中车|中粮|中船)[^，。；]{0,24}(?:集团|公司|局|院|所)"
+        r")",
+        text,
+    ))
 
 
 def _direct_category(upstream_type: str, text: str) -> str | None:
@@ -172,11 +181,11 @@ def record_kind(row: Mapping[str, Any], *, llm_choice: object = None) -> str:
         business_type = int(extra.get("businessType") or extra.get("business_type") or 0)
     except (TypeError, ValueError):
         business_type = 0
-    if business_type == 4:
-        return "秋招"
     text = _classification_text(row)
     if not any(marker in text for marker in CAMPUS_MARKERS):
         return "公考"
+    if _is_central_soe(text):
+        return "秋招"
     upstream = _upstream_type(row)
     if any(marker in upstream for marker in PUBLIC_TYPE_MARKERS):
         return "公考"
@@ -184,6 +193,8 @@ def record_kind(row: Mapping[str, Any], *, llm_choice: object = None) -> str:
         marker in text for marker in ENTERPRISE_MARKERS
     ):
         return "公考"
+    if business_type == 4:
+        return "秋招"
     if any(marker in text for marker in ENTERPRISE_MARKERS) or any(
         marker in upstream for marker in ("国企", "国有企业", "银行", "民企", "外企")
     ):

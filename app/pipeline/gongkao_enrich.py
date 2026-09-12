@@ -1051,6 +1051,9 @@ def enrich_payload(
                 extra["enrichment_status"] = "未提取"
                 stats["failed"] += 1
                 stats["fetch_failed"] += 1
+                extra["record_kind"] = record_kind(
+                    {**item, "extra": extra}, llm_choice=extra.get("record_kind")
+                )
                 item["extra"] = extra
                 items.append(item)
                 continue
@@ -1100,7 +1103,9 @@ def enrich_payload(
                 if failure_streak >= 3:
                     extraction_available = False
                     LOGGER.warning("DeepSeek/announcement source unavailable after 3 consecutive failures; skip remaining uncached rows")
-        extra["record_kind"] = record_kind(item, llm_choice=extra.get("record_kind"))
+        extra["record_kind"] = record_kind(
+            {**item, "extra": extra}, llm_choice=extra.get("record_kind")
+        )
         status, days = calculate_signup_status(
             extra.get("startSignUpTime") or item.get("报名开始"),
             extra.get("endSignUpTime") or item.get("报名截止") or item.get("截止日期"),

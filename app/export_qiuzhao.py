@@ -10,12 +10,14 @@ from __future__ import annotations
 import argparse
 import json
 import os
+from datetime import datetime
 from pathlib import Path
 from typing import Any
 
 from dotenv import load_dotenv
 
 from app.pipeline.gongkao_filter import filter_title_noise_items
+from app.pipeline.purchased_classify import partition_purchased_rows
 from app.pipeline.prune import filter_current_items, is_expired_item, load_retention
 
 
@@ -38,6 +40,8 @@ SOURCE_LABELS = {
     "yingjiesheng": "应届生", "xjh": "应届生宣讲会", "haitou": "海投校招",
     "wutongguo": "梧桐果校招", "guopin": "国聘",
     "campus": "高校就业网",
+    "ncss": "国家大学生就业服务平台", "chsi_talent": "教育部人才服务网",
+    "nowcoder": "牛客网", "rsshub": "牛客网",
 }
 
 
@@ -46,7 +50,17 @@ def _source_label(extra: dict[str, Any], row: dict[str, Any]) -> str:
     if explicit:
         return explicit
     subsource = _text(extra.get("subsource"))
-    return SOURCE_LABELS.get(subsource, subsource)
+    if subsource:
+        return SOURCE_LABELS.get(subsource, subsource)
+    source = _text(row.get("source"))
+    if source in SOURCE_LABELS:
+        return SOURCE_LABELS[source]
+    company = _first(row.get("company_name"), row.get("company"), extra.get("company"))
+    if company == "腾讯":
+        return "大厂雷达·腾讯"
+    if company == "字节跳动":
+        return "大厂雷达·字节"
+    return ""
 
 
 def normalize_jobs_payload(payload: dict[str, Any]) -> dict[str, Any]:
@@ -132,11 +146,21 @@ def write_qiuzhao(data_dir: str | Path) -> dict[str, Any]:
     policy = load_retention()
     snapshot_path = target / "qiuzhao_wanqing.json"
     inputs: list[dict[str, Any]] = []
+    purchased_gongkao: list[dict[str, Any]] = []
+    purchased_route_counts: dict[str, int] = {}
+    purchased_label_counts: dict[str, int] = {}
     if snapshot_path.exists():
         payload = json.loads(snapshot_path.read_text(encoding="utf-8"))
         if not isinstance(payload, dict):
             raise ValueError(f"{snapshot_path} must contain a JSON object")
         snapshot = normalize_snapshot_payload(payload)
+        snapshot["items"], routed, labels = partition_purchased_rows(
+            snapshot["items"], source="wanqing_feishu"
+        )
+        purchased_gongkao.extend(routed)
+        purchased_route_counts["wanqing_feishu"] = len(routed)
+        for label, count in labels.items():
+            purchased_label_counts[label] = purchased_label_counts.get(label, 0) + count
         snapshot["items"] = [
             {**row, "upstream_source": _text(row.get("upstream_source")) or "wanqing_feishu"}
             for row in snapshot["items"]
@@ -153,6 +177,13 @@ def write_qiuzhao(data_dir: str | Path) -> dict[str, Any]:
             raise ValueError(f"{xiaozhaoya_path} must contain a JSON object")
         snapshot = normalize_snapshot_payload(payload)
         snapshot["status"]["upstream_source"] = "xiaozhaoya"
+        snapshot["items"], routed, labels = partition_purchased_rows(
+            snapshot["items"], source="xiaozhaoya"
+        )
+        purchased_gongkao.extend(routed)
+        purchased_route_counts["xiaozhaoya"] = len(routed)
+        for label, count in labels.items():
+            purchased_label_counts[label] = purchased_label_counts.get(label, 0) + count
         before_retention = len(snapshot["items"])
         snapshot["items"] = [
             {**row, "upstream_source": "xiaozhaoya"}
@@ -181,6 +212,23 @@ def write_qiuzhao(data_dir: str | Path) -> dict[str, Any]:
             source_rows, policy,
         )
         inputs.append(normalize_jobs_payload({**payload, "items": kept}))
+    routed_payload = {
+        "generated_at": datetime.now().astimezone().isoformat(),
+        "source": "purchased_gongkao",
+        "status": {
+            "status": "ok",
+            "item_count": len(purchased_gongkao),
+            "route_counts": purchased_route_counts,
+            "label_counts": purchased_label_counts,
+        },
+        "items": purchased_gongkao,
+    }
+    routed_destination = target / "purchased_gongkao.json"
+    routed_temporary = routed_destination.with_suffix(".json.tmp")
+    routed_temporary.write_text(
+        json.dumps(routed_payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+    )
+    routed_temporary.replace(routed_destination)
     if not inputs:
         raise FileNotFoundError(f"No qiuzhao source found under {target}")
     # Feishu uses company + position as the stable identity. Keep the same
@@ -201,6 +249,9 @@ def write_qiuzhao(data_dir: str | Path) -> dict[str, Any]:
         "status": {
             "source": "qiuzhao", "status": "ok", "item_count": len(items),
             "upstream_source": "+".join(dict.fromkeys(str(feed["status"].get("upstream_source") or "") for feed in inputs)),
+            "purchased_routed_gongkao_count": len(purchased_gongkao),
+            "purchased_route_counts": purchased_route_counts,
+            "purchased_label_counts": purchased_label_counts,
         },
         "items": items,
     }

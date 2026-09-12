@@ -40,9 +40,36 @@ def test_daily_volume_tracks_first_seen_and_retains_thirty_days(tmp_path) -> Non
     assert first["qiuzhao_wanqing_new"] == 1
     assert first["qiuzhao_xiaozhaoya_new"] == 1
     assert first["qiuzhao_other_new"] == 0
+    assert first["qiuzhao_source_new"] == {
+        "婉清购买表": 1, "校招鸭home一次性回填": 1,
+    }
     assert first["gongkao_other_new"] == 1
     assert second["gongkao_new"] == 0 and second["qiuzhao_new"] == 0
     assert len(json.loads(output.read_text(encoding="utf-8"))["history"]) == 30
+
+
+def test_daily_volume_accumulates_new_ids_across_refreshes_on_same_day(tmp_path) -> None:
+    state = tmp_path / "state.json"
+    output = tmp_path / "daily-volume.json"
+    state.write_text(json.dumps({
+        "gongkao_first_seen": {}, "gongkao_first_seen_source": {},
+        "qiuzhao_first_seen": {}, "qiuzhao_first_seen_source": {}, "alerts_sent": [],
+    }), encoding="utf-8")
+    first_gongkao = {
+        "url": "https://gov.example/1", "extra": {"id": "g1", "source_site": "gov"},
+    }
+    first = update_daily_volume(
+        [first_gongkao], [], today=date(2026, 9, 12), state_path=state, output_path=output,
+    )
+    second = update_daily_volume(
+        [{"url": "https://sheet.example/2", "extra": {"id": "g2", "upstream_source": "feishu_sheet"}}],
+        [], today=date(2026, 9, 12), state_path=state, output_path=output,
+    )
+
+    assert first["gongkao_new"] == 1
+    assert second["gongkao_new"] == 2
+    assert second["gongkao_government_new"] == 1
+    assert second["gongkao_sheet_new"] == 1
 
 
 def test_daily_broadcast_is_always_sent_once_and_includes_source_counts(monkeypatch, tmp_path) -> None:
@@ -71,9 +98,9 @@ def test_daily_broadcast_is_always_sent_once_and_includes_source_counts(monkeypa
     assert maybe_alert(result, state_path=state, current_hour=9) is False
     message = sent[0]["json"]["content"]["text"]
     assert message == (
-        "【每日采集播报】2026-09-11\n"
-        "秋招：新增 30（婉清 12 / 校招鸭 10 / 其他源 8）\n"
-        "公考：新增 8（政府源 5 / 校招鸭事业单位表 2 / 其他源 1）"
+        "【每日采集播报】2026-09-11（当天累计，00:00-发送时）\n"
+        "秋招：当天累计新增 30（婉清购买表 12 / 校招鸭home一次性回填 10 / 未拆分来源 8）\n"
+        "公考：当天累计新增 8（政府源 5 / 校招鸭事业单位表 2 / 其他源 1）"
     )
 
     low = {**result, "date": "2026-09-12", "qiuzhao_new": 19, "gongkao_new": 2}

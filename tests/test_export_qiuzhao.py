@@ -75,7 +75,9 @@ def test_write_qiuzhao_merges_wanqing_snapshot_with_collected_jobs(tmp_path) -> 
     result = write_qiuzhao(tmp_path)
 
     assert result["items"][0] == {
-        **snapshot["items"][0], "upstream_source": "wanqing_feishu",
+        **snapshot["items"][0], "company_type": "机构性质待核",
+        "extra": {"record_kind": "秋招", "organization_type": "机构性质待核"},
+        "upstream_source": "wanqing_feishu",
     }
     assert result["items"][1]["company_name"] == "旧公司"
     assert result["status"]["upstream_source"] == "wanqing_feishu+jobs"
@@ -103,7 +105,11 @@ def test_write_qiuzhao_prefers_manual_row_for_same_company_and_position(tmp_path
 
     result = write_qiuzhao(tmp_path)
 
-    assert result["items"] == [{**manual, "upstream_source": "wanqing_feishu"}]
+    assert result["items"] == [{
+        **manual, "company_type": "机构性质待核",
+        "extra": {"record_kind": "秋招", "organization_type": "机构性质待核"},
+        "upstream_source": "wanqing_feishu",
+    }]
 
 
 def test_write_qiuzhao_merges_xiaozhaoya_snapshot(tmp_path) -> None:
@@ -120,7 +126,11 @@ def test_write_qiuzhao_merges_xiaozhaoya_snapshot(tmp_path) -> None:
 
     result = write_qiuzhao(tmp_path)
 
-    assert result["items"][0] == {**row, "upstream_source": "xiaozhaoya"}
+    assert result["items"][0] == {
+        **row, "company_type": "机构性质待核",
+        "extra": {"record_kind": "秋招", "organization_type": "机构性质待核"},
+        "upstream_source": "xiaozhaoya",
+    }
     assert "xiaozhaoya" in result["status"]["upstream_source"]
 
 
@@ -149,7 +159,29 @@ def test_daily_wanqing_wins_foundation_duplicate_and_expired_foundation_is_prune
 
     result = write_qiuzhao(tmp_path)
 
-    assert result["items"] == [{**daily, "upstream_source": "wanqing_feishu"}]
+    assert result["items"] == [{
+        **daily, "company_type": "机构性质待核",
+        "extra": {"record_kind": "秋招", "organization_type": "机构性质待核"},
+        "upstream_source": "wanqing_feishu",
+    }]
+
+
+def test_write_qiuzhao_routes_wanqing_public_rows_to_gongkao_sidecar(tmp_path) -> None:
+    (tmp_path / "qiuzhao_wanqing.json").write_text(json.dumps({"items": [
+        {
+            "company_name": "中国社科院考古研究所", "company_type": "其他",
+            "position": "科研岗", "source_record_id": "public-1",
+            "announcement_url": "https://example.com/public-1",
+        },
+        {"company_name": "示例公司", "company_type": "民企", "position": "研发岗"},
+    ]}, ensure_ascii=False), encoding="utf-8")
+
+    result = write_qiuzhao(tmp_path)
+    routed = json.loads((tmp_path / "purchased_gongkao.json").read_text(encoding="utf-8"))
+
+    assert [row["company_name"] for row in result["items"]] == ["示例公司"]
+    assert routed["status"]["route_counts"]["wanqing_feishu"] == 1
+    assert routed["items"][0]["extra"]["unit"] == "中国社科院考古研究所"
 
 
 def test_write_qiuzhao_filters_event_noise_from_server_jobs(tmp_path) -> None:

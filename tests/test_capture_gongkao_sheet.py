@@ -9,6 +9,7 @@ import pytest
 from app.capture_gongkao_sheet import (
     CaptureError,
     EXPECTED_HEADERS,
+    INSTITUTION_HEADERS,
     build_snapshot,
     decode_cell_block,
 )
@@ -108,3 +109,28 @@ def test_build_snapshot_maps_dates_location_link_and_deduplicates() -> None:
 def test_build_snapshot_rejects_changed_headers() -> None:
     with pytest.raises(CaptureError, match="未找到预期表头"):
         build_snapshot([["不是预期表头"]], {"min_items": 1})
+
+
+def test_build_snapshot_maps_real_institution_sheet_schema_and_ignores_stale_deadline() -> None:
+    rows = [
+        list(INSTITUTION_HEADERS),
+        [
+            46276, "2026年滁州来安县农业农村局公开招聘工作人员3名公告", 3,
+            "大专", "详见岗位表", "政府购买服务工作人员", "来安县农业农村局",
+            "安徽省", "来安县", 46278, 46281, "原标题",
+            "https://www.xiaozhaoya.com/UrlRedirect?urlId=154960",
+        ],
+        [
+            46276, "绵阳市疾病预防控制中心2026年招聘公告", 3,
+            "本科", "详见正文", "卫生执法监督协管员", "绵阳市疾病预防控制中心",
+            "四川省", "绵阳市", "尽快投递", 45917, "原标题",
+            "https://www.xiaozhaoya.com/UrlRedirect?urlId=154913",
+        ],
+    ]
+
+    result = build_snapshot(rows, {"min_items": 1, "max_items": 100, "source_sheet": "事业单位"})
+
+    assert len(result["items"]) == 2
+    assert result["items"][0]["extra"]["unit"] == "来安县农业农村局"
+    assert result["items"][0]["extra"]["endSignUpTime"] == "2026-09-16"
+    assert result["items"][1]["extra"]["endSignUpTime"] == ""

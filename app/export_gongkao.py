@@ -340,12 +340,46 @@ def write_gongkao(data_dir: str | Path) -> dict[str, Any]:
             **base_payload,
             "items": [*base_items, *xiaozhaoya_items],
         }
+    purchased_path = target / "purchased_gongkao.json"
+    purchased_input_count = 0
+    purchased_count = 0
+    purchased_retention_deleted_count = 0
+    purchased_duplicate_count = 0
+    if purchased_path.exists():
+        value = json.loads(purchased_path.read_text(encoding="utf-8"))
+        if not isinstance(value, dict):
+            raise ValueError("purchased_gongkao.json must contain a JSON object")
+        purchased_items = _items(value, "purchased_gongkao.json")
+        purchased_input_count = len(purchased_items)
+        purchased_items, purchased_retention_deleted_count = filter_current_items(
+            purchased_items, load_retention()
+        )
+        base_items = _items(base_payload, "gongkao.json")
+        known_keys = {key for item in base_items for key in _identity_keys(item)}
+        retained = []
+        for item in purchased_items:
+            keys = _identity_keys(item)
+            if keys & known_keys:
+                purchased_duplicate_count += 1
+                continue
+            retained.append(item)
+            known_keys.update(keys)
+        purchased_items = retained
+        purchased_count = len(purchased_items)
+        base_payload = {**base_payload, "items": [*base_items, *purchased_items]}
     sheet_payload: dict[str, Any] | None = None
+    sheet_input_count = 0
+    sheet_retention_deleted_count = 0
     if sheet_path.exists():
         value = json.loads(sheet_path.read_text(encoding="utf-8"))
         if not isinstance(value, dict):
             raise ValueError("gongkao_sheet.json must contain a JSON object")
-        sheet_payload = value
+        sheet_items = _items(value, "gongkao_sheet.json")
+        sheet_input_count = len(sheet_items)
+        sheet_items, sheet_retention_deleted_count = filter_current_items(
+            sheet_items, load_retention()
+        )
+        sheet_payload = {**value, "items": sheet_items}
 
     server_payload: dict[str, Any] | None = None
     if server_path.exists():
@@ -361,9 +395,21 @@ def write_gongkao(data_dir: str | Path) -> dict[str, Any]:
         xiaozhaoya_retention_deleted_count
     )
     output["status"]["xiaozhaoya_duplicate_count"] = xiaozhaoya_duplicate_count
+    output["status"]["purchased_input_count"] = purchased_input_count
+    output["status"]["purchased_item_count"] = purchased_count
+    output["status"]["purchased_retention_deleted_count"] = (
+        purchased_retention_deleted_count
+    )
+    output["status"]["purchased_duplicate_count"] = purchased_duplicate_count
+    output["status"]["sheet_input_count"] = sheet_input_count
+    output["status"]["sheet_retention_deleted_count"] = sheet_retention_deleted_count
     if xiaozhaoya_count:
         output["status"]["upstream_sources"] = [
             *output["status"]["upstream_sources"], "xiaozhaoya",
+        ]
+    if purchased_count:
+        output["status"]["upstream_sources"] = [
+            *output["status"]["upstream_sources"], "purchased_routed",
         ]
     destination = target / "gongkao_feishu.json"
     temporary = destination.with_suffix(".json.tmp")
@@ -388,6 +434,7 @@ def main() -> int:
                 "server_added_count": output["status"]["server_added_count"],
                 "server_merged_count": output["status"]["server_merged_count"],
                 "xiaozhaoya_item_count": output["status"].get("xiaozhaoya_item_count", 0),
+                "purchased_item_count": output["status"].get("purchased_item_count", 0),
             },
             ensure_ascii=False,
         )

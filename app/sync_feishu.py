@@ -623,9 +623,18 @@ def routed_qiuzhao_row(row: Mapping[str, Any]) -> dict[str, Any]:
     from app.pipeline.gongkao_classify import detail_category
 
     category = detail_category(row)
+    company_name = _gongkao_company_name(row)
     company_type = category if category in {"央企", "国企", "银行"} else _coalesce(
         row, "company_type|extra.company_type"
     )
+    from app.pipeline.purchased_classify import classify_purchased_row
+    _, meaningful_type = classify_purchased_row({
+        "company_name": company_name,
+        "company_type": company_type,
+        "position": title,
+    })
+    if meaningful_type != "机构性质待核":
+        company_type = meaningful_type
     url = _coalesce(row, "url|announcement_url|extra.announcement_url")
     notes = str(_coalesce(row, "notes|extra.notes|extra.bei_zhu") or "").strip()
     apply_instruction = str(extra.get("apply_instruction") or "").strip()
@@ -633,7 +642,7 @@ def routed_qiuzhao_row(row: Mapping[str, Any]) -> dict[str, Any]:
         instruction_note = f"投递方式：{apply_instruction}"
         notes = f"{notes}；{instruction_note}" if notes else instruction_note
     return {
-        "company_name": _gongkao_company_name(row),
+        "company_name": company_name,
         "company_type": company_type,
         "industry": _coalesce(row, "industry|extra.industry"),
         "position": title,

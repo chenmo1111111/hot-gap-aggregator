@@ -1,9 +1,10 @@
-page_url: "https://my.feishu.cn/sheets/CM5rsq9bkhVArjt9dSecevTMnsd?sheet=3g5nK8"
+page_url: "https://my.feishu.cn/sheets/CM5rsq9bkhVArjt9dSecevTMnsd?sheet=78843e"
 api_url: "https://my.feishu.cn/space/api/v3/sheet/client_vars"
 token: "CM5rsq9bkhVArjt9dSecevTMnsd"
-sheet_id: "3g5nK8"
-source_sheet: "公务员&事业单位等重大考试专栏"
+sheet_id: "78843e"
+source_sheet: "事业单位"
 
-# 当前页签约 1370 条。低于 500 时拒绝覆盖旧快照；最多保留 2000 条最新有效公告。
-min_items: 500
-max_items: 2000
+# 大页签接口按块返回；按行区间补齐全部块后，再由 retention 清理过期记录。
+fetch_all_blocks: true
+min_items: 5000
+max_items: 30000

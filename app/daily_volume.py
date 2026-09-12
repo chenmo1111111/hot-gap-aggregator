@@ -14,6 +14,18 @@ import httpx
 from dotenv import load_dotenv
 
 CHINA_TZ = timezone(timedelta(hours=8))
+SOURCE_ORDER = (
+    "婉清购买表",
+    "校招鸭home一次性回填",
+    "国聘",
+    "国家大学生就业服务平台",
+    "教育部人才服务网",
+    "应届生求职网",
+    "高校就业网",
+    "岗位雷达·腾讯",
+    "岗位雷达·字节",
+    "牛客网",
+)
 
 
 def _read_items(path: Path) -> list[Mapping[str, Any]]:
@@ -59,10 +71,29 @@ def _qiuzhao_source(row: Mapping[str, Any]) -> str:
     label = str(row.get("source_label") or "").strip().casefold()
     record_id = str(row.get("source_record_id") or "").strip().casefold()
     if "wanqing" in source or "婉清" in label:
-        return "wanqing"
+        return "婉清购买表"
     if "xiaozhaoya" in source or record_id.startswith("xiaozhaoya:") or "校招鸭" in label:
-        return "xiaozhaoya"
-    return "other"
+        return "校招鸭home一次性回填"
+    labels = {
+        "国聘": "国聘",
+        "国家大学生就业服务平台": "国家大学生就业服务平台",
+        "教育部人才服务网": "教育部人才服务网",
+        "应届生": "应届生求职网",
+        "应届生求职网": "应届生求职网",
+        "高校就业网": "高校就业网",
+        "大厂雷达·腾讯": "岗位雷达·腾讯",
+        "大厂雷达·字节": "岗位雷达·字节",
+        "牛客网": "牛客网",
+    }
+    raw_label = str(row.get("source_label") or "").strip()
+    if raw_label in labels:
+        return labels[raw_label]
+    company = str(row.get("company_name") or "").strip()
+    if company == "腾讯":
+        return "岗位雷达·腾讯"
+    if company == "字节跳动":
+        return "岗位雷达·字节"
+    return raw_label or source or "未标注来源"
 
 
 def _gongkao_source(row: Mapping[str, Any]) -> str:
@@ -102,7 +133,30 @@ def update_daily_volume(
 ) -> dict[str, Any]:
     state = _load_json(
         state_path,
-        {"qiuzhao_first_seen": {}, "qiuzhao_first_seen_source": {}, "alerts_sent": []},
+        {"alerts_sent": []},
+    )
+    gongkao_initialized = "gongkao_first_seen" in state and isinstance(
+        state.get("gongkao_first_seen"), dict
+    )
+    gongkao_seen = state.setdefault("gongkao_first_seen", {})
+    if not isinstance(gongkao_seen, dict):
+        gongkao_seen = state["gongkao_first_seen"] = {}
+        gongkao_initialized = False
+    gongkao_sources = state.setdefault("gongkao_first_seen_source", {})
+    if not isinstance(gongkao_sources, dict):
+        gongkao_sources = state["gongkao_first_seen_source"] = {}
+    for row in gongkao:
+        key = _gongkao_id(row)
+        if not key:
+            continue
+        if key not in gongkao_seen:
+            source_date = _date(_extra(row).get("first_seen") or row.get("published_at"))
+            gongkao_seen[key] = (
+                today if gongkao_initialized else (source_date or today - timedelta(days=1))
+            ).isoformat()
+        gongkao_sources.setdefault(key, _gongkao_source(row))
+    qiuzhao_initialized = "qiuzhao_first_seen" in state and isinstance(
+        state.get("qiuzhao_first_seen"), dict
     )
     qiuzhao_seen = state.setdefault("qiuzhao_first_seen", {})
     if not isinstance(qiuzhao_seen, dict):
@@ -119,33 +173,43 @@ def update_daily_volume(
                 row.get("first_seen") or row.get("published_at") or row.get("updated_at")
                 or _extra(row).get("first_seen")
             )
-            qiuzhao_seen[key] = (source_date or today).isoformat()
-        qiuzhao_sources.setdefault(key, _qiuzhao_source(row))
+            qiuzhao_seen[key] = (
+                today if qiuzhao_initialized else (source_date or today)
+            ).isoformat()
+        current_source = _qiuzhao_source(row)
+        if qiuzhao_sources.get(key) in {None, "", "wanqing", "xiaozhaoya", "other"}:
+            qiuzhao_sources[key] = current_source
 
-    gongkao_today = [
-        row for row in gongkao
-        if _gongkao_id(row)
-        and _date(_extra(row).get("first_seen") or row.get("published_at")) == today
-    ]
+    gongkao_today_keys = [key for key, value in gongkao_seen.items() if _date(value) == today]
     qiuzhao_today_keys = [key for key, value in qiuzhao_seen.items() if _date(value) == today]
+    active_qiuzhao_sources = {_qiuzhao_source(row) for row in qiuzhao}
+    active_qiuzhao_sources.update(qiuzhao_sources.get(key, "未标注来源") for key in qiuzhao_today_keys)
     qiuzhao_counts = {
-        source: sum(qiuzhao_sources.get(key, "other") == source for key in qiuzhao_today_keys)
-        for source in ("wanqing", "xiaozhaoya", "other")
+        source: sum(qiuzhao_sources.get(key, "未标注来源") == source for key in qiuzhao_today_keys)
+        for source in sorted(
+            active_qiuzhao_sources,
+            key=lambda value: (SOURCE_ORDER.index(value) if value in SOURCE_ORDER else len(SOURCE_ORDER), value),
+        )
     }
     gongkao_counts = {
-        source: sum(_gongkao_source(row) == source for row in gongkao_today)
+        source: sum(gongkao_sources.get(key, "other") == source for key in gongkao_today_keys)
         for source in ("government", "sheet", "other")
     }
-    gongkao_new = len(gongkao_today)
+    gongkao_new = len(gongkao_today_keys)
     qiuzhao_new = len(qiuzhao_today_keys)
     output = _load_json(output_path, {"history": []})
     history = [entry for entry in output.get("history", []) if isinstance(entry, dict) and entry.get("date") != today.isoformat()]
     entry = {
         "date": today.isoformat(), "gongkao_new": gongkao_new,
         "qiuzhao_new": qiuzhao_new, "recorded_at": datetime.now().astimezone().isoformat(),
-        "qiuzhao_wanqing_new": qiuzhao_counts["wanqing"],
-        "qiuzhao_xiaozhaoya_new": qiuzhao_counts["xiaozhaoya"],
-        "qiuzhao_other_new": qiuzhao_counts["other"],
+        "period": f"{today.isoformat()} 00:00-当前",
+        "qiuzhao_source_new": qiuzhao_counts,
+        "qiuzhao_wanqing_new": qiuzhao_counts.get("婉清购买表", 0),
+        "qiuzhao_xiaozhaoya_new": qiuzhao_counts.get("校招鸭home一次性回填", 0),
+        "qiuzhao_other_new": sum(
+            count for source, count in qiuzhao_counts.items()
+            if source not in {"婉清购买表", "校招鸭home一次性回填"}
+        ),
         "gongkao_government_new": gongkao_counts["government"],
         "gongkao_sheet_new": gongkao_counts["sheet"],
         "gongkao_other_new": gongkao_counts["other"],
@@ -163,15 +227,23 @@ def build_daily_broadcast(result: Mapping[str, Any]) -> str:
         "；低于3，事业编淡季可能正常，连续5天为0再重点处理"
         if int(result["gongkao_new"]) < 3 else ""
     )
+    source_counts = result.get("qiuzhao_source_new")
+    if isinstance(source_counts, Mapping):
+        source_detail = " / ".join(f"{name} {count}" for name, count in source_counts.items())
+    else:
+        source_detail = (
+            f"婉清购买表 {result['qiuzhao_wanqing_new']} / "
+            f"校招鸭home一次性回填 {result['qiuzhao_xiaozhaoya_new']} / "
+            f"未拆分来源 {result['qiuzhao_other_new']}"
+        )
     return "\n".join((
-        f"【每日采集播报】{result['date']}",
+        f"【每日采集播报】{result['date']}（当天累计，00:00-发送时）",
         (
-            f"秋招：新增 {result['qiuzhao_new']}（婉清 {result['qiuzhao_wanqing_new']} / "
-            f"校招鸭 {result['qiuzhao_xiaozhaoya_new']} / 其他源 {result['qiuzhao_other_new']}）"
+            f"秋招：当天累计新增 {result['qiuzhao_new']}（{source_detail}）"
             f"{qiuzhao_note}"
         ),
         (
-            f"公考：新增 {result['gongkao_new']}（政府源 {result['gongkao_government_new']} / "
+            f"公考：当天累计新增 {result['gongkao_new']}（政府源 {result['gongkao_government_new']} / "
             f"校招鸭事业单位表 {result['gongkao_sheet_new']} / 其他源 {result['gongkao_other_new']}）"
             f"{gongkao_note}"
         ),

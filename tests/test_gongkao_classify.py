@@ -49,6 +49,10 @@ def test_enterprise_campus_recruitment_routes_to_qiuzhao() -> None:
         "title": "中国工商银行黑龙江省分行2027年度校园招聘",
         "extra": {"exam_type": "银行"},
     }) == "秋招"
+    assert record_kind({
+        "title": "中船七一四所2027届校园招聘正式启动",
+        "extra": {"exam_type": "事业单位", "businessType": 4},
+    }) == "秋招"
 
 
 def test_public_entities_and_company_social_recruitment_stay_in_gongkao() -> None:
@@ -59,6 +63,17 @@ def test_public_entities_and_company_social_recruitment_stay_in_gongkao() -> Non
     assert record_kind({
         "title": "某国有集团社会招聘公告",
         "extra": {"exam_type": "国企招聘"},
+    }) == "公考"
+    for title in (
+        "寿光市农业农村局公开招聘2026届公费农科毕业生公告",
+        "荥阳市消防救援大队2026届公开招聘公告",
+        "中国社科院考古研究所2027届招聘公告",
+        "龙邦出入境边防检查站2027届警务辅助人员招聘公告",
+    ):
+        assert record_kind({"title": title, "extra": {"record_kind": "秋招"}}) == "公考"
+    assert record_kind({
+        "title": "大连市公安局2026年公开招聘警务辅助人员公告",
+        "extra": {"businessType": 4, "exam_type": "招警", "record_kind": "秋招"},
     }) == "公考"
 
 

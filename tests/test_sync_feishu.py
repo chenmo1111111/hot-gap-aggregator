@@ -244,6 +244,19 @@ def test_gongkao_enterprise_campus_row_is_converted_and_merged_into_qiuzhao() ->
     assert len(merge_qiuzhao_rows([], routed)) == 1
 
 
+def test_central_soe_institute_routed_label_is_not_bare_other() -> None:
+    row = {
+        "title": "中船七一四所2027届校园招聘正式启动",
+        "url": "https://example.com/cssc-714",
+        "extra": {"id": "714", "record_kind": "秋招", "exam_type": "事业单位"},
+    }
+
+    converted = routed_qiuzhao_row(row)
+
+    assert converted["company_name"] == "中船七一四所"
+    assert converted["company_type"] == "央企下属单位"
+
+
 def test_fenbi_timeline_rows_are_excluded_but_official_overrides_survive() -> None:
     timeline_rows = [
         {
