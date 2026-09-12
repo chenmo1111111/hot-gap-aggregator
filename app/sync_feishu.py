@@ -29,7 +29,9 @@ GONGKAO_EXAM_TYPES = (
     "军队文职", "国企", "银行", "其他",
 )
 QIUZHAO_COMPANY_TYPES = ("央企", "国企", "民企", "外企", "银行", "事业单位", "其他")
-GONGKAO_TEXT_FIELDS = {"同步ID", "地区", "招录单位·公告", "招录人数", "备注"}
+GONGKAO_TEXT_FIELDS = {
+    "同步ID", "地区", "招录单位·公告", "招录人数", "备注", "可能重复于",
+}
 QIUZHAO_TEXT_FIELDS = {
     "同步ID", "公司名称", "行业", "招聘岗位", "工作地点", "学历要求", "届次", "备注",
 }
@@ -53,6 +55,9 @@ DEFAULT_GONGKAO_MAPPING = {
     "$written_exam": "笔试时间",
     "$signup_status": "报名状态",
     "$announcement_link": "公告链接",
+    "$backup_link": "备用链接",
+    "$dup_suspect": "疑似重复",
+    "$possible_duplicate_of": "可能重复于",
     "$fresh_graduate": "应届可报",
     "$source": "来源",
     "extra.notes|notes|备注": "备注",
@@ -282,6 +287,28 @@ class FeishuClient:
     def delete_view(self, app_token: str, table_id: str, view_id: str) -> None:
         self._request(
             "DELETE", f"/bitable/v1/apps/{app_token}/tables/{table_id}/views/{view_id}",
+        )
+
+    def create_view(
+        self, app_token: str, table_id: str, name: str, *, view_type: str = "grid"
+    ) -> dict[str, Any]:
+        return self._request(
+            "POST",
+            f"/bitable/v1/apps/{app_token}/tables/{table_id}/views",
+            json={"view_name": name, "view_type": view_type},
+        )
+
+    def patch_view(
+        self,
+        app_token: str,
+        table_id: str,
+        view_id: str,
+        definition: Mapping[str, Any],
+    ) -> dict[str, Any]:
+        return self._request(
+            "PATCH",
+            f"/bitable/v1/apps/{app_token}/tables/{table_id}/views/{view_id}",
+            json=dict(definition),
         )
 
     def create_field(
@@ -763,6 +790,12 @@ def map_gongkao(
     url = _coalesce(row, "url|announcement_url|公告链接")
     signup_url = _coalesce(row, "extra.signup_url|extra.apply_url|signup_url|apply_url|报名入口")
     fresh = _coalesce(row, "extra.fresh_graduate|extra.graduate|fresh_graduate|应届可报")
+    extra = row.get("extra") if isinstance(row.get("extra"), Mapping) else {}
+    backup_urls = extra.get("backup_urls")
+    backup_url = next(
+        (str(value).strip() for value in backup_urls if str(value).strip().startswith(("http://", "https://"))),
+        "",
+    ) if isinstance(backup_urls, list) else ""
     derived = {
         "$sync_id": str(_coalesce(row, "extra.id|id") or "").strip(),
         "$sync_time": int(current.timestamp() * 1000),
@@ -776,6 +809,9 @@ def map_gongkao(
         "$signup_status": _signup_status(start, end, written, today),
         "$signup_link": _link(signup_url, "报名入口"),
         "$announcement_link": _link(url, "查看公告"),
+        "$backup_link": _link(backup_url, "备用公告"),
+        "$dup_suspect": bool(extra.get("dup_suspect")),
+        "$possible_duplicate_of": str(extra.get("possible_duplicate_of") or "").strip(),
         "$fresh_graduate": _bool_value(fresh),
         "$source": "自动",
     }
@@ -1009,6 +1045,89 @@ def delete_named_views(
     return deleted
 
 
+GONGKAO_DEDUP_FIELDS: tuple[dict[str, Any], ...] = (
+    {"field_name": "备用链接", "type": 15},
+    {"field_name": "疑似重复", "type": 7},
+    {"field_name": "可能重复于", "type": 1},
+)
+
+
+def ensure_gongkao_review_view(
+    client: FeishuClient, app_token: str, table_id: str
+) -> int:
+    """Create/update the grid view that shows only rows needing manual review."""
+    fields = client.list_fields(app_token, table_id)
+    suspect_field = next(
+        (field for field in fields if str(field.get("field_name") or "") == "疑似重复"),
+        None,
+    )
+    if not suspect_field:
+        raise FeishuAPIError("公考表缺少疑似重复字段，无法创建筛选视图")
+    field_id = str(suspect_field.get("field_id") or "")
+    if not field_id:
+        raise FeishuAPIError("公考表疑似重复字段缺少 field_id")
+
+    view_name = "疑似重复"
+    views = client.list_views(app_token, table_id)
+    view = next(
+        (row for row in views if str(row.get("view_name") or row.get("name") or "").strip() == view_name),
+        None,
+    )
+    created = 0
+    if not view:
+        client.create_view(app_token, table_id, view_name)
+        created = 1
+        views = client.list_views(app_token, table_id)
+        view = next(
+            (row for row in views if str(row.get("view_name") or row.get("name") or "").strip() == view_name),
+            None,
+        )
+    view_id = str((view or {}).get("view_id") or "")
+    if not view_id:
+        raise FeishuAPIError("疑似重复视图创建后未返回 view_id")
+    client.patch_view(
+        app_token,
+        table_id,
+        view_id,
+        {
+            "view_name": view_name,
+            "property": {
+                "filter_info": {
+                    "conjunction": "and",
+                    "condition_omitted": False,
+                    "conditions": [{
+                        "field_id": field_id,
+                        "field_type": 7,
+                        "operator": "is",
+                        "value": "true",
+                    }],
+                },
+            },
+        },
+    )
+    return created
+
+
+def ensure_gongkao_dedup_schema(
+    client: FeishuClient, app_token: str, table_id: str
+) -> dict[str, int]:
+    """Add non-destructive dedup columns and a review view if missing."""
+    fields = client.list_fields(app_token, table_id)
+    by_name = {str(field.get("field_name") or ""): field for field in fields}
+    created_fields = 0
+    for definition in GONGKAO_DEDUP_FIELDS:
+        name = str(definition["field_name"])
+        present = by_name.get(name)
+        if present:
+            if int(present.get("type") or 0) != int(definition["type"]):
+                raise FeishuAPIError(f"公考表字段 {name} 类型不符合预期，拒绝自动修改")
+            continue
+        client.create_field(app_token, table_id, definition)
+        created_fields += 1
+    created_view = ensure_gongkao_review_view(client, app_token, table_id)
+    return {"created_fields": created_fields, "created_view": created_view}
+
+
 def load_config(path: str | Path) -> dict[str, Any]:
     config_path = Path(path)
     raw = yaml.safe_load(config_path.read_text(encoding="utf-8")) or {}
@@ -1024,6 +1143,10 @@ def load_config(path: str | Path) -> dict[str, Any]:
         section = sources.get(name)
         if not isinstance(section, dict) or not isinstance(section.get("field_mapping"), dict):
             raise ValueError(f"config is missing sources.{name}.field_mapping")
+        if name == "gongkao":
+            section["field_mapping"].setdefault("$backup_link", "备用链接")
+            section["field_mapping"].setdefault("$dup_suspect", "疑似重复")
+            section["field_mapping"].setdefault("$possible_duplicate_of", "可能重复于")
         for required in ("$sync_id", "$sync_time", "$source"):
             if required not in section["field_mapping"]:
                 raise ValueError(f"sources.{name}.field_mapping is missing {required}")
@@ -1097,6 +1220,10 @@ def run() -> int:
             section = config["sources"][name]
             filename = str(section.get("file") or f"{name}.json")
             try:
+                if name == "gongkao":
+                    schema_result = ensure_gongkao_dedup_schema(client, app_token, table_id)
+                    if any(schema_result.values()):
+                        LOGGER.info("gongkao dedup schema ensured: %s", schema_result)
                 delete_views = section.get("delete_views")
                 if isinstance(delete_views, list) and delete_views:
                     try:

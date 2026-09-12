@@ -1,0 +1,94 @@
+{
+  "exact_shandong_business": [
+    {
+      "title": "《山东商报》社2026年公开招聘人员公告",
+      "url": "https://hrss.shandong.gov.cn/articles/ch00232/202609/6839d47a-af59-466d-9d14-977477fbbbfe.shtml",
+      "published_at": "2026-09-11",
+      "extra": {
+        "id": "gov:ce2e-shandong-business",
+        "province": "山东",
+        "source_site": "gov",
+        "government_source": true,
+        "first_seen": "2026-09-11",
+        "dedup_pool": "base"
+      }
+    },
+    {
+      "title": "2026年《山东商报》社公开招聘人员公告",
+      "url": "https://job.shiyebian.net/jobdetails?id=154930",
+      "published_at": "2026-09-11",
+      "extra": {
+        "id": "gongkao-sheet:154930",
+        "province": "山东省",
+        "city": "济南市",
+        "unit": "山东商报社",
+        "recruit_count": "2人",
+        "startSignUpTime": "2026-09-15",
+        "endSignUpTime": "2026-09-21",
+        "upstream_source": "gongkao_sheet",
+        "first_seen": "2026-09-11",
+        "dedup_pool": "sheet"
+      }
+    }
+  ],
+  "fuzzy_pingyuan": [
+    {
+      "title": "2026年平原县事业单位引进优秀青年人才公告",
+      "url": "https://hera-webapp.fenbi.com/api/website/article/detail?id=469006519916544",
+      "published_at": "2026-09-11T17:12:01+08:00",
+      "extra": {
+        "id": "469006519916544",
+        "province": "山东",
+        "recruit_count": 19,
+        "startSignUpTime": 1792371600000,
+        "endSignUpTime": 1792742400000,
+        "source_site": "fenbi",
+        "first_seen": "2026-09-11",
+        "dedup_pool": "base"
+      }
+    },
+    {
+      "title": "2026年德州平原县事业单位引进优秀青年人才公告（19名）",
+      "url": "https://job.shiyebian.net/jobdetails?id=154912",
+      "published_at": "2026-09-11",
+      "extra": {
+        "id": "gongkao-sheet:154912",
+        "province": "山东省",
+        "city": "平原县",
+        "unit": "平原县事业单位",
+        "recruit_count": "19名",
+        "startSignUpTime": "2026-10-19",
+        "endSignUpTime": "2026-10-23",
+        "upstream_source": "gongkao_sheet",
+        "first_seen": "2026-09-11",
+        "dedup_pool": "sheet"
+      }
+    }
+  ],
+  "suspect_conflict": [
+    {
+      "title": "某县事业单位公开招聘工作人员公告",
+      "url": "https://example.gov.cn/a",
+      "published_at": "2026-09-11",
+      "extra": {
+        "id": "gov:a",
+        "province": "山东",
+        "recruit_count": 10,
+        "source_site": "gov",
+        "first_seen": "2026-09-11"
+      }
+    },
+    {
+      "title": "某县事业单位公开招聘专业技术工作人员公告",
+      "url": "https://example.test/b",
+      "published_at": "2026-09-12",
+      "extra": {
+        "id": "sheet:b",
+        "province": "山东省",
+        "recruit_count": 20,
+        "upstream_source": "gongkao_sheet",
+        "first_seen": "2026-09-12"
+      }
+    }
+  ]
+}

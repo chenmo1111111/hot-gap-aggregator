@@ -40,10 +40,13 @@ def test_map_public_gongkao_uses_only_display_fields() -> None:
         "报名开始", "报名截止", "报名状态", "省份", "城市", "单位名称",
         "岗位性质", "限户籍", "限专业", "应届", "服务期",
         "招录院校范围", "备注", "链接", "同步ID", "来源",
+        "备用链接", "疑似重复", "可能重复于",
     }
     assert fields["类别"] == "事业单位"
     assert fields["招聘人数"] == "12"
     assert fields["链接"] == {"text": "查看公告", "link": "https://example.com/notice"}
+    assert fields["备用链接"] is None
+    assert fields["疑似重复"] is False
     assert fields["首次收录"] == int(datetime(2026, 9, 8, tzinfo=CHINA_TZ).timestamp() * 1000)
     assert "日期" not in fields
     assert fields["来源"] == "自动"

@@ -6,8 +6,6 @@ import argparse
 import hashlib
 import json
 import os
-import re
-import unicodedata
 from datetime import datetime
 from pathlib import Path
 from typing import Any, Mapping
@@ -15,29 +13,13 @@ from urllib.parse import urlsplit, urlunsplit
 
 from dotenv import load_dotenv
 
-from app.pipeline.gongkao_filter import filter_gongkao_items, is_gov_domain
+from app.pipeline.gongkao_filter import filter_gongkao_items
+from app.pipeline.gongkao_dedup import deduplicate_gongkao_items
 from app.pipeline.prune import filter_current_items, load_retention
 
 
 def _text(value: object) -> str:
     return str(value or "").strip()
-
-
-def _normalize(value: object) -> str:
-    text = unicodedata.normalize("NFKC", _text(value)).casefold()
-    return re.sub(r"[^\w]+", "", text, flags=re.UNICODE)
-
-
-def _normalize_province(value: object) -> str:
-    """Normalize equivalent province labels such as 内蒙古/内蒙古自治区."""
-    text = _text(value)
-    for suffix in (
-        "壮族自治区", "回族自治区", "维吾尔自治区", "特别行政区", "自治区", "省", "市",
-    ):
-        if text.endswith(suffix):
-            text = text[: -len(suffix)]
-            break
-    return _normalize(text)
 
 
 def _extra(item: Mapping[str, Any]) -> Mapping[str, Any]:
@@ -52,105 +34,6 @@ def _canonical_url(value: object) -> str:
     parsed = urlsplit(text)
     path = parsed.path.rstrip("/") or "/"
     return urlunsplit(("", parsed.netloc.casefold(), path, parsed.query, ""))
-
-
-def _identity_keys(item: Mapping[str, Any]) -> set[str]:
-    extra = _extra(item)
-    url = _canonical_url(
-        item.get("url")
-        or item.get("announcement_url")
-        or extra.get("announcement_url")
-        or extra.get("url")
-    )
-    title = _normalize(item.get("title_zh") or item.get("title"))
-    province = _normalize_province(extra.get("province") or item.get("province"))
-    keys = {f"url:{url}"} if url else set()
-    recruitment_id = _text(extra.get("recruitment_id"))
-    stable_id = _text(extra.get("id"))
-    if not recruitment_id and stable_id.startswith("xiaozhaoya:"):
-        recruitment_id = stable_id.removeprefix("xiaozhaoya:")
-    if recruitment_id:
-        keys.add(f"recruitment:{recruitment_id}")
-    if title:
-        keys.add(f"title:{title}|{province}")
-    return keys
-
-
-def _has_value(value: object) -> bool:
-    return value not in (None, "", [], {})
-
-
-def _link_priority(item: Mapping[str, Any], default: int) -> int:
-    """Rank links so an official government URL can never be overwritten.
-
-    Priority: government source/domain > official watcher > captured Sheet >
-    Fenbi/base feed.  The default identifies the ingestion path while the
-    record itself can promote an official URL to the highest priority.
-    """
-    extra = _extra(item)
-    url = item.get("url") or item.get("announcement_url") or extra.get("announcement_url")
-    if extra.get("government_source") or is_gov_domain(url):
-        return 3
-    return default
-
-
-def _prefer_external_record(
-    existing: Mapping[str, Any],
-    preferred: Mapping[str, Any],
-    *,
-    source_name: str,
-) -> dict[str, Any]:
-    """Keep the stable collected record while preferring its external source link.
-
-    Fenbi often publishes the same notice as both an article and an exam-calendar
-    entry.  The captured Sheet or an official watcher may contain the actual
-    government announcement URL.  Preserve the existing ID (and therefore the
-    enrichment cache/sync identity), but use the higher-priority source's URL and
-    useful display fields.
-    """
-    result = dict(existing)
-    for name in ("title", "title_zh", "url", "published_at", "summary", "summary_zh"):
-        value = preferred.get(name)
-        if _has_value(value):
-            result[name] = value
-
-    existing_extra = dict(_extra(existing))
-    preferred_extra = dict(_extra(preferred))
-    replaced_urls = [
-        str(url).strip()
-        for url in existing_extra.get("replaced_urls", [])
-        if str(url).strip().startswith(("http://", "https://"))
-    ] if isinstance(existing_extra.get("replaced_urls"), list) else []
-    existing_url = str(existing.get("url") or "").strip()
-    preferred_url = str(
-        preferred.get("url") or preferred_extra.get("announcement_url") or ""
-    ).strip()
-    if (
-        existing_url.startswith(("http://", "https://"))
-        and preferred_url
-        and _canonical_url(existing_url) != _canonical_url(preferred_url)
-        and existing_url not in replaced_urls
-    ):
-        replaced_urls.append(existing_url)
-    stable_id = existing_extra.get("id")
-    stable_sub = existing_extra.get("sub")
-    for name, value in preferred_extra.items():
-        if _has_value(value):
-            existing_extra[name] = value
-    if _has_value(stable_id):
-        existing_extra["id"] = stable_id
-    if _has_value(stable_sub):
-        existing_extra["sub"] = stable_sub
-    preferred_id = preferred_extra.get("id")
-    if _has_value(preferred_id) and preferred_id != stable_id:
-        existing_extra[f"{source_name}_id"] = preferred_id
-    if _has_value(preferred_url):
-        existing_extra["announcement_url"] = preferred_url
-    if replaced_urls:
-        existing_extra["replaced_urls"] = replaced_urls
-    existing_extra["preferred_link_source"] = source_name
-    result["extra"] = existing_extra
-    return result
 
 
 def _items(payload: Mapping[str, Any], name: str) -> list[dict[str, Any]]:
@@ -175,53 +58,18 @@ def merge_gongkao_payloads(
     sheet_items = _items(sheet_payload, "gongkao_sheet.json") if sheet_payload else []
     server_items = _items(server_payload, "server-gongkao.json") if server_payload else []
 
-    merged: list[dict[str, Any]] = []
-    key_indices: dict[str, set[int]] = {}
-    link_priorities: list[int] = []
-    sheet_duplicate_count = 0
-    sheet_merged_count = 0
-    server_duplicate_count = 0
-    server_merged_count = 0
+    candidates: list[dict[str, Any]] = []
 
-    def remember(index: int, item: Mapping[str, Any]) -> None:
-        for key in _identity_keys(item):
-            key_indices.setdefault(key, set()).add(index)
+    def add_candidate(item: Mapping[str, Any], pool: str) -> None:
+        candidate = dict(item)
+        extra = dict(_extra(candidate))
+        extra["dedup_pool"] = pool
+        candidate["extra"] = extra
+        candidates.append(candidate)
 
-    def matching_indices(item: Mapping[str, Any]) -> set[int]:
-        return {
-            index
-            for key in _identity_keys(item)
-            for index in key_indices.get(key, set())
-        }
-    # Retain the stable IDs/order of the base feed.  Higher-priority sources may
-    # replace its display URL without discarding Fenbi's structured dates.
     for item in base_items:
-        item["rank"] = len(merged) + 1
-        merged.append(item)
-        link_priorities.append(_link_priority(item, 0))
-        remember(len(merged) - 1, item)
-    # Mainland watcher records are official and take precedence over the
-    # manually captured Sheet when both point at the same announcement.
+        add_candidate(item, _text(_extra(item).get("dedup_pool")) or "base")
     for item in server_items:
-        incoming_priority = _link_priority(item, 2)
-        matches = matching_indices(item)
-        if matches:
-            server_duplicate_count += 1
-            changed = False
-            for index in matches:
-                if (
-                    link_priorities[index] > incoming_priority
-                    or link_priorities[index] == 3
-                ):
-                    continue
-                merged[index] = _prefer_external_record(
-                    merged[index], item, source_name="official_watcher"
-                )
-                link_priorities[index] = incoming_priority
-                remember(index, merged[index])
-                changed = True
-            server_merged_count += int(changed)
-            continue
         extra = dict(_extra(item))
         url = _canonical_url(item.get("url") or extra.get("announcement_url"))
         if not extra.get("id") and url:
@@ -229,39 +77,52 @@ def merge_gongkao_payloads(
             extra["id"] = f"watcher:{digest}"
         extra.setdefault("sub", "announcement")
         item["extra"] = extra
-        item["rank"] = len(merged) + 1
-        merged.append(item)
-        link_priorities.append(incoming_priority)
-        remember(len(merged) - 1, item)
-    server_added_count = len(merged) - len(base_items)
+        add_candidate(item, "server")
 
     for item in sheet_items:
-        incoming_priority = _link_priority(item, 1)
-        matches = matching_indices(item)
-        if matches:
-            sheet_duplicate_count += 1
-            changed = False
-            for index in matches:
-                if (
-                    link_priorities[index] > incoming_priority
-                    or link_priorities[index] == 3
-                ):
-                    continue
-                merged[index] = _prefer_external_record(
-                    merged[index], item, source_name="feishu_sheet"
-                )
-                link_priorities[index] = incoming_priority
-                remember(index, merged[index])
-                changed = True
-            sheet_merged_count += int(changed)
-            continue
-        item["rank"] = len(merged) + 1
-        merged.append(item)
-        link_priorities.append(incoming_priority)
-        remember(len(merged) - 1, item)
+        add_candidate(item, "sheet")
+
+    merged, dedup_report = deduplicate_gongkao_items(candidates)
+
+    def pool_counts(item: Mapping[str, Any]) -> dict[str, int]:
+        extra = _extra(item)
+        value = extra.get("merged_pool_counts")
+        if isinstance(value, Mapping):
+            return {str(name): int(count) for name, count in value.items()}
+        return {_text(extra.get("dedup_pool")) or "base": 1}
+
+    groups = [pool_counts(item) for item in merged]
+    pool_duplicate_counts = {
+        pool: sum(
+            int(counts.get(pool, 0))
+            - int(sum(int(value or 0) for value in counts.values()) == int(counts.get(pool, 0)))
+            for counts in groups
+            if counts.get(pool)
+        )
+        for pool in ("base", "server", "sheet", "xiaozhaoya", "purchased")
+    }
+    sheet_added_count = sum(
+        counts.get("sheet", 0) > 0 and not counts.get("base") and not counts.get("server")
+        for counts in groups
+    )
+    server_added_count = sum(
+        counts.get("server", 0) > 0 and not counts.get("base")
+        for counts in groups
+    )
+    sheet_duplicate_count = sum(
+        counts.get("sheet", 0) - int(not counts.get("base") and not counts.get("server"))
+        for counts in groups if counts.get("sheet")
+    )
+    server_duplicate_count = sum(
+        counts.get("server", 0) - int(not counts.get("base"))
+        for counts in groups if counts.get("server")
+    )
+    sheet_merged_count = sheet_duplicate_count
+    server_merged_count = server_duplicate_count
 
     filter_input_count = len(merged)
     merged, filter_stats, filtered_samples = filter_gongkao_items(merged, profile="site")
+    suspect_item_count = sum(bool(_extra(item).get("dup_suspect")) for item in merged)
     for index, item in enumerate(merged, 1):
         item["rank"] = index
 
@@ -277,7 +138,7 @@ def merge_gongkao_payloads(
             "server_added_count": server_added_count,
             "server_duplicate_count": server_duplicate_count,
             "server_merged_count": server_merged_count,
-            "sheet_added_count": len(merged) - len(base_items) - server_added_count,
+            "sheet_added_count": sheet_added_count,
             "sheet_duplicate_count": sheet_duplicate_count,
             "sheet_merged_count": sheet_merged_count,
             "upstream_sources": [
@@ -288,6 +149,9 @@ def merge_gongkao_payloads(
             "filter_input_count": filter_input_count,
             "filter_stats": filter_stats,
             "filtered_samples": filtered_samples,
+            "dedup": dedup_report.to_dict(),
+            "dedup_pool_duplicate_counts": pool_duplicate_counts,
+            "dedup_suspect_item_count": suspect_item_count,
         }
     )
     return {
@@ -324,18 +188,12 @@ def write_gongkao(data_dir: str | Path) -> dict[str, Any]:
         xiaozhaoya_items, xiaozhaoya_retention_deleted_count = filter_current_items(
             xiaozhaoya_items, load_retention()
         )
-        base_items = _items(base_payload, "gongkao.json")
-        known_keys = {key for item in base_items for key in _identity_keys(item)}
-        retained: list[dict[str, Any]] = []
-        for item in xiaozhaoya_items:
-            keys = _identity_keys(item)
-            if keys & known_keys:
-                xiaozhaoya_duplicate_count += 1
-                continue
-            retained.append(item)
-            known_keys.update(keys)
-        xiaozhaoya_items = retained
         xiaozhaoya_count = len(xiaozhaoya_items)
+        xiaozhaoya_items = [
+            {**item, "extra": {**dict(_extra(item)), "dedup_pool": "xiaozhaoya"}}
+            for item in xiaozhaoya_items
+        ]
+        base_items = _items(base_payload, "gongkao.json")
         base_payload = {
             **base_payload,
             "items": [*base_items, *xiaozhaoya_items],
@@ -354,18 +212,12 @@ def write_gongkao(data_dir: str | Path) -> dict[str, Any]:
         purchased_items, purchased_retention_deleted_count = filter_current_items(
             purchased_items, load_retention()
         )
-        base_items = _items(base_payload, "gongkao.json")
-        known_keys = {key for item in base_items for key in _identity_keys(item)}
-        retained = []
-        for item in purchased_items:
-            keys = _identity_keys(item)
-            if keys & known_keys:
-                purchased_duplicate_count += 1
-                continue
-            retained.append(item)
-            known_keys.update(keys)
-        purchased_items = retained
         purchased_count = len(purchased_items)
+        purchased_items = [
+            {**item, "extra": {**dict(_extra(item)), "dedup_pool": "purchased"}}
+            for item in purchased_items
+        ]
+        base_items = _items(base_payload, "gongkao.json")
         base_payload = {**base_payload, "items": [*base_items, *purchased_items]}
     sheet_payload: dict[str, Any] | None = None
     sheet_input_count = 0
@@ -389,6 +241,11 @@ def write_gongkao(data_dir: str | Path) -> dict[str, Any]:
         server_payload = value
 
     output = merge_gongkao_payloads(base_payload, sheet_payload, server_payload)
+    dedup_by_pool = output["status"].get("dedup_pool_duplicate_counts", {})
+    xiaozhaoya_duplicate_count = dedup_by_pool.get("xiaozhaoya", 0)
+    purchased_duplicate_count = dedup_by_pool.get("purchased", 0)
+    xiaozhaoya_count = max(0, xiaozhaoya_count - xiaozhaoya_duplicate_count)
+    purchased_count = max(0, purchased_count - purchased_duplicate_count)
     output["status"]["xiaozhaoya_item_count"] = xiaozhaoya_count
     output["status"]["xiaozhaoya_input_count"] = xiaozhaoya_input_count
     output["status"]["xiaozhaoya_retention_deleted_count"] = (
@@ -435,6 +292,9 @@ def main() -> int:
                 "server_merged_count": output["status"]["server_merged_count"],
                 "xiaozhaoya_item_count": output["status"].get("xiaozhaoya_item_count", 0),
                 "purchased_item_count": output["status"].get("purchased_item_count", 0),
+                "dedup_auto_merged_count": output["status"].get("dedup", {}).get("auto_merged_count", 0),
+                "dedup_suspect_pair_count": output["status"].get("dedup", {}).get("suspect_pair_count", 0),
+                "dedup_suspect_item_count": output["status"].get("dedup_suspect_item_count", 0),
             },
             ensure_ascii=False,
         )

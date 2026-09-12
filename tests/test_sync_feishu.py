@@ -15,6 +15,7 @@ from app.sync_feishu import (
     date_to_millis,
     delete_named_views,
     diff_records,
+    ensure_gongkao_review_view,
     map_gongkao,
     map_qiuzhao,
     merge_qiuzhao_rows,
@@ -76,6 +77,9 @@ def test_gongkao_mapping_derives_dates_status_region_and_links() -> None:
     assert fields["报名状态"] == "报名中"
     assert "报名入口" not in fields
     assert fields["公告链接"] == {"text": "查看公告", "link": "https://example.com/notice"}
+    assert fields["备用链接"] is None
+    assert fields["疑似重复"] is False
+    assert fields["可能重复于"] == "/"
     assert fields["应届可报"] is True
     assert fields["来源"] == "自动"
 
@@ -347,6 +351,25 @@ def test_delete_named_views_removes_only_obsolete_finished_view() -> None:
     client.delete_view.assert_called_once_with("app", "table", "vew-ended")
 
 
+def test_ensure_gongkao_review_view_applies_checkbox_filter() -> None:
+    client = Mock()
+    client.list_fields.return_value = [{
+        "field_id": "fld-suspect", "field_name": "疑似重复", "type": 7,
+    }]
+    client.list_views.return_value = [{
+        "view_id": "vew-suspect", "view_name": "疑似重复", "view_type": "grid",
+    }]
+
+    assert ensure_gongkao_review_view(client, "app", "table") == 0
+
+    definition = client.patch_view.call_args.args[3]
+    condition = definition["property"]["filter_info"]["conditions"][0]
+    assert condition == {
+        "field_id": "fld-suspect", "field_type": 7,
+        "operator": "is", "value": "true",
+    }
+
+
 def test_client_caches_token_and_refetches_it_once_after_401() -> None:
     calls = {"auth": 0, "records": 0}
 
@@ -398,6 +421,7 @@ def test_default_mapping_has_every_required_feishu_field() -> None:
         "同步ID", "更新时间", "地区", "招录类型", "招录单位·公告", "招录人数",
         "报名开始", "报名截止", "距截止天数", "笔试时间", "报名状态",
         "公告链接", "应届可报", "来源", "备注",
+        "备用链接", "疑似重复", "可能重复于",
     }
     assert set(DEFAULT_QIUZHAO_MAPPING.values()) == {
         "同步ID", "更新时间", "公司名称", "企业性质", "行业", "招聘岗位", "工作地点", "学历要求",

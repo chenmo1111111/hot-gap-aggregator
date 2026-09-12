@@ -37,6 +37,7 @@ from app.sync_feishu import (
     date_to_millis,
     actionable_apply_url,
     merge_qiuzhao_rows,
+    ensure_gongkao_review_view,
     normalize,
     normalize_company_type,
     normalize_exam_type,
@@ -89,6 +90,9 @@ GONGKAO_SCHEMA: tuple[dict[str, Any], ...] = (
     {"field_name": "招录院校范围", "type": TEXT},
     {"field_name": "备注", "type": TEXT},
     {"field_name": "链接", "type": URL},
+    {"field_name": "备用链接", "type": URL},
+    {"field_name": "疑似重复", "type": CHECKBOX},
+    {"field_name": "可能重复于", "type": TEXT},
     {"field_name": "同步ID", "type": TEXT},
     {
         "field_name": "来源", "type": SINGLE_SELECT,
@@ -279,6 +283,18 @@ def map_public_gongkao(row: Mapping[str, Any]) -> dict[str, Any]:
         ),
         "备注": _coalesce(row, "extra.bei_zhu|extra.notes|notes|备注") or "/",
         "链接": link,
+        "备用链接": _link(
+            next(
+                (
+                    str(value).strip() for value in extra.get("backup_urls", [])
+                    if str(value).strip().startswith(("http://", "https://"))
+                ),
+                "",
+            ) if isinstance(extra.get("backup_urls"), list) else "",
+            "备用公告",
+        ),
+        "疑似重复": bool(extra.get("dup_suspect")),
+        "可能重复于": str(extra.get("possible_duplicate_of") or "").strip() or "/",
         "同步ID": identifier,
         "来源": "自动",
     }
@@ -550,11 +566,10 @@ def _replaced_gongkao_link_keys(rows: Iterable[Mapping[str, Any]]) -> set[str]:
     keys: set[str] = set()
     for row in rows:
         extra = row.get("extra") if isinstance(row.get("extra"), Mapping) else {}
-        replaced = (
-            extra.get("replaced_urls")
-            if isinstance(extra.get("replaced_urls"), list)
-            else []
-        )
+        replaced = [
+            *(extra.get("replaced_urls") if isinstance(extra.get("replaced_urls"), list) else []),
+            *(extra.get("backup_urls") if isinstance(extra.get("backup_urls"), list) else []),
+        ]
         for value in replaced:
             url = _link_url(value)
             if url:
@@ -619,6 +634,10 @@ def run(argv: list[str] | None = None) -> int:
                     client, app_token, table_id, schema,
                     deprecated_fields=deprecated_fields,
                 )
+                if name == "gongkao_public":
+                    created_view = ensure_gongkao_review_view(client, app_token, table_id)
+                    if created_view:
+                        LOGGER.info("public gongkao suspect review view created")
                 rows = _load_items(data_dir / filename)
                 force_delete_keys: set[str] | None = None
                 source_field: str | None = None
