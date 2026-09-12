@@ -260,7 +260,9 @@ def map_public_gongkao(row: Mapping[str, Any]) -> dict[str, Any]:
         "报名截止": date_to_millis(end),
         "报名状态": status,
         "省份": province,
-        "城市": _coalesce(row, "extra.city|city|城市") or "",
+        # Feishu drops an empty text cell on read-back.  Writing ``""`` here
+        # therefore made every city-less row look changed on every sync.
+        "城市": _coalesce(row, "extra.city|city|城市") or "/",
         "单位名称": _coalesce(row, "extra.unit|unit|company|单位名称") or "/",
         "岗位性质": _coalesce(row, "extra.position_nature|position_nature|岗位性质") or "/",
         "限户籍": (

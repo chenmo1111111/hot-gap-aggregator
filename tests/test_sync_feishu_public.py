@@ -57,6 +57,7 @@ def test_public_text_fields_use_slash_without_touching_typed_empty_fields() -> N
     })
     assert gongkao["招聘人数"] == "/"
     assert gongkao["最低学历"] == "/"
+    assert gongkao["城市"] == "/"
     assert gongkao["招录院校范围"] == "/"
     assert gongkao["备注"] == "/"
     assert gongkao["报名开始"] is None
