@@ -608,11 +608,17 @@ def _gongkao_company_name(row: Mapping[str, Any]) -> str:
         return str(explicit).strip()
     title = str(row.get("title_zh") or row.get("title") or "").strip()
     cleaned = re.sub(r"^20\d{2}(?:年度)?届?", "", title).strip(" ：:｜|-—")
+    # Some feeds put the recruitment type before the employer, for example
+    # ``【校园招聘】中国化学工程集团有限公司``.  Treat that bracketed text as a
+    # prefix instead of returning the opening bracket as the company name.
+    cleaned = re.sub(
+        r"^[【\[][^】\]]*(?:校园招聘|校招)[^】\]]*[】\]]\s*", "", cleaned,
+    ).strip(" ：:｜|-—")
     marker = re.search(
         r"(?:20\d{2}(?:年度)?届?|春季|秋季)?(?:全球|全国)?(?:校园招聘|校招)", cleaned
     )
     candidate = cleaned[: marker.start()] if marker else ""
-    return candidate.strip(" ：:｜|-—") or title
+    return candidate.strip(" ：:｜|-—") or cleaned or title
 
 
 def routed_qiuzhao_row(row: Mapping[str, Any]) -> dict[str, Any]:

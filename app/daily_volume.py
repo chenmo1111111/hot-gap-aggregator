@@ -181,6 +181,20 @@ def update_daily_volume(
             qiuzhao_sources[key] = current_source
 
     gongkao_today_keys = [key for key, value in gongkao_seen.items() if _date(value) == today]
+    active_qiuzhao_keys = {_qiuzhao_id(row) for row in qiuzhao}
+    # The pre-source-breakdown state used ``other`` (or no value at all) and
+    # cannot be attributed after the corresponding row has left the current
+    # export.  Do not keep those one-time migration ghosts in today's totals:
+    # every newly observed row now records its concrete collector immediately.
+    legacy_orphans = {
+        key for key, value in qiuzhao_seen.items()
+        if _date(value) == today
+        and key not in active_qiuzhao_keys
+        and qiuzhao_sources.get(key) in {None, "", "other", "未标注来源"}
+    }
+    for key in legacy_orphans:
+        qiuzhao_seen.pop(key, None)
+        qiuzhao_sources.pop(key, None)
     qiuzhao_today_keys = [key for key, value in qiuzhao_seen.items() if _date(value) == today]
     active_qiuzhao_sources = {_qiuzhao_source(row) for row in qiuzhao}
     active_qiuzhao_sources.update(qiuzhao_sources.get(key, "未标注来源") for key in qiuzhao_today_keys)
@@ -244,7 +258,8 @@ def build_daily_broadcast(result: Mapping[str, Any]) -> str:
         ),
         (
             f"公考：当天累计新增 {result['gongkao_new']}（政府源 {result['gongkao_government_new']} / "
-            f"校招鸭事业单位表 {result['gongkao_sheet_new']} / 其他源 {result['gongkao_other_new']}）"
+            f"校招鸭事业单位表 {result['gongkao_sheet_new']} / "
+            f"粉笔等补充源 {result['gongkao_other_new']}）"
             f"{gongkao_note}"
         ),
     ))

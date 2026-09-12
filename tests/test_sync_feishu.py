@@ -257,6 +257,19 @@ def test_central_soe_institute_routed_label_is_not_bare_other() -> None:
     assert converted["company_type"] == "央企下属单位"
 
 
+def test_bracketed_campus_prefix_does_not_become_company_name() -> None:
+    row = {
+        "title": "【校园招聘】中国化学工程集团有限公司",
+        "url": "https://example.com/cncec",
+        "extra": {"id": "cncec", "record_kind": "秋招", "exam_type": "央企招聘"},
+    }
+
+    converted = routed_qiuzhao_row(row)
+
+    assert converted["company_name"] == "中国化学工程集团有限公司"
+    assert map_qiuzhao(converted)["同步ID"].startswith("中国化学工程集团有限公司|")
+
+
 def test_fenbi_timeline_rows_are_excluded_but_official_overrides_survive() -> None:
     timeline_rows = [
         {
