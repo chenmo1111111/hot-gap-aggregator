@@ -71,6 +71,8 @@ describe('authenticated app bootstrap', () => {
 
     expect(await screen.findByText('tester')).toBeInTheDocument();
     await waitFor(() => expect(fetchMock.mock.calls.some(([url]) => String(url) === '/data/all.json')).toBe(true));
+    expect(fetchMock.mock.calls.some(([url]) => String(url) === '/data/qiuzhao.json')).toBe(false);
+    expect(fetchMock.mock.calls.some(([url]) => String(url) === '/data/gongkao_enriched.json')).toBe(false);
     expect(screen.queryByRole('button', { name: '截止提醒' })).not.toBeInTheDocument();
     expect(fetchMock.mock.calls.some(([url]) => String(url).startsWith('/api/admin/mail-deadlines'))).toBe(false);
     fireEvent.click(screen.getByRole('button', { name: '调整导航标签' }));
@@ -148,9 +150,9 @@ describe('authenticated app bootstrap', () => {
       const url = String(input);
       if (url === '/api/me') return json({ username: 'reader', is_admin: false });
       if (url === '/api/settings') return json({ prefs: {}, updated_at: null });
-      if (url.endsWith('/data/all.json')) return json({
+      if (url.endsWith('/data/gongkao_enriched.json')) return json({
         generated_at: '2026-09-03T00:00:00Z',
-        sources: [{ source: 'gongkao', status: 'degraded', item_count: 1, error: 'Fenbi temporarily unavailable' }],
+        source: 'gongkao', status: { source: 'gongkao', status: 'degraded', item_count: 1, error: 'Fenbi temporarily unavailable' },
         items: [{ source: 'gongkao', rank: 1, title: '粉笔时间线', title_zh: '粉笔时间线', url: 'https://fenbi.test/1', extra: { subsource: 'timeline', exam_type: '省考', province: '山东' } }],
       });
       if (url.endsWith('/data/server-gongkao.json')) return json({
@@ -226,7 +228,7 @@ describe('authenticated app bootstrap', () => {
       const url = String(input);
       if (url === '/api/me') return json({ username: 'reader', is_admin: false });
       if (url === '/api/settings') return json({ prefs: {}, updated_at: null });
-      if (url.endsWith('/data/all.json')) return json({ generated_at: '2026-09-07T00:00:00Z', sources: [{ source: 'jobs', status: 'ok', item_count: 2 }], items: [
+      if (url.endsWith('/data/jobs.json')) return json({ generated_at: '2026-09-07T00:00:00Z', source: 'jobs', status: { source: 'jobs', status: 'ok', item_count: 2 }, items: [
         { source: 'jobs', rank: 1, title: '腾讯算法岗', title_zh: '腾讯算法岗', url: 'https://jobs.test/tencent', extra: { company: '腾讯', city: '北京', keywords_hit: ['算法'] } },
         { source: 'jobs', rank: 2, title: '央企数据岗', title_zh: '央企数据岗', url: 'https://jobs.test/guopin', extra: { subsource: 'guopin', company: '中央示例集团', city: '天津', is_central_soe: true } },
       ] });
@@ -301,11 +303,6 @@ describe('authenticated app bootstrap', () => {
           { source: 'gongkao', rank: 1, title: '粉笔考试公告', title_zh: '粉笔考试公告', url: 'https://example.test/gongkao', extra: { subsource: 'fenbi' } },
         ],
       });
-      if (url.endsWith('/data/server-gongkao.json')) return json({
-        generated_at: '2026-09-04T00:00:00Z', source: 'gongkao_official',
-        status: { source: 'gongkao_official', status: 'ok', item_count: 1 },
-        items: [{ source: 'gongkao', rank: 1, title: '官方选调公告', title_zh: '官方选调公告', url: 'https://example.test/official', extra: { subsource: 'xuandiao' } }],
-      });
       return dataResponse(url) ?? json({}, 404);
     });
     vi.stubGlobal('fetch', fetchMock);
@@ -313,8 +310,67 @@ describe('authenticated app bootstrap', () => {
     render(<App />);
     await screen.findByText('reader');
     const text = document.body.textContent || '';
-    expect(text.indexOf('微博第一热搜')).toBeLessThan(text.indexOf('官方选调公告'));
-    expect(text.indexOf('官方选调公告')).toBeLessThan(text.indexOf('粉笔考试公告'));
+    expect(text.indexOf('微博第一热搜')).toBeLessThan(text.indexOf('粉笔考试公告'));
+    expect(fetchMock.mock.calls.some(([url]) => String(url) === '/data/server-gongkao.json')).toBe(false);
+  });
+
+  it('does not request hidden heavy tabs during bootstrap', async () => {
+    const fetchMock = vi.fn(async (input: RequestInfo | URL) => {
+      const url = String(input);
+      if (url === '/api/me') return json({ username: 'reader', is_admin: false });
+      if (url === '/api/settings') return json({ prefs: { tab_hidden: ['gongkao', 'qiuzhao'] }, updated_at: null });
+      return dataResponse(url) ?? json({}, 404);
+    });
+    vi.stubGlobal('fetch', fetchMock);
+    render(<App />);
+    await screen.findByText('reader');
+    expect(screen.queryByRole('button', { name: '公考' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: '秋招' })).not.toBeInTheDocument();
+    expect(fetchMock.mock.calls.some(([url]) => String(url) === '/data/gongkao_enriched.json')).toBe(false);
+    expect(fetchMock.mock.calls.some(([url]) => String(url) === '/data/qiuzhao.json')).toBe(false);
+  });
+
+  it('renders long Qiuzhao lists in bounded batches', async () => {
+    const rows = Array.from({ length: 105 }, (_, index) => ({
+      company_name: `公司${index}`, position: `岗位${index}`, location: '北京', apply_url: `https://jobs.test/${index}`,
+    }));
+    const fetchMock = vi.fn(async (input: RequestInfo | URL) => {
+      const url = String(input);
+      if (url === '/api/me') return json({ username: 'reader', is_admin: false });
+      if (url === '/api/settings') return json({ prefs: {}, updated_at: null });
+      if (url.endsWith('/data/qiuzhao.json')) return json({ generated_at: '', items: rows });
+      return dataResponse(url) ?? json({}, 404);
+    });
+    vi.stubGlobal('fetch', fetchMock);
+    const { container } = render(<App />);
+    await screen.findByText('reader');
+    fireEvent.click(screen.getByRole('button', { name: '秋招' }));
+    expect(await screen.findByText('公司0 · 岗位0')).toBeInTheDocument();
+    expect(container.querySelectorAll('article')).toHaveLength(80);
+    fireEvent.click(screen.getByRole('button', { name: /加载更多/ }));
+    expect(container.querySelectorAll('article')).toHaveLength(105);
+  });
+
+  it('renders long Gongkao lists in bounded batches', async () => {
+    const rows = Array.from({ length: 105 }, (_, index) => ({
+      source: 'gongkao', rank: index + 1, title: `事业单位招聘公告${index}`, title_zh: `事业单位招聘公告${index}`,
+      url: `https://gov.test/${index}`, extra: { province: '山东', exam_type: '事业单位' },
+    }));
+    const fetchMock = vi.fn(async (input: RequestInfo | URL) => {
+      const url = String(input);
+      if (url === '/api/me') return json({ username: 'reader', is_admin: false });
+      if (url === '/api/settings') return json({ prefs: {}, updated_at: null });
+      if (url.endsWith('/data/gongkao_enriched.json')) return json({ generated_at: '', source: 'gongkao', status: { source: 'gongkao', status: 'ok', item_count: rows.length }, items: rows });
+      return dataResponse(url) ?? json({}, 404);
+    });
+    vi.stubGlobal('fetch', fetchMock);
+    render(<App />);
+    await screen.findByText('reader');
+    fireEvent.click(screen.getByRole('button', { name: '公考' }));
+    expect(await screen.findByText('事业单位招聘公告0')).toBeInTheDocument();
+    expect(screen.queryByText('事业单位招聘公告80')).not.toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: /加载更多/ }));
+    expect(screen.getByText('事业单位招聘公告80')).toBeInTheDocument();
   });
 
   it('refreshes data when the installed app returns to the foreground', async () => {

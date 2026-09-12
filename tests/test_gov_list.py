@@ -297,10 +297,10 @@ async def test_playwright_timeout_releases_slot_and_next_source_completes(monkey
 
 def test_seed_items_keep_official_links_for_blocked_portals(tmp_path) -> None:
     config = tmp_path / "gov.yaml"
-    config.write_text("""
+    config.write_text(f"""
 seed_items:
   - title: 湖南省2026年省直事业单位第四次公开招聘工作人员公告
-    published_at: 2026-09-08
+    published_at: {date.today().isoformat()}
     url: https://rst.hunan.gov.cn/notice/1.html
     source: 湖南省人社厅
     province: 湖南省
