@@ -26,6 +26,15 @@ SOURCE_ORDER = (
     "岗位雷达·字节",
     "牛客网",
 )
+GONGKAO_SOURCE_ORDER = (
+    "校招鸭事业单位购买表",
+    "婉清购买表分流",
+    "校招鸭home一次性基础层",
+    "政府网站",
+    "粉笔",
+    "中公",
+    "其他来源",
+)
 
 
 def _read_items(path: Path) -> list[Mapping[str, Any]]:
@@ -113,14 +122,32 @@ def _gongkao_source(row: Mapping[str, Any]) -> str:
     subsource = str(extra.get("subsource") or "").strip().casefold()
     source_site = str(extra.get("source_site") or "").strip().casefold()
     if upstream == "feishu_sheet" or subsource == "feishu_sheet":
-        return "sheet"
+        return "校招鸭事业单位购买表"
+    if upstream == "wanqing_feishu" or subsource == "wanqing_feishu":
+        return "婉清购买表分流"
+    if upstream == "xiaozhaoya" or subsource == "xiaozhaoya":
+        return "校招鸭home一次性基础层"
     if (
         extra.get("government_source")
         or subsource == "government"
         or source_site in {"gov", "government"}
     ):
-        return "government"
-    return "other"
+        return "政府网站"
+    if source_site == "fenbi":
+        return "粉笔"
+    if source_site == "offcn" or subsource == "offcn":
+        return "中公"
+    return "其他来源"
+
+
+def _normalized_gongkao_source(key: str, value: object) -> str:
+    source = str(value or "").strip()
+    aliases = {
+        "sheet": "校招鸭事业单位购买表",
+        "government": "政府网站",
+        "other": "粉笔" if key.isdigit() else "其他来源",
+    }
+    return aliases.get(source, source or "其他来源")
 
 
 def _load_json(path: Path, fallback: dict[str, Any]) -> dict[str, Any]:
@@ -238,7 +265,9 @@ def update_daily_volume(
             gongkao_seen[key] = (
                 today if gongkao_initialized else (source_date or today - timedelta(days=1))
             ).isoformat()
-        gongkao_sources.setdefault(key, _gongkao_source(row))
+        current_source = _gongkao_source(row)
+        if gongkao_sources.get(key) in {None, "", "sheet", "government", "other"}:
+            gongkao_sources[key] = current_source
     qiuzhao_seen = state.setdefault("qiuzhao_first_seen", {})
     if not isinstance(qiuzhao_seen, dict):
         qiuzhao_seen = state["qiuzhao_first_seen"] = {}
@@ -292,9 +321,24 @@ def update_daily_volume(
             key=lambda value: (SOURCE_ORDER.index(value) if value in SOURCE_ORDER else len(SOURCE_ORDER), value),
         )
     }
+    active_gongkao_sources = {_gongkao_source(row) for row in gongkao}
+    active_gongkao_sources.update(
+        _normalized_gongkao_source(key, gongkao_sources.get(key))
+        for key in gongkao_report_keys
+    )
     gongkao_counts = {
-        source: sum(gongkao_sources.get(key, "other") == source for key in gongkao_report_keys)
-        for source in ("government", "sheet", "other")
+        source: sum(
+            _normalized_gongkao_source(key, gongkao_sources.get(key)) == source
+            for key in gongkao_report_keys
+        )
+        for source in sorted(
+            active_gongkao_sources,
+            key=lambda value: (
+                GONGKAO_SOURCE_ORDER.index(value)
+                if value in GONGKAO_SOURCE_ORDER else len(GONGKAO_SOURCE_ORDER),
+                value,
+            ),
+        )
     }
     gongkao_new = len(gongkao_report_keys)
     qiuzhao_new = len(qiuzhao_report_keys)
@@ -324,9 +368,13 @@ def update_daily_volume(
             count for source, count in qiuzhao_counts.items()
             if source not in {"婉清购买表", "校招鸭home一次性回填"}
         ),
-        "gongkao_government_new": gongkao_counts["government"],
-        "gongkao_sheet_new": gongkao_counts["sheet"],
-        "gongkao_other_new": gongkao_counts["other"],
+        "gongkao_source_new": gongkao_counts,
+        "gongkao_government_new": gongkao_counts.get("政府网站", 0),
+        "gongkao_sheet_new": gongkao_counts.get("校招鸭事业单位购买表", 0),
+        "gongkao_other_new": sum(
+            count for source, count in gongkao_counts.items()
+            if source not in {"政府网站", "校招鸭事业单位购买表"}
+        ),
     }
     history.append(entry)
     history = sorted(history, key=lambda row: str(row.get("date")))[-30:]
@@ -350,6 +398,17 @@ def build_daily_broadcast(result: Mapping[str, Any]) -> str:
             f"校招鸭home一次性回填 {result['qiuzhao_xiaozhaoya_new']} / "
             f"未拆分来源 {result['qiuzhao_other_new']}"
         )
+    gongkao_source_counts = result.get("gongkao_source_new")
+    if isinstance(gongkao_source_counts, Mapping):
+        gongkao_source_detail = " / ".join(
+            f"{name} {count}" for name, count in gongkao_source_counts.items()
+        )
+    else:
+        gongkao_source_detail = (
+            f"政府源 {result['gongkao_government_new']} / "
+            f"校招鸭事业单位表 {result['gongkao_sheet_new']} / "
+            f"粉笔等补充源 {result['gongkao_other_new']}"
+        )
     return "\n".join((
         f"【每日采集播报】昨日（{str(result['date'])[5:]}）采集汇总",
         (
@@ -357,9 +416,7 @@ def build_daily_broadcast(result: Mapping[str, Any]) -> str:
             f"{qiuzhao_note}"
         ),
         (
-            f"公考：新增 {result['gongkao_new']}（政府源 {result['gongkao_government_new']} / "
-            f"校招鸭事业单位表 {result['gongkao_sheet_new']} / "
-            f"粉笔等补充源 {result['gongkao_other_new']}）"
+            f"公考：新增 {result['gongkao_new']}（{gongkao_source_detail}）"
             f"{gongkao_note}"
         ),
     ))

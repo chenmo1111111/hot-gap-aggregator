@@ -774,6 +774,31 @@ def _apply_mapping(
     }
 
 
+def gongkao_source_label(row: Mapping[str, Any]) -> str:
+    """Return visible provenance without exposing any private source URL."""
+    extra = row.get("extra") if isinstance(row.get("extra"), Mapping) else {}
+    upstream = str(extra.get("upstream_source") or "").strip().casefold()
+    subsource = str(extra.get("subsource") or "").strip().casefold()
+    source_site = str(extra.get("source_site") or "").strip().casefold()
+    if upstream == "feishu_sheet" or subsource == "feishu_sheet":
+        return "购买表-校招鸭事业单位"
+    if upstream == "wanqing_feishu" or subsource == "wanqing_feishu":
+        return "购买表-婉清分流"
+    if upstream == "xiaozhaoya" or subsource == "xiaozhaoya":
+        return "购买表-校招鸭home"
+    if (
+        extra.get("government_source")
+        or subsource == "government"
+        or source_site in {"gov", "government"}
+    ):
+        return "政府网站"
+    if source_site == "fenbi":
+        return "网站-粉笔"
+    if source_site == "offcn" or subsource == "offcn":
+        return "网站-中公"
+    return str(_coalesce(row, "source_label|extra.source_label") or "").strip()
+
+
 def map_gongkao(
     row: Mapping[str, Any],
     field_mapping: Mapping[str, str] | None = None,
@@ -796,6 +821,7 @@ def map_gongkao(
         (str(value).strip() for value in backup_urls if str(value).strip().startswith(("http://", "https://"))),
         "",
     ) if isinstance(backup_urls, list) else ""
+    source_label = gongkao_source_label(row)
     derived = {
         "$sync_id": str(_coalesce(row, "extra.id|id") or "").strip(),
         "$sync_time": int(current.timestamp() * 1000),
@@ -813,7 +839,7 @@ def map_gongkao(
         "$dup_suspect": bool(extra.get("dup_suspect")),
         "$possible_duplicate_of": str(extra.get("possible_duplicate_of") or "").strip(),
         "$fresh_graduate": _bool_value(fresh),
-        "$source": "自动",
+        "$source": "自动" + (f"·{source_label}" if source_label else ""),
     }
     fields = _apply_mapping(row, field_mapping or DEFAULT_GONGKAO_MAPPING, derived)
     if not fields.get((field_mapping or DEFAULT_GONGKAO_MAPPING).get("$sync_id", "同步ID")):

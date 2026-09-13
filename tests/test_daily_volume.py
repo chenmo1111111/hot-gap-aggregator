@@ -78,6 +78,10 @@ def test_daily_volume_accumulates_new_ids_across_refreshes_on_same_day(tmp_path)
     assert second["gongkao_new"] == 2
     assert second["gongkao_government_new"] == 1
     assert second["gongkao_sheet_new"] == 1
+    assert second["gongkao_source_new"] == {
+        "校招鸭事业单位购买表": 1,
+        "政府网站": 1,
+    }
 
 
 def test_wanqing_full_snapshot_uses_source_dates_instead_of_import_day(tmp_path) -> None:
@@ -216,7 +220,7 @@ def test_repair_wanqing_bulk_import_preserves_unrelated_history(tmp_path) -> Non
         "older-history": "2026-09-10",
     }
     assert saved["gongkao_first_seen"] == original["gongkao_first_seen"]
-    assert saved["gongkao_first_seen_source"] == original["gongkao_first_seen_source"]
+    assert saved["gongkao_first_seen_source"] == {"g1": "政府网站"}
     assert saved["alerts_sent"] == original["alerts_sent"]
 
 
@@ -289,6 +293,32 @@ def test_daily_broadcast_is_always_sent_once_and_includes_source_counts(monkeypa
     low_message = build_daily_broadcast(low)
     assert "低于20" in low_message
     assert "低于3" in low_message
+
+
+def test_daily_broadcast_names_each_gongkao_purchase_and_web_source() -> None:
+    result = {
+        "date": "2026-09-12", "qiuzhao_new": 201, "gongkao_new": 235,
+        "qiuzhao_source_new": {"婉清购买表": 106, "国聘": 1},
+        "qiuzhao_wanqing_new": 106, "qiuzhao_xiaozhaoya_new": 0,
+        "qiuzhao_other_new": 95,
+        "gongkao_source_new": {
+            "校招鸭事业单位购买表": 29,
+            "婉清购买表分流": 103,
+            "校招鸭home一次性基础层": 42,
+            "粉笔": 60,
+            "中公": 1,
+        },
+        "gongkao_government_new": 0, "gongkao_sheet_new": 29,
+        "gongkao_other_new": 206,
+    }
+
+    message = build_daily_broadcast(result)
+
+    assert "校招鸭事业单位购买表 29" in message
+    assert "婉清购买表分流 103" in message
+    assert "校招鸭home一次性基础层 42" in message
+    assert "粉笔 60" in message
+    assert "中公 1" in message
 
 
 def test_two_daily_reports_cover_adjacent_complete_days(tmp_path) -> None:

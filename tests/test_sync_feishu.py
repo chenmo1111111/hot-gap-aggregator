@@ -99,6 +99,20 @@ def test_gongkao_mapping_clamps_expired_days_and_marks_waiting_for_exam() -> Non
     assert fields["备注"] == "/"
 
 
+def test_gongkao_mapping_exposes_precise_purchase_source() -> None:
+    fields = map_gongkao({
+        "title": "事业单位招聘公告",
+        "url": "https://example.com/notice",
+        "extra": {
+            "id": "gongkao-sheet:1",
+            "upstream_source": "feishu_sheet",
+            "source_label": "购买表-公考",
+        },
+    }, now=NOW)
+
+    assert fields["来源"] == "自动·购买表-校招鸭事业单位"
+
+
 def test_qiuzhao_mapping_and_normalized_sync_id() -> None:
     row = {
         "company_name": " Acme（中国）有限公司 ",

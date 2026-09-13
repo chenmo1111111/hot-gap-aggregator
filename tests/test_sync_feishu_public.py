@@ -86,6 +86,16 @@ def test_public_gongkao_normalizes_placeholder_province_to_nationwide() -> None:
     assert fields["省份"] == "全国"
 
 
+def test_public_gongkao_exposes_precise_purchase_source() -> None:
+    fields = map_public_gongkao({
+        "title": "事业单位招聘公告",
+        "url": "https://example.com/notice",
+        "extra": {"id": "sheet:1", "upstream_source": "feishu_sheet"},
+    })
+
+    assert fields["来源"] == "自动·购买表-校招鸭事业单位"
+
+
 def test_map_public_selection_exposes_generic_school_scope_only() -> None:
     fields = map_public_gongkao({
         "title": "辽宁定向选调公告",

@@ -38,6 +38,7 @@ from app.sync_feishu import (
     actionable_apply_url,
     merge_qiuzhao_rows,
     ensure_gongkao_review_view,
+    gongkao_source_label,
     normalize,
     normalize_company_type,
     normalize_exam_type,
@@ -254,6 +255,7 @@ def map_public_gongkao(row: Mapping[str, Any]) -> dict[str, Any]:
     identifier = str(extra.get("id") or row.get("id") or "").strip()
     if not identifier:
         identifier = "url:" + hashlib.sha256(str(url).encode("utf-8")).hexdigest()[:24]
+    source_label = gongkao_source_label(row)
     fields = {
         "公告标题": str(title).strip(),
         "首次收录": date_to_millis(extra.get("first_seen")),
@@ -296,7 +298,7 @@ def map_public_gongkao(row: Mapping[str, Any]) -> dict[str, Any]:
         "疑似重复": bool(extra.get("dup_suspect")),
         "可能重复于": str(extra.get("possible_duplicate_of") or "").strip() or "/",
         "同步ID": identifier,
-        "来源": "自动",
+        "来源": "自动" + (f"·{source_label}" if source_label else ""),
     }
     return fields
 
