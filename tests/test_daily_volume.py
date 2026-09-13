@@ -9,6 +9,7 @@ from app.daily_volume import (
     build_daily_broadcast,
     maybe_alert,
     previous_day_window,
+    repair_wanqing_first_seen,
     update_daily_volume,
 )
 
@@ -77,6 +78,121 @@ def test_daily_volume_accumulates_new_ids_across_refreshes_on_same_day(tmp_path)
     assert second["gongkao_new"] == 2
     assert second["gongkao_government_new"] == 1
     assert second["gongkao_sheet_new"] == 1
+
+
+def test_wanqing_full_snapshot_uses_source_dates_instead_of_import_day(tmp_path) -> None:
+    state = tmp_path / "state.json"
+    output = tmp_path / "daily-volume.json"
+    state.write_text(json.dumps({
+        "gongkao_first_seen": {}, "gongkao_first_seen_source": {},
+        "qiuzhao_first_seen": {"existing": "2026-09-11"},
+        "qiuzhao_first_seen_source": {"existing": "婉清购买表"},
+        "alerts_sent": [],
+    }), encoding="utf-8")
+    bulk_snapshot = [
+        {
+            "source_record_id": "old-by-row-first-seen", "upstream_source": "wanqing_feishu",
+            "first_seen": "2026-08-20", "updated_at": "2026-09-12",
+        },
+        {
+            "source_record_id": "old-by-extra-first-seen", "upstream_source": "wanqing_feishu",
+            "updated_at": "2026-09-12", "extra": {"first_seen": "2026-08-25"},
+        },
+        {
+            "source_record_id": "old-by-published", "upstream_source": "wanqing_feishu",
+            "published_at": "2026-09-01", "updated_at": "2026-09-12",
+        },
+        {
+            "source_record_id": "old-by-updated", "upstream_source": "wanqing_feishu",
+            "updated_at": 1788105600000,
+        },
+        {
+            "source_record_id": "truly-undated-new", "upstream_source": "wanqing_feishu",
+        },
+    ]
+
+    result = update_daily_volume(
+        [], bulk_snapshot, today=date(2026, 9, 12),
+        state_path=state, output_path=output,
+    )
+
+    assert result["qiuzhao_new"] == 1
+    assert result["qiuzhao_wanqing_new"] == 1
+    saved = json.loads(state.read_text(encoding="utf-8"))["qiuzhao_first_seen"]
+    assert saved["old-by-row-first-seen"] == "2026-08-20"
+    assert saved["old-by-extra-first-seen"] == "2026-08-25"
+    assert saved["old-by-published"] == "2026-09-01"
+    assert saved["old-by-updated"] == "2026-08-31"
+    assert saved["truly-undated-new"] == "2026-09-12"
+
+
+def test_repair_wanqing_bulk_import_preserves_unrelated_history(tmp_path) -> None:
+    state = tmp_path / "state.json"
+    output = tmp_path / "daily-volume.json"
+    original = {
+        "gongkao_first_seen": {"g1": "2026-09-12"},
+        "gongkao_first_seen_source": {"g1": "government"},
+        "qiuzhao_first_seen": {
+            "old-row": "2026-09-12",
+            "old-override": "2026-09-12",
+            "actual-day": "2026-09-12",
+            "other-source": "2026-09-12",
+            "older-history": "2026-09-10",
+        },
+        "qiuzhao_first_seen_source": {
+            "old-row": "婉清购买表",
+            "old-override": "婉清购买表",
+            "actual-day": "婉清购买表",
+            "other-source": "国聘",
+            "older-history": "婉清购买表",
+        },
+        "alerts_sent": ["previous-day:2026-09-11"],
+    }
+    state.write_text(json.dumps(original), encoding="utf-8")
+    current = [
+        {
+            "source_record_id": "old-row", "upstream_source": "wanqing_feishu",
+            "updated_at": "2026-08-20",
+        },
+        {
+            "source_record_id": "actual-day", "upstream_source": "wanqing_feishu",
+            "updated_at": "2026-09-12",
+        },
+        {
+            "source_record_id": "other-source", "source_label": "国聘",
+            "updated_at": "2026-08-01",
+        },
+    ]
+
+    repair = repair_wanqing_first_seen(
+        current, state_path=state, mistaken_date=date(2026, 9, 12),
+        date_overrides={"old-override": date(2026, 8, 31)},
+    )
+    result = update_daily_volume(
+        [{"url": "g1", "extra": {"id": "g1", "source_site": "gov"}}],
+        current, today=date(2026, 9, 13), report_date=date(2026, 9, 12),
+        state_path=state, output_path=output,
+    )
+
+    assert repair == {
+        "mistaken_date": "2026-09-12", "candidate_count": 3,
+        "corrected_from_rows": 1, "corrected_from_overrides": 1,
+        "already_source_dated": 1, "unresolved_count": 0, "unresolved_ids": [],
+    }
+    assert result["qiuzhao_new"] == 2
+    assert result["qiuzhao_wanqing_new"] == 1
+    assert result["qiuzhao_source_new"] == {"婉清购买表": 1, "国聘": 1}
+    saved = json.loads(state.read_text(encoding="utf-8"))
+    assert saved["qiuzhao_first_seen"] == {
+        "old-row": "2026-08-20",
+        "old-override": "2026-08-31",
+        "actual-day": "2026-09-12",
+        "other-source": "2026-09-12",
+        "older-history": "2026-09-10",
+    }
+    assert saved["gongkao_first_seen"] == original["gongkao_first_seen"]
+    assert saved["gongkao_first_seen_source"] == original["gongkao_first_seen_source"]
+    assert saved["alerts_sent"] == original["alerts_sent"]
 
 
 def test_daily_volume_discards_only_unattributed_legacy_orphans(tmp_path) -> None:

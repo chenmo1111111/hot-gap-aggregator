@@ -96,6 +96,17 @@ def _qiuzhao_source(row: Mapping[str, Any]) -> str:
     return raw_label or source or "未标注来源"
 
 
+def _qiuzhao_source_date(row: Mapping[str, Any]) -> date | None:
+    """Prefer an explicit first-seen/publication date over mutable sync metadata."""
+    extra = _extra(row)
+    return _date(
+        row.get("first_seen")
+        or extra.get("first_seen")
+        or row.get("published_at")
+        or row.get("updated_at")
+    )
+
+
 def _gongkao_source(row: Mapping[str, Any]) -> str:
     extra = _extra(row)
     upstream = str(extra.get("upstream_source") or "").strip().casefold()
@@ -125,6 +136,70 @@ def _atomic(path: Path, value: Mapping[str, Any]) -> None:
     temporary = path.with_suffix(path.suffix + ".tmp")
     temporary.write_text(json.dumps(value, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     temporary.replace(path)
+
+
+def repair_wanqing_first_seen(
+    qiuzhao: list[Mapping[str, Any]], *, state_path: Path, mistaken_date: date,
+    date_overrides: Mapping[str, date] | None = None,
+) -> dict[str, Any]:
+    """Backdate one known Wanqing bulk-import day without touching other history."""
+    state = _load_json(state_path, {"alerts_sent": []})
+    seen = state.get("qiuzhao_first_seen")
+    sources = state.get("qiuzhao_first_seen_source")
+    if not isinstance(seen, dict) or not isinstance(sources, dict):
+        raise ValueError("daily volume state has no initialized Qiuzhao first-seen maps")
+    index = {_qiuzhao_id(row): row for row in qiuzhao if _qiuzhao_id(row)}
+    overrides = dict(date_overrides or {})
+    candidates = [
+        key for key, value in seen.items()
+        if _date(value) == mistaken_date and sources.get(key) == "婉清购买表"
+    ]
+    corrected_from_rows = 0
+    corrected_from_overrides = 0
+    already_source_dated = 0
+    unresolved: list[str] = []
+    for key in candidates:
+        row = index.get(key)
+        source_date = _qiuzhao_source_date(row) if row else None
+        from_override = False
+        if source_date is None and key in overrides:
+            source_date = overrides[key]
+            from_override = True
+        if source_date is None or source_date > mistaken_date:
+            unresolved.append(key)
+            continue
+        if source_date == mistaken_date:
+            already_source_dated += 1
+            continue
+        seen[key] = source_date.isoformat()
+        if from_override:
+            corrected_from_overrides += 1
+        else:
+            corrected_from_rows += 1
+    state["qiuzhao_first_seen_repairs"] = {
+        **(
+            state.get("qiuzhao_first_seen_repairs")
+            if isinstance(state.get("qiuzhao_first_seen_repairs"), dict) else {}
+        ),
+        mistaken_date.isoformat(): {
+            "source": "婉清购买表",
+            "candidate_count": len(candidates),
+            "corrected_from_rows": corrected_from_rows,
+            "corrected_from_overrides": corrected_from_overrides,
+            "already_source_dated": already_source_dated,
+            "unresolved_count": len(unresolved),
+        },
+    }
+    _atomic(state_path, state)
+    return {
+        "mistaken_date": mistaken_date.isoformat(),
+        "candidate_count": len(candidates),
+        "corrected_from_rows": corrected_from_rows,
+        "corrected_from_overrides": corrected_from_overrides,
+        "already_source_dated": already_source_dated,
+        "unresolved_count": len(unresolved),
+        "unresolved_ids": unresolved,
+    }
 
 
 def previous_day_window(run_at: datetime) -> tuple[datetime, datetime]:
@@ -164,9 +239,6 @@ def update_daily_volume(
                 today if gongkao_initialized else (source_date or today - timedelta(days=1))
             ).isoformat()
         gongkao_sources.setdefault(key, _gongkao_source(row))
-    qiuzhao_initialized = "qiuzhao_first_seen" in state and isinstance(
-        state.get("qiuzhao_first_seen"), dict
-    )
     qiuzhao_seen = state.setdefault("qiuzhao_first_seen", {})
     if not isinstance(qiuzhao_seen, dict):
         qiuzhao_seen = state["qiuzhao_first_seen"] = {}
@@ -178,13 +250,10 @@ def update_daily_volume(
         if not key:
             continue
         if key not in qiuzhao_seen:
-            source_date = _date(
-                row.get("first_seen") or row.get("published_at") or row.get("updated_at")
-                or _extra(row).get("first_seen")
-            )
-            qiuzhao_seen[key] = (
-                today if qiuzhao_initialized else (source_date or today)
-            ).isoformat()
+            # A newly visible ID can be an old row revealed by a larger/full
+            # purchased-table snapshot.  Use its source date when available so
+            # a backfill is not reported as thousands of new jobs today.
+            qiuzhao_seen[key] = (_qiuzhao_source_date(row) or today).isoformat()
         current_source = _qiuzhao_source(row)
         if qiuzhao_sources.get(key) in {None, "", "wanqing", "xiaozhaoya", "other"}:
             qiuzhao_sources[key] = current_source
@@ -327,17 +396,42 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--data-dir", default=os.getenv("SITE_DATA_DIR", "/var/www/hot-gap/data"))
     parser.add_argument("--state", default=os.getenv("DAILY_VOLUME_STATE", "/var/lib/hot-gap/daily-volume-state.json"))
+    parser.add_argument("--repair-wanqing-date")
+    parser.add_argument(
+        "--repair-date-override", action="append", default=[], metavar="ID=YYYY-MM-DD",
+    )
+    parser.add_argument("--no-alert", action="store_true")
     args = parser.parse_args(argv)
     data_dir = Path(args.data_dir)
     now = datetime.now().astimezone()
     window_start, _window_end = previous_day_window(now)
+    gongkao_items = _read_items(data_dir / "gongkao_enriched.json")
+    qiuzhao_items = _read_items(data_dir / "qiuzhao.json")
+    repair_result = None
+    report_date = window_start.date()
+    if args.repair_wanqing_date:
+        report_date = date.fromisoformat(args.repair_wanqing_date)
+        overrides: dict[str, date] = {}
+        for value in args.repair_date_override:
+            key, separator, raw_date = value.partition("=")
+            if not separator or not key.strip():
+                parser.error("--repair-date-override must be ID=YYYY-MM-DD")
+            overrides[key.strip()] = date.fromisoformat(raw_date.strip())
+        repair_result = repair_wanqing_first_seen(
+            qiuzhao_items, state_path=Path(args.state), mistaken_date=report_date,
+            date_overrides=overrides,
+        )
     result = update_daily_volume(
-        _read_items(data_dir / "gongkao_enriched.json"),
-        _read_items(data_dir / "qiuzhao.json"),
-        today=now.date(), report_date=window_start.date(), recorded_at=now,
+        gongkao_items, qiuzhao_items,
+        today=now.date(), report_date=report_date, recorded_at=now,
         state_path=Path(args.state), output_path=data_dir / "daily-volume.json",
     )
-    result["alert_sent"] = maybe_alert(result, state_path=Path(args.state), current_hour=now.hour)
+    if repair_result is not None:
+        result["repair"] = repair_result
+    result["alert_sent"] = (
+        False if args.no_alert
+        else maybe_alert(result, state_path=Path(args.state), current_hour=now.hour)
+    )
     print(json.dumps({"event": "daily_volume", **result}, ensure_ascii=False))
     return 0
 
