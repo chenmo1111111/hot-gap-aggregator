@@ -126,6 +126,31 @@ def test_wanqing_full_snapshot_uses_source_dates_instead_of_import_day(tmp_path)
     assert saved["truly-undated-new"] == "2026-09-12"
 
 
+def test_next_morning_wanqing_capture_counts_rows_on_their_source_update_day(tmp_path) -> None:
+    state = tmp_path / "state.json"
+    output = tmp_path / "daily-volume.json"
+    state.write_text(json.dumps({
+        "gongkao_first_seen": {}, "gongkao_first_seen_source": {},
+        "qiuzhao_first_seen": {}, "qiuzhao_first_seen_source": {},
+        "alerts_sent": [],
+    }), encoding="utf-8")
+    row = {
+        "source_record_id": "captured-next-morning",
+        "upstream_source": "wanqing_feishu",
+        "updated_at": 1789142400000,
+    }
+
+    result = update_daily_volume(
+        [], [row], today=date(2026, 9, 13), report_date=date(2026, 9, 12),
+        state_path=state, output_path=output,
+    )
+
+    assert result["qiuzhao_new"] == 1
+    assert result["qiuzhao_wanqing_new"] == 1
+    saved = json.loads(state.read_text(encoding="utf-8"))
+    assert saved["qiuzhao_first_seen"]["captured-next-morning"] == "2026-09-12"
+
+
 def test_repair_wanqing_bulk_import_preserves_unrelated_history(tmp_path) -> None:
     state = tmp_path / "state.json"
     output = tmp_path / "daily-volume.json"

@@ -397,6 +397,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--data-dir", default=os.getenv("SITE_DATA_DIR", "/var/www/hot-gap/data"))
     parser.add_argument("--state", default=os.getenv("DAILY_VOLUME_STATE", "/var/lib/hot-gap/daily-volume-state.json"))
     parser.add_argument("--repair-wanqing-date")
+    parser.add_argument("--report-date")
     parser.add_argument(
         "--repair-date-override", action="append", default=[], metavar="ID=YYYY-MM-DD",
     )
@@ -408,9 +409,14 @@ def main(argv: list[str] | None = None) -> int:
     gongkao_items = _read_items(data_dir / "gongkao_enriched.json")
     qiuzhao_items = _read_items(data_dir / "qiuzhao.json")
     repair_result = None
-    report_date = window_start.date()
+    report_date = (
+        date.fromisoformat(args.report_date)
+        if args.report_date else window_start.date()
+    )
     if args.repair_wanqing_date:
-        report_date = date.fromisoformat(args.repair_wanqing_date)
+        repair_date = date.fromisoformat(args.repair_wanqing_date)
+        if not args.report_date:
+            report_date = repair_date
         overrides: dict[str, date] = {}
         for value in args.repair_date_override:
             key, separator, raw_date = value.partition("=")
@@ -418,7 +424,7 @@ def main(argv: list[str] | None = None) -> int:
                 parser.error("--repair-date-override must be ID=YYYY-MM-DD")
             overrides[key.strip()] = date.fromisoformat(raw_date.strip())
         repair_result = repair_wanqing_first_seen(
-            qiuzhao_items, state_path=Path(args.state), mistaken_date=report_date,
+            qiuzhao_items, state_path=Path(args.state), mistaken_date=repair_date,
             date_overrides=overrides,
         )
     result = update_daily_volume(
