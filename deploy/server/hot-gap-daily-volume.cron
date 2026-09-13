@@ -1,0 +1,5 @@
+SHELL=/bin/bash
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+# 07:00 Asia/Shanghai: report the previous complete calendar day [00:00, 00:00).
+0 7 * * * root /usr/bin/flock -n /run/lock/hot-gap-daily-volume.lock /bin/bash -lc 'cd /opt/hot-gap-aggregator && /usr/bin/env DAILY_VOLUME_ALERT_AFTER_HOUR=7 .venv/bin/python -m app.daily_volume' >> /var/log/hot-gap-daily-volume.log 2>&1

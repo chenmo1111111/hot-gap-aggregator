@@ -6,7 +6,7 @@ import argparse
 import hashlib
 import json
 import os
-from datetime import date, datetime, timedelta, timezone
+from datetime import date, datetime, time, timedelta, timezone
 from pathlib import Path
 from typing import Any, Mapping
 
@@ -127,10 +127,19 @@ def _atomic(path: Path, value: Mapping[str, Any]) -> None:
     temporary.replace(path)
 
 
+def previous_day_window(run_at: datetime) -> tuple[datetime, datetime]:
+    """Return the previous complete China-calendar day as a half-open window."""
+    local = run_at.astimezone(CHINA_TZ)
+    end = datetime.combine(local.date(), time.min, tzinfo=CHINA_TZ)
+    return end - timedelta(days=1), end
+
+
 def update_daily_volume(
     gongkao: list[Mapping[str, Any]], qiuzhao: list[Mapping[str, Any]], *,
-    today: date, state_path: Path, output_path: Path,
+    today: date, state_path: Path, output_path: Path, report_date: date | None = None,
+    recorded_at: datetime | None = None,
 ) -> dict[str, Any]:
+    report_date = report_date or today
     state = _load_json(
         state_path,
         {"alerts_sent": []},
@@ -180,7 +189,9 @@ def update_daily_volume(
         if qiuzhao_sources.get(key) in {None, "", "wanqing", "xiaozhaoya", "other"}:
             qiuzhao_sources[key] = current_source
 
-    gongkao_today_keys = [key for key, value in gongkao_seen.items() if _date(value) == today]
+    gongkao_report_keys = [
+        key for key, value in gongkao_seen.items() if _date(value) == report_date
+    ]
     active_qiuzhao_keys = {_qiuzhao_id(row) for row in qiuzhao}
     # The pre-source-breakdown state used ``other`` (or no value at all) and
     # cannot be attributed after the corresponding row has left the current
@@ -195,28 +206,48 @@ def update_daily_volume(
     for key in legacy_orphans:
         qiuzhao_seen.pop(key, None)
         qiuzhao_sources.pop(key, None)
-    qiuzhao_today_keys = [key for key, value in qiuzhao_seen.items() if _date(value) == today]
+    qiuzhao_report_keys = [
+        key for key, value in qiuzhao_seen.items() if _date(value) == report_date
+    ]
     active_qiuzhao_sources = {_qiuzhao_source(row) for row in qiuzhao}
-    active_qiuzhao_sources.update(qiuzhao_sources.get(key, "未标注来源") for key in qiuzhao_today_keys)
+    active_qiuzhao_sources.update(
+        qiuzhao_sources.get(key, "未标注来源") for key in qiuzhao_report_keys
+    )
     qiuzhao_counts = {
-        source: sum(qiuzhao_sources.get(key, "未标注来源") == source for key in qiuzhao_today_keys)
+        source: sum(
+            qiuzhao_sources.get(key, "未标注来源") == source
+            for key in qiuzhao_report_keys
+        )
         for source in sorted(
             active_qiuzhao_sources,
             key=lambda value: (SOURCE_ORDER.index(value) if value in SOURCE_ORDER else len(SOURCE_ORDER), value),
         )
     }
     gongkao_counts = {
-        source: sum(gongkao_sources.get(key, "other") == source for key in gongkao_today_keys)
+        source: sum(gongkao_sources.get(key, "other") == source for key in gongkao_report_keys)
         for source in ("government", "sheet", "other")
     }
-    gongkao_new = len(gongkao_today_keys)
-    qiuzhao_new = len(qiuzhao_today_keys)
+    gongkao_new = len(gongkao_report_keys)
+    qiuzhao_new = len(qiuzhao_report_keys)
     output = _load_json(output_path, {"history": []})
-    history = [entry for entry in output.get("history", []) if isinstance(entry, dict) and entry.get("date") != today.isoformat()]
+    replaced_dates = {report_date.isoformat()}
+    if report_date != today:
+        # Remove the old implementation's partial current-day row during the
+        # transition to completed-day reporting.
+        replaced_dates.add(today.isoformat())
+    history = [
+        entry for entry in output.get("history", [])
+        if isinstance(entry, dict) and entry.get("date") not in replaced_dates
+    ]
+    window_start = datetime.combine(report_date, time.min, tzinfo=CHINA_TZ)
+    window_end = window_start + timedelta(days=1)
+    recorded = (recorded_at or datetime.now().astimezone()).isoformat()
     entry = {
-        "date": today.isoformat(), "gongkao_new": gongkao_new,
-        "qiuzhao_new": qiuzhao_new, "recorded_at": datetime.now().astimezone().isoformat(),
-        "period": f"{today.isoformat()} 00:00-当前",
+        "date": report_date.isoformat(), "gongkao_new": gongkao_new,
+        "qiuzhao_new": qiuzhao_new, "recorded_at": recorded,
+        "period": f"{report_date.isoformat()} 00:00-{window_end.date().isoformat()} 00:00",
+        "window_start": window_start.isoformat(),
+        "window_end": window_end.isoformat(),
         "qiuzhao_source_new": qiuzhao_counts,
         "qiuzhao_wanqing_new": qiuzhao_counts.get("婉清购买表", 0),
         "qiuzhao_xiaozhaoya_new": qiuzhao_counts.get("校招鸭home一次性回填", 0),
@@ -251,13 +282,13 @@ def build_daily_broadcast(result: Mapping[str, Any]) -> str:
             f"未拆分来源 {result['qiuzhao_other_new']}"
         )
     return "\n".join((
-        f"【每日采集播报】{result['date']}（当天累计，00:00-发送时）",
+        f"【每日采集播报】昨日（{str(result['date'])[5:]}）采集汇总",
         (
-            f"秋招：当天累计新增 {result['qiuzhao_new']}（{source_detail}）"
+            f"秋招：新增 {result['qiuzhao_new']}（{source_detail}）"
             f"{qiuzhao_note}"
         ),
         (
-            f"公考：当天累计新增 {result['gongkao_new']}（政府源 {result['gongkao_government_new']} / "
+            f"公考：新增 {result['gongkao_new']}（政府源 {result['gongkao_government_new']} / "
             f"校招鸭事业单位表 {result['gongkao_sheet_new']} / "
             f"粉笔等补充源 {result['gongkao_other_new']}）"
             f"{gongkao_note}"
@@ -267,12 +298,13 @@ def build_daily_broadcast(result: Mapping[str, Any]) -> str:
 
 def maybe_alert(result: Mapping[str, Any], *, state_path: Path, current_hour: int) -> bool:
     load_dotenv()
-    if current_hour < int(os.getenv("DAILY_VOLUME_ALERT_AFTER_HOUR", "8")):
+    if current_hour < int(os.getenv("DAILY_VOLUME_ALERT_AFTER_HOUR", "7")):
         return False
     day = str(result["date"])
+    alert_key = f"previous-day:{day}"
     state = _load_json(state_path, {"alerts_sent": []})
     sent = set(str(value) for value in state.get("alerts_sent", []))
-    if day in sent:
+    if alert_key in sent:
         return False
     webhook = os.getenv("FEISHU_WEBHOOK", "").strip()
     if not webhook:
@@ -283,7 +315,9 @@ def maybe_alert(result: Mapping[str, Any], *, state_path: Path, current_hour: in
         timeout=10, follow_redirects=True,
     )
     response.raise_for_status()
-    state["alerts_sent"] = sorted((*sent, day))[-30:]
+    # Version the key so an alert sent under the former partial-current-day
+    # meaning cannot suppress the corrected complete-previous-day report.
+    state["alerts_sent"] = sorted((*sent, alert_key))[-30:]
     _atomic(state_path, state)
     return True
 
@@ -296,10 +330,12 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
     data_dir = Path(args.data_dir)
     now = datetime.now().astimezone()
+    window_start, _window_end = previous_day_window(now)
     result = update_daily_volume(
         _read_items(data_dir / "gongkao_enriched.json"),
         _read_items(data_dir / "qiuzhao.json"),
-        today=now.date(), state_path=Path(args.state), output_path=data_dir / "daily-volume.json",
+        today=now.date(), report_date=window_start.date(), recorded_at=now,
+        state_path=Path(args.state), output_path=data_dir / "daily-volume.json",
     )
     result["alert_sent"] = maybe_alert(result, state_path=Path(args.state), current_hour=now.hour)
     print(json.dumps({"event": "daily_volume", **result}, ensure_ascii=False))
