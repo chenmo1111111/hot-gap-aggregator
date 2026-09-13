@@ -1,22 +1,110 @@
 {
-  "generated_at": "2026-09-13T07:44:00.765898+00:00",
+  "generated_at": "2026-09-13T13:44:12.314244+00:00",
   "source": "github",
   "status": {
     "source": "github",
     "status": "ok",
-    "item_count": 16,
-    "duration_ms": 1733,
+    "item_count": 19,
+    "duration_ms": 1818,
     "error": null,
-    "run_at": "2026-09-13T07:44:00.765898+00:00"
+    "run_at": "2026-09-13T13:44:12.314244+00:00"
   },
   "items": [
     {
       "source": "github",
       "rank": 1,
+      "title": "JustVugg/colibri",
+      "title_zh": "JustVugg/colibri",
+      "url": "https://github.com/JustVugg/colibri",
+      "hot_value": "652 stars today",
+      "summary_zh": "纯C零依赖，让家用硬件跑前沿MoE大模型。",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "description": "Run frontier MoE models on hardware you already own — pure C, zero deps, experts streamed from disk. Tiny engine, immense model. 🐦",
+        "language": "C"
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "7d0b081e2cda",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-10T10:44:16.536751+00:00",
+          "rank": 12
+        },
+        {
+          "run_at": "2026-09-10T13:44:10.927826+00:00",
+          "rank": 12
+        },
+        {
+          "run_at": "2026-09-10T16:44:04.686393+00:00",
+          "rank": 12
+        },
+        {
+          "run_at": "2026-09-10T19:44:07.942256+00:00",
+          "rank": 12
+        },
+        {
+          "run_at": "2026-09-10T22:43:57.594732+00:00",
+          "rank": 12
+        },
+        {
+          "run_at": "2026-09-11T01:44:18.657508+00:00",
+          "rank": 12
+        },
+        {
+          "run_at": "2026-09-11T04:44:25.708303+00:00",
+          "rank": 12
+        },
+        {
+          "run_at": "2026-09-11T07:20:57.315986+00:00",
+          "rank": 12
+        },
+        {
+          "run_at": "2026-09-11T07:44:18.782548+00:00",
+          "rank": 12
+        },
+        {
+          "run_at": "2026-09-13T13:44:12.314244+00:00",
+          "rank": 1
+        }
+      ]
+    },
+    {
+      "source": "github",
+      "rank": 2,
+      "title": "ever-co/ever-gauzy",
+      "title_zh": "ever-co/ever-gauzy",
+      "url": "https://github.com/ever-co/ever-gauzy",
+      "hot_value": "58 stars today",
+      "summary_zh": "Ever Gauzy开源企业管理平台，集成ERP、CRM、HRM等，适合企业数字",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "description": "Ever® Gauzy™ - Open Business Management Platform (ERP/CRM/HRM/ATS/PM) -https://gauzy.co",
+        "language": "TypeScript"
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "d67b0e474865",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-13T13:44:12.314244+00:00",
+          "rank": 2
+        }
+      ]
+    },
+    {
+      "source": "github",
+      "rank": 3,
       "title": "bilawalsidhu/gods-eye-view",
       "title_zh": "bilawalsidhu/gods-eye-view",
       "url": "https://github.com/bilawalsidhu/gods-eye-view",
-      "hot_value": "2,265 stars today",
+      "hot_value": "2,898 stars today",
       "summary_zh": "浏览器间谍卫星模拟器，数据真实，可看实时开源空间情报。",
       "thumbnail": null,
       "published_at": null,
@@ -26,7 +114,7 @@
       },
       "days_on_board": 4,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": -2,
       "cluster_id": "aa541bd60e83",
       "cluster_size": 1,
       "rank_history": [
@@ -125,16 +213,46 @@
         {
           "run_at": "2026-09-13T07:44:00.765898+00:00",
           "rank": 1
+        },
+        {
+          "run_at": "2026-09-13T13:44:12.314244+00:00",
+          "rank": 3
         }
       ]
     },
     {
       "source": "github",
-      "rank": 2,
+      "rank": 4,
+      "title": "tech-leads-club/agent-skills",
+      "title_zh": "tech-leads-club/agent-skills",
+      "url": "https://github.com/tech-leads-club/agent-skills",
+      "hot_value": "215 stars today",
+      "summary_zh": "AI编码代理安全技能库，支持主流工具，提升开发可靠性。",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "description": "The secure, validated skill registry for professional AI coding agents. Extend Antigravity, Claude Code, Cursor, Copilot and more with absolute confidence.",
+        "language": "TypeScript"
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "46cd10bc3187",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-13T13:44:12.314244+00:00",
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "source": "github",
+      "rank": 5,
       "title": "melgarafael/DeskcommCRM",
       "title_zh": "melgarafael/DeskcommCRM",
       "url": "https://github.com/melgarafael/DeskcommCRM",
-      "hot_value": "504 stars today",
+      "hot_value": "444 stars today",
       "summary_zh": "开源AI销售系统，自托管CRM带AI代理和WhatsApp，适合聊天销售。",
       "thumbnail": null,
       "published_at": null,
@@ -144,7 +262,7 @@
       },
       "days_on_board": 3,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": -3,
       "cluster_id": "e812e29eee26",
       "cluster_size": 1,
       "rank_history": [
@@ -207,16 +325,46 @@
         {
           "run_at": "2026-09-13T07:44:00.765898+00:00",
           "rank": 2
+        },
+        {
+          "run_at": "2026-09-13T13:44:12.314244+00:00",
+          "rank": 5
         }
       ]
     },
     {
       "source": "github",
-      "rank": 3,
+      "rank": 6,
+      "title": "calesthio/OpenMontage",
+      "title_zh": "calesthio/OpenMontage",
+      "url": "https://github.com/calesthio/OpenMontage",
+      "hot_value": "383 stars today",
+      "summary_zh": "全球首个开源智能视频制作系统，让AI助手变身视频工作室。",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "description": "World's first open-source, agentic video production system. 12 production pipelines, 100+ tools, 700+ agent skill and production-knowledge files. Turn your AI coding assistant into a full video production studio.",
+        "language": "Python"
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "df9c2d03ec56",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-13T13:44:12.314244+00:00",
+          "rank": 6
+        }
+      ]
+    },
+    {
+      "source": "github",
+      "rank": 7,
       "title": "asgeirtj/system_prompts_leaks",
       "title_zh": "asgeirtj/system_prompts_leaks",
       "url": "https://github.com/asgeirtj/system_prompts_leaks",
-      "hot_value": "217 stars today",
+      "hot_value": "727 stars today",
       "summary_zh": "提取Claude、GPT、Gemini等主流AI系统提示词，定期更新，了解模型内",
       "thumbnail": null,
       "published_at": null,
@@ -226,7 +374,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": -4,
       "cluster_id": "dfe268a9b818",
       "cluster_size": 1,
       "rank_history": [
@@ -249,140 +397,322 @@
         {
           "run_at": "2026-09-13T07:44:00.765898+00:00",
           "rank": 3
+        },
+        {
+          "run_at": "2026-09-13T13:44:12.314244+00:00",
+          "rank": 7
         }
       ]
     },
     {
       "source": "github",
-      "rank": 4,
-      "title": "nab138/iloader",
-      "title_zh": "nab138/iloader",
-      "url": "https://github.com/nab138/iloader",
-      "hot_value": "209 stars today",
-      "summary_zh": "开源友好的侧载工具，简化应用安装，值得开发者关注。",
+      "rank": 8,
+      "title": "vxcontrol/pentagi",
+      "title_zh": "vxcontrol/pentagi",
+      "url": "https://github.com/vxcontrol/pentagi",
+      "hot_value": "613 stars today",
+      "summary_zh": "全自主AI智能体系统，能执行复杂渗透测试任务。",
       "thumbnail": null,
       "published_at": null,
       "extra": {
-        "description": "User friendly sideloader",
-        "language": "TypeScript"
+        "description": "Fully autonomous AI Agents system capable of performing complex penetration testing tasks",
+        "language": "Go"
+      },
+      "days_on_board": 2,
+      "is_new": false,
+      "rank_delta": 8,
+      "cluster_id": "c9e493e38eeb",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-12T10:44:07.043207+00:00",
+          "rank": 16
+        },
+        {
+          "run_at": "2026-09-12T16:43:59.035946+00:00",
+          "rank": 16
+        },
+        {
+          "run_at": "2026-09-12T22:44:03.918650+00:00",
+          "rank": 16
+        },
+        {
+          "run_at": "2026-09-13T07:31:31.776677+00:00",
+          "rank": 16
+        },
+        {
+          "run_at": "2026-09-13T07:44:00.765898+00:00",
+          "rank": 16
+        },
+        {
+          "run_at": "2026-09-13T13:44:12.314244+00:00",
+          "rank": 8
+        }
+      ]
+    },
+    {
+      "source": "github",
+      "rank": 9,
+      "title": "multimodal-art-projection/YuE",
+      "title_zh": "multimodal-art-projection/YuE",
+      "url": "https://github.com/multimodal-art-projection/YuE",
+      "hot_value": "500 stars today",
+      "summary_zh": "前沿音乐生成模型，支持符号规划、零样本翻唱与智能编辑。",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "description": "YuE2: frontier music generation with symbolic planning, zero-shot covers, and agentic music editing.",
+        "language": "Python"
+      },
+      "days_on_board": 2,
+      "is_new": false,
+      "rank_delta": 5,
+      "cluster_id": "2a6c43428fed",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-12T10:44:07.043207+00:00",
+          "rank": 14
+        },
+        {
+          "run_at": "2026-09-12T16:43:59.035946+00:00",
+          "rank": 14
+        },
+        {
+          "run_at": "2026-09-12T22:44:03.918650+00:00",
+          "rank": 14
+        },
+        {
+          "run_at": "2026-09-13T07:31:31.776677+00:00",
+          "rank": 14
+        },
+        {
+          "run_at": "2026-09-13T07:44:00.765898+00:00",
+          "rank": 14
+        },
+        {
+          "run_at": "2026-09-13T13:44:12.314244+00:00",
+          "rank": 9
+        }
+      ]
+    },
+    {
+      "source": "github",
+      "rank": 10,
+      "title": "yuliskov/SmartTube",
+      "title_zh": "yuliskov/SmartTube",
+      "url": "https://github.com/yuliskov/SmartTube",
+      "hot_value": "238 stars today",
+      "summary_zh": "安卓电视上自定义规则浏览媒体，摆脱平台限制自由观看。",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "description": "Browse media content with your own rules on Android TV",
+        "language": "Java"
+      },
+      "days_on_board": 2,
+      "is_new": false,
+      "rank_delta": -1,
+      "cluster_id": "abcdbd08085b",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-12T10:44:07.043207+00:00",
+          "rank": 9
+        },
+        {
+          "run_at": "2026-09-12T16:43:59.035946+00:00",
+          "rank": 9
+        },
+        {
+          "run_at": "2026-09-12T22:44:03.918650+00:00",
+          "rank": 9
+        },
+        {
+          "run_at": "2026-09-13T07:31:31.776677+00:00",
+          "rank": 9
+        },
+        {
+          "run_at": "2026-09-13T07:44:00.765898+00:00",
+          "rank": 9
+        },
+        {
+          "run_at": "2026-09-13T13:44:12.314244+00:00",
+          "rank": 10
+        }
+      ]
+    },
+    {
+      "source": "github",
+      "rank": 11,
+      "title": "alphaXiv/OpenResearch",
+      "title_zh": "alphaXiv/OpenResearch",
+      "url": "https://github.com/alphaXiv/OpenResearch",
+      "hot_value": "452 stars today",
+      "summary_zh": "用任意模型并行运行研究代理，加速科研探索。",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "description": "Run parallel research agents with any model",
+        "language": "Rust"
       },
       "days_on_board": 3,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "89a47996070c",
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "2cd2d2599fed",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-11T10:44:03.693190+00:00",
-          "rank": 3
+          "rank": 14
         },
         {
           "run_at": "2026-09-11T13:44:08.535196+00:00",
-          "rank": 3
+          "rank": 14
         },
         {
           "run_at": "2026-09-11T16:44:03.122934+00:00",
-          "rank": 3
+          "rank": 14
         },
         {
           "run_at": "2026-09-11T19:44:05.273675+00:00",
-          "rank": 3
+          "rank": 14
         },
         {
           "run_at": "2026-09-11T22:44:17.131546+00:00",
-          "rank": 3
+          "rank": 14
         },
         {
           "run_at": "2026-09-12T01:44:10.687537+00:00",
-          "rank": 3
+          "rank": 14
         },
         {
           "run_at": "2026-09-12T04:44:30.038442+00:00",
-          "rank": 3
+          "rank": 14
         },
         {
           "run_at": "2026-09-12T05:16:44.657953+00:00",
-          "rank": 3
+          "rank": 14
         },
         {
           "run_at": "2026-09-12T07:13:36.489632+00:00",
-          "rank": 3
+          "rank": 14
         },
         {
           "run_at": "2026-09-12T07:44:03.851106+00:00",
-          "rank": 3
+          "rank": 14
         },
         {
-          "run_at": "2026-09-12T10:44:07.043207+00:00",
-          "rank": 4
-        },
-        {
-          "run_at": "2026-09-12T16:43:59.035946+00:00",
-          "rank": 4
-        },
-        {
-          "run_at": "2026-09-12T22:44:03.918650+00:00",
-          "rank": 4
-        },
-        {
-          "run_at": "2026-09-13T07:31:31.776677+00:00",
-          "rank": 4
-        },
-        {
-          "run_at": "2026-09-13T07:44:00.765898+00:00",
-          "rank": 4
+          "run_at": "2026-09-13T13:44:12.314244+00:00",
+          "rank": 11
         }
       ]
     },
     {
       "source": "github",
-      "rank": 5,
-      "title": "Flowseal/zapret-discord-youtube",
-      "title_zh": "Flowseal/zapret-discord-youtube",
-      "url": "https://github.com/Flowseal/zapret-discord-youtube",
-      "hot_value": "65 stars today",
-      "summary_zh": "绕过Discord和YouTube限制的流量分流工具，改善网络访问体验。",
+      "rank": 12,
+      "title": "debpalash/VoiceStudio",
+      "title_zh": "debpalash/VoiceStudio",
+      "url": "https://github.com/debpalash/VoiceStudio",
+      "hot_value": "2,546 stars today",
+      "summary_zh": "开源本地语音克隆工具，支持646种语言，替代ElevenLabs。",
       "thumbnail": null,
       "published_at": null,
       "extra": {
-        "description": "",
-        "language": "Batchfile"
+        "description": "VoiceStudio is the open-source, fully-local ElevenLabs alternative — voice cloning, voice design, video dubbing, dictation, transcription & audiobook creation in 646 languages.",
+        "language": "Python"
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "bf2187938399",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-13T13:44:12.314244+00:00",
+          "rank": 12
+        }
+      ]
+    },
+    {
+      "source": "github",
+      "rank": 13,
+      "title": "SnailSploit/Claude-Red",
+      "title_zh": "SnailSploit/Claude-Red",
+      "url": "https://github.com/SnailSploit/Claude-Red",
+      "hot_value": "507 stars today",
+      "summary_zh": "专为Claude技能系统打造的攻击性安全技能库，覆盖多种攻击面。",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "description": "claude-red is a curated library of offensive security skills designed for the Claude skills system. Each skill is a structured SKILL.md file that primes Claude with expert-level methodology for a specific attack surface — from SQLi to shellcode, EDR evasion to exploit development.",
+        "language": "Python"
       },
       "days_on_board": 2,
       "is_new": false,
       "rank_delta": 0,
-      "cluster_id": "cad600a8648a",
+      "cluster_id": "2a6a4aa9f1fc",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-12T10:44:07.043207+00:00",
-          "rank": 5
+          "rank": 13
         },
         {
           "run_at": "2026-09-12T16:43:59.035946+00:00",
-          "rank": 5
+          "rank": 13
         },
         {
           "run_at": "2026-09-12T22:44:03.918650+00:00",
-          "rank": 5
+          "rank": 13
         },
         {
           "run_at": "2026-09-13T07:31:31.776677+00:00",
-          "rank": 5
+          "rank": 13
         },
         {
           "run_at": "2026-09-13T07:44:00.765898+00:00",
-          "rank": 5
+          "rank": 13
+        },
+        {
+          "run_at": "2026-09-13T13:44:12.314244+00:00",
+          "rank": 13
         }
       ]
     },
     {
       "source": "github",
-      "rank": 6,
+      "rank": 14,
+      "title": "alibaba/open-code-review",
+      "title_zh": "alibaba/open-code-review",
+      "url": "https://github.com/alibaba/open-code-review",
+      "hot_value": "264 stars today",
+      "summary_zh": "阿里开源代码审查工具，混合架构精准定位漏洞，支持多语言。",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "description": "Fast, efficient, battle-tested at Alibaba's scale. Hybrid architecture code review tool: deterministic pipelines + LLM Agent, precise line-level comments, built-in multi-language ruleset (NPE, thread-safety, XSS, SQL injection), OpenAI & Anthropic compatible.",
+        "language": "Go"
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "ee41dc481c41",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-13T13:44:12.314244+00:00",
+          "rank": 14
+        }
+      ]
+    },
+    {
+      "source": "github",
+      "rank": 15,
       "title": "jihe520/MathModelAgent",
       "title_zh": "jihe520/MathModelAgent",
       "url": "https://github.com/jihe520/MathModelAgent",
-      "hot_value": "262 stars today",
+      "hot_value": "268 stars today",
       "summary_zh": "专为数学建模设计的AI代理，自动生成可提交完整论文。",
       "thumbnail": null,
       "published_at": null,
@@ -392,7 +722,7 @@
       },
       "days_on_board": 3,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": -9,
       "cluster_id": "24a04fb6fc70",
       "cluster_size": 1,
       "rank_history": [
@@ -455,615 +785,9 @@
         {
           "run_at": "2026-09-13T07:44:00.765898+00:00",
           "rank": 6
-        }
-      ]
-    },
-    {
-      "source": "github",
-      "rank": 7,
-      "title": "Sonarr/Sonarr",
-      "title_zh": "Sonarr/Sonarr",
-      "url": "https://github.com/Sonarr/Sonarr",
-      "hot_value": "227 stars today",
-      "summary_zh": "智能PVR工具，为新闻组和BT用户自动录制管理节目。",
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "description": "Smart PVR for newsgroup and bittorrent users.",
-        "language": "C#"
-      },
-      "days_on_board": 3,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "fef4fafd2d77",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-11T10:44:03.693190+00:00",
-          "rank": 10
-        },
-        {
-          "run_at": "2026-09-11T13:44:08.535196+00:00",
-          "rank": 10
-        },
-        {
-          "run_at": "2026-09-11T16:44:03.122934+00:00",
-          "rank": 10
-        },
-        {
-          "run_at": "2026-09-11T19:44:05.273675+00:00",
-          "rank": 10
-        },
-        {
-          "run_at": "2026-09-11T22:44:17.131546+00:00",
-          "rank": 10
-        },
-        {
-          "run_at": "2026-09-12T01:44:10.687537+00:00",
-          "rank": 10
-        },
-        {
-          "run_at": "2026-09-12T04:44:30.038442+00:00",
-          "rank": 10
-        },
-        {
-          "run_at": "2026-09-12T05:16:44.657953+00:00",
-          "rank": 10
-        },
-        {
-          "run_at": "2026-09-12T07:13:36.489632+00:00",
-          "rank": 10
-        },
-        {
-          "run_at": "2026-09-12T07:44:03.851106+00:00",
-          "rank": 10
-        },
-        {
-          "run_at": "2026-09-12T10:44:07.043207+00:00",
-          "rank": 7
-        },
-        {
-          "run_at": "2026-09-12T16:43:59.035946+00:00",
-          "rank": 7
-        },
-        {
-          "run_at": "2026-09-12T22:44:03.918650+00:00",
-          "rank": 7
-        },
-        {
-          "run_at": "2026-09-13T07:31:31.776677+00:00",
-          "rank": 7
-        },
-        {
-          "run_at": "2026-09-13T07:44:00.765898+00:00",
-          "rank": 7
-        }
-      ]
-    },
-    {
-      "source": "github",
-      "rank": 8,
-      "title": "alsk1992/CloddsBot",
-      "title_zh": "alsk1992/CloddsBot",
-      "url": "https://github.com/alsk1992/CloddsBot",
-      "hot_value": "376 stars today",
-      "summary_zh": "开源AI交易代理，跨千余市场自动扫描套利并风控。",
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "description": "Open Source AI trading agent that operates autonomously across 1000+ markets - Polymarket, Kalshi, Binance, Hyperliquid, Solana DEXs, 5 EVM chains. Scans for edge, executes instantly, manages risk while you sleep. Agent commerce protocol for machine-to-machine payments. Self-hosted. Built on Claude.",
-        "language": "TypeScript"
-      },
-      "days_on_board": 4,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "a273c742736e",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-10T10:44:16.536751+00:00",
-          "rank": 4
-        },
-        {
-          "run_at": "2026-09-10T13:44:10.927826+00:00",
-          "rank": 4
-        },
-        {
-          "run_at": "2026-09-10T16:44:04.686393+00:00",
-          "rank": 4
-        },
-        {
-          "run_at": "2026-09-10T19:44:07.942256+00:00",
-          "rank": 4
-        },
-        {
-          "run_at": "2026-09-10T22:43:57.594732+00:00",
-          "rank": 4
-        },
-        {
-          "run_at": "2026-09-11T01:44:18.657508+00:00",
-          "rank": 4
-        },
-        {
-          "run_at": "2026-09-11T04:44:25.708303+00:00",
-          "rank": 4
-        },
-        {
-          "run_at": "2026-09-11T07:20:57.315986+00:00",
-          "rank": 4
-        },
-        {
-          "run_at": "2026-09-11T07:44:18.782548+00:00",
-          "rank": 4
-        },
-        {
-          "run_at": "2026-09-11T10:44:03.693190+00:00",
-          "rank": 7
-        },
-        {
-          "run_at": "2026-09-11T13:44:08.535196+00:00",
-          "rank": 7
-        },
-        {
-          "run_at": "2026-09-11T16:44:03.122934+00:00",
-          "rank": 7
-        },
-        {
-          "run_at": "2026-09-11T19:44:05.273675+00:00",
-          "rank": 7
-        },
-        {
-          "run_at": "2026-09-11T22:44:17.131546+00:00",
-          "rank": 7
-        },
-        {
-          "run_at": "2026-09-12T01:44:10.687537+00:00",
-          "rank": 7
-        },
-        {
-          "run_at": "2026-09-12T04:44:30.038442+00:00",
-          "rank": 7
-        },
-        {
-          "run_at": "2026-09-12T05:16:44.657953+00:00",
-          "rank": 7
-        },
-        {
-          "run_at": "2026-09-12T07:13:36.489632+00:00",
-          "rank": 7
-        },
-        {
-          "run_at": "2026-09-12T07:44:03.851106+00:00",
-          "rank": 7
-        },
-        {
-          "run_at": "2026-09-12T10:44:07.043207+00:00",
-          "rank": 8
-        },
-        {
-          "run_at": "2026-09-12T16:43:59.035946+00:00",
-          "rank": 8
-        },
-        {
-          "run_at": "2026-09-12T22:44:03.918650+00:00",
-          "rank": 8
-        },
-        {
-          "run_at": "2026-09-13T07:31:31.776677+00:00",
-          "rank": 8
-        },
-        {
-          "run_at": "2026-09-13T07:44:00.765898+00:00",
-          "rank": 8
-        }
-      ]
-    },
-    {
-      "source": "github",
-      "rank": 9,
-      "title": "yuliskov/SmartTube",
-      "title_zh": "yuliskov/SmartTube",
-      "url": "https://github.com/yuliskov/SmartTube",
-      "hot_value": "136 stars today",
-      "summary_zh": "安卓电视上自定义规则浏览媒体，摆脱平台限制自由观看。",
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "description": "Browse media content with your own rules on Android TV",
-        "language": "Java"
-      },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "abcdbd08085b",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-12T10:44:07.043207+00:00",
-          "rank": 9
-        },
-        {
-          "run_at": "2026-09-12T16:43:59.035946+00:00",
-          "rank": 9
-        },
-        {
-          "run_at": "2026-09-12T22:44:03.918650+00:00",
-          "rank": 9
-        },
-        {
-          "run_at": "2026-09-13T07:31:31.776677+00:00",
-          "rank": 9
-        },
-        {
-          "run_at": "2026-09-13T07:44:00.765898+00:00",
-          "rank": 9
-        }
-      ]
-    },
-    {
-      "source": "github",
-      "rank": 10,
-      "title": "Shubhamsaboo/awesome-llm-apps",
-      "title_zh": "Shubhamsaboo/awesome-llm-apps",
-      "url": "https://github.com/Shubhamsaboo/awesome-llm-apps",
-      "hot_value": "230 stars today",
-      "summary_zh": "百余个免费开源AI智能体与RAG应用合集，学习与开发参考宝库。",
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "description": "100+ AI Agents, Agent Skills and RAG Apps - Free and Open Source.",
-        "language": "Python"
-      },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "6079b2afde28",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-12T10:44:07.043207+00:00",
-          "rank": 10
-        },
-        {
-          "run_at": "2026-09-12T16:43:59.035946+00:00",
-          "rank": 10
-        },
-        {
-          "run_at": "2026-09-12T22:44:03.918650+00:00",
-          "rank": 10
-        },
-        {
-          "run_at": "2026-09-13T07:31:31.776677+00:00",
-          "rank": 10
-        },
-        {
-          "run_at": "2026-09-13T07:44:00.765898+00:00",
-          "rank": 10
-        }
-      ]
-    },
-    {
-      "source": "github",
-      "rank": 11,
-      "title": "p1neappleXpress/OpenFlux",
-      "title_zh": "p1neappleXpress/OpenFlux",
-      "url": "https://github.com/p1neappleXpress/OpenFlux",
-      "hot_value": "355 stars today",
-      "summary_zh": "网络栈研究工具，支持可插拔传输的TCP隧道。",
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "description": "Network stack research tool. TCP tunnel with pluggable transports.",
-        "language": "Go"
-      },
-      "days_on_board": 3,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "fd5c10b0a18c",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-11T10:44:03.693190+00:00",
-          "rank": 12
-        },
-        {
-          "run_at": "2026-09-11T13:44:08.535196+00:00",
-          "rank": 12
-        },
-        {
-          "run_at": "2026-09-11T16:44:03.122934+00:00",
-          "rank": 12
-        },
-        {
-          "run_at": "2026-09-11T19:44:05.273675+00:00",
-          "rank": 12
-        },
-        {
-          "run_at": "2026-09-11T22:44:17.131546+00:00",
-          "rank": 12
-        },
-        {
-          "run_at": "2026-09-12T01:44:10.687537+00:00",
-          "rank": 12
-        },
-        {
-          "run_at": "2026-09-12T04:44:30.038442+00:00",
-          "rank": 12
-        },
-        {
-          "run_at": "2026-09-12T05:16:44.657953+00:00",
-          "rank": 12
-        },
-        {
-          "run_at": "2026-09-12T07:13:36.489632+00:00",
-          "rank": 12
-        },
-        {
-          "run_at": "2026-09-12T07:44:03.851106+00:00",
-          "rank": 12
-        },
-        {
-          "run_at": "2026-09-12T10:44:07.043207+00:00",
-          "rank": 11
-        },
-        {
-          "run_at": "2026-09-12T16:43:59.035946+00:00",
-          "rank": 11
-        },
-        {
-          "run_at": "2026-09-12T22:44:03.918650+00:00",
-          "rank": 11
-        },
-        {
-          "run_at": "2026-09-13T07:31:31.776677+00:00",
-          "rank": 11
-        },
-        {
-          "run_at": "2026-09-13T07:44:00.765898+00:00",
-          "rank": 11
-        }
-      ]
-    },
-    {
-      "source": "github",
-      "rank": 12,
-      "title": "armory3d/armorpaint",
-      "title_zh": "armory3d/armorpaint",
-      "url": "https://github.com/armory3d/armorpaint",
-      "hot_value": "237 stars today",
-      "summary_zh": "开源3D纹理绘制工具，适合游戏美术创作。",
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "description": "Graphics Creation Tools",
-        "language": "C"
-      },
-      "days_on_board": 4,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "2d05e6f6202a",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-10T10:44:16.536751+00:00",
-          "rank": 10
-        },
-        {
-          "run_at": "2026-09-10T13:44:10.927826+00:00",
-          "rank": 10
-        },
-        {
-          "run_at": "2026-09-10T16:44:04.686393+00:00",
-          "rank": 10
-        },
-        {
-          "run_at": "2026-09-10T19:44:07.942256+00:00",
-          "rank": 10
-        },
-        {
-          "run_at": "2026-09-10T22:43:57.594732+00:00",
-          "rank": 10
-        },
-        {
-          "run_at": "2026-09-11T01:44:18.657508+00:00",
-          "rank": 10
-        },
-        {
-          "run_at": "2026-09-11T04:44:25.708303+00:00",
-          "rank": 10
-        },
-        {
-          "run_at": "2026-09-11T07:20:57.315986+00:00",
-          "rank": 10
-        },
-        {
-          "run_at": "2026-09-11T07:44:18.782548+00:00",
-          "rank": 10
-        },
-        {
-          "run_at": "2026-09-11T10:44:03.693190+00:00",
-          "rank": 6
-        },
-        {
-          "run_at": "2026-09-11T13:44:08.535196+00:00",
-          "rank": 6
-        },
-        {
-          "run_at": "2026-09-11T16:44:03.122934+00:00",
-          "rank": 6
-        },
-        {
-          "run_at": "2026-09-11T19:44:05.273675+00:00",
-          "rank": 6
-        },
-        {
-          "run_at": "2026-09-11T22:44:17.131546+00:00",
-          "rank": 6
-        },
-        {
-          "run_at": "2026-09-12T01:44:10.687537+00:00",
-          "rank": 6
-        },
-        {
-          "run_at": "2026-09-12T04:44:30.038442+00:00",
-          "rank": 6
-        },
-        {
-          "run_at": "2026-09-12T05:16:44.657953+00:00",
-          "rank": 6
-        },
-        {
-          "run_at": "2026-09-12T07:13:36.489632+00:00",
-          "rank": 6
-        },
-        {
-          "run_at": "2026-09-12T07:44:03.851106+00:00",
-          "rank": 6
-        },
-        {
-          "run_at": "2026-09-12T10:44:07.043207+00:00",
-          "rank": 12
-        },
-        {
-          "run_at": "2026-09-12T16:43:59.035946+00:00",
-          "rank": 12
-        },
-        {
-          "run_at": "2026-09-12T22:44:03.918650+00:00",
-          "rank": 12
-        },
-        {
-          "run_at": "2026-09-13T07:31:31.776677+00:00",
-          "rank": 12
-        },
-        {
-          "run_at": "2026-09-13T07:44:00.765898+00:00",
-          "rank": 12
-        }
-      ]
-    },
-    {
-      "source": "github",
-      "rank": 13,
-      "title": "SnailSploit/Claude-Red",
-      "title_zh": "SnailSploit/Claude-Red",
-      "url": "https://github.com/SnailSploit/Claude-Red",
-      "hot_value": "113 stars today",
-      "summary_zh": "专为Claude技能系统打造的攻击性安全技能库，覆盖多种攻击面。",
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "description": "claude-red is a curated library of offensive security skills designed for the Claude skills system. Each skill is a structured SKILL.md file that primes Claude with expert-level methodology for a specific attack surface — from SQLi to shellcode, EDR evasion to exploit development.",
-        "language": "Python"
-      },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "2a6a4aa9f1fc",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-12T10:44:07.043207+00:00",
-          "rank": 13
-        },
-        {
-          "run_at": "2026-09-12T16:43:59.035946+00:00",
-          "rank": 13
-        },
-        {
-          "run_at": "2026-09-12T22:44:03.918650+00:00",
-          "rank": 13
-        },
-        {
-          "run_at": "2026-09-13T07:31:31.776677+00:00",
-          "rank": 13
-        },
-        {
-          "run_at": "2026-09-13T07:44:00.765898+00:00",
-          "rank": 13
-        }
-      ]
-    },
-    {
-      "source": "github",
-      "rank": 14,
-      "title": "multimodal-art-projection/YuE",
-      "title_zh": "multimodal-art-projection/YuE",
-      "url": "https://github.com/multimodal-art-projection/YuE",
-      "hot_value": "210 stars today",
-      "summary_zh": "前沿音乐生成模型，支持符号规划、零样本翻唱与智能编辑。",
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "description": "YuE2: frontier music generation with symbolic planning, zero-shot covers, and agentic music editing.",
-        "language": "Python"
-      },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "2a6c43428fed",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-12T10:44:07.043207+00:00",
-          "rank": 14
-        },
-        {
-          "run_at": "2026-09-12T16:43:59.035946+00:00",
-          "rank": 14
-        },
-        {
-          "run_at": "2026-09-12T22:44:03.918650+00:00",
-          "rank": 14
-        },
-        {
-          "run_at": "2026-09-13T07:31:31.776677+00:00",
-          "rank": 14
-        },
-        {
-          "run_at": "2026-09-13T07:44:00.765898+00:00",
-          "rank": 14
-        }
-      ]
-    },
-    {
-      "source": "github",
-      "rank": 15,
-      "title": "max-sixty/worktrunk",
-      "title_zh": "max-sixty/worktrunk",
-      "url": "https://github.com/max-sixty/worktrunk",
-      "hot_value": "54 stars today",
-      "summary_zh": "面向并行AI智能体工作流的Git工作树管理命令行工具。",
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "description": "Worktrunk is a CLI for Git worktree management, designed for parallel AI agent workflows",
-        "language": "Rust"
-      },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "df56957a91eb",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-12T10:44:07.043207+00:00",
-          "rank": 15
-        },
-        {
-          "run_at": "2026-09-12T16:43:59.035946+00:00",
-          "rank": 15
-        },
-        {
-          "run_at": "2026-09-12T22:44:03.918650+00:00",
-          "rank": 15
-        },
-        {
-          "run_at": "2026-09-13T07:31:31.776677+00:00",
-          "rank": 15
         },
         {
-          "run_at": "2026-09-13T07:44:00.765898+00:00",
+          "run_at": "2026-09-13T13:44:12.314244+00:00",
           "rank": 15
         }
       ]
@@ -1071,42 +795,104 @@
     {
       "source": "github",
       "rank": 16,
-      "title": "vxcontrol/pentagi",
-      "title_zh": "vxcontrol/pentagi",
-      "url": "https://github.com/vxcontrol/pentagi",
-      "hot_value": "189 stars today",
-      "summary_zh": "全自主AI智能体系统，能执行复杂渗透测试任务。",
+      "title": "tonhowtf/omniget",
+      "title_zh": "tonhowtf/omniget",
+      "url": "https://github.com/tonhowtf/omniget",
+      "hot_value": "839 stars today",
+      "summary_zh": "开源桌面下载器，支持1800多站点，无需终端，文件本地存储。",
       "thumbnail": null,
       "published_at": null,
       "extra": {
-        "description": "Fully autonomous AI Agents system capable of performing complex penetration testing tasks",
-        "language": "Go"
+        "description": "Download Udemy and Hotmart courses, YouTube videos, music and books — 1,800+ sites, no terminal. Free open-source desktop app for Windows, macOS and Linux, with a built-in course player, PDF/EPUB reader and music library. Powered by yt-dlp. Your files stay on your computer.",
+        "language": "Rust"
       },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "c9e493e38eeb",
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "6d93f3eab4ae",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-12T10:44:07.043207+00:00",
+          "run_at": "2026-09-13T13:44:12.314244+00:00",
           "rank": 16
-        },
+        }
+      ]
+    },
+    {
+      "source": "github",
+      "rank": 17,
+      "title": "jiji262/douyin-downloader",
+      "title_zh": "jiji262/douyin-downloader",
+      "url": "https://github.com/jiji262/douyin-downloader",
+      "hot_value": "473 stars today",
+      "summary_zh": "抖音批量下载工具，去水印，支持视频图集合集音乐。",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "description": "A practical Douyin downloader for both single-item and profile batch downloads, with progress display, retries, SQLite deduplication, and browser fallback support. 抖音批量下载工具，去水印，支持视频、图集、合集、音乐(原声)。",
+        "language": "Python"
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "8b14f4762b00",
+      "cluster_size": 1,
+      "rank_history": [
         {
-          "run_at": "2026-09-12T16:43:59.035946+00:00",
-          "rank": 16
-        },
+          "run_at": "2026-09-13T13:44:12.314244+00:00",
+          "rank": 17
+        }
+      ]
+    },
+    {
+      "source": "github",
+      "rank": 18,
+      "title": "Swordfish90/cool-retro-term",
+      "title_zh": "Swordfish90/cool-retro-term",
+      "url": "https://github.com/Swordfish90/cool-retro-term",
+      "hot_value": "98 stars today",
+      "summary_zh": "复古CRT风格终端模拟器，外观独特，适合怀旧开发者。",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "description": "A good looking terminal emulator which mimics the old cathode display...",
+        "language": "QML"
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "f893a6bdb027",
+      "cluster_size": 1,
+      "rank_history": [
         {
-          "run_at": "2026-09-12T22:44:03.918650+00:00",
-          "rank": 16
-        },
+          "run_at": "2026-09-13T13:44:12.314244+00:00",
+          "rank": 18
+        }
+      ]
+    },
+    {
+      "source": "github",
+      "rank": 19,
+      "title": "huggingface/transformers",
+      "title_zh": "huggingface/transformers",
+      "url": "https://github.com/huggingface/transformers",
+      "hot_value": "102 stars today",
+      "summary_zh": "Hugging Face模型框架，覆盖文本视觉音频多模态，训练推理皆宜。",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "description": "🤗 Transformers: the model-definition framework for state-of-the-art machine learning models in text, vision, audio, and multimodal models, for both inference and training.",
+        "language": "Python"
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "6feb0390675d",
+      "cluster_size": 1,
+      "rank_history": [
         {
-          "run_at": "2026-09-13T07:31:31.776677+00:00",
-          "rank": 16
-        },
-        {
-          "run_at": "2026-09-13T07:44:00.765898+00:00",
-          "rank": 16
+          "run_at": "2026-09-13T13:44:12.314244+00:00",
+          "rank": 19
         }
       ]
     }
