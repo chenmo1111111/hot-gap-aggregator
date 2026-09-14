@@ -12,14 +12,18 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Annotated, Any
 
-from fastapi import Depends, FastAPI, HTTPException, Request, Response, status
+from fastapi import Depends, FastAPI, HTTPException, Query, Request, Response, status
 from fastapi.middleware.cors import CORSMiddleware
-from itsdangerous import BadSignature, Signer
+from fastapi.responses import RedirectResponse
+from itsdangerous import BadSignature, Signer, TimestampSigner
 from passlib.context import CryptContext
 from pydantic import BaseModel, Field
 from dotenv import load_dotenv
 
 from app.mailbox.store import MailboxStore, initialize_mailbox_database
+from app.mailbox.accounts import load_mail_accounts, public_account
+from app.mailbox.gmail_client import authorization_url, exchange_authorization_code, GmailReadonlyClient
+from app.mailbox.inbox_store import InboxStore, TokenCipher, initialize_inbox_database
 
 local_env = Path(".env")
 if local_env.is_file() and os.access(local_env, os.R_OK):
@@ -123,6 +127,7 @@ def initialize_database() -> None:
                 (username, hash_password(password), utc_now()),
             )
     initialize_mailbox_database()
+    initialize_inbox_database()
 
 
 def client_ip(request: Request) -> str:
@@ -360,3 +365,102 @@ def update_mail_deadline_status(
     if not MailboxStore().set_status(body.message_id, body.status):
         raise HTTPException(status_code=404, detail="提醒不存在")
     return {"ok": True}
+
+
+def oauth_state_signer() -> TimestampSigner:
+    return TimestampSigner(os.getenv("SESSION_SECRET", ""), salt="hot-gap-mail-oauth")
+
+
+def configured_mail_account(account_id: str):
+    account = next((item for item in load_mail_accounts() if item.account_id == account_id), None)
+    if account is None:
+        raise HTTPException(status_code=404, detail="邮箱账号不存在")
+    return account
+
+
+@app.get("/api/admin/mail-inbox/accounts")
+def list_mail_accounts(
+    _: Annotated[dict[str, Any], Depends(admin_user)],
+) -> dict[str, Any]:
+    store = InboxStore()
+    items = []
+    for account in load_mail_accounts():
+        store.upsert_account(account.account_id, account.provider, account.label, account.address)
+        state = store.account_state(account.account_id)
+        items.append(public_account(
+            account,
+            authorized=account.provider == "imap" or bool(state.get("refresh_token_encrypted")),
+            last_synced_at=state.get("last_synced_at"),
+            last_error=state.get("last_error"),
+        ))
+    return {"items": items, "count": len(items)}
+
+
+@app.get("/api/admin/mail-inbox")
+def list_mail_inbox(
+    _: Annotated[dict[str, Any], Depends(admin_user)],
+    account_id: str = "", category: str = "", q: str = "",
+    limit: int = Query(default=100, ge=1, le=200),
+    offset: int = Query(default=0, ge=0),
+) -> dict[str, Any]:
+    items, total = InboxStore().list_messages(
+        account_id=account_id, category=category, query=q[:200],
+        limit=limit, offset=offset,
+    )
+    return {"items": items, "count": len(items), "total": total}
+
+
+@app.get("/api/admin/mail-inbox/message/{account_id}/{message_key}")
+def get_mail_inbox_message(
+    account_id: str, message_key: str,
+    _: Annotated[dict[str, Any], Depends(admin_user)],
+) -> dict[str, Any]:
+    item = InboxStore().get_message(account_id, message_key)
+    if item is None:
+        raise HTTPException(status_code=404, detail="邮件不存在")
+    return item
+
+
+@app.post("/api/admin/mail-inbox/oauth/google/{account_id}/start")
+def start_google_mail_oauth(
+    account_id: str,
+    user: Annotated[dict[str, Any], Depends(admin_user)],
+) -> dict[str, str]:
+    account = configured_mail_account(account_id)
+    if account.provider != "gmail":
+        raise HTTPException(status_code=400, detail="该账号不是 Gmail")
+    state = oauth_state_signer().sign(f"{user['id']}:{account_id}".encode("utf-8")).decode("utf-8")
+    return {"authorization_url": authorization_url(state, login_hint=account.address)}
+
+
+@app.get("/api/admin/mail-inbox/oauth/google/callback")
+async def finish_google_mail_oauth(
+    code: str, state: str,
+    user: Annotated[dict[str, Any], Depends(admin_user)],
+) -> RedirectResponse:
+    try:
+        unsigned = oauth_state_signer().unsign(state, max_age=600).decode("utf-8")
+        raw_user_id, account_id = unsigned.split(":", 1)
+        if int(raw_user_id) != user["id"]:
+            raise ValueError("OAuth state user mismatch")
+    except (BadSignature, UnicodeDecodeError, ValueError):
+        raise HTTPException(status_code=400, detail="Gmail 授权状态无效或已过期") from None
+    account = configured_mail_account(account_id)
+    if account.provider != "gmail":
+        raise HTTPException(status_code=400, detail="该账号不是 Gmail")
+    try:
+        token = await exchange_authorization_code(code)
+        refresh_token = str(token["refresh_token"])
+        profile = await GmailReadonlyClient(refresh_token).profile()
+        actual_address = str(profile.get("emailAddress") or "").lower()
+        if actual_address != account.address.lower():
+            raise HTTPException(status_code=400, detail="授权的 Gmail 账号与配置不一致")
+        store = InboxStore()
+        store.upsert_account(account.account_id, account.provider, account.label, account.address)
+        store.save_refresh_token(account.account_id, TokenCipher().encrypt(refresh_token))
+    except HTTPException:
+        raise
+    except Exception as exc:
+        logger.warning("Gmail OAuth failed for account %s: %s", account.account_id, type(exc).__name__)
+        raise HTTPException(status_code=502, detail="Gmail 授权交换失败") from None
+    return RedirectResponse(url="/?mailbox_oauth=success", status_code=303)

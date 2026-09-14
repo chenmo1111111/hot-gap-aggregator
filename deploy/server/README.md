@@ -147,6 +147,26 @@ PY
 首次补贴/选调公告和政策页检查只建立基线，不发送通知。服务器日志为
 `/var/log/hot-gap-server.log`。
 
+## 私有统一收件箱
+
+统一收件箱使用独立的 `/var/lib/hot-gap-sync/mail-inbox.db` 和
+`/etc/cron.d/hot-gap-mail-inbox`，每小时第 17 分钟只读同步一次。它不复用
+`mail-deadlines.db`，也不修改 `hot-gap-mailbox.cron` 或
+`hot-gap-feishu-refresh`。IMAP 账号使用授权码；Gmail 只申请
+`https://www.googleapis.com/auth/gmail.readonly`，refresh token 用 S1 `.env` 中的
+Fernet 密钥加密后才写入私有库。
+
+Google Cloud OAuth 应用设为 Testing，把三个 Gmail 地址加入 Test users，并设置：
+
+```text
+Authorized redirect URI:
+https://hot.weixincuotiben.top/api/admin/mail-inbox/oauth/google/callback
+```
+
+部署后用 admin 登录网站，在“邮箱管理”依次点击三个 Gmail 的“授权 Gmail”。
+同步过程只用 IMAP `readonly=True` + `BODY.PEEK` 或 Gmail readonly API，不会回写
+已读状态。邮件保留天数由 `MAIL_INBOX_RETENTION_DAYS` 控制，默认 90 天。
+
 ## GitHub Actions 定时触发
 
 `hotgap-github-trigger`、对应的 service 和 timer 会每 3 小时请求 GitHub

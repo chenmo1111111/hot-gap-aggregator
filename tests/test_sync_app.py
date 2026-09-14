@@ -1,8 +1,11 @@
 import pytest
+from cryptography.fernet import Fernet
 from fastapi.testclient import TestClient
+from urllib.parse import parse_qs, urlparse
 
 from sync.app import PREFS_MAX_BYTES, app, initialize_database
 from app.mailbox.store import MailboxStore
+from app.mailbox.inbox_store import InboxStore
 
 
 @pytest.fixture
@@ -12,6 +15,7 @@ def client(tmp_path, monkeypatch):
     monkeypatch.setenv("ADMIN_USER", "admin")
     monkeypatch.setenv("ADMIN_PASSWORD", "admin-pass")
     monkeypatch.setenv("MAX_USERS", "3")
+    monkeypatch.setenv("MAIL_INBOX_DB", str(tmp_path / "mail-inbox.db"))
     with TestClient(app, base_url="https://hot.weixincuotiben.top") as test_client:
         yield test_client
 
@@ -109,6 +113,72 @@ def test_non_admin_cannot_access_admin_routes(client):
         "/api/admin/mail-deadlines/status",
         json={"message_id": "<private@example>", "status": "done"},
     ).status_code == 403
+    assert client.get("/api/admin/mail-inbox/accounts").status_code == 403
+    assert client.get("/api/admin/mail-inbox").status_code == 403
+
+
+def test_admin_mail_inbox_is_private_paginated_and_body_is_lazy(client, monkeypatch):
+    monkeypatch.setenv("MAIL_ACCOUNT_1_TYPE", "imap")
+    monkeypatch.setenv("MAIL_ACCOUNT_1_LABEL", "QQ主邮箱")
+    monkeypatch.setenv("MAIL_ACCOUNT_1_USER", "private@qq.test")
+    monkeypatch.setenv("MAIL_ACCOUNT_1_HOST", "imap.qq.test")
+    monkeypatch.setenv("MAIL_ACCOUNT_1_AUTH_CODE", "server-only-secret")
+    assert login(client).status_code == 200
+    store = InboxStore()
+    store.upsert_account("mail-1", "imap", "QQ主邮箱", "private@qq.test")
+    store.add_message({
+        "account_id": "mail-1", "message_key": "abc", "provider_uid": "42",
+        "message_id": "<abc>", "sender": "招聘中心 <jobs@example.test>",
+        "subject": "笔试安排", "body": "这是一段只应在详情接口返回的完整正文",
+        "received_at": "2026-09-14T01:00:00+00:00", "attachments": [],
+        "category": "面试笔试类", "deadline_linked": True,
+    })
+    accounts = client.get("/api/admin/mail-inbox/accounts").json()["items"]
+    assert accounts[0]["address_hint"] == "pr***@qq.test"
+    assert "auth_code" not in accounts[0]
+    listing = client.get("/api/admin/mail-inbox?q=笔试").json()
+    assert listing["total"] == 1
+    assert "body" not in listing["items"][0]
+    assert "完整正文" in listing["items"][0]["snippet"]
+    detail = client.get("/api/admin/mail-inbox/message/mail-1/abc")
+    assert detail.status_code == 200
+    assert "完整正文" in detail.json()["body"]
+
+
+def test_admin_can_authorize_each_configured_gmail_with_encrypted_token(client, monkeypatch):
+    monkeypatch.setenv("MAIL_ACCOUNT_4_TYPE", "gmail")
+    monkeypatch.setenv("MAIL_ACCOUNT_4_LABEL", "Gmail 1")
+    monkeypatch.setenv("MAIL_ACCOUNT_4_USER", "person@gmail.test")
+    monkeypatch.setenv("MAIL_GOOGLE_CLIENT_ID", "client-id")
+    monkeypatch.setenv("MAIL_GOOGLE_CLIENT_SECRET", "client-secret")
+    monkeypatch.setenv("MAIL_GOOGLE_REDIRECT_URI", "https://hot.weixincuotiben.top/api/admin/mail-inbox/oauth/google/callback")
+    monkeypatch.setenv("MAIL_TOKEN_ENCRYPTION_KEY", Fernet.generate_key().decode("ascii"))
+
+    async def exchange(_code):
+        return {"refresh_token": "private-refresh-token"}
+
+    class FakeGmail:
+        def __init__(self, _token):
+            pass
+
+        async def profile(self):
+            return {"emailAddress": "person@gmail.test"}
+
+    monkeypatch.setattr("sync.app.exchange_authorization_code", exchange)
+    monkeypatch.setattr("sync.app.GmailReadonlyClient", FakeGmail)
+    assert login(client).status_code == 200
+    started = client.post("/api/admin/mail-inbox/oauth/google/mail-4/start")
+    assert started.status_code == 200
+    state = parse_qs(urlparse(started.json()["authorization_url"]).query)["state"][0]
+    completed = client.get(
+        "/api/admin/mail-inbox/oauth/google/callback",
+        params={"code": "one-time-code", "state": state},
+        follow_redirects=False,
+    )
+    assert completed.status_code == 303
+    stored = InboxStore().account_state("mail-4")["refresh_token_encrypted"]
+    assert stored != "private-refresh-token"
+    assert b"private-refresh-token" not in InboxStore().path.read_bytes()
 
 
 def test_admin_mail_deadlines_are_private_and_done_rows_leave_default_list(client):

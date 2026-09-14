@@ -39,6 +39,16 @@ type MailDeadline = {
   status: 'pending' | 'done' | 'expired' | 'needs_review';
   subject?: string; sender?: string; deadline_kind?: string;
 };
+type MailAttachment = { filename: string; size: number; content_type: string };
+type MailAccount = {
+  account_id: string; provider: 'imap' | 'gmail'; label: string; address_hint: string;
+  authorized: boolean; last_synced_at?: string | null; last_error?: string | null;
+};
+type InboxMail = {
+  account_id: string; account_label: string; message_key: string; sender: string;
+  subject: string; snippet: string; received_at: string; category?: string | null;
+  deadline_linked: boolean; attachments: MailAttachment[]; body?: string;
+};
 
 const sourceNames: Record<string, string> = {
   weibo: '微博', bilibili: 'B站', github: 'GitHub', youtube: 'YouTube', douyin: '抖音',
@@ -548,6 +558,88 @@ function MailDeadlinesView() {
   </div>;
 }
 
+const attachmentSize = (size: number) => size >= 1048576
+  ? `${(size / 1048576).toFixed(1)} MB`
+  : `${Math.max(1, Math.ceil(size / 1024))} KB`;
+
+function MailInboxView() {
+  const [accounts, setAccounts] = useState<MailAccount[]>([]);
+  const [items, setItems] = useState<InboxMail[]>([]);
+  const [total, setTotal] = useState(0);
+  const [account, setAccount] = useState('');
+  const [category, setCategory] = useState('');
+  const [search, setSearch] = useState('');
+  const [query, setQuery] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  const [openKey, setOpenKey] = useState('');
+  const [details, setDetails] = useState<Record<string, InboxMail>>({});
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => setQuery(search.trim()), 300);
+    return () => window.clearTimeout(timer);
+  }, [search]);
+
+  useEffect(() => {
+    void fetch('/api/admin/mail-inbox/accounts', { credentials: 'include', cache: 'no-store' })
+      .then(async (response) => {
+        if (!response.ok) throw new Error(await readError(response, '加载邮箱账号失败'));
+        const payload = await response.json() as { items: MailAccount[] };
+        setAccounts(payload.items);
+      }).catch((reason: unknown) => setError(reason instanceof Error ? reason.message : '加载邮箱账号失败'));
+  }, []);
+
+  const loadMessages = useCallback(async (offset = 0, append = false) => {
+    setLoading(true); setError('');
+    const params = new URLSearchParams({ limit: '100', offset: String(offset) });
+    if (account) params.set('account_id', account);
+    if (category) params.set('category', category);
+    if (query) params.set('q', query);
+    try {
+      const response = await fetch(`/api/admin/mail-inbox?${params}`, { credentials: 'include', cache: 'no-store' });
+      if (!response.ok) throw new Error(await readError(response, '加载统一收件箱失败'));
+      const payload = await response.json() as { items: InboxMail[]; total: number };
+      setItems((current) => append ? [...current, ...payload.items] : payload.items);
+      setTotal(payload.total);
+    } catch (reason) {
+      setError(reason instanceof Error ? reason.message : '加载统一收件箱失败');
+    } finally {
+      setLoading(false);
+    }
+  }, [account, category, query]);
+
+  useEffect(() => { void loadMessages(); }, [loadMessages]);
+
+  const openMessage = async (item: InboxMail) => {
+    const key = `${item.account_id}:${item.message_key}`;
+    if (openKey === key) { setOpenKey(''); return; }
+    setOpenKey(key);
+    if (details[key]) return;
+    const response = await fetch(`/api/admin/mail-inbox/message/${encodeURIComponent(item.account_id)}/${encodeURIComponent(item.message_key)}`, {
+      credentials: 'include', cache: 'no-store',
+    });
+    if (!response.ok) { setError(await readError(response, '读取邮件正文失败')); return; }
+    const detail = await response.json() as InboxMail;
+    setDetails((current) => ({ ...current, [key]: detail }));
+  };
+
+  const authorize = async (accountId: string) => {
+    const response = await fetch(`/api/admin/mail-inbox/oauth/google/${encodeURIComponent(accountId)}/start`, {
+      method: 'POST', credentials: 'include',
+    });
+    if (!response.ok) { setError(await readError(response, '无法开始 Gmail 授权')); return; }
+    const payload = await response.json() as { authorization_url: string };
+    window.location.assign(payload.authorization_url);
+  };
+
+  return <div className="grid gap-6"><header><h2 className="text-2xl font-black">邮箱管理</h2><p className="mt-1 text-xs text-[var(--muted)]">六个邮箱只读聚合，仅管理员可见；不会改变源邮箱的已读状态，也不支持回复或发送。</p></header>
+    <section className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">{accounts.map((entry) => <article key={entry.account_id} className="rounded-2xl border border-[var(--line)] bg-[var(--card)] p-4"><div className="flex items-start justify-between gap-2"><div><b>{entry.label}</b><p className="mt-1 text-xs text-[var(--muted)]">{entry.address_hint}</p></div><span className={`rounded-full px-2 py-1 text-[10px] font-black ${entry.authorized ? 'bg-emerald-100 text-emerald-700' : 'bg-orange-100 text-orange-700'}`}>{entry.authorized ? '已接入' : '待授权'}</span></div>{entry.last_synced_at && <p className="mt-3 text-[11px] text-[var(--muted)]">上次同步 {new Date(entry.last_synced_at).toLocaleString('zh-CN')}</p>}{entry.last_error && <p className="mt-2 text-[11px] text-rose-500">最近同步失败：{entry.last_error}</p>}{entry.provider === 'gmail' && !entry.authorized && <button type="button" onClick={() => void authorize(entry.account_id)} className="mt-3 rounded-full bg-cyan-600 px-3 py-2 text-xs font-black text-white">授权 Gmail</button>}</article>)}</section>
+    <section className="rounded-2xl border border-[var(--line)] bg-[var(--card)] p-4"><div className="grid gap-3 sm:grid-cols-3"><select aria-label="按邮箱筛选" value={account} onChange={(event) => setAccount(event.target.value)} className="rounded-xl border border-[var(--line)] bg-[var(--paper)] px-3 py-2 text-sm"><option value="">全部邮箱</option>{accounts.map((entry) => <option key={entry.account_id} value={entry.account_id}>{entry.label}</option>)}</select><select aria-label="按分类筛选" value={category} onChange={(event) => setCategory(event.target.value)} className="rounded-xl border border-[var(--line)] bg-[var(--paper)] px-3 py-2 text-sm"><option value="">全部分类</option>{['面试笔试类', '工作相关', '广告推广', '其他'].map((value) => <option key={value}>{value}</option>)}</select><input aria-label="搜索邮件" value={search} onChange={(event) => setSearch(event.target.value)} placeholder="搜索标题或正文" className="rounded-xl border border-[var(--line)] bg-[var(--paper)] px-3 py-2 text-sm" /></div></section>
+    {error && <p role="alert" className="rounded-xl bg-rose-50 p-3 text-sm text-rose-600 dark:bg-rose-950/30">{error}</p>}
+    <section><div className="mb-3 flex items-center justify-between"><h3 className="text-lg font-black">统一收件箱</h3><span className="font-mono text-xs text-[var(--muted)]">{total} 封</span></div><div className="grid gap-2">{items.map((item) => { const key = `${item.account_id}:${item.message_key}`; const detail = details[key]; return <article key={key} className="rounded-2xl border border-[var(--line)] bg-[var(--card)]"><button type="button" onClick={() => void openMessage(item)} className="w-full p-4 text-left"><div className="flex flex-wrap items-center gap-2"><span className="rounded-full bg-cyan-100 px-2 py-1 text-[10px] font-black text-cyan-900">{item.account_label}</span>{item.category && <span className="rounded-full bg-[var(--soft)] px-2 py-1 text-[10px] font-bold">{item.category}</span>}{item.deadline_linked && <span className="rounded-full bg-orange-100 px-2 py-1 text-[10px] font-black text-orange-700">已关联截止提醒</span>}<time className="ml-auto text-[11px] text-[var(--muted)]">{new Date(item.received_at).toLocaleString('zh-CN')}</time></div><h4 className="mt-2 font-black">{item.subject || '(无主题)'}</h4><p className="mt-1 truncate text-xs text-[var(--muted)]">{item.sender}</p><p className="mt-2 line-clamp-2 text-sm leading-6 text-[var(--muted)]">{item.snippet}</p></button>{openKey === key && <div className="border-t border-[var(--line)] p-4"><pre className="whitespace-pre-wrap break-words font-sans text-sm leading-7">{detail?.body ?? '正在读取正文…'}</pre>{item.attachments.length > 0 && <div className="mt-4 flex flex-wrap gap-2">{item.attachments.map((file) => <span key={`${file.filename}:${file.size}`} className="rounded-full bg-[var(--soft)] px-3 py-1.5 text-xs">附件：{file.filename} · {attachmentSize(file.size)}</span>)}</div>}</div>}</article>; })}{!loading && items.length === 0 && <p className="rounded-2xl border border-dashed border-[var(--line)] p-8 text-center text-sm text-[var(--muted)]">没有符合条件的邮件。</p>}</div>{items.length < total && <button type="button" disabled={loading} onClick={() => void loadMessages(items.length, true)} className="mt-4 w-full rounded-full border border-[var(--line)] px-4 py-3 text-sm font-black">{loading ? '正在加载…' : '加载更多'}</button>}</section>
+  </div>;
+}
+
 const readError = async (response: Response, fallback: string) => {
   try {
     const body = await response.json() as { detail?: string };
@@ -850,7 +942,7 @@ function App() {
 
   useEffect(() => { document.documentElement.classList.toggle('dark', dark); }, [dark]);
   useEffect(() => { if (hiddenTabs.includes(active)) setActive('all'); }, [active, hiddenTabs]);
-  useEffect(() => { if (!user?.is_admin && active === 'mail-deadlines') setActive('all'); }, [active, user?.is_admin]);
+  useEffect(() => { if (!user?.is_admin && ['mail-deadlines', 'mail-inbox'].includes(active)) setActive('all'); }, [active, user?.is_admin]);
   const latestAlert = alerts.items.reduce((latest, alert) => alert.created_at > latest ? alert.created_at : latest, '');
   const hasUnreadAlerts = alerts.items.some((alert) => alert.created_at > alertsLastSeen);
   useEffect(() => {
@@ -903,11 +995,11 @@ function App() {
   const showCluster = (event: React.MouseEvent, item: Item) => { event.stopPropagation(); if (!item.cluster_id) return; setActive('all'); setHighlightCluster((current) => current === item.cluster_id ? null : item.cluster_id ?? null); };
   return <main className="min-h-screen w-full min-w-0 max-w-full overflow-x-hidden bg-[var(--paper)] text-[var(--ink)] transition-colors">
     <header className="border-b border-[var(--line)] bg-[var(--header)] text-white"><div className="mx-auto max-w-6xl px-4 pb-7 pt-5 sm:px-6 sm:pb-10 sm:pt-8"><div className="flex flex-wrap items-center justify-between gap-3"><span className="font-mono text-[11px] tracking-[0.2em] text-cyan-300">SIGNAL / NOISE · P2</span><div className="flex flex-wrap items-center justify-end gap-2"><span className="rounded-full bg-white/10 px-3 py-1.5 text-xs">{user?.username}{user?.is_admin ? ' · 管理员' : ''}</span><button type="button" aria-label="调整导航标签" aria-expanded={settingsOpen} className="rounded-full border border-white/20 px-3 py-1.5 text-xs transition hover:bg-white/10" onClick={() => setSettingsOpen(true)}>⚙ 设置</button><button type="button" className="rounded-full border border-white/20 px-3 py-1.5 text-xs transition hover:bg-white/10" onClick={() => updatePrefs({ theme: dark ? 'light' : 'dark' })}>{dark ? '☀ 浅色' : '◐ 深色'}</button><button type="button" onClick={() => void logout()} className="rounded-full border border-white/20 px-3 py-1.5 text-xs transition hover:bg-white/10">退出</button></div></div><div className="mt-8 grid gap-5 sm:grid-cols-[1fr_auto] sm:items-end"><div><p className="mb-2 text-sm text-slate-400">看见一条热搜，也看见全网正在汇聚的信号。</p><h1 className="text-4xl font-black tracking-[-0.06em] sm:text-6xl">信息差<span className="text-cyan-300">日报</span></h1></div><div className="border-l-2 border-lime-300 pl-3 text-xs leading-5 text-slate-300"><div>{displaySourceStates.filter((source) => source.status === 'ok').length}/{displaySourceStates.length} 已加载来源正常 · {displaySourceStates.filter((source) => source.status !== 'ok').length} 降级</div><div>{refreshing ? '正在刷新最新信号…' : feed?.generated_at ? `更新于 ${new Date(feed.generated_at).toLocaleString('zh-CN')}` : '正在同步最新信号…'}</div></div></div></div></header>
-    <nav className="sticky top-0 z-10 w-full max-w-full overflow-x-auto border-b border-[var(--line)] bg-[var(--paper)]/95 backdrop-blur"><div className="mx-auto flex w-max min-w-full max-w-6xl gap-1 px-4 py-3 sm:px-6">{user?.is_admin && <button type="button" onClick={() => { setActive('mail-deadlines'); setHighlightCluster(null); }} className={`flex items-center gap-1.5 whitespace-nowrap rounded-full px-4 py-2 text-sm font-bold ${active === 'mail-deadlines' ? 'bg-[var(--ink)] text-[var(--paper)]' : 'text-[var(--muted)] hover:bg-[var(--soft)]'}`}>截止提醒</button>}{tabOrder.filter((tab) => !hiddenTabs.includes(tab)).map((tab) => { const tabState = tabStates[tab] ?? feed?.sources?.find((source) => source.source === tab); return <button key={tab} onClick={() => { setActive(tab); setHighlightCluster(null); }} className={`flex items-center gap-1.5 whitespace-nowrap rounded-full px-4 py-2 text-sm font-bold ${active === tab ? 'bg-[var(--ink)] text-[var(--paper)]' : 'text-[var(--muted)] hover:bg-[var(--soft)]'}`}>{tab === 'all' ? `全部 ${allItems.length}` : tabLabel(tab)}{tab === 'alerts' && hasUnreadAlerts && <span aria-label="有未读预警" className="h-2 w-2 animate-pulse rounded-full bg-red-500" />}{tabState && <span title={tabState.status} className={`h-1.5 w-1.5 rounded-full ${tabState.status === 'ok' ? 'bg-emerald-400' : 'bg-orange-400'}`} />}</button>; })}</div></nav>
+    <nav className="sticky top-0 z-10 w-full max-w-full overflow-x-auto border-b border-[var(--line)] bg-[var(--paper)]/95 backdrop-blur"><div className="mx-auto flex w-max min-w-full max-w-6xl gap-1 px-4 py-3 sm:px-6">{user?.is_admin && <><button type="button" onClick={() => { setActive('mail-deadlines'); setHighlightCluster(null); }} className={`flex items-center gap-1.5 whitespace-nowrap rounded-full px-4 py-2 text-sm font-bold ${active === 'mail-deadlines' ? 'bg-[var(--ink)] text-[var(--paper)]' : 'text-[var(--muted)] hover:bg-[var(--soft)]'}`}>截止提醒</button><button type="button" onClick={() => { setActive('mail-inbox'); setHighlightCluster(null); }} className={`flex items-center gap-1.5 whitespace-nowrap rounded-full px-4 py-2 text-sm font-bold ${active === 'mail-inbox' ? 'bg-[var(--ink)] text-[var(--paper)]' : 'text-[var(--muted)] hover:bg-[var(--soft)]'}`}>邮箱管理</button></>}{tabOrder.filter((tab) => !hiddenTabs.includes(tab)).map((tab) => { const tabState = tabStates[tab] ?? feed?.sources?.find((source) => source.source === tab); return <button key={tab} onClick={() => { setActive(tab); setHighlightCluster(null); }} className={`flex items-center gap-1.5 whitespace-nowrap rounded-full px-4 py-2 text-sm font-bold ${active === tab ? 'bg-[var(--ink)] text-[var(--paper)]' : 'text-[var(--muted)] hover:bg-[var(--soft)]'}`}>{tab === 'all' ? `全部 ${allItems.length}` : tabLabel(tab)}{tab === 'alerts' && hasUnreadAlerts && <span aria-label="有未读预警" className="h-2 w-2 animate-pulse rounded-full bg-red-500" />}{tabState && <span title={tabState.status} className={`h-1.5 w-1.5 rounded-full ${tabState.status === 'ok' ? 'bg-emerald-400' : 'bg-orange-400'}`} />}</button>; })}</div></nav>
     {settingsOpen && <div className="fixed inset-0 z-50"><button type="button" aria-label="关闭导航设置" className="absolute inset-0 h-full w-full bg-slate-950/60 backdrop-blur-sm" onClick={() => setSettingsOpen(false)} /><aside role="dialog" aria-modal="true" aria-labelledby="tab-settings-title" className="absolute inset-y-0 right-0 flex w-full max-w-md flex-col border-l border-[var(--line)] bg-[var(--card)] text-[var(--ink)] shadow-2xl"><div className="flex items-start justify-between border-b border-[var(--line)] px-5 py-5"><div><h2 id="tab-settings-title" className="text-xl font-black">导航设置</h2><p className="mt-1 text-xs text-[var(--muted)]">{syncing ? '正在同步…' : settingsUpdatedAt ? `已同步 · 上次 ${new Date(settingsUpdatedAt).toLocaleString('zh-CN')}` : '偏好保存在本机，服务恢复后会自动同步'}</p></div><button type="button" aria-label="关闭" className="rounded-full bg-[var(--soft)] px-3 py-1.5 text-sm font-bold" onClick={() => setSettingsOpen(false)}>×</button></div><div className="flex-1 overflow-y-auto p-4"><div className="mb-3 flex items-center justify-between rounded-xl border border-[var(--line)] bg-[var(--paper)] px-4 py-3"><span className="font-bold">全部</span><span className="rounded-full bg-[var(--soft)] px-2.5 py-1 text-[11px] text-[var(--muted)]">固定首位</span></div><div className="grid gap-2">{tabOrder.slice(1).map((tab, index, adjustable) => { const hidden = hiddenTabs.includes(tab); return <div key={tab} className={`flex items-center gap-2 rounded-xl border border-[var(--line)] bg-[var(--paper)] px-3 py-3 ${hidden ? 'opacity-65' : ''}`}><span className="min-w-0 flex-1 truncate font-bold">{tabLabel(tab)}</span><button type="button" aria-label={`${tabLabel(tab)}上移`} disabled={index === 0} onClick={() => moveTab(tab, -1)} className="h-8 w-8 rounded-full bg-[var(--soft)] text-sm font-black disabled:cursor-not-allowed disabled:opacity-30">↑</button><button type="button" aria-label={`${tabLabel(tab)}下移`} disabled={index === adjustable.length - 1} onClick={() => moveTab(tab, 1)} className="h-8 w-8 rounded-full bg-[var(--soft)] text-sm font-black disabled:cursor-not-allowed disabled:opacity-30">↓</button><label className="flex cursor-pointer items-center gap-1.5 rounded-full bg-[var(--soft)] px-2.5 py-1.5 text-xs font-bold"><input type="checkbox" checked={!hidden} onChange={() => toggleTab(tab)} className="accent-cyan-500" /><span>{hidden ? '隐藏' : '显示'}</span></label></div>; })}</div><button type="button" onClick={restoreTabs} className="mt-4 w-full rounded-full border border-[var(--line)] bg-[var(--paper)] px-4 py-3 text-sm font-bold transition hover:border-cyan-400">恢复默认</button>{user?.is_admin && <AdminPanel />}</div></aside></div>}
     <section className="mx-auto w-full min-w-0 max-w-6xl px-4 py-5 sm:px-6 sm:py-8">
       {active === 'all' && pinned.length > 0 && <section className="mb-9 rounded-3xl border border-orange-200 bg-gradient-to-br from-orange-50 to-amber-50 p-5 text-slate-950 dark:border-orange-900 dark:from-orange-950/30 dark:to-amber-950/20 dark:text-white"><div className="mb-4"><span className="rounded-full bg-orange-500 px-3 py-1 text-xs font-black text-white">全网都在关注</span><p className="mt-2 text-xs opacity-60">至少 3 个平台同时出现的热点信号</p></div><div className="grid gap-3 sm:grid-cols-2">{pinned.map((item) => <button key={item.cluster_id} onClick={(event) => showCluster(event, item)} className="rounded-2xl bg-white/70 p-4 text-left shadow-sm dark:bg-black/20"><b className="line-clamp-2">{item.title_zh || item.title}</b><small className="mt-2 block text-orange-600">{item.cluster_size} 个平台正在讨论 →</small></button>)}</div></section>}
-      {tabLoading === active ? <div role="status" className="rounded-2xl border border-dashed border-[var(--line)] p-12 text-center font-bold text-[var(--muted)]">正在按需加载{tabLabel(active)}数据…</div> : active === 'mail-deadlines' && user?.is_admin ? <MailDeadlinesView /> : active === 'trends' ? <TrendView trends={trends} /> : active === 'alerts' ? <AlertsView feed={alerts} /> : active === 'xiaohongshu' ? <XhsView items={items} /> : active === 'gongkao' ? <GongkaoView items={items} sites={sites} provinces={gongkaoProvinces} onProvincesChange={(next) => updatePrefs({ gongkao_provinces: next })} /> : active === 'papers' ? <PapersView items={items} deadlines={deadlines} deadlineState={deadlineState} onlyPriority={papersOnlyPriority} onToggle={() => updatePrefs({ papers_only_priority: !papersOnlyPriority })} unavailable={unavailable} error={state?.error} onCluster={showCluster} /> : active === 'jobs' ? <JobsView items={items} quicklinks={jobQuicklinks} unavailable={unavailable} error={state?.error} /> : active === 'ai' ? <AiView items={items} unavailable={unavailable} error={state?.error} /> : active === 'tools' ? <ToolsView items={items} unavailable={unavailable} error={state?.error} /> : active === 'qiuzhao' ? <QiuzhaoLinks items={qiuzhaoItems} /> : active === 'portals' ? <PortalsView groups={portalGroups} /> : <><div className="mb-4 flex items-center justify-between gap-3 text-xs text-[var(--muted)]"><span>{active === 'all' ? '全网信号流' : `${sourceNames[active]}热榜`}</span>{highlightCluster ? <button className="rounded-full bg-orange-100 px-3 py-1 font-bold text-orange-700" onClick={() => setHighlightCluster(null)}>正在高亮同簇 · 清除</button> : <span>{items.length} 条</span>}</div>{items.length > 0 && <ProgressiveHotList items={items} onCluster={showCluster} highlightCluster={highlightCluster} />}{feed && items.length === 0 && <div className="rounded-2xl border border-dashed border-[var(--line)] p-12 text-center text-[var(--muted)]">{unavailable ? <><p className="font-bold text-[var(--ink)]">这个来源暂不可用</p><p className="mt-2 text-xs">{state?.error || tabErrors[active] || '采集端已安全降级，不影响其它来源。'}</p></> : '这个来源暂时没有数据。'}</div>}</>}
+      {tabLoading === active ? <div role="status" className="rounded-2xl border border-dashed border-[var(--line)] p-12 text-center font-bold text-[var(--muted)]">正在按需加载{tabLabel(active)}数据…</div> : active === 'mail-deadlines' && user?.is_admin ? <MailDeadlinesView /> : active === 'mail-inbox' && user?.is_admin ? <MailInboxView /> : active === 'trends' ? <TrendView trends={trends} /> : active === 'alerts' ? <AlertsView feed={alerts} /> : active === 'xiaohongshu' ? <XhsView items={items} /> : active === 'gongkao' ? <GongkaoView items={items} sites={sites} provinces={gongkaoProvinces} onProvincesChange={(next) => updatePrefs({ gongkao_provinces: next })} /> : active === 'papers' ? <PapersView items={items} deadlines={deadlines} deadlineState={deadlineState} onlyPriority={papersOnlyPriority} onToggle={() => updatePrefs({ papers_only_priority: !papersOnlyPriority })} unavailable={unavailable} error={state?.error} onCluster={showCluster} /> : active === 'jobs' ? <JobsView items={items} quicklinks={jobQuicklinks} unavailable={unavailable} error={state?.error} /> : active === 'ai' ? <AiView items={items} unavailable={unavailable} error={state?.error} /> : active === 'tools' ? <ToolsView items={items} unavailable={unavailable} error={state?.error} /> : active === 'qiuzhao' ? <QiuzhaoLinks items={qiuzhaoItems} /> : active === 'portals' ? <PortalsView groups={portalGroups} /> : <><div className="mb-4 flex items-center justify-between gap-3 text-xs text-[var(--muted)]"><span>{active === 'all' ? '全网信号流' : `${sourceNames[active]}热榜`}</span>{highlightCluster ? <button className="rounded-full bg-orange-100 px-3 py-1 font-bold text-orange-700" onClick={() => setHighlightCluster(null)}>正在高亮同簇 · 清除</button> : <span>{items.length} 条</span>}</div>{items.length > 0 && <ProgressiveHotList items={items} onCluster={showCluster} highlightCluster={highlightCluster} />}{feed && items.length === 0 && <div className="rounded-2xl border border-dashed border-[var(--line)] p-12 text-center text-[var(--muted)]">{unavailable ? <><p className="font-bold text-[var(--ink)]">这个来源暂不可用</p><p className="mt-2 text-xs">{state?.error || tabErrors[active] || '采集端已安全降级，不影响其它来源。'}</p></> : '这个来源暂时没有数据。'}</div>}</>}
     </section>
   </main>;
 }

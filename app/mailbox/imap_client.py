@@ -26,6 +26,13 @@ UTC = timezone.utc
 
 
 @dataclass(frozen=True)
+class MailAttachment:
+    filename: str
+    size: int
+    content_type: str = "application/octet-stream"
+
+
+@dataclass(frozen=True)
 class MailMessage:
     uid: int
     message_id: str
@@ -33,6 +40,7 @@ class MailMessage:
     sender: str
     received_at: datetime
     body: str
+    attachments: tuple[MailAttachment, ...] = ()
 
 
 def _decoded_header(value: str | None) -> str:
@@ -94,6 +102,23 @@ def _received_at(metadata: bytes, message: EmailMessage) -> datetime:
     if parsed.tzinfo is None:
         parsed = parsed.replace(tzinfo=UTC)
     return parsed.astimezone(UTC)
+
+
+def _attachments(message: EmailMessage) -> tuple[MailAttachment, ...]:
+    found: list[MailAttachment] = []
+    if not message.is_multipart():
+        return ()
+    for part in message.walk():
+        filename = _decoded_header(part.get_filename())
+        if not filename:
+            continue
+        payload = part.get_payload(decode=True) or b""
+        found.append(MailAttachment(
+            filename=filename[:500],
+            size=len(payload),
+            content_type=part.get_content_type()[:120],
+        ))
+    return tuple(found)
 
 
 def matches_mail_keywords(subject: str, sender: str) -> bool:
@@ -195,6 +220,7 @@ class ImapMailboxClient:
                     sender=sender,
                     received_at=_received_at(metadata, parsed),
                     body=_message_body(parsed),
+                    attachments=_attachments(parsed),
                 ))
             return uid_validity, messages, high_water_uid
         finally:

@@ -74,7 +74,9 @@ describe('authenticated app bootstrap', () => {
     expect(fetchMock.mock.calls.some(([url]) => String(url) === '/data/qiuzhao.json')).toBe(false);
     expect(fetchMock.mock.calls.some(([url]) => String(url) === '/data/gongkao_enriched.json')).toBe(false);
     expect(screen.queryByRole('button', { name: '截止提醒' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: '邮箱管理' })).not.toBeInTheDocument();
     expect(fetchMock.mock.calls.some(([url]) => String(url).startsWith('/api/admin/mail-deadlines'))).toBe(false);
+    expect(fetchMock.mock.calls.some(([url]) => String(url).startsWith('/api/admin/mail-inbox'))).toBe(false);
     fireEvent.click(screen.getByRole('button', { name: '调整导航标签' }));
     expect(screen.queryByText('用户管理')).not.toBeInTheDocument();
   });
@@ -114,7 +116,8 @@ describe('authenticated app bootstrap', () => {
     await screen.findByText('admin · 管理员');
     const navButtons = within(screen.getByRole('navigation')).getAllByRole('button');
     expect(navButtons[0]).toHaveTextContent('截止提醒');
-    expect(navButtons[1]).toHaveTextContent('全部');
+    expect(navButtons[1]).toHaveTextContent('邮箱管理');
+    expect(navButtons[2]).toHaveTextContent('全部');
     fireEvent.click(screen.getByRole('button', { name: '截止提醒' }));
     expect(await screen.findByRole('heading', { name: '三棵树' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: '需要你自己看' })).toBeInTheDocument();
@@ -124,6 +127,34 @@ describe('authenticated app bootstrap', () => {
     await waitFor(() => expect(screen.queryByRole('heading', { name: '三棵树' })).not.toBeInTheDocument());
     const statusCall = fetchMock.mock.calls.find(([url]) => String(url) === '/api/admin/mail-deadlines/status');
     expect(JSON.parse(String(statusCall?.[1]?.body))).toEqual({ message_id: '<tree@example>', status: 'done' });
+  });
+
+  it('shows the lazy unified inbox only to admins and opens message bodies on demand', async () => {
+    const fetchMock = vi.fn(async (input: RequestInfo | URL) => {
+      const url = String(input);
+      if (url === '/api/me') return json({ username: 'admin', is_admin: true });
+      if (url === '/api/settings') return json({ prefs: {}, updated_at: null });
+      if (url === '/api/admin/mail-inbox/accounts') return json({ items: [
+        { account_id: 'mail-1', provider: 'imap', label: 'QQ主邮箱', address_hint: '19***@qq.com', authorized: true, last_synced_at: '2026-09-14T01:00:00Z', last_error: null },
+      ] });
+      if (url.startsWith('/api/admin/mail-inbox?')) return json({ total: 1, items: [
+        { account_id: 'mail-1', account_label: 'QQ主邮箱', message_key: 'abc', sender: '招聘中心', subject: '信锐网科笔试安排', snippet: '请按时完成', received_at: '2026-09-14T01:00:00Z', category: '面试笔试类', deadline_linked: true, attachments: [{ filename: '安排.pdf', size: 2048, content_type: 'application/pdf' }] },
+      ] });
+      if (url === '/api/admin/mail-inbox/message/mail-1/abc') return json({ account_id: 'mail-1', account_label: 'QQ主邮箱', message_key: 'abc', sender: '招聘中心', subject: '信锐网科笔试安排', snippet: '请按时完成', body: '请在周五之前完成线上笔试。', received_at: '2026-09-14T01:00:00Z', category: '面试笔试类', deadline_linked: true, attachments: [{ filename: '安排.pdf', size: 2048, content_type: 'application/pdf' }] });
+      return dataResponse(url) ?? json({}, 404);
+    });
+    vi.stubGlobal('fetch', fetchMock);
+
+    render(<App />);
+    await screen.findByText('admin · 管理员');
+    expect(fetchMock.mock.calls.some(([url]) => String(url).startsWith('/api/admin/mail-inbox'))).toBe(false);
+    fireEvent.click(screen.getByRole('button', { name: '邮箱管理' }));
+    expect((await screen.findAllByText('QQ主邮箱')).length).toBeGreaterThan(0);
+    expect(await screen.findByText('信锐网科笔试安排')).toBeInTheDocument();
+    expect(screen.queryByText('请在周五之前完成线上笔试。')).not.toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: /信锐网科笔试安排/ }));
+    expect(await screen.findByText('请在周五之前完成线上笔试。')).toBeInTheDocument();
+    expect(screen.getByText('附件：安排.pdf · 2 KB')).toBeInTheDocument();
   });
 
   it('renders RSSHub AI and tool entries in their logical tabs', async () => {
