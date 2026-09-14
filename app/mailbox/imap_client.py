@@ -17,7 +17,7 @@ from selectolax.parser import HTMLParser
 
 
 MAIL_KEYWORDS = re.compile(
-    r"面试|笔试|测评|AI\s*视频面试|一站式面试|校招|网申|offer",
+    r"面试|初试|复试|终试|面谈|笔试|测评|AI\s*视频面试|一站式面试|校招|网申|offer",
     re.IGNORECASE,
 )
 INTERNALDATE_RE = re.compile(rb'INTERNALDATE "([^"]+)"')

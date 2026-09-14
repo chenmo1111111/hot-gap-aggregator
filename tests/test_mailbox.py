@@ -32,6 +32,7 @@ def mail(
 
 def test_keyword_prefilter_uses_only_subject_and_sender() -> None:
     assert matches_mail_keywords("三棵树 AI视频面试邀请", "招聘中心")
+    assert matches_mail_keywords("顾家家居2027届校园招聘复试邀请", "招聘项目组")
     assert matches_mail_keywords("普通通知", "校招服务 <jobs@example.test>")
     assert not matches_mail_keywords("普通通知", "系统消息 <notice@example.test>")
     assert matches_mail_keywords(
