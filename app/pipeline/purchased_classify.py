@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import re
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from typing import Any, Mapping
 
 
@@ -24,6 +24,7 @@ RESEARCH_ENTITY = re.compile(
     r"中国科学院|中科院|中国社会科学院|中国社科院|中国农业科学院|中国农科院|"
     r"(?:研究所|研究院)$"
 )
+CHINA_TZ = timezone(timedelta(hours=8))
 EDUCATION_MEDICAL_ENTITY = re.compile(r"(?:大学|学院|医院|疾病预防控制中心|疾控中心)$")
 CENTRAL_SOE_INSTITUTE = re.compile(
     r"(?:中船|中航|中电|中核|航天|兵器).{0,12}(?:[一二三四五六七八九〇零\d]{2,4}所|研究所)$"
@@ -89,7 +90,7 @@ def _published(value: object) -> str | None:
             stamp = int(value)
             if stamp > 10_000_000_000:
                 stamp //= 1000
-            return datetime.fromtimestamp(stamp, timezone.utc).date().isoformat()
+            return datetime.fromtimestamp(stamp, CHINA_TZ).date().isoformat()
         return datetime.fromisoformat(str(value).replace("Z", "+00:00")).date().isoformat()
     except (OSError, OverflowError, TypeError, ValueError):
         return None

@@ -10,8 +10,61 @@ from app.daily_volume import (
     maybe_alert,
     previous_day_window,
     repair_wanqing_first_seen,
+    repair_wanqing_gongkao_first_seen,
     update_daily_volume,
 )
+
+
+def test_next_morning_wanqing_gongkao_route_uses_source_day(tmp_path) -> None:
+    state = tmp_path / "state.json"
+    output = tmp_path / "daily-volume.json"
+    state.write_text(json.dumps({
+        "gongkao_first_seen": {}, "gongkao_first_seen_source": {},
+        "qiuzhao_first_seen": {}, "qiuzhao_first_seen_source": {}, "alerts_sent": [],
+    }), encoding="utf-8")
+    row = {
+        "url": "https://example.test/research",
+        "published_at": "2026-09-13",
+        "extra": {
+            "id": "purchased:wanqing_feishu:research",
+            "upstream_source": "wanqing_feishu",
+        },
+    }
+
+    result = update_daily_volume(
+        [row], [], today=date(2026, 9, 14), report_date=date(2026, 9, 13),
+        state_path=state, output_path=output,
+    )
+
+    assert result["gongkao_new"] == 1
+    assert result["gongkao_source_new"]["婉清购买表分流"] == 1
+    saved = json.loads(state.read_text(encoding="utf-8"))
+    assert saved["gongkao_first_seen"]["purchased:wanqing_feishu:research"] == "2026-09-13"
+
+
+def test_repair_wanqing_gongkao_date_preserves_other_sources(tmp_path) -> None:
+    state = tmp_path / "state.json"
+    state.write_text(json.dumps({
+        "gongkao_first_seen": {
+            "purchased:wanqing_feishu:a": "2026-09-14",
+            "government:b": "2026-09-14",
+        },
+        "gongkao_first_seen_source": {
+            "purchased:wanqing_feishu:a": "婉清购买表分流",
+            "government:b": "政府网站",
+        },
+        "qiuzhao_first_seen": {}, "qiuzhao_first_seen_source": {}, "alerts_sent": [],
+    }), encoding="utf-8")
+
+    result = repair_wanqing_gongkao_first_seen(
+        [], state_path=state, mistaken_date=date(2026, 9, 14),
+        date_overrides={"purchased:wanqing_feishu:a": date(2026, 9, 13)},
+    )
+
+    assert result["corrected_from_overrides"] == 1
+    saved = json.loads(state.read_text(encoding="utf-8"))
+    assert saved["gongkao_first_seen"]["purchased:wanqing_feishu:a"] == "2026-09-13"
+    assert saved["gongkao_first_seen"]["government:b"] == "2026-09-14"
 
 
 def test_daily_volume_tracks_first_seen_and_retains_thirty_days(tmp_path) -> None:

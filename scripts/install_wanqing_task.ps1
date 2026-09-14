@@ -1,7 +1,7 @@
 [CmdletBinding()]
 param(
-    [string]$TaskName = "HotGap-Purchased-Tables-0730",
-    [string]$RunAt = "07:30"
+    [string]$TaskName = "HotGap-Purchased-Tables-0600",
+    [string]$RunAt = "06:00"
 )
 
 $ErrorActionPreference = "Stop"
@@ -40,12 +40,14 @@ $task = New-ScheduledTask `
     -Trigger $trigger `
     -Settings $settings `
     -Principal $principal `
-    -Description "Wake at 07:30 daily, capture Wanqing and Gongkao Sheet, retry once after 30 minutes, then refresh S1 and Feishu."
+    -Description "Wake at $RunAt daily, capture Wanqing and Gongkao Sheet, retry once after 30 minutes, then refresh S1 and Feishu."
 
 Register-ScheduledTask -TaskName $TaskName -InputObject $task -Force | Out-Null
-$legacyTask = "HotGap-Wanqing-Feishu-0700"
-if ($TaskName -ne $legacyTask -and (Get-ScheduledTask -TaskName $legacyTask -ErrorAction SilentlyContinue)) {
-    Unregister-ScheduledTask -TaskName $legacyTask -Confirm:$false
+$legacyTasks = @("HotGap-Purchased-Tables-0730", "HotGap-Wanqing-Feishu-0700")
+foreach ($legacyTask in $legacyTasks) {
+    if ($TaskName -ne $legacyTask -and (Get-ScheduledTask -TaskName $legacyTask -ErrorAction SilentlyContinue)) {
+        Unregister-ScheduledTask -TaskName $legacyTask -Confirm:$false
+    }
 }
 $registered = Get-ScheduledTask -TaskName $TaskName
 $info = Get-ScheduledTaskInfo -TaskName $TaskName

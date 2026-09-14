@@ -6,6 +6,23 @@ from app.pipeline.purchased_classify import (
 )
 
 
+def test_purchased_timestamp_uses_china_calendar_day_when_routed() -> None:
+    _, gongkao, _ = partition_purchased_rows(
+        [{
+            "source_record_id": "late-night",
+            "company_name": "怀柔实验室",
+            "company_type": "科研院所",
+            "position": "能源战略研究",
+            # 2026-09-13 00:00:00 Asia/Shanghai.
+            "updated_at": 1789228800000,
+            "announcement_url": "https://example.test/late-night",
+        }],
+        source="wanqing_feishu",
+    )
+
+    assert gongkao[0]["published_at"] == "2026-09-13"
+
+
 def test_named_public_entities_route_to_gongkao() -> None:
     names = (
         "寿光市农业农村局",
