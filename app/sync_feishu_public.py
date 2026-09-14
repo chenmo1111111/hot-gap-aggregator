@@ -554,6 +554,18 @@ def ensure_instructions_table(
     return table_id, result
 
 
+def sync_instructions_if_enabled(
+    client: FeishuClient, app_token: str, config: Mapping[str, Any]
+) -> tuple[str, dict[str, int]] | None:
+    if not bool(config.get("instructions_table_enabled", True)):
+        return None
+    return ensure_instructions_table(
+        client,
+        app_token,
+        table_name=str(config.get("instructions_table_name") or "使用说明"),
+    )
+
+
 def _gongkao_force_delete_keys(rows: Iterable[Mapping[str, Any]]) -> set[str]:
     keys: set[str] = set()
     for row in rows:
@@ -691,16 +703,16 @@ def run(argv: list[str] | None = None) -> int:
                 failed = True
                 LOGGER.exception("%s sync failed", name)
         try:
-            instructions_table_id, result = ensure_instructions_table(
-                client,
-                app_token,
-                table_name=str(config.get("instructions_table_name") or "使用说明"),
-            )
-            LOGGER.info(
-                "instructions sync complete: table_id=%s result=%s",
-                instructions_table_id,
-                result,
-            )
+            instructions_sync = sync_instructions_if_enabled(client, app_token, config)
+            if instructions_sync is not None:
+                instructions_table_id, result = instructions_sync
+                LOGGER.info(
+                    "instructions sync complete: table_id=%s result=%s",
+                    instructions_table_id,
+                    result,
+                )
+            else:
+                LOGGER.info("instructions sync disabled")
         except Exception:
             failed = True
             LOGGER.exception("instructions sync failed")

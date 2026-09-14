@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from datetime import datetime
+from pathlib import Path
 from unittest.mock import Mock
 
 import pytest
@@ -17,7 +18,27 @@ from app.sync_feishu_public import (
     map_public_qiuzhao,
     qiuzhao_key,
     slash_public_updates,
+    sync_instructions_if_enabled,
 )
+
+
+def test_public_sync_config_disables_legacy_instructions_table() -> None:
+    import yaml
+
+    config_path = Path(__file__).parents[1] / "config" / "feishu_public_sync.yaml"
+    config = yaml.safe_load(config_path.read_text(encoding="utf-8"))
+
+    assert config["instructions_table_enabled"] is False
+    assert "instructions_table_name" not in config
+
+
+def test_disabled_instructions_sync_does_not_touch_feishu() -> None:
+    client = Mock()
+
+    assert sync_instructions_if_enabled(
+        client, "base", {"instructions_table_enabled": False}
+    ) is None
+    client.assert_not_called()
 
 
 def test_map_public_gongkao_uses_only_display_fields() -> None:
