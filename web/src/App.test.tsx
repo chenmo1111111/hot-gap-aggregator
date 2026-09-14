@@ -136,6 +136,7 @@ describe('authenticated app bootstrap', () => {
       if (url === '/api/settings') return json({ prefs: {}, updated_at: null });
       if (url === '/api/admin/mail-inbox/accounts') return json({ items: [
         { account_id: 'mail-1', provider: 'imap', label: 'QQ主邮箱', address_hint: '19***@qq.com', authorized: true, last_synced_at: '2026-09-14T01:00:00Z', last_error: null },
+        { account_id: 'mail-4', provider: 'gmail', label: 'Gmail 1', address_hint: 'pe***@gmail.com', authorized: true, last_synced_at: '2026-09-14T01:00:00Z', last_error: null },
       ] });
       if (url.startsWith('/api/admin/mail-inbox?')) return json({ total: 1, items: [
         { account_id: 'mail-1', account_label: 'QQ主邮箱', message_key: 'abc', sender: '招聘中心', subject: '信锐网科笔试安排', snippet: '请按时完成', received_at: '2026-09-14T01:00:00Z', category: '面试笔试类', deadline_linked: true, attachments: [{ filename: '安排.pdf', size: 2048, content_type: 'application/pdf' }] },
@@ -150,6 +151,7 @@ describe('authenticated app bootstrap', () => {
     expect(fetchMock.mock.calls.some(([url]) => String(url).startsWith('/api/admin/mail-inbox'))).toBe(false);
     fireEvent.click(screen.getByRole('button', { name: '邮箱管理' }));
     expect((await screen.findAllByText('QQ主邮箱')).length).toBeGreaterThan(0);
+    expect(screen.getByRole('button', { name: '重新授权 Gmail' })).toBeInTheDocument();
     expect(await screen.findByText('信锐网科笔试安排')).toBeInTheDocument();
     expect(screen.queryByText('请在周五之前完成线上笔试。')).not.toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: /信锐网科笔试安排/ }));

@@ -164,6 +164,9 @@ https://hot.weixincuotiben.top/api/admin/mail-inbox/oauth/google/callback
 ```
 
 部署后用 admin 登录网站，在“邮箱管理”依次点击三个 Gmail 的“授权 Gmail”。
+Google 官方规定：External 应用保持 Testing 时，涉及 `gmail.readonly` 的授权及
+refresh token 会在 7 天后过期；界面因此始终保留“重新授权 Gmail”按钮。若不做
+Google 的生产/验证流程，就需要在过期后分别重新授权三个账号。
 同步过程只用 IMAP `readonly=True` + `BODY.PEEK` 或 Gmail readonly API，不会回写
 已读状态。邮件保留天数由 `MAIL_INBOX_RETENTION_DAYS` 控制，默认 90 天。
 
