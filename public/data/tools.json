@@ -1,18 +1,48 @@
 {
-  "generated_at": "2026-09-13T19:44:13.765034+00:00",
+  "generated_at": "2026-09-14T01:44:00.444615+00:00",
   "source": "tools",
   "status": {
     "source": "tools",
     "status": "ok",
     "item_count": 25,
-    "duration_ms": 14273,
+    "duration_ms": 14402,
     "error": null,
-    "run_at": "2026-09-13T19:44:13.765034+00:00"
+    "run_at": "2026-09-14T01:44:00.444615+00:00"
   },
   "items": [
     {
       "source": "feed",
-      "rank": 16,
+      "rank": 12,
+      "title": "派早报：美国 AI 高管呼吁放缓研发，特朗普反对",
+      "title_zh": "派早报：美国 AI 高管呼吁放缓研发，特朗普反对",
+      "url": "https://sspai.com/post/114539",
+      "hot_value": null,
+      "summary_zh": "美国 AI 高管呼吁放缓研发，特朗普反对 据《纽约时报》 报道 ，9 月 12 日，Anthropic CEO Dario Amodei 发表 长文 ，呼吁全球放缓前沿 AI 的研发步伐，并在全行业建立更严格的安全管控机制。 Amodei 在文章中指出，当前 AI 技术的迭代速度已让安全防范措施难以跟上，若系统实现无需人类介入的递归式自我改进，可能彻底脱离人类控制。他提议各 AI 实验室引入外部独立评估机构驻场审查，并呼吁各国展开跨国合作以制定安全标准。 日前，Anthropic 一名研究人员因担忧技术失控而辞职抗议，而近期屡见前沿模型入侵其他系统的安全漏洞事件。 针对该倡议，Sam Altman 表示 OpenAI 近期已在讨论放缓节奏，并将承诺引入具有员工级访问权限的独立评估员。Elon Musk 以及 Google DeepMind 负责人 Demis Hassabis 也公开表态支",
+      "thumbnail": null,
+      "published_at": "2026-09-13T22:55:34+00:00",
+      "extra": {
+        "feed_name": "少数派",
+        "tab": "tools",
+        "route": "/sspai/index",
+        "translate": false,
+        "description": "美国 AI 高管呼吁放缓研发，特朗普反对 据《纽约时报》 报道 ，9 月 12 日，Anthropic CEO Dario Amodei 发表 长文 ，呼吁全球放缓前沿 AI 的研发步伐，并在全行业建立更严格的安全管控机制。 Amodei 在文章中指出，当前 AI 技术的迭代速度已让安全防范措施难以跟上，若系统实现无需人类介入的递归式自我改进，可能彻底脱离人类控制。他提议各 AI 实验室引入外部独立评估机构驻场审查，并呼吁各国展开跨国合作以制定安全标准。 日前，Anthropic 一名研究人员因担忧技术失控而辞职抗议，而近期屡见前沿模型入侵其他系统的安全漏洞事件。 针对该倡议，Sam Altman 表示 OpenAI 近期已在讨论放缓节奏，并将承诺引入具有员工级访问权限的独立评估员。Elon Musk 以及 Google DeepMind 负责人 Demis Hassabis 也公开表态支",
+        "dedupe_key": "https://sspai.com/post/114539"
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "93154adb2b49",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-14T01:44:00.444615+00:00",
+          "rank": 12
+        }
+      ]
+    },
+    {
+      "source": "feed",
+      "rank": 19,
       "title": "搭建自己的 HomeLab（一）：聊聊我的硬件清单",
       "title_zh": "搭建自己的 HomeLab（一）：聊聊我的硬件清单",
       "url": "https://sspai.com/post/113880",
@@ -28,7 +58,7 @@
         "description": "Matrix 首页推荐 Matrix 是少数派的写作社区，我们主张分享真实的产品体验，有实用价值的经验与思考。我们会不定期挑选 Matrix 最优质的文章，展示来自用户的最真实的体验和观点。 文章代表作者个人观点，少数派仅对标题和排版略作修改。 注：文章题图使用 AI 生成。 中年男人的三大爱好：充电头、NAS、软路由。这里要讲的是后两样。 作为一个软件开发者，我一直想有一台自己的服务器，NAS 和软路由就是我通往这个梦想的起点。2019 年入手第一台 NAS（Network Attached Storage，网络附加存储），算是为我打开了一扇新世界的大门，折腾蓝光电影、备份家庭照片和视频、共享文件等，完全不需要依赖别人给的网盘和 OSS。 加上电信和联通的 2 个公网 IP，我开始痴迷于玩儿网络设备，后面几年陆陆续续添置软路由、小主机、服务器和交换机，慢慢就攒齐了现在这套东西。 关于 H",
         "dedupe_key": "https://sspai.com/post/113880"
       },
-      "days_on_board": 1,
+      "days_on_board": 2,
       "is_new": false,
       "rank_delta": -3,
       "cluster_id": "fa276b3d73e8",
@@ -41,12 +71,16 @@
         {
           "run_at": "2026-09-13T19:44:13.765034+00:00",
           "rank": 16
+        },
+        {
+          "run_at": "2026-09-14T01:44:00.444615+00:00",
+          "rank": 19
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 43,
+      "rank": 45,
       "title": "与 AI 搏斗失败后重新开始找工作：经验分享与半可靠避雷指南",
       "title_zh": "与 AI 搏斗失败后重新开始找工作：经验分享与半可靠避雷指南",
       "url": "https://sspai.com/post/114461",
@@ -62,7 +96,7 @@
         "description": "Matrix 首页推荐 Matrix 是少数派的写作社区，我们主张分享真实的产品体验，有实用价值的经验与思考。我们会不定期挑选 Matrix 最优质的文章，展示来自用户的最真实的体验和观点。 文章代表作者个人观点，少数派仅对标题和排版略作修改。 今年六月初，我所在的公司如之前预测得一般开始大规模裁员。于是，我这样的摸鱼员工就顺顺利利地下岗了。时间一晃来到现在，经历了一整个暑假的折腾，我依然没有找到一份心仪的工作。大环境越来越不好是事实，很多事情和我三年前主动找工作的时候已经不一样了，不过在裁员—找工作—意外—再找工作这个过程中，我倒是积攒了一些新的经验。趁着还闲着，我决定把这些东西拿出来跟大家唠一唠。 注意，这并不是成功经验的分享会（因为我还没有成功），各位权当听个脱口秀，仅供一乐。 裁员：山雨终究还是来了 五月份的时候，公司里就开始盛传「人员优化」的八卦，而且还传的有鼻子有眼。鉴于公司在",
         "dedupe_key": "https://sspai.com/post/114461"
       },
-      "days_on_board": 2,
+      "days_on_board": 3,
       "is_new": false,
       "rank_delta": -2,
       "cluster_id": "af36b3c9fb89",
@@ -103,6 +137,10 @@
         {
           "run_at": "2026-09-13T19:44:13.765034+00:00",
           "rank": 43
+        },
+        {
+          "run_at": "2026-09-14T01:44:00.444615+00:00",
+          "rank": 45
         }
       ]
     },
@@ -124,9 +162,9 @@
         "description": "☕️ TL;DR 近期佳作推荐： [美剧] 绅士们 第二季、[新西兰] 前任拍档、[美剧] 查德·鲍尔斯 第二季、[电影] 富士子、[日剧] 要我和你交往也不是不行、[真人秀] 你为什么要爬山？、[真人秀] 我剩下的恋爱 几则精彩预告： 《哥斯拉 -0.0》正式预告、《挖掘者》终极预告、《野兽之心》新预告 几则影视资讯： 《死の谷'95》发布海报、《活色生香》定档海报、《一生挚爱》发布海报、《小猪佩奇·完美假期》定档海报 往期推荐可 点此 或点击文末 tag #本周看什么，更多主题片单可 点此 查看；想要查看更多深度影视内容，可以关注我们的衍生栏目「 看什么 Café 」。如有其他建议也欢迎在评论区提出，感谢大家对「看什么」栏目的喜爱和支持。 [美剧] 绅士们 第二季 关键词：喜剧 / 动作 / 犯罪 又名：The Gentlemen Season 2 片长：43 分钟左右（单集）× 8 ",
         "dedupe_key": "https://sspai.com/post/114458"
       },
-      "days_on_board": 3,
+      "days_on_board": 4,
       "is_new": false,
-      "rank_delta": -3,
+      "rank_delta": 0,
       "cluster_id": "fcbd4a4445fd",
       "cluster_size": 1,
       "rank_history": [
@@ -197,12 +235,16 @@
         {
           "run_at": "2026-09-13T19:44:13.765034+00:00",
           "rank": 54
+        },
+        {
+          "run_at": "2026-09-14T01:44:00.444615+00:00",
+          "rank": 54
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 57,
+      "rank": 58,
       "title": "iPhone 18 和 Duo 发布会上，Apple 没告诉你的那些事",
       "title_zh": "iPhone 18 和 Duo 发布会上，Apple 没告诉你的那些事",
       "url": "https://sspai.com/post/114449",
@@ -218,9 +260,9 @@
         "description": "又是 9 月，又是一年一度熬夜看发布会的日子。然而今年的开场却有「亿点」不一样：当视频的灯光打向我们熟悉的 Tim Cook 的时候，他摆了摆手说「不是我，是这位」，然后镜头往前一推，John Ternus 走上台，说出了他作为新 CEO 主持发布会的第一句问候：「Hello」。 这场名为「Surprise and Shine」的发布会，看点相比往年也要密集许多。 其中，这次的主角毫无疑问是 Apple 的第一台折叠屏手机 iPhone Duo，其它产品如 iPhone 18 Pro、Apple Watch 和 AirPods 5 也有不小的升级。但仅仅只有一个半小时的 Keynote，总还是让人觉得意犹未尽。因此和往年一样，我们在发布会后火速把各个渠道的内容又翻了一遍，整理了 Apple 在发布会上没有告诉你的那些事。 关于 iPhone Duo 的那些事 Apple 推出的第一款折叠屏",
         "dedupe_key": "https://sspai.com/post/114449"
       },
-      "days_on_board": 3,
+      "days_on_board": 4,
       "is_new": false,
-      "rank_delta": -3,
+      "rank_delta": -1,
       "cluster_id": "46fa58b8e897",
       "cluster_size": 1,
       "rank_history": [
@@ -291,12 +333,16 @@
         {
           "run_at": "2026-09-13T19:44:13.765034+00:00",
           "rank": 57
+        },
+        {
+          "run_at": "2026-09-14T01:44:00.444615+00:00",
+          "rank": 58
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 59,
+      "rank": 60,
       "title": "「正常」已是不易：聊聊不那么标新立异的理想 i6",
       "title_zh": "「正常」已是不易：聊聊不那么标新立异的理想 i6",
       "url": "https://sspai.com/post/113605",
@@ -312,9 +358,9 @@
         "description": "Matrix 首页推荐 Matrix 是少数派的写作社区，我们主张分享真实的产品体验，有实用价值的经验与思考。我们会不定期挑选 Matrix 最优质的文章，展示来自用户的最真实的体验和观点。 文章代表作者个人观点，少数派仅对标题和排版略作修改。 拥有一辆属于自己的车，是我觉得自己真正变成大人的重要时刻。这意味着我可以在一定程度上摆脱时间与空间束缚，极大地拓展生活半径，想去哪里就去哪里，也能在城市中拥有一个完全属于自己的私人空间。 而如今的中国新能源市场从不缺少优秀的产品，无论你的需求是什么，几乎总能找到最适合自己的那一款。同时我也一直认同这样一种观点：选择一辆车，其实也是在选择一种生活方式。 2026 年 5 月，在理想 i6 发布 8 个月后，我拥有了属于自己的第一辆车。接下来就详细聊聊我与这辆理想 i6 的故事。 预算 我该花多少钱买车？ 想必这是每一个计划购车的人首先要面对的问题。 ",
         "dedupe_key": "https://sspai.com/post/113605"
       },
-      "days_on_board": 3,
+      "days_on_board": 4,
       "is_new": false,
-      "rank_delta": -3,
+      "rank_delta": -1,
       "cluster_id": "db95cae0a36f",
       "cluster_size": 1,
       "rank_history": [
@@ -393,12 +439,16 @@
         {
           "run_at": "2026-09-13T19:44:13.765034+00:00",
           "rank": 59
+        },
+        {
+          "run_at": "2026-09-14T01:44:00.444615+00:00",
+          "rank": 60
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 60,
+      "rank": 61,
       "title": "新 iPhone 配件精选：多种组合一次配齐",
       "title_zh": "新 iPhone 配件精选：多种组合一次配齐",
       "url": "https://sspai.com/post/114414",
@@ -414,9 +464,9 @@
         "description": "iPhone 18 Pro/Pro Max 即将开售，这次我们围绕新 iPhone 准备了几种常用配件，并整理成了五种配件组合，覆盖机身防护、充电、数据连接和磁吸支撑。 其中，日常防护组合优惠 29 元，防护充电组合优惠 38 元，防护连接组合优惠 38 元，防护充电双线组合优惠 57 元，日常全配组合优惠 136 元。 前往专题页查看五种组合 › 全新升级麦金獭钢化膜 新机上手，最重要的是手机膜。上一版麦金獭钢化膜用户反馈集中在两个方面：贴合后的屏幕边缘存在感低；膜体较薄，所以容易在碰撞、挤压过程中破损。 新版将厚度调整至 0.17 mm，比上一版增加 0.04 mm。其余规格与上一代对应版本保持一致。AR 款继续采用磁控溅射工艺，透光率为 96%，莫氏硬度为 6 级。在保证使用体验的基础上，给膜体提高了耐用度。 产品还通过了德国 TÜV 莱茵认证，除了对雾度、透光率和环境对比度的要求外",
         "dedupe_key": "https://sspai.com/post/114414"
       },
-      "days_on_board": 3,
+      "days_on_board": 4,
       "is_new": false,
-      "rank_delta": -3,
+      "rank_delta": -1,
       "cluster_id": "1e10d62667c1",
       "cluster_size": 1,
       "rank_history": [
@@ -499,12 +549,16 @@
         {
           "run_at": "2026-09-13T19:44:13.765034+00:00",
           "rank": 60
+        },
+        {
+          "run_at": "2026-09-14T01:44:00.444615+00:00",
+          "rank": 61
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 69,
+      "rank": 72,
       "title": "派早报：商务部回应美国 AI 蒸馏指控",
       "title_zh": "派早报：商务部回应美国 AI 蒸馏指控",
       "url": "https://sspai.com/post/114439",
@@ -520,9 +574,9 @@
         "description": "商务部回应美国 AI 蒸馏指控 9 月 9 日，商务部官网发布 新闻稿 ，介绍商务部新闻发言人就美发布中国人工智能企业对美蒸馏活动相关网络安全公告答记者问的情况。 该问答指出，注意到美东时间 9 月 8 日，美国家安全局、网络安全与基础设施安全局、联邦调查局联合发布公告，指责中国人工智能企业对美开展「工业规模」蒸馏，获取美前沿模型能力，并向美企提出相关防御措施建议。 商务部表示，美方指控于事无凭，于法无据，是将蒸馏这一业内正常的技术和商业问题政治化、工具化，并在实践中搞双重标准。美方相关公告，是其在人工智能领域推行科技霸权、搞算力垄断，打压竞争的又一明证。中方对此坚决反对。 新闻发言人还说，蒸馏是人工智能领域各个模型间互相学习的通行做法，本质是中性技术手段，包括美企在内的全球模型企业都在用。多次单方面指责中国企业从事「工业规模」蒸馏，将行业通行做法抹黑为攻击行为，既反映了美方的焦虑，又体现",
         "dedupe_key": "https://sspai.com/post/114439"
       },
-      "days_on_board": 3,
+      "days_on_board": 4,
       "is_new": false,
-      "rank_delta": -2,
+      "rank_delta": -3,
       "cluster_id": "24e49143e9b6",
       "cluster_size": 1,
       "rank_history": [
@@ -609,12 +663,16 @@
         {
           "run_at": "2026-09-13T19:44:13.765034+00:00",
           "rank": 69
+        },
+        {
+          "run_at": "2026-09-14T01:44:00.444615+00:00",
+          "rank": 72
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 73,
+      "rank": 76,
       "title": "scvi-tools 1.5.1",
       "title_zh": "scvi-tools 1.5.1",
       "url": "https://github.com/scverse/scvi-tools/releases/tag/1.5.1",
@@ -630,9 +688,9 @@
         "description": "See the release notes for all changes. This release is available via PyPi: pip install scvi-tools Conda availability will follow (< 2 days typically) Please report any issues on GitHub .",
         "dedupe_key": "https://github.com/scverse/scvi-tools/releases/tag/1.5.1"
       },
-      "days_on_board": 4,
+      "days_on_board": 5,
       "is_new": false,
-      "rank_delta": -2,
+      "rank_delta": -3,
       "cluster_id": "92de253c91a7",
       "cluster_size": 1,
       "rank_history": [
@@ -735,12 +793,16 @@
         {
           "run_at": "2026-09-13T19:44:13.765034+00:00",
           "rank": 73
+        },
+        {
+          "run_at": "2026-09-14T01:44:00.444615+00:00",
+          "rank": 76
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 74,
+      "rank": 77,
       "title": "App+1｜下一节：教学工作紧张忙碌，下一节课从从容容",
       "title_zh": "App+1｜下一节：教学工作紧张忙碌，下一节课从从容容",
       "url": "https://sspai.com/post/114384",
@@ -756,9 +818,9 @@
         "description": "Matrix 首页推荐 Matrix 是少数派的写作社区，我们主张分享真实的产品体验，有实用价值的经验与思考。我们会不定期挑选 Matrix 最优质的文章，展示来自用户的最真实的体验和观点。 文章代表作者个人观点，少数派仅对标题和排版略作修改。 2024 年我写过一篇文章 课表管理——iStudiez Pro + 日历 ，介绍了我特别喜欢的一款课表应用 iStudiez Pro。没想到不久后 iStudiez 就完全停止了运营，无法再进行同步。我又尝试过一些其他课表 app，却总找不到一款符合自己需要的，也慢慢产生了自己开发一款的念头。 虽然去年我开始学习 SwiftUI（ 见此 ），但真要自己从头开发一个 app 时却依旧无从下手。今年上半年断断续续用纸笔把基本界面画了出来，之后就一直拖延着、停留在本子上。直到这个暑假我学会如何利用 AI 辅助，才最终将教师课表 app「 下一节 」从纸",
         "dedupe_key": "https://sspai.com/post/114384"
       },
-      "days_on_board": 4,
+      "days_on_board": 5,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": -3,
       "cluster_id": "85c5fb0a03e9",
       "cluster_size": 1,
       "rank_history": [
@@ -869,12 +931,16 @@
         {
           "run_at": "2026-09-13T19:44:13.765034+00:00",
           "rank": 74
+        },
+        {
+          "run_at": "2026-09-14T01:44:00.444615+00:00",
+          "rank": 77
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 85,
+      "rank": 88,
       "title": "派早报：Apple 发布 iPhone Duo 折叠屏等",
       "title_zh": "派早报：Apple 发布 iPhone Duo 折叠屏等",
       "url": "https://sspai.com/post/114394",
@@ -890,16 +956,12 @@
         "description": "Apple 发布 iPhone Duo 等多款新品 9 月 10 日，Apple 公司发布 iPhone Duo、iPhone 18 Pro 与 Pro Max、Apple Watch Series 12、Apple Watch Ultra 4 和 AirPods 5 等新品。 首款 iPhone 折叠屏 iPhone Duo 配备 7.6 英寸内屏和 5.4 英寸外屏，搭载 2 纳米制程 A20 Pro 芯片、4800 万像素主摄和超广角摄像头，并支持分屏多任务、Apple Pencil 与侧边 Touch ID。中国大陆起售价为 15,999 元，10 月 16 日晚 8 点预购，10 月 23 日发售。 少数派现场上手 iPhone Duo 产品外观图，图片来自 Apple iPhone 18 Pro 系列的核心升级是可变光圈：4800 万像素主摄可在 ƒ/1.48 至 ƒ/4 之间",
         "dedupe_key": "https://sspai.com/post/114394"
       },
-      "days_on_board": 5,
+      "days_on_board": 6,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": -3,
       "cluster_id": "99a32613d719",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-10T01:44:08.714992+00:00",
-          "rank": 13
-        },
         {
           "run_at": "2026-09-10T04:44:01.564715+00:00",
           "rank": 13
@@ -1015,152 +1077,10 @@
         {
           "run_at": "2026-09-13T19:44:13.765034+00:00",
           "rank": 85
-        }
-      ]
-    },
-    {
-      "source": "feed",
-      "rank": 86,
-      "title": "一图流 | 一张图带你看完 2026 Apple 秋季发布会",
-      "title_zh": "一图流 | 一张图带你看完 2026 Apple 秋季发布会",
-      "url": "https://sspai.com/post/114393",
-      "hot_value": null,
-      "summary_zh": "今天凌晨，Apple 召开了 2026 秋季新品发布会。Apple 在本次发布会上推出了 iPhone 18 Pro 系列、iPhone Duo、Apple Watch Series 12、Apple Watch Ultra 4和 AirPods 5 等新品。如果你没有熬夜看发布会，不用担心，少数派不仅整理了发布会的详细回顾文章，还连夜赶制了发布会要点的一图流，让你用最简单直观的方式迅速了解本次发布会的全新动态。 关联阅读： 可以「折」的 iPhone 正式亮相：Apple 发布会看点回顾 > 关注 少数派小红书 ，感受精彩数字生活 🍃 > 实用、好用的 正版软件 ，少数派为你呈现 🚀",
-      "thumbnail": null,
-      "published_at": "2026-09-09T21:30:34+00:00",
-      "extra": {
-        "feed_name": "少数派",
-        "tab": "tools",
-        "route": "/sspai/index",
-        "translate": false,
-        "description": "今天凌晨，Apple 召开了 2026 秋季新品发布会。Apple 在本次发布会上推出了 iPhone 18 Pro 系列、iPhone Duo、Apple Watch Series 12、Apple Watch Ultra 4和 AirPods 5 等新品。如果你没有熬夜看发布会，不用担心，少数派不仅整理了发布会的详细回顾文章，还连夜赶制了发布会要点的一图流，让你用最简单直观的方式迅速了解本次发布会的全新动态。 关联阅读： 可以「折」的 iPhone 正式亮相：Apple 发布会看点回顾 > 关注 少数派小红书 ，感受精彩数字生活 🍃 > 实用、好用的 正版软件 ，少数派为你呈现 🚀",
-        "dedupe_key": "https://sspai.com/post/114393"
-      },
-      "days_on_board": 5,
-      "is_new": false,
-      "rank_delta": -1,
-      "cluster_id": "9f16b612d3cf",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-10T01:44:08.714992+00:00",
-          "rank": 14
         },
         {
-          "run_at": "2026-09-10T04:44:01.564715+00:00",
-          "rank": 14
-        },
-        {
-          "run_at": "2026-09-10T05:27:24.546105+00:00",
-          "rank": 14
-        },
-        {
-          "run_at": "2026-09-10T07:23:06.991109+00:00",
-          "rank": 22
-        },
-        {
-          "run_at": "2026-09-10T10:44:16.536751+00:00",
-          "rank": 38
-        },
-        {
-          "run_at": "2026-09-10T13:44:10.927826+00:00",
-          "rank": 45
-        },
-        {
-          "run_at": "2026-09-10T16:44:04.686393+00:00",
-          "rank": 43
-        },
-        {
-          "run_at": "2026-09-10T19:44:07.942256+00:00",
-          "rank": 44
-        },
-        {
-          "run_at": "2026-09-10T22:43:57.594732+00:00",
-          "rank": 44
-        },
-        {
-          "run_at": "2026-09-11T01:44:18.657508+00:00",
-          "rank": 55
-        },
-        {
-          "run_at": "2026-09-11T04:44:25.708303+00:00",
-          "rank": 51
-        },
-        {
-          "run_at": "2026-09-11T07:20:57.315986+00:00",
-          "rank": 62
-        },
-        {
-          "run_at": "2026-09-11T07:44:18.782548+00:00",
-          "rank": 62
-        },
-        {
-          "run_at": "2026-09-11T10:44:03.693190+00:00",
-          "rank": 63
-        },
-        {
-          "run_at": "2026-09-11T13:44:08.535196+00:00",
-          "rank": 67
-        },
-        {
-          "run_at": "2026-09-11T16:44:03.122934+00:00",
-          "rank": 72
-        },
-        {
-          "run_at": "2026-09-11T19:44:05.273675+00:00",
-          "rank": 70
-        },
-        {
-          "run_at": "2026-09-11T22:44:17.131546+00:00",
-          "rank": 70
-        },
-        {
-          "run_at": "2026-09-12T01:44:10.687537+00:00",
-          "rank": 73
-        },
-        {
-          "run_at": "2026-09-12T04:44:30.038442+00:00",
-          "rank": 75
-        },
-        {
-          "run_at": "2026-09-12T05:16:44.657953+00:00",
-          "rank": 75
-        },
-        {
-          "run_at": "2026-09-12T07:13:36.489632+00:00",
-          "rank": 75
-        },
-        {
-          "run_at": "2026-09-12T07:44:03.851106+00:00",
-          "rank": 75
-        },
-        {
-          "run_at": "2026-09-12T10:44:07.043207+00:00",
-          "rank": 74
-        },
-        {
-          "run_at": "2026-09-12T16:43:59.035946+00:00",
-          "rank": 75
-        },
-        {
-          "run_at": "2026-09-12T22:44:03.918650+00:00",
-          "rank": 79
-        },
-        {
-          "run_at": "2026-09-13T07:31:31.776677+00:00",
-          "rank": 83
-        },
-        {
-          "run_at": "2026-09-13T07:44:00.765898+00:00",
-          "rank": 83
-        },
-        {
-          "run_at": "2026-09-13T13:44:12.314244+00:00",
-          "rank": 85
-        },
-        {
-          "run_at": "2026-09-13T19:44:13.765034+00:00",
-          "rank": 86
+          "run_at": "2026-09-14T01:44:00.444615+00:00",
+          "rank": 88
         }
       ]
     },
@@ -1182,16 +1102,12 @@
         "description": "https://scanpy.readthedocs.io/en/stable/release-notes/index.html#v1-12-4",
         "dedupe_key": "https://github.com/scverse/scanpy/releases/tag/1.12.4"
       },
-      "days_on_board": 11,
+      "days_on_board": 12,
       "is_new": false,
       "rank_delta": 0,
       "cluster_id": "ce132780ff7a",
       "cluster_size": 2,
       "rank_history": [
-        {
-          "run_at": "2026-09-10T04:44:01.564715+00:00",
-          "rank": 89
-        },
         {
           "run_at": "2026-09-10T05:27:24.546105+00:00",
           "rank": 89
@@ -1307,6 +1223,10 @@
         {
           "run_at": "2026-09-13T19:44:13.765034+00:00",
           "rank": 97
+        },
+        {
+          "run_at": "2026-09-14T01:44:00.444615+00:00",
+          "rank": 97
         }
       ]
     },
@@ -1328,16 +1248,12 @@
         "description": "https://scanpy.scverse.org/en/latest/release-notes/index.html#version-1-13",
         "dedupe_key": "https://github.com/scverse/scanpy/releases/tag/1.13.0a2"
       },
-      "days_on_board": 11,
+      "days_on_board": 12,
       "is_new": false,
       "rank_delta": 0,
       "cluster_id": "768fc0d2e613",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-10T04:44:01.564715+00:00",
-          "rank": 90
-        },
         {
           "run_at": "2026-09-10T05:27:24.546105+00:00",
           "rank": 90
@@ -1453,6 +1369,10 @@
         {
           "run_at": "2026-09-13T19:44:13.765034+00:00",
           "rank": 98
+        },
+        {
+          "run_at": "2026-09-14T01:44:00.444615+00:00",
+          "rank": 98
         }
       ]
     },
@@ -1474,16 +1394,12 @@
         "description": "https://scanpy.scverse.org/en/latest/release-notes/index.html#version-1-13",
         "dedupe_key": "https://github.com/scverse/scanpy/releases/tag/1.13.0a1"
       },
-      "days_on_board": 11,
+      "days_on_board": 12,
       "is_new": false,
       "rank_delta": 0,
       "cluster_id": "9da040e83623",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-10T04:44:01.564715+00:00",
-          "rank": 91
-        },
         {
           "run_at": "2026-09-10T05:27:24.546105+00:00",
           "rank": 91
@@ -1599,6 +1515,10 @@
         {
           "run_at": "2026-09-13T19:44:13.765034+00:00",
           "rank": 99
+        },
+        {
+          "run_at": "2026-09-14T01:44:00.444615+00:00",
+          "rank": 99
         }
       ]
     },
@@ -1620,16 +1540,12 @@
         "description": "https://scanpy.readthedocs.io/en/stable/release-notes/index.html#v1-12-3",
         "dedupe_key": "https://github.com/scverse/scanpy/releases/tag/1.12.3"
       },
-      "days_on_board": 11,
+      "days_on_board": 12,
       "is_new": false,
       "rank_delta": 0,
       "cluster_id": "1e7152d08b04",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-10T04:44:01.564715+00:00",
-          "rank": 92
-        },
         {
           "run_at": "2026-09-10T05:27:24.546105+00:00",
           "rank": 92
@@ -1745,6 +1661,10 @@
         {
           "run_at": "2026-09-13T19:44:13.765034+00:00",
           "rank": 100
+        },
+        {
+          "run_at": "2026-09-14T01:44:00.444615+00:00",
+          "rank": 100
         }
       ]
     },
@@ -1766,16 +1686,12 @@
         "description": "See the release notes for all changes. This release is available via PyPi: pip install scvi-tools Conda availability will follow (< 2 days typically) Please report any issues on GitHub .",
         "dedupe_key": "https://github.com/scverse/scvi-tools/releases/tag/1.5.0.post1"
       },
-      "days_on_board": 11,
+      "days_on_board": 12,
       "is_new": false,
       "rank_delta": 0,
       "cluster_id": "8a4eca2177ca",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-10T04:44:01.564715+00:00",
-          "rank": 93
-        },
         {
           "run_at": "2026-09-10T05:27:24.546105+00:00",
           "rank": 93
@@ -1891,6 +1807,10 @@
         {
           "run_at": "2026-09-13T19:44:13.765034+00:00",
           "rank": 101
+        },
+        {
+          "run_at": "2026-09-14T01:44:00.444615+00:00",
+          "rank": 101
         }
       ]
     },
@@ -1912,16 +1832,12 @@
         "description": "See the release notes for all changes. This release is available via PyPi: pip install scvi-tools Conda availability will follow (< 2 days typically) Please report any issues on GitHub .",
         "dedupe_key": "https://github.com/scverse/scvi-tools/releases/tag/1.5.0"
       },
-      "days_on_board": 11,
+      "days_on_board": 12,
       "is_new": false,
       "rank_delta": 0,
       "cluster_id": "8b146ac8159b",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-10T04:44:01.564715+00:00",
-          "rank": 94
-        },
         {
           "run_at": "2026-09-10T05:27:24.546105+00:00",
           "rank": 94
@@ -2037,6 +1953,10 @@
         {
           "run_at": "2026-09-13T19:44:13.765034+00:00",
           "rank": 102
+        },
+        {
+          "run_at": "2026-09-14T01:44:00.444615+00:00",
+          "rank": 102
         }
       ]
     },
@@ -2058,16 +1978,12 @@
         "description": "https://scanpy.readthedocs.io/en/stable/release-notes/index.html#v1-12-2",
         "dedupe_key": "https://github.com/scverse/scanpy/releases/tag/1.12.2"
       },
-      "days_on_board": 11,
+      "days_on_board": 12,
       "is_new": false,
       "rank_delta": 0,
       "cluster_id": "ce132780ff7a",
       "cluster_size": 2,
       "rank_history": [
-        {
-          "run_at": "2026-09-10T04:44:01.564715+00:00",
-          "rank": 95
-        },
         {
           "run_at": "2026-09-10T05:27:24.546105+00:00",
           "rank": 95
@@ -2183,6 +2099,10 @@
         {
           "run_at": "2026-09-13T19:44:13.765034+00:00",
           "rank": 103
+        },
+        {
+          "run_at": "2026-09-14T01:44:00.444615+00:00",
+          "rank": 103
         }
       ]
     },
@@ -2204,16 +2124,12 @@
         "description": "Changes Additions Added uwot.init parameter to RunUMAP to optionally customize method of UMAP initialization ( #10386 ) Fixes Fixed bug in PrepSCTFindMarkers in the multi-model case that produced zero counts for some valid genes due to an incorrect filter for theta ( #10410 ) Fixed issue with FindClusters not setting metadata properly when a vector of resolutions is passed to resolution and a cust",
         "dedupe_key": "https://github.com/satijalab/seurat/releases/tag/v5.5.1"
       },
-      "days_on_board": 11,
+      "days_on_board": 12,
       "is_new": false,
       "rank_delta": 0,
-      "cluster_id": "f224ff15e8e5",
+      "cluster_id": "fd65e45eb779",
       "cluster_size": 2,
       "rank_history": [
-        {
-          "run_at": "2026-09-10T04:44:01.564715+00:00",
-          "rank": 96
-        },
         {
           "run_at": "2026-09-10T05:27:24.546105+00:00",
           "rank": 96
@@ -2329,6 +2245,10 @@
         {
           "run_at": "2026-09-13T19:44:13.765034+00:00",
           "rank": 104
+        },
+        {
+          "run_at": "2026-09-14T01:44:00.444615+00:00",
+          "rank": 104
         }
       ]
     },
@@ -2350,16 +2270,12 @@
         "description": "See the release notes for all changes. This release is available via PyPi: pip install scvi-tools Conda availability will follow (< 2 days typically) Please report any issues on GitHub .",
         "dedupe_key": "https://github.com/scverse/scvi-tools/releases/tag/1.4.3"
       },
-      "days_on_board": 11,
+      "days_on_board": 12,
       "is_new": false,
       "rank_delta": 0,
       "cluster_id": "bbea1c662507",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-10T04:44:01.564715+00:00",
-          "rank": 98
-        },
         {
           "run_at": "2026-09-10T05:27:24.546105+00:00",
           "rank": 98
@@ -2475,6 +2391,10 @@
         {
           "run_at": "2026-09-13T19:44:13.765034+00:00",
           "rank": 106
+        },
+        {
+          "run_at": "2026-09-14T01:44:00.444615+00:00",
+          "rank": 106
         }
       ]
     },
@@ -2496,16 +2416,12 @@
         "description": "Changes Additions Added support for vars.to.regress and latent.data in ScaleData.IterableMatrix (BPCells) ( #10300 ) Added warning to SCTransform to notify that do.correct.umi is hard set to F when a reference SCT model is specified ( #10329 , #10366 ) Added warning to FindMarkers / FindAllMarkers when running on an IterableMatrix (BPCells) with column-major storage order ( #10365 ) Added plot_typ",
         "dedupe_key": "https://github.com/satijalab/seurat/releases/tag/v5.5.0"
       },
-      "days_on_board": 11,
+      "days_on_board": 12,
       "is_new": false,
       "rank_delta": 0,
       "cluster_id": "7c320a02a1ec",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-10T04:44:01.564715+00:00",
-          "rank": 99
-        },
         {
           "run_at": "2026-09-10T05:27:24.546105+00:00",
           "rank": 99
@@ -2621,6 +2537,10 @@
         {
           "run_at": "2026-09-13T19:44:13.765034+00:00",
           "rank": 107
+        },
+        {
+          "run_at": "2026-09-14T01:44:00.444615+00:00",
+          "rank": 107
         }
       ]
     },
@@ -2642,16 +2562,12 @@
         "description": "See the release notes for all changes. This release is available via PyPi: pip install scvi-tools Conda availability will follow (< 2 days typically) Please report any issues on GitHub .",
         "dedupe_key": "https://github.com/scverse/scvi-tools/releases/tag/1.4.2"
       },
-      "days_on_board": 11,
+      "days_on_board": 12,
       "is_new": false,
       "rank_delta": 0,
       "cluster_id": "05240d494324",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-10T04:44:01.564715+00:00",
-          "rank": 100
-        },
         {
           "run_at": "2026-09-10T05:27:24.546105+00:00",
           "rank": 100
@@ -2767,6 +2683,10 @@
         {
           "run_at": "2026-09-13T19:44:13.765034+00:00",
           "rank": 108
+        },
+        {
+          "run_at": "2026-09-14T01:44:00.444615+00:00",
+          "rank": 108
         }
       ]
     },
@@ -2788,16 +2708,12 @@
         "description": "Changes Additions Added support for 10x Space Ranger 4.0 outputs (Visium data with segmentations) Updated data loading functions Load10X_Spatial , Read10X_Image Updated GetTissueCoordinates.VisiumV2 Updated spatial visualization functions SpatialPlot , SingleSpatialPlot , SpatialDimPlot , SpatialFeaturePlot Added helper functions Read10X_Segmentations , Read10X_HD_GeoJson , Format10X_GeoJson_CellI",
         "dedupe_key": "https://github.com/satijalab/seurat/releases/tag/v5.4.0"
       },
-      "days_on_board": 11,
+      "days_on_board": 12,
       "is_new": false,
       "rank_delta": 0,
-      "cluster_id": "f224ff15e8e5",
+      "cluster_id": "fd65e45eb779",
       "cluster_size": 2,
       "rank_history": [
-        {
-          "run_at": "2026-09-10T04:44:01.564715+00:00",
-          "rank": 101
-        },
         {
           "run_at": "2026-09-10T05:27:24.546105+00:00",
           "rank": 101
@@ -2913,6 +2829,10 @@
         {
           "run_at": "2026-09-13T19:44:13.765034+00:00",
           "rank": 109
+        },
+        {
+          "run_at": "2026-09-14T01:44:00.444615+00:00",
+          "rank": 109
         }
       ]
     },
@@ -2934,16 +2854,12 @@
         "description": "Changes Additions Added option to use cluster_leiden from igraph when running Leiden clustering ( #9931 ) Added option to use umap2 from uwot when running UMAP ( #9918 ) Added option to use approx_pow parameter from uwot when running UMAP ( #9449 ) Updated LoadXenium to add support for Xenium protein data ( #10024 ) Added option to specify stroke size in FeaturePlot ( #10053 ) Added label.size.cut",
         "dedupe_key": "https://github.com/satijalab/seurat/releases/tag/v5.3.1"
       },
-      "days_on_board": 11,
+      "days_on_board": 12,
       "is_new": false,
       "rank_delta": 0,
-      "cluster_id": "f224ff15e8e5",
+      "cluster_id": "fd65e45eb779",
       "cluster_size": 2,
       "rank_history": [
-        {
-          "run_at": "2026-09-10T04:44:01.564715+00:00",
-          "rank": 103
-        },
         {
           "run_at": "2026-09-10T05:27:24.546105+00:00",
           "rank": 103
@@ -3059,6 +2975,10 @@
         {
           "run_at": "2026-09-13T19:44:13.765034+00:00",
           "rank": 110
+        },
+        {
+          "run_at": "2026-09-14T01:44:00.444615+00:00",
+          "rank": 110
         }
       ]
     },
@@ -3080,16 +3000,12 @@
         "description": "Bug releases and performance improvements, including: Refactoring and speed-up of sctransform Refactroring and speed-up of leverage score calcluation Fixes to variable feature selection, module score calculation, PseudobulkExpression, and other bugs that could cause errors in edge cases Improved testing, CI",
         "dedupe_key": "https://github.com/satijalab/seurat/releases/tag/v5.3.0"
       },
-      "days_on_board": 11,
+      "days_on_board": 12,
       "is_new": false,
       "rank_delta": 0,
-      "cluster_id": "f224ff15e8e5",
+      "cluster_id": "fd65e45eb779",
       "cluster_size": 2,
       "rank_history": [
-        {
-          "run_at": "2026-09-10T04:44:01.564715+00:00",
-          "rank": 104
-        },
         {
           "run_at": "2026-09-10T05:27:24.546105+00:00",
           "rank": 104
@@ -3204,6 +3120,10 @@
         },
         {
           "run_at": "2026-09-13T19:44:13.765034+00:00",
+          "rank": 111
+        },
+        {
+          "run_at": "2026-09-14T01:44:00.444615+00:00",
           "rank": 111
         }
       ]
