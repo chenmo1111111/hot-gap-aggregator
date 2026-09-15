@@ -362,6 +362,30 @@ def test_public_diff_deletes_known_legacy_auto_but_preserves_unknown_blank_row()
     assert (creates, updates, deletes) == ([], [], ["rec-known"])
 
 
+def test_public_diff_deletes_provenance_labeled_automatic_row() -> None:
+    existing = [{
+        "record_id": "rec-stale-fenbi",
+        "fields": {
+            "公告标题": "黑龙江省近期部分招聘信息汇总",
+            "链接": {
+                "link": (
+                    "https://hera-webapp.fenbi.com/api/website/article/detail?"
+                    "deviceType=3&id=469068479483904&app=web"
+                ),
+            },
+            "来源": "自动·网站-粉笔",
+        },
+    }]
+
+    creates, updates, deletes = diff_public_records(
+        [], existing, gongkao_key, source_field="来源",
+    )
+
+    assert creates == []
+    assert updates == []
+    assert deletes == ["rec-stale-fenbi"]
+
+
 def test_replaced_gongkao_links_are_collected_for_forced_deletion() -> None:
     from app.sync_feishu_public import _replaced_gongkao_link_keys
 

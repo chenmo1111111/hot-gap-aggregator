@@ -436,7 +436,16 @@ def diff_public_records(
             continue
         forced = key in (force_delete_keys or set())
         if source_field:
-            should_delete = forced or source_value == "自动" or key in (known_auto_keys or set())
+            # Source labels deliberately include provenance, for example
+            # ``自动·网站-粉笔`` and ``自动·政府网站``.  Treat every automatic
+            # provenance variant as managed; requiring an exact ``自动`` value
+            # stranded obsolete rows whenever their link changed or the
+            # upstream article disappeared.
+            should_delete = (
+                forced
+                or source_value.startswith("自动")
+                or key in (known_auto_keys or set())
+            )
         else:
             should_delete = forced or not (preserve_missing and preserve_missing(fields))
         if should_delete and record.get("record_id"):
