@@ -93,9 +93,14 @@ describe('authenticated app bootstrap', () => {
 
     render(<App />);
     await screen.findByText('admin · 管理员');
+    expect(screen.queryByRole('button', { name: '邮箱管理' })).not.toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: '调整导航标签' }));
     expect(await screen.findByText('用户管理')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: '创建账号' })).toBeInTheDocument();
+    const mailInboxToggle = screen.getByRole('checkbox', { name: '显示邮箱管理' });
+    expect(mailInboxToggle).not.toBeChecked();
+    fireEvent.click(mailInboxToggle);
+    expect(screen.getByRole('button', { name: '邮箱管理' })).toBeInTheDocument();
   });
 
   it('shows private mailbox deadlines only to admins and removes completed rows', async () => {
@@ -116,8 +121,8 @@ describe('authenticated app bootstrap', () => {
     await screen.findByText('admin · 管理员');
     const navButtons = within(screen.getByRole('navigation')).getAllByRole('button');
     expect(navButtons[0]).toHaveTextContent('截止提醒');
-    expect(navButtons[1]).toHaveTextContent('邮箱管理');
-    expect(navButtons[2]).toHaveTextContent('全部');
+    expect(navButtons[1]).toHaveTextContent('全部');
+    expect(screen.queryByRole('button', { name: '邮箱管理' })).not.toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: '截止提醒' }));
     expect(await screen.findByRole('heading', { name: '三棵树' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: '需要你自己看' })).toBeInTheDocument();
@@ -133,7 +138,7 @@ describe('authenticated app bootstrap', () => {
     const fetchMock = vi.fn(async (input: RequestInfo | URL) => {
       const url = String(input);
       if (url === '/api/me') return json({ username: 'admin', is_admin: true });
-      if (url === '/api/settings') return json({ prefs: {}, updated_at: null });
+      if (url === '/api/settings') return json({ prefs: { mail_inbox_visible: true }, updated_at: null });
       if (url === '/api/admin/mail-inbox/accounts') return json({ items: [
         { account_id: 'mail-1', provider: 'imap', label: 'QQ主邮箱', address_hint: '19***@qq.com', authorized: true, last_synced_at: '2026-09-14T01:00:00Z', last_error: null },
         { account_id: 'mail-4', provider: 'gmail', label: 'Gmail 1', address_hint: 'pe***@gmail.com', authorized: true, last_synced_at: '2026-09-14T01:00:00Z', last_error: null },
