@@ -46,6 +46,7 @@ from app.sync_feishu import (
 )
 from app.pipeline.gongkao_classify import detail_category
 from app.pipeline.gongkao_enrich import calculate_signup_status
+from app.pipeline.gongkao_links import browser_safe_announcement_url
 from app.pipeline.prune import filter_current_public_gongkao, load_retention
 
 
@@ -230,7 +231,9 @@ def ensure_public_schema(
 
 def map_public_gongkao(row: Mapping[str, Any]) -> dict[str, Any]:
     extra = row.get("extra") if isinstance(row.get("extra"), Mapping) else {}
-    url = _coalesce(row, "url|announcement_url|公告链接")
+    url = browser_safe_announcement_url(
+        _coalesce(row, "url|announcement_url|公告链接"), extra,
+    )
     title = _coalesce(row, "title_zh|title|招录单位·公告")
     link = _link(url, "查看公告")
     if not title or not link:

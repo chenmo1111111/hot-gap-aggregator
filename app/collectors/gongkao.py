@@ -19,6 +19,7 @@ from app.collectors.gongkao_types import article_province, article_type, timelin
 from app.models import Item
 from app.pipeline.gongkao_filter import filter_gongkao_items
 from app.pipeline.gongkao_filter import is_gov_domain
+from app.pipeline.gongkao_links import fenbi_public_article_url
 from app.pipeline.gongkao_normalize import normalize_notice_title, normalize_province
 from app.pipeline.gov_link_resolver import GovLinkResolver
 
@@ -86,6 +87,19 @@ class GongkaoCollector(BaseCollector):
             if not article_id or not title:
                 continue
             info = row.get("announcementArticleInfoRet") or {}
+            source_info = info.get("sourceInfo") if isinstance(info, Mapping) else {}
+            source_info = source_info if isinstance(source_info, Mapping) else {}
+            source_url = str(source_info.get("sourceUrl") or "").strip()
+            if not source_url.startswith(("http://", "https://")):
+                source_url = ""
+            # ``hera-webapp.../api/.../detail`` is an internal rendering
+            # endpoint, not a durable browser link.  Fenbi returns the
+            # original-announcement short URL alongside each list row; it
+            # redirects to the government/employer page and remains useful
+            # even if Fenbi later removes its own article.  The public Fenbi
+            # page is retained only as a visible fallback.
+            fenbi_public_url = fenbi_public_article_url(article_id)
+            article_url = source_url or fenbi_public_url
             raw_tags = [tag for tag in row.get("tagsList") or [] if isinstance(tag, dict)]
             tags = [str(tag.get("name")) for tag in raw_tags if tag.get("name")]
             location_tags = [
@@ -98,7 +112,7 @@ class GongkaoCollector(BaseCollector):
             ), None)
             items.append(Item(
                 source="gongkao", rank=index, title=title, title_zh=title,
-                url=f"https://hera-webapp.fenbi.com/api/website/article/detail?deviceType=3&id={article_id}&app=web&av=100&hav=100&kav=100&client_context_id=",
+                url=article_url,
                 hot_value=str(info.get("timeStatus")) if info.get("timeStatus") is not None else None,
                 summary_zh=" ".join(str(row.get("digest") or row.get("preface") or "").split()).strip() or None,
                 published_at=_timestamp(row.get("issueTime") or row.get("updateTime")),
@@ -114,6 +128,9 @@ class GongkaoCollector(BaseCollector):
                     "location": "·".join(dict.fromkeys(location_tags)) or None,
                     "education": education,
                     "businessType": row.get("businessType"),
+                    "source_url": source_url or None,
+                    "fenbi_public_url": fenbi_public_url,
+                    "backup_urls": [fenbi_public_url] if source_url else [],
                 },
             ))
         _annotate_record_kinds(items)

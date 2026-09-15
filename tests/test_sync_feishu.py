@@ -113,6 +113,25 @@ def test_gongkao_mapping_exposes_precise_purchase_source() -> None:
     assert fields["来源"] == "自动·购买表-校招鸭事业单位"
 
 
+def test_gongkao_mapping_never_publishes_legacy_fenbi_internal_api() -> None:
+    fields = map_gongkao({
+        "title": "事业单位招聘公告",
+        "url": (
+            "https://hera-webapp.fenbi.com/api/website/article/detail?"
+            "deviceType=3&id=469068057956352&app=web"
+        ),
+        "extra": {"id": "469068057956352", "source_site": "fenbi"},
+    }, now=NOW)
+
+    assert fields["公告链接"] == {
+        "text": "查看公告",
+        "link": (
+            "https://www.fenbi.com/page/fenxiaozhaokaodetail/3/1239/"
+            "469068057956352"
+        ),
+    }
+
+
 def test_qiuzhao_mapping_and_normalized_sync_id() -> None:
     row = {
         "company_name": " Acme（中国）有限公司 ",

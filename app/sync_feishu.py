@@ -17,6 +17,8 @@ import httpx
 import yaml
 from dotenv import load_dotenv
 
+from app.pipeline.gongkao_links import browser_safe_announcement_url
+
 
 LOGGER = logging.getLogger(__name__)
 FEISHU_API_BASE = "https://open.feishu.cn/open-apis"
@@ -812,10 +814,12 @@ def map_gongkao(
     start = _coalesce(row, "extra.startSignUpTime|startSignUpTime|报名开始")
     end = _coalesce(row, "extra.endSignUpTime|endSignUpTime|报名截止")
     written = _coalesce(row, "extra.startWriteTime|startWriteTime|笔试时间")
-    url = _coalesce(row, "url|announcement_url|公告链接")
+    extra = row.get("extra") if isinstance(row.get("extra"), Mapping) else {}
+    url = browser_safe_announcement_url(
+        _coalesce(row, "url|announcement_url|公告链接"), extra,
+    )
     signup_url = _coalesce(row, "extra.signup_url|extra.apply_url|signup_url|apply_url|报名入口")
     fresh = _coalesce(row, "extra.fresh_graduate|extra.graduate|fresh_graduate|应届可报")
-    extra = row.get("extra") if isinstance(row.get("extra"), Mapping) else {}
     backup_urls = extra.get("backup_urls")
     backup_url = next(
         (str(value).strip() for value in backup_urls if str(value).strip().startswith(("http://", "https://"))),

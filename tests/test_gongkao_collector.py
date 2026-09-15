@@ -26,6 +26,25 @@ def test_gongkao_articles_fixture() -> None:
     assert item.extra["tags"] == ["国考", "遴选"]
     assert item.extra["province"] == "全国"
     assert item.extra["exam_type"] == "国考"
+    assert item.url == "https://t.fenbi.com/s/00TEST"
+    assert item.extra["source_url"] == "https://t.fenbi.com/s/00TEST"
+    assert item.extra["backup_urls"] == [
+        "https://www.fenbi.com/page/fenxiaozhaokaodetail/3/1239/101",
+    ]
+    assert "hera-webapp.fenbi.com/api/" not in item.url
+
+
+def test_gongkao_article_without_source_url_uses_public_fenbi_page() -> None:
+    item = GongkaoCollector.parse_articles({"data": {"articles": [{
+        "id": 202,
+        "title": "某省事业单位公开招聘公告",
+        "announcementArticleInfoRet": {"timeStatus": "报名中"},
+    }]}})[0]
+
+    assert item.url == "https://www.fenbi.com/page/fenxiaozhaokaodetail/3/1239/202"
+    assert item.extra["source_url"] is None
+    assert item.extra["backup_urls"] == []
+    assert "hera-webapp.fenbi.com/api/" not in item.url
 
 
 def test_gongkao_timeline_fixture() -> None:

@@ -117,6 +117,26 @@ def test_public_gongkao_exposes_precise_purchase_source() -> None:
     assert fields["来源"] == "自动·购买表-校招鸭事业单位"
 
 
+def test_public_gongkao_prefers_original_source_over_internal_fenbi_api() -> None:
+    fields = map_public_gongkao({
+        "title": "事业单位招聘公告",
+        "url": (
+            "https://hera-webapp.fenbi.com/api/website/article/detail?"
+            "deviceType=3&id=469067690430464&app=web"
+        ),
+        "extra": {
+            "id": "469067690430464",
+            "source_site": "fenbi",
+            "source_url": "https://t.fenbi.com/s/00EXAMPLE",
+        },
+    })
+
+    assert fields["链接"] == {
+        "text": "查看公告",
+        "link": "https://t.fenbi.com/s/00EXAMPLE",
+    }
+
+
 def test_map_public_selection_exposes_generic_school_scope_only() -> None:
     fields = map_public_gongkao({
         "title": "辽宁定向选调公告",
