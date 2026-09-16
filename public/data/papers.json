@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-09-16T04:44:14.016692+00:00",
+  "generated_at": "2026-09-16T07:44:11.707362+00:00",
   "source": "papers",
   "status": {
     "source": "papers",
     "status": "ok",
     "item_count": 83,
-    "duration_ms": 27803,
+    "duration_ms": 79853,
     "error": null,
-    "run_at": "2026-09-16T04:44:14.016692+00:00"
+    "run_at": "2026-09-16T07:44:11.707362+00:00"
   },
   "items": [
     {
@@ -42,10 +42,6 @@
       "cluster_id": "e5f954d694fd",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-11T04:44:25.708303+00:00",
-          "rank": 1
-        },
         {
           "run_at": "2026-09-11T07:20:57.315986+00:00",
           "rank": 1
@@ -161,6 +157,10 @@
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
           "rank": 1
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
+          "rank": 1
         }
       ]
     },
@@ -195,10 +195,6 @@
       "cluster_id": "850fbe258d06",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-11T01:44:18.657508+00:00",
-          "rank": 2
-        },
         {
           "run_at": "2026-09-11T04:44:25.708303+00:00",
           "rank": 2
@@ -313,6 +309,10 @@
         },
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
+          "rank": 2
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
           "rank": 2
         }
       ]
@@ -350,10 +350,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-11T01:44:18.657508+00:00",
-          "rank": 3
-        },
-        {
           "run_at": "2026-09-11T04:44:25.708303+00:00",
           "rank": 3
         },
@@ -467,6 +463,10 @@
         },
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
+          "rank": 3
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
           "rank": 3
         }
       ]
@@ -505,10 +505,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-11T04:44:25.708303+00:00",
-          "rank": 4
-        },
-        {
           "run_at": "2026-09-11T07:20:57.315986+00:00",
           "rank": 4
         },
@@ -623,6 +619,10 @@
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
           "rank": 4
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
+          "rank": 4
         }
       ]
     },
@@ -659,10 +659,6 @@
       "cluster_id": "b43c83bec621",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-11T04:44:25.708303+00:00",
-          "rank": 5
-        },
         {
           "run_at": "2026-09-11T07:20:57.315986+00:00",
           "rank": 5
@@ -778,6 +774,10 @@
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
           "rank": 5
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
+          "rank": 5
         }
       ]
     },
@@ -814,10 +814,6 @@
       "cluster_id": "ca6d3bb87bb6",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-11T01:44:18.657508+00:00",
-          "rank": 6
-        },
         {
           "run_at": "2026-09-11T04:44:25.708303+00:00",
           "rank": 6
@@ -933,6 +929,10 @@
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
           "rank": 6
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
+          "rank": 6
         }
       ]
     },
@@ -962,13 +962,17 @@
         "keyword_hit": []
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "cd272aff73ff",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
+          "rank": 7
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
           "rank": 7
         }
       ]
@@ -1000,14 +1004,10 @@
       },
       "days_on_board": 12,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": 0,
       "cluster_id": "84ac9687338f",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-11T04:44:25.708303+00:00",
-          "rank": 7
-        },
         {
           "run_at": "2026-09-11T07:20:57.315986+00:00",
           "rank": 7
@@ -1123,6 +1123,10 @@
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
           "rank": 8
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
+          "rank": 8
         }
       ]
     },
@@ -1155,14 +1159,10 @@
       },
       "days_on_board": 7,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": 0,
       "cluster_id": "dbb63705b9e5",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-11T04:44:25.708303+00:00",
-          "rank": 8
-        },
         {
           "run_at": "2026-09-11T07:20:57.315986+00:00",
           "rank": 8
@@ -1278,6 +1278,10 @@
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
           "rank": 9
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
+          "rank": 9
         }
       ]
     },
@@ -1311,14 +1315,10 @@
       },
       "days_on_board": 9,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": 0,
       "cluster_id": "b4a26fbd5b7b",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-11T04:44:25.708303+00:00",
-          "rank": 9
-        },
         {
           "run_at": "2026-09-11T07:20:57.315986+00:00",
           "rank": 9
@@ -1434,6 +1434,10 @@
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
           "rank": 10
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
+          "rank": 10
         }
       ]
     },
@@ -1466,14 +1470,10 @@
       },
       "days_on_board": 9,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": 0,
       "cluster_id": "0f633069f4f4",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-11T04:44:25.708303+00:00",
-          "rank": 10
-        },
         {
           "run_at": "2026-09-11T07:20:57.315986+00:00",
           "rank": 10
@@ -1589,6 +1589,10 @@
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
           "rank": 11
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
+          "rank": 11
         }
       ]
     },
@@ -1625,14 +1629,10 @@
       },
       "days_on_board": 9,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": 0,
       "cluster_id": "cfe2e6e2d11a",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-11T04:44:25.708303+00:00",
-          "rank": 11
-        },
         {
           "run_at": "2026-09-11T07:20:57.315986+00:00",
           "rank": 11
@@ -1748,6 +1748,10 @@
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
           "rank": 12
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
+          "rank": 12
         }
       ]
     },
@@ -1781,14 +1785,10 @@
       },
       "days_on_board": 7,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": 0,
       "cluster_id": "136809dd224b",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-11T01:44:18.657508+00:00",
-          "rank": 13
-        },
         {
           "run_at": "2026-09-11T04:44:25.708303+00:00",
           "rank": 12
@@ -1904,6 +1904,10 @@
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
           "rank": 13
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
+          "rank": 13
         }
       ]
     },
@@ -1939,7 +1943,7 @@
       },
       "days_on_board": 6,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": 0,
       "cluster_id": "ad48db2d2cb2",
       "cluster_size": 1,
       "rank_history": [
@@ -2046,6 +2050,10 @@
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
           "rank": 14
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
+          "rank": 14
         }
       ]
     },
@@ -2079,7 +2087,7 @@
       },
       "days_on_board": 3,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": 0,
       "cluster_id": "e96c01a7ed53",
       "cluster_size": 1,
       "rank_history": [
@@ -2109,6 +2117,10 @@
         },
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
+          "rank": 15
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
           "rank": 15
         }
       ]
@@ -2144,7 +2156,7 @@
       },
       "days_on_board": 6,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": 0,
       "cluster_id": "4404fbeaf2f6",
       "cluster_size": 1,
       "rank_history": [
@@ -2251,6 +2263,10 @@
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
           "rank": 16
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
+          "rank": 16
         }
       ]
     },
@@ -2283,14 +2299,10 @@
       },
       "days_on_board": 10,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": 0,
       "cluster_id": "92a61889e1c9",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-11T01:44:18.657508+00:00",
-          "rank": 14
-        },
         {
           "run_at": "2026-09-11T04:44:25.708303+00:00",
           "rank": 13
@@ -2406,6 +2418,10 @@
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
           "rank": 17
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
+          "rank": 17
         }
       ]
     },
@@ -2438,14 +2454,10 @@
       },
       "days_on_board": 13,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": 0,
       "cluster_id": "89124a9a4ebc",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-10T22:43:57.594732+00:00",
-          "rank": 15
-        },
         {
           "run_at": "2026-09-11T01:44:18.657508+00:00",
           "rank": 15
@@ -2560,6 +2572,10 @@
         },
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
+          "rank": 18
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
           "rank": 18
         }
       ]
@@ -2712,6 +2728,10 @@
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
           "rank": 19
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
+          "rank": 19
         }
       ]
     },
@@ -2745,7 +2765,7 @@
       },
       "days_on_board": 9,
       "is_new": false,
-      "rank_delta": -2,
+      "rank_delta": 0,
       "cluster_id": "db6b2fdb94a1",
       "cluster_size": 1,
       "rank_history": [
@@ -2864,6 +2884,10 @@
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
           "rank": 20
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
+          "rank": 20
         }
       ]
     },
@@ -2936,6 +2960,10 @@
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
           "rank": 21
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
+          "rank": 21
         }
       ]
     },
@@ -2975,10 +3003,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-11T04:44:25.708303+00:00",
-          "rank": 22
-        },
-        {
           "run_at": "2026-09-11T07:20:57.315986+00:00",
           "rank": 22
         },
@@ -3092,6 +3116,10 @@
         },
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
+          "rank": 22
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
           "rank": 22
         }
       ]
@@ -3131,10 +3159,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-11T04:44:25.708303+00:00",
-          "rank": 23
-        },
-        {
           "run_at": "2026-09-11T07:20:57.315986+00:00",
           "rank": 23
         },
@@ -3248,6 +3272,10 @@
         },
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
+          "rank": 23
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
           "rank": 23
         }
       ]
@@ -3285,10 +3313,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-11T04:44:25.708303+00:00",
-          "rank": 24
-        },
-        {
           "run_at": "2026-09-11T07:20:57.315986+00:00",
           "rank": 24
         },
@@ -3402,6 +3426,10 @@
         },
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
+          "rank": 24
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
           "rank": 24
         }
       ]
@@ -3439,10 +3467,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-11T04:44:25.708303+00:00",
-          "rank": 25
-        },
-        {
           "run_at": "2026-09-11T07:20:57.315986+00:00",
           "rank": 25
         },
@@ -3556,6 +3580,10 @@
         },
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
+          "rank": 25
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
           "rank": 25
         }
       ]
@@ -3593,10 +3621,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-11T04:44:25.708303+00:00",
-          "rank": 26
-        },
-        {
           "run_at": "2026-09-11T07:20:57.315986+00:00",
           "rank": 26
         },
@@ -3710,6 +3734,10 @@
         },
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
+          "rank": 26
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
           "rank": 26
         }
       ]
@@ -3746,10 +3774,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-11T04:44:25.708303+00:00",
-          "rank": 27
-        },
-        {
           "run_at": "2026-09-11T07:20:57.315986+00:00",
           "rank": 27
         },
@@ -3863,6 +3887,10 @@
         },
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
+          "rank": 27
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
           "rank": 27
         }
       ]
@@ -3899,10 +3927,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-11T04:44:25.708303+00:00",
-          "rank": 28
-        },
-        {
           "run_at": "2026-09-11T07:20:57.315986+00:00",
           "rank": 28
         },
@@ -4016,6 +4040,10 @@
         },
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
+          "rank": 28
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
           "rank": 28
         }
       ]
@@ -4086,6 +4114,10 @@
         },
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
+          "rank": 29
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
           "rank": 29
         }
       ]
@@ -4158,6 +4190,10 @@
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
           "rank": 30
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
+          "rank": 30
         }
       ]
     },
@@ -4229,6 +4265,10 @@
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
           "rank": 31
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
+          "rank": 31
         }
       ]
     },
@@ -4298,6 +4338,10 @@
         },
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
+          "rank": 32
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
           "rank": 32
         }
       ]
@@ -4370,6 +4414,10 @@
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
           "rank": 33
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
+          "rank": 33
         }
       ]
     },
@@ -4441,6 +4489,10 @@
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
           "rank": 34
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
+          "rank": 34
         }
       ]
     },
@@ -4511,6 +4563,10 @@
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
           "rank": 35
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
+          "rank": 35
         }
       ]
     },
@@ -4580,6 +4636,10 @@
         },
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
+          "rank": 36
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
           "rank": 36
         }
       ]
@@ -4652,6 +4712,10 @@
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
           "rank": 37
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
+          "rank": 37
         }
       ]
     },
@@ -4722,6 +4786,10 @@
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
           "rank": 38
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
+          "rank": 38
         }
       ]
     },
@@ -4756,10 +4824,6 @@
       "cluster_id": "94a534adfec7",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-11T04:44:25.708303+00:00",
-          "rank": 39
-        },
         {
           "run_at": "2026-09-11T07:20:57.315986+00:00",
           "rank": 39
@@ -4874,6 +4938,10 @@
         },
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
+          "rank": 39
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
           "rank": 39
         }
       ]
@@ -4915,10 +4983,6 @@
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-11T04:44:25.708303+00:00",
-          "rank": 40
-        },
-        {
           "run_at": "2026-09-11T07:20:57.315986+00:00",
           "rank": 40
         },
@@ -5032,6 +5096,10 @@
         },
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
+          "rank": 40
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
           "rank": 40
         }
       ]
@@ -5175,6 +5243,10 @@
         },
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
+          "rank": 41
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
           "rank": 41
         }
       ]
@@ -5320,6 +5392,10 @@
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
           "rank": 42
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
+          "rank": 42
         }
       ]
     },
@@ -5464,6 +5540,10 @@
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
           "rank": 43
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
+          "rank": 43
         }
       ]
     },
@@ -5503,6 +5583,10 @@
         },
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
+          "rank": 44
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
           "rank": 44
         }
       ]
@@ -5646,6 +5730,10 @@
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
           "rank": 45
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
+          "rank": 45
         }
       ]
     },
@@ -5676,7 +5764,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": 0,
       "cluster_id": "cd439e4fe500",
       "cluster_size": 1,
       "rank_history": [
@@ -5686,6 +5774,10 @@
         },
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
+          "rank": 46
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
           "rank": 46
         }
       ]
@@ -5717,9 +5809,9 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 1,
-      "cluster_id": "3c6ffc76d9f3",
-      "cluster_size": 1,
+      "rank_delta": 0,
+      "cluster_id": "2fdf84590956",
+      "cluster_size": 2,
       "rank_history": [
         {
           "run_at": "2026-09-16T01:44:23.473637+00:00",
@@ -5727,6 +5819,10 @@
         },
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
+          "rank": 47
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
           "rank": 47
         }
       ]
@@ -5758,7 +5854,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": 0,
       "cluster_id": "c537635bc507",
       "cluster_size": 1,
       "rank_history": [
@@ -5869,6 +5965,10 @@
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
           "rank": 48
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
+          "rank": 48
         }
       ]
     },
@@ -5901,7 +6001,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": 0,
       "cluster_id": "19a14ed02917",
       "cluster_size": 1,
       "rank_history": [
@@ -5911,6 +6011,10 @@
         },
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
+          "rank": 49
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
           "rank": 49
         }
       ]
@@ -5944,7 +6048,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": 0,
       "cluster_id": "e91019c9cd02",
       "cluster_size": 1,
       "rank_history": [
@@ -6015,6 +6119,10 @@
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
           "rank": 50
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
+          "rank": 50
         }
       ]
     },
@@ -6047,7 +6155,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": 0,
       "cluster_id": "feacbcde8413",
       "cluster_size": 1,
       "rank_history": [
@@ -6158,6 +6266,10 @@
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
           "rank": 51
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
+          "rank": 51
         }
       ]
     },
@@ -6190,7 +6302,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": 0,
       "cluster_id": "caa352dea638",
       "cluster_size": 1,
       "rank_history": [
@@ -6301,6 +6413,10 @@
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
           "rank": 52
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
+          "rank": 52
         }
       ]
     },
@@ -6334,7 +6450,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": 0,
       "cluster_id": "d60e5fdf96ab",
       "cluster_size": 1,
       "rank_history": [
@@ -6445,6 +6561,10 @@
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
           "rank": 53
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
+          "rank": 53
         }
       ]
     },
@@ -6479,7 +6599,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": 0,
       "cluster_id": "94823f2deee4",
       "cluster_size": 1,
       "rank_history": [
@@ -6590,6 +6710,10 @@
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
           "rank": 54
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
+          "rank": 54
         }
       ]
     },
@@ -6622,7 +6746,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": 0,
       "cluster_id": "2f6705ea626b",
       "cluster_size": 1,
       "rank_history": [
@@ -6733,6 +6857,10 @@
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
           "rank": 55
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
+          "rank": 55
         }
       ]
     },
@@ -6763,7 +6891,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": 0,
       "cluster_id": "f728f3bd8cb1",
       "cluster_size": 1,
       "rank_history": [
@@ -6874,6 +7002,10 @@
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
           "rank": 56
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
+          "rank": 56
         }
       ]
     },
@@ -6904,7 +7036,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": 0,
       "cluster_id": "a15fc14ad138",
       "cluster_size": 1,
       "rank_history": [
@@ -6914,6 +7046,10 @@
         },
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
+          "rank": 57
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
           "rank": 57
         }
       ]
@@ -6945,7 +7081,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": 0,
       "cluster_id": "c5b417d8bef7",
       "cluster_size": 1,
       "rank_history": [
@@ -7056,6 +7192,10 @@
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
           "rank": 58
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
+          "rank": 58
         }
       ]
     },
@@ -7086,7 +7226,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": 0,
       "cluster_id": "6938d7e53e75",
       "cluster_size": 1,
       "rank_history": [
@@ -7197,6 +7337,10 @@
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
           "rank": 59
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
+          "rank": 59
         }
       ]
     },
@@ -7226,20 +7370,24 @@
         ]
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "f89d2d9521d2",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
           "rank": 60
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
+          "rank": 60
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 53,
+      "rank": 62,
       "title": "Quality control of glycogen through direct ubiquitylation by RNF213",
       "title_zh": "通过RNF213直接泛素化实现糖原质量控制",
       "url": "https://www.nature.com/articles/s41586-026-11139-6",
@@ -7257,7 +7405,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -2,
+      "rank_delta": -9,
       "cluster_id": "b2aa6d31a922",
       "cluster_size": 1,
       "rank_history": [
@@ -7272,12 +7420,16 @@
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
           "rank": 53
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
+          "rank": 62
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 54,
+      "rank": 63,
       "title": "Author Correction: Erythropoietin receptor on cDC1s dictates immune tolerance",
       "title_zh": "作者更正：cDC1上的促红细胞生成素受体决定免疫耐受",
       "url": "https://www.nature.com/articles/s41586-026-11137-8",
@@ -7295,7 +7447,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -2,
+      "rank_delta": -9,
       "cluster_id": "33ee4faa6e29",
       "cluster_size": 1,
       "rank_history": [
@@ -7314,12 +7466,16 @@
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
           "rank": 54
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
+          "rank": 63
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 55,
+      "rank": 64,
       "title": "A wake-up call: diversify global research funding",
       "title_zh": "警钟：多元化全球研究资助",
       "url": "https://www.nature.com/articles/d41586-026-02904-8",
@@ -7337,7 +7493,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -2,
+      "rank_delta": -9,
       "cluster_id": "fd9153388e91",
       "cluster_size": 1,
       "rank_history": [
@@ -7356,12 +7512,16 @@
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
           "rank": 55
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
+          "rank": 64
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 56,
+      "rank": 65,
       "title": "Why Nepal floods resulted in a disaster even after satellites spotted danger",
       "title_zh": "为什么尼泊尔洪水在卫星发现危险后仍导致灾难",
       "url": "https://www.nature.com/articles/d41586-026-02907-5",
@@ -7379,7 +7539,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -2,
+      "rank_delta": -9,
       "cluster_id": "b8716d4d42d2",
       "cluster_size": 1,
       "rank_history": [
@@ -7398,12 +7558,16 @@
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
           "rank": 56
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
+          "rank": 65
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 57,
+      "rank": 66,
       "title": "The geometric genius of René Descartes",
       "title_zh": "勒内·笛卡尔的几何天才",
       "url": "https://www.nature.com/articles/d41586-026-02723-x",
@@ -7421,7 +7585,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -2,
+      "rank_delta": -9,
       "cluster_id": "4415bf19a95d",
       "cluster_size": 1,
       "rank_history": [
@@ -7436,12 +7600,16 @@
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
           "rank": 57
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
+          "rank": 66
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 58,
+      "rank": 67,
       "title": "Make AI traceable before it shapes global climate assessments",
       "title_zh": "在AI塑造全球气候评估之前使其可追溯",
       "url": "https://www.nature.com/articles/d41586-026-02905-7",
@@ -7459,7 +7627,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -2,
+      "rank_delta": -9,
       "cluster_id": "606e22160e31",
       "cluster_size": 1,
       "rank_history": [
@@ -7478,12 +7646,16 @@
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
           "rank": 58
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
+          "rank": 67
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 59,
+      "rank": 68,
       "title": "Why the NIH must resist the metrics trap",
       "title_zh": "NIH为什么必须抵制指标陷阱",
       "url": "https://www.nature.com/articles/d41586-026-02906-6",
@@ -7501,7 +7673,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -2,
+      "rank_delta": -9,
       "cluster_id": "ecc8e8885c37",
       "cluster_size": 1,
       "rank_history": [
@@ -7520,12 +7692,16 @@
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
           "rank": 59
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
+          "rank": 68
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 60,
+      "rank": 69,
       "title": "Global inequality panel is a chance for research to change lives",
       "title_zh": "全球不平等小组是研究改变生活的机会",
       "url": "https://www.nature.com/articles/d41586-026-02885-8",
@@ -7543,7 +7719,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -2,
+      "rank_delta": -9,
       "cluster_id": "88de9f6d5fed",
       "cluster_size": 1,
       "rank_history": [
@@ -7558,12 +7734,16 @@
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
           "rank": 60
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
+          "rank": 69
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 61,
+      "rank": 70,
       "title": "CRISPR crops are coming to Europe — why bolder would be better",
       "title_zh": "CRISPR作物要来欧洲了——为什么更大胆会更好",
       "url": "https://www.nature.com/articles/d41586-026-02848-z",
@@ -7581,7 +7761,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -2,
+      "rank_delta": -9,
       "cluster_id": "31a5d2907c83",
       "cluster_size": 1,
       "rank_history": [
@@ -7600,12 +7780,16 @@
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
           "rank": 61
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
+          "rank": 70
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 62,
+      "rank": 71,
       "title": "Underground hydrogen could spur a green-energy revolution — if companies can find it",
       "title_zh": "地下氢可能推动绿色能源革命——如果公司能找到它",
       "url": "https://www.nature.com/articles/d41586-026-02850-5",
@@ -7623,7 +7807,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -2,
+      "rank_delta": -9,
       "cluster_id": "9ab171458aba",
       "cluster_size": 1,
       "rank_history": [
@@ -7642,12 +7826,16 @@
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
           "rank": 62
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
+          "rank": 71
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 63,
+      "rank": 72,
       "title": "Cities and countryside are intimately linked — green initiatives must recognize that",
       "title_zh": "城市和乡村紧密相连——绿色倡议必须认识到这一点",
       "url": "https://www.nature.com/articles/d41586-026-02853-2",
@@ -7665,7 +7853,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -2,
+      "rank_delta": -9,
       "cluster_id": "a939659b192a",
       "cluster_size": 1,
       "rank_history": [
@@ -7684,12 +7872,16 @@
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
           "rank": 63
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
+          "rank": 72
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 64,
+      "rank": 73,
       "title": "‘Stomach bugs’ send protective immune cells rushing from gut to brain",
       "title_zh": "“胃虫”让保护性免疫细胞从肠道涌向大脑",
       "url": "https://www.nature.com/articles/d41586-026-02891-w",
@@ -7707,7 +7899,7 @@
       },
       "days_on_board": 1,
       "is_new": false,
-      "rank_delta": -2,
+      "rank_delta": -9,
       "cluster_id": "31e00f42915d",
       "cluster_size": 1,
       "rank_history": [
@@ -7718,12 +7910,16 @@
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
           "rank": 64
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
+          "rank": 73
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 78,
+      "rank": 84,
       "title": "Encoded and non-genetic protein variants expand human functional proteome",
       "title_zh": "编码和非遗传蛋白变体扩展人类功能蛋白质组",
       "url": "https://www.nature.com/articles/s41586-026-11124-z",
@@ -7741,7 +7937,7 @@
       },
       "days_on_board": 3,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": -6,
       "cluster_id": "7b6b87b2a425",
       "cluster_size": 1,
       "rank_history": [
@@ -7772,12 +7968,16 @@
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
           "rank": 78
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
+          "rank": 84
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 79,
+      "rank": 85,
       "title": "The roots of astrology, the mysterious nature of time and more: Books in brief",
       "title_zh": "占星术的根源、时间的神秘本质及更多：简评书籍",
       "url": "https://www.nature.com/articles/d41586-026-02908-4",
@@ -7795,7 +7995,7 @@
       },
       "days_on_board": 3,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": -6,
       "cluster_id": "72cca014c544",
       "cluster_size": 1,
       "rank_history": [
@@ -7826,12 +8026,16 @@
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
           "rank": 79
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
+          "rank": 85
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 80,
+      "rank": 86,
       "title": "How is climate change affecting conifers and their ability to sequester carbon?",
       "title_zh": "气候变化如何影响针叶树及其固碳能力？",
       "url": "https://www.nature.com/articles/d41586-026-02847-0",
@@ -7849,7 +8053,7 @@
       },
       "days_on_board": 3,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": -6,
       "cluster_id": "a4e480eb8908",
       "cluster_size": 1,
       "rank_history": [
@@ -7880,12 +8084,16 @@
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
           "rank": 80
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
+          "rank": 86
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 81,
+      "rank": 87,
       "title": "CFM: confinement force microscopy—a dynamic, precise and stable microconfiner for traction force microscopy in spatial confinement",
       "title_zh": "CFM：限制力显微镜——一种动态、精确且稳定的微限制器，用于空间限制下的牵引力显微镜",
       "url": "https://www.nature.com/articles/s41592-026-03216-5",
@@ -7903,7 +8111,7 @@
       },
       "days_on_board": 3,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": -6,
       "cluster_id": "f36d076c4185",
       "cluster_size": 1,
       "rank_history": [
@@ -7938,12 +8146,16 @@
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
           "rank": 81
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
+          "rank": 87
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 82,
+      "rank": 88,
       "title": "SPLENDID incorporates continuous genetic ancestry in biobank-scale data to improve polygenic risk prediction across diverse populations",
       "title_zh": "SPLENDID将连续遗传祖源纳入生物样本库规模数据，以改善跨多样人群的多基因风险预测",
       "url": "https://www.nature.com/articles/s41592-026-03235-2",
@@ -7961,7 +8173,7 @@
       },
       "days_on_board": 3,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": -6,
       "cluster_id": "32407629e8c0",
       "cluster_size": 1,
       "rank_history": [
@@ -7996,12 +8208,16 @@
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
           "rank": 82
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
+          "rank": 88
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 84,
+      "rank": 89,
       "title": "An ultralow-background far-red light-responsive optogenetic tool based on an engineered biliverdin-binding domain",
       "title_zh": "一种基于工程化胆绿素结合域的超低背景远红光响应光遗传学工具",
       "url": "https://www.nature.com/articles/s41592-026-03223-6",
@@ -8019,7 +8235,7 @@
       },
       "days_on_board": 6,
       "is_new": false,
-      "rank_delta": 4,
+      "rank_delta": -5,
       "cluster_id": "dd465701dd6f",
       "cluster_size": 1,
       "rank_history": [
@@ -8130,12 +8346,16 @@
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
           "rank": 84
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
+          "rank": 89
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 87,
+      "rank": 91,
       "title": "Wireless neural recordings from groups of mice inside and outside the laboratory",
       "title_zh": "实验室内外小鼠群体的无线神经记录",
       "url": "https://www.nature.com/articles/s41592-026-03221-8",
@@ -8153,14 +8373,10 @@
       },
       "days_on_board": 7,
       "is_new": false,
-      "rank_delta": 3,
+      "rank_delta": -4,
       "cluster_id": "233bac45c772",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-11T04:44:25.708303+00:00",
-          "rank": 48
-        },
         {
           "run_at": "2026-09-11T07:20:57.315986+00:00",
           "rank": 59
@@ -8276,12 +8492,16 @@
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
           "rank": 87
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
+          "rank": 91
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 88,
+      "rank": 92,
       "title": "A wireless modular platform for neuro-behavioral recording and closed-loop manipulation in small animals",
       "title_zh": "用于小动物神经行为记录和闭环操控的无线模块化平台",
       "url": "https://www.nature.com/articles/s41592-026-03220-9",
@@ -8299,14 +8519,10 @@
       },
       "days_on_board": 7,
       "is_new": false,
-      "rank_delta": 3,
+      "rank_delta": -4,
       "cluster_id": "1429da514149",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-11T04:44:25.708303+00:00",
-          "rank": 49
-        },
         {
           "run_at": "2026-09-11T07:20:57.315986+00:00",
           "rank": 60
@@ -8422,12 +8638,16 @@
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
           "rank": 88
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
+          "rank": 92
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 90,
+      "rank": 94,
       "title": "Intend to stay, intent on the dream",
       "title_zh": "打算留下，心系梦想",
       "url": "https://www.nature.com/articles/s41592-026-03240-5",
@@ -8445,14 +8665,10 @@
       },
       "days_on_board": 9,
       "is_new": false,
-      "rank_delta": 4,
+      "rank_delta": -4,
       "cluster_id": "6fc5a7a19ef3",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-11T04:44:25.708303+00:00",
-          "rank": 81
-        },
         {
           "run_at": "2026-09-11T07:20:57.315986+00:00",
           "rank": 91
@@ -8568,12 +8784,16 @@
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
           "rank": 90
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
+          "rank": 94
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 91,
+      "rank": 95,
       "title": "MemBrain v2: an end-to-end tool for the analysis of membranes in cryo-electron tomography",
       "title_zh": "MemBrain v2：用于冷冻电子断层扫描中膜分析的端到端工具",
       "url": "https://www.nature.com/articles/s41592-026-03178-8",
@@ -8591,14 +8811,10 @@
       },
       "days_on_board": 9,
       "is_new": false,
-      "rank_delta": 4,
+      "rank_delta": -4,
       "cluster_id": "9c62d0d74f4f",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-11T04:44:25.708303+00:00",
-          "rank": 82
-        },
         {
           "run_at": "2026-09-11T07:20:57.315986+00:00",
           "rank": 92
@@ -8714,12 +8930,16 @@
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
           "rank": 91
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
+          "rank": 95
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 92,
+      "rank": 96,
       "title": "Reconstructing signaling histories of single cells via perturbation screens and transfer learning",
       "title_zh": "通过扰动筛选和迁移学习重建单细胞信号历史",
       "url": "https://www.nature.com/articles/s41592-026-03213-8",
@@ -8737,14 +8957,10 @@
       },
       "days_on_board": 9,
       "is_new": false,
-      "rank_delta": 4,
+      "rank_delta": -4,
       "cluster_id": "3ce82b524989",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-11T04:44:25.708303+00:00",
-          "rank": 83
-        },
         {
           "run_at": "2026-09-11T07:20:57.315986+00:00",
           "rank": 93
@@ -8860,6 +9076,10 @@
         {
           "run_at": "2026-09-16T04:44:14.016692+00:00",
           "rank": 92
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
+          "rank": 96
         }
       ]
     }
