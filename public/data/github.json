@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-09-16T16:44:06.207725+00:00",
+  "generated_at": "2026-09-17T04:44:01.448701+00:00",
   "source": "github",
   "status": {
     "source": "github",
     "status": "ok",
     "item_count": 21,
-    "duration_ms": 2129,
+    "duration_ms": 1760,
     "error": null,
-    "run_at": "2026-09-16T16:44:06.207725+00:00"
+    "run_at": "2026-09-17T04:44:01.448701+00:00"
   },
   "items": [
     {
@@ -16,7 +16,7 @@
       "title": "alibaba/open-code-review",
       "title_zh": "alibaba/open-code-review",
       "url": "https://github.com/alibaba/open-code-review",
-      "hot_value": "3,215 stars today",
+      "hot_value": "3,231 stars today",
       "summary_zh": "阿里开源代码审查工具，混合架构精准定位漏洞，支持多语言。",
       "thumbnail": null,
       "published_at": null,
@@ -24,7 +24,7 @@
         "description": "Fast, efficient, battle-tested at Alibaba's scale. Hybrid architecture code review tool: deterministic pipelines + LLM Agent, precise line-level comments, built-in multi-language ruleset (NPE, thread-safety, XSS, SQL injection), OpenAI & Anthropic compatible.",
         "language": "Go"
       },
-      "days_on_board": 4,
+      "days_on_board": 5,
       "is_new": false,
       "rank_delta": 0,
       "cluster_id": "ee41dc481c41",
@@ -85,6 +85,10 @@
         {
           "run_at": "2026-09-16T16:44:06.207725+00:00",
           "rank": 1
+        },
+        {
+          "run_at": "2026-09-17T04:44:01.448701+00:00",
+          "rank": 1
         }
       ]
     },
@@ -94,7 +98,7 @@
       "title": "cloudflare/security-audit-skill",
       "title_zh": "cloudflare/security-audit-skill",
       "url": "https://github.com/cloudflare/security-audit-skill",
-      "hot_value": "1,249 stars today",
+      "hot_value": "927 stars today",
       "summary_zh": "Cloudflare安全审计技能，多阶段审计并输出可验证机器可读结果。",
       "thumbnail": null,
       "published_at": null,
@@ -102,14 +106,18 @@
         "description": "A coding-agent skill for multi-phase security audits with independently verified, machine-readable findings",
         "language": "JavaScript"
       },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "days_on_board": 2,
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "18b811ab0d7d",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-16T16:44:06.207725+00:00",
+          "rank": 2
+        },
+        {
+          "run_at": "2026-09-17T04:44:01.448701+00:00",
           "rank": 2
         }
       ]
@@ -120,7 +128,7 @@
       "title": "JustVugg/colibri",
       "title_zh": "JustVugg/colibri",
       "url": "https://github.com/JustVugg/colibri",
-      "hot_value": "1,532 stars today",
+      "hot_value": "1,546 stars today",
       "summary_zh": "纯C零依赖，让家用硬件跑前沿MoE大模型。",
       "thumbnail": null,
       "published_at": null,
@@ -128,32 +136,12 @@
         "description": "Run frontier MoE models on hardware you already own — pure C, zero deps, experts streamed from disk. Tiny engine, immense model. 🐦",
         "language": "C"
       },
-      "days_on_board": 4,
+      "days_on_board": 5,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": 0,
       "cluster_id": "7d0b081e2cda",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-10T10:44:16.536751+00:00",
-          "rank": 12
-        },
-        {
-          "run_at": "2026-09-10T13:44:10.927826+00:00",
-          "rank": 12
-        },
-        {
-          "run_at": "2026-09-10T16:44:04.686393+00:00",
-          "rank": 12
-        },
-        {
-          "run_at": "2026-09-10T19:44:07.942256+00:00",
-          "rank": 12
-        },
-        {
-          "run_at": "2026-09-10T22:43:57.594732+00:00",
-          "rank": 12
-        },
         {
           "run_at": "2026-09-11T01:44:18.657508+00:00",
           "rank": 12
@@ -225,6 +213,10 @@
         {
           "run_at": "2026-09-16T16:44:06.207725+00:00",
           "rank": 3
+        },
+        {
+          "run_at": "2026-09-17T04:44:01.448701+00:00",
+          "rank": 3
         }
       ]
     },
@@ -234,7 +226,7 @@
       "title": "abue-ammar/tinycast",
       "title_zh": "abue-ammar/tinycast",
       "url": "https://github.com/abue-ammar/tinycast",
-      "hot_value": "1,136 stars today",
+      "hot_value": "1,179 stars today",
       "summary_zh": "Tinycast是轻量原生macOS启动器，支持热键与剪贴板历史。",
       "thumbnail": null,
       "published_at": null,
@@ -242,14 +234,18 @@
         "description": "Tinycast — a tiny, fully native macOS launcher, hotkeys, and clipboard history.",
         "language": "Swift"
       },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "days_on_board": 2,
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "f3a2d91e9221",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-16T16:44:06.207725+00:00",
+          "rank": 4
+        },
+        {
+          "run_at": "2026-09-17T04:44:01.448701+00:00",
           "rank": 4
         }
       ]
@@ -260,7 +256,7 @@
       "title": "jamiepine/voicebox",
       "title_zh": "jamiepine/voicebox",
       "url": "https://github.com/jamiepine/voicebox",
-      "hot_value": "409 stars today",
+      "hot_value": "417 stars today",
       "summary_zh": "Voicebox开源AI语音工作室，可克隆、听写、创作语音。",
       "thumbnail": null,
       "published_at": null,
@@ -268,14 +264,18 @@
         "description": "The open-source AI voice studio. Clone, dictate, create.",
         "language": "TypeScript"
       },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "days_on_board": 2,
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "9f15a4fd6368",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-16T16:44:06.207725+00:00",
+          "rank": 5
+        },
+        {
+          "run_at": "2026-09-17T04:44:01.448701+00:00",
           "rank": 5
         }
       ]
@@ -286,7 +286,7 @@
       "title": "Lakr233/vphone-cli",
       "title_zh": "Lakr233/vphone-cli",
       "url": "https://github.com/Lakr233/vphone-cli",
-      "hot_value": "444 stars today",
+      "hot_value": "547 stars today",
       "summary_zh": "Lakr233/vphone-cli，命令行工具，具体功能待查。",
       "thumbnail": null,
       "published_at": null,
@@ -294,14 +294,18 @@
         "description": "",
         "language": "Swift"
       },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "days_on_board": 2,
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "920339ac9acf",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-16T16:44:06.207725+00:00",
+          "rank": 6
+        },
+        {
+          "run_at": "2026-09-17T04:44:01.448701+00:00",
           "rank": 6
         }
       ]
@@ -312,7 +316,7 @@
       "title": "anthropics/knowledge-work-plugins",
       "title_zh": "anthropics/knowledge-work-plugins",
       "url": "https://github.com/anthropics/knowledge-work-plugins",
-      "hot_value": "96 stars today",
+      "hot_value": "110 stars today",
       "summary_zh": "Anthropic知识工作插件库，供Claude Cowork知识工作者使用。",
       "thumbnail": null,
       "published_at": null,
@@ -320,14 +324,18 @@
         "description": "Open source repository of plugins primarily intended for knowledge workers to use in Claude Cowork",
         "language": "Python"
       },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "days_on_board": 2,
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "f6035c0a4632",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-16T16:44:06.207725+00:00",
+          "rank": 7
+        },
+        {
+          "run_at": "2026-09-17T04:44:01.448701+00:00",
           "rank": 7
         }
       ]
@@ -338,7 +346,7 @@
       "title": "ever-co/ever-gauzy",
       "title_zh": "ever-co/ever-gauzy",
       "url": "https://github.com/ever-co/ever-gauzy",
-      "hot_value": "771 stars today",
+      "hot_value": "778 stars today",
       "summary_zh": "Ever Gauzy开源企业管理平台，集成ERP、CRM、HRM等，适合企业数字",
       "thumbnail": null,
       "published_at": null,
@@ -346,9 +354,9 @@
         "description": "Ever® Gauzy™ - Open Business Management Platform (ERP/CRM/HRM/ATS/PM) -https://gauzy.co",
         "language": "TypeScript"
       },
-      "days_on_board": 4,
+      "days_on_board": 5,
       "is_new": false,
-      "rank_delta": -5,
+      "rank_delta": 0,
       "cluster_id": "d67b0e474865",
       "cluster_size": 1,
       "rank_history": [
@@ -407,6 +415,10 @@
         {
           "run_at": "2026-09-16T16:44:06.207725+00:00",
           "rank": 8
+        },
+        {
+          "run_at": "2026-09-17T04:44:01.448701+00:00",
+          "rank": 8
         }
       ]
     },
@@ -416,7 +428,7 @@
       "title": "ankitects/anki",
       "title_zh": "ankitects/anki",
       "url": "https://github.com/ankitects/anki",
-      "hot_value": "50 stars today",
+      "hot_value": "58 stars today",
       "summary_zh": "Anki智能间隔重复闪卡程序，助高效记忆。",
       "thumbnail": null,
       "published_at": null,
@@ -424,14 +436,18 @@
         "description": "Anki is a smart spaced repetition flashcard program",
         "language": "Rust"
       },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "days_on_board": 2,
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "b9598551479e",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-16T16:44:06.207725+00:00",
+          "rank": 9
+        },
+        {
+          "run_at": "2026-09-17T04:44:01.448701+00:00",
           "rank": 9
         }
       ]
@@ -450,9 +466,9 @@
         "description": "Ghidra is a software reverse engineering (SRE) framework",
         "language": "Java"
       },
-      "days_on_board": 2,
+      "days_on_board": 3,
       "is_new": false,
-      "rank_delta": -2,
+      "rank_delta": 0,
       "cluster_id": "a5de21bf7703",
       "cluster_size": 1,
       "rank_history": [
@@ -479,6 +495,10 @@
         {
           "run_at": "2026-09-16T16:44:06.207725+00:00",
           "rank": 10
+        },
+        {
+          "run_at": "2026-09-17T04:44:01.448701+00:00",
+          "rank": 10
         }
       ]
     },
@@ -488,7 +508,7 @@
       "title": "anthropics/claude-code",
       "title_zh": "anthropics/claude-code",
       "url": "https://github.com/anthropics/claude-code",
-      "hot_value": "155 stars today",
+      "hot_value": "165 stars today",
       "summary_zh": "Claude Code终端AI编程助手，理解代码库并执行开发任务。",
       "thumbnail": null,
       "published_at": null,
@@ -496,14 +516,18 @@
         "description": "Claude Code is an agentic coding tool that lives in your terminal, understands your codebase, and helps you code faster by executing routine tasks, explaining complex code, and handling git workflows - all through natural language commands.",
         "language": "TypeScript"
       },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "days_on_board": 2,
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "0dfb1ea08365",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-16T16:44:06.207725+00:00",
+          "rank": 11
+        },
+        {
+          "run_at": "2026-09-17T04:44:01.448701+00:00",
           "rank": 11
         }
       ]
@@ -514,7 +538,7 @@
       "title": "roboflow/supervision",
       "title_zh": "roboflow/supervision",
       "url": "https://github.com/roboflow/supervision",
-      "hot_value": "292 stars today",
+      "hot_value": "260 stars today",
       "summary_zh": "Roboflow Supervision提供可复用计算机视觉工具。",
       "thumbnail": null,
       "published_at": null,
@@ -522,14 +546,18 @@
         "description": "We write your reusable computer vision tools. 💜",
         "language": "Python"
       },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "days_on_board": 2,
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "eaaf69be8ef0",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-16T16:44:06.207725+00:00",
+          "rank": 12
+        },
+        {
+          "run_at": "2026-09-17T04:44:01.448701+00:00",
           "rank": 12
         }
       ]
@@ -540,7 +568,7 @@
       "title": "alphaXiv/OpenResearch",
       "title_zh": "alphaXiv/OpenResearch",
       "url": "https://github.com/alphaXiv/OpenResearch",
-      "hot_value": "1,036 stars today",
+      "hot_value": "1,017 stars today",
       "summary_zh": "把编码代理变成研究代理，助你自动探索与实验。",
       "thumbnail": null,
       "published_at": null,
@@ -548,9 +576,9 @@
         "description": "Turn your coding agents into research agents",
         "language": "Rust"
       },
-      "days_on_board": 6,
+      "days_on_board": 7,
       "is_new": false,
-      "rank_delta": -6,
+      "rank_delta": 0,
       "cluster_id": "2cd2d2599fed",
       "cluster_size": 1,
       "rank_history": [
@@ -633,6 +661,10 @@
         {
           "run_at": "2026-09-16T16:44:06.207725+00:00",
           "rank": 13
+        },
+        {
+          "run_at": "2026-09-17T04:44:01.448701+00:00",
+          "rank": 13
         }
       ]
     },
@@ -642,7 +674,7 @@
       "title": "supabase/supabase",
       "title_zh": "supabase/supabase",
       "url": "https://github.com/supabase/supabase",
-      "hot_value": "118 stars today",
+      "hot_value": "120 stars today",
       "summary_zh": "Supabase是Postgres开发平台，快速构建Web、移动与AI应用。",
       "thumbnail": null,
       "published_at": null,
@@ -650,14 +682,18 @@
         "description": "The Postgres development platform. Supabase gives you a dedicated Postgres database to build your web, mobile, and AI applications.",
         "language": "TypeScript"
       },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "days_on_board": 2,
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "ed890270ef48",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-16T16:44:06.207725+00:00",
+          "rank": 14
+        },
+        {
+          "run_at": "2026-09-17T04:44:01.448701+00:00",
           "rank": 14
         }
       ]
@@ -668,7 +704,7 @@
       "title": "rlaope/oh-my-hermes",
       "title_zh": "rlaope/oh-my-hermes",
       "url": "https://github.com/rlaope/oh-my-hermes",
-      "hot_value": "74 stars today",
+      "hot_value": "80 stars today",
       "summary_zh": "oh-my-hermes：Hermes智能体全能插件，含长期记忆与优化工作流。",
       "thumbnail": null,
       "published_at": null,
@@ -676,9 +712,9 @@
         "description": "All in one plugin for Hermes Agent ⚚ the coding intelligence, a long-term memory system and model optimized workflow packages",
         "language": "Python"
       },
-      "days_on_board": 3,
-      "is_new": true,
-      "rank_delta": "new",
+      "days_on_board": 4,
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "3d3522447301",
       "cluster_size": 1,
       "rank_history": [
@@ -701,6 +737,10 @@
         {
           "run_at": "2026-09-16T16:44:06.207725+00:00",
           "rank": 15
+        },
+        {
+          "run_at": "2026-09-17T04:44:01.448701+00:00",
+          "rank": 15
         }
       ]
     },
@@ -710,7 +750,7 @@
       "title": "Tencent/WeKnora",
       "title_zh": "Tencent/WeKnora",
       "url": "https://github.com/Tencent/WeKnora",
-      "hot_value": "1,201 stars today",
+      "hot_value": "1,197 stars today",
       "summary_zh": "腾讯WeKnora开源LLM知识平台，文档转RAG、推理代理与自维护Wiki。",
       "thumbnail": null,
       "published_at": null,
@@ -718,14 +758,18 @@
         "description": "Open-source LLM knowledge platform: turn raw documents into a queryable RAG, an autonomous reasoning agent, and a self-maintaining Wiki.",
         "language": "Go"
       },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "days_on_board": 2,
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "583df6db6fe6",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-16T16:44:06.207725+00:00",
+          "rank": 16
+        },
+        {
+          "run_at": "2026-09-17T04:44:01.448701+00:00",
           "rank": 16
         }
       ]
@@ -736,7 +780,7 @@
       "title": "SnailSploit/Claude-Red",
       "title_zh": "SnailSploit/Claude-Red",
       "url": "https://github.com/SnailSploit/Claude-Red",
-      "hot_value": "383 stars today",
+      "hot_value": "367 stars today",
       "summary_zh": "专为Claude技能系统打造的攻击性安全技能库，覆盖多种攻击面。",
       "thumbnail": null,
       "published_at": null,
@@ -744,9 +788,9 @@
         "description": "claude-red is a curated library of offensive security skills designed for the Claude skills system. Each skill is a structured SKILL.md file that primes Claude with expert-level methodology for a specific attack surface — from SQLi to shellcode, EDR evasion to exploit development.",
         "language": "Python"
       },
-      "days_on_board": 5,
-      "is_new": true,
-      "rank_delta": "new",
+      "days_on_board": 6,
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "2a6a4aa9f1fc",
       "cluster_size": 1,
       "rank_history": [
@@ -805,6 +849,10 @@
         {
           "run_at": "2026-09-16T16:44:06.207725+00:00",
           "rank": 17
+        },
+        {
+          "run_at": "2026-09-17T04:44:01.448701+00:00",
+          "rank": 17
         }
       ]
     },
@@ -814,7 +862,7 @@
       "title": "multimodal-art-projection/YuE",
       "title_zh": "multimodal-art-projection/YuE",
       "url": "https://github.com/multimodal-art-projection/YuE",
-      "hot_value": "370 stars today",
+      "hot_value": "332 stars today",
       "summary_zh": "前沿音乐生成模型，支持符号规划、零样本翻唱与智能编辑。",
       "thumbnail": null,
       "published_at": null,
@@ -822,9 +870,9 @@
         "description": "YuE2: frontier music generation with symbolic planning, zero-shot covers, and agentic music editing.",
         "language": "Python"
       },
-      "days_on_board": 5,
-      "is_new": true,
-      "rank_delta": "new",
+      "days_on_board": 6,
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "2a6c43428fed",
       "cluster_size": 1,
       "rank_history": [
@@ -883,6 +931,10 @@
         {
           "run_at": "2026-09-16T16:44:06.207725+00:00",
           "rank": 18
+        },
+        {
+          "run_at": "2026-09-17T04:44:01.448701+00:00",
+          "rank": 18
         }
       ]
     },
@@ -892,7 +944,7 @@
       "title": "addyosmani/agent-skills",
       "title_zh": "addyosmani/agent-skills",
       "url": "https://github.com/addyosmani/agent-skills",
-      "hot_value": "656 stars today",
+      "hot_value": "658 stars today",
       "summary_zh": "addyosmani/agent-skills：AI编码代理实战技能，工程级质量",
       "thumbnail": null,
       "published_at": null,
@@ -900,9 +952,9 @@
         "description": "Production-grade engineering skills for AI coding agents.",
         "language": "JavaScript"
       },
-      "days_on_board": 2,
+      "days_on_board": 3,
       "is_new": false,
-      "rank_delta": -7,
+      "rank_delta": 0,
       "cluster_id": "329fbfc6a667",
       "cluster_size": 1,
       "rank_history": [
@@ -929,6 +981,10 @@
         {
           "run_at": "2026-09-16T16:44:06.207725+00:00",
           "rank": 19
+        },
+        {
+          "run_at": "2026-09-17T04:44:01.448701+00:00",
+          "rank": 19
         }
       ]
     },
@@ -938,7 +994,7 @@
       "title": "cline/cline",
       "title_zh": "cline/cline",
       "url": "https://github.com/cline/cline",
-      "hot_value": "102 stars today",
+      "hot_value": "112 stars today",
       "summary_zh": "Cline自主编程代理，提供SDK、IDE扩展与CLI助手。",
       "thumbnail": null,
       "published_at": null,
@@ -946,14 +1002,18 @@
         "description": "Autonomous coding agent as an SDK, IDE extension, or CLI assistant.",
         "language": "TypeScript"
       },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "days_on_board": 2,
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "33076d4613cc",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-16T16:44:06.207725+00:00",
+          "rank": 20
+        },
+        {
+          "run_at": "2026-09-17T04:44:01.448701+00:00",
           "rank": 20
         }
       ]
@@ -964,7 +1024,7 @@
       "title": "affaan-m/ECC",
       "title_zh": "affaan-m/ECC",
       "url": "https://github.com/affaan-m/ECC",
-      "hot_value": "1,046 stars today",
+      "hot_value": "1,057 stars today",
       "summary_zh": "智能体性能优化系统，强化记忆安全。",
       "thumbnail": null,
       "published_at": null,
@@ -972,14 +1032,18 @@
         "description": "The agent harness performance optimization system. Skills, instincts, memory, security, and research-first development for Claude Code, Codex, Opencode, Cursor and beyond.",
         "language": "JavaScript"
       },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "days_on_board": 2,
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "9317f65b1d4f",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-16T16:44:06.207725+00:00",
+          "rank": 21
+        },
+        {
+          "run_at": "2026-09-17T04:44:01.448701+00:00",
           "rank": 21
         }
       ]
