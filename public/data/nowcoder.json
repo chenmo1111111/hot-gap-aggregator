@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-09-17T04:44:01.448701+00:00",
+  "generated_at": "2026-09-17T13:44:12.315014+00:00",
   "source": "nowcoder",
   "status": {
     "source": "nowcoder",
     "status": "ok",
     "item_count": 20,
-    "duration_ms": 1861,
+    "duration_ms": 3516,
     "error": null,
-    "run_at": "2026-09-17T04:44:01.448701+00:00"
+    "run_at": "2026-09-17T13:44:12.315014+00:00"
   },
   "items": [
     {
@@ -29,7 +29,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 2,
+      "rank_delta": 0,
       "cluster_id": "cbafca7aae58",
       "cluster_size": 1,
       "rank_history": [
@@ -39,6 +39,10 @@
         },
         {
           "run_at": "2026-09-17T04:44:01.448701+00:00",
+          "rank": 1
+        },
+        {
+          "run_at": "2026-09-17T13:44:12.315014+00:00",
           "rank": 1
         }
       ]
@@ -62,7 +66,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": 0,
       "cluster_id": "bc9eb6e958f8",
       "cluster_size": 1,
       "rank_history": [
@@ -72,6 +76,10 @@
         },
         {
           "run_at": "2026-09-17T04:44:01.448701+00:00",
+          "rank": 2
+        },
+        {
+          "run_at": "2026-09-17T13:44:12.315014+00:00",
           "rank": 2
         }
       ]
@@ -95,7 +103,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": 0,
       "cluster_id": "19b90e84d2af",
       "cluster_size": 1,
       "rank_history": [
@@ -106,15 +114,19 @@
         {
           "run_at": "2026-09-17T04:44:01.448701+00:00",
           "rank": 3
+        },
+        {
+          "run_at": "2026-09-17T13:44:12.315014+00:00",
+          "rank": 3
         }
       ]
     },
     {
       "source": "nowcoder",
       "rank": 4,
-      "title": "去你大坝的秋招",
-      "title_zh": "去你大坝的秋招",
-      "url": "https://www.nowcoder.com/feed/main/detail/b8dac3be766640bc884224f884e9aa3d",
+      "title": "秋招第一面-去哪儿",
+      "title_zh": "秋招第一面-去哪儿",
+      "url": "https://www.nowcoder.com/feed/main/detail/cb83a15798cb423f9aa3814d6d431701",
       "hot_value": "命中 1 个关键词",
       "summary_zh": null,
       "thumbnail": null,
@@ -126,18 +138,14 @@
         ],
         "description": ""
       },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 4,
-      "cluster_id": "31faf4f4b4a6",
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "a59372250c28",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-16T16:44:06.207725+00:00",
-          "rank": 8
-        },
-        {
-          "run_at": "2026-09-17T04:44:01.448701+00:00",
+          "run_at": "2026-09-17T13:44:12.315014+00:00",
           "rank": 4
         }
       ]
@@ -145,137 +153,9 @@
     {
       "source": "nowcoder",
       "rank": 5,
-      "title": "9月了还没offer，就看pdd能不能给第一个意向了",
-      "title_zh": "9月了还没offer，就看pdd能不能给第一个意向了",
-      "url": "https://www.nowcoder.com/feed/main/detail/b17a80f8962f4cfdb977521792395554",
-      "hot_value": "命中 1 个关键词",
-      "summary_zh": null,
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "subsource": "rsshub",
-        "keyword_hit": [
-          "offer"
-        ],
-        "description": ""
-      },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": -1,
-      "cluster_id": "3e44c450f4e3",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-16T04:44:14.016692+00:00",
-          "rank": 2
-        },
-        {
-          "run_at": "2026-09-16T07:44:11.707362+00:00",
-          "rank": 2
-        },
-        {
-          "run_at": "2026-09-16T16:44:06.207725+00:00",
-          "rank": 4
-        },
-        {
-          "run_at": "2026-09-17T04:44:01.448701+00:00",
-          "rank": 5
-        }
-      ]
-    },
-    {
-      "source": "nowcoder",
-      "rank": 6,
-      "title": "秋招第一个offer！感谢我团哥！",
-      "title_zh": "秋招第一个offer！感谢我团哥！",
-      "url": "https://www.nowcoder.com/feed/main/detail/92667d920257412194619d04285bf5f9",
-      "hot_value": "命中 2 个关键词",
-      "summary_zh": null,
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "subsource": "rsshub",
-        "keyword_hit": [
-          "秋招",
-          "offer"
-        ],
-        "description": ""
-      },
-      "days_on_board": 3,
-      "is_new": false,
-      "rank_delta": -1,
-      "cluster_id": "078fea6748ed",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-15T10:44:13.859599+00:00",
-          "rank": 1
-        },
-        {
-          "run_at": "2026-09-15T16:44:10.551702+00:00",
-          "rank": 3
-        },
-        {
-          "run_at": "2026-09-16T01:44:23.473637+00:00",
-          "rank": 5
-        },
-        {
-          "run_at": "2026-09-16T04:44:14.016692+00:00",
-          "rank": 3
-        },
-        {
-          "run_at": "2026-09-16T07:44:11.707362+00:00",
-          "rank": 3
-        },
-        {
-          "run_at": "2026-09-16T16:44:06.207725+00:00",
-          "rank": 5
-        },
-        {
-          "run_at": "2026-09-17T04:44:01.448701+00:00",
-          "rank": 6
-        }
-      ]
-    },
-    {
-      "source": "nowcoder",
-      "rank": 7,
-      "title": "绿盟科技一晚速通三面已offer",
-      "title_zh": "绿盟科技一晚速通三面已offer",
-      "url": "https://www.nowcoder.com/feed/main/detail/39776141d05c462aa212a9adc229052d",
-      "hot_value": "命中 1 个关键词",
-      "summary_zh": null,
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "subsource": "rsshub",
-        "keyword_hit": [
-          "offer"
-        ],
-        "description": ""
-      },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": -1,
-      "cluster_id": "194cb9d06865",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-16T16:44:06.207725+00:00",
-          "rank": 6
-        },
-        {
-          "run_at": "2026-09-17T04:44:01.448701+00:00",
-          "rank": 7
-        }
-      ]
-    },
-    {
-      "source": "nowcoder",
-      "rank": 8,
-      "title": "27届学院本三段实习秋招投递两个月战况",
-      "title_zh": "27届学院本三段实习秋招投递两个月战况",
-      "url": "https://www.nowcoder.com/feed/main/detail/a7c175e604db4ac29f511f06444d5560",
+      "title": "百度秋招后端开发9.15一面，已挂",
+      "title_zh": "百度秋招后端开发9.15一面，已挂",
+      "url": "https://www.nowcoder.com/feed/main/detail/e213293154a2417097a85e9f77585885",
       "hot_value": "命中 1 个关键词",
       "summary_zh": null,
       "thumbnail": null,
@@ -287,25 +167,21 @@
         ],
         "description": ""
       },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": -1,
-      "cluster_id": "886d43a17414",
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "4452d96949e0",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-16T16:44:06.207725+00:00",
-          "rank": 7
-        },
-        {
-          "run_at": "2026-09-17T04:44:01.448701+00:00",
-          "rank": 8
+          "run_at": "2026-09-17T13:44:12.315014+00:00",
+          "rank": 5
         }
       ]
     },
     {
       "source": "nowcoder",
-      "rank": 9,
+      "rank": 6,
       "title": "一个应届生对大厂招聘者的忠告",
       "title_zh": "一个应届生对大厂招聘者的忠告",
       "url": "https://www.nowcoder.com/feed/main/detail/230b23931569461e9775faeb97aef65b",
@@ -320,7 +196,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": 3,
       "cluster_id": "781a3bc09946",
       "cluster_size": 1,
       "rank_history": [
@@ -331,12 +207,16 @@
         {
           "run_at": "2026-09-17T04:44:01.448701+00:00",
           "rank": 9
+        },
+        {
+          "run_at": "2026-09-17T13:44:12.315014+00:00",
+          "rank": 6
         }
       ]
     },
     {
       "source": "nowcoder",
-      "rank": 10,
+      "rank": 7,
       "title": "字节前端-泛抖音一面面经",
       "title_zh": "字节前端-泛抖音一面面经",
       "url": "https://www.nowcoder.com/feed/main/detail/27ecaad483364bdaa0c64bc88c4248ca",
@@ -351,7 +231,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": 3,
       "cluster_id": "e9164a71026e",
       "cluster_size": 1,
       "rank_history": [
@@ -370,12 +250,16 @@
         {
           "run_at": "2026-09-17T04:44:01.448701+00:00",
           "rank": 10
+        },
+        {
+          "run_at": "2026-09-17T13:44:12.315014+00:00",
+          "rank": 7
         }
       ]
     },
     {
       "source": "nowcoder",
-      "rank": 11,
+      "rank": 8,
       "title": "9.15 招银网络科技线下二面凉",
       "title_zh": "9.15 招银网络科技线下二面凉",
       "url": "https://www.nowcoder.com/feed/main/detail/1f5363d0a36d43d8b19b00ed11cbcc8b",
@@ -390,7 +274,7 @@
       },
       "days_on_board": 3,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": 3,
       "cluster_id": "562d0bdae448",
       "cluster_size": 1,
       "rank_history": [
@@ -421,12 +305,16 @@
         {
           "run_at": "2026-09-17T04:44:01.448701+00:00",
           "rank": 11
+        },
+        {
+          "run_at": "2026-09-17T13:44:12.315014+00:00",
+          "rank": 8
         }
       ]
     },
     {
       "source": "nowcoder",
-      "rank": 12,
+      "rank": 9,
       "title": "站在26年回望我的23年（三）",
       "title_zh": "站在26年回望我的23年（三）",
       "url": "https://www.nowcoder.com/feed/main/detail/b8fd4064c9e64722a8989bfa2164ccfc",
@@ -460,12 +348,179 @@
         {
           "run_at": "2026-09-17T04:44:01.448701+00:00",
           "rank": 12
+        },
+        {
+          "run_at": "2026-09-17T13:44:12.315014+00:00",
+          "rank": 9
+        }
+      ]
+    },
+    {
+      "source": "nowcoder",
+      "rank": 10,
+      "title": "26届字节阿里ssp对27届说",
+      "title_zh": "26届字节阿里ssp对27届说",
+      "url": "https://www.nowcoder.com/feed/main/detail/3fc0f728c1bb4a968d3942c9d1563c6f",
+      "hot_value": null,
+      "summary_zh": null,
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "subsource": "rsshub",
+        "keyword_hit": [],
+        "description": ""
+      },
+      "days_on_board": 1,
+      "is_new": false,
+      "rank_delta": 6,
+      "cluster_id": "3fbff4f71670",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-17T04:44:01.448701+00:00",
+          "rank": 16
+        },
+        {
+          "run_at": "2026-09-17T13:44:12.315014+00:00",
+          "rank": 10
+        }
+      ]
+    },
+    {
+      "source": "nowcoder",
+      "rank": 11,
+      "title": "蔚来-软件开发二面面经",
+      "title_zh": "蔚来-软件开发二面面经",
+      "url": "https://www.nowcoder.com/feed/main/detail/9f92610c99b34894b35be91086df05a2",
+      "hot_value": null,
+      "summary_zh": null,
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "subsource": "rsshub",
+        "keyword_hit": [],
+        "description": ""
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "3f81bb4c7c32",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-17T13:44:12.315014+00:00",
+          "rank": 11
+        }
+      ]
+    },
+    {
+      "source": "nowcoder",
+      "rank": 12,
+      "title": "测开转AI，别一上来就乱学！",
+      "title_zh": "测开转AI，别一上来就乱学！",
+      "url": "https://www.nowcoder.com/feed/main/detail/16961c76b59345b597f8146b6a730938",
+      "hot_value": null,
+      "summary_zh": null,
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "subsource": "rsshub",
+        "keyword_hit": [],
+        "description": ""
+      },
+      "days_on_board": 2,
+      "is_new": false,
+      "rank_delta": 2,
+      "cluster_id": "236f4e476450",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-16T16:44:06.207725+00:00",
+          "rank": 12
+        },
+        {
+          "run_at": "2026-09-17T04:44:01.448701+00:00",
+          "rank": 14
+        },
+        {
+          "run_at": "2026-09-17T13:44:12.315014+00:00",
+          "rank": 12
         }
       ]
     },
     {
       "source": "nowcoder",
       "rank": 13,
+      "title": "为什么小米对技术应届生是个挺特殊的选择？",
+      "title_zh": "为什么小米对技术应届生是个挺特殊的选择？",
+      "url": "https://www.nowcoder.com/feed/main/detail/46e9d38c12474c6c8bc0d0eb3a44d3bf",
+      "hot_value": null,
+      "summary_zh": null,
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "subsource": "rsshub",
+        "keyword_hit": [],
+        "description": ""
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "8095bfe6c61f",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-17T13:44:12.315014+00:00",
+          "rank": 13
+        }
+      ]
+    },
+    {
+      "source": "nowcoder",
+      "rank": 14,
+      "title": "美团AI Agent一面",
+      "title_zh": "美团AI Agent一面",
+      "url": "https://www.nowcoder.com/feed/main/detail/50bcdc47e7754aa7be59b6318fea514b",
+      "hot_value": null,
+      "summary_zh": null,
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "subsource": "rsshub",
+        "keyword_hit": [],
+        "description": ""
+      },
+      "days_on_board": 2,
+      "is_new": false,
+      "rank_delta": 1,
+      "cluster_id": "ea0decdacbe2",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-16T04:44:14.016692+00:00",
+          "rank": 18
+        },
+        {
+          "run_at": "2026-09-16T07:44:11.707362+00:00",
+          "rank": 14
+        },
+        {
+          "run_at": "2026-09-16T16:44:06.207725+00:00",
+          "rank": 13
+        },
+        {
+          "run_at": "2026-09-17T04:44:01.448701+00:00",
+          "rank": 15
+        },
+        {
+          "run_at": "2026-09-17T13:44:12.315014+00:00",
+          "rank": 14
+        }
+      ]
+    },
+    {
+      "source": "nowcoder",
+      "rank": 15,
       "title": "站在26年回望我的23年",
       "title_zh": "站在26年回望我的23年",
       "url": "https://www.nowcoder.com/feed/main/detail/126742e727df42a0819d457719037847",
@@ -480,7 +535,7 @@
       },
       "days_on_board": 3,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": -2,
       "cluster_id": "bb1943b41404",
       "cluster_size": 1,
       "rank_history": [
@@ -511,75 +566,9 @@
         {
           "run_at": "2026-09-17T04:44:01.448701+00:00",
           "rank": 13
-        }
-      ]
-    },
-    {
-      "source": "nowcoder",
-      "rank": 14,
-      "title": "测开转AI，别一上来就乱学！",
-      "title_zh": "测开转AI，别一上来就乱学！",
-      "url": "https://www.nowcoder.com/feed/main/detail/16961c76b59345b597f8146b6a730938",
-      "hot_value": null,
-      "summary_zh": null,
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "subsource": "rsshub",
-        "keyword_hit": [],
-        "description": ""
-      },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": -2,
-      "cluster_id": "236f4e476450",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-16T16:44:06.207725+00:00",
-          "rank": 12
         },
         {
-          "run_at": "2026-09-17T04:44:01.448701+00:00",
-          "rank": 14
-        }
-      ]
-    },
-    {
-      "source": "nowcoder",
-      "rank": 15,
-      "title": "美团AI Agent一面",
-      "title_zh": "美团AI Agent一面",
-      "url": "https://www.nowcoder.com/feed/main/detail/50bcdc47e7754aa7be59b6318fea514b",
-      "hot_value": null,
-      "summary_zh": null,
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "subsource": "rsshub",
-        "keyword_hit": [],
-        "description": ""
-      },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": -2,
-      "cluster_id": "ea0decdacbe2",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-16T04:44:14.016692+00:00",
-          "rank": 18
-        },
-        {
-          "run_at": "2026-09-16T07:44:11.707362+00:00",
-          "rank": 14
-        },
-        {
-          "run_at": "2026-09-16T16:44:06.207725+00:00",
-          "rank": 13
-        },
-        {
-          "run_at": "2026-09-17T04:44:01.448701+00:00",
+          "run_at": "2026-09-17T13:44:12.315014+00:00",
           "rank": 15
         }
       ]
@@ -587,9 +576,9 @@
     {
       "source": "nowcoder",
       "rank": 16,
-      "title": "26届字节阿里ssp对27届说",
-      "title_zh": "26届字节阿里ssp对27届说",
-      "url": "https://www.nowcoder.com/feed/main/detail/3fc0f728c1bb4a968d3942c9d1563c6f",
+      "title": "中兴无线算法SSP面试攻略，看这篇就够了",
+      "title_zh": "中兴无线算法SSP面试攻略，看这篇就够了",
+      "url": "https://www.nowcoder.com/feed/main/detail/573699956ec548dd9860633b5e5ec7e2",
       "hot_value": null,
       "summary_zh": null,
       "thumbnail": null,
@@ -602,11 +591,11 @@
       "days_on_board": 1,
       "is_new": true,
       "rank_delta": "new",
-      "cluster_id": "3fbff4f71670",
+      "cluster_id": "62b30403a107",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-17T04:44:01.448701+00:00",
+          "run_at": "2026-09-17T13:44:12.315014+00:00",
           "rank": 16
         }
       ]
@@ -614,37 +603,6 @@
     {
       "source": "nowcoder",
       "rank": 17,
-      "title": "把要截止的免笔试先投了",
-      "title_zh": "把要截止的免笔试先投了",
-      "url": "https://www.nowcoder.com/feed/main/detail/b63e0c7d4e544195a229c48d6c4e931e",
-      "hot_value": null,
-      "summary_zh": null,
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "subsource": "rsshub",
-        "keyword_hit": [],
-        "description": ""
-      },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 1,
-      "cluster_id": "6d44de67951b",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-16T16:44:06.207725+00:00",
-          "rank": 18
-        },
-        {
-          "run_at": "2026-09-17T04:44:01.448701+00:00",
-          "rank": 17
-        }
-      ]
-    },
-    {
-      "source": "nowcoder",
-      "rank": 18,
       "title": "理想汽车前端一面（已OC）",
       "title_zh": "理想汽车前端一面（已OC）",
       "url": "https://www.nowcoder.com/feed/main/detail/1f25534070d7459681afb06a44ad7c21",
@@ -659,7 +617,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": 1,
       "cluster_id": "db6d1d9e0eab",
       "cluster_size": 1,
       "rank_history": [
@@ -678,15 +636,54 @@
         {
           "run_at": "2026-09-17T04:44:01.448701+00:00",
           "rank": 18
+        },
+        {
+          "run_at": "2026-09-17T13:44:12.315014+00:00",
+          "rank": 17
+        }
+      ]
+    },
+    {
+      "source": "nowcoder",
+      "rank": 18,
+      "title": "把要截止的免笔试先投了",
+      "title_zh": "把要截止的免笔试先投了",
+      "url": "https://www.nowcoder.com/feed/main/detail/b63e0c7d4e544195a229c48d6c4e931e",
+      "hot_value": null,
+      "summary_zh": null,
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "subsource": "rsshub",
+        "keyword_hit": [],
+        "description": ""
+      },
+      "days_on_board": 2,
+      "is_new": false,
+      "rank_delta": -1,
+      "cluster_id": "6d44de67951b",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-16T16:44:06.207725+00:00",
+          "rank": 18
+        },
+        {
+          "run_at": "2026-09-17T04:44:01.448701+00:00",
+          "rank": 17
+        },
+        {
+          "run_at": "2026-09-17T13:44:12.315014+00:00",
+          "rank": 18
         }
       ]
     },
     {
       "source": "nowcoder",
       "rank": 19,
-      "title": "谎言不会伤人 真相才是快刀",
-      "title_zh": "谎言不会伤人 真相才是快刀",
-      "url": "https://www.nowcoder.com/feed/main/detail/d6fdabfaeadc4de384a8fcdca840b4de",
+      "title": "回应一下最近私信我的人，顺便分享一下一些想法",
+      "title_zh": "回应一下最近私信我的人，顺便分享一下一些想法",
+      "url": "https://www.nowcoder.com/feed/main/detail/80ade871f2c3435bafddabcd07afd6ad",
       "hot_value": null,
       "summary_zh": null,
       "thumbnail": null,
@@ -699,11 +696,11 @@
       "days_on_board": 1,
       "is_new": true,
       "rank_delta": "new",
-      "cluster_id": "7f58327955d5",
+      "cluster_id": "0a3bcd40f909",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-17T04:44:01.448701+00:00",
+          "run_at": "2026-09-17T13:44:12.315014+00:00",
           "rank": 19
         }
       ]
@@ -711,9 +708,9 @@
     {
       "source": "nowcoder",
       "rank": 20,
-      "title": "杭州小厂前端凉经",
-      "title_zh": "杭州小厂前端凉经",
-      "url": "https://www.nowcoder.com/feed/main/detail/8af1e08dada549358fb03b1455295b8f",
+      "title": "招银网络C++选手二面面经",
+      "title_zh": "招银网络C++选手二面面经",
+      "url": "https://www.nowcoder.com/feed/main/detail/1414846b147948798f7147e2078034da",
       "hot_value": null,
       "summary_zh": null,
       "thumbnail": null,
@@ -723,38 +720,14 @@
         "keyword_hit": [],
         "description": ""
       },
-      "days_on_board": 3,
-      "is_new": false,
-      "rank_delta": -4,
-      "cluster_id": "eb37bc7b18a7",
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "a71bb68957d7",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-15T10:44:13.859599+00:00",
-          "rank": 6
-        },
-        {
-          "run_at": "2026-09-15T16:44:10.551702+00:00",
-          "rank": 8
-        },
-        {
-          "run_at": "2026-09-16T01:44:23.473637+00:00",
-          "rank": 11
-        },
-        {
-          "run_at": "2026-09-16T04:44:14.016692+00:00",
-          "rank": 15
-        },
-        {
-          "run_at": "2026-09-16T07:44:11.707362+00:00",
-          "rank": 16
-        },
-        {
-          "run_at": "2026-09-16T16:44:06.207725+00:00",
-          "rank": 16
-        },
-        {
-          "run_at": "2026-09-17T04:44:01.448701+00:00",
+          "run_at": "2026-09-17T13:44:12.315014+00:00",
           "rank": 20
         }
       ]
