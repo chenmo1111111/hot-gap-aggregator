@@ -1,4 +1,4 @@
-"""Track first-observed Gongkao/Qiuzhao volume and broadcast daily intake."""
+"""Report public-table daily volume while retaining the intake audit ledger."""
 
 from __future__ import annotations
 
@@ -314,6 +314,126 @@ def previous_day_window(run_at: datetime) -> tuple[datetime, datetime]:
     return end - timedelta(days=1), end
 
 
+def _ordered_counts(counts: Mapping[str, int], order: tuple[str, ...]) -> dict[str, int]:
+    """Keep even zero-volume configured sources visible in the daily breakdown."""
+    return {
+        source: counts.get(source, 0)
+        for source in sorted(
+            set(order) | set(counts),
+            key=lambda value: (order.index(value) if value in order else len(order), value),
+        )
+    }
+
+
+def _public_table_volume(
+    gongkao: list[Mapping[str, Any]], qiuzhao: list[Mapping[str, Any]], *,
+    report_date: date, today: date,
+) -> dict[str, Any]:
+    """Mirror public sync's routing, retention, mapping and business-key dedup.
+
+    This describes the local *sync candidate* snapshot, not an API read-back of
+    Feishu.  The public table can lag this snapshot when its sync has not run.
+    """
+    from app.pipeline.prune import filter_current_public_gongkao, load_retention
+    from app.sync_feishu import _coalesce, date_to_millis, merge_qiuzhao_rows, partition_gongkao_rows
+    from app.sync_feishu_public import (
+        gongkao_key, map_public_gongkao, map_public_qiuzhao, qiuzhao_key,
+    )
+
+    def on_day(value: object) -> bool:
+        return _date(value) == report_date
+
+    raw_gongkao_day = sum(
+        on_day(date_to_millis(_extra(row).get("first_seen"))) for row in gongkao
+    )
+    raw_qiuzhao_day = sum(
+        on_day(date_to_millis(_coalesce(row, "updated_at|date|日期"))) for row in qiuzhao
+    )
+    gongkao_kept, routed, excluded = partition_gongkao_rows(gongkao)
+    gongkao_current, _ = filter_current_public_gongkao(
+        gongkao_kept, load_retention(), today=today,
+    )
+    qiuzhao_merged = merge_qiuzhao_rows(qiuzhao, routed)
+    routed_sources = {
+        _gongkao_id(row): _gongkao_source(row) for row in gongkao if _gongkao_id(row)
+    }
+
+    gongkao_by_key: dict[str, tuple[Mapping[str, Any], str]] = {}
+    gongkao_invalid = 0
+    for row in gongkao_current:
+        try:
+            fields = map_public_gongkao(row)
+        except (TypeError, ValueError):
+            if on_day(date_to_millis(_extra(row).get("first_seen"))):
+                gongkao_invalid += 1
+            continue
+        key = gongkao_key(fields)
+        if key:
+            # diff_public_records uses the last mapped row for a shared URL.
+            gongkao_by_key[key] = (fields, _gongkao_source(row))
+
+    qiuzhao_by_key: dict[str, tuple[Mapping[str, Any], str]] = {}
+    qiuzhao_invalid = 0
+    for row in qiuzhao_merged:
+        try:
+            fields = map_public_qiuzhao(row)
+        except (TypeError, ValueError):
+            if on_day(date_to_millis(_coalesce(row, "updated_at|date|日期"))):
+                qiuzhao_invalid += 1
+            continue
+        key = qiuzhao_key(fields)
+        if not key:
+            continue
+        if str(row.get("upstream_source") or "") == "gongkao_routed":
+            original_id = str(_extra(row).get("original_id") or "")
+            source = f"公考源分流·{routed_sources.get(original_id, '其他来源')}"
+        else:
+            source = _qiuzhao_source(row)
+        qiuzhao_by_key[key] = (fields, source)
+
+    gongkao_counts: dict[str, int] = {}
+    for fields, source in gongkao_by_key.values():
+        if on_day(fields.get("首次收录")):
+            gongkao_counts[source] = gongkao_counts.get(source, 0) + 1
+    qiuzhao_counts: dict[str, int] = {}
+    for fields, source in qiuzhao_by_key.values():
+        if on_day(fields.get("日期")):
+            qiuzhao_counts[source] = qiuzhao_counts.get(source, 0) + 1
+
+    return {
+        "gongkao_new": sum(gongkao_counts.values()),
+        "qiuzhao_new": sum(qiuzhao_counts.values()),
+        "gongkao_source_new": _ordered_counts(gongkao_counts, GONGKAO_SOURCE_ORDER),
+        "qiuzhao_source_new": _ordered_counts(qiuzhao_counts, SOURCE_ORDER),
+        "gongkao_public_stages": {
+            "current_export": raw_gongkao_day,
+            "after_routing_filter": sum(
+                on_day(date_to_millis(_extra(row).get("first_seen"))) for row in gongkao_kept
+            ),
+            "after_retention": sum(
+                on_day(date_to_millis(_extra(row).get("first_seen"))) for row in gongkao_current
+            ),
+            "invalid_mapping": gongkao_invalid,
+            "candidate": sum(gongkao_counts.values()),
+        },
+        "qiuzhao_public_stages": {
+            "current_export": raw_qiuzhao_day,
+            "after_routing_merge": sum(
+                on_day(date_to_millis(_coalesce(row, "updated_at|date|日期")))
+                for row in qiuzhao_merged
+            ),
+            "invalid_mapping": qiuzhao_invalid,
+            "candidate": sum(qiuzhao_counts.values()),
+        },
+        # These are global stage totals, deliberately not presented as a
+        # previous-day exclusion breakdown.
+        "public_pipeline_totals": {
+            "gongkao_routed_all_dates": len(routed),
+            "gongkao_excluded_all_dates": len(excluded),
+        },
+    }
+
+
 def update_daily_volume(
     gongkao: list[Mapping[str, Any]], qiuzhao: list[Mapping[str, Any]], *,
     today: date, state_path: Path, output_path: Path, report_date: date | None = None,
@@ -390,7 +510,7 @@ def update_daily_volume(
     active_qiuzhao_sources.update(
         qiuzhao_sources.get(key, "未标注来源") for key in qiuzhao_report_keys
     )
-    qiuzhao_counts = {
+    qiuzhao_counts_from_ledger = {
         source: sum(
             qiuzhao_sources.get(key, "未标注来源") == source
             for key in qiuzhao_report_keys
@@ -405,7 +525,7 @@ def update_daily_volume(
         _normalized_gongkao_source(key, gongkao_sources.get(key))
         for key in gongkao_report_keys
     )
-    gongkao_counts = {
+    gongkao_counts_from_ledger = {
         source: sum(
             _normalized_gongkao_source(key, gongkao_sources.get(key)) == source
             for key in gongkao_report_keys
@@ -419,8 +539,15 @@ def update_daily_volume(
             ),
         )
     }
-    gongkao_new = len(gongkao_report_keys)
-    qiuzhao_new = len(qiuzhao_report_keys)
+    # Keep the historic intake ledger for audit, but never present its
+    # ever-observed IDs as rows newly visible in the public Feishu tables.
+    public = _public_table_volume(
+        gongkao, qiuzhao, report_date=report_date, today=today,
+    )
+    gongkao_counts = public["gongkao_source_new"]
+    qiuzhao_counts = public["qiuzhao_source_new"]
+    gongkao_new = public["gongkao_new"]
+    qiuzhao_new = public["qiuzhao_new"]
     output = _load_json(output_path, {"history": []})
     replaced_dates = {report_date.isoformat()}
     if report_date != today:
@@ -428,7 +555,9 @@ def update_daily_volume(
         # transition to completed-day reporting.
         replaced_dates.add(today.isoformat())
     history = [
-        entry for entry in output.get("history", [])
+        {"count_basis": "legacy_intake_ledger", **entry}
+        if "count_basis" not in entry else entry
+        for entry in output.get("history", [])
         if isinstance(entry, dict) and entry.get("date") not in replaced_dates
     ]
     window_start = datetime.combine(report_date, time.min, tzinfo=CHINA_TZ)
@@ -440,6 +569,14 @@ def update_daily_volume(
         "period": f"{report_date.isoformat()} 00:00-{window_end.date().isoformat()} 00:00",
         "window_start": window_start.isoformat(),
         "window_end": window_end.isoformat(),
+        "count_basis": "public_sync_candidates",
+        "snapshot_note": "按本地公开表同步规则计算；不是飞书 API 回读的已同步行数",
+        "gongkao_captured_new": len(gongkao_report_keys),
+        "qiuzhao_captured_new": len(qiuzhao_report_keys),
+        "gongkao_captured_source_new": _ordered_counts(gongkao_counts_from_ledger, GONGKAO_SOURCE_ORDER),
+        "qiuzhao_captured_source_new": _ordered_counts(qiuzhao_counts_from_ledger, SOURCE_ORDER),
+        "gongkao_public_stages": public["gongkao_public_stages"],
+        "qiuzhao_public_stages": public["qiuzhao_public_stages"],
         "qiuzhao_source_new": qiuzhao_counts,
         "qiuzhao_wanqing_new": qiuzhao_counts.get("婉清购买表", 0),
         "qiuzhao_xiaozhaoya_new": qiuzhao_counts.get("校招鸭home一次性回填", 0),
@@ -488,17 +625,37 @@ def build_daily_broadcast(result: Mapping[str, Any]) -> str:
             f"校招鸭事业单位表 {result['gongkao_sheet_new']} / "
             f"粉笔等补充源 {result['gongkao_other_new']}"
         )
-    return "\n".join((
-        f"【每日采集播报】昨日（{str(result['date'])[5:]}）采集汇总",
-        (
-            f"秋招：新增 {result['qiuzhao_new']}（{source_detail}）"
-            f"{qiuzhao_note}"
-        ),
-        (
-            f"公考：新增 {result['gongkao_new']}（{gongkao_source_detail}）"
-            f"{gongkao_note}"
-        ),
-    ))
+    day = date.fromisoformat(str(result["date"]))
+    lines = [
+        f"【每日采集播报】昨日（{day:%m-%d}）公开表汇总",
+        f"统计窗口：{day:%Y-%m-%d} 00:00—{day + timedelta(days=1):%Y-%m-%d} 00:00（北京时间）",
+        f"秋招：公开表候选 {result['qiuzhao_new']}{qiuzhao_note}",
+        f"秋招来源：{source_detail}",
+        f"公考：公开表候选 {result['gongkao_new']}{gongkao_note}",
+        f"公考来源：{gongkao_source_detail}",
+    ]
+    qiuzhao_stages = result.get("qiuzhao_public_stages")
+    if isinstance(qiuzhao_stages, Mapping):
+        lines.append(
+            "秋招核对：采集台账 "
+            f"{result['qiuzhao_captured_new']}；当前导出昨日日期 "
+            f"{qiuzhao_stages['current_export']}；合并公考分流 "
+            f"{qiuzhao_stages['after_routing_merge']}；映射/查重后可入表 {result['qiuzhao_new']}"
+        )
+    gongkao_stages = result.get("gongkao_public_stages")
+    if isinstance(gongkao_stages, Mapping):
+        lines.append(
+            "公考核对：采集台账 "
+            f"{result['gongkao_captured_new']}；当前导出昨日首次收录 "
+            f"{gongkao_stages['current_export']}；分类/去噪 "
+            f"{gongkao_stages['after_routing_filter']}；留存 "
+            f"{gongkao_stages['after_retention']}；映射/查重后可入表 {result['gongkao_new']}"
+        )
+    lines.append(
+        "口径：按本地公开表同步规则计算的候选快照，非飞书 API 回读；"
+        "台账和公开表的日期字段及范围不同，不能直接相减。"
+    )
+    return "\n".join(lines)
 
 
 def maybe_alert(result: Mapping[str, Any], *, state_path: Path, current_hour: int) -> bool:
@@ -581,7 +738,7 @@ def main(argv: list[str] | None = None) -> int:
         )
     result = update_daily_volume(
         gongkao_items, qiuzhao_items,
-        today=now.date(), report_date=report_date, recorded_at=now,
+        today=now.astimezone(CHINA_TZ).date(), report_date=report_date, recorded_at=now,
         state_path=Path(args.state), output_path=data_dir / "daily-volume.json",
     )
     if repair_result is not None:
@@ -590,7 +747,10 @@ def main(argv: list[str] | None = None) -> int:
         result["gongkao_repair"] = gongkao_repair_result
     result["alert_sent"] = (
         False if args.no_alert
-        else maybe_alert(result, state_path=Path(args.state), current_hour=now.hour)
+        else maybe_alert(
+            result, state_path=Path(args.state),
+            current_hour=now.astimezone(CHINA_TZ).hour,
+        )
     )
     print(json.dumps({"event": "daily_volume", **result}, ensure_ascii=False))
     return 0

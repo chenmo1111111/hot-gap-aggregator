@@ -36,8 +36,9 @@ def test_next_morning_wanqing_gongkao_route_uses_source_day(tmp_path) -> None:
         state_path=state, output_path=output,
     )
 
-    assert result["gongkao_new"] == 1
-    assert result["gongkao_source_new"]["婉清购买表分流"] == 1
+    assert result["gongkao_captured_new"] == 1
+    assert result["gongkao_captured_source_new"]["婉清购买表分流"] == 1
+    assert result["gongkao_new"] == 0  # no title: not a public-table row
     saved = json.loads(state.read_text(encoding="utf-8"))
     assert saved["gongkao_first_seen"]["purchased:wanqing_feishu:research"] == "2026-09-13"
 
@@ -97,16 +98,18 @@ def test_daily_volume_tracks_first_seen_and_retains_thirty_days(tmp_path) -> Non
         gongkao, qiuzhao, today=date(2026, 9, 11), state_path=state, output_path=output,
     )
 
-    assert first["gongkao_new"] == 1 and first["qiuzhao_new"] == 2
+    assert first["gongkao_captured_new"] == 1 and first["qiuzhao_captured_new"] == 2
     assert first["qiuzhao_wanqing_new"] == 1
     assert first["qiuzhao_xiaozhaoya_new"] == 1
     assert first["qiuzhao_other_new"] == 0
-    assert first["qiuzhao_source_new"] == {
-        "婉清购买表": 1, "校招鸭home一次性回填": 1,
-    }
-    assert first["gongkao_other_new"] == 1
-    assert second["gongkao_new"] == 0 and second["qiuzhao_new"] == 0
-    assert len(json.loads(output.read_text(encoding="utf-8"))["history"]) == 30
+    assert first["qiuzhao_source_new"]["婉清购买表"] == 1
+    assert first["qiuzhao_source_new"]["校招鸭home一次性回填"] == 1
+    assert first["gongkao_captured_source_new"]["其他来源"] == 1
+    assert second["gongkao_captured_new"] == 0 and second["qiuzhao_captured_new"] == 0
+    history = json.loads(output.read_text(encoding="utf-8"))["history"]
+    assert len(history) == 30
+    assert history[0]["count_basis"] == "legacy_intake_ledger"
+    assert history[-1]["count_basis"] == "public_sync_candidates"
 
 
 def test_daily_volume_accumulates_new_ids_across_refreshes_on_same_day(tmp_path) -> None:
@@ -127,14 +130,71 @@ def test_daily_volume_accumulates_new_ids_across_refreshes_on_same_day(tmp_path)
         [], today=date(2026, 9, 12), state_path=state, output_path=output,
     )
 
-    assert first["gongkao_new"] == 1
-    assert second["gongkao_new"] == 2
-    assert second["gongkao_government_new"] == 1
-    assert second["gongkao_sheet_new"] == 1
-    assert second["gongkao_source_new"] == {
-        "校招鸭事业单位购买表": 1,
-        "政府网站": 1,
-    }
+    assert first["gongkao_captured_new"] == 1
+    assert second["gongkao_captured_new"] == 2
+    assert second["gongkao_captured_source_new"]["政府网站"] == 1
+    assert second["gongkao_captured_source_new"]["校招鸭事业单位购买表"] == 1
+    assert second["gongkao_new"] == 0  # the historic ID is no longer in this snapshot
+
+
+def test_broadcast_uses_public_candidates_not_ever_seen_ledger(tmp_path) -> None:
+    state = tmp_path / "state.json"
+    state.write_text(json.dumps({
+        "gongkao_first_seen": {"old-gov": "2026-09-16"},
+        "gongkao_first_seen_source": {"old-gov": "政府网站"},
+        "qiuzhao_first_seen": {"old-job": "2026-09-16"},
+        "qiuzhao_first_seen_source": {"old-job": "国聘"},
+        "alerts_sent": [],
+    }), encoding="utf-8")
+    gongkao = [
+        {
+            "title_zh": "2026年山东省事业单位公开招聘工作人员公告",
+            "url": "https://hrss.shandong.gov.cn/art/2026/9/16/art_123_123.html",
+            "published_at": "2026-09-16",
+            "extra": {"id": "gov-1", "first_seen": "2026-09-16", "source_site": "gov", "province": "山东"},
+        },
+        {
+            "title_zh": "2026年某地事业单位面试成绩公示",
+            "url": "https://hrss.shandong.gov.cn/art/2026/9/16/art_123_124.html",
+            "published_at": "2026-09-16",
+            "extra": {"id": "noise-1", "first_seen": "2026-09-16", "source_site": "gov", "province": "山东"},
+        },
+        {
+            "title_zh": "2027届中国移动校园招聘公告",
+            "url": "https://www.10086.cn/campus/1", "published_at": "2026-09-16",
+            "extra": {"id": "route-1", "first_seen": "2026-09-16", "source_site": "fenbi", "record_kind": "秋招"},
+        },
+    ]
+    qiuzhao = [
+        {"company_name": "公司甲", "position": "岗位甲", "source_record_id": "job-1",
+         "updated_at": "2026-09-16", "upstream_source": "wanqing_feishu"},
+        {"company_name": "公司甲", "position": "岗位甲", "source_record_id": "job-duplicate",
+         "updated_at": "2026-09-16", "source_label": "国聘"},
+    ]
+
+    result = update_daily_volume(
+        gongkao, qiuzhao, today=date(2026, 9, 17), report_date=date(2026, 9, 16),
+        state_path=state, output_path=tmp_path / "daily-volume.json",
+    )
+
+    assert result["gongkao_captured_new"] == 4
+    assert result["qiuzhao_captured_new"] == 3
+    assert result["gongkao_new"] == 1
+    assert result["qiuzhao_new"] == 2
+    assert result["gongkao_source_new"]["政府网站"] == 1
+    assert result["qiuzhao_source_new"]["婉清购买表"] == 1
+    assert result["qiuzhao_source_new"]["公考源分流·粉笔"] == 1
+    assert sum(result["gongkao_source_new"].values()) == result["gongkao_new"]
+    assert sum(result["qiuzhao_source_new"].values()) == result["qiuzhao_new"]
+    assert result["gongkao_public_stages"]["current_export"] == 3
+    assert result["gongkao_public_stages"]["after_routing_filter"] == 1
+    assert result["qiuzhao_public_stages"]["current_export"] == 2
+    assert result["qiuzhao_public_stages"]["after_routing_merge"] == 2
+    message = build_daily_broadcast(result)
+    assert "秋招：公开表候选 2" in message
+    assert "公考：公开表候选 1" in message
+    assert "采集台账 3；当前导出昨日日期 2" in message
+    assert "采集台账 4；当前导出昨日首次收录 3" in message
 
 
 def test_wanqing_full_snapshot_uses_source_dates_instead_of_import_day(tmp_path) -> None:
@@ -173,8 +233,9 @@ def test_wanqing_full_snapshot_uses_source_dates_instead_of_import_day(tmp_path)
         state_path=state, output_path=output,
     )
 
-    assert result["qiuzhao_new"] == 1
-    assert result["qiuzhao_wanqing_new"] == 1
+    assert result["qiuzhao_captured_new"] == 1
+    assert result["qiuzhao_captured_source_new"]["婉清购买表"] == 1
+    assert result["qiuzhao_new"] == 0  # rows lack company/position
     saved = json.loads(state.read_text(encoding="utf-8"))["qiuzhao_first_seen"]
     assert saved["old-by-row-first-seen"] == "2026-08-20"
     assert saved["old-by-extra-first-seen"] == "2026-08-25"
@@ -202,8 +263,9 @@ def test_next_morning_wanqing_capture_counts_rows_on_their_source_update_day(tmp
         state_path=state, output_path=output,
     )
 
-    assert result["qiuzhao_new"] == 1
-    assert result["qiuzhao_wanqing_new"] == 1
+    assert result["qiuzhao_captured_new"] == 1
+    assert result["qiuzhao_captured_source_new"]["婉清购买表"] == 1
+    assert result["qiuzhao_new"] == 0
     saved = json.loads(state.read_text(encoding="utf-8"))
     assert saved["qiuzhao_first_seen"]["captured-next-morning"] == "2026-09-12"
 
@@ -261,9 +323,9 @@ def test_repair_wanqing_bulk_import_preserves_unrelated_history(tmp_path) -> Non
         "corrected_from_rows": 1, "corrected_from_overrides": 1,
         "already_source_dated": 1, "unresolved_count": 0, "unresolved_ids": [],
     }
-    assert result["qiuzhao_new"] == 2
-    assert result["qiuzhao_wanqing_new"] == 1
-    assert result["qiuzhao_source_new"] == {"婉清购买表": 1, "国聘": 1}
+    assert result["qiuzhao_captured_new"] == 2
+    assert result["qiuzhao_captured_source_new"]["婉清购买表"] == 1
+    assert result["qiuzhao_captured_source_new"]["国聘"] == 1
     saved = json.loads(state.read_text(encoding="utf-8"))
     assert saved["qiuzhao_first_seen"] == {
         "old-row": "2026-08-20",
@@ -301,8 +363,10 @@ def test_daily_volume_discards_only_unattributed_legacy_orphans(tmp_path) -> Non
         [], current, today=date(2026, 9, 12), state_path=state, output_path=output,
     )
 
-    assert result["qiuzhao_new"] == 2
-    assert result["qiuzhao_source_new"] == {"婉清购买表": 1, "国聘": 1}
+    assert result["qiuzhao_captured_new"] == 2
+    assert result["qiuzhao_captured_source_new"]["婉清购买表"] == 1
+    assert result["qiuzhao_captured_source_new"]["国聘"] == 1
+    assert result["qiuzhao_new"] == 0  # no dated public-table row
     saved = json.loads(state.read_text(encoding="utf-8"))
     assert "ghost-missing" not in saved["qiuzhao_first_seen"]
     assert "ghost-other" not in saved["qiuzhao_first_seen"]
@@ -336,11 +400,13 @@ def test_daily_broadcast_is_always_sent_once_and_includes_source_counts(monkeypa
     assert maybe_alert(result, state_path=state, current_hour=9) is False
     assert "previous-day:2026-09-11" in json.loads(state.read_text(encoding="utf-8"))["alerts_sent"]
     message = sent[0]["json"]["content"]["text"]
-    assert message == (
-        "【每日采集播报】昨日（09-11）采集汇总\n"
-        "秋招：新增 30（婉清购买表 12 / 校招鸭home一次性回填 10 / 未拆分来源 8）\n"
-        "公考：新增 8（政府源 5 / 校招鸭事业单位表 2 / 粉笔等补充源 1）"
+    assert message.startswith(
+        "【每日采集播报】昨日（09-11）公开表汇总\n"
+        "统计窗口：2026-09-11 00:00—2026-09-12 00:00（北京时间）"
     )
+    assert "秋招：公开表候选 30" in message
+    assert "公考：公开表候选 8" in message
+    assert "非飞书 API 回读" in message
 
     low = {**result, "date": "2026-09-12", "qiuzhao_new": 19, "gongkao_new": 2}
     low_message = build_daily_broadcast(low)
@@ -406,10 +472,10 @@ def test_two_daily_reports_cover_adjacent_complete_days(tmp_path) -> None:
     assert first_end == second_start
     assert first_end - first_start == timedelta(hours=24)
     assert second_end - second_start == timedelta(hours=24)
-    assert first_report["gongkao_new"] == 1
-    assert second_report["gongkao_new"] == 1
+    assert first_report["gongkao_captured_new"] == 1
+    assert second_report["gongkao_captured_new"] == 1
     assert build_daily_broadcast(first_report).startswith(
-        "【每日采集播报】昨日（09-12）采集汇总"
+        "【每日采集播报】昨日（09-12）公开表汇总"
     )
     history = json.loads(output.read_text(encoding="utf-8"))["history"]
     assert [entry["date"] for entry in history][-2:] == ["2026-09-12", "2026-09-13"]

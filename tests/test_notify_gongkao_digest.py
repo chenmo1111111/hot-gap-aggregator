@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from datetime import date
 
-from app.notify_gongkao_digest import build_card, select_top10
+from app.notify_gongkao_digest import build_card, previous_public_volume, select_top10
 
 
 def _row(identifier: str, title: str, days: int, *, province="广东", exam_type="事业单位"):
@@ -61,3 +61,16 @@ def test_card_contains_daily_volume_when_supplied() -> None:
     )
     assert "公考 **6** 条" in content
     assert "秋招 **35** 条" in content
+    assert "昨日（09-06）公开表候选" in content
+    assert "今日新增" not in content
+
+
+def test_digest_uses_only_previous_complete_public_report() -> None:
+    payload = {"history": [
+        {"date": "2026-09-16", "gongkao_new": 298},  # old intake basis
+        {"date": "2026-09-16", "gongkao_new": 164,
+         "count_basis": "public_sync_candidates"},
+        {"date": "2026-09-17", "gongkao_new": 999,
+         "count_basis": "public_sync_candidates"},
+    ]}
+    assert previous_public_volume(payload, date(2026, 9, 17))["gongkao_new"] == 164

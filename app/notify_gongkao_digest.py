@@ -12,7 +12,7 @@ import os
 import re
 import sqlite3
 from collections.abc import Iterable, Mapping
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 from pathlib import Path
 from typing import Any
 
@@ -96,9 +96,27 @@ def _lark_text(value: object) -> str:
     return re.sub(r"[\[\]<>]", "", str(value or "")).replace("\n", " ").strip()
 
 
+def previous_public_volume(payload: Mapping[str, Any], today: date) -> Mapping[str, Any]:
+    """Only use the completed previous-day report with the public-table basis."""
+    history = payload.get("history")
+    if not isinstance(history, list):
+        return {}
+    wanted = (today - timedelta(days=1)).isoformat()
+    return next(
+        (
+            row for row in reversed(history)
+            if isinstance(row, Mapping)
+            and row.get("date") == wanted
+            and row.get("count_basis") == "public_sync_candidates"
+        ),
+        {},
+    )
+
+
 def build_card(
     items: list[Mapping[str, Any]], *, current_count: int, today: date,
     table_url: str, gongkao_new: int | None = None, qiuzhao_new: int | None = None,
+    volume_date: date | None = None,
 ) -> dict[str, Any]:
     title = f"【今日必做 · 公考】{today.isoformat()}　共 {current_count} 个报名中"
     lines = []
@@ -112,9 +130,11 @@ def build_card(
     content = "\n\n".join(lines) if lines else "今天没有新的待处理报名事项。"
     elements: list[dict[str, Any]] = []
     if gongkao_new is not None or qiuzhao_new is not None:
+        reported_day = volume_date or today - timedelta(days=1)
         elements.append({
             "tag": "div", "text": {"tag": "lark_md", "content": (
-                f"今日新增：公考 **{gongkao_new or 0}** 条 · 秋招 **{qiuzhao_new or 0}** 条"
+                f"昨日（{reported_day:%m-%d}）公开表候选："
+                f"公考 **{gongkao_new or 0}** 条 · 秋招 **{qiuzhao_new or 0}** 条"
             )},
         })
     elements.extend([
@@ -219,12 +239,13 @@ def main(argv: list[str] | None = None) -> int:
         volume = {}
         try:
             volume_payload = json.loads((Path(args.data_dir) / "daily-volume.json").read_text(encoding="utf-8"))
-            volume = next((row for row in reversed(volume_payload.get("history", [])) if row.get("date") == current.isoformat()), {})
+            volume = previous_public_volume(volume_payload, current)
         except (OSError, ValueError, TypeError, json.JSONDecodeError):
             pass
         payload = build_card(
             selected, current_count=current_count, today=current, table_url=table_url,
             gongkao_new=volume.get("gongkao_new"), qiuzhao_new=volume.get("qiuzhao_new"),
+            volume_date=current - timedelta(days=1),
         )
         secret = os.getenv("FEISHU_DIGEST_SIGN_SECRET", "").strip()
         if secret:
