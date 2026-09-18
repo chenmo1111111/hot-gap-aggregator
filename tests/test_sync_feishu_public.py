@@ -60,7 +60,7 @@ def test_map_public_gongkao_uses_only_display_fields() -> None:
         "公告标题", "首次收录", "类别", "招聘人数", "最低学历",
         "报名开始", "报名截止", "报名状态", "省份", "城市", "单位名称",
         "岗位性质", "限户籍", "限专业", "应届", "应届要求", "服务期",
-        "招录院校范围", "备注", "链接", "同步ID", "来源",
+        "招录院校范围", "备注", "链接", "同步ID",
         "备用链接", "疑似重复", "可能重复于",
     }
     assert fields["类别"] == "事业单位"
@@ -70,7 +70,7 @@ def test_map_public_gongkao_uses_only_display_fields() -> None:
     assert fields["疑似重复"] is False
     assert fields["首次收录"] == int(datetime(2026, 9, 8, tzinfo=CHINA_TZ).timestamp() * 1000)
     assert "日期" not in fields
-    assert fields["来源"] == "自动"
+    assert "来源" not in fields
     assert fields["省份"] == "山东"
     assert fields["应届要求"] == "未明确"
     assert fields["同步ID"] == "url:2888a51e1ec64bad2cafe9ce"
@@ -108,14 +108,14 @@ def test_public_gongkao_normalizes_placeholder_province_to_nationwide() -> None:
     assert fields["省份"] == "全国"
 
 
-def test_public_gongkao_exposes_precise_purchase_source() -> None:
+def test_public_gongkao_does_not_expose_purchase_source() -> None:
     fields = map_public_gongkao({
         "title": "事业单位招聘公告",
         "url": "https://example.com/notice",
         "extra": {"id": "sheet:1", "upstream_source": "feishu_sheet"},
     })
 
-    assert fields["来源"] == "自动·购买表-校招鸭事业单位"
+    assert "来源" not in fields
 
 
 def test_public_gongkao_prefers_original_source_over_internal_fenbi_api() -> None:
@@ -312,6 +312,43 @@ def test_ensure_public_schema_deletes_only_declared_deprecated_fields() -> None:
     assert client.deleted_fields == ["fld-bishi", "fld-school", "fld-date"]
 
 
+def test_public_schema_refuses_source_deletion_with_manual_or_unidentified_rows() -> None:
+    current = [
+        {"field_id": f"fld-{index}", "field_name": definition["field_name"],
+         "type": definition["type"], "is_primary": index == 0}
+        for index, definition in enumerate(GONGKAO_SCHEMA)
+    ] + [{"field_id": "fld-source", "field_name": "来源", "type": 3}]
+    for old_fields in (
+        {"公告标题": "人工记录", "来源": "手动", "同步ID": "manual:1"},
+        {"公告标题": "无ID记录", "来源": "自动"},
+    ):
+        client = _SchemaClient(records=[{"record_id": "rec-keep", "fields": old_fields}])
+        client.list_fields = lambda _app, _table: current
+        with pytest.raises(FeishuAPIError, match="拒绝删除来源列"):
+            ensure_public_schema(
+                client, "app", "table", GONGKAO_SCHEMA,
+                deprecated_fields=GONGKAO_DEPRECATED_FIELDS,
+            )
+        assert client.deleted_fields == []
+
+
+def test_public_schema_removes_source_only_after_all_rows_have_managed_ids() -> None:
+    client = _SchemaClient(records=[{
+        "record_id": "rec-auto",
+        "fields": {"公告标题": "自动记录", "来源": "自动·政府网站", "同步ID": "gov:1"},
+    }])
+    client.list_fields = lambda _app, _table: [
+        {"field_id": f"fld-{index}", "field_name": definition["field_name"],
+         "type": definition["type"], "is_primary": index == 0}
+        for index, definition in enumerate(GONGKAO_SCHEMA)
+    ] + [{"field_id": "fld-source", "field_name": "来源", "type": 3}]
+    assert ensure_public_schema(
+        client, "app", "table", GONGKAO_SCHEMA,
+        deprecated_fields=GONGKAO_DEPRECATED_FIELDS,
+    ) is True
+    assert client.deleted_fields == ["fld-source"]
+
+
 def test_diff_preserves_expired_missing_gongkao_row() -> None:
     existing = [{
         "record_id": "rec-expired",
@@ -348,6 +385,39 @@ def test_public_diff_never_updates_or_deletes_manual_rows() -> None:
     assert diff_public_records(
         source, manual, gongkao_key, source_field="来源",
         force_delete_keys={"url:https://same.test"},
+    ) == ([], [], [])
+
+
+def test_public_diff_uses_sync_id_to_protect_manual_rows_without_source_column() -> None:
+    existing = [
+        {"record_id": "rec-manual", "fields": {
+            "公告标题": "人工标题", "链接": {"link": "https://same.test"},
+        }},
+        {"record_id": "rec-auto-duplicate", "fields": {
+            "公告标题": "旧自动标题", "链接": {"link": "https://same.test"},
+            "同步ID": "gov:1",
+        }},
+        {"record_id": "rec-auto-stale", "fields": {
+            "公告标题": "过期自动标题", "链接": {"link": "https://old.test"},
+            "同步ID": "gov:2",
+        }},
+    ]
+    source = [{
+        "公告标题": "新自动标题", "链接": {"link": "https://same.test"},
+        "同步ID": "gov:1",
+    }]
+    creates, updates, deletes = diff_public_records(
+        source, existing, gongkao_key, managed_id_field="同步ID",
+    )
+    assert creates == []
+    assert updates == []
+    assert set(deletes) == {"rec-auto-duplicate", "rec-auto-stale"}
+
+
+def test_public_diff_keeps_new_manual_row_without_link_or_sync_id() -> None:
+    manual = [{"record_id": "rec-manual", "fields": {"公告标题": "用户自行记录"}}]
+    assert diff_public_records(
+        [], manual, gongkao_key, managed_id_field="同步ID",
     ) == ([], [], [])
 
 

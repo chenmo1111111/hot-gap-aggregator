@@ -1,8 +1,8 @@
 """Synchronize simplified public Feishu Bitable tables.
 
 Stable business keys are derived from announcement URLs for Gongkao and from
-company plus position for Qiuzhao. A hidden ``来源`` field protects rows marked
-``手动`` while allowing automatic retention cleanup.
+company plus position for Qiuzhao. Public Gongkao keeps its provenance private:
+the hidden ``同步ID`` distinguishes managed rows from manually added rows.
 """
 
 from __future__ import annotations
@@ -38,7 +38,6 @@ from app.sync_feishu import (
     actionable_apply_url,
     merge_qiuzhao_rows,
     ensure_gongkao_review_view,
-    gongkao_source_label,
     normalize,
     normalize_company_type,
     normalize_exam_type,
@@ -101,14 +100,10 @@ GONGKAO_SCHEMA: tuple[dict[str, Any], ...] = (
     {"field_name": "疑似重复", "type": CHECKBOX},
     {"field_name": "可能重复于", "type": TEXT},
     {"field_name": "同步ID", "type": TEXT},
-    {
-        "field_name": "来源", "type": SINGLE_SELECT,
-        "property": {"options": [{"name": "自动"}, {"name": "手动"}]},
-    },
 )
 GONGKAO_DEPRECATED_FIELDS = (
     "笔试科目", "本校可报", "日期", "截止日期", "距截止天数", "细分类别",
-    "学历要求", "限应届",
+    "学历要求", "限应届", "来源",
 )
 
 QIUZHAO_SCHEMA: tuple[dict[str, Any], ...] = (
@@ -202,6 +197,19 @@ def ensure_public_schema(
             present = by_name.get(name)
             if present and int(present.get("type") or 0) != int(definition["type"]):
                 raise FeishuAPIError(f"公开表字段 {name} 类型不符合预期，拒绝自动修改")
+        if "来源" in deprecated_present:
+            # Never remove the old manual-row marker until every existing row
+            # can be classified safely by 同步ID instead.  A blank ID is a
+            # manually added row after the migration.
+            unsafe = [
+                record for record in records
+                if _cell_text((record.get("fields") or {}).get("来源")).strip() == "手动"
+                or not _cell_text((record.get("fields") or {}).get("同步ID")).strip()
+            ]
+            if unsafe:
+                raise FeishuAPIError(
+                    f"公开表有 {len(unsafe)} 条手动或无同步ID记录，拒绝删除来源列"
+                )
         missing = [definition for definition in schema if definition["field_name"] not in by_name]
         for definition in missing:
             client.create_field(app_token, table_id, definition)
@@ -263,7 +271,6 @@ def map_public_gongkao(row: Mapping[str, Any]) -> dict[str, Any]:
     identifier = str(extra.get("id") or row.get("id") or "").strip()
     if not identifier:
         identifier = "url:" + hashlib.sha256(str(url).encode("utf-8")).hexdigest()[:24]
-    source_label = gongkao_source_label(row)
     fields = {
         "公告标题": str(title).strip(),
         "首次收录": date_to_millis(extra.get("first_seen")),
@@ -307,7 +314,6 @@ def map_public_gongkao(row: Mapping[str, Any]) -> dict[str, Any]:
         "疑似重复": bool(extra.get("dup_suspect")),
         "可能重复于": str(extra.get("possible_duplicate_of") or "").strip() or "/",
         "同步ID": identifier,
-        "来源": "自动" + (f"·{source_label}" if source_label else ""),
     }
     return fields
 
@@ -378,6 +384,7 @@ def diff_public_records(
     force_delete_keys: set[str] | None = None,
     source_field: str | None = None,
     known_auto_keys: set[str] | None = None,
+    managed_id_field: str | None = None,
 ) -> tuple[list[dict[str, Any]], list[dict[str, Any]], list[str]]:
     source_by_key: dict[str, dict[str, Any]] = {}
     for fields in source_fields:
@@ -391,7 +398,10 @@ def diff_public_records(
         fields = record.get("fields") if isinstance(record.get("fields"), Mapping) else {}
         key = key_fn(fields)
         record_id = str(record.get("record_id") or "")
-        manual = bool(source_field and _cell_text(fields.get(source_field)).strip() == "手动")
+        manual = bool(
+            (source_field and _cell_text(fields.get(source_field)).strip() == "手动")
+            or (managed_id_field and not _cell_text(fields.get(managed_id_field)).strip())
+        )
         if not key:
             if record_id and not manual:
                 deletes.append(record_id)
@@ -402,8 +412,10 @@ def diff_public_records(
     for key, records in existing_groups.items():
         manual_rows = [
             record for record in records
-            if source_field
-            and _cell_text((record.get("fields") or {}).get(source_field)).strip() == "手动"
+            if (
+                (source_field and _cell_text((record.get("fields") or {}).get(source_field)).strip() == "手动")
+                or (managed_id_field and not _cell_text((record.get("fields") or {}).get(managed_id_field)).strip())
+            )
         ]
         keep = manual_rows[0] if manual_rows else records[0]
         existing_by_key[key] = keep
@@ -412,7 +424,8 @@ def diff_public_records(
                 continue
             duplicate_fields = duplicate.get("fields") or {}
             duplicate_manual = bool(
-                source_field and _cell_text(duplicate_fields.get(source_field)).strip() == "手动"
+                (source_field and _cell_text(duplicate_fields.get(source_field)).strip() == "手动")
+                or (managed_id_field and not _cell_text(duplicate_fields.get(managed_id_field)).strip())
             )
             if not duplicate_manual and duplicate.get("record_id"):
                 deletes.append(str(duplicate["record_id"]))
@@ -425,7 +438,10 @@ def diff_public_records(
             creates.append(fields)
             continue
         old_fields = old.get("fields") or {}
-        if source_field and _cell_text(old_fields.get(source_field)).strip() == "手动":
+        if (
+            (source_field and _cell_text(old_fields.get(source_field)).strip() == "手动")
+            or (managed_id_field and not _cell_text(old_fields.get(managed_id_field)).strip())
+        ):
             continue
         if any(
             _public_comparable(old_fields.get(name)) != _public_comparable(value)
@@ -438,10 +454,16 @@ def diff_public_records(
             continue
         fields = record.get("fields") or {}
         source_value = _cell_text(fields.get(source_field)).strip() if source_field else ""
-        if source_value == "手动":
+        if source_value == "手动" or (
+            managed_id_field and not _cell_text(fields.get(managed_id_field)).strip()
+        ):
             continue
         forced = key in (force_delete_keys or set())
-        if source_field:
+        if managed_id_field:
+            # Every row with a managed ID is owned by this sync.  Rows added
+            # manually in the public Base leave 同步ID empty and are preserved.
+            should_delete = True
+        elif source_field:
             # Source labels deliberately include provenance, for example
             # ``自动·网站-粉笔`` and ``自动·政府网站``.  Treat every automatic
             # provenance variant as managed; requiring an exact ``自动`` value
@@ -464,12 +486,16 @@ def slash_public_updates(
     existing_records: Iterable[dict[str, Any]],
     key_fn: Callable[[Mapping[str, Any]], str],
     source_field: str | None = None,
+    managed_id_field: str | None = None,
 ) -> list[dict[str, Any]]:
     source_by_key = {key_fn(fields): fields for fields in source_fields if key_fn(fields)}
     updates: list[dict[str, Any]] = []
     for record in existing_records:
         old = record.get("fields") or {}
-        if source_field and _cell_text(old.get(source_field)).strip() == "手动":
+        if (
+            (source_field and _cell_text(old.get(source_field)).strip() == "手动")
+            or (managed_id_field and not _cell_text(old.get(managed_id_field)).strip())
+        ):
             continue
         desired = source_by_key.get(key_fn(old))
         if desired and any(
@@ -491,6 +517,7 @@ def sync_public_table(
     force_delete_keys: set[str] | None = None,
     source_field: str | None = None,
     known_auto_keys: set[str] | None = None,
+    managed_id_field: str | None = None,
 ) -> dict[str, int]:
     mapped: list[dict[str, Any]] = []
     skipped = 0
@@ -504,11 +531,13 @@ def sync_public_table(
     creates, updates, deletes = diff_public_records(
         mapped, existing, key_fn, preserve_missing=preserve_missing,
         force_delete_keys=force_delete_keys, source_field=source_field,
-        known_auto_keys=known_auto_keys,
+        known_auto_keys=known_auto_keys, managed_id_field=managed_id_field,
     )
     update_ids = {str(record["record_id"]) for record in updates}
     updates.extend(
-        record for record in slash_public_updates(mapped, existing, key_fn, source_field)
+        record for record in slash_public_updates(
+            mapped, existing, key_fn, source_field, managed_id_field,
+        )
         if str(record["record_id"]) not in update_ids
     )
     operations = [
@@ -673,6 +702,7 @@ def run(argv: list[str] | None = None) -> int:
                 rows = _load_items(data_dir / filename)
                 force_delete_keys: set[str] | None = None
                 source_field: str | None = None
+                managed_id_field: str | None = None
                 known_auto_keys: set[str] | None = None
                 if name == "gongkao_public":
                     rows, routed_rows, excluded_rows = partition_gongkao_rows(rows)
@@ -688,7 +718,7 @@ def run(argv: list[str] | None = None) -> int:
                     rows, expired_count = filter_current_public_gongkao(
                         rows, load_retention(), today=datetime.now(CHINA_TZ).date(),
                     )
-                    source_field = "来源"
+                    managed_id_field = "同步ID"
                     force_delete_keys = _gongkao_force_delete_keys((*routed_rows, *excluded_rows))
                     force_delete_keys.update(_replaced_gongkao_link_keys(rows))
                     LOGGER.info(
@@ -714,6 +744,7 @@ def run(argv: list[str] | None = None) -> int:
                     force_delete_keys=force_delete_keys,
                     source_field=source_field,
                     known_auto_keys=known_auto_keys,
+                    managed_id_field=managed_id_field,
                 )
                 result["schema_initialized"] = int(initialized)
                 LOGGER.info("%s sync complete: %s", name, result)
