@@ -16,7 +16,7 @@ files=(
 
 if [[ "${HOT_GAP_PUBLIC_ID_LOCKED:-}" != 1 ]]; then
   exec /usr/bin/env HOT_GAP_PUBLIC_ID_LOCKED=1 \
-    /usr/bin/flock -E 200 -w 300 /run/lock/hot-gap-feishu-sync.lock "$0"
+    /usr/bin/flock -E 200 -w 300 /run/lock/hot-gap-feishu-sync.lock /bin/bash "$0"
 fi
 if [[ ! -d "$project" || ! -f "$archive" ]]; then
   echo "Missing project or deployment archive" >&2
