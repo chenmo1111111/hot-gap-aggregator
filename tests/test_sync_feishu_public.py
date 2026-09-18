@@ -59,7 +59,7 @@ def test_map_public_gongkao_uses_only_display_fields() -> None:
     assert set(fields) == {
         "公告标题", "首次收录", "类别", "招聘人数", "最低学历",
         "报名开始", "报名截止", "报名状态", "省份", "城市", "单位名称",
-        "岗位性质", "限户籍", "限专业", "应届", "服务期",
+        "岗位性质", "限户籍", "限专业", "应届", "应届要求", "服务期",
         "招录院校范围", "备注", "链接", "同步ID", "来源",
         "备用链接", "疑似重复", "可能重复于",
     }
@@ -72,6 +72,7 @@ def test_map_public_gongkao_uses_only_display_fields() -> None:
     assert "日期" not in fields
     assert fields["来源"] == "自动"
     assert fields["省份"] == "山东"
+    assert fields["应届要求"] == "未明确"
     assert fields["同步ID"] == "url:2888a51e1ec64bad2cafe9ce"
 
 

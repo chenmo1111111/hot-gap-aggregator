@@ -47,6 +47,7 @@ from app.sync_feishu import (
 from app.pipeline.gongkao_classify import detail_category
 from app.pipeline.gongkao_enrich import calculate_signup_status
 from app.pipeline.gongkao_links import browser_safe_announcement_url
+from app.pipeline.yingjie_requirement import OPTIONS, classify_yingjie_requirement
 from app.pipeline.prune import filter_current_public_gongkao, load_retention
 
 
@@ -88,6 +89,10 @@ GONGKAO_SCHEMA: tuple[dict[str, Any], ...] = (
     {"field_name": "限户籍", "type": TEXT},
     {"field_name": "限专业", "type": TEXT},
     {"field_name": "应届", "type": CHECKBOX},
+    {
+        "field_name": "应届要求", "type": SINGLE_SELECT,
+        "property": {"options": [{"name": name} for name in OPTIONS]},
+    },
     {"field_name": "服务期", "type": TEXT},
     {"field_name": "招录院校范围", "type": TEXT},
     {"field_name": "备注", "type": TEXT},
@@ -281,6 +286,7 @@ def map_public_gongkao(row: Mapping[str, Any]) -> dict[str, Any]:
             (extra.get("zhuanye_shuoming") or "是") if limited_major else ("不限" if extracted else "/")
         ),
         "应届": _bool_value(extra.get("xian_yingjie")),
+        "应届要求": classify_yingjie_requirement(row),
         "服务期": extra.get("fuwu_qi") or "/",
         "招录院校范围": (
             str(extra.get("xuandiao_school_scope") or "名单见公告")

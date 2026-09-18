@@ -24,6 +24,7 @@ from dotenv import load_dotenv
 from selectolax.parser import HTMLParser
 
 from app.pipeline.gongkao_classify import detail_category, record_kind, record_kind_needs_llm
+from app.pipeline.yingjie_requirement import normalize_yingjie_requirement
 from app.sync_feishu import CHINA_TZ, _date_value, actionable_apply_url, normalize_exam_type
 
 
@@ -42,6 +43,7 @@ xian_huji(是否限户籍：true/false)，huji_shuoming(限户籍的说明，如
 xian_zhuanye(是否限专业：true/false)，zhuanye_shuoming(专业要求简述)，
 xueli(学历要求，如'本科及以上'/'硕士'/'不限')，
 xian_yingjie(是否限应届：true/false)，
+yingjie_requirement(应届要求，只能填'仅应届'/'应往届均可'/'需核对岗位表'/'未明确'。只有公告明确所有岗位仅面向应届才填'仅应届'；明确允许往届报名才填'应往届均可'；不同岗位要求不同、需看岗位表才填'需核对岗位表'；未写清楚填'未明确'，不能从没写限制推断为不限)，
 fuwu_qi(有无最低服务年限，如'5年'/'无')，
 zhaopin_renshu(招聘人数，如'53人'/'若干'/'200名'，公告没写填'/')，
 baoming_kaishi(报名开始日期，格式YYYY-MM-DD，没写填'')，
@@ -58,7 +60,7 @@ XUANDIAO_SCOPE_PROMPT = """
 选调生公告还需输出字段：xuandiao_school_scope(招录院校范围，用一句可独立展示的话概括，例如'面向全国重点建设高校（含985/211/双一流）'、'面向本省高校'、'指定XX所高校（名单见公告）'、'双一流建设高校'、'不限'；无法判断填'名单见公告')"""
 EXTRACTION_KEYS = (
     "xian_huji", "huji_shuoming", "xian_zhuanye", "zhuanye_shuoming",
-    "xueli", "xian_yingjie", "fuwu_qi", "zhaopin_renshu", "record_kind",
+    "xueli", "xian_yingjie", "yingjie_requirement", "fuwu_qi", "zhaopin_renshu", "record_kind",
     "bei_zhu", "xuandiao_school_scope", "baoming_kaishi", "baoming_jiezhi",
     "bishi_shijian", "gongzuo_didian", "province", "city", "unit_name",
     "position_nature",
@@ -381,6 +383,8 @@ def parse_extraction_json(value: str | Mapping[str, Any]) -> dict[str, Any]:
             result[key] = item is True or str(item).strip().casefold() in {"true", "1", "是", "有"}
         elif key == "record_kind":
             result[key] = str(item).strip() if str(item).strip() in {"公考", "秋招"} else ""
+        elif key == "yingjie_requirement":
+            result[key] = normalize_yingjie_requirement(item)
         elif key == "zhaopin_renshu":
             result[key] = str(item or "/").strip() or "/"
         else:
