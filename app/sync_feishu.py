@@ -341,8 +341,8 @@ class FeishuClient:
             f"/bitable/v1/apps/{app_token}/tables/{table_id}/fields/{field_id}",
         )
 
-    def batch_create(self, app_token: str, table_id: str, fields: list[dict[str, Any]]) -> None:
-        self._request(
+    def batch_create(self, app_token: str, table_id: str, fields: list[dict[str, Any]]) -> dict[str, Any]:
+        return self._request(
             "POST",
             f"/bitable/v1/apps/{app_token}/tables/{table_id}/records/batch_create",
             json={"records": [{"fields": _without_none(row)} for row in fields]},

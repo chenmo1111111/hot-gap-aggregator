@@ -18,6 +18,7 @@ from app.sync_feishu_public import (
     map_public_qiuzhao,
     qiuzhao_key,
     slash_public_updates,
+    sync_public_table,
     sync_instructions_if_enabled,
 )
 
@@ -60,7 +61,7 @@ def test_map_public_gongkao_uses_only_display_fields() -> None:
         "公告标题", "首次收录", "类别", "招聘人数", "最低学历",
         "报名开始", "报名截止", "报名状态", "省份", "城市", "单位名称",
         "岗位性质", "限户籍", "限专业", "应届", "应届要求", "服务期",
-        "招录院校范围", "备注", "链接", "同步ID",
+        "招录院校范围", "备注", "链接",
         "备用链接", "疑似重复", "可能重复于",
     }
     assert fields["类别"] == "事业单位"
@@ -73,7 +74,7 @@ def test_map_public_gongkao_uses_only_display_fields() -> None:
     assert "来源" not in fields
     assert fields["省份"] == "山东"
     assert fields["应届要求"] == "未明确"
-    assert fields["同步ID"] == "url:2888a51e1ec64bad2cafe9ce"
+    assert "同步ID" not in fields
 
 
 def test_public_text_fields_use_slash_without_touching_typed_empty_fields() -> None:
@@ -349,6 +350,35 @@ def test_public_schema_removes_source_only_after_all_rows_have_managed_ids() -> 
     assert client.deleted_fields == ["fld-source"]
 
 
+def test_public_schema_requires_private_registry_before_deleting_sync_id() -> None:
+    client = _SchemaClient(records=[{
+        "record_id": "rec-auto", "fields": {"公告标题": "自动记录", "同步ID": "gov:1"},
+    }])
+    client.list_fields = lambda _app, _table: [
+        {"field_id": f"fld-{index}", "field_name": definition["field_name"],
+         "type": definition["type"], "is_primary": index == 0}
+        for index, definition in enumerate(GONGKAO_SCHEMA)
+    ] + [{"field_id": "fld-sync", "field_name": "同步ID", "type": 1}]
+    with pytest.raises(FeishuAPIError, match="缺少私有同步台账"):
+        ensure_public_schema(
+            client, "app", "table", GONGKAO_SCHEMA,
+            deprecated_fields=GONGKAO_DEPRECATED_FIELDS,
+        )
+    with pytest.raises(FeishuAPIError, match="台账不一致"):
+        ensure_public_schema(
+            client, "app", "table", GONGKAO_SCHEMA,
+            deprecated_fields=GONGKAO_DEPRECATED_FIELDS,
+            managed_record_ids=set(),
+        )
+    assert client.deleted_fields == []
+    assert ensure_public_schema(
+        client, "app", "table", GONGKAO_SCHEMA,
+        deprecated_fields=GONGKAO_DEPRECATED_FIELDS,
+        managed_record_ids={"rec-auto"},
+    ) is True
+    assert client.deleted_fields == ["fld-sync"]
+
+
 def test_diff_preserves_expired_missing_gongkao_row() -> None:
     existing = [{
         "record_id": "rec-expired",
@@ -419,6 +449,83 @@ def test_public_diff_keeps_new_manual_row_without_link_or_sync_id() -> None:
     assert diff_public_records(
         [], manual, gongkao_key, managed_id_field="同步ID",
     ) == ([], [], [])
+
+
+def test_private_registry_keeps_manual_rows_and_deletes_only_managed_rows() -> None:
+    existing = [
+        {"record_id": "rec-manual", "fields": {
+            "公告标题": "人工标题", "链接": {"link": "https://same.test"},
+        }},
+        {"record_id": "rec-auto-duplicate", "fields": {
+            "公告标题": "旧自动标题", "链接": {"link": "https://same.test"},
+        }},
+        {"record_id": "rec-auto-stale", "fields": {
+            "公告标题": "过期自动标题", "链接": {"link": "https://old.test"},
+        }},
+    ]
+    source = [{"公告标题": "新自动标题", "链接": {"link": "https://same.test"}}]
+    creates, updates, deletes = diff_public_records(
+        source, existing, gongkao_key,
+        managed_record_ids={"rec-auto-duplicate", "rec-auto-stale"},
+    )
+    assert creates == []
+    assert updates == []
+    assert set(deletes) == {"rec-auto-duplicate", "rec-auto-stale"}
+
+
+def test_public_sync_persists_new_managed_record_ids() -> None:
+    client = Mock()
+    client.list_records.return_value = []
+    client.batch_create.return_value = {
+        "data": {"records": [{"record_id": "rec-created"}]},
+    }
+    ids: set[str] = set()
+    saved: list[set[str]] = []
+    result = sync_public_table(
+        client, "app", "table",
+        [{"公告标题": "新公告", "链接": {"link": "https://new.test"}}],
+        dict, gongkao_key,
+        managed_record_ids=ids,
+        save_managed_record_ids=lambda: saved.append(set(ids)),
+    )
+    assert result["created"] == 1
+    assert ids == {"rec-created"}
+    assert saved == [{"rec-created"}]
+
+
+def test_public_sync_rejects_create_response_without_record_id() -> None:
+    client = Mock()
+    client.list_records.return_value = []
+    client.batch_create.return_value = {"data": {"records": [{}]}}
+    ids: set[str] = set()
+    with pytest.raises(FeishuAPIError, match="未返回完整 record_id"):
+        sync_public_table(
+            client, "app", "table",
+            [{"公告标题": "新公告", "链接": {"link": "https://new.test"}}],
+            dict, gongkao_key,
+            managed_record_ids=ids,
+            save_managed_record_ids=lambda: None,
+        )
+    assert ids == set()
+    client.batch_delete.assert_not_called()
+
+
+def test_public_sync_removes_deleted_ids_from_private_registry() -> None:
+    client = Mock()
+    client.list_records.return_value = [{
+        "record_id": "rec-old",
+        "fields": {"公告标题": "旧公告", "链接": {"link": "https://old.test"}},
+    }]
+    ids = {"rec-old"}
+    saved: list[set[str]] = []
+    result = sync_public_table(
+        client, "app", "table", [], dict, gongkao_key,
+        managed_record_ids=ids,
+        save_managed_record_ids=lambda: saved.append(set(ids)),
+    )
+    assert result["deleted"] == 1
+    assert ids == set()
+    assert saved == [set()]
 
 
 def test_public_diff_deletes_known_legacy_auto_but_preserves_unknown_blank_row() -> None:

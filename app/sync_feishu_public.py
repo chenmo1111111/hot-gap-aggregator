@@ -1,14 +1,13 @@
 """Synchronize simplified public Feishu Bitable tables.
 
 Stable business keys are derived from announcement URLs for Gongkao and from
-company plus position for Qiuzhao. Public Gongkao keeps its provenance private:
-the hidden ``同步ID`` distinguishes managed rows from manually added rows.
+company plus position for Qiuzhao. Public Gongkao keeps both provenance and
+technical IDs off the Base; a root-only local registry tracks managed rows.
 """
 
 from __future__ import annotations
 
 import argparse
-import hashlib
 import logging
 import os
 import re
@@ -48,6 +47,7 @@ from app.pipeline.gongkao_enrich import calculate_signup_status
 from app.pipeline.gongkao_links import browser_safe_announcement_url
 from app.pipeline.yingjie_requirement import OPTIONS, classify_yingjie_requirement
 from app.pipeline.prune import filter_current_public_gongkao, load_retention
+from app.pipeline.public_sync_registry import PublicSyncRegistry
 
 
 LOGGER = logging.getLogger(__name__)
@@ -99,11 +99,10 @@ GONGKAO_SCHEMA: tuple[dict[str, Any], ...] = (
     {"field_name": "备用链接", "type": URL},
     {"field_name": "疑似重复", "type": CHECKBOX},
     {"field_name": "可能重复于", "type": TEXT},
-    {"field_name": "同步ID", "type": TEXT},
 )
 GONGKAO_DEPRECATED_FIELDS = (
     "笔试科目", "本校可报", "日期", "截止日期", "距截止天数", "细分类别",
-    "学历要求", "限应届", "来源",
+    "学历要求", "限应届", "来源", "同步ID",
 )
 
 QIUZHAO_SCHEMA: tuple[dict[str, Any], ...] = (
@@ -169,6 +168,7 @@ def ensure_public_schema(
     schema: tuple[dict[str, Any], ...],
     *,
     deprecated_fields: tuple[str, ...] = (),
+    managed_record_ids: set[str] | None = None,
 ) -> bool:
     """Ensure a display-only schema, adding fields without touching live data."""
     current = client.list_fields(app_token, table_id)
@@ -198,9 +198,8 @@ def ensure_public_schema(
             if present and int(present.get("type") or 0) != int(definition["type"]):
                 raise FeishuAPIError(f"公开表字段 {name} 类型不符合预期，拒绝自动修改")
         if "来源" in deprecated_present:
-            # Never remove the old manual-row marker until every existing row
-            # can be classified safely by 同步ID instead.  A blank ID is a
-            # manually added row after the migration.
+            # Legacy migration only: retain the manual-row guard until the
+            # private registry is ready to replace both public markers.
             unsafe = [
                 record for record in records
                 if _cell_text((record.get("fields") or {}).get("来源")).strip() == "手动"
@@ -209,6 +208,20 @@ def ensure_public_schema(
             if unsafe:
                 raise FeishuAPIError(
                     f"公开表有 {len(unsafe)} 条手动或无同步ID记录，拒绝删除来源列"
+                )
+        if "同步ID" in deprecated_present:
+            if managed_record_ids is None:
+                raise FeishuAPIError("缺少私有同步台账，拒绝删除公开表同步ID列")
+            unidentified = [
+                record for record in records
+                if (
+                    bool(_cell_text((record.get("fields") or {}).get("同步ID")).strip())
+                    != (str(record.get("record_id") or "") in managed_record_ids)
+                )
+            ]
+            if unidentified:
+                raise FeishuAPIError(
+                    f"公开表有 {len(unidentified)} 条记录与私有同步台账不一致，拒绝删除同步ID列"
                 )
         missing = [definition for definition in schema if definition["field_name"] not in by_name]
         for definition in missing:
@@ -268,9 +281,6 @@ def map_public_gongkao(row: Mapping[str, Any]) -> dict[str, Any]:
     province = re.sub(
         r"(?:壮族|回族|维吾尔)?自治区$|特别行政区$|省$|市$", "", raw_province,
     ) or "全国"
-    identifier = str(extra.get("id") or row.get("id") or "").strip()
-    if not identifier:
-        identifier = "url:" + hashlib.sha256(str(url).encode("utf-8")).hexdigest()[:24]
     fields = {
         "公告标题": str(title).strip(),
         "首次收录": date_to_millis(extra.get("first_seen")),
@@ -313,7 +323,6 @@ def map_public_gongkao(row: Mapping[str, Any]) -> dict[str, Any]:
         ),
         "疑似重复": bool(extra.get("dup_suspect")),
         "可能重复于": str(extra.get("possible_duplicate_of") or "").strip() or "/",
-        "同步ID": identifier,
     }
     return fields
 
@@ -376,6 +385,20 @@ def _public_comparable(value: object) -> object:
     return ("url", url) if url else _comparable(value)
 
 
+def _is_manual_public_record(
+    record: Mapping[str, Any], *, source_field: str | None = None,
+    managed_id_field: str | None = None,
+    managed_record_ids: set[str] | None = None,
+) -> bool:
+    if managed_record_ids is not None:
+        return str(record.get("record_id") or "") not in managed_record_ids
+    fields = record.get("fields") if isinstance(record.get("fields"), Mapping) else {}
+    return bool(
+        (source_field and _cell_text(fields.get(source_field)).strip() == "手动")
+        or (managed_id_field and not _cell_text(fields.get(managed_id_field)).strip())
+    )
+
+
 def diff_public_records(
     source_fields: Iterable[dict[str, Any]],
     existing_records: Iterable[dict[str, Any]],
@@ -385,6 +408,7 @@ def diff_public_records(
     source_field: str | None = None,
     known_auto_keys: set[str] | None = None,
     managed_id_field: str | None = None,
+    managed_record_ids: set[str] | None = None,
 ) -> tuple[list[dict[str, Any]], list[dict[str, Any]], list[str]]:
     source_by_key: dict[str, dict[str, Any]] = {}
     for fields in source_fields:
@@ -398,9 +422,9 @@ def diff_public_records(
         fields = record.get("fields") if isinstance(record.get("fields"), Mapping) else {}
         key = key_fn(fields)
         record_id = str(record.get("record_id") or "")
-        manual = bool(
-            (source_field and _cell_text(fields.get(source_field)).strip() == "手动")
-            or (managed_id_field and not _cell_text(fields.get(managed_id_field)).strip())
+        manual = _is_manual_public_record(
+            record, source_field=source_field, managed_id_field=managed_id_field,
+            managed_record_ids=managed_record_ids,
         )
         if not key:
             if record_id and not manual:
@@ -412,9 +436,9 @@ def diff_public_records(
     for key, records in existing_groups.items():
         manual_rows = [
             record for record in records
-            if (
-                (source_field and _cell_text((record.get("fields") or {}).get(source_field)).strip() == "手动")
-                or (managed_id_field and not _cell_text((record.get("fields") or {}).get(managed_id_field)).strip())
+            if _is_manual_public_record(
+                record, source_field=source_field, managed_id_field=managed_id_field,
+                managed_record_ids=managed_record_ids,
             )
         ]
         keep = manual_rows[0] if manual_rows else records[0]
@@ -422,10 +446,9 @@ def diff_public_records(
         for duplicate in records:
             if duplicate is keep:
                 continue
-            duplicate_fields = duplicate.get("fields") or {}
-            duplicate_manual = bool(
-                (source_field and _cell_text(duplicate_fields.get(source_field)).strip() == "手动")
-                or (managed_id_field and not _cell_text(duplicate_fields.get(managed_id_field)).strip())
+            duplicate_manual = _is_manual_public_record(
+                duplicate, source_field=source_field, managed_id_field=managed_id_field,
+                managed_record_ids=managed_record_ids,
             )
             if not duplicate_manual and duplicate.get("record_id"):
                 deletes.append(str(duplicate["record_id"]))
@@ -438,9 +461,9 @@ def diff_public_records(
             creates.append(fields)
             continue
         old_fields = old.get("fields") or {}
-        if (
-            (source_field and _cell_text(old_fields.get(source_field)).strip() == "手动")
-            or (managed_id_field and not _cell_text(old_fields.get(managed_id_field)).strip())
+        if _is_manual_public_record(
+            old, source_field=source_field, managed_id_field=managed_id_field,
+            managed_record_ids=managed_record_ids,
         ):
             continue
         if any(
@@ -454,14 +477,15 @@ def diff_public_records(
             continue
         fields = record.get("fields") or {}
         source_value = _cell_text(fields.get(source_field)).strip() if source_field else ""
-        if source_value == "手动" or (
-            managed_id_field and not _cell_text(fields.get(managed_id_field)).strip()
+        if _is_manual_public_record(
+            record, source_field=source_field, managed_id_field=managed_id_field,
+            managed_record_ids=managed_record_ids,
         ):
             continue
         forced = key in (force_delete_keys or set())
-        if managed_id_field:
-            # Every row with a managed ID is owned by this sync.  Rows added
-            # manually in the public Base leave 同步ID empty and are preserved.
+        if managed_record_ids is not None or managed_id_field:
+            # The private registry (or legacy hidden ID field) identifies
+            # managed rows.  Unknown record IDs belong to manual additions.
             should_delete = True
         elif source_field:
             # Source labels deliberately include provenance, for example
@@ -487,14 +511,15 @@ def slash_public_updates(
     key_fn: Callable[[Mapping[str, Any]], str],
     source_field: str | None = None,
     managed_id_field: str | None = None,
+    managed_record_ids: set[str] | None = None,
 ) -> list[dict[str, Any]]:
     source_by_key = {key_fn(fields): fields for fields in source_fields if key_fn(fields)}
     updates: list[dict[str, Any]] = []
     for record in existing_records:
         old = record.get("fields") or {}
-        if (
-            (source_field and _cell_text(old.get(source_field)).strip() == "手动")
-            or (managed_id_field and not _cell_text(old.get(managed_id_field)).strip())
+        if _is_manual_public_record(
+            record, source_field=source_field, managed_id_field=managed_id_field,
+            managed_record_ids=managed_record_ids,
         ):
             continue
         desired = source_by_key.get(key_fn(old))
@@ -518,7 +543,11 @@ def sync_public_table(
     source_field: str | None = None,
     known_auto_keys: set[str] | None = None,
     managed_id_field: str | None = None,
+    managed_record_ids: set[str] | None = None,
+    save_managed_record_ids: Callable[[], None] | None = None,
 ) -> dict[str, int]:
+    if managed_record_ids is not None and save_managed_record_ids is None:
+        raise ValueError("私有同步台账缺少持久化回调")
     mapped: list[dict[str, Any]] = []
     skipped = 0
     for index, row in enumerate(rows, 1):
@@ -532,21 +561,38 @@ def sync_public_table(
         mapped, existing, key_fn, preserve_missing=preserve_missing,
         force_delete_keys=force_delete_keys, source_field=source_field,
         known_auto_keys=known_auto_keys, managed_id_field=managed_id_field,
+        managed_record_ids=managed_record_ids,
     )
     update_ids = {str(record["record_id"]) for record in updates}
     updates.extend(
         record for record in slash_public_updates(
             mapped, existing, key_fn, source_field, managed_id_field,
+            managed_record_ids,
         )
         if str(record["record_id"]) not in update_ids
     )
     operations = [
-        *((client.batch_create, batch) for batch in _batches(creates)),
-        *((client.batch_update, batch) for batch in _batches(updates)),
-        *((client.batch_delete, batch) for batch in _batches(deletes)),
+        *(("create", batch) for batch in _batches(creates)),
+        *(("update", batch) for batch in _batches(updates)),
+        *(("delete", batch) for batch in _batches(deletes)),
     ]
     for index, (operation, batch) in enumerate(operations):
-        operation(app_token, table_id, batch)
+        if operation == "create":
+            response = client.batch_create(app_token, table_id, batch)
+            if managed_record_ids is not None:
+                created = (response.get("data") or {}).get("records") if isinstance(response, Mapping) else None
+                record_ids = [str(row.get("record_id") or "") for row in created] if isinstance(created, list) else []
+                if len(record_ids) != len(batch) or any(not value for value in record_ids):
+                    raise FeishuAPIError("公开表已创建记录但未返回完整 record_id；停止同步以保护手动行")
+                managed_record_ids.update(record_ids)
+                save_managed_record_ids()
+        elif operation == "update":
+            client.batch_update(app_token, table_id, batch)
+        else:
+            client.batch_delete(app_token, table_id, batch)
+            if managed_record_ids is not None:
+                managed_record_ids.difference_update(batch)
+                save_managed_record_ids()
         if index < len(operations) - 1:
             time.sleep(BATCH_SLEEP_SECONDS)
     return {
@@ -691,9 +737,20 @@ def run(argv: list[str] | None = None) -> int:
     with FeishuClient(app_id, app_secret) as client:
         for name, table_id, schema, filename, mapper, key_fn, preserve_missing, deprecated_fields in jobs:
             try:
+                registry: PublicSyncRegistry | None = None
+                if name == "gongkao_public":
+                    registry = PublicSyncRegistry(
+                        os.getenv(
+                            "PUBLIC_GONGKAO_MANAGED_IDS_PATH",
+                            "/var/lib/hot-gap/gongkao-public-managed-records.json",
+                        ),
+                        app_token, table_id,
+                    )
+                    registry.load()
                 initialized = ensure_public_schema(
                     client, app_token, table_id, schema,
                     deprecated_fields=deprecated_fields,
+                    managed_record_ids=registry.record_ids if registry else None,
                 )
                 if name == "gongkao_public":
                     created_view = ensure_gongkao_review_view(client, app_token, table_id)
@@ -702,7 +759,6 @@ def run(argv: list[str] | None = None) -> int:
                 rows = _load_items(data_dir / filename)
                 force_delete_keys: set[str] | None = None
                 source_field: str | None = None
-                managed_id_field: str | None = None
                 known_auto_keys: set[str] | None = None
                 if name == "gongkao_public":
                     rows, routed_rows, excluded_rows = partition_gongkao_rows(rows)
@@ -718,7 +774,6 @@ def run(argv: list[str] | None = None) -> int:
                     rows, expired_count = filter_current_public_gongkao(
                         rows, load_retention(), today=datetime.now(CHINA_TZ).date(),
                     )
-                    managed_id_field = "同步ID"
                     force_delete_keys = _gongkao_force_delete_keys((*routed_rows, *excluded_rows))
                     force_delete_keys.update(_replaced_gongkao_link_keys(rows))
                     LOGGER.info(
@@ -744,7 +799,8 @@ def run(argv: list[str] | None = None) -> int:
                     force_delete_keys=force_delete_keys,
                     source_field=source_field,
                     known_auto_keys=known_auto_keys,
-                    managed_id_field=managed_id_field,
+                    managed_record_ids=registry.record_ids if registry else None,
+                    save_managed_record_ids=registry.save if registry else None,
                 )
                 result["schema_initialized"] = int(initialized)
                 LOGGER.info("%s sync complete: %s", name, result)
