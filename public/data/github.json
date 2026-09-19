@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-09-18T10:44:12.451526+00:00",
+  "generated_at": "2026-09-19T01:44:22.316797+00:00",
   "source": "github",
   "status": {
     "source": "github",
     "status": "ok",
     "item_count": 17,
-    "duration_ms": 1934,
+    "duration_ms": 1619,
     "error": null,
-    "run_at": "2026-09-18T10:44:12.451526+00:00"
+    "run_at": "2026-09-19T01:44:22.316797+00:00"
   },
   "items": [
     {
@@ -16,7 +16,7 @@
       "title": "cloudflare/security-audit-skill",
       "title_zh": "cloudflare/security-audit-skill",
       "url": "https://github.com/cloudflare/security-audit-skill",
-      "hot_value": "3,607 stars today",
+      "hot_value": "3,006 stars today",
       "summary_zh": "Cloudflare安全审计技能，多阶段审计并输出可验证机器可读结果。",
       "thumbnail": null,
       "published_at": null,
@@ -24,9 +24,9 @@
         "description": "A coding-agent skill for multi-phase security audits with independently verified, machine-readable findings",
         "language": "JavaScript"
       },
-      "days_on_board": 3,
+      "days_on_board": 4,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": 0,
       "cluster_id": "18b811ab0d7d",
       "cluster_size": 1,
       "rank_history": [
@@ -49,6 +49,10 @@
         {
           "run_at": "2026-09-18T10:44:12.451526+00:00",
           "rank": 1
+        },
+        {
+          "run_at": "2026-09-19T01:44:22.316797+00:00",
+          "rank": 1
         }
       ]
     },
@@ -58,7 +62,7 @@
       "title": "anthropics/claude-code",
       "title_zh": "anthropics/claude-code",
       "url": "https://github.com/anthropics/claude-code",
-      "hot_value": "538 stars today",
+      "hot_value": "444 stars today",
       "summary_zh": "Claude Code终端AI编程助手，理解代码库并执行开发任务。",
       "thumbnail": null,
       "published_at": null,
@@ -66,9 +70,9 @@
         "description": "Claude Code is an agentic coding tool that lives in your terminal, understands your codebase, and helps you code faster by executing routine tasks, explaining complex code, and handling git workflows - all through natural language commands.",
         "language": "TypeScript"
       },
-      "days_on_board": 3,
+      "days_on_board": 4,
       "is_new": false,
-      "rank_delta": 4,
+      "rank_delta": 0,
       "cluster_id": "0dfb1ea08365",
       "cluster_size": 1,
       "rank_history": [
@@ -91,6 +95,10 @@
         {
           "run_at": "2026-09-18T10:44:12.451526+00:00",
           "rank": 2
+        },
+        {
+          "run_at": "2026-09-19T01:44:22.316797+00:00",
+          "rank": 2
         }
       ]
     },
@@ -100,7 +108,7 @@
       "title": "alibaba/open-code-review",
       "title_zh": "alibaba/open-code-review",
       "url": "https://github.com/alibaba/open-code-review",
-      "hot_value": "3,286 stars today",
+      "hot_value": "2,704 stars today",
       "summary_zh": "阿里开源代码审查工具，混合架构精准行级评论，内置多语言安全规则。",
       "thumbnail": null,
       "published_at": null,
@@ -108,9 +116,9 @@
         "description": "Secure, fast, efficient, battle-tested at Alibaba's scale. Hybrid architecture code review tool: deterministic pipelines + LLM Agent, precise line-level comments, built-in multi-language ruleset (NPE, thread-safety, XSS, SQL injection), OpenAI & Anthropic compatible.",
         "language": "Go"
       },
-      "days_on_board": 6,
+      "days_on_board": 7,
       "is_new": false,
-      "rank_delta": -2,
+      "rank_delta": 0,
       "cluster_id": "ee41dc481c41",
       "cluster_size": 1,
       "rank_history": [
@@ -185,6 +193,10 @@
         {
           "run_at": "2026-09-18T10:44:12.451526+00:00",
           "rank": 3
+        },
+        {
+          "run_at": "2026-09-19T01:44:22.316797+00:00",
+          "rank": 3
         }
       ]
     },
@@ -194,7 +206,7 @@
       "title": "affaan-m/ECC",
       "title_zh": "affaan-m/ECC",
       "url": "https://github.com/affaan-m/ECC",
-      "hot_value": "1,171 stars today",
+      "hot_value": "958 stars today",
       "summary_zh": "智能体性能优化系统，强化记忆安全。",
       "thumbnail": null,
       "published_at": null,
@@ -202,9 +214,9 @@
         "description": "The agent harness performance optimization system. Skills, instincts, memory, security, and research-first development for Claude Code, Codex, Opencode, Cursor and beyond.",
         "language": "JavaScript"
       },
-      "days_on_board": 3,
+      "days_on_board": 4,
       "is_new": false,
-      "rank_delta": 9,
+      "rank_delta": 0,
       "cluster_id": "9317f65b1d4f",
       "cluster_size": 1,
       "rank_history": [
@@ -227,6 +239,10 @@
         {
           "run_at": "2026-09-18T10:44:12.451526+00:00",
           "rank": 4
+        },
+        {
+          "run_at": "2026-09-19T01:44:22.316797+00:00",
+          "rank": 4
         }
       ]
     },
@@ -236,7 +252,7 @@
       "title": "Tencent/BrowserSkill",
       "title_zh": "Tencent/BrowserSkill",
       "url": "https://github.com/Tencent/BrowserSkill",
-      "hot_value": "1,302 stars today",
+      "hot_value": "1,306 stars today",
       "summary_zh": "腾讯浏览器技能让AI代理用你已登录的真实浏览器，不打断工作，支持命令行和扩展。",
       "thumbnail": null,
       "published_at": null,
@@ -244,9 +260,9 @@
         "description": "Let AI agents use your real, logged-in browser without interrupting your work. CLI + extension for browser automation across any shell-capable AI agent.",
         "language": "TypeScript"
       },
-      "days_on_board": 2,
+      "days_on_board": 3,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": 0,
       "cluster_id": "023245179eab",
       "cluster_size": 1,
       "rank_history": [
@@ -261,6 +277,10 @@
         {
           "run_at": "2026-09-18T10:44:12.451526+00:00",
           "rank": 5
+        },
+        {
+          "run_at": "2026-09-19T01:44:22.316797+00:00",
+          "rank": 5
         }
       ]
     },
@@ -270,7 +290,7 @@
       "title": "addyosmani/agent-skills",
       "title_zh": "addyosmani/agent-skills",
       "url": "https://github.com/addyosmani/agent-skills",
-      "hot_value": "680 stars today",
+      "hot_value": "675 stars today",
       "summary_zh": "addyosmani/agent-skills：AI编码代理实战技能，工程级质量",
       "thumbnail": null,
       "published_at": null,
@@ -278,9 +298,9 @@
         "description": "Production-grade engineering skills for AI coding agents.",
         "language": "JavaScript"
       },
-      "days_on_board": 4,
+      "days_on_board": 5,
       "is_new": false,
-      "rank_delta": -3,
+      "rank_delta": 0,
       "cluster_id": "329fbfc6a667",
       "cluster_size": 1,
       "rank_history": [
@@ -323,6 +343,10 @@
         {
           "run_at": "2026-09-18T10:44:12.451526+00:00",
           "rank": 6
+        },
+        {
+          "run_at": "2026-09-19T01:44:22.316797+00:00",
+          "rank": 6
         }
       ]
     },
@@ -332,7 +356,7 @@
       "title": "TencentCloud/Octop",
       "title_zh": "TencentCloud/Octop",
       "url": "https://github.com/TencentCloud/Octop",
-      "hot_value": "367 stars today",
+      "hot_value": "569 stars today",
       "summary_zh": "腾讯云Octop：自托管AI助手，支持多用户多智能体，值得关注。",
       "thumbnail": null,
       "published_at": null,
@@ -340,9 +364,9 @@
         "description": "A smarter, self-hosted AI assistant — multi-user, multi-agent.",
         "language": "Python"
       },
-      "days_on_board": 2,
+      "days_on_board": 3,
       "is_new": false,
-      "rank_delta": 9,
+      "rank_delta": 0,
       "cluster_id": "b9646580d4a1",
       "cluster_size": 1,
       "rank_history": [
@@ -357,6 +381,10 @@
         {
           "run_at": "2026-09-18T10:44:12.451526+00:00",
           "rank": 7
+        },
+        {
+          "run_at": "2026-09-19T01:44:22.316797+00:00",
+          "rank": 7
         }
       ]
     },
@@ -366,7 +394,7 @@
       "title": "Fission-AI/OpenSpec",
       "title_zh": "Fission-AI/OpenSpec",
       "url": "https://github.com/Fission-AI/OpenSpec",
-      "hot_value": "298 stars today",
+      "hot_value": "296 stars today",
       "summary_zh": "AI编程助手的规范驱动开发工具，让代码生成更可控。",
       "thumbnail": null,
       "published_at": null,
@@ -374,14 +402,18 @@
         "description": "Spec-driven development (SDD) for AI coding assistants.",
         "language": "TypeScript"
       },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "days_on_board": 2,
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "54fae0413407",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-18T10:44:12.451526+00:00",
+          "rank": 8
+        },
+        {
+          "run_at": "2026-09-19T01:44:22.316797+00:00",
           "rank": 8
         }
       ]
@@ -392,7 +424,7 @@
       "title": "ankitects/anki",
       "title_zh": "ankitects/anki",
       "url": "https://github.com/ankitects/anki",
-      "hot_value": "430 stars today",
+      "hot_value": "174 stars today",
       "summary_zh": "Anki智能间隔重复闪卡程序，助高效记忆。",
       "thumbnail": null,
       "published_at": null,
@@ -400,9 +432,9 @@
         "description": "Anki is a smart spaced repetition flashcard program",
         "language": "Rust"
       },
-      "days_on_board": 3,
-      "is_new": true,
-      "rank_delta": "new",
+      "days_on_board": 4,
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "b9598551479e",
       "cluster_size": 1,
       "rank_history": [
@@ -417,6 +449,10 @@
         {
           "run_at": "2026-09-18T10:44:12.451526+00:00",
           "rank": 9
+        },
+        {
+          "run_at": "2026-09-19T01:44:22.316797+00:00",
+          "rank": 9
         }
       ]
     },
@@ -426,7 +462,7 @@
       "title": "anthropics/knowledge-work-plugins",
       "title_zh": "anthropics/knowledge-work-plugins",
       "url": "https://github.com/anthropics/knowledge-work-plugins",
-      "hot_value": "287 stars today",
+      "hot_value": "299 stars today",
       "summary_zh": "Anthropic知识工作插件库，供Claude Cowork知识工作者使用。",
       "thumbnail": null,
       "published_at": null,
@@ -434,9 +470,9 @@
         "description": "Open source repository of plugins primarily intended for knowledge workers to use in Claude Cowork",
         "language": "Python"
       },
-      "days_on_board": 3,
+      "days_on_board": 4,
       "is_new": false,
-      "rank_delta": -2,
+      "rank_delta": 0,
       "cluster_id": "f6035c0a4632",
       "cluster_size": 1,
       "rank_history": [
@@ -459,6 +495,10 @@
         {
           "run_at": "2026-09-18T10:44:12.451526+00:00",
           "rank": 10
+        },
+        {
+          "run_at": "2026-09-19T01:44:22.316797+00:00",
+          "rank": 10
         }
       ]
     },
@@ -476,14 +516,18 @@
         "description": "Memory and context engine + app that is extremely fast, scalable, and can be run fully locally. The Memory API for the AI era.",
         "language": "TypeScript"
       },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "days_on_board": 2,
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "1e121e469eff",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-18T10:44:12.451526+00:00",
+          "rank": 11
+        },
+        {
+          "run_at": "2026-09-19T01:44:22.316797+00:00",
           "rank": 11
         }
       ]
@@ -494,7 +538,7 @@
       "title": "tradesdontlie/tradingview-mcp",
       "title_zh": "tradesdontlie/tradingview-mcp",
       "url": "https://github.com/tradesdontlie/tradingview-mcp",
-      "hot_value": "64 stars today",
+      "hot_value": "79 stars today",
       "summary_zh": "连接Claude Code与TradingView桌面版，AI辅助图表分析。",
       "thumbnail": null,
       "published_at": null,
@@ -502,14 +546,18 @@
         "description": "AI-assisted TradingView chart analysis — connect Claude Code to your TradingView Desktop for personal workflow automation",
         "language": "JavaScript"
       },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "days_on_board": 2,
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "0e8b508de6ff",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-18T10:44:12.451526+00:00",
+          "rank": 12
+        },
+        {
+          "run_at": "2026-09-19T01:44:22.316797+00:00",
           "rank": 12
         }
       ]
@@ -520,7 +568,7 @@
       "title": "rustfs/rustfs",
       "title_zh": "rustfs/rustfs",
       "url": "https://github.com/rustfs/rustfs",
-      "hot_value": "559 stars today",
+      "hot_value": "267 stars today",
       "summary_zh": "Rust编写的高性能S3兼容对象存储，支持迁移与共存。",
       "thumbnail": null,
       "published_at": null,
@@ -528,14 +576,18 @@
         "description": "RustFS is an open-source, S3-compatible high-performance object storage system supporting migration and coexistence with other S3-compatible platforms such as MinIO and Ceph.",
         "language": "Rust"
       },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "days_on_board": 2,
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "3de051534662",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-18T10:44:12.451526+00:00",
+          "rank": 13
+        },
+        {
+          "run_at": "2026-09-19T01:44:22.316797+00:00",
           "rank": 13
         }
       ]
@@ -546,7 +598,7 @@
       "title": "supabase/supabase",
       "title_zh": "supabase/supabase",
       "url": "https://github.com/supabase/supabase",
-      "hot_value": "586 stars today",
+      "hot_value": "120 stars today",
       "summary_zh": "Supabase是Postgres开发平台，快速构建Web、移动与AI应用。",
       "thumbnail": null,
       "published_at": null,
@@ -554,9 +606,9 @@
         "description": "The Postgres development platform. Supabase gives you a dedicated Postgres database to build your web, mobile, and AI applications.",
         "language": "TypeScript"
       },
-      "days_on_board": 3,
-      "is_new": true,
-      "rank_delta": "new",
+      "days_on_board": 4,
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "ed890270ef48",
       "cluster_size": 1,
       "rank_history": [
@@ -571,6 +623,10 @@
         {
           "run_at": "2026-09-18T10:44:12.451526+00:00",
           "rank": 14
+        },
+        {
+          "run_at": "2026-09-19T01:44:22.316797+00:00",
+          "rank": 14
         }
       ]
     },
@@ -580,7 +636,7 @@
       "title": "coder/coder",
       "title_zh": "coder/coder",
       "url": "https://github.com/coder/coder",
-      "hot_value": "145 stars today",
+      "hot_value": "478 stars today",
       "summary_zh": "为开发者及其代理提供安全环境，值得关注因其强化了开发安全性。",
       "thumbnail": null,
       "published_at": null,
@@ -588,9 +644,9 @@
         "description": "Secure environments for developers and their agents",
         "language": "Go"
       },
-      "days_on_board": 2,
+      "days_on_board": 3,
       "is_new": false,
-      "rank_delta": 4,
+      "rank_delta": 0,
       "cluster_id": "8311824b9f65",
       "cluster_size": 1,
       "rank_history": [
@@ -605,6 +661,10 @@
         {
           "run_at": "2026-09-18T10:44:12.451526+00:00",
           "rank": 15
+        },
+        {
+          "run_at": "2026-09-19T01:44:22.316797+00:00",
+          "rank": 15
         }
       ]
     },
@@ -614,7 +674,7 @@
       "title": "ahmedkhaleel2004/gitdiagram",
       "title_zh": "ahmedkhaleel2004/gitdiagram",
       "url": "https://github.com/ahmedkhaleel2004/gitdiagram",
-      "hot_value": "145 stars today",
+      "hot_value": "152 stars today",
       "summary_zh": "为任意GitHub仓库生成免费快速交互式架构图。",
       "thumbnail": null,
       "published_at": null,
@@ -622,14 +682,18 @@
         "description": "Free, simple, fast interactive diagrams for any GitHub repository",
         "language": "TypeScript"
       },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "days_on_board": 2,
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "4898d7098a51",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-18T10:44:12.451526+00:00",
+          "rank": 16
+        },
+        {
+          "run_at": "2026-09-19T01:44:22.316797+00:00",
           "rank": 16
         }
       ]
@@ -640,7 +704,7 @@
       "title": "asciimoo/hister",
       "title_zh": "asciimoo/hister",
       "url": "https://github.com/asciimoo/hister",
-      "hot_value": "842 stars today",
+      "hot_value": "889 stars today",
       "summary_zh": "搭建属于你自己的搜索引擎。",
       "thumbnail": null,
       "published_at": null,
@@ -648,14 +712,18 @@
         "description": "Your own search engine",
         "language": "Go"
       },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "days_on_board": 2,
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "d89650831808",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-18T10:44:12.451526+00:00",
+          "rank": 17
+        },
+        {
+          "run_at": "2026-09-19T01:44:22.316797+00:00",
           "rank": 17
         }
       ]
