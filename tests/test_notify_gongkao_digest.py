@@ -2,7 +2,11 @@ from __future__ import annotations
 
 from datetime import date
 
-from app.notify_gongkao_digest import build_card, previous_public_volume, select_top10
+from unittest.mock import Mock, call
+
+from app.notify_gongkao_digest import (
+    build_card, digest_webhooks, previous_public_volume, select_top10, send_digest,
+)
 
 
 def _row(identifier: str, title: str, days: int, *, province="广东", exam_type="事业单位"):
@@ -74,3 +78,31 @@ def test_digest_uses_only_previous_complete_public_report() -> None:
          "count_basis": "public_sync_candidates"},
     ]}
     assert previous_public_volume(payload, date(2026, 9, 17))["gongkao_new"] == 164
+
+
+def test_digest_webhooks_keeps_primary_and_deduplicates_extra_groups() -> None:
+    assert digest_webhooks({
+        "FEISHU_DIGEST_WEBHOOK": "https://open.feishu.test/old",
+        "FEISHU_DIGEST_WEBHOOKS": (
+            "https://open.feishu.test/new, https://open.feishu.test/old;"
+            "https://open.feishu.test/third"
+        ),
+    }) == [
+        "https://open.feishu.test/old",
+        "https://open.feishu.test/new",
+        "https://open.feishu.test/third",
+    ]
+
+
+def test_send_digest_posts_same_card_to_every_group(monkeypatch) -> None:
+    response = Mock()
+    response.json.return_value = {"code": 0}
+    post = Mock(return_value=response)
+    monkeypatch.setattr("app.notify_gongkao_digest.httpx.post", post)
+    payload = {"msg_type": "interactive", "card": {"header": {}}}
+
+    assert send_digest(payload, ["https://old.test", "https://new.test"]) == 2
+    assert post.call_args_list == [
+        call("https://old.test", json=payload, timeout=15, follow_redirects=True),
+        call("https://new.test", json=payload, timeout=15, follow_redirects=True),
+    ]

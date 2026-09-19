@@ -29,6 +29,32 @@ LOGGER = logging.getLogger(__name__)
 TARGET_PROVINCES = {"黑龙江", "辽宁", "河北", "天津", "山东"}
 
 
+def digest_webhooks(environ: Mapping[str, str] | None = None) -> list[str]:
+    """Return the primary and supplementary group robots without duplicates."""
+    values = environ or os.environ
+    candidates = [values.get("FEISHU_DIGEST_WEBHOOK", "")]
+    candidates.extend(re.split(r"[,;\s]+", values.get("FEISHU_DIGEST_WEBHOOKS", "")))
+    result: list[str] = []
+    for value in candidates:
+        webhook = str(value or "").strip()
+        if webhook and webhook not in result:
+            result.append(webhook)
+    return result
+
+
+def send_digest(payload: Mapping[str, Any], webhooks: Iterable[str]) -> int:
+    """Deliver the same card to every configured public group robot."""
+    sent = 0
+    for webhook in webhooks:
+        response = httpx.post(webhook, json=dict(payload), timeout=15, follow_redirects=True)
+        response.raise_for_status()
+        body = response.json()
+        if int(body.get("code", body.get("StatusCode", 0)) or 0) != 0:
+            raise RuntimeError(f"Feishu webhook rejected card: {body}")
+        sent += 1
+    return sent
+
+
 def item_key(row: Mapping[str, Any]) -> str:
     extra = row.get("extra") if isinstance(row.get("extra"), Mapping) else {}
     return str(extra.get("id") or row.get("url") or "").strip()
@@ -216,9 +242,9 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--db", default=os.getenv("GONGKAO_DIGEST_DB", "/var/lib/hot-gap/gongkao-digest.db"))
     parser.add_argument("--force", action="store_true")
     args = parser.parse_args(argv)
-    webhook = os.getenv("FEISHU_DIGEST_WEBHOOK", "").strip()
-    if not webhook:
-        LOGGER.info("gongkao digest skipped: FEISHU_DIGEST_WEBHOOK is not configured")
+    webhooks = digest_webhooks()
+    if not webhooks:
+        LOGGER.info("gongkao digest skipped: no digest webhook is configured")
         return 0
     current = datetime.now(CHINA_TZ).date()
     push_log = PushLog(args.db)
@@ -250,13 +276,12 @@ def main(argv: list[str] | None = None) -> int:
         secret = os.getenv("FEISHU_DIGEST_SIGN_SECRET", "").strip()
         if secret:
             _sign_payload(payload, secret)
-        response = httpx.post(webhook, json=payload, timeout=15, follow_redirects=True)
-        response.raise_for_status()
-        body = response.json()
-        if int(body.get("code", body.get("StatusCode", 0)) or 0) != 0:
-            raise RuntimeError(f"Feishu webhook rejected card: {body}")
+        recipient_count = send_digest(payload, webhooks)
         push_log.mark(selected, current)
-        LOGGER.info("gongkao digest sent: selected=%d current=%d", len(selected), current_count)
+        LOGGER.info(
+            "gongkao digest sent: selected=%d current=%d groups=%d",
+            len(selected), current_count, recipient_count,
+        )
         return 0
     except Exception:
         LOGGER.exception("gongkao digest failed")
