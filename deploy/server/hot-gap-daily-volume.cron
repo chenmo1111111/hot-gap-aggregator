@@ -1,5 +1,6 @@
 SHELL=/bin/bash
 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
-# 07:00 Asia/Shanghai: report the previous complete calendar day [00:00, 00:00).
-0 7 * * * root /usr/bin/flock -n /run/lock/hot-gap-daily-volume.lock /bin/bash -lc 'cd /opt/hot-gap-aggregator && /usr/bin/env DAILY_VOLUME_ALERT_AFTER_HOUR=7 .venv/bin/python -m app.daily_volume' >> /var/log/hot-gap-daily-volume.log 2>&1
+# 07:00 Asia/Shanghai: finalize yesterday's 24-hour counts, then send the same
+# Gongkao digest to every configured public Feishu group.
+0 7 * * * root /usr/bin/flock -n /run/lock/hot-gap-daily-volume.lock /bin/bash -lc 'cd /opt/hot-gap-aggregator && /usr/bin/env DAILY_VOLUME_ALERT_AFTER_HOUR=7 .venv/bin/python -m app.daily_volume && /usr/bin/env GONGKAO_DIGEST_AFTER_HOUR=7 .venv/bin/python -m app.notify_gongkao_digest' >> /var/log/hot-gap-daily-volume.log 2>&1

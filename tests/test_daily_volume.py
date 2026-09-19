@@ -524,3 +524,5 @@ def test_previous_day_window_and_server_cron_are_both_seven_oclock() -> None:
     schedule = next(line for line in cron.splitlines() if line.startswith("0 7 "))
     assert "DAILY_VOLUME_ALERT_AFTER_HOUR=7" in schedule
     assert "-m app.daily_volume" in schedule
+    assert "GONGKAO_DIGEST_AFTER_HOUR=7" in schedule
+    assert "-m app.notify_gongkao_digest" in schedule

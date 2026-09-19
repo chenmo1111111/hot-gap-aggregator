@@ -55,6 +55,19 @@ def send_digest(payload: Mapping[str, Any], webhooks: Iterable[str]) -> int:
     return sent
 
 
+def digest_send_allowed(
+    now: datetime | None = None, *, after_hour: int | None = None,
+) -> bool:
+    """Prevent the recurring refresh from sending before the 07:00 snapshot."""
+    current = now or datetime.now(CHINA_TZ)
+    threshold = after_hour if after_hour is not None else int(
+        os.getenv("GONGKAO_DIGEST_AFTER_HOUR", "7")
+    )
+    if not 0 <= threshold <= 23:
+        raise ValueError("GONGKAO_DIGEST_AFTER_HOUR must be between 0 and 23")
+    return current.astimezone(CHINA_TZ).hour >= threshold
+
+
 def item_key(row: Mapping[str, Any]) -> str:
     extra = row.get("extra") if isinstance(row.get("extra"), Mapping) else {}
     return str(extra.get("id") or row.get("url") or "").strip()
@@ -246,7 +259,14 @@ def main(argv: list[str] | None = None) -> int:
     if not webhooks:
         LOGGER.info("gongkao digest skipped: no digest webhook is configured")
         return 0
-    current = datetime.now(CHINA_TZ).date()
+    current_time = datetime.now(CHINA_TZ)
+    if not args.force and not digest_send_allowed(current_time):
+        LOGGER.info(
+            "gongkao digest skipped: current hour %d is before configured hour %s",
+            current_time.hour, os.getenv("GONGKAO_DIGEST_AFTER_HOUR", "7"),
+        )
+        return 0
+    current = current_time.date()
     push_log = PushLog(args.db)
     try:
         if push_log.already_sent_today(current) and not args.force:

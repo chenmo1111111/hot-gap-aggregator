@@ -1,11 +1,12 @@
 from __future__ import annotations
 
-from datetime import date
+from datetime import date, datetime
 
 from unittest.mock import Mock, call
 
 from app.notify_gongkao_digest import (
-    build_card, digest_webhooks, previous_public_volume, select_top10, send_digest,
+    CHINA_TZ, build_card, digest_send_allowed, digest_webhooks,
+    previous_public_volume, select_top10, send_digest,
 )
 
 
@@ -106,3 +107,12 @@ def test_send_digest_posts_same_card_to_every_group(monkeypatch) -> None:
         call("https://old.test", json=payload, timeout=15, follow_redirects=True),
         call("https://new.test", json=payload, timeout=15, follow_redirects=True),
     ]
+
+
+def test_digest_time_gate_blocks_early_refresh_and_allows_seven() -> None:
+    assert digest_send_allowed(
+        datetime(2026, 9, 19, 5, 59, tzinfo=CHINA_TZ), after_hour=7,
+    ) is False
+    assert digest_send_allowed(
+        datetime(2026, 9, 19, 7, 0, tzinfo=CHINA_TZ), after_hour=7,
+    ) is True
