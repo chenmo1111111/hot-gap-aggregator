@@ -126,7 +126,9 @@ def split_work_locations(value: object) -> list[str]:
         text = text.replace(source, target)
     chunks = [part.strip() for part in SPLIT.split(text) if part.strip()]
     result: list[str] = []
-    known = sorted(REGION_NAMES, key=len, reverse=True)
+    # Include the name as the tie-breaker: set iteration order is process-
+    # randomized and must not reshuffle multi-select values on every refresh.
+    known = sorted(REGION_NAMES, key=lambda name: (-len(name), name))
     for chunk in chunks:
         direct = normalize_region_name(chunk)
         candidates = [direct] if direct else []
