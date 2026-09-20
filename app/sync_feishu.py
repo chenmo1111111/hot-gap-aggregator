@@ -35,7 +35,7 @@ GONGKAO_TEXT_FIELDS = {
     "同步ID", "地区", "招录单位·公告", "招录人数", "备注", "可能重复于",
 }
 QIUZHAO_TEXT_FIELDS = {
-    "同步ID", "公司名称", "行业", "招聘岗位", "工作地点", "学历要求", "届次", "备注",
+    "同步ID", "公司名称", "行业", "招聘岗位", "工作地点", "学历要求", "届次", "截止月份", "备注",
 }
 PROVINCES = {
     "北京", "天津", "河北", "山西", "内蒙古", "辽宁", "吉林", "黑龙江", "上海", "江苏",
@@ -71,6 +71,8 @@ DEFAULT_QIUZHAO_MAPPING = {
     "company_name|company|extra.company|公司名称": "公司名称",
     "$company_type": "企业性质",
     "industry|extra.industry|行业": "行业",
+    "$industry_tag": "行业标签",
+    "recruitment_stage|extra.recruitment_stage|招聘阶段": "招聘阶段",
     "position|job|job_name|title_zh|title|招聘岗位": "招聘岗位",
     "location|work_location|city|extra.city|工作地点": "工作地点",
     "education|extra.education|学历要求": "学历要求",
@@ -78,6 +80,8 @@ DEFAULT_QIUZHAO_MAPPING = {
     "$deadline": "网申截止",
     "$days_left": "距截止天数",
     "$written_test": "是否笔试",
+    "$written_test_requirement": "是否免笔试",
+    "deadline_month|extra.deadline_month|截止月份": "截止月份",
     "$apply_link": "投递链接",
     "$announcement_link": "公告链接",
     "$source": "来源",
@@ -788,6 +792,8 @@ def gongkao_source_label(row: Mapping[str, Any]) -> str:
         return "购买表-婉清分流"
     if upstream == "xiaozhaoya" or subsource == "xiaozhaoya":
         return "购买表-校招鸭home"
+    if upstream == "shasha_feishu" or subsource == "shasha_feishu":
+        return "购买表-鲨鲨分流"
     if (
         extra.get("government_source")
         or subsource == "government"
@@ -873,6 +879,9 @@ def map_qiuzhao(
         row, "announcement_url|source_url|extra.announcement_url|url|公告链接"
     )
     written = _coalesce(row, "written_test|has_written_test|extra.written_test|是否笔试")
+    written_requirement = str(_coalesce(
+        row, "written_test_requirement|extra.written_test_requirement|是否免笔试"
+    ) or "").strip()
     sync_id = f"{normalize(company)}|{normalize(position)}"
     if sync_id == "|" or not normalize(company) or not normalize(position):
         raise ValueError("秋招记录缺少公司名称或招聘岗位，无法生成同步ID")
@@ -885,12 +894,34 @@ def map_qiuzhao(
         "$deadline": date_to_millis(deadline),
         "$days_left": _days_left(deadline, today),
         "$written_test": _bool_value(written),
+        "$written_test_requirement": written_requirement or None,
+        "$industry_tag": qiuzhao_industry_tag(
+            _coalesce(row, "industry|extra.industry|行业")
+        ),
         "$apply_link": _link(apply_url, "立即投递"),
         "$announcement_link": _link(announcement_url, "查看公告"),
         "$source": "自动" + (f"·{label}" if (label := str(_coalesce(row, "source_label|extra.source_label") or "").strip()) else ""),
     }
     fields = _apply_mapping(row, field_mapping or DEFAULT_QIUZHAO_MAPPING, derived)
     return _fill_text_placeholders(fields, QIUZHAO_TEXT_FIELDS)
+
+
+def qiuzhao_industry_tag(value: object) -> str:
+    text = str(value or "")
+    rules = (
+        ("互联网/科技", ("互联网", "科技", "人工智能", "软件", "游戏", "电商", "通信")),
+        ("金融银行", ("金融", "银行", "证券", "保险")),
+        ("汽车新能源", ("汽车", "新能源")),
+        ("生物医药", ("生物", "医药", "医疗")),
+        ("半导体", ("半导体", "芯片", "集成电路")),
+        ("制造业", ("制造", "机电", "电子", "电器", "化工")),
+        ("快消零售", ("快消", "零售")),
+        ("建筑", ("建筑", "地产")),
+        ("能源", ("能源", "矿产", "矿业")),
+        ("交通运输", ("交通", "物流", "运输")),
+        ("研究所", ("研究所", "科研")),
+    )
+    return next((label for label, words in rules if any(word in text for word in words)), "其他")
 
 
 def _cell_text(value: object) -> str:
@@ -1081,6 +1112,98 @@ GONGKAO_DEDUP_FIELDS: tuple[dict[str, Any], ...] = (
     {"field_name": "可能重复于", "type": 1},
 )
 
+QIUZHAO_ENRICHMENT_FIELDS: tuple[dict[str, Any], ...] = (
+    {"field_name": "是否免笔试", "type": 3, "property": {"options": [
+        {"name": "含免笔试"}, {"name": "免笔试"}, {"name": "仅测评"}, {"name": "需要笔试"},
+    ]}},
+    {"field_name": "行业标签", "type": 3, "property": {"options": [
+        {"name": name} for name in (
+            "互联网/科技", "金融银行", "汽车新能源", "生物医药", "半导体",
+            "制造业", "快消零售", "建筑", "能源", "交通运输", "研究所", "其他",
+        )
+    ]}},
+    {"field_name": "招聘阶段", "type": 3, "property": {"options": [
+        {"name": name} for name in (
+            "暑期实习", "实习", "秋招提前批", "秋招", "秋招补录",
+            "春招提前批", "春招", "春招补录", "人才计划", "26届提前批",
+        )
+    ]}},
+    {"field_name": "截止月份", "type": 1},
+)
+
+
+def _field_option_ids(field: Mapping[str, Any], names: tuple[str, ...]) -> list[str]:
+    options = (field.get("property") or {}).get("options") if isinstance(field.get("property"), Mapping) else []
+    wanted = set(names)
+    return [str(option.get("id")) for option in options or [] if isinstance(option, Mapping) and str(option.get("name") or "") in wanted and option.get("id")]
+
+
+def ensure_qiuzhao_filter_views(client: FeishuClient, app_token: str, table_id: str) -> dict[str, int]:
+    """Ensure reusable Qiuzhao filter columns and source-inspired views."""
+    fields = client.list_fields(app_token, table_id)
+    by_name = {str(field.get("field_name") or ""): field for field in fields}
+    created_fields = 0
+    for definition in QIUZHAO_ENRICHMENT_FIELDS:
+        name = str(definition["field_name"])
+        present = by_name.get(name)
+        if present:
+            if int(present.get("type") or 0) != int(definition["type"]):
+                raise FeishuAPIError(f"秋招表字段 {name} 类型不符合预期，拒绝自动修改")
+            continue
+        client.create_field(app_token, table_id, definition)
+        created_fields += 1
+    if created_fields:
+        fields = client.list_fields(app_token, table_id)
+        by_name = {str(field.get("field_name") or ""): field for field in fields}
+
+    specifications: list[tuple[str, str, str, tuple[str, ...]]] = [
+        ("免笔试", "是否免笔试", "is", ("含免笔试", "免笔试", "仅测评")),
+        ("外企", "企业性质", "is", ("外企",)),
+        ("央国企", "企业性质", "is", ("央企", "国企")),
+        ("互联网/科技", "行业标签", "is", ("互联网/科技",)),
+        ("金融银行类", "行业标签", "is", ("金融银行",)),
+        ("招27届的", "届次", "contains", ("2027",)),
+        ("秋招提前批", "招聘阶段", "is", ("秋招提前批",)),
+        ("9月截止", "截止月份", "contains", ("-09",)),
+        ("10月截止", "截止月份", "contains", ("-10",)),
+        ("11月截止", "截止月份", "contains", ("-11",)),
+        ("12月截止", "截止月份", "contains", ("-12",)),
+    ]
+    views = client.list_views(app_token, table_id)
+    by_view = {str(view.get("view_name") or view.get("name") or ""): view for view in views}
+    created_views = 0
+    for view_name, field_name, operator, values in specifications:
+        field = by_name.get(field_name)
+        if not field:
+            raise FeishuAPIError(f"秋招表缺少 {field_name}，无法创建 {view_name} 视图")
+        view = by_view.get(view_name)
+        if not view:
+            client.create_view(app_token, table_id, view_name)
+            created_views += 1
+            view = next((item for item in client.list_views(app_token, table_id) if str(item.get("view_name") or item.get("name") or "") == view_name), None)
+            by_view[view_name] = view or {}
+        view_id = str((view or {}).get("view_id") or "")
+        if not view_id:
+            raise FeishuAPIError(f"秋招视图 {view_name} 创建后未返回 view_id")
+        condition_values = _field_option_ids(field, values) if int(field.get("type") or 0) == 3 else list(values)
+        if not condition_values:
+            raise FeishuAPIError(f"秋招视图 {view_name} 找不到筛选值 {values}")
+        client.patch_view(app_token, table_id, view_id, {
+            "view_name": view_name,
+            "property": {"filter_info": {
+                "conjunction": "and", "condition_omitted": False,
+                "conditions": [{
+                    "field_id": str(field.get("field_id") or ""),
+                    "field_type": int(field.get("type") or 1),
+                    "operator": operator, "value": condition_values,
+                }],
+            }},
+        })
+    if "按地区筛选" not in by_view:
+        client.create_view(app_token, table_id, "按地区筛选")
+        created_views += 1
+    return {"created_fields": created_fields, "created_views": created_views}
+
 
 def ensure_gongkao_review_view(
     client: FeishuClient, app_token: str, table_id: str
@@ -1177,6 +1300,15 @@ def load_config(path: str | Path) -> dict[str, Any]:
             section["field_mapping"].setdefault("$backup_link", "备用链接")
             section["field_mapping"].setdefault("$dup_suspect", "疑似重复")
             section["field_mapping"].setdefault("$possible_duplicate_of", "可能重复于")
+        else:
+            section["field_mapping"].setdefault("$industry_tag", "行业标签")
+            section["field_mapping"].setdefault(
+                "recruitment_stage|extra.recruitment_stage|招聘阶段", "招聘阶段"
+            )
+            section["field_mapping"].setdefault("$written_test_requirement", "是否免笔试")
+            section["field_mapping"].setdefault(
+                "deadline_month|extra.deadline_month|截止月份", "截止月份"
+            )
         for required in ("$sync_id", "$sync_time", "$source"):
             if required not in section["field_mapping"]:
                 raise ValueError(f"sources.{name}.field_mapping is missing {required}")
@@ -1254,6 +1386,10 @@ def run() -> int:
                     schema_result = ensure_gongkao_dedup_schema(client, app_token, table_id)
                     if any(schema_result.values()):
                         LOGGER.info("gongkao dedup schema ensured: %s", schema_result)
+                else:
+                    schema_result = ensure_qiuzhao_filter_views(client, app_token, table_id)
+                    if any(schema_result.values()):
+                        LOGGER.info("qiuzhao filter schema ensured: %s", schema_result)
                 delete_views = section.get("delete_views")
                 if isinstance(delete_views, list) and delete_views:
                     try:

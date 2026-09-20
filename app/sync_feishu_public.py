@@ -37,9 +37,11 @@ from app.sync_feishu import (
     actionable_apply_url,
     merge_qiuzhao_rows,
     ensure_gongkao_review_view,
+    ensure_qiuzhao_filter_views,
     normalize,
     normalize_company_type,
     normalize_exam_type,
+    qiuzhao_industry_tag,
     partition_gongkao_rows,
 )
 from app.pipeline.gongkao_classify import detail_category
@@ -116,11 +118,27 @@ QIUZHAO_SCHEMA: tuple[dict[str, Any], ...] = (
         )]},
     },
     {"field_name": "行业", "type": TEXT},
+    {"field_name": "行业标签", "type": SINGLE_SELECT, "property": {"options": [
+        {"name": name} for name in (
+            "互联网/科技", "金融银行", "汽车新能源", "生物医药", "半导体",
+            "制造业", "快消零售", "建筑", "能源", "交通运输", "研究所", "其他",
+        )
+    ]}},
+    {"field_name": "招聘阶段", "type": SINGLE_SELECT, "property": {"options": [
+        {"name": name} for name in (
+            "暑期实习", "实习", "秋招提前批", "秋招", "秋招补录",
+            "春招提前批", "春招", "春招补录", "人才计划", "26届提前批",
+        )
+    ]}},
     {"field_name": "招聘岗位", "type": TEXT},
     {"field_name": "工作地点", "type": TEXT},
     {"field_name": "学历要求", "type": TEXT},
     {"field_name": "届次", "type": TEXT},
     {"field_name": "是否笔试", "type": CHECKBOX},
+    {"field_name": "是否免笔试", "type": SINGLE_SELECT, "property": {"options": [
+        {"name": "含免笔试"}, {"name": "免笔试"}, {"name": "仅测评"}, {"name": "需要笔试"},
+    ]}},
+    {"field_name": "截止月份", "type": TEXT},
     {"field_name": "投递链接", "type": URL},
     {"field_name": "公告链接", "type": URL},
     {"field_name": "备注", "type": TEXT},
@@ -339,6 +357,8 @@ def map_public_qiuzhao(row: Mapping[str, Any]) -> dict[str, Any]:
             _coalesce(row, "company_type|enterprise_type|extra.company_type|企业性质")
         ),
         "行业": _coalesce(row, "industry|extra.industry|行业") or "/",
+        "行业标签": qiuzhao_industry_tag(_coalesce(row, "industry|extra.industry|行业")),
+        "招聘阶段": _coalesce(row, "recruitment_stage|extra.recruitment_stage|招聘阶段") or None,
         "招聘岗位": str(position).strip(),
         "工作地点": _coalesce(row, "location|work_location|city|extra.city|工作地点") or "/",
         "学历要求": _coalesce(row, "education|extra.education|学历要求") or "/",
@@ -346,6 +366,10 @@ def map_public_qiuzhao(row: Mapping[str, Any]) -> dict[str, Any]:
         "是否笔试": _bool_value(
             _coalesce(row, "written_test|has_written_test|extra.written_test|是否笔试")
         ),
+        "是否免笔试": _coalesce(
+            row, "written_test_requirement|extra.written_test_requirement|是否免笔试"
+        ) or None,
+        "截止月份": _coalesce(row, "deadline_month|extra.deadline_month|截止月份") or "/",
         "投递链接": _link(
             actionable_apply_url(
                 _coalesce(row, "apply_url|application_url|extra.apply_url|投递链接")
@@ -756,6 +780,10 @@ def run(argv: list[str] | None = None) -> int:
                     created_view = ensure_gongkao_review_view(client, app_token, table_id)
                     if created_view:
                         LOGGER.info("public gongkao suspect review view created")
+                else:
+                    view_result = ensure_qiuzhao_filter_views(client, app_token, table_id)
+                    if any(view_result.values()):
+                        LOGGER.info("public qiuzhao filter views ensured: %s", view_result)
                 rows = _load_items(data_dir / filename)
                 force_delete_keys: set[str] | None = None
                 source_field: str | None = None

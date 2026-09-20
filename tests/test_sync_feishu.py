@@ -459,4 +459,5 @@ def test_default_mapping_has_every_required_feishu_field() -> None:
     assert set(DEFAULT_QIUZHAO_MAPPING.values()) == {
         "同步ID", "更新时间", "公司名称", "企业性质", "行业", "招聘岗位", "工作地点", "学历要求",
         "届次", "网申截止", "距截止天数", "是否笔试", "投递链接", "公告链接", "来源", "备注",
+        "行业标签", "招聘阶段", "是否免笔试", "截止月份",
     }

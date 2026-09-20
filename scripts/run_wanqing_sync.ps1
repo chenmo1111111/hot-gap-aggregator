@@ -4,10 +4,13 @@ $projectRoot = Split-Path -Parent $PSScriptRoot
 $python = Join-Path $projectRoot ".venv\Scripts\python.exe"
 $stateDir = if ($env:WANQING_STATE_DIR) { $env:WANQING_STATE_DIR } else { Join-Path $env:LOCALAPPDATA "hot-gap-aggregator\wanqing" }
 $profileDir = if ($env:WANQING_PROFILE_DIR) { $env:WANQING_PROFILE_DIR } else { Join-Path $stateDir "browser-profile" }
+$shashaProfileDir = if ($env:SHASHA_PROFILE_DIR) { $env:SHASHA_PROFILE_DIR } else { Join-Path $stateDir "shasha-browser-profile" }
 $qiuzhaoSnapshot = Join-Path $stateDir "qiuzhao_wanqing.json"
 $gongkaoSnapshot = Join-Path $stateDir "gongkao_sheet.json"
+$shashaSnapshot = Join-Path $stateDir "qiuzhao_shasha.json"
 $qiuzhaoCandidate = Join-Path $stateDir "qiuzhao_wanqing.candidate.json"
 $gongkaoCandidate = Join-Path $stateDir "gongkao_sheet.candidate.json"
+$shashaCandidate = Join-Path $stateDir "qiuzhao_shasha.candidate.json"
 $sshKey = if ($env:HOT_GAP_DEPLOY_KEY) { $env:HOT_GAP_DEPLOY_KEY } else { Join-Path $env:USERPROFILE ".ssh\hotgap_deploy" }
 $sshHost = if ($env:HOT_GAP_DEPLOY_HOST) { $env:HOT_GAP_DEPLOY_HOST } else { "120.48.78.40" }
 $sshUser = if ($env:HOT_GAP_DEPLOY_USER) { $env:HOT_GAP_DEPLOY_USER } else { "deploy" }
@@ -116,9 +119,10 @@ try {
     $env:CAPTURE_RUNNER_MANAGED = "1"
     $qiuzhaoOk = Invoke-Capture "Wanqing Qiuzhao" "qiuzhao" "app.capture_wanqing" $qiuzhaoCandidate $qiuzhaoSnapshot "/home/deploy/.qiuzhao_wanqing.json.incoming"
     $gongkaoOk = Invoke-Capture "Feishu Sheet Gongkao" "gongkao" "app.capture_gongkao_sheet" $gongkaoCandidate $gongkaoSnapshot "/home/deploy/.gongkao_sheet.json.incoming"
+    $shashaOk = Invoke-Capture "Shasha Qiuzhao" "qiuzhao" "app.capture_shasha" $shashaCandidate $shashaSnapshot "/home/deploy/.qiuzhao_shasha.json.incoming" @("--profile-dir", $shashaProfileDir)
 
-    if (-not $qiuzhaoOk -and -not $gongkaoOk) {
-        throw "both purchased-table captures failed; no server refresh attempted"
+    if (-not $qiuzhaoOk -and -not $gongkaoOk -and -not $shashaOk) {
+        throw "all purchased-table captures failed; no server refresh attempted"
     }
 
     $remote = "$sshUser@$sshHost"
@@ -126,7 +130,7 @@ try {
     if ($LASTEXITCODE -ne 0) { throw "remote refresh exited with code $LASTEXITCODE" }
     Write-Log "server export and Feishu refresh completed"
 
-    if (-not $qiuzhaoOk -or -not $gongkaoOk) {
+    if (-not $qiuzhaoOk -or -not $gongkaoOk -or -not $shashaOk) {
         throw "one or more sources failed; successful sources were refreshed and failed sources retained their previous snapshots"
     }
     Push-Location $projectRoot

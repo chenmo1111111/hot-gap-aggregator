@@ -17,6 +17,7 @@ CHINA_TZ = timezone(timedelta(hours=8))
 SOURCE_ORDER = (
     "婉清购买表",
     "校招鸭home一次性回填",
+    "鲨鲨购买表",
     "国聘",
     "国家大学生就业服务平台",
     "教育部人才服务网",
@@ -30,6 +31,7 @@ GONGKAO_SOURCE_ORDER = (
     "校招鸭事业单位购买表",
     "婉清购买表分流",
     "校招鸭home一次性基础层",
+    "鲨鲨购买表分流",
     "政府网站",
     "粉笔",
     "中公",
@@ -83,6 +85,8 @@ def _qiuzhao_source(row: Mapping[str, Any]) -> str:
         return "婉清购买表"
     if "xiaozhaoya" in source or record_id.startswith("xiaozhaoya:") or "校招鸭" in label:
         return "校招鸭home一次性回填"
+    if "shasha" in source or record_id.startswith("shasha:") or "鲨鲨" in label:
+        return "鲨鲨购买表"
     labels = {
         "国聘": "国聘",
         "国家大学生就业服务平台": "国家大学生就业服务平台",
@@ -127,6 +131,8 @@ def _gongkao_source(row: Mapping[str, Any]) -> str:
         return "婉清购买表分流"
     if upstream == "xiaozhaoya" or subsource == "xiaozhaoya":
         return "校招鸭home一次性基础层"
+    if upstream == "shasha_feishu" or subsource == "shasha_feishu":
+        return "鲨鲨购买表分流"
     if (
         extra.get("government_source")
         or subsource == "government"
@@ -144,7 +150,7 @@ def _gongkao_source_date(row: Mapping[str, Any]) -> date | None:
     """Return the source date used when a purchased row arrives the next morning."""
     extra = _extra(row)
     purchased = _gongkao_source(row) in {
-        "校招鸭事业单位购买表", "婉清购买表分流", "校招鸭home一次性基础层",
+        "校招鸭事业单位购买表", "婉清购买表分流", "校招鸭home一次性基础层", "鲨鲨购买表分流",
     }
     if purchased:
         value = row.get("published_at") or extra.get("source_first_seen") or extra.get("first_seen")

@@ -18,6 +18,7 @@ from dotenv import load_dotenv
 
 from app.pipeline.gongkao_filter import filter_title_noise_items
 from app.pipeline.purchased_classify import partition_purchased_rows
+from app.pipeline.qiuzhao_dedup import deduplicate_qiuzhao_items
 from app.pipeline.prune import filter_current_items, is_expired_item, load_retention
 
 
@@ -146,6 +147,7 @@ def write_qiuzhao(data_dir: str | Path) -> dict[str, Any]:
     policy = load_retention()
     snapshot_path = target / "qiuzhao_wanqing.json"
     inputs: list[dict[str, Any]] = []
+    shasha_input: dict[str, Any] | None = None
     purchased_gongkao: list[dict[str, Any]] = []
     purchased_route_counts: dict[str, int] = {}
     purchased_label_counts: dict[str, int] = {}
@@ -197,6 +199,31 @@ def write_qiuzhao(data_dir: str | Path) -> dict[str, Any]:
             before_retention - len(snapshot["items"])
         )
         inputs.append(snapshot)
+    shasha_path = target / "qiuzhao_shasha.json"
+    if shasha_path.exists():
+        payload = json.loads(shasha_path.read_text(encoding="utf-8"))
+        if not isinstance(payload, dict):
+            raise ValueError(f"{shasha_path} must contain a JSON object")
+        snapshot = normalize_snapshot_payload(payload)
+        snapshot["status"]["upstream_source"] = "shasha_feishu"
+        snapshot["items"], routed, labels = partition_purchased_rows(
+            snapshot["items"], source="shasha_feishu"
+        )
+        purchased_gongkao.extend(routed)
+        purchased_route_counts["shasha_feishu"] = len(routed)
+        for label, count in labels.items():
+            purchased_label_counts[label] = purchased_label_counts.get(label, 0) + count
+        before_retention = len(snapshot["items"])
+        snapshot["items"] = [
+            {**row, "upstream_source": "shasha_feishu"}
+            for row in snapshot["items"]
+            if not is_expired_item(
+                {"source": "jobs", "deadline": row.get("deadline"), "extra": {}}, policy,
+            )
+        ]
+        snapshot["status"]["item_count"] = len(snapshot["items"])
+        snapshot["status"]["retention_deleted_count"] = before_retention - len(snapshot["items"])
+        shasha_input = snapshot
     for filename in ("jobs.json", "server-jobs.json"):
         source_path = target / filename
         if not source_path.exists():
@@ -212,6 +239,10 @@ def write_qiuzhao(data_dir: str | Path) -> dict[str, Any]:
             source_rows, policy,
         )
         inputs.append(normalize_jobs_payload({**payload, "items": kept}))
+    if shasha_input is not None:
+        # The new source enriches existing rows.  Keeping it last guarantees
+        # that an established Wanqing/Xiaozhaoya/site record remains primary.
+        inputs.append(shasha_input)
     routed_payload = {
         "generated_at": datetime.now().astimezone().isoformat(),
         "source": "purchased_gongkao",
@@ -231,18 +262,8 @@ def write_qiuzhao(data_dir: str | Path) -> dict[str, Any]:
     routed_temporary.replace(routed_destination)
     if not inputs:
         raise FileNotFoundError(f"No qiuzhao source found under {target}")
-    # Feishu uses company + position as the stable identity. Keep the same
-    # identity here so a collected row cannot overwrite a manually maintained
-    # row merely because its URL or location differs.
-    seen: set[tuple[str, str]] = set()
-    items: list[dict[str, Any]] = []
-    for feed in inputs:
-        for row in feed["items"]:
-            key = tuple(_text(row.get(name)).casefold() for name in ("company_name", "position"))
-            if key in seen:
-                continue
-            seen.add(key)
-            items.append(row)
+    candidates = [row for feed in inputs for row in feed["items"]]
+    items, dedup_report = deduplicate_qiuzhao_items(candidates)
     output = {
         "generated_at": next((feed.get("generated_at") for feed in inputs if feed.get("generated_at")), None),
         "source": "qiuzhao",
@@ -252,6 +273,13 @@ def write_qiuzhao(data_dir: str | Path) -> dict[str, Any]:
             "purchased_routed_gongkao_count": len(purchased_gongkao),
             "purchased_route_counts": purchased_route_counts,
             "purchased_label_counts": purchased_label_counts,
+            "cross_source_dedup": dedup_report.to_dict(),
+            "shasha_input_count": next((
+                int(feed["status"].get("item_count") or 0) for feed in inputs
+                if feed["status"].get("upstream_source") == "shasha_feishu"
+            ), 0),
+            "shasha_merged_count": dedup_report.enriched_by_origin.get("shasha_feishu", 0),
+            "shasha_new_count": dedup_report.new_by_origin.get("shasha_feishu", 0),
         },
         "items": items,
     }

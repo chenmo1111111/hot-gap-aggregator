@@ -105,11 +105,12 @@ def test_write_qiuzhao_prefers_manual_row_for_same_company_and_position(tmp_path
 
     result = write_qiuzhao(tmp_path)
 
-    assert result["items"] == [{
-        **manual, "company_type": "机构性质待核",
-        "extra": {"record_kind": "秋招", "organization_type": "机构性质待核"},
-        "upstream_source": "wanqing_feishu",
-    }]
+    assert len(result["items"]) == 1
+    merged = result["items"][0]
+    assert merged["apply_url"] == manual["apply_url"]
+    assert merged["location"] == "北京"
+    assert merged["extra"]["backup_apply_urls"] == ["https://jobs.example/collected"]
+    assert {source["origin"] for source in merged["extra"]["merged_sources"]} == {"wanqing_feishu", "jobs"}
 
 
 def test_write_qiuzhao_merges_xiaozhaoya_snapshot(tmp_path) -> None:
@@ -159,11 +160,10 @@ def test_daily_wanqing_wins_foundation_duplicate_and_expired_foundation_is_prune
 
     result = write_qiuzhao(tmp_path)
 
-    assert result["items"] == [{
-        **daily, "company_type": "机构性质待核",
-        "extra": {"record_kind": "秋招", "organization_type": "机构性质待核"},
-        "upstream_source": "wanqing_feishu",
-    }]
+    assert len(result["items"]) == 1
+    merged = result["items"][0]
+    assert merged["apply_url"] == daily["apply_url"]
+    assert merged["extra"]["backup_apply_urls"] == ["https://foundation.example/apply"]
 
 
 def test_write_qiuzhao_routes_wanqing_public_rows_to_gongkao_sidecar(tmp_path) -> None:
