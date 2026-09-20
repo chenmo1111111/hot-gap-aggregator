@@ -1138,6 +1138,11 @@ def _field_option_ids(field: Mapping[str, Any], names: tuple[str, ...]) -> list[
     return [str(option.get("id")) for option in options or [] if isinstance(option, Mapping) and str(option.get("name") or "") in wanted and option.get("id")]
 
 
+def view_filter_value(values: list[str]) -> str:
+    """Feishu's view API expects a JSON-array *string*, not a JSON array."""
+    return json.dumps(values, ensure_ascii=False, separators=(",", ":"))
+
+
 def ensure_qiuzhao_filter_views(client: FeishuClient, app_token: str, table_id: str) -> dict[str, int]:
     """Ensure reusable Qiuzhao filter columns and source-inspired views."""
     fields = client.list_fields(app_token, table_id)
@@ -1195,7 +1200,7 @@ def ensure_qiuzhao_filter_views(client: FeishuClient, app_token: str, table_id: 
                 "conditions": [{
                     "field_id": str(field.get("field_id") or ""),
                     "field_type": int(field.get("type") or 1),
-                    "operator": operator, "value": condition_values,
+                    "operator": operator, "value": view_filter_value(condition_values),
                 }],
             }},
         })

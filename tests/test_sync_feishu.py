@@ -25,10 +25,15 @@ from app.sync_feishu import (
     slash_placeholder_updates,
     split_region,
     sync_table,
+    view_filter_value,
 )
 
 
 NOW = datetime(2026, 9, 5, 8, 30, tzinfo=CHINA_TZ)
+
+
+def test_view_filter_value_is_json_array_string() -> None:
+    assert view_filter_value(["optA", "optB"]) == '["optA","optB"]'
 
 
 def test_date_conversion_accepts_seconds_millis_iso_and_chinese_date() -> None:
