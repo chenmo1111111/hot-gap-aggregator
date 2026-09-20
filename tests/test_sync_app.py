@@ -6,6 +6,7 @@ from urllib.parse import parse_qs, urlparse
 from sync.app import PREFS_MAX_BYTES, app, initialize_database
 from app.mailbox.store import MailboxStore
 from app.mailbox.inbox_store import InboxStore
+from app.mailbox.reminder_url import ReminderPreview
 
 
 @pytest.fixture
@@ -113,6 +114,14 @@ def test_non_admin_cannot_access_admin_routes(client):
         "/api/admin/mail-deadlines/status",
         json={"message_id": "<private@example>", "status": "done"},
     ).status_code == 403
+    assert client.post(
+        "/api/admin/mail-deadlines/preview", json={"url": "https://example.test/notice"},
+    ).status_code == 403
+    assert client.post(
+        "/api/admin/mail-deadlines/manual",
+        json={"title": "报名提醒", "start_at": "2026-10-08T09:00:00+08:00"},
+    ).status_code == 403
+    assert client.delete("/api/admin/mail-deadlines/manual/manual:test").status_code == 403
     assert client.get("/api/admin/mail-inbox/accounts").status_code == 403
     assert client.get("/api/admin/mail-inbox").status_code == 403
 
@@ -209,3 +218,54 @@ def test_admin_mail_deadlines_are_private_and_done_rows_leave_default_list(clien
     assert client.get("/api/admin/mail-deadlines").json()["items"] == []
     history = client.get("/api/admin/mail-deadlines?include_history=true").json()["items"]
     assert history[0]["status"] == "done"
+
+
+def test_admin_previews_confirms_and_deletes_url_reminder(client, monkeypatch):
+    async def extract(_url: str):
+        return ReminderPreview(
+            title="天津师范大学公开招聘",
+            type="公考报名",
+            start_at="2026-10-08T09:00:00+08:00",
+            deadline_at="2026-10-14T14:00:00+08:00",
+            action_url="https://www.tjnu.edu.cn/notice",
+            summary="报名开放后及时提交材料",
+            confidence="high",
+            source_url="https://www.tjnu.edu.cn/notice",
+        )
+
+    monkeypatch.setattr("sync.app.extract_reminder_from_url", extract)
+    assert login(client).status_code == 200
+    preview = client.post(
+        "/api/admin/mail-deadlines/preview",
+        json={"url": "https://www.tjnu.edu.cn/notice"},
+    )
+    assert preview.status_code == 200
+    assert preview.json()["start_at"] == "2026-10-08T09:00:00+08:00"
+
+    created = client.post("/api/admin/mail-deadlines/manual", json={
+        "title": preview.json()["title"],
+        "type": preview.json()["type"],
+        "start_at": preview.json()["start_at"],
+        "deadline_at": preview.json()["deadline_at"],
+        "action_url": preview.json()["action_url"],
+        "summary": preview.json()["summary"],
+    })
+    assert created.status_code == 200
+    item = created.json()["item"]
+    assert item["source_kind"] == "manual"
+    assert item["start_at"] == "2026-10-08T01:00:00+00:00"
+    assert item["deadline_at"] == "2026-10-14T06:00:00+00:00"
+    assert client.delete(
+        f"/api/admin/mail-deadlines/manual/{item['message_id']}"
+    ).status_code == 200
+    assert client.get("/api/admin/mail-deadlines").json()["items"] == []
+
+
+def test_manual_url_reminder_rejects_reversed_times(client):
+    assert login(client).status_code == 200
+    response = client.post("/api/admin/mail-deadlines/manual", json={
+        "title": "错误时间",
+        "start_at": "2026-10-14T14:00:00+08:00",
+        "deadline_at": "2026-10-08T09:00:00+08:00",
+    })
+    assert response.status_code == 422

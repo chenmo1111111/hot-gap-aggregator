@@ -55,6 +55,8 @@ class MailboxStore:
                     subject TEXT NOT NULL DEFAULT '',
                     sender TEXT NOT NULL DEFAULT '',
                     deadline_kind TEXT NOT NULL DEFAULT 'unknown',
+                    start_at TEXT,
+                    source_kind TEXT NOT NULL DEFAULT 'email',
                     updated_at TEXT NOT NULL
                 );
                 CREATE INDEX IF NOT EXISTS idx_mail_deadlines_status_deadline
@@ -80,6 +82,15 @@ class MailboxStore:
                 );
                 """
             )
+            columns = {
+                str(row[1]) for row in connection.execute("PRAGMA table_info(mail_deadlines)")
+            }
+            if "start_at" not in columns:
+                connection.execute("ALTER TABLE mail_deadlines ADD COLUMN start_at TEXT")
+            if "source_kind" not in columns:
+                connection.execute(
+                    "ALTER TABLE mail_deadlines ADD COLUMN source_kind TEXT NOT NULL DEFAULT 'email'"
+                )
         try:
             self.path.chmod(0o600)
         except OSError:
@@ -140,8 +151,8 @@ class MailboxStore:
                 INSERT OR IGNORE INTO mail_deadlines(
                     message_id, company, type, deadline_at, action_url, summary,
                     received_at, status, created_at, subject, sender,
-                    deadline_kind, updated_at
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    deadline_kind, start_at, source_kind, updated_at
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """,
                 (
                     str(record["message_id"]),
@@ -156,6 +167,8 @@ class MailboxStore:
                     str(record.get("subject") or ""),
                     str(record.get("sender") or ""),
                     str(record.get("deadline_kind") or "unknown"),
+                    record.get("start_at"),
+                    str(record.get("source_kind") or "email"),
                     now,
                 ),
             )
@@ -173,6 +186,32 @@ class MailboxStore:
             )
         return cursor.rowcount > 0
 
+    def add_manual_deadline(self, record: Mapping[str, Any]) -> bool:
+        now = utc_now()
+        with self.connect() as connection:
+            cursor = connection.execute(
+                """
+                INSERT INTO mail_deadlines(
+                    message_id, company, type, deadline_at, action_url, summary,
+                    received_at, status, created_at, subject, sender,
+                    deadline_kind, start_at, source_kind, updated_at
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, 'pending', ?, '', '', 'manual', ?, 'manual', ?)
+                """,
+                (
+                    str(record["message_id"]),
+                    str(record.get("company") or "待办提醒"),
+                    str(record.get("type") or "报名"),
+                    record.get("deadline_at"),
+                    record.get("action_url"),
+                    str(record.get("summary") or "请按时处理"),
+                    now,
+                    now,
+                    record.get("start_at"),
+                    now,
+                ),
+            )
+        return cursor.rowcount > 0
+
     def list_deadlines(self, *, include_history: bool = False) -> list[dict[str, Any]]:
         if include_history:
             where = "1 = 1"
@@ -183,13 +222,13 @@ class MailboxStore:
                 f"""
                 SELECT message_id, company, type, deadline_at, action_url, summary,
                        received_at, status, created_at, subject, sender,
-                       deadline_kind, updated_at
+                       deadline_kind, start_at, source_kind, updated_at
                 FROM mail_deadlines
                 WHERE {where}
                 ORDER BY
                     CASE WHEN status = 'needs_review' THEN 1 ELSE 0 END,
-                    CASE WHEN deadline_at IS NULL THEN 1 ELSE 0 END,
-                    deadline_at ASC,
+                    CASE WHEN COALESCE(start_at, deadline_at) IS NULL THEN 1 ELSE 0 END,
+                    COALESCE(start_at, deadline_at) ASC,
                     received_at DESC
                 """
             ).fetchall()
@@ -202,6 +241,14 @@ class MailboxStore:
             cursor = connection.execute(
                 "UPDATE mail_deadlines SET status = ?, updated_at = ? WHERE message_id = ?",
                 (status, utc_now(), message_id),
+            )
+        return cursor.rowcount > 0
+
+    def delete_manual_deadline(self, message_id: str) -> bool:
+        with self.connect() as connection:
+            cursor = connection.execute(
+                "DELETE FROM mail_deadlines WHERE message_id = ? AND source_kind = 'manual'",
+                (message_id,),
             )
         return cursor.rowcount > 0
 
@@ -221,10 +268,11 @@ class MailboxStore:
         with self.connect() as connection:
             rows = connection.execute(
                 """
-                SELECT message_id, company, type, deadline_at, summary
+                SELECT message_id, company, type, deadline_at, start_at, summary
                 FROM mail_deadlines
-                WHERE status = 'pending' AND deadline_at IS NOT NULL
-                ORDER BY deadline_at
+                WHERE status = 'pending'
+                  AND (deadline_at IS NOT NULL OR start_at IS NOT NULL)
+                ORDER BY COALESCE(start_at, deadline_at)
                 """
             ).fetchall()
         return [dict(row) for row in rows]

@@ -113,6 +113,8 @@ describe('authenticated app bootstrap', () => {
         { message_id: '<review@example>', company: '信锐网科', type: '其他', deadline_at: null, action_url: null, summary: '截止时间无法确认', received_at: '2026-09-10T02:00:00Z', status: 'needs_review', subject: '信锐网科面试安排', sender: '招聘中心' },
       ] });
       if (url === '/api/admin/mail-deadlines/status' && init?.method === 'POST') return json({ ok: true });
+      if (url === '/api/admin/mail-deadlines/preview' && init?.method === 'POST') return json({ title: '天津师范大学公开招聘', type: '公考报名', start_at: '2026-10-08T09:00:00+08:00', deadline_at: '2026-10-14T14:00:00+08:00', action_url: 'https://www.tjnu.edu.cn/notice', summary: '报名开放后及时提交材料', confidence: 'high', source_url: 'https://www.tjnu.edu.cn/notice' });
+      if (url === '/api/admin/mail-deadlines/manual' && init?.method === 'POST') return json({ ok: true, item: {} });
       return dataResponse(url) ?? json({}, 404);
     });
     vi.stubGlobal('fetch', fetchMock);
@@ -128,6 +130,16 @@ describe('authenticated app bootstrap', () => {
     expect(screen.getByRole('heading', { name: '需要你自己看' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: '信锐网科' })).toBeInTheDocument();
     expect(screen.getByText('专属链接，勿转发')).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: '＋粘贴网址添加' }));
+    fireEvent.change(screen.getByLabelText('招聘公告网址'), { target: { value: 'https://www.tjnu.edu.cn/notice' } });
+    fireEvent.click(screen.getByRole('button', { name: '自动读取' }));
+    expect(await screen.findByDisplayValue('天津师范大学公开招聘')).toBeInTheDocument();
+    expect(screen.getByLabelText('报名开始')).toHaveValue('2026-10-08T09:00');
+    expect(screen.getByLabelText('报名截止')).toHaveValue('2026-10-14T14:00');
+    fireEvent.click(screen.getByRole('button', { name: '确认无误，加入提醒' }));
+    await waitFor(() => expect(fetchMock.mock.calls.some(([url]) => String(url) === '/api/admin/mail-deadlines/manual')).toBe(true));
+    const createCall = fetchMock.mock.calls.find(([url]) => String(url) === '/api/admin/mail-deadlines/manual');
+    expect(JSON.parse(String(createCall?.[1]?.body))).toMatchObject({ title: '天津师范大学公开招聘', type: '公考报名' });
     fireEvent.click(screen.getAllByRole('button', { name: '标记已完成' })[0]);
     await waitFor(() => expect(screen.queryByRole('heading', { name: '三棵树' })).not.toBeInTheDocument());
     const statusCall = fetchMock.mock.calls.find(([url]) => String(url) === '/api/admin/mail-deadlines/status');

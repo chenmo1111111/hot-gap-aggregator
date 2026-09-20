@@ -127,31 +127,42 @@ async def send_due_notifications(
     sent = 0
     store.expire_due(now)
     for record in store.pending_with_deadlines():
-        deadline = datetime.fromisoformat(str(record["deadline_at"])).astimezone(UTC)
-        remaining_hours = (deadline - now.astimezone(UTC)).total_seconds() / 3600
-        if remaining_hours <= 0:
-            continue
-        eligible = [
-            (hours, label) for hours, label in THRESHOLDS
-            if remaining_hours <= hours
-            and not store.notification_sent(str(record["message_id"]), label)
-        ]
-        if not eligible:
-            continue
-        # If an old email is first discovered inside several thresholds, send
-        # only the most urgent reminder and mark the already-missed wider
-        # thresholds so a single cron run cannot flood the phone.
-        hours, label = eligible[-1]
-        for _, missed_label in eligible[:-1]:
-            store.record_notification(str(record["message_id"]), missed_label)
-        if remaining_hours <= hours:
+        events: list[tuple[str, str, str]] = []
+        if record.get("start_at"):
+            events.append(("start", "报名开始", str(record["start_at"])))
+        if record.get("deadline_at"):
+            events.append(("deadline", "截止", str(record["deadline_at"])))
+        for event_key, event_label, event_time in events:
+            target = datetime.fromisoformat(event_time).astimezone(UTC)
+            remaining_hours = (target - now.astimezone(UTC)).total_seconds() / 3600
+            if remaining_hours <= 0:
+                continue
+            eligible = [
+                (hours, label) for hours, label in THRESHOLDS
+                if remaining_hours <= hours
+                and not store.notification_sent(
+                    str(record["message_id"]),
+                    label if event_key == "deadline" else f"start:{label}",
+                )
+            ]
+            if not eligible:
+                continue
+            # If first discovered inside several thresholds, send only the
+            # most urgent one and mark wider thresholds to prevent a burst.
+            hours, label = eligible[-1]
+            for _, missed_label in eligible[:-1]:
+                store.record_notification(
+                    str(record["message_id"]),
+                    missed_label if event_key == "deadline" else f"start:{missed_label}",
+                )
+            threshold_key = label if event_key == "deadline" else f"start:{label}"
             body = (
                 f"{record['company']} · {record['type']}\n"
-                f"剩余约 {remaining_hours:.1f} 小时\n{record['summary']}\n"
-                "请登录站点操作，专属链接勿转发。"
+                f"距离{event_label}约 {remaining_hours:.1f} 小时\n{record['summary']}\n"
+                "请登录站点查看并操作。"
             )
-            if await notifier(f"截止倒计时 · {label}", body):
-                store.record_notification(str(record["message_id"]), label)
+            if await notifier(f"{event_label}倒计时 · {label}", body):
+                store.record_notification(str(record["message_id"]), threshold_key)
                 sent += 1
     return sent
 

@@ -295,6 +295,40 @@ async def test_due_notifications_fire_once_per_crossed_threshold_without_burst(t
     assert sent == ["截止倒计时 · 24h", "截止倒计时 · 6h", "截止倒计时 · 1h"]
 
 
+@pytest.mark.asyncio
+async def test_manual_registration_start_notifications_fire_once(tmp_path) -> None:
+    store = MailboxStore(tmp_path / "mail.db")
+    store.initialize()
+    start = datetime(2026, 10, 8, 1, 0, tzinfo=UTC)
+    assert store.add_manual_deadline({
+        "message_id": "manual:tianjin",
+        "company": "天津师范大学公开招聘",
+        "type": "公考报名",
+        "start_at": start.isoformat(),
+        "deadline_at": (start + timedelta(days=6, hours=5)).isoformat(),
+        "action_url": "https://example.test/notice",
+        "summary": "报名开放后及时提交材料",
+    })
+    sent: list[str] = []
+
+    async def notify(title: str, _body: str) -> bool:
+        sent.append(title)
+        return True
+
+    assert await send_due_notifications(
+        store, now=start - timedelta(hours=23), notifier=notify,
+    ) == 1
+    assert await send_due_notifications(
+        store, now=start - timedelta(hours=23), notifier=notify,
+    ) == 0
+    assert sent == ["报名开始倒计时 · 24h"]
+    row = store.list_deadlines()[0]
+    assert row["source_kind"] == "manual"
+    assert row["start_at"] == start.isoformat()
+    assert store.delete_manual_deadline("manual:tianjin") is True
+    assert store.list_deadlines() == []
+
+
 def test_mailbox_cron_is_independent_from_public_refresh() -> None:
     cron = (Path(__file__).parents[1] / "deploy/server/hot-gap-mailbox.cron").read_text(
         encoding="utf-8"

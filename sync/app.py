@@ -11,6 +11,8 @@ from contextlib import asynccontextmanager
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Annotated, Any
+from urllib.parse import urlsplit
+from uuid import uuid4
 
 from fastapi import Depends, FastAPI, HTTPException, Query, Request, Response, status
 from fastapi.middleware.cors import CORSMiddleware
@@ -21,6 +23,7 @@ from pydantic import BaseModel, Field
 from dotenv import load_dotenv
 
 from app.mailbox.store import MailboxStore, initialize_mailbox_database
+from app.mailbox.reminder_url import CHINA_TZ, ReminderUrlError, extract_reminder_from_url
 from app.mailbox.accounts import load_mail_accounts, public_account
 from app.mailbox.gmail_client import authorization_url, exchange_authorization_code, GmailReadonlyClient
 from app.mailbox.inbox_store import InboxStore, TokenCipher, initialize_inbox_database
@@ -62,6 +65,19 @@ class PasswordBody(BaseModel):
 class MailDeadlineStatusBody(BaseModel):
     message_id: str = Field(min_length=1, max_length=998)
     status: str = Field(pattern="^(done|pending)$")
+
+
+class MailDeadlinePreviewBody(BaseModel):
+    url: str = Field(min_length=8, max_length=2048)
+
+
+class ManualMailDeadlineBody(BaseModel):
+    title: str = Field(min_length=1, max_length=160)
+    type: str = Field(default="报名", min_length=1, max_length=40)
+    start_at: datetime | None = None
+    deadline_at: datetime | None = None
+    action_url: str = Field(default="", max_length=2048)
+    summary: str = Field(default="", max_length=500)
 
 
 def utc_now() -> str:
@@ -364,6 +380,74 @@ def update_mail_deadline_status(
 ) -> dict[str, bool]:
     if not MailboxStore().set_status(body.message_id, body.status):
         raise HTTPException(status_code=404, detail="提醒不存在")
+    return {"ok": True}
+
+
+@app.post("/api/admin/mail-deadlines/preview")
+async def preview_manual_mail_deadline(
+    body: MailDeadlinePreviewBody,
+    _: Annotated[dict[str, Any], Depends(admin_user)],
+) -> dict[str, Any]:
+    try:
+        preview = await extract_reminder_from_url(body.url)
+    except ReminderUrlError as exc:
+        raise HTTPException(status_code=422, detail=str(exc)) from exc
+    except Exception as exc:
+        logger.warning("manual reminder URL extraction failed: %s", type(exc).__name__)
+        raise HTTPException(status_code=502, detail="公告读取失败，请稍后重试") from exc
+    return preview.to_dict()
+
+
+def _utc_datetime(value: datetime | None) -> datetime | None:
+    if value is None:
+        return None
+    if value.tzinfo is None:
+        value = value.replace(tzinfo=CHINA_TZ)
+    return value.astimezone(timezone.utc)
+
+
+@app.post("/api/admin/mail-deadlines/manual")
+def create_manual_mail_deadline(
+    body: ManualMailDeadlineBody,
+    _: Annotated[dict[str, Any], Depends(admin_user)],
+) -> dict[str, Any]:
+    start_value, deadline_value = _utc_datetime(body.start_at), _utc_datetime(body.deadline_at)
+    start_at = start_value.isoformat() if start_value else None
+    deadline_at = deadline_value.isoformat() if deadline_value else None
+    if not start_at and not deadline_at:
+        raise HTTPException(status_code=422, detail="报名开始时间和截止时间至少填写一个")
+    if start_value and deadline_value and deadline_value <= start_value:
+        raise HTTPException(status_code=422, detail="截止时间必须晚于报名开始时间")
+    action_url = body.action_url.strip()
+    if action_url:
+        try:
+            parsed = urlsplit(action_url)
+        except ValueError as exc:
+            raise HTTPException(status_code=422, detail="操作网址格式不正确") from exc
+        if parsed.scheme not in {"http", "https"} or not parsed.hostname:
+            raise HTTPException(status_code=422, detail="操作网址必须是 http/https 地址")
+    message_id = f"manual:{uuid4().hex}"
+    store = MailboxStore()
+    store.add_manual_deadline({
+        "message_id": message_id,
+        "company": body.title.strip(),
+        "type": body.type.strip(),
+        "start_at": start_at,
+        "deadline_at": deadline_at,
+        "action_url": action_url or None,
+        "summary": body.summary.strip() or f"按时处理：{body.title.strip()}",
+    })
+    item = next(row for row in store.list_deadlines() if row["message_id"] == message_id)
+    return {"ok": True, "item": item}
+
+
+@app.delete("/api/admin/mail-deadlines/manual/{message_id}")
+def delete_manual_mail_deadline(
+    message_id: str,
+    _: Annotated[dict[str, Any], Depends(admin_user)],
+) -> dict[str, bool]:
+    if not MailboxStore().delete_manual_deadline(message_id):
+        raise HTTPException(status_code=404, detail="手动提醒不存在")
     return {"ok": True}
 
 

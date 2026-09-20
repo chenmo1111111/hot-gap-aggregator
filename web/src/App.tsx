@@ -35,9 +35,18 @@ type SessionUser = { username: string; is_admin: boolean };
 type AdminUser = SessionUser & { id: number; created_at: string };
 type MailDeadline = {
   message_id: string; company: string; type: string; deadline_at?: string | null;
+  start_at?: string | null; source_kind?: 'email' | 'manual';
   action_url?: string | null; summary: string; received_at: string;
   status: 'pending' | 'done' | 'expired' | 'needs_review';
   subject?: string; sender?: string; deadline_kind?: string;
+};
+type ReminderPreview = {
+  title: string; type: string; start_at?: string | null; deadline_at?: string | null;
+  action_url: string; summary: string; confidence: 'high' | 'medium' | 'low'; source_url: string;
+};
+type ReminderDraft = {
+  title: string; type: string; start_at: string; deadline_at: string;
+  action_url: string; summary: string; confidence: 'high' | 'medium' | 'low'; source_url: string;
 };
 type MailAttachment = { filename: string; size: number; content_type: string };
 type MailAccount = {
@@ -504,12 +513,26 @@ const deadlineTone = (deadline: string | null | undefined, now: number) => {
   return 'border-[var(--line)] bg-[var(--card)]';
 };
 
+const localDateTimeInput = (value?: string | null) => {
+  if (!value) return '';
+  const date = new Date(value);
+  const pad = (part: number) => String(part).padStart(2, '0');
+  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
+};
+
+const isoFromLocalInput = (value: string) => value ? new Date(value).toISOString() : null;
+
 function MailDeadlinesView() {
   const [items, setItems] = useState<MailDeadline[]>([]);
   const [history, setHistory] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [now, setNow] = useState(Date.now());
+  const [showAdd, setShowAdd] = useState(false);
+  const [sourceUrl, setSourceUrl] = useState('');
+  const [extracting, setExtracting] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [draft, setDraft] = useState<ReminderDraft | null>(null);
 
   const load = useCallback(async (includeHistory: boolean) => {
     setLoading(true); setError('');
@@ -542,18 +565,81 @@ function MailDeadlinesView() {
     setItems((current) => current.filter((item) => item.message_id !== messageId));
   };
 
+  const extractUrl = async () => {
+    if (!sourceUrl.trim()) { setError('请先粘贴招聘公告网址'); return; }
+    setExtracting(true); setError(''); setDraft(null);
+    try {
+      const response = await fetch('/api/admin/mail-deadlines/preview', {
+        method: 'POST', credentials: 'include', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url: sourceUrl.trim() }),
+      });
+      if (!response.ok) throw new Error(await readError(response, '公告读取失败'));
+      const preview = await response.json() as ReminderPreview;
+      setDraft({
+        ...preview,
+        start_at: localDateTimeInput(preview.start_at),
+        deadline_at: localDateTimeInput(preview.deadline_at),
+      });
+    } catch (reason) {
+      setError(reason instanceof Error ? reason.message : '公告读取失败');
+    } finally {
+      setExtracting(false);
+    }
+  };
+
+  const saveReminder = async () => {
+    if (!draft) return;
+    if (!draft.start_at && !draft.deadline_at) { setError('至少确认一个报名开始或截止时间'); return; }
+    setSaving(true); setError('');
+    try {
+      const response = await fetch('/api/admin/mail-deadlines/manual', {
+        method: 'POST', credentials: 'include', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          title: draft.title, type: draft.type,
+          start_at: isoFromLocalInput(draft.start_at),
+          deadline_at: isoFromLocalInput(draft.deadline_at),
+          action_url: draft.action_url, summary: draft.summary,
+        }),
+      });
+      if (!response.ok) throw new Error(await readError(response, '保存提醒失败'));
+      setSourceUrl(''); setDraft(null); setShowAdd(false);
+      await load(history);
+    } catch (reason) {
+      setError(reason instanceof Error ? reason.message : '保存提醒失败');
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const deleteManual = async (messageId: string) => {
+    const response = await fetch(`/api/admin/mail-deadlines/manual/${encodeURIComponent(messageId)}`, {
+      method: 'DELETE', credentials: 'include',
+    });
+    if (!response.ok) { setError(await readError(response, '删除提醒失败')); return; }
+    setItems((current) => current.filter((item) => item.message_id !== messageId));
+  };
+
   const pending = items.filter((item) => item.status === 'pending');
   const needsReview = items.filter((item) => item.status === 'needs_review');
   const completed = items.filter((item) => item.status === 'done' || item.status === 'expired');
-  const card = (item: MailDeadline, canComplete: boolean) => <article key={item.message_id} className={`rounded-2xl border p-4 shadow-sm ${deadlineTone(item.deadline_at, now)}`}>
-    <div className="flex flex-wrap items-start justify-between gap-3"><div className="min-w-0"><div className="flex flex-wrap items-center gap-2"><h3 className="text-lg font-black">{item.company}</h3><span className="rounded-full bg-[var(--soft)] px-2.5 py-1 text-[11px] font-bold">{item.type}</span></div><p className="mt-1 text-xs text-[var(--muted)]">收件于 {new Date(item.received_at).toLocaleString('zh-CN')}</p></div><b className={item.deadline_at && (new Date(item.deadline_at).getTime() - now) < 86400000 ? 'text-rose-600' : 'text-orange-600'}>{countdownText(item.deadline_at, now)}</b></div>
+  const card = (item: MailDeadline, canComplete: boolean) => {
+    const upcomingStart = item.start_at && new Date(item.start_at).getTime() > now ? item.start_at : null;
+    const nextTime = upcomingStart || item.deadline_at;
+    const nextLabel = upcomingStart ? '距离报名开始' : '距离截止';
+    return <article key={item.message_id} className={`rounded-2xl border p-4 shadow-sm ${deadlineTone(nextTime, now)}`}>
+    <div className="flex flex-wrap items-start justify-between gap-3"><div className="min-w-0"><div className="flex flex-wrap items-center gap-2"><h3 className="text-lg font-black">{item.company}</h3><span className="rounded-full bg-[var(--soft)] px-2.5 py-1 text-[11px] font-bold">{item.type}</span><span className="rounded-full bg-cyan-100 px-2.5 py-1 text-[11px] font-bold text-cyan-800">{item.source_kind === 'manual' ? '网址添加' : '邮件识别'}</span></div><p className="mt-1 text-xs text-[var(--muted)]">{item.source_kind === 'manual' ? '添加于' : '收件于'} {new Date(item.received_at).toLocaleString('zh-CN')}</p></div><div className="text-right"><span className="block text-[11px] font-bold text-[var(--muted)]">{nextLabel}</span><b className={nextTime && (new Date(nextTime).getTime() - now) < 86400000 ? 'text-rose-600' : 'text-orange-600'}>{countdownText(nextTime, now)}</b></div></div>
+    {(item.start_at || item.deadline_at) && <div className="mt-3 grid gap-1 rounded-xl bg-[var(--soft)] p-3 text-xs"><p>报名开始：{item.start_at ? new Date(item.start_at).toLocaleString('zh-CN') : '未填写'}</p><p>报名截止：{item.deadline_at ? new Date(item.deadline_at).toLocaleString('zh-CN') : '未填写'}</p></div>}
     <p className="mt-3 text-sm leading-6">{item.summary}</p>
     {item.subject && <details className="mt-2 text-xs text-[var(--muted)]"><summary className="cursor-pointer">查看原始邮件摘要</summary><p className="mt-2 break-words">主题：{item.subject}</p>{item.sender && <p className="mt-1 break-words">发件人：{item.sender}</p>}</details>}
-    <div className="mt-4 flex flex-wrap items-center gap-2">{item.action_url && <><a href={item.action_url} target="_blank" rel="noopener noreferrer" className="rounded-full bg-cyan-600 px-4 py-2 text-xs font-black text-white">打开操作页面 ↗</a><span className="text-[11px] font-bold text-rose-500">专属链接，勿转发</span></>}{canComplete && <button type="button" onClick={() => void markDone(item.message_id)} className="rounded-full bg-[var(--ink)] px-4 py-2 text-xs font-black text-[var(--paper)]">标记已完成</button>}</div>
+    <div className="mt-4 flex flex-wrap items-center gap-2">{item.action_url && <><a href={item.action_url} target="_blank" rel="noopener noreferrer" className="rounded-full bg-cyan-600 px-4 py-2 text-xs font-black text-white">打开公告/报名页 ↗</a>{item.source_kind !== 'manual' && <span className="text-[11px] font-bold text-rose-500">专属链接，勿转发</span>}</>}{canComplete && <button type="button" onClick={() => void markDone(item.message_id)} className="rounded-full bg-[var(--ink)] px-4 py-2 text-xs font-black text-[var(--paper)]">标记已完成</button>}{item.source_kind === 'manual' && <button type="button" onClick={() => void deleteManual(item.message_id)} className="rounded-full border border-rose-300 px-4 py-2 text-xs font-black text-rose-600">删除</button>}</div>
   </article>;
+  };
 
-  return <div className="grid gap-8"><header className="flex flex-wrap items-end justify-between gap-3"><div><h2 className="text-2xl font-black">截止提醒</h2><p className="mt-1 text-xs text-[var(--muted)]">私有邮箱提醒，仅管理员可见；专属操作链接请勿转发。</p></div><div className="flex rounded-full bg-[var(--soft)] p-1"><button type="button" onClick={() => setHistory(false)} className={`rounded-full px-4 py-2 text-xs font-bold ${!history ? 'bg-[var(--ink)] text-[var(--paper)]' : ''}`}>待处理</button><button type="button" onClick={() => setHistory(true)} className={`rounded-full px-4 py-2 text-xs font-bold ${history ? 'bg-[var(--ink)] text-[var(--paper)]' : ''}`}>查看已完成</button></div></header>
+  return <div className="grid gap-8"><header className="flex flex-wrap items-end justify-between gap-3"><div><h2 className="text-2xl font-black">截止提醒</h2><p className="mt-1 text-xs text-[var(--muted)]">邮件自动识别 + 公告网址添加，仅管理员可见。</p></div><div className="flex flex-wrap gap-2"><button type="button" onClick={() => setShowAdd((value) => !value)} className="rounded-full bg-cyan-600 px-4 py-2 text-xs font-black text-white">{showAdd ? '收起添加窗口' : '＋粘贴网址添加'}</button><div className="flex rounded-full bg-[var(--soft)] p-1"><button type="button" onClick={() => setHistory(false)} className={`rounded-full px-4 py-2 text-xs font-bold ${!history ? 'bg-[var(--ink)] text-[var(--paper)]' : ''}`}>待处理</button><button type="button" onClick={() => setHistory(true)} className={`rounded-full px-4 py-2 text-xs font-bold ${history ? 'bg-[var(--ink)] text-[var(--paper)]' : ''}`}>查看已完成</button></div></div></header>
     {error && <p role="alert" className="rounded-xl bg-rose-50 p-3 text-sm text-rose-600 dark:bg-rose-950/30">{error}</p>}
+    {showAdd && <section className="rounded-2xl border border-cyan-300 bg-cyan-50/60 p-4 dark:border-cyan-900 dark:bg-cyan-950/20"><h3 className="font-black">从招聘公告自动生成提醒</h3><p className="mt-1 text-xs text-[var(--muted)]">粘贴网页或PDF地址，系统读取报名开始、截止时间和报名入口；保存前请核对。</p><div className="mt-4 flex flex-col gap-2 sm:flex-row"><input aria-label="招聘公告网址" value={sourceUrl} onChange={(event) => setSourceUrl(event.target.value)} placeholder="https://…" className="min-w-0 flex-1 rounded-xl border border-[var(--line)] bg-[var(--paper)] px-4 py-3 text-sm"/><button type="button" disabled={extracting} onClick={() => void extractUrl()} className="rounded-xl bg-cyan-600 px-5 py-3 text-sm font-black text-white disabled:opacity-50">{extracting ? '正在读取公告…' : '自动读取'}</button></div>
+      {draft && <div className="mt-5 grid gap-3 border-t border-cyan-200 pt-5 dark:border-cyan-900"><div className="flex items-center justify-between"><b>请确认识别结果</b><span className={`rounded-full px-2 py-1 text-[10px] font-black ${draft.confidence === 'high' ? 'bg-emerald-100 text-emerald-700' : 'bg-orange-100 text-orange-700'}`}>{draft.confidence === 'high' ? '高置信度' : '请重点核对时间'}</span></div><div className="grid gap-3 sm:grid-cols-2"><label className="text-xs font-bold">事项名称<input value={draft.title} onChange={(event) => setDraft({ ...draft, title: event.target.value })} className="mt-1 w-full rounded-xl border border-[var(--line)] bg-[var(--paper)] px-3 py-2.5 text-sm"/></label><label className="text-xs font-bold">类型<input value={draft.type} onChange={(event) => setDraft({ ...draft, type: event.target.value })} className="mt-1 w-full rounded-xl border border-[var(--line)] bg-[var(--paper)] px-3 py-2.5 text-sm"/></label><label className="text-xs font-bold">报名开始<input aria-label="报名开始" type="datetime-local" value={draft.start_at} onChange={(event) => setDraft({ ...draft, start_at: event.target.value })} className="mt-1 w-full rounded-xl border border-[var(--line)] bg-[var(--paper)] px-3 py-2.5 text-sm"/></label><label className="text-xs font-bold">报名截止<input aria-label="报名截止" type="datetime-local" value={draft.deadline_at} onChange={(event) => setDraft({ ...draft, deadline_at: event.target.value })} className="mt-1 w-full rounded-xl border border-[var(--line)] bg-[var(--paper)] px-3 py-2.5 text-sm"/></label></div><label className="text-xs font-bold">公告/报名入口<input value={draft.action_url} onChange={(event) => setDraft({ ...draft, action_url: event.target.value })} className="mt-1 w-full rounded-xl border border-[var(--line)] bg-[var(--paper)] px-3 py-2.5 text-sm"/></label><label className="text-xs font-bold">提醒内容<textarea value={draft.summary} onChange={(event) => setDraft({ ...draft, summary: event.target.value })} className="mt-1 min-h-20 w-full rounded-xl border border-[var(--line)] bg-[var(--paper)] px-3 py-2.5 text-sm"/></label><button type="button" disabled={saving} onClick={() => void saveReminder()} className="rounded-xl bg-[var(--ink)] px-5 py-3 text-sm font-black text-[var(--paper)] disabled:opacity-50">{saving ? '正在保存…' : '确认无误，加入提醒'}</button></div>}
+    </section>}
     {loading ? <p className="text-sm text-[var(--muted)]">正在读取私有提醒…</p> : history ? <section><div className="mb-3 flex items-center justify-between"><h3 className="text-lg font-black">已完成 / 已过期</h3><span className="font-mono text-xs text-[var(--muted)]">{completed.length}</span></div><div className="grid gap-3">{completed.map((item) => card(item, false))}{completed.length === 0 && <p className="rounded-2xl border border-dashed border-[var(--line)] p-8 text-center text-sm text-[var(--muted)]">还没有历史记录。</p>}</div></section> : <><section><div className="mb-3 flex items-center justify-between"><h3 className="text-lg font-black">待完成</h3><span className="font-mono text-xs text-[var(--muted)]">{pending.length}</span></div><div className="grid gap-3">{pending.map((item) => card(item, true))}{pending.length === 0 && <p className="rounded-2xl border border-dashed border-[var(--line)] p-8 text-center text-sm text-[var(--muted)]">目前没有待完成提醒。</p>}</div></section><section><div className="mb-3 flex items-center justify-between"><div><h3 className="text-lg font-black">需要你自己看</h3><p className="text-xs text-[var(--muted)]">未能可靠解析截止时间，邮件不会被丢弃。</p></div><span className="font-mono text-xs text-[var(--muted)]">{needsReview.length}</span></div><div className="grid gap-3">{needsReview.map((item) => card(item, true))}{needsReview.length === 0 && <p className="rounded-2xl border border-dashed border-[var(--line)] p-8 text-center text-sm text-[var(--muted)]">没有需要人工确认的邮件。</p>}</div></section></>}
   </div>;
 }
