@@ -27,6 +27,7 @@ DEFAULT_HOT_SOURCES = (
 @dataclass(frozen=True)
 class RetentionPolicy:
     jobs_delete_after_deadline: bool = True
+    jobs_deadline_grace_days: int = 3
     xjh_delete_after_event_days: int = 1
     gongkao_write_plus_days: int = 7
     gongkao_signup_plus_days: int = 21
@@ -50,6 +51,7 @@ def load_retention(path: str | Path | None = None) -> RetentionPolicy:
     hot_sources = tuple(str(value) for value in raw.get("hot_sources", []) if str(value))
     return RetentionPolicy(
         jobs_delete_after_deadline=bool(jobs.get("delete_after_deadline", True)),
+        jobs_deadline_grace_days=max(0, int(jobs.get("deadline_grace_days", 3))),
         xjh_delete_after_event_days=max(0, int(jobs.get("xjh_delete_after_event_days", 1))),
         gongkao_write_plus_days=max(0, int(gongkao.get("keep_until_write_exam_plus_days", 7))),
         gongkao_signup_plus_days=max(0, int(gongkao.get("no_write_date_signup_plus_days", 21))),
@@ -157,6 +159,28 @@ def filter_current_items(
     kept = [row for row in rows if not is_expired_item(row, policy, today=today)]
     for rank, row in enumerate(kept, 1):
         row["rank"] = rank
+    return kept, len(rows) - len(kept)
+
+
+def is_expired_qiuzhao_item(
+    item: Mapping[str, Any], policy: RetentionPolicy, *, today: date | None = None,
+) -> bool:
+    """Deadline retention for Qiuzhao rows, including rows routed from Gongkao."""
+    if not policy.jobs_delete_after_deadline:
+        return False
+    current = today or datetime.now(UTC).date()
+    deadline = _first_date(item, (
+        "deadline", "application_deadline", "end_time", "extra.deadline",
+        "extra.application_deadline", "extra.end_time", "extra.endSignUpTime",
+        "网申截止", "报名截止", "截止日期",
+    ))
+    return bool(deadline and current > deadline + timedelta(days=policy.jobs_deadline_grace_days))
+
+
+def filter_current_qiuzhao_items(
+    rows: list[Mapping[str, Any]], policy: RetentionPolicy, *, today: date | None = None,
+) -> tuple[list[Mapping[str, Any]], int]:
+    kept = [row for row in rows if not is_expired_qiuzhao_item(row, policy, today=today)]
     return kept, len(rows) - len(kept)
 
 

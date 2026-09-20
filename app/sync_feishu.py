@@ -18,6 +18,12 @@ import yaml
 from dotenv import load_dotenv
 
 from app.pipeline.gongkao_links import browser_safe_announcement_url
+from app.pipeline.prune import filter_current_qiuzhao_items, load_retention
+from app.pipeline.qiuzhao_capacity import enforce_qiuzhao_capacity, load_first_seen
+from app.feishu_schema_guard import (
+    SchemaDriftError, load_snapshot, sanitize_fields, validate_live_schema,
+)
+from app.pipeline.qiuzhao_location import split_work_locations
 
 
 LOGGER = logging.getLogger(__name__)
@@ -35,7 +41,7 @@ GONGKAO_TEXT_FIELDS = {
     "同步ID", "地区", "招录单位·公告", "招录人数", "备注", "可能重复于",
 }
 QIUZHAO_TEXT_FIELDS = {
-    "同步ID", "公司名称", "行业", "招聘岗位", "工作地点", "学历要求", "届次", "截止月份", "备注",
+    "同步ID", "公司名称", "行业", "招聘岗位", "学历要求", "届次", "截止月份", "备注",
 }
 PROVINCES = {
     "北京", "天津", "河北", "山西", "内蒙古", "辽宁", "吉林", "黑龙江", "上海", "江苏",
@@ -903,6 +909,11 @@ def map_qiuzhao(
         "$source": "自动" + (f"·{label}" if (label := str(_coalesce(row, "source_label|extra.source_label") or "").strip()) else ""),
     }
     fields = _apply_mapping(row, field_mapping or DEFAULT_QIUZHAO_MAPPING, derived)
+    location_field = (field_mapping or DEFAULT_QIUZHAO_MAPPING).get(
+        "location|work_location|city|extra.city|工作地点", "工作地点"
+    )
+    if location_field in fields:
+        fields[location_field] = split_work_locations(fields[location_field])
     return _fill_text_placeholders(fields, QIUZHAO_TEXT_FIELDS)
 
 
@@ -1048,6 +1059,7 @@ def sync_table(
     field_mapping: Mapping[str, str],
     *,
     now: datetime | None = None,
+    existing_records: list[dict[str, Any]] | None = None,
 ) -> dict[str, int]:
     mapped: list[dict[str, Any]] = []
     skipped = 0
@@ -1060,7 +1072,7 @@ def sync_table(
     sync_id_field = field_mapping["$sync_id"]
     source_field = field_mapping["$source"]
     updated_at_field = field_mapping["$sync_time"]
-    existing = client.list_records(app_token, table_id)
+    existing = existing_records if existing_records is not None else client.list_records(app_token, table_id)
     creates, updates, deletes = diff_records(
         mapped,
         existing,
@@ -1334,7 +1346,7 @@ def _alert(message: str) -> None:
     if webhook:
         providers.append((webhook, {"msg_type": "text", "content": {"text": message}}))
     if bark_url:
-        providers.append((bark_url, {"title": "飞书同步连续失败", "body": message, "group": "hot-gap"}))
+        providers.append((bark_url, {"title": "飞书同步告警", "body": message, "group": "hot-gap"}))
     for url, payload in providers:
         try:
             response = httpx.post(url, json=payload, timeout=10, follow_redirects=True)
@@ -1383,6 +1395,18 @@ def run() -> int:
     )
     failed = False
     with FeishuClient(app_id, app_secret) as client:
+        try:
+            qiuzhao_schema = load_snapshot(
+                os.getenv("QIUZHAO_FEISHU_SCHEMA", "config/qiuzhao_feishu_schema.yaml"),
+                "internal",
+            )
+            validate_live_schema(
+                client, app_token, str(config["qiuzhao_table_id"]), qiuzhao_schema,
+            )
+        except (OSError, ValueError, yaml.YAMLError, SchemaDriftError) as exc:
+            LOGGER.error("秋招内部表结构锁拦截写入: %s", exc)
+            _alert(f"【秋招飞书结构异常·内部表】已停止本轮全部写入：{exc}")
+            return 1
         for name, table_id, mapper in jobs:
             section = config["sources"][name]
             filename = str(section.get("file") or f"{name}.json")
@@ -1392,9 +1416,7 @@ def run() -> int:
                     if any(schema_result.values()):
                         LOGGER.info("gongkao dedup schema ensured: %s", schema_result)
                 else:
-                    schema_result = ensure_qiuzhao_filter_views(client, app_token, table_id)
-                    if any(schema_result.values()):
-                        LOGGER.info("qiuzhao filter schema ensured: %s", schema_result)
+                    schema_result = {"schema_locked": 1}
                 delete_views = section.get("delete_views")
                 if isinstance(delete_views, list) and delete_views:
                     try:
@@ -1422,8 +1444,34 @@ def run() -> int:
                     else:
                         _, routed_rows, _ = partition_gongkao_rows(raw_gongkao)
                         rows = merge_qiuzhao_rows(rows, routed_rows)
+                    rows, expired_count = filter_current_qiuzhao_items(
+                        list(rows), load_retention(), today=datetime.now(CHINA_TZ).date(),
+                    )
+                    existing_records = client.list_records(app_token, table_id)
+                    source_field = section["field_mapping"]["$source"]
+                    manual_count = sum(
+                        1 for record in existing_records
+                        if not _cell_text((record.get("fields") or {}).get(source_field)).strip().startswith("自动")
+                    )
+                    rows, capacity = enforce_qiuzhao_capacity(
+                        list(rows),
+                        ledger=load_first_seen(os.getenv(
+                            "DAILY_VOLUME_STATE_PATH", "/var/lib/hot-gap/daily-volume-state.json"
+                        )),
+                        today=datetime.now(CHINA_TZ).date(), reserved_rows=manual_count,
+                    )
+                    LOGGER.info(
+                        "qiuzhao retention/capacity: expired=%d manual=%d capacity=%s",
+                        expired_count, manual_count, capacity.to_dict(),
+                    )
+                active_mapper = mapper
+                if name == "qiuzhao":
+                    active_mapper = lambda row, mapping, now=None: sanitize_fields(
+                        map_qiuzhao(row, mapping, now=now), qiuzhao_schema,
+                    )
                 result = sync_table(
-                    client, app_token, table_id, rows, mapper, section["field_mapping"]
+                    client, app_token, table_id, rows, active_mapper, section["field_mapping"],
+                    existing_records=existing_records if name == "qiuzhao" else None,
                 )
                 failures[name] = 0
                 LOGGER.info("%s sync complete: %s", name, result)

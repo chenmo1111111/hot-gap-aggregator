@@ -26,6 +26,7 @@ from app.sync_feishu import (
     CHINA_TZ,
     FeishuAPIError,
     FeishuClient,
+    _alert,
     _bool_value,
     _cell_text,
     _coalesce,
@@ -48,7 +49,14 @@ from app.pipeline.gongkao_classify import detail_category
 from app.pipeline.gongkao_enrich import calculate_signup_status
 from app.pipeline.gongkao_links import browser_safe_announcement_url
 from app.pipeline.yingjie_requirement import OPTIONS, classify_yingjie_requirement
-from app.pipeline.prune import filter_current_public_gongkao, load_retention
+from app.pipeline.prune import (
+    filter_current_public_gongkao, filter_current_qiuzhao_items, load_retention,
+)
+from app.pipeline.qiuzhao_capacity import enforce_qiuzhao_capacity, load_first_seen
+from app.pipeline.qiuzhao_location import split_work_locations
+from app.feishu_schema_guard import (
+    SchemaDriftError, load_snapshot, sanitize_fields, validate_live_schema,
+)
 from app.pipeline.public_sync_registry import PublicSyncRegistry
 
 
@@ -59,6 +67,7 @@ SINGLE_SELECT = 3
 DATE = 5
 CHECKBOX = 7
 URL = 15
+MULTI_SELECT = 4
 
 GONGKAO_SCHEMA: tuple[dict[str, Any], ...] = (
     # Feishu requires the text primary field to stay first.  Public views can
@@ -117,21 +126,14 @@ QIUZHAO_SCHEMA: tuple[dict[str, Any], ...] = (
             "央企", "国企", "民企", "外企", "银行", "事业单位", "其他",
         )]},
     },
-    {"field_name": "行业", "type": TEXT},
     {"field_name": "行业标签", "type": SINGLE_SELECT, "property": {"options": [
         {"name": name} for name in (
             "互联网/科技", "金融银行", "汽车新能源", "生物医药", "半导体",
             "制造业", "快消零售", "建筑", "能源", "交通运输", "研究所", "其他",
         )
     ]}},
-    {"field_name": "招聘阶段", "type": SINGLE_SELECT, "property": {"options": [
-        {"name": name} for name in (
-            "暑期实习", "实习", "秋招提前批", "秋招", "秋招补录",
-            "春招提前批", "春招", "春招补录", "人才计划", "26届提前批",
-        )
-    ]}},
     {"field_name": "招聘岗位", "type": TEXT},
-    {"field_name": "工作地点", "type": TEXT},
+    {"field_name": "工作地点", "type": MULTI_SELECT},
     {"field_name": "学历要求", "type": TEXT},
     {"field_name": "届次", "type": TEXT},
     {"field_name": "是否笔试", "type": CHECKBOX},
@@ -356,11 +358,15 @@ def map_public_qiuzhao(row: Mapping[str, Any]) -> dict[str, Any]:
         "企业性质": normalize_company_type(
             _coalesce(row, "company_type|enterprise_type|extra.company_type|企业性质")
         ),
+        # Legacy mapper values are retained for compatibility with callers;
+        # the live sync's schema sanitizer drops fields deleted by the user.
         "行业": _coalesce(row, "industry|extra.industry|行业") or "/",
         "行业标签": qiuzhao_industry_tag(_coalesce(row, "industry|extra.industry|行业")),
         "招聘阶段": _coalesce(row, "recruitment_stage|extra.recruitment_stage|招聘阶段") or None,
         "招聘岗位": str(position).strip(),
-        "工作地点": _coalesce(row, "location|work_location|city|extra.city|工作地点") or "/",
+        "工作地点": split_work_locations(
+            _coalesce(row, "location|work_location|city|extra.city|工作地点")
+        ),
         "学历要求": _coalesce(row, "education|extra.education|学历要求") or "/",
         "届次": _coalesce(row, "cohort|graduation_year|extra.cohort|届次") or "/",
         "是否笔试": _bool_value(
@@ -569,6 +575,7 @@ def sync_public_table(
     managed_id_field: str | None = None,
     managed_record_ids: set[str] | None = None,
     save_managed_record_ids: Callable[[], None] | None = None,
+    existing_records: list[dict[str, Any]] | None = None,
 ) -> dict[str, int]:
     if managed_record_ids is not None and save_managed_record_ids is None:
         raise ValueError("私有同步台账缺少持久化回调")
@@ -580,7 +587,7 @@ def sync_public_table(
         except (TypeError, ValueError) as exc:
             skipped += 1
             LOGGER.warning("skip invalid public source row %d: %s", index, exc)
-    existing = client.list_records(app_token, table_id)
+    existing = existing_records if existing_records is not None else client.list_records(app_token, table_id)
     creates, updates, deletes = diff_public_records(
         mapped, existing, key_fn, preserve_missing=preserve_missing,
         force_delete_keys=force_delete_keys, source_field=source_field,
@@ -759,6 +766,18 @@ def run(argv: list[str] | None = None) -> int:
     )
     failed = False
     with FeishuClient(app_id, app_secret) as client:
+        try:
+            qiuzhao_schema = load_snapshot(
+                os.getenv("QIUZHAO_FEISHU_SCHEMA", "config/qiuzhao_feishu_schema.yaml"),
+                "public",
+            )
+            validate_live_schema(
+                client, app_token, str(config["qiuzhao_table_id"]), qiuzhao_schema,
+            )
+        except (OSError, ValueError, yaml.YAMLError, SchemaDriftError) as exc:
+            LOGGER.error("秋招公开表结构锁拦截写入: %s", exc)
+            _alert(f"【秋招飞书结构异常·公开表】已停止本轮全部写入：{exc}")
+            return 1
         for name, table_id, schema, filename, mapper, key_fn, preserve_missing, deprecated_fields in jobs:
             try:
                 registry: PublicSyncRegistry | None = None
@@ -771,19 +790,19 @@ def run(argv: list[str] | None = None) -> int:
                         app_token, table_id,
                     )
                     registry.load()
-                initialized = ensure_public_schema(
-                    client, app_token, table_id, schema,
-                    deprecated_fields=deprecated_fields,
-                    managed_record_ids=registry.record_ids if registry else None,
-                )
+                initialized = False
+                if name != "qiuzhao_public":
+                    initialized = ensure_public_schema(
+                        client, app_token, table_id, schema,
+                        deprecated_fields=deprecated_fields,
+                        managed_record_ids=registry.record_ids if registry else None,
+                    )
                 if name == "gongkao_public":
                     created_view = ensure_gongkao_review_view(client, app_token, table_id)
                     if created_view:
                         LOGGER.info("public gongkao suspect review view created")
                 else:
-                    view_result = ensure_qiuzhao_filter_views(client, app_token, table_id)
-                    if any(view_result.values()):
-                        LOGGER.info("public qiuzhao filter views ensured: %s", view_result)
+                    view_result = {"schema_locked": 1}
                 rows = _load_items(data_dir / filename)
                 force_delete_keys: set[str] | None = None
                 source_field: str | None = None
@@ -821,14 +840,35 @@ def run(argv: list[str] | None = None) -> int:
                     else:
                         _, routed_rows, _ = partition_gongkao_rows(raw_gongkao)
                         rows = merge_qiuzhao_rows(rows, routed_rows)
+                    rows, expired_count = filter_current_qiuzhao_items(
+                        list(rows), load_retention(), today=datetime.now(CHINA_TZ).date(),
+                    )
+                    rows, capacity = enforce_qiuzhao_capacity(
+                        list(rows),
+                        ledger=load_first_seen(os.getenv(
+                            "DAILY_VOLUME_STATE_PATH", "/var/lib/hot-gap/daily-volume-state.json"
+                        )),
+                        today=datetime.now(CHINA_TZ).date(),
+                    )
+                    existing_records = client.list_records(app_token, table_id)
+                    LOGGER.info(
+                        "public qiuzhao retention/capacity: expired=%d capacity=%s",
+                        expired_count, capacity.to_dict(),
+                    )
+                active_mapper = mapper
+                if name == "qiuzhao_public":
+                    active_mapper = lambda row: sanitize_fields(
+                        map_public_qiuzhao(row), qiuzhao_schema,
+                    )
                 result = sync_public_table(
-                    client, app_token, table_id, rows, mapper, key_fn,
+                    client, app_token, table_id, rows, active_mapper, key_fn,
                     preserve_missing=preserve_missing,
                     force_delete_keys=force_delete_keys,
                     source_field=source_field,
                     known_auto_keys=known_auto_keys,
                     managed_record_ids=registry.record_ids if registry else None,
                     save_managed_record_ids=registry.save if registry else None,
+                    existing_records=existing_records if name == "qiuzhao_public" else None,
                 )
                 result["schema_initialized"] = int(initialized)
                 LOGGER.info("%s sync complete: %s", name, result)

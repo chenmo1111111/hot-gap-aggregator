@@ -94,7 +94,7 @@ def test_public_text_fields_use_slash_without_touching_typed_empty_fields() -> N
         "company_name": "公司", "position": "岗位", "announcement_url": "https://example.com/job",
     })
     assert qiuzhao["行业"] == "/"
-    assert qiuzhao["工作地点"] == "/"
+    assert qiuzhao["工作地点"] == []
     assert qiuzhao["学历要求"] == "/"
     assert qiuzhao["投递链接"] is None
 

@@ -1,5 +1,6 @@
 jobs:
   delete_after_deadline: true
+  deadline_grace_days: 3
   xjh_delete_after_event_days: 1
 gongkao:
   keep_until_write_exam_plus_days: 7
