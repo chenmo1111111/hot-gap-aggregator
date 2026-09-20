@@ -58,3 +58,14 @@ def test_canonical_schema_keeps_complete_option_order() -> None:
         [{"view_name": "全部", "view_type": "grid"}],
     )
     assert result["fields"][0]["options"] == ["北京", "上海"]
+
+
+def test_schema_diff_ignores_unstable_read_only_primary_flag() -> None:
+    actual = {
+        **BASELINE,
+        "fields": [
+            {**BASELINE["fields"][0], "primary": False},
+            BASELINE["fields"][1],
+        ],
+    }
+    assert schema_diff(BASELINE, actual) == []
