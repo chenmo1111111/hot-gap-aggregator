@@ -195,3 +195,31 @@ def test_write_qiuzhao_filters_event_noise_from_server_jobs(tmp_path) -> None:
     result = write_qiuzhao(tmp_path)
 
     assert [row["position"] for row in result["items"]] == ["某集团 研发工程师"]
+
+
+def test_write_qiuzhao_appends_codefather_last_and_reports_merge_new_counts(tmp_path) -> None:
+    (tmp_path / "qiuzhao_wanqing.json").write_text(json.dumps({"items": [{
+        "company_name": "英飞源技术", "position": "算法工程师",
+        "cohort": "2027届", "location": "深圳",
+    }]}, ensure_ascii=False), encoding="utf-8")
+    (tmp_path / "qiuzhao_codefather.json").write_text(json.dumps({"items": [
+        {
+            "company_name": "英飞源技术", "position": "算法工程师、硬件工程师",
+            "cohort": "2027届", "location": "深圳", "upstream_source": "codefather",
+            "source_record_id": "codefather:1", "apply_url": "https://example.test/1",
+            "extra": {"position_list": ["算法工程师", "硬件工程师"]},
+        },
+        {
+            "company_name": "全新公司", "position": "开发工程师",
+            "upstream_source": "codefather", "source_record_id": "codefather:2",
+        },
+    ]}, ensure_ascii=False), encoding="utf-8")
+
+    result = write_qiuzhao(tmp_path)
+
+    assert len(result["items"]) == 2
+    assert result["items"][0]["company_name"] == "英飞源技术"
+    assert result["items"][0]["apply_url"] == "https://example.test/1"
+    assert result["status"]["codefather_input_count"] == 2
+    assert result["status"]["codefather_merged_count"] == 1
+    assert result["status"]["codefather_new_count"] == 1

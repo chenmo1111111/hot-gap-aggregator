@@ -18,6 +18,7 @@ SOURCE_ORDER = (
     "婉清购买表",
     "校招鸭home一次性回填",
     "鲨鲨购买表",
+    "编程导航",
     "国聘",
     "国家大学生就业服务平台",
     "教育部人才服务网",
@@ -87,6 +88,8 @@ def _qiuzhao_source(row: Mapping[str, Any]) -> str:
         return "校招鸭home一次性回填"
     if "shasha" in source or record_id.startswith("shasha:") or "鲨鲨" in label:
         return "鲨鲨购买表"
+    if "codefather" in source or record_id.startswith("codefather:") or "编程导航" in label:
+        return "编程导航"
     labels = {
         "国聘": "国聘",
         "国家大学生就业服务平台": "国家大学生就业服务平台",

@@ -42,3 +42,24 @@ def test_conflicting_medium_similarity_is_not_merged() -> None:
     items, report = deduplicate_qiuzhao_items(rows)
     assert len(items) == 2
     assert report.fuzzy_merged_count == 0
+
+
+def test_codefather_complete_position_array_enriches_matching_existing_role() -> None:
+    rows = [
+        {
+            "company_name": "英飞源技术", "position": "算法工程师",
+            "location": "深圳", "cohort": "2027届", "upstream_source": "wanqing_feishu",
+        },
+        {
+            "company_name": "英飞源技术", "position": "嵌入式软件工程师、算法工程师、硬件工程师",
+            "location": "南京、深圳、珠海", "cohort": "2027届",
+            "apply_url": "https://mp.weixin.qq.com/s/example", "upstream_source": "codefather",
+            "extra": {"position_list": ["嵌入式软件工程师", "算法工程师", "硬件工程师"]},
+        },
+    ]
+    items, report = deduplicate_qiuzhao_items(rows)
+    assert len(items) == 1
+    assert items[0]["apply_url"] == "https://mp.weixin.qq.com/s/example"
+    assert items[0]["extra"]["position_list"] == ["嵌入式软件工程师", "算法工程师", "硬件工程师"]
+    assert report.enriched_by_origin["codefather"] == 1
+    assert report.new_by_origin["codefather"] == 0

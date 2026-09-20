@@ -148,6 +148,7 @@ def write_qiuzhao(data_dir: str | Path) -> dict[str, Any]:
     snapshot_path = target / "qiuzhao_wanqing.json"
     inputs: list[dict[str, Any]] = []
     shasha_input: dict[str, Any] | None = None
+    codefather_input: dict[str, Any] | None = None
     purchased_gongkao: list[dict[str, Any]] = []
     purchased_route_counts: dict[str, int] = {}
     purchased_label_counts: dict[str, int] = {}
@@ -243,6 +244,25 @@ def write_qiuzhao(data_dir: str | Path) -> dict[str, Any]:
         # The new source enriches existing rows.  Keeping it last guarantees
         # that an established Wanqing/Xiaozhaoya/site record remains primary.
         inputs.append(shasha_input)
+    codefather_path = target / "qiuzhao_codefather.json"
+    if codefather_path.exists():
+        payload = json.loads(codefather_path.read_text(encoding="utf-8"))
+        if not isinstance(payload, dict):
+            raise ValueError(f"{codefather_path} must contain a JSON object")
+        snapshot = normalize_snapshot_payload(payload)
+        snapshot["status"]["upstream_source"] = "codefather"
+        snapshot["items"] = [
+            {**row, "upstream_source": "codefather"}
+            for row in snapshot["items"]
+            if not is_expired_item(
+                {"source": "jobs", "deadline": row.get("deadline"), "extra": {}}, policy,
+            )
+        ]
+        snapshot["status"]["item_count"] = len(snapshot["items"])
+        codefather_input = snapshot
+        # Keep established records primary and merge this source's complete
+        # arrays/missing fields into them losslessly.
+        inputs.append(snapshot)
     routed_payload = {
         "generated_at": datetime.now().astimezone().isoformat(),
         "source": "purchased_gongkao",
@@ -280,6 +300,11 @@ def write_qiuzhao(data_dir: str | Path) -> dict[str, Any]:
             ), 0),
             "shasha_merged_count": dedup_report.enriched_by_origin.get("shasha_feishu", 0),
             "shasha_new_count": dedup_report.new_by_origin.get("shasha_feishu", 0),
+            "codefather_input_count": int(
+                codefather_input["status"].get("item_count") or 0
+            ) if codefather_input is not None else 0,
+            "codefather_merged_count": dedup_report.enriched_by_origin.get("codefather", 0),
+            "codefather_new_count": dedup_report.new_by_origin.get("codefather", 0),
         },
         "items": items,
     }

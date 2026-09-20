@@ -33,6 +33,31 @@ def normalize_position(value: object) -> str:
     return re.sub(r"[^\w]+", "", text, flags=re.UNICODE)
 
 
+def _position_variants(row: Mapping[str, Any]) -> list[str]:
+    extra = row.get("extra") if isinstance(row.get("extra"), Mapping) else {}
+    values = extra.get("position_list") if isinstance(extra.get("position_list"), list) else []
+    variants = [_text(value) for value in values if _text(value)]
+    if not variants:
+        variants = [
+            part.strip() for part in re.split(r"[、,，/／;；|｜\n]+", _text(row.get("position")))
+            if part.strip()
+        ]
+    return variants or [_text(row.get("position"))]
+
+
+def _position_similarity(left: Mapping[str, Any], right: Mapping[str, Any]) -> float:
+    return max(
+        max(
+            title_similarity(left_value, right_value),
+            SequenceMatcher(
+                None, normalize_position(left_value), normalize_position(right_value), autojunk=False,
+            ).ratio(),
+        )
+        for left_value in _position_variants(left)
+        for right_value in _position_variants(right)
+    )
+
+
 def _origin(row: Mapping[str, Any]) -> str:
     return _text(row.get("upstream_source") or row.get("source_label")) or "unknown"
 
@@ -134,22 +159,19 @@ def deduplicate_qiuzhao_items(
     report = QiuzhaoDedupReport(input_count=len(rows))
     output: list[dict[str, Any]] = []
     exact: dict[tuple[str, str], int] = {}
-    new_ids: set[int] = set()
     for row in rows:
         key = (normalize_company(row.get("company_name")), normalize_position(row.get("position")))
         if key[0] and key[1] and key in exact:
             index = exact[key]
             output[index], changed = merge_qiuzhao_rows(output[index], row)
             report.exact_merged_count += 1
-            if _origin(row) == new_origin:
-                report.enriched_by_origin[new_origin] = report.enriched_by_origin.get(new_origin, 0) + 1
+            origin = _origin(row)
+            report.enriched_by_origin[origin] = report.enriched_by_origin.get(origin, 0) + 1
             if len(report.samples) < 10:
                 report.samples.append({"kind": "exact", "company": row.get("company_name"), "position": row.get("position"), "filled_missing_fields": changed})
             continue
         exact[key] = len(output)
         output.append(row)
-        if _origin(row) == new_origin:
-            new_ids.add(id(output[-1]))
 
     # Reuse the proven Gongkao title-similarity implementation for positions.
     # Company buckets keep the pass near-linear on 20k+ rows.
@@ -163,10 +185,7 @@ def deduplicate_qiuzhao_items(
                     continue
                 left_position = output[left_index].get("position")
                 right_position = output[right_index].get("position")
-                similarity = max(
-                    title_similarity(left_position, right_position),
-                    SequenceMatcher(None, normalize_position(left_position), normalize_position(right_position), autojunk=False).ratio(),
-                )
+                similarity = _position_similarity(output[left_index], output[right_index])
                 if similarity < 0.7:
                     continue
                 matches, conflicts = _evidence(output[left_index], output[right_index])
@@ -176,16 +195,20 @@ def deduplicate_qiuzhao_items(
                 output[left_index], changed = merge_qiuzhao_rows(output[left_index], secondary)
                 removed.add(right_index)
                 report.fuzzy_merged_count += 1
-                if _origin(secondary) == new_origin:
-                    report.enriched_by_origin[new_origin] = report.enriched_by_origin.get(new_origin, 0) + 1
+                origin = _origin(secondary)
+                report.enriched_by_origin[origin] = report.enriched_by_origin.get(origin, 0) + 1
                 if len(report.samples) < 10:
                     report.samples.append({"kind": "fuzzy", "company": secondary.get("company_name"), "positions": [output[left_index].get("position"), secondary.get("position")], "similarity": round(similarity, 4), "evidence": matches, "filled_missing_fields": changed})
     final = [row for index, row in enumerate(output) if index not in removed]
-    new_count = sum(1 for row in final if _origin(row) == new_origin and id(row) in new_ids)
-    # id changes only for rows merged as primary; origin remains authoritative,
-    # so count remaining standalone source rows directly as a stable fallback.
-    new_count = sum(1 for row in final if _origin(row) == new_origin)
-    report.new_by_origin[new_origin] = new_count
+    # Report standalone rows for every source so a new source does not need a
+    # bespoke second dedup pass just to obtain intake statistics.
+    for row in final:
+        origin = _origin(row)
+        report.new_by_origin[origin] = report.new_by_origin.get(origin, 0) + 1
+    for origin in {_origin(row) for row in rows}:
+        report.new_by_origin.setdefault(origin, 0)
+        report.enriched_by_origin.setdefault(origin, 0)
+    report.new_by_origin.setdefault(new_origin, 0)
     report.output_count = len(final)
     return final, report
 

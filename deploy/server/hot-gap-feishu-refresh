@@ -284,6 +284,8 @@ refresh_stage=cleanup_stale_playwright
 cleanup_stale_hot_gap_playwright
 refresh_stage=collect_gongkao
 .venv/bin/python -m app.collect_gongkao
+refresh_stage=capture_codefather
+.venv/bin/python -m app.capture_codefather
 refresh_stage=export_qiuzhao
 .venv/bin/python -m app.export_qiuzhao
 refresh_stage=export_gongkao
