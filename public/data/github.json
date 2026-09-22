@@ -1,228 +1,18 @@
 {
-  "generated_at": "2026-09-22T01:44:24.908009+00:00",
+  "generated_at": "2026-09-22T10:44:17.910298+00:00",
   "source": "github",
   "status": {
     "source": "github",
     "status": "ok",
-    "item_count": 12,
-    "duration_ms": 1993,
+    "item_count": 8,
+    "duration_ms": 1552,
     "error": null,
-    "run_at": "2026-09-22T01:44:24.908009+00:00"
+    "run_at": "2026-09-22T10:44:17.910298+00:00"
   },
   "items": [
     {
       "source": "github",
       "rank": 1,
-      "title": "BuilderIO/agent-native",
-      "title_zh": "BuilderIO/agent-native",
-      "url": "https://github.com/BuilderIO/agent-native",
-      "hot_value": "607 stars today",
-      "summary_zh": "BuilderIO/agent-native：构建智能体应用的框架，助你快速开发",
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "description": "A framework for building agentic apps",
-        "language": "TypeScript"
-      },
-      "days_on_board": 3,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "591b0a315e41",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-20T16:44:11.576474+00:00",
-          "rank": 2
-        },
-        {
-          "run_at": "2026-09-21T13:44:30.366356+00:00",
-          "rank": 1
-        },
-        {
-          "run_at": "2026-09-22T01:44:24.908009+00:00",
-          "rank": 1
-        }
-      ]
-    },
-    {
-      "source": "github",
-      "rank": 2,
-      "title": "trycua/cua",
-      "title_zh": "trycua/cua",
-      "url": "https://github.com/trycua/cua",
-      "hot_value": "609 stars today",
-      "summary_zh": "开源计算机使用驱动，跨系统集群与评测，助训练评估数据生成。",
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "description": "Scale computer-use 2.0 with open-source drivers, cross-OS fleets, and benchmarks for training, evaluation, and data generation.",
-        "language": "HTML"
-      },
-      "days_on_board": 4,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "a3b57743d803",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-19T16:44:08.200175+00:00",
-          "rank": 2
-        },
-        {
-          "run_at": "2026-09-20T04:44:05.375327+00:00",
-          "rank": 2
-        },
-        {
-          "run_at": "2026-09-20T16:44:11.576474+00:00",
-          "rank": 4
-        },
-        {
-          "run_at": "2026-09-21T13:44:30.366356+00:00",
-          "rank": 2
-        },
-        {
-          "run_at": "2026-09-22T01:44:24.908009+00:00",
-          "rank": 2
-        }
-      ]
-    },
-    {
-      "source": "github",
-      "rank": 3,
-      "title": "Open-Dev-Society/OpenStock",
-      "title_zh": "Open-Dev-Society/OpenStock",
-      "url": "https://github.com/Open-Dev-Society/OpenStock",
-      "hot_value": "844 stars today",
-      "summary_zh": "开源免费行情平台，实时价格、个性提醒与公司洞察。",
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "description": "OpenStock is an open-source alternative to expensive market platforms. Track real-time prices, set personalized alerts, and explore detailed company insights — built openly, for everyone, forever free.",
-        "language": "TypeScript"
-      },
-      "days_on_board": 4,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "047b519782bf",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-19T16:44:08.200175+00:00",
-          "rank": 6
-        },
-        {
-          "run_at": "2026-09-20T04:44:05.375327+00:00",
-          "rank": 6
-        },
-        {
-          "run_at": "2026-09-20T16:44:11.576474+00:00",
-          "rank": 10
-        },
-        {
-          "run_at": "2026-09-21T13:44:30.366356+00:00",
-          "rank": 3
-        },
-        {
-          "run_at": "2026-09-22T01:44:24.908009+00:00",
-          "rank": 3
-        }
-      ]
-    },
-    {
-      "source": "github",
-      "rank": 4,
-      "title": "akitaonrails/ai-memory",
-      "title_zh": "akitaonrails/ai-memory",
-      "url": "https://github.com/akitaonrails/ai-memory",
-      "hot_value": "167 stars today",
-      "summary_zh": "AI代理长期记忆方案，助不同代理间交接，值得关注。",
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "description": "Solution for long term memory for agent coding CLIs and to facilitate handoff between different agent vendors",
-        "language": "Rust"
-      },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "735aa0a46068",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-21T13:44:30.366356+00:00",
-          "rank": 4
-        },
-        {
-          "run_at": "2026-09-22T01:44:24.908009+00:00",
-          "rank": 4
-        }
-      ]
-    },
-    {
-      "source": "github",
-      "rank": 5,
-      "title": "coder/coder",
-      "title_zh": "coder/coder",
-      "url": "https://github.com/coder/coder",
-      "hot_value": "460 stars today",
-      "summary_zh": "为开发者及其代理提供安全环境，值得关注因其强化了开发安全性。",
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "description": "Secure environments for developers and their agents",
-        "language": "Go"
-      },
-      "days_on_board": 6,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "8311824b9f65",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-17T13:44:12.315014+00:00",
-          "rank": 19
-        },
-        {
-          "run_at": "2026-09-18T01:44:07.581268+00:00",
-          "rank": 19
-        },
-        {
-          "run_at": "2026-09-18T10:44:12.451526+00:00",
-          "rank": 15
-        },
-        {
-          "run_at": "2026-09-19T01:44:22.316797+00:00",
-          "rank": 15
-        },
-        {
-          "run_at": "2026-09-19T07:44:18.410824+00:00",
-          "rank": 15
-        },
-        {
-          "run_at": "2026-09-19T16:44:08.200175+00:00",
-          "rank": 4
-        },
-        {
-          "run_at": "2026-09-20T04:44:05.375327+00:00",
-          "rank": 4
-        },
-        {
-          "run_at": "2026-09-20T16:44:11.576474+00:00",
-          "rank": 11
-        },
-        {
-          "run_at": "2026-09-21T13:44:30.366356+00:00",
-          "rank": 5
-        },
-        {
-          "run_at": "2026-09-22T01:44:24.908009+00:00",
-          "rank": 5
-        }
-      ]
-    },
-    {
-      "source": "github",
-      "rank": 6,
       "title": "anthropics/financial-services",
       "title_zh": "anthropics/financial-services",
       "url": "https://github.com/anthropics/financial-services",
@@ -236,7 +26,7 @@
       },
       "days_on_board": 3,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": 5,
       "cluster_id": "bc0b0a9136a6",
       "cluster_size": 1,
       "rank_history": [
@@ -251,50 +41,120 @@
         {
           "run_at": "2026-09-22T01:44:24.908009+00:00",
           "rank": 6
+        },
+        {
+          "run_at": "2026-09-22T10:44:17.910298+00:00",
+          "rank": 1
         }
       ]
     },
     {
       "source": "github",
-      "rank": 7,
-      "title": "cloudflare/quiche",
-      "title_zh": "cloudflare/quiche",
-      "url": "https://github.com/cloudflare/quiche",
-      "hot_value": "32 stars today",
-      "summary_zh": "Cloudflare的QUIC与HTTP/3协议实现，网络传输高效可靠。",
+      "rank": 2,
+      "title": "agent-substrate/substrate",
+      "title_zh": "agent-substrate/substrate",
+      "url": "https://github.com/agent-substrate/substrate",
+      "hot_value": "498 stars today",
+      "summary_zh": "Agent Substrate是核心系统，值得关注其架构设计。",
       "thumbnail": null,
       "published_at": null,
       "extra": {
-        "description": "🥧 Savoury implementation of the QUIC transport protocol and HTTP/3",
-        "language": "Rust"
+        "description": "Agent Substrate: the core system",
+        "language": "Go"
       },
-      "days_on_board": 4,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "aed4c6618c75",
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "1806cf5f372c",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-19T16:44:08.200175+00:00",
-          "rank": 9
-        },
-        {
-          "run_at": "2026-09-20T04:44:05.375327+00:00",
-          "rank": 9
-        },
-        {
-          "run_at": "2026-09-21T13:44:30.366356+00:00",
-          "rank": 7
-        },
-        {
-          "run_at": "2026-09-22T01:44:24.908009+00:00",
-          "rank": 7
+          "run_at": "2026-09-22T10:44:17.910298+00:00",
+          "rank": 2
         }
       ]
     },
     {
       "source": "github",
-      "rank": 8,
+      "rank": 3,
+      "title": "dream-num/univer",
+      "title_zh": "dream-num/univer",
+      "url": "https://github.com/dream-num/univer",
+      "hot_value": "202 stars today",
+      "summary_zh": "Univer是AI代理办公套件，集成表格文档幻灯片于一体。",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "description": "The Office Harness for AI Agents — Spreadsheets, Docs, Slides, Canvas, Relational Tables, and PDF in one runtime.",
+        "language": "TypeScript"
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "eb9db1e91cb5",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-22T10:44:17.910298+00:00",
+          "rank": 3
+        }
+      ]
+    },
+    {
+      "source": "github",
+      "rank": 4,
+      "title": "davila7/claude-code-templates",
+      "title_zh": "davila7/claude-code-templates",
+      "url": "https://github.com/davila7/claude-code-templates",
+      "hot_value": "33 stars today",
+      "summary_zh": "Claude Code配置监控CLI工具，方便管理代理运行。",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "description": "CLI tool for configuring and monitoring Claude Code",
+        "language": "Python"
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "384538e27dd3",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-22T10:44:17.910298+00:00",
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "source": "github",
+      "rank": 5,
+      "title": "google/ax",
+      "title_zh": "google/ax",
+      "url": "https://github.com/google/ax",
+      "hot_value": "2,324 stars today",
+      "summary_zh": "谷歌开源代理编排运行时，权威且值得研究。",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "description": "Google's open agentic orchestration runtime",
+        "language": "Go"
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "9f2901a915a4",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-22T10:44:17.910298+00:00",
+          "rank": 5
+        }
+      ]
+    },
+    {
+      "source": "github",
+      "rank": 6,
       "title": "mvt-project/mvt",
       "title_zh": "mvt-project/mvt",
       "url": "https://github.com/mvt-project/mvt",
@@ -308,7 +168,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": 2,
       "cluster_id": "7d8717b09e77",
       "cluster_size": 1,
       "rank_history": [
@@ -319,142 +179,62 @@
         {
           "run_at": "2026-09-22T01:44:24.908009+00:00",
           "rank": 8
+        },
+        {
+          "run_at": "2026-09-22T10:44:17.910298+00:00",
+          "rank": 6
         }
       ]
     },
     {
       "source": "github",
-      "rank": 9,
-      "title": "zhouxiaoka/autoclip",
-      "title_zh": "zhouxiaoka/autoclip",
-      "url": "https://github.com/zhouxiaoka/autoclip",
-      "hot_value": "250 stars today",
-      "summary_zh": "AI智能提取高光并剪辑，二创工具，省时高效。",
+      "rank": 7,
+      "title": "superdesigndev/treg",
+      "title_zh": "superdesigndev/treg",
+      "url": "https://github.com/superdesigndev/treg",
+      "hot_value": "197 stars today",
+      "summary_zh": "代理工具版OpenRouter，社区共建值得加入。",
       "thumbnail": null,
       "published_at": null,
       "extra": {
-        "description": "AutoClip : AI-powered video clipping and highlight generation · 一款智能高光提取与剪辑的二创工具",
+        "description": "OpenRouter for agent tools. Join community here:https://discord.gg/6mQYYfFMAn",
         "language": "Python"
       },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "32d1acde6c91",
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "51909378a8b9",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-21T13:44:30.366356+00:00",
-          "rank": 9
-        },
-        {
-          "run_at": "2026-09-22T01:44:24.908009+00:00",
-          "rank": 9
+          "run_at": "2026-09-22T10:44:17.910298+00:00",
+          "rank": 7
         }
       ]
     },
     {
       "source": "github",
-      "rank": 10,
-      "title": "ruanyf/weekly",
-      "title_zh": "ruanyf/weekly",
-      "url": "https://github.com/ruanyf/weekly",
-      "hot_value": "182 stars today",
-      "summary_zh": "科技爱好者周刊，每周五发布，精选科技资讯与思考。",
+      "rank": 8,
+      "title": "browser-use/video-use",
+      "title_zh": "browser-use/video-use",
+      "url": "https://github.com/browser-use/video-use",
+      "hot_value": "155 stars today",
+      "summary_zh": "用编程智能体直接编辑视频内容。",
       "thumbnail": null,
       "published_at": null,
       "extra": {
-        "description": "科技爱好者周刊，每周五发布",
-        "language": null
+        "description": "Edit videos with coding agents",
+        "language": "Python"
       },
-      "days_on_board": 4,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "8d086a8acb5a",
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "dab878aa9365",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-19T16:44:08.200175+00:00",
-          "rank": 11
-        },
-        {
-          "run_at": "2026-09-20T04:44:05.375327+00:00",
-          "rank": 11
-        },
-        {
-          "run_at": "2026-09-21T13:44:30.366356+00:00",
-          "rank": 10
-        },
-        {
-          "run_at": "2026-09-22T01:44:24.908009+00:00",
-          "rank": 10
-        }
-      ]
-    },
-    {
-      "source": "github",
-      "rank": 11,
-      "title": "Crosstalk-Solutions/project-nomad",
-      "title_zh": "Crosstalk-Solutions/project-nomad",
-      "url": "https://github.com/Crosstalk-Solutions/project-nomad",
-      "hot_value": "394 stars today",
-      "summary_zh": "Project NOMAD：离线优先知识教育服务器，自带维基百科与本地AI。",
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "description": "Project NOMAD is an offline-first knowledge and education server. Wikipedia, thousands of books, courses, maps, and optional local AI, all running on hardware you own with no internet required.",
-        "language": "TypeScript"
-      },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "c82c32d94890",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-21T13:44:30.366356+00:00",
-          "rank": 11
-        },
-        {
-          "run_at": "2026-09-22T01:44:24.908009+00:00",
-          "rank": 11
-        }
-      ]
-    },
-    {
-      "source": "github",
-      "rank": 12,
-      "title": "yynxxxxx/Codex-X",
-      "title_zh": "yynxxxxx/Codex-X",
-      "url": "https://github.com/yynxxxxx/Codex-X",
-      "hot_value": "50 stars today",
-      "summary_zh": "Codex桌面与命令行可视化管理，多API切换与配置管理。",
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "description": "OpenAI Codex 桌面端/CLI 的可视化管理工具，具有Provider/API 切换、会话同步、提示词注入、Skills/MCP 管理、TOML 配置可视化的跨平台工具。",
-        "language": "Rust"
-      },
-      "days_on_board": 4,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "3b5754ac7165",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-19T16:44:08.200175+00:00",
-          "rank": 15
-        },
-        {
-          "run_at": "2026-09-20T04:44:05.375327+00:00",
-          "rank": 15
-        },
-        {
-          "run_at": "2026-09-21T13:44:30.366356+00:00",
-          "rank": 12
-        },
-        {
-          "run_at": "2026-09-22T01:44:24.908009+00:00",
-          "rank": 12
+          "run_at": "2026-09-22T10:44:17.910298+00:00",
+          "rank": 8
         }
       ]
     }
