@@ -269,3 +269,20 @@ def test_manual_url_reminder_rejects_reversed_times(client):
         "deadline_at": "2026-10-08T09:00:00+08:00",
     })
     assert response.status_code == 422
+
+
+def test_paused_optional_mail_inbox_does_not_block_deadline_routes(client, monkeypatch):
+    assert login(client).status_code == 200
+    for name in (
+        "load_mail_accounts", "public_account", "GmailReadonlyClient",
+        "authorization_url", "exchange_authorization_code",
+        "InboxStore", "TokenCipher", "initialize_inbox_database",
+    ):
+        monkeypatch.setattr(f"sync.app.{name}", None)
+    assert client.get("/api/admin/mail-inbox/accounts").status_code == 503
+    response = client.post("/api/admin/mail-deadlines/manual", json={
+        "title": "独立的报名提醒",
+        "start_at": "2026-10-08T09:00:00+08:00",
+    })
+    assert response.status_code == 200
+    assert response.json()["item"]["source_kind"] == "manual"

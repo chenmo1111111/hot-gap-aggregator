@@ -24,9 +24,24 @@ from dotenv import load_dotenv
 
 from app.mailbox.store import MailboxStore, initialize_mailbox_database
 from app.mailbox.reminder_url import CHINA_TZ, ReminderUrlError, extract_reminder_from_url
-from app.mailbox.accounts import load_mail_accounts, public_account
-from app.mailbox.gmail_client import authorization_url, exchange_authorization_code, GmailReadonlyClient
-from app.mailbox.inbox_store import InboxStore, TokenCipher, initialize_inbox_database
+try:
+    from app.mailbox.accounts import load_mail_accounts, public_account
+    from app.mailbox.gmail_client import (
+        GmailReadonlyClient,
+        authorization_url,
+        exchange_authorization_code,
+    )
+    from app.mailbox.inbox_store import InboxStore, TokenCipher, initialize_inbox_database
+except ModuleNotFoundError as exc:
+    optional_mail_modules = {
+        "app.mailbox.accounts", "app.mailbox.gmail_client",
+        "app.mailbox.inbox_store", "cryptography",
+    }
+    if exc.name not in optional_mail_modules:
+        raise
+    load_mail_accounts = public_account = None
+    GmailReadonlyClient = authorization_url = exchange_authorization_code = None
+    InboxStore = TokenCipher = initialize_inbox_database = None
 
 local_env = Path(".env")
 if local_env.is_file() and os.access(local_env, os.R_OK):
@@ -143,7 +158,8 @@ def initialize_database() -> None:
                 (username, hash_password(password), utc_now()),
             )
     initialize_mailbox_database()
-    initialize_inbox_database()
+    if initialize_inbox_database is not None:
+        initialize_inbox_database()
 
 
 def client_ip(request: Request) -> str:
@@ -455,7 +471,17 @@ def oauth_state_signer() -> TimestampSigner:
     return TimestampSigner(os.getenv("SESSION_SECRET", ""), salt="hot-gap-mail-oauth")
 
 
+def require_mail_inbox() -> None:
+    if any(component is None for component in (
+        load_mail_accounts, public_account, GmailReadonlyClient,
+        authorization_url, exchange_authorization_code,
+        InboxStore, TokenCipher, initialize_inbox_database,
+    )):
+        raise HTTPException(status_code=503, detail="多邮箱管理功能尚未安装")
+
+
 def configured_mail_account(account_id: str):
+    require_mail_inbox()
     account = next((item for item in load_mail_accounts() if item.account_id == account_id), None)
     if account is None:
         raise HTTPException(status_code=404, detail="邮箱账号不存在")
@@ -466,6 +492,7 @@ def configured_mail_account(account_id: str):
 def list_mail_accounts(
     _: Annotated[dict[str, Any], Depends(admin_user)],
 ) -> dict[str, Any]:
+    require_mail_inbox()
     store = InboxStore()
     items = []
     for account in load_mail_accounts():
@@ -487,6 +514,7 @@ def list_mail_inbox(
     limit: int = Query(default=100, ge=1, le=200),
     offset: int = Query(default=0, ge=0),
 ) -> dict[str, Any]:
+    require_mail_inbox()
     items, total = InboxStore().list_messages(
         account_id=account_id, category=category, query=q[:200],
         limit=limit, offset=offset,
@@ -499,6 +527,7 @@ def get_mail_inbox_message(
     account_id: str, message_key: str,
     _: Annotated[dict[str, Any], Depends(admin_user)],
 ) -> dict[str, Any]:
+    require_mail_inbox()
     item = InboxStore().get_message(account_id, message_key)
     if item is None:
         raise HTTPException(status_code=404, detail="邮件不存在")
