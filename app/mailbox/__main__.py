@@ -129,7 +129,12 @@ async def send_due_notifications(
     for record in store.pending_with_deadlines():
         events: list[tuple[str, str, str]] = []
         if record.get("start_at"):
-            events.append(("start", "报名开始", str(record["start_at"])))
+            item_type = str(record.get("type") or "")
+            scheduled = any(
+                word in item_type for word in ("面试", "笔试", "测评", "会议", "宣讲", "考试")
+            )
+            start_label = f"{item_type}开始" if scheduled else "报名开始"
+            events.append(("start", start_label, str(record["start_at"])))
         if record.get("deadline_at"):
             events.append(("deadline", "截止", str(record["deadline_at"])))
         for event_key, event_label, event_time in events:

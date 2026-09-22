@@ -23,7 +23,12 @@ from pydantic import BaseModel, Field
 from dotenv import load_dotenv
 
 from app.mailbox.store import MailboxStore, initialize_mailbox_database
-from app.mailbox.reminder_url import CHINA_TZ, ReminderUrlError, extract_reminder_from_url
+from app.mailbox.reminder_url import (
+    CHINA_TZ,
+    ReminderUrlError,
+    extract_reminder_from_text,
+    extract_reminder_from_url,
+)
 try:
     from app.mailbox.accounts import load_mail_accounts, public_account
     from app.mailbox.gmail_client import (
@@ -84,6 +89,10 @@ class MailDeadlineStatusBody(BaseModel):
 
 class MailDeadlinePreviewBody(BaseModel):
     url: str = Field(min_length=8, max_length=2048)
+
+
+class MailDeadlineTextPreviewBody(BaseModel):
+    text: str = Field(min_length=5, max_length=20_000)
 
 
 class ManualMailDeadlineBody(BaseModel):
@@ -411,6 +420,21 @@ async def preview_manual_mail_deadline(
     except Exception as exc:
         logger.warning("manual reminder URL extraction failed: %s", type(exc).__name__)
         raise HTTPException(status_code=502, detail="公告读取失败，请稍后重试") from exc
+    return preview.to_dict()
+
+
+@app.post("/api/admin/mail-deadlines/preview-text")
+async def preview_manual_mail_deadline_text(
+    body: MailDeadlineTextPreviewBody,
+    _: Annotated[dict[str, Any], Depends(admin_user)],
+) -> dict[str, Any]:
+    try:
+        preview = await extract_reminder_from_text(body.text)
+    except ReminderUrlError as exc:
+        raise HTTPException(status_code=422, detail=str(exc)) from exc
+    except Exception as exc:
+        logger.warning("manual reminder text extraction failed: %s", type(exc).__name__)
+        raise HTTPException(status_code=502, detail="邀请文字识别失败，请稍后重试") from exc
     return preview.to_dict()
 
 

@@ -258,9 +258,18 @@ class MailboxStore:
                 """
                 UPDATE mail_deadlines
                 SET status = 'expired', updated_at = ?
-                WHERE status = 'pending' AND deadline_at IS NOT NULL AND deadline_at <= ?
+                WHERE status = 'pending' AND (
+                    (deadline_at IS NOT NULL AND deadline_at <= ?)
+                    OR (
+                        source_kind = 'manual' AND deadline_at IS NULL
+                        AND start_at IS NOT NULL AND start_at <= ?
+                    )
+                )
                 """,
-                (utc_now(), now.astimezone(UTC).isoformat()),
+                (
+                    utc_now(), now.astimezone(UTC).isoformat(),
+                    now.astimezone(UTC).isoformat(),
+                ),
             )
         return cursor.rowcount
 

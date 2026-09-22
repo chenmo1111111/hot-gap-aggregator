@@ -118,6 +118,9 @@ def test_non_admin_cannot_access_admin_routes(client):
         "/api/admin/mail-deadlines/preview", json={"url": "https://example.test/notice"},
     ).status_code == 403
     assert client.post(
+        "/api/admin/mail-deadlines/preview-text", json={"text": "明天下午参加面试"},
+    ).status_code == 403
+    assert client.post(
         "/api/admin/mail-deadlines/manual",
         json={"title": "报名提醒", "start_at": "2026-10-08T09:00:00+08:00"},
     ).status_code == 403
@@ -259,6 +262,26 @@ def test_admin_previews_confirms_and_deletes_url_reminder(client, monkeypatch):
         f"/api/admin/mail-deadlines/manual/{item['message_id']}"
     ).status_code == 200
     assert client.get("/api/admin/mail-deadlines").json()["items"] == []
+
+
+def test_admin_previews_pasted_interview_text(client, monkeypatch):
+    async def extract(text: str):
+        assert "钉钉会议" in text
+        return ReminderPreview(
+            title="伯特利面试-张利杰", type="面试",
+            start_at="2026-09-23T17:30:00+08:00", deadline_at=None,
+            action_url="https://meeting.dingtalk.com/j/test",
+            summary="17:30参加钉钉面试", confidence="high", source_url="",
+        )
+
+    monkeypatch.setattr("sync.app.extract_reminder_from_text", extract)
+    assert login(client).status_code == 200
+    response = client.post("/api/admin/mail-deadlines/preview-text", json={
+        "text": "张瑞邀请你参加钉钉会议\n主题：伯特利面试-张利杰",
+    })
+    assert response.status_code == 200
+    assert response.json()["type"] == "面试"
+    assert response.json()["deadline_at"] is None
 
 
 def test_manual_url_reminder_rejects_reversed_times(client):

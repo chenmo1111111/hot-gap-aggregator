@@ -329,6 +329,31 @@ async def test_manual_registration_start_notifications_fire_once(tmp_path) -> No
     assert store.list_deadlines() == []
 
 
+@pytest.mark.asyncio
+async def test_scheduled_interview_uses_event_wording_and_expires_after_start(tmp_path) -> None:
+    store = MailboxStore(tmp_path / "mail.db")
+    store.initialize()
+    start = datetime(2026, 9, 23, 9, 30, tzinfo=UTC)
+    store.add_manual_deadline({
+        "message_id": "manual:interview", "company": "伯特利面试",
+        "type": "面试", "start_at": start.isoformat(), "deadline_at": None,
+        "action_url": "https://meeting.dingtalk.com/j/test",
+        "summary": "17:30参加钉钉会议",
+    })
+    sent: list[str] = []
+
+    async def notify(title: str, _body: str) -> bool:
+        sent.append(title)
+        return True
+
+    assert await send_due_notifications(
+        store, now=start - timedelta(hours=5), notifier=notify,
+    ) == 1
+    assert sent == ["面试开始倒计时 · 6h"]
+    assert store.expire_due(start + timedelta(minutes=1)) == 1
+    assert store.list_deadlines() == []
+
+
 def test_mailbox_cron_is_independent_from_public_refresh() -> None:
     cron = (Path(__file__).parents[1] / "deploy/server/hot-gap-mailbox.cron").read_text(
         encoding="utf-8"

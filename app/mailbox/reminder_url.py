@@ -8,7 +8,7 @@ import json
 import re
 import socket
 from dataclasses import asdict, dataclass
-from datetime import datetime
+from datetime import datetime, timedelta
 from typing import Any, Awaitable, Callable, Mapping
 from urllib.parse import urljoin, urlsplit
 
@@ -24,17 +24,25 @@ DATE_TIME_RE = re.compile(
     r"(20\d{2})\s*年\s*(\d{1,2})\s*月\s*(\d{1,2})\s*日"
     r"(?:\s*(\d{1,2})(?:\s*[:：时]\s*(\d{1,2}))?\s*分?)?"
 )
+EVENT_TIME_RE = re.compile(
+    r"(?:(20\d{2})\s*年\s*)?(\d{1,2})\s*月\s*(\d{1,2})\s*日"
+    r"(?:\s*(?:周|星期)[一二三四五六日天])?\s*"
+    r"(\d{1,2})\s*[:：]\s*(\d{2})"
+    r"(?:\s*(?:-|—|–|至|~)\s*(\d{1,2})\s*[:：]\s*(\d{2}))?"
+)
+SCHEDULED_EVENT_WORDS = ("面试", "笔试", "测评", "会议", "宣讲", "考试")
 URL_RE = re.compile(r"https?://[^\s<>\"'（）()]+", re.I)
 SYSTEM_PROMPT = """你负责从中国招聘公告正文中提取报名提醒。只输出一个 JSON 对象，不要 Markdown。
 字段必须完整：
 title: 招聘事项的简短名称；
 type: 如“公考报名”“秋招投递”“资格审查”，无法细分用“报名”；
-start_at: 报名开始时间，ISO 8601 且必须带 +08:00；没有则 null；
-deadline_at: 报名截止时间，ISO 8601 且必须带 +08:00；没有则 null；
+start_at: 报名、面试、笔试、测评或会议的开始时间，ISO 8601 且必须带 +08:00；没有则 null；
+deadline_at: 报名截止或确认参加的截止时间，ISO 8601 且必须带 +08:00；没有则 null；
 action_url: 公告中真实报名入口，没有则使用原公告网址；
 summary: 一句话说明需要做什么；
 confidence: high、medium 或 low。
-必须区分公告发布日期、报名时间、资格审查时间和考试时间。禁止把公告发布日期当报名时间；禁止猜测不存在的日期。"""
+必须区分公告发布日期、报名时间、资格审查时间和考试时间。禁止把公告发布日期当报名时间；禁止猜测不存在的日期。
+对于已经安排好时间的面试、笔试、测评或会议：start_at 填活动开始时间；结束时间只写进 summary，不得当成 deadline_at。"""
 
 
 class ReminderUrlError(RuntimeError):
@@ -168,10 +176,32 @@ def _fallback_dates(text: str) -> tuple[str | None, str | None]:
     return (values[0], None) if values else (None, None)
 
 
+def _is_scheduled_event(item_type: str) -> bool:
+    return any(word in item_type for word in SCHEDULED_EVENT_WORDS)
+
+
+def _fallback_type(text: str) -> str:
+    return next((word for word in SCHEDULED_EVENT_WORDS if word in text), "报名")
+
+
+def _fallback_event_start(text: str, *, now: datetime) -> str | None:
+    match = EVENT_TIME_RE.search(text)
+    if not match:
+        return None
+    year, month, day, hour, minute, _, _ = match.groups()
+    parsed = datetime(
+        int(year or now.year), int(month), int(day), int(hour), int(minute), tzinfo=CHINA_TZ,
+    )
+    if year is None and parsed < now - timedelta(days=30):
+        parsed = parsed.replace(year=parsed.year + 1)
+    return parsed.isoformat()
+
+
 def normalize_preview(
     raw: Mapping[str, Any], *, page_title: str, text: str,
-    links: list[str], source_url: str,
+    links: list[str], source_url: str, now: datetime | None = None,
 ) -> ReminderPreview:
+    current = (now or datetime.now(CHINA_TZ)).astimezone(CHINA_TZ)
     title = " ".join(str(raw.get("title") or page_title or "报名提醒").split())[:160]
     item_type = " ".join(str(raw.get("type") or "报名").split())[:40]
     start = _absolute_deadline(raw.get("start_at"))
@@ -179,9 +209,17 @@ def normalize_preview(
     fallback_start, fallback_end = _fallback_dates(text)
     start_at = start.astimezone(CHINA_TZ).isoformat() if start else fallback_start
     deadline_at = deadline.astimezone(CHINA_TZ).isoformat() if deadline else fallback_end
+    if _is_scheduled_event(item_type):
+        start_at = start_at or _fallback_event_start(text, now=current)
+        if start_at and deadline_at:
+            start_value = datetime.fromisoformat(start_at)
+            deadline_value = datetime.fromisoformat(deadline_at)
+            if start_value < deadline_value <= start_value + timedelta(hours=12):
+                deadline_at = None
     allowed = [source_url, *links]
     requested_url = str(raw.get("action_url") or "").strip()
-    action_url = next((value for value in allowed if value == requested_url), source_url)
+    default_url = source_url or (links[0] if links else "")
+    action_url = next((value for value in allowed if value and value == requested_url), default_url)
     summary = " ".join(str(raw.get("summary") or f"按时处理：{title}").split())[:500]
     confidence = str(raw.get("confidence") or "low").strip().casefold()
     if confidence not in {"high", "medium", "low"}:
@@ -221,7 +259,42 @@ async def extract_reminder_from_url(
     )
 
 
+async def extract_reminder_from_text(
+    text: str,
+    *,
+    chat: Callable[[str, str], Awaitable[str]] | None = None,
+) -> ReminderPreview:
+    plain = text.strip()
+    if len(plain) < 5:
+        raise ReminderUrlError("请粘贴完整的邀请或通知文字")
+    if len(plain) > 20_000:
+        raise ReminderUrlError("粘贴文字不能超过20000字")
+    links = list(dict.fromkeys(
+        value.rstrip(".,;:!?，。；）)]}") for value in URL_RE.findall(plain)
+    ))[:100]
+    page_title = next((line.strip() for line in plain.splitlines() if line.strip()), "事项提醒")[:200]
+    user = (
+        f"当前北京时间：{datetime.now(CHINA_TZ).isoformat()}\n"
+        "以下是用户直接粘贴的邀请或通知文字。请提取需要提醒的时间；没有年份时，"
+        "结合当前日期选择最近的合理未来日期。\n"
+        f"正文：\n{plain}"
+    )
+    extractor = DeepSeekMailboxExtractor(chat=chat)
+    try:
+        response = await extractor._chat(SYSTEM_PROMPT, user)
+        raw = _json_object(response)
+    except (RuntimeError, ValueError, json.JSONDecodeError):
+        raw = {}
+    if not raw.get("type"):
+        raw = {**raw, "type": _fallback_type(plain)}
+    return normalize_preview(
+        raw, page_title=page_title, text=plain, links=links,
+        source_url="", now=datetime.now(CHINA_TZ),
+    )
+
+
 __all__ = [
-    "ReminderPreview", "ReminderUrlError", "extract_reminder_from_url",
+    "ReminderPreview", "ReminderUrlError", "extract_reminder_from_text",
+    "extract_reminder_from_url",
     "normalize_preview", "read_public_document",
 ]
