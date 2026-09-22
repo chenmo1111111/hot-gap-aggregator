@@ -1,7 +1,7 @@
-const CACHE = 'hot-gap-v8';
+const CACHE = 'hot-gap-v9';
 const SHELL = [
-  './', './manifest.webmanifest?v=2', './favicon-32.png?v=2', './apple-touch-icon.png?v=2',
-  './icon-192.png?v=2', './icon-512.png?v=2', './icon-maskable-512.png?v=2',
+  './', '/manifest.json?v=3', './favicon-32.png?v=2', './apple-touch-icon.png?v=2',
+  '/icon-192.png?v=3', '/icon-512.png?v=3', '/icon-maskable-512.png?v=3',
 ];
 
 self.addEventListener('install', (event) => {
