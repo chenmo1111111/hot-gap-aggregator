@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-09-21T13:44:30.366356+00:00",
+  "generated_at": "2026-09-22T01:44:24.908009+00:00",
   "source": "github",
   "status": {
     "source": "github",
     "status": "ok",
     "item_count": 12,
-    "duration_ms": 1717,
+    "duration_ms": 1993,
     "error": null,
-    "run_at": "2026-09-21T13:44:30.366356+00:00"
+    "run_at": "2026-09-22T01:44:24.908009+00:00"
   },
   "items": [
     {
@@ -24,9 +24,9 @@
         "description": "A framework for building agentic apps",
         "language": "TypeScript"
       },
-      "days_on_board": 2,
+      "days_on_board": 3,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": 0,
       "cluster_id": "591b0a315e41",
       "cluster_size": 1,
       "rank_history": [
@@ -36,6 +36,10 @@
         },
         {
           "run_at": "2026-09-21T13:44:30.366356+00:00",
+          "rank": 1
+        },
+        {
+          "run_at": "2026-09-22T01:44:24.908009+00:00",
           "rank": 1
         }
       ]
@@ -54,9 +58,9 @@
         "description": "Scale computer-use 2.0 with open-source drivers, cross-OS fleets, and benchmarks for training, evaluation, and data generation.",
         "language": "HTML"
       },
-      "days_on_board": 3,
+      "days_on_board": 4,
       "is_new": false,
-      "rank_delta": 2,
+      "rank_delta": 0,
       "cluster_id": "a3b57743d803",
       "cluster_size": 1,
       "rank_history": [
@@ -75,6 +79,10 @@
         {
           "run_at": "2026-09-21T13:44:30.366356+00:00",
           "rank": 2
+        },
+        {
+          "run_at": "2026-09-22T01:44:24.908009+00:00",
+          "rank": 2
         }
       ]
     },
@@ -84,7 +92,7 @@
       "title": "Open-Dev-Society/OpenStock",
       "title_zh": "Open-Dev-Society/OpenStock",
       "url": "https://github.com/Open-Dev-Society/OpenStock",
-      "hot_value": "843 stars today",
+      "hot_value": "844 stars today",
       "summary_zh": "开源免费行情平台，实时价格、个性提醒与公司洞察。",
       "thumbnail": null,
       "published_at": null,
@@ -92,9 +100,9 @@
         "description": "OpenStock is an open-source alternative to expensive market platforms. Track real-time prices, set personalized alerts, and explore detailed company insights — built openly, for everyone, forever free.",
         "language": "TypeScript"
       },
-      "days_on_board": 3,
+      "days_on_board": 4,
       "is_new": false,
-      "rank_delta": 7,
+      "rank_delta": 0,
       "cluster_id": "047b519782bf",
       "cluster_size": 1,
       "rank_history": [
@@ -113,6 +121,10 @@
         {
           "run_at": "2026-09-21T13:44:30.366356+00:00",
           "rank": 3
+        },
+        {
+          "run_at": "2026-09-22T01:44:24.908009+00:00",
+          "rank": 3
         }
       ]
     },
@@ -122,7 +134,7 @@
       "title": "akitaonrails/ai-memory",
       "title_zh": "akitaonrails/ai-memory",
       "url": "https://github.com/akitaonrails/ai-memory",
-      "hot_value": "114 stars today",
+      "hot_value": "167 stars today",
       "summary_zh": "AI代理长期记忆方案，助不同代理间交接，值得关注。",
       "thumbnail": null,
       "published_at": null,
@@ -130,14 +142,18 @@
         "description": "Solution for long term memory for agent coding CLIs and to facilitate handoff between different agent vendors",
         "language": "Rust"
       },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "days_on_board": 2,
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "735aa0a46068",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-21T13:44:30.366356+00:00",
+          "rank": 4
+        },
+        {
+          "run_at": "2026-09-22T01:44:24.908009+00:00",
           "rank": 4
         }
       ]
@@ -148,7 +164,7 @@
       "title": "coder/coder",
       "title_zh": "coder/coder",
       "url": "https://github.com/coder/coder",
-      "hot_value": "461 stars today",
+      "hot_value": "460 stars today",
       "summary_zh": "为开发者及其代理提供安全环境，值得关注因其强化了开发安全性。",
       "thumbnail": null,
       "published_at": null,
@@ -156,9 +172,9 @@
         "description": "Secure environments for developers and their agents",
         "language": "Go"
       },
-      "days_on_board": 5,
+      "days_on_board": 6,
       "is_new": false,
-      "rank_delta": 6,
+      "rank_delta": 0,
       "cluster_id": "8311824b9f65",
       "cluster_size": 1,
       "rank_history": [
@@ -197,6 +213,10 @@
         {
           "run_at": "2026-09-21T13:44:30.366356+00:00",
           "rank": 5
+        },
+        {
+          "run_at": "2026-09-22T01:44:24.908009+00:00",
+          "rank": 5
         }
       ]
     },
@@ -206,7 +226,7 @@
       "title": "anthropics/financial-services",
       "title_zh": "anthropics/financial-services",
       "url": "https://github.com/anthropics/financial-services",
-      "hot_value": "425 stars today",
+      "hot_value": "424 stars today",
       "summary_zh": "anthropics/financial-services：Anthropic金",
       "thumbnail": null,
       "published_at": null,
@@ -214,9 +234,9 @@
         "description": "",
         "language": "Python"
       },
-      "days_on_board": 2,
+      "days_on_board": 3,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": 0,
       "cluster_id": "bc0b0a9136a6",
       "cluster_size": 1,
       "rank_history": [
@@ -227,6 +247,10 @@
         {
           "run_at": "2026-09-21T13:44:30.366356+00:00",
           "rank": 6
+        },
+        {
+          "run_at": "2026-09-22T01:44:24.908009+00:00",
+          "rank": 6
         }
       ]
     },
@@ -236,7 +260,7 @@
       "title": "cloudflare/quiche",
       "title_zh": "cloudflare/quiche",
       "url": "https://github.com/cloudflare/quiche",
-      "hot_value": "242 stars today",
+      "hot_value": "32 stars today",
       "summary_zh": "Cloudflare的QUIC与HTTP/3协议实现，网络传输高效可靠。",
       "thumbnail": null,
       "published_at": null,
@@ -244,9 +268,9 @@
         "description": "🥧 Savoury implementation of the QUIC transport protocol and HTTP/3",
         "language": "Rust"
       },
-      "days_on_board": 3,
-      "is_new": true,
-      "rank_delta": "new",
+      "days_on_board": 4,
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "aed4c6618c75",
       "cluster_size": 1,
       "rank_history": [
@@ -261,6 +285,10 @@
         {
           "run_at": "2026-09-21T13:44:30.366356+00:00",
           "rank": 7
+        },
+        {
+          "run_at": "2026-09-22T01:44:24.908009+00:00",
+          "rank": 7
         }
       ]
     },
@@ -270,7 +298,7 @@
       "title": "mvt-project/mvt",
       "title_zh": "mvt-project/mvt",
       "url": "https://github.com/mvt-project/mvt",
-      "hot_value": "177 stars today",
+      "hot_value": "169 stars today",
       "summary_zh": "移动设备取证工具，查找被入侵迹象，安全研究必备。",
       "thumbnail": null,
       "published_at": null,
@@ -278,14 +306,18 @@
         "description": "MVT (Mobile Verification Toolkit) helps with conducting forensics of mobile devices in order to find signs of a potential compromise.",
         "language": "Python"
       },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "days_on_board": 2,
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "7d8717b09e77",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-21T13:44:30.366356+00:00",
+          "rank": 8
+        },
+        {
+          "run_at": "2026-09-22T01:44:24.908009+00:00",
           "rank": 8
         }
       ]
@@ -296,7 +328,7 @@
       "title": "zhouxiaoka/autoclip",
       "title_zh": "zhouxiaoka/autoclip",
       "url": "https://github.com/zhouxiaoka/autoclip",
-      "hot_value": "395 stars today",
+      "hot_value": "250 stars today",
       "summary_zh": "AI智能提取高光并剪辑，二创工具，省时高效。",
       "thumbnail": null,
       "published_at": null,
@@ -304,14 +336,18 @@
         "description": "AutoClip : AI-powered video clipping and highlight generation · 一款智能高光提取与剪辑的二创工具",
         "language": "Python"
       },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "days_on_board": 2,
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "32d1acde6c91",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-21T13:44:30.366356+00:00",
+          "rank": 9
+        },
+        {
+          "run_at": "2026-09-22T01:44:24.908009+00:00",
           "rank": 9
         }
       ]
@@ -322,7 +358,7 @@
       "title": "ruanyf/weekly",
       "title_zh": "ruanyf/weekly",
       "url": "https://github.com/ruanyf/weekly",
-      "hot_value": "621 stars today",
+      "hot_value": "182 stars today",
       "summary_zh": "科技爱好者周刊，每周五发布，精选科技资讯与思考。",
       "thumbnail": null,
       "published_at": null,
@@ -330,9 +366,9 @@
         "description": "科技爱好者周刊，每周五发布",
         "language": null
       },
-      "days_on_board": 3,
-      "is_new": true,
-      "rank_delta": "new",
+      "days_on_board": 4,
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "8d086a8acb5a",
       "cluster_size": 1,
       "rank_history": [
@@ -347,6 +383,10 @@
         {
           "run_at": "2026-09-21T13:44:30.366356+00:00",
           "rank": 10
+        },
+        {
+          "run_at": "2026-09-22T01:44:24.908009+00:00",
+          "rank": 10
         }
       ]
     },
@@ -356,7 +396,7 @@
       "title": "Crosstalk-Solutions/project-nomad",
       "title_zh": "Crosstalk-Solutions/project-nomad",
       "url": "https://github.com/Crosstalk-Solutions/project-nomad",
-      "hot_value": "360 stars today",
+      "hot_value": "394 stars today",
       "summary_zh": "Project NOMAD：离线优先知识教育服务器，自带维基百科与本地AI。",
       "thumbnail": null,
       "published_at": null,
@@ -364,14 +404,18 @@
         "description": "Project NOMAD is an offline-first knowledge and education server. Wikipedia, thousands of books, courses, maps, and optional local AI, all running on hardware you own with no internet required.",
         "language": "TypeScript"
       },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "days_on_board": 2,
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "c82c32d94890",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-21T13:44:30.366356+00:00",
+          "rank": 11
+        },
+        {
+          "run_at": "2026-09-22T01:44:24.908009+00:00",
           "rank": 11
         }
       ]
@@ -382,7 +426,7 @@
       "title": "yynxxxxx/Codex-X",
       "title_zh": "yynxxxxx/Codex-X",
       "url": "https://github.com/yynxxxxx/Codex-X",
-      "hot_value": "210 stars today",
+      "hot_value": "50 stars today",
       "summary_zh": "Codex桌面与命令行可视化管理，多API切换与配置管理。",
       "thumbnail": null,
       "published_at": null,
@@ -390,9 +434,9 @@
         "description": "OpenAI Codex 桌面端/CLI 的可视化管理工具，具有Provider/API 切换、会话同步、提示词注入、Skills/MCP 管理、TOML 配置可视化的跨平台工具。",
         "language": "Rust"
       },
-      "days_on_board": 3,
-      "is_new": true,
-      "rank_delta": "new",
+      "days_on_board": 4,
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "3b5754ac7165",
       "cluster_size": 1,
       "rank_history": [
@@ -406,6 +450,10 @@
         },
         {
           "run_at": "2026-09-21T13:44:30.366356+00:00",
+          "rank": 12
+        },
+        {
+          "run_at": "2026-09-22T01:44:24.908009+00:00",
           "rank": 12
         }
       ]
