@@ -992,16 +992,26 @@ def diff_records(
         source_by_id[sync_id] = fields
 
     auto_by_id: dict[str, dict[str, Any]] = {}
-    automatic_records: list[dict[str, Any]] = []
+    duplicate_or_unkeyed_record_ids: list[str] = []
     for record in existing_records:
         fields = record.get("fields") or {}
         if not is_managed_record(
             fields, sync_id_field=sync_id_field, source_field=source_field,
         ):
             continue
-        automatic_records.append(record)
         sync_id = _cell_text(fields.get(sync_id_field)).strip()
-        if sync_id and sync_id not in auto_by_id:
+        record_id = str(record["record_id"])
+        if not sync_id:
+            # A managed row without a stable key can never be reconciled with
+            # source data.  Keeping it would permanently consume table
+            # capacity, so remove it before any replacement rows are created.
+            duplicate_or_unkeyed_record_ids.append(record_id)
+        elif sync_id in auto_by_id:
+            # Historical sync runs could leave more than one Feishu row with
+            # the same sync ID.  Retain the first as the canonical row and
+            # prune every duplicate even while the ID still exists upstream.
+            duplicate_or_unkeyed_record_ids.append(record_id)
+        else:
             auto_by_id[sync_id] = record
 
     creates: list[dict[str, Any]] = []
@@ -1021,9 +1031,12 @@ def diff_records(
             updates.append({"record_id": old["record_id"], "fields": fields})
 
     deletes = [
-        str(record["record_id"])
-        for record in automatic_records
-        if _cell_text((record.get("fields") or {}).get(sync_id_field)).strip() not in source_by_id
+        *duplicate_or_unkeyed_record_ids,
+        *(
+            str(record["record_id"])
+            for sync_id, record in auto_by_id.items()
+            if sync_id not in source_by_id
+        ),
     ]
     return creates, updates, deletes
 

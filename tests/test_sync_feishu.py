@@ -220,6 +220,25 @@ def test_sync_id_recovers_blank_source_auto_but_explicit_manual_stays_protected(
     ]) == ([], [], ["rec-auto"])
 
 
+def test_diff_prunes_duplicate_managed_rows_even_when_sync_id_is_still_current() -> None:
+    source = [{"同步ID": "same", "公司名称": "A", "来源": "自动"}]
+    existing = [
+        {"record_id": "rec-canonical", "fields": {"同步ID": "same", "公司名称": "A", "来源": "自动"}},
+        {"record_id": "rec-duplicate", "fields": {"同步ID": "same", "公司名称": "A", "来源": "自动"}},
+    ]
+
+    assert diff_records(source, existing) == ([], [], ["rec-duplicate"])
+
+
+def test_diff_prunes_unkeyed_auto_row_but_keeps_unkeyed_manual_row() -> None:
+    existing = [
+        {"record_id": "rec-auto-blank", "fields": {"同步ID": "", "来源": "自动"}},
+        {"record_id": "rec-manual-blank", "fields": {"同步ID": "", "来源": "手动"}},
+    ]
+
+    assert diff_records([], existing) == ([], [], ["rec-auto-blank"])
+
+
 def test_diff_treats_feishu_rich_text_response_as_plain_source_text() -> None:
     source = [{"同步ID": "1", "更新时间": 200, "公司名称": "示例公司", "来源": "自动"}]
     existing = [{
