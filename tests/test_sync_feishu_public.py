@@ -528,6 +528,23 @@ def test_public_sync_removes_deleted_ids_from_private_registry() -> None:
     assert saved == [set()]
 
 
+def test_public_capacity_sync_deletes_before_create() -> None:
+    client = Mock()
+    existing = [{"record_id": "rec-old", "fields": {"公司名称": "旧", "招聘岗位": "旧"}}]
+    events: list[str] = []
+    client.batch_delete.side_effect = lambda *_args: events.append("delete")
+    client.batch_create.side_effect = lambda *_args: events.append("create")
+
+    result = sync_public_table(
+        client, "app", "table",
+        [{"公司名称": "新", "招聘岗位": "新"}], dict, qiuzhao_key,
+        existing_records=existing, delete_before_create=True,
+    )
+
+    assert events == ["delete", "create"]
+    assert result["deleted"] == 1 and result["created"] == 1
+
+
 def test_public_diff_deletes_known_legacy_auto_but_preserves_unknown_blank_row() -> None:
     existing = [
         {"record_id": "rec-known", "fields": {"链接": {"link": "https://known.test"}}},

@@ -103,7 +103,17 @@ def sanitize_fields(fields: Mapping[str, Any], expected: Mapping[str, Any]) -> d
         field_type = int(definition.get("type") or 0)
         if field_type == 3:
             allowed = set(definition.get("options") or [])
-            clean[name] = value if value in allowed else None
+            if value in allowed:
+                clean[name] = value
+            elif name == "来源" and str(value or "").startswith("自动") and "自动" in allowed:
+                # The schema is intentionally locked, so a newly introduced
+                # collector must not create another select option. Keep the
+                # generic managed marker instead of dropping provenance to
+                # blank, otherwise the next sync mistakes the row for a
+                # user-maintained record and can never evict it for capacity.
+                clean[name] = "自动"
+            else:
+                clean[name] = None
         elif field_type == 4:
             allowed = set(definition.get("options") or [])
             values = value if isinstance(value, list) else ([] if value in (None, "") else [value])

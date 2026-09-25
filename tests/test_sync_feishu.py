@@ -16,6 +16,7 @@ from app.sync_feishu import (
     delete_named_views,
     diff_records,
     ensure_gongkao_review_view,
+    is_managed_record,
     map_gongkao,
     map_qiuzhao,
     merge_qiuzhao_rows,
@@ -208,6 +209,17 @@ def test_diff_creates_updates_deletes_and_completely_ignores_manual_rows() -> No
     assert deletes == ["rec-stale"]
 
 
+def test_sync_id_recovers_blank_source_auto_but_explicit_manual_stays_protected() -> None:
+    blank_auto = {"同步ID": "codefather|role", "来源": ""}
+    explicit_manual = {"同步ID": "manual|role", "来源": "手动"}
+    assert is_managed_record(blank_auto)
+    assert not is_managed_record(explicit_manual)
+    assert diff_records([], [
+        {"record_id": "rec-auto", "fields": blank_auto},
+        {"record_id": "rec-manual", "fields": explicit_manual},
+    ]) == ([], [], ["rec-auto"])
+
+
 def test_diff_treats_feishu_rich_text_response_as_plain_source_text() -> None:
     source = [{"同步ID": "1", "更新时间": 200, "公司名称": "示例公司", "来源": "自动"}]
     existing = [{
@@ -377,6 +389,26 @@ def test_sync_table_caps_every_write_batch_at_500() -> None:
     assert [len(item.args[2]) for item in client.batch_create.call_args_list] == [500, 1]
     sleep.assert_called_once_with(0.5)
     assert result["created"] == 501
+
+
+def test_capacity_sync_deletes_obsolete_rows_before_creating_replacements() -> None:
+    client = Mock()
+    existing = [{
+        "record_id": "rec-old", "fields": {"同步ID": "old", "来源": "自动"},
+    }]
+    events: list[str] = []
+    client.batch_delete.side_effect = lambda *_args: events.append("delete")
+    client.batch_create.side_effect = lambda *_args: events.append("create")
+
+    result = sync_table(
+        client, "app", "table",
+        [{"company": "新公司", "title": "新岗位"}],
+        map_qiuzhao, DEFAULT_QIUZHAO_MAPPING,
+        now=NOW, existing_records=existing, delete_before_create=True,
+    )
+
+    assert events == ["delete", "create"]
+    assert result["deleted"] == 1 and result["created"] == 1
 
 
 def test_delete_named_views_removes_only_obsolete_finished_view() -> None:

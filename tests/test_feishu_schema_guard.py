@@ -49,6 +49,15 @@ def test_sanitize_fields_never_creates_unknown_options_or_deleted_fields() -> No
     ) == {"公司名称": "甲", "工作地点": ["北京"]}
 
 
+def test_sanitize_fields_falls_unknown_automatic_source_back_to_managed_marker() -> None:
+    expected = {
+        "fields": [{"name": "来源", "type": 3, "options": ["自动", "手动"]}],
+        "views": [],
+    }
+    assert sanitize_fields({"来源": "自动·编程导航"}, expected) == {"来源": "自动"}
+    assert sanitize_fields({"来源": "人工导入"}, expected) == {"来源": None}
+
+
 def test_canonical_schema_keeps_complete_option_order() -> None:
     result = canonical_schema(
         [{

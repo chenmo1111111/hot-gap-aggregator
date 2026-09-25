@@ -966,6 +966,16 @@ def _comparable(value: object) -> object:
     return value
 
 
+def is_managed_record(
+    fields: Mapping[str, Any], *, sync_id_field: str = "同步ID", source_field: str = "来源",
+) -> bool:
+    """Identify rows owned by sync without relying on a fragile select label."""
+    source = _cell_text(fields.get(source_field)).strip()
+    if source.startswith("手动"):
+        return False
+    return source.startswith("自动") or bool(_cell_text(fields.get(sync_id_field)).strip())
+
+
 def diff_records(
     source_records: Iterable[dict[str, Any]],
     existing_records: Iterable[dict[str, Any]],
@@ -985,7 +995,9 @@ def diff_records(
     automatic_records: list[dict[str, Any]] = []
     for record in existing_records:
         fields = record.get("fields") or {}
-        if not _cell_text(fields.get(source_field)).strip().startswith("自动"):
+        if not is_managed_record(
+            fields, sync_id_field=sync_id_field, source_field=source_field,
+        ):
             continue
         automatic_records.append(record)
         sync_id = _cell_text(fields.get(sync_id_field)).strip()
@@ -1032,7 +1044,9 @@ def slash_placeholder_updates(
     updates: list[dict[str, Any]] = []
     for record in existing_records:
         old = record.get("fields") or {}
-        if not _cell_text(old.get(source_field)).strip().startswith("自动"):
+        if not is_managed_record(
+            old, sync_id_field=sync_id_field, source_field=source_field,
+        ):
             continue
         desired = source_by_id.get(_cell_text(old.get(sync_id_field)).strip())
         if not desired:
@@ -1060,6 +1074,7 @@ def sync_table(
     *,
     now: datetime | None = None,
     existing_records: list[dict[str, Any]] | None = None,
+    delete_before_create: bool = False,
 ) -> dict[str, int]:
     mapped: list[dict[str, Any]] = []
     skipped = 0
@@ -1087,11 +1102,17 @@ def sync_table(
         )
         if str(record["record_id"]) not in update_ids
     )
-    write_batches = [
-        *((client.batch_create, batch) for batch in _batches(creates)),
-        *((client.batch_update, batch) for batch in _batches(updates)),
-        *((client.batch_delete, batch) for batch in _batches(deletes)),
-    ]
+    create_batches = [(client.batch_create, batch) for batch in _batches(creates)]
+    update_batches = [(client.batch_update, batch) for batch in _batches(updates)]
+    delete_batches = [(client.batch_delete, batch) for batch in _batches(deletes)]
+    # Release rows already selected by retention before inserting replacements.
+    # Creating first can transiently cross Feishu's 20,000-row hard limit even
+    # when the final desired snapshot is safely below it.
+    write_batches = (
+        [*delete_batches, *update_batches, *create_batches]
+        if delete_before_create
+        else [*create_batches, *update_batches, *delete_batches]
+    )
     for index, (operation, batch) in enumerate(write_batches):
         operation(app_token, table_id, batch)
         if index < len(write_batches) - 1:
@@ -1449,9 +1470,14 @@ def run() -> int:
                     )
                     existing_records = client.list_records(app_token, table_id)
                     source_field = section["field_mapping"]["$source"]
+                    sync_id_field = section["field_mapping"]["$sync_id"]
                     manual_count = sum(
                         1 for record in existing_records
-                        if not _cell_text((record.get("fields") or {}).get(source_field)).strip().startswith("自动")
+                        if not is_managed_record(
+                            record.get("fields") or {},
+                            sync_id_field=sync_id_field,
+                            source_field=source_field,
+                        )
                     )
                     rows, capacity = enforce_qiuzhao_capacity(
                         list(rows),
@@ -1472,6 +1498,7 @@ def run() -> int:
                 result = sync_table(
                     client, app_token, table_id, rows, active_mapper, section["field_mapping"],
                     existing_records=existing_records if name == "qiuzhao" else None,
+                    delete_before_create=name == "qiuzhao",
                 )
                 failures[name] = 0
                 LOGGER.info("%s sync complete: %s", name, result)

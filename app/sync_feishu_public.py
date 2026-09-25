@@ -576,6 +576,7 @@ def sync_public_table(
     managed_record_ids: set[str] | None = None,
     save_managed_record_ids: Callable[[], None] | None = None,
     existing_records: list[dict[str, Any]] | None = None,
+    delete_before_create: bool = False,
 ) -> dict[str, int]:
     if managed_record_ids is not None and save_managed_record_ids is None:
         raise ValueError("私有同步台账缺少持久化回调")
@@ -602,11 +603,14 @@ def sync_public_table(
         )
         if str(record["record_id"]) not in update_ids
     )
-    operations = [
-        *(("create", batch) for batch in _batches(creates)),
-        *(("update", batch) for batch in _batches(updates)),
-        *(("delete", batch) for batch in _batches(deletes)),
-    ]
+    create_operations = [("create", batch) for batch in _batches(creates)]
+    update_operations = [("update", batch) for batch in _batches(updates)]
+    delete_operations = [("delete", batch) for batch in _batches(deletes)]
+    operations = (
+        [*delete_operations, *update_operations, *create_operations]
+        if delete_before_create
+        else [*create_operations, *update_operations, *delete_operations]
+    )
     for index, (operation, batch) in enumerate(operations):
         if operation == "create":
             response = client.batch_create(app_token, table_id, batch)
@@ -869,6 +873,7 @@ def run(argv: list[str] | None = None) -> int:
                     managed_record_ids=registry.record_ids if registry else None,
                     save_managed_record_ids=registry.save if registry else None,
                     existing_records=existing_records if name == "qiuzhao_public" else None,
+                    delete_before_create=name == "qiuzhao_public",
                 )
                 result["schema_initialized"] = int(initialized)
                 LOGGER.info("%s sync complete: %s", name, result)
