@@ -32,16 +32,22 @@ cd "$project"
 .venv/bin/python -m py_compile "${files[@]}"
 .venv/bin/python - <<'PY'
 from app.feishu_schema_guard import sanitize_fields
-from app.sync_feishu import is_managed_record
+from app.sync_feishu import diff_records, is_managed_record
 
 schema = {"fields": [{"name": "来源", "type": 3, "options": ["自动", "手动"]}]}
 assert sanitize_fields({"来源": "自动·编程导航"}, schema)["来源"] == "自动"
 assert is_managed_record({"同步ID": "company|role", "来源": ""})
 assert not is_managed_record({"同步ID": "manual|role", "来源": "手动"})
-print("Verified managed-row recovery and locked-source fallback")
+source = [{"同步ID": "company|role", "来源": "自动"}]
+existing = [
+    {"record_id": "keep", "fields": {"同步ID": "company|role", "来源": "自动"}},
+    {"record_id": "duplicate", "fields": {"同步ID": "company|role", "来源": "自动"}},
+]
+assert diff_records(source, existing)[2] == ["duplicate"]
+print("Verified managed-row recovery, duplicate pruning, and locked-source fallback")
 PY
 
 echo "Installed Qiuzhao capacity-safe delete-before-create synchronization"
-echo "Automatic rows are recognized by sync ID; explicit manual rows remain protected"
+echo "Duplicate and unkeyed automatic rows are pruned; explicit manual rows remain protected"
 echo "No refresh, cron schedule, service, database, or container was started or changed"
 echo "Backup: $backup"
