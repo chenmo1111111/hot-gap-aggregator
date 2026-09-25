@@ -1,37 +1,37 @@
 {
-  "generated_at": "2026-09-24T13:44:17.795322+00:00",
+  "generated_at": "2026-09-25T13:44:22.330496+00:00",
   "source": "github",
   "status": {
     "source": "github",
     "status": "ok",
-    "item_count": 14,
-    "duration_ms": 1793,
+    "item_count": 16,
+    "duration_ms": 2078,
     "error": null,
-    "run_at": "2026-09-24T13:44:17.795322+00:00"
+    "run_at": "2026-09-25T13:44:22.330496+00:00"
   },
   "items": [
     {
       "source": "github",
       "rank": 1,
-      "title": "rohitg00/ai-engineering-from-scratch",
-      "title_zh": "rohitg00/ai-engineering-from-scratch",
-      "url": "https://github.com/rohitg00/ai-engineering-from-scratch",
-      "hot_value": "310 stars today",
-      "summary_zh": "AI工程从零到上线，完整学习实践路径。",
+      "title": "paperclipai/paperclip",
+      "title_zh": "paperclipai/paperclip",
+      "url": "https://github.com/paperclipai/paperclip",
+      "hot_value": "1,853 stars today",
+      "summary_zh": "开源AI代理管理工具，团队协作管理智能体首选。",
       "thumbnail": null,
       "published_at": null,
       "extra": {
-        "description": "Learn it. Build it. Ship it for others.",
-        "language": "Python"
+        "description": "The open-source app everyone uses to manage agents at work",
+        "language": "TypeScript"
       },
       "days_on_board": 1,
       "is_new": true,
       "rank_delta": "new",
-      "cluster_id": "76156d53a2cb",
+      "cluster_id": "f1a76c5351d5",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-24T13:44:17.795322+00:00",
+          "run_at": "2026-09-25T13:44:22.330496+00:00",
           "rank": 1
         }
       ]
@@ -39,25 +39,25 @@
     {
       "source": "github",
       "rank": 2,
-      "title": "vectorize-io/hindsight",
-      "title_zh": "vectorize-io/hindsight",
-      "url": "https://github.com/vectorize-io/hindsight",
-      "hot_value": "1,607 stars today",
-      "summary_zh": "Hindsight：会学习的智能体记忆系统，让AI记住经验。",
+      "title": "anthropics/claude-plugins-official",
+      "title_zh": "anthropics/claude-plugins-official",
+      "url": "https://github.com/anthropics/claude-plugins-official",
+      "hot_value": "62 stars today",
+      "summary_zh": "Anthropic官方Claude代码插件目录，质量有保障。",
       "thumbnail": null,
       "published_at": null,
       "extra": {
-        "description": "Hindsight: Agent Memory That Learns",
+        "description": "Official, Anthropic-managed directory of high quality Claude Code Plugins.",
         "language": "Python"
       },
       "days_on_board": 1,
       "is_new": true,
       "rank_delta": "new",
-      "cluster_id": "04905625bae0",
+      "cluster_id": "927a1af9b4b4",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-24T13:44:17.795322+00:00",
+          "run_at": "2026-09-25T13:44:22.330496+00:00",
           "rank": 2
         }
       ]
@@ -65,10 +65,100 @@
     {
       "source": "github",
       "rank": 3,
+      "title": "vectorize-io/hindsight",
+      "title_zh": "vectorize-io/hindsight",
+      "url": "https://github.com/vectorize-io/hindsight",
+      "hot_value": "1,652 stars today",
+      "summary_zh": "Hindsight：会学习的智能体记忆系统，让AI记住经验。",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "description": "Hindsight: Agent Memory That Learns",
+        "language": "Python"
+      },
+      "days_on_board": 2,
+      "is_new": false,
+      "rank_delta": -1,
+      "cluster_id": "04905625bae0",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-24T13:44:17.795322+00:00",
+          "rank": 2
+        },
+        {
+          "run_at": "2026-09-25T13:44:22.330496+00:00",
+          "rank": 3
+        }
+      ]
+    },
+    {
+      "source": "github",
+      "rank": 4,
+      "title": "obra/superpowers",
+      "title_zh": "obra/superpowers",
+      "url": "https://github.com/obra/superpowers",
+      "hot_value": "465 stars today",
+      "summary_zh": "obra/superpowers：代理技能框架，软件开发方法论。",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "description": "An agentic skills framework & software development methodology that works.",
+        "language": "Shell"
+      },
+      "days_on_board": 3,
+      "is_new": false,
+      "rank_delta": 6,
+      "cluster_id": "3d0d90fc2d2a",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-23T16:44:31.496968+00:00",
+          "rank": 5
+        },
+        {
+          "run_at": "2026-09-24T13:44:17.795322+00:00",
+          "rank": 10
+        },
+        {
+          "run_at": "2026-09-25T13:44:22.330496+00:00",
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "source": "github",
+      "rank": 5,
+      "title": "mattpocock/skills",
+      "title_zh": "mattpocock/skills",
+      "url": "https://github.com/mattpocock/skills",
+      "hot_value": "671 stars today",
+      "summary_zh": "真实工程师技能集，直接可用。",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "description": "Skills for Real Engineers. Straight from my .agents directory.",
+        "language": "Shell"
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "5963f5c06b20",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-25T13:44:22.330496+00:00",
+          "rank": 5
+        }
+      ]
+    },
+    {
+      "source": "github",
+      "rank": 6,
       "title": "dream-num/univer",
       "title_zh": "dream-num/univer",
       "url": "https://github.com/dream-num/univer",
-      "hot_value": "1,060 stars today",
+      "hot_value": "1,048 stars today",
       "summary_zh": "Univer是AI代理办公套件，集成表格文档幻灯片于一体。",
       "thumbnail": null,
       "published_at": null,
@@ -76,9 +166,9 @@
         "description": "The Office Harness for AI Agents — Spreadsheets, Docs, Slides, Canvas, Relational Tables, and PDF in one runtime.",
         "language": "TypeScript"
       },
-      "days_on_board": 3,
+      "days_on_board": 4,
       "is_new": false,
-      "rank_delta": 3,
+      "rank_delta": -3,
       "cluster_id": "eb9db1e91cb5",
       "cluster_size": 1,
       "rank_history": [
@@ -93,16 +183,180 @@
         {
           "run_at": "2026-09-24T13:44:17.795322+00:00",
           "rank": 3
+        },
+        {
+          "run_at": "2026-09-25T13:44:22.330496+00:00",
+          "rank": 6
         }
       ]
     },
     {
       "source": "github",
-      "rank": 4,
+      "rank": 7,
+      "title": "anthropics/skills",
+      "title_zh": "anthropics/skills",
+      "url": "https://github.com/anthropics/skills",
+      "hot_value": "155 stars today",
+      "summary_zh": "anthropics/skills：官方Agent技能库，权威参考。",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "description": "Public repository for Agent Skills",
+        "language": "Python"
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "96ee03c32965",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-25T13:44:22.330496+00:00",
+          "rank": 7
+        }
+      ]
+    },
+    {
+      "source": "github",
+      "rank": 8,
+      "title": "androoAGI/starnet",
+      "title_zh": "androoAGI/starnet",
+      "url": "https://github.com/androoAGI/starnet",
+      "hot_value": "113 stars today",
+      "summary_zh": "像素风AI代理工作站，本地运行，自带密钥看代理干活。",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "description": "A living pixel-art station where real AI agents do real work. Local-first desktop agent harness - bring your own key, watch your crew actually run.",
+        "language": "JavaScript"
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "66f19d1a190d",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-25T13:44:22.330496+00:00",
+          "rank": 8
+        }
+      ]
+    },
+    {
+      "source": "github",
+      "rank": 9,
+      "title": "derv82/wifit3",
+      "title_zh": "derv82/wifit3",
+      "url": "https://github.com/derv82/wifit3",
+      "hot_value": "168 stars today",
+      "summary_zh": "USB专用跨平台WiFi破解工具，比Wifite更便携。",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "description": "Wifite but USB-only & cross-platform.",
+        "language": "Python"
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "ed24d3546eb5",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-25T13:44:22.330496+00:00",
+          "rank": 9
+        }
+      ]
+    },
+    {
+      "source": "github",
+      "rank": 10,
+      "title": "kelseyhightower/kubernetes-the-hard-way",
+      "title_zh": "kelseyhightower/kubernetes-the-hard-way",
+      "url": "https://github.com/kelseyhightower/kubernetes-the-hard-way",
+      "hot_value": "105 stars today",
+      "summary_zh": "无脚本手动搭建Kubernetes教程，深入理解集群原理。",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "description": "Bootstrap Kubernetes the hard way. No scripts.",
+        "language": null
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "a9c6a31839f0",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-25T13:44:22.330496+00:00",
+          "rank": 10
+        }
+      ]
+    },
+    {
+      "source": "github",
+      "rank": 11,
+      "title": "rohitg00/ai-engineering-from-scratch",
+      "title_zh": "rohitg00/ai-engineering-from-scratch",
+      "url": "https://github.com/rohitg00/ai-engineering-from-scratch",
+      "hot_value": "1,181 stars today",
+      "summary_zh": "AI工程从零到上线，完整学习实践路径。",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "description": "Learn it. Build it. Ship it for others.",
+        "language": "Python"
+      },
+      "days_on_board": 2,
+      "is_new": false,
+      "rank_delta": -10,
+      "cluster_id": "76156d53a2cb",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-24T13:44:17.795322+00:00",
+          "rank": 1
+        },
+        {
+          "run_at": "2026-09-25T13:44:22.330496+00:00",
+          "rank": 11
+        }
+      ]
+    },
+    {
+      "source": "github",
+      "rank": 12,
+      "title": "shy3130/tick-stock-panel",
+      "title_zh": "shy3130/tick-stock-panel",
+      "url": "https://github.com/shy3130/tick-stock-panel",
+      "hot_value": "31 stars today",
+      "summary_zh": "自托管A股量化工作台，选股监控回测加LLM策略。",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "description": "TSP自托管、零运维的 A 股「选股 + 监控 + 回测」量化工作台 | LLM能力驱使策略定制+个股分析+复盘 | 自由接入第三方数据源与个性化扩展数据 | 个人开源",
+        "language": "Python"
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "8a4a31beb819",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-25T13:44:22.330496+00:00",
+          "rank": 12
+        }
+      ]
+    },
+    {
+      "source": "github",
+      "rank": 13,
       "title": "google/ax",
       "title_zh": "google/ax",
       "url": "https://github.com/google/ax",
-      "hot_value": "1,376 stars today",
+      "hot_value": "1,386 stars today",
       "summary_zh": "谷歌开源代理编排运行时，权威且值得研究。",
       "thumbnail": null,
       "published_at": null,
@@ -110,9 +364,9 @@
         "description": "Google's open agentic orchestration runtime",
         "language": "Go"
       },
-      "days_on_board": 3,
+      "days_on_board": 4,
       "is_new": false,
-      "rank_delta": -2,
+      "rank_delta": -9,
       "cluster_id": "9f2901a915a4",
       "cluster_size": 1,
       "rank_history": [
@@ -127,295 +381,9 @@
         {
           "run_at": "2026-09-24T13:44:17.795322+00:00",
           "rank": 4
-        }
-      ]
-    },
-    {
-      "source": "github",
-      "rank": 5,
-      "title": "NVIDIA/Model-Optimizer",
-      "title_zh": "NVIDIA/Model-Optimizer",
-      "url": "https://github.com/NVIDIA/Model-Optimizer",
-      "hot_value": "22 stars today",
-      "summary_zh": "NVIDIA模型优化库：量化蒸馏剪枝，加速大模型推理部署。",
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "description": "A unified library of SOTA model optimization techniques like quantization, distillation, pruning, neural architecture search, speculative decoding, etc. It compresses deep learning models for downstream deployment frameworks like TensorRT-LLM, TensorRT, vLLM, etc. to optimize inference speed.",
-        "language": "Python"
-      },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
-      "cluster_id": "d354958554e8",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-24T13:44:17.795322+00:00",
-          "rank": 5
-        }
-      ]
-    },
-    {
-      "source": "github",
-      "rank": 6,
-      "title": "FxEmbed/FxEmbed",
-      "title_zh": "FxEmbed/FxEmbed",
-      "url": "https://github.com/FxEmbed/FxEmbed",
-      "hot_value": "165 stars today",
-      "summary_zh": "修复X和Bluesky嵌入，支持多图视频投票翻译。",
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "description": "Fix X/Twitter and Bluesky embeds! Use multiple images, videos, polls, translations and more on Discord, Telegram and others",
-        "language": "TypeScript"
-      },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
-      "cluster_id": "6c1f7a6858cf",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-24T13:44:17.795322+00:00",
-          "rank": 6
-        }
-      ]
-    },
-    {
-      "source": "github",
-      "rank": 7,
-      "title": "anthropics/financial-services",
-      "title_zh": "anthropics/financial-services",
-      "url": "https://github.com/anthropics/financial-services",
-      "hot_value": "510 stars today",
-      "summary_zh": "anthropics/financial-services：Anthropic金",
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "description": "",
-        "language": "Python"
-      },
-      "days_on_board": 5,
-      "is_new": false,
-      "rank_delta": -6,
-      "cluster_id": "bc0b0a9136a6",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-20T16:44:11.576474+00:00",
-          "rank": 5
         },
         {
-          "run_at": "2026-09-21T13:44:30.366356+00:00",
-          "rank": 6
-        },
-        {
-          "run_at": "2026-09-22T01:44:24.908009+00:00",
-          "rank": 6
-        },
-        {
-          "run_at": "2026-09-22T10:44:17.910298+00:00",
-          "rank": 1
-        },
-        {
-          "run_at": "2026-09-23T16:44:31.496968+00:00",
-          "rank": 1
-        },
-        {
-          "run_at": "2026-09-24T13:44:17.795322+00:00",
-          "rank": 7
-        }
-      ]
-    },
-    {
-      "source": "github",
-      "rank": 8,
-      "title": "HKUDS/CLI-Anything",
-      "title_zh": "HKUDS/CLI-Anything",
-      "url": "https://github.com/HKUDS/CLI-Anything",
-      "hot_value": "415 stars today",
-      "summary_zh": "让所有软件变成智能体原生，提供CLI-Hub入口。",
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "description": "\"CLI-Anything: Making ALL Software Agent-Native\" -- CLI-Hub:https://clianything.cc/",
-        "language": "Python"
-      },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 2,
-      "cluster_id": "2c630d391e68",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-23T16:44:31.496968+00:00",
-          "rank": 10
-        },
-        {
-          "run_at": "2026-09-24T13:44:17.795322+00:00",
-          "rank": 8
-        }
-      ]
-    },
-    {
-      "source": "github",
-      "rank": 9,
-      "title": "mvt-project/mvt",
-      "title_zh": "mvt-project/mvt",
-      "url": "https://github.com/mvt-project/mvt",
-      "hot_value": "275 stars today",
-      "summary_zh": "移动设备取证工具，查找被入侵迹象，安全研究必备。",
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "description": "MVT (Mobile Verification Toolkit) helps with conducting forensics of mobile devices in order to find signs of a potential compromise.",
-        "language": "Python"
-      },
-      "days_on_board": 4,
-      "is_new": false,
-      "rank_delta": 4,
-      "cluster_id": "7d8717b09e77",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-21T13:44:30.366356+00:00",
-          "rank": 8
-        },
-        {
-          "run_at": "2026-09-22T01:44:24.908009+00:00",
-          "rank": 8
-        },
-        {
-          "run_at": "2026-09-22T10:44:17.910298+00:00",
-          "rank": 6
-        },
-        {
-          "run_at": "2026-09-23T16:44:31.496968+00:00",
-          "rank": 13
-        },
-        {
-          "run_at": "2026-09-24T13:44:17.795322+00:00",
-          "rank": 9
-        }
-      ]
-    },
-    {
-      "source": "github",
-      "rank": 10,
-      "title": "obra/superpowers",
-      "title_zh": "obra/superpowers",
-      "url": "https://github.com/obra/superpowers",
-      "hot_value": "606 stars today",
-      "summary_zh": "obra/superpowers：代理技能框架，软件开发方法论。",
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "description": "An agentic skills framework & software development methodology that works.",
-        "language": "Shell"
-      },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": -5,
-      "cluster_id": "3d0d90fc2d2a",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-23T16:44:31.496968+00:00",
-          "rank": 5
-        },
-        {
-          "run_at": "2026-09-24T13:44:17.795322+00:00",
-          "rank": 10
-        }
-      ]
-    },
-    {
-      "source": "github",
-      "rank": 11,
-      "title": "strands-agents/harness-sdk",
-      "title_zh": "strands-agents/harness-sdk",
-      "url": "https://github.com/strands-agents/harness-sdk",
-      "hot_value": "463 stars today",
-      "summary_zh": "开源SDK，用Python和TS构建生产级AI智能体，支持任意模型和云。",
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "description": "Build an agent harness and control it end-to-end. Open-source SDK for production AI agents in Python & TypeScript - any model, any cloud.",
-        "language": "Python"
-      },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": -2,
-      "cluster_id": "b23194e0022d",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-23T16:44:31.496968+00:00",
-          "rank": 9
-        },
-        {
-          "run_at": "2026-09-24T13:44:17.795322+00:00",
-          "rank": 11
-        }
-      ]
-    },
-    {
-      "source": "github",
-      "rank": 12,
-      "title": "julyx10/lap",
-      "title_zh": "julyx10/lap",
-      "url": "https://github.com/julyx10/lap",
-      "hot_value": "71 stars today",
-      "summary_zh": "离线优先照片管理器，轻松管理海量本地图库。",
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "description": "An offline-first photo manager for large local libraries",
-        "language": "Vue"
-      },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
-      "cluster_id": "31578c117eab",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-24T13:44:17.795322+00:00",
-          "rank": 12
-        }
-      ]
-    },
-    {
-      "source": "github",
-      "rank": 13,
-      "title": "superdesigndev/treg",
-      "title_zh": "superdesigndev/treg",
-      "url": "https://github.com/superdesigndev/treg",
-      "hot_value": "470 stars today",
-      "summary_zh": "代理工具版OpenRouter，社区共建值得加入。",
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "description": "OpenRouter for agent tools. Join community here:https://discord.gg/6mQYYfFMAn",
-        "language": "Python"
-      },
-      "days_on_board": 3,
-      "is_new": false,
-      "rank_delta": -2,
-      "cluster_id": "51909378a8b9",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-22T10:44:17.910298+00:00",
-          "rank": 7
-        },
-        {
-          "run_at": "2026-09-23T16:44:31.496968+00:00",
-          "rank": 11
-        },
-        {
-          "run_at": "2026-09-24T13:44:17.795322+00:00",
+          "run_at": "2026-09-25T13:44:22.330496+00:00",
           "rank": 13
         }
       ]
@@ -423,26 +391,86 @@
     {
       "source": "github",
       "rank": 14,
-      "title": "leejet/stable-diffusion.cpp",
-      "title_zh": "leejet/stable-diffusion.cpp",
-      "url": "https://github.com/leejet/stable-diffusion.cpp",
-      "hot_value": "33 stars today",
-      "summary_zh": "纯C/C++跑扩散模型，无需依赖，轻量高效。",
+      "title": "NVIDIA/Model-Optimizer",
+      "title_zh": "NVIDIA/Model-Optimizer",
+      "url": "https://github.com/NVIDIA/Model-Optimizer",
+      "hot_value": "360 stars today",
+      "summary_zh": "NVIDIA模型优化库：量化蒸馏剪枝，加速大模型推理部署。",
       "thumbnail": null,
       "published_at": null,
       "extra": {
-        "description": "Diffusion model(SD,Flux,Wan,Qwen Image,Z-Image,...) inference in pure C/C++",
-        "language": "C++"
+        "description": "A unified library of SOTA model optimization techniques like quantization, distillation, pruning, neural architecture search, speculative decoding, etc. It compresses deep learning models for downstream deployment frameworks like TensorRT-LLM, TensorRT, vLLM, etc. to optimize inference speed.",
+        "language": "Python"
       },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
-      "cluster_id": "822471a2454e",
+      "days_on_board": 2,
+      "is_new": false,
+      "rank_delta": -9,
+      "cluster_id": "d354958554e8",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-24T13:44:17.795322+00:00",
+          "rank": 5
+        },
+        {
+          "run_at": "2026-09-25T13:44:22.330496+00:00",
           "rank": 14
+        }
+      ]
+    },
+    {
+      "source": "github",
+      "rank": 15,
+      "title": "pbakaus/impeccable",
+      "title_zh": "pbakaus/impeccable",
+      "url": "https://github.com/pbakaus/impeccable",
+      "hot_value": "527 stars today",
+      "summary_zh": "让AI智能体更懂设计的语言规范。",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "description": "The design language that makes your AI harness better at design.",
+        "language": "JavaScript"
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "0d87ecfe7eff",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-23T16:44:31.496968+00:00",
+          "rank": 12
+        },
+        {
+          "run_at": "2026-09-25T13:44:22.330496+00:00",
+          "rank": 15
+        }
+      ]
+    },
+    {
+      "source": "github",
+      "rank": 16,
+      "title": "openbao/openbao",
+      "title_zh": "openbao/openbao",
+      "url": "https://github.com/openbao/openbao",
+      "hot_value": "16 stars today",
+      "summary_zh": "开源密钥证书管理分发方案，敏感数据安全存储。",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "description": "OpenBao is a software solution to manage, store, and distribute sensitive data including secrets, certificates, and keys.",
+        "language": "Go"
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "1b5d996a0200",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-25T13:44:22.330496+00:00",
+          "rank": 16
         }
       ]
     }
