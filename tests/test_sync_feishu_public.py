@@ -171,6 +171,15 @@ def test_map_public_qiuzhao_uses_visible_natural_key() -> None:
     assert qiuzhao_key(fields) == "job:示例公司|研发工程师"
 
 
+def test_map_public_qiuzhao_prefers_preserved_publication_date() -> None:
+    fields = map_public_qiuzhao({
+        "company_name": "示例公司", "position": "研发工程师",
+        "published_at": "2026-09-25", "updated_at": "2026-09-26",
+    })
+
+    assert fields["日期"] == 1_790_265_600_000
+
+
 def test_public_qiuzhao_rejects_fenbi_calendar_as_application_url() -> None:
     fields = map_public_qiuzhao({
         "company_name": "招商证券",

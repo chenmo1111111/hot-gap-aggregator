@@ -90,10 +90,15 @@ def normalize_jobs_payload(payload: dict[str, Any]) -> dict[str, Any]:
             "apply_url": url,
             "announcement_url": _first(row.get("announcement_url"), extra.get("announcement_url"), url),
             "notes": _first(row.get("notes"), row.get("summary_zh")),
+            # Keep the upstream business date.  Daily reporting and the
+            # public table must not substitute collection/sync time for the
+            # source's own publication date.
+            "published_at": _first(row.get("published_at"), extra.get("published_at")),
             "upstream_source": "jobs",
         }
         if label := _source_label(extra, row):
             item["source_label"] = label
+            item["published_source_label"] = label
         items.append(item)
     upstream_status = payload.get("status") if isinstance(payload.get("status"), dict) else {}
     status = {

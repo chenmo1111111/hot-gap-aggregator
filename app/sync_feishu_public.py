@@ -354,7 +354,7 @@ def map_public_qiuzhao(row: Mapping[str, Any]) -> dict[str, Any]:
         raise ValueError("秋招公开记录缺少公司名称或招聘岗位")
     return {
         "公司名称": str(company).strip(),
-        "日期": date_to_millis(_coalesce(row, "updated_at|date|日期")),
+        "日期": date_to_millis(_coalesce(row, "published_at|updated_at|date|日期")),
         "企业性质": normalize_company_type(
             _coalesce(row, "company_type|enterprise_type|extra.company_type|企业性质")
         ),

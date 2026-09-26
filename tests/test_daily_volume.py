@@ -15,7 +15,7 @@ from app.daily_volume import (
 )
 
 
-def test_next_morning_wanqing_gongkao_route_uses_source_day(tmp_path) -> None:
+def test_next_morning_wanqing_gongkao_route_separates_capture_and_source_day(tmp_path) -> None:
     state = tmp_path / "state.json"
     output = tmp_path / "daily-volume.json"
     state.write_text(json.dumps({
@@ -36,8 +36,7 @@ def test_next_morning_wanqing_gongkao_route_uses_source_day(tmp_path) -> None:
         state_path=state, output_path=output,
     )
 
-    assert result["gongkao_captured_new"] == 1
-    assert result["gongkao_captured_source_new"]["婉清购买表分流"] == 1
+    assert result["gongkao_captured_new"] == 0
     assert result["gongkao_new"] == 0  # no title: not a public-table row
     saved = json.loads(state.read_text(encoding="utf-8"))
     assert saved["gongkao_first_seen"]["purchased:wanqing_feishu:research"] == "2026-09-13"
@@ -177,8 +176,8 @@ def test_broadcast_uses_public_candidates_not_ever_seen_ledger(tmp_path) -> None
         state_path=state, output_path=tmp_path / "daily-volume.json",
     )
 
-    assert result["gongkao_captured_new"] == 4
-    assert result["qiuzhao_captured_new"] == 3
+    assert result["gongkao_captured_new"] == 1
+    assert result["qiuzhao_captured_new"] == 1
     assert result["gongkao_new"] == 1
     assert result["qiuzhao_new"] == 2
     assert result["gongkao_source_new"]["政府网站"] == 1
@@ -191,10 +190,10 @@ def test_broadcast_uses_public_candidates_not_ever_seen_ledger(tmp_path) -> None
     assert result["qiuzhao_public_stages"]["current_export"] == 2
     assert result["qiuzhao_public_stages"]["after_routing_merge"] == 2
     message = build_daily_broadcast(result)
-    assert "秋招：公开表候选 2" in message
-    assert "公考：公开表候选 1" in message
-    assert "采集台账 3；当前导出昨日日期 2" in message
-    assert "采集台账 4；当前导出昨日首次收录 3" in message
+    assert "秋招·昨日首次抓到 1 条" in message
+    assert "秋招·源发布日期为昨日 2 条" in message
+    assert "公考·昨日首次抓到 1 条" in message
+    assert "公考·源发布日期为昨日 1 条" in message
 
 
 def test_wanqing_full_snapshot_uses_source_dates_instead_of_import_day(tmp_path) -> None:
@@ -233,8 +232,8 @@ def test_wanqing_full_snapshot_uses_source_dates_instead_of_import_day(tmp_path)
         state_path=state, output_path=output,
     )
 
-    assert result["qiuzhao_captured_new"] == 1
-    assert result["qiuzhao_captured_source_new"]["婉清购买表"] == 1
+    assert result["qiuzhao_captured_new"] == 5
+    assert result["qiuzhao_captured_source_new"]["婉清购买表"] == 5
     assert result["qiuzhao_new"] == 0  # rows lack company/position
     saved = json.loads(state.read_text(encoding="utf-8"))["qiuzhao_first_seen"]
     assert saved["old-by-row-first-seen"] == "2026-08-20"
@@ -255,6 +254,7 @@ def test_next_morning_wanqing_capture_counts_rows_on_their_source_update_day(tmp
     row = {
         "source_record_id": "captured-next-morning",
         "upstream_source": "wanqing_feishu",
+        "company_name": "次日抓取公司", "position": "研发岗",
         "updated_at": 1789142400000,
     }
 
@@ -263,11 +263,41 @@ def test_next_morning_wanqing_capture_counts_rows_on_their_source_update_day(tmp
         state_path=state, output_path=output,
     )
 
-    assert result["qiuzhao_captured_new"] == 1
-    assert result["qiuzhao_captured_source_new"]["婉清购买表"] == 1
-    assert result["qiuzhao_new"] == 0
+    assert result["qiuzhao_captured_new"] == 0
+    assert result["qiuzhao_published_new"] == 1
+    assert result["qiuzhao_published_source_new"]["婉清购买表"] == 1
     saved = json.loads(state.read_text(encoding="utf-8"))
     assert saved["qiuzhao_first_seen"]["captured-next-morning"] == "2026-09-12"
+
+
+def test_capture_day_and_publication_day_are_reported_separately(tmp_path) -> None:
+    state = tmp_path / "state.json"
+    state.write_text(json.dumps({
+        "gongkao_first_seen": {}, "gongkao_first_seen_source": {},
+        "qiuzhao_first_seen": {}, "qiuzhao_first_seen_source": {},
+        "gongkao_first_captured": {}, "gongkao_first_captured_source": {},
+        "qiuzhao_first_captured": {}, "qiuzhao_first_captured_source": {},
+        "alerts_sent": [],
+    }), encoding="utf-8")
+    row = {
+        "company_name": "较早发布公司", "position": "算法工程师",
+        "source_record_id": "ncss:older", "source_label": "国家大学生就业服务平台",
+        "published_source_label": "国家大学生就业服务平台",
+        "published_at": "2026-09-20", "upstream_source": "jobs",
+    }
+
+    result = update_daily_volume(
+        [], [row], today=date(2026, 9, 25), report_date=date(2026, 9, 25),
+        state_path=state, output_path=tmp_path / "daily-volume.json",
+    )
+
+    assert result["qiuzhao_captured_new"] == 1
+    assert result["qiuzhao_captured_source_new"]["国家大学生就业服务平台"] == 1
+    assert result["qiuzhao_published_new"] == 0
+    assert result["qiuzhao_published_source_new"]["国家大学生就业服务平台"] == 0
+    message = build_daily_broadcast(result)
+    assert "秋招·昨日首次抓到 1 条" in message
+    assert "秋招·源发布日期为昨日 0 条" in message
 
 
 def test_repair_wanqing_bulk_import_preserves_unrelated_history(tmp_path) -> None:
@@ -401,11 +431,13 @@ def test_daily_broadcast_is_always_sent_once_and_includes_source_counts(monkeypa
     assert "previous-day:2026-09-11" in json.loads(state.read_text(encoding="utf-8"))["alerts_sent"]
     message = sent[0]["json"]["content"]["text"]
     assert message.startswith(
-        "【每日采集播报】昨日（09-11）公开表汇总\n"
+        "【每日采集播报】昨日（09-11）双口径汇总\n"
         "统计窗口：2026-09-11 00:00—2026-09-12 00:00（北京时间）"
     )
-    assert "秋招：公开表候选 30" in message
-    assert "公考：公开表候选 8" in message
+    assert "秋招·昨日首次抓到 30 条" in message
+    assert "秋招·源发布日期为昨日 30 条" in message
+    assert "公考·昨日首次抓到 8 条" in message
+    assert "公考·源发布日期为昨日 8 条" in message
     assert "非飞书 API 回读" in message
 
     low = {**result, "date": "2026-09-12", "qiuzhao_new": 19, "gongkao_new": 2}
@@ -475,7 +507,7 @@ def test_two_daily_reports_cover_adjacent_complete_days(tmp_path) -> None:
     assert first_report["gongkao_captured_new"] == 1
     assert second_report["gongkao_captured_new"] == 1
     assert build_daily_broadcast(first_report).startswith(
-        "【每日采集播报】昨日（09-12）公开表汇总"
+        "【每日采集播报】昨日（09-12）双口径汇总"
     )
     history = json.loads(output.read_text(encoding="utf-8"))["history"]
     assert [entry["date"] for entry in history][-2:] == ["2026-09-12", "2026-09-13"]

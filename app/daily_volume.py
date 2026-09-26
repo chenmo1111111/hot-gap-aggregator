@@ -112,11 +112,26 @@ def _qiuzhao_source(row: Mapping[str, Any]) -> str:
     return raw_label or source or "未标注来源"
 
 
+def _qiuzhao_publication_source(row: Mapping[str, Any]) -> str:
+    """Attribute a preserved website publication date to its real source."""
+    label = str(row.get("published_source_label") or "").strip()
+    if not label:
+        return _qiuzhao_source(row)
+    return _qiuzhao_source({**row, "upstream_source": "", "source_label": label})
+
+
 def _qiuzhao_source_date(row: Mapping[str, Any]) -> date | None:
-    """Prefer an explicit first-seen/publication date over mutable sync metadata."""
+    """Use source publication date, with purchased-table dates as fallback."""
     extra = _extra(row)
+    website_publication = (
+        row.get("published_at")
+        if str(row.get("upstream_source") or "").strip().casefold() == "jobs"
+        or row.get("published_source_label")
+        else None
+    )
     return _date(
-        row.get("first_seen")
+        website_publication
+        or row.get("first_seen")
         or extra.get("first_seen")
         or row.get("published_at")
         or row.get("updated_at")
@@ -344,7 +359,7 @@ def _public_table_volume(
     Feishu.  The public table can lag this snapshot when its sync has not run.
     """
     from app.pipeline.prune import filter_current_public_gongkao, load_retention
-    from app.sync_feishu import _coalesce, date_to_millis, merge_qiuzhao_rows, partition_gongkao_rows
+    from app.sync_feishu import date_to_millis, merge_qiuzhao_rows, partition_gongkao_rows
     from app.sync_feishu_public import (
         gongkao_key, map_public_gongkao, map_public_qiuzhao, qiuzhao_key,
     )
@@ -355,9 +370,7 @@ def _public_table_volume(
     raw_gongkao_day = sum(
         on_day(date_to_millis(_extra(row).get("first_seen"))) for row in gongkao
     )
-    raw_qiuzhao_day = sum(
-        on_day(date_to_millis(_coalesce(row, "updated_at|date|日期"))) for row in qiuzhao
-    )
+    raw_qiuzhao_day = sum(on_day(_qiuzhao_source_date(row)) for row in qiuzhao)
     gongkao_kept, routed, excluded = partition_gongkao_rows(gongkao)
     gongkao_current, _ = filter_current_public_gongkao(
         gongkao_kept, load_retention(), today=today,
@@ -387,7 +400,7 @@ def _public_table_volume(
         try:
             fields = map_public_qiuzhao(row)
         except (TypeError, ValueError):
-            if on_day(date_to_millis(_coalesce(row, "updated_at|date|日期"))):
+            if on_day(_qiuzhao_source_date(row)):
                 qiuzhao_invalid += 1
             continue
         key = qiuzhao_key(fields)
@@ -397,7 +410,7 @@ def _public_table_volume(
             original_id = str(_extra(row).get("original_id") or "")
             source = f"公考源分流·{routed_sources.get(original_id, '其他来源')}"
         else:
-            source = _qiuzhao_source(row)
+            source = _qiuzhao_publication_source(row)
         qiuzhao_by_key[key] = (fields, source)
 
     gongkao_counts: dict[str, int] = {}
@@ -428,8 +441,7 @@ def _public_table_volume(
         "qiuzhao_public_stages": {
             "current_export": raw_qiuzhao_day,
             "after_routing_merge": sum(
-                on_day(date_to_millis(_coalesce(row, "updated_at|date|日期")))
-                for row in qiuzhao_merged
+                on_day(_qiuzhao_source_date(row)) for row in qiuzhao_merged
             ),
             "invalid_mapping": qiuzhao_invalid,
             "candidate": sum(qiuzhao_counts.values()),
@@ -463,17 +475,31 @@ def update_daily_volume(
     gongkao_sources = state.setdefault("gongkao_first_seen_source", {})
     if not isinstance(gongkao_sources, dict):
         gongkao_sources = state["gongkao_first_seen_source"] = {}
+    gongkao_captured = state.get("gongkao_first_captured")
+    if not isinstance(gongkao_captured, dict):
+        # Safe migration: seed historic rows from the existing ledger so the
+        # first deployment does not report the whole table as newly captured.
+        gongkao_captured = state["gongkao_first_captured"] = dict(gongkao_seen)
+    gongkao_captured_sources = state.get("gongkao_first_captured_source")
+    if not isinstance(gongkao_captured_sources, dict):
+        gongkao_captured_sources = state["gongkao_first_captured_source"] = dict(
+            gongkao_sources
+        )
     for row in gongkao:
         key = _gongkao_id(row)
         if not key:
             continue
+        current_source = _gongkao_source(row)
+        if key not in gongkao_captured:
+            gongkao_captured[key] = today.isoformat()
+        if gongkao_captured_sources.get(key) in {None, "", "sheet", "government", "other"}:
+            gongkao_captured_sources[key] = current_source
         if key not in gongkao_seen:
             source_date = _gongkao_source_date(row)
             gongkao_seen[key] = (
                 (source_date or today)
                 if gongkao_initialized else (source_date or today - timedelta(days=1))
             ).isoformat()
-        current_source = _gongkao_source(row)
         if gongkao_sources.get(key) in {None, "", "sheet", "government", "other"}:
             gongkao_sources[key] = current_source
     qiuzhao_seen = state.setdefault("qiuzhao_first_seen", {})
@@ -482,21 +508,34 @@ def update_daily_volume(
     qiuzhao_sources = state.setdefault("qiuzhao_first_seen_source", {})
     if not isinstance(qiuzhao_sources, dict):
         qiuzhao_sources = state["qiuzhao_first_seen_source"] = {}
+    qiuzhao_captured = state.get("qiuzhao_first_captured")
+    if not isinstance(qiuzhao_captured, dict):
+        qiuzhao_captured = state["qiuzhao_first_captured"] = dict(qiuzhao_seen)
+    qiuzhao_captured_sources = state.get("qiuzhao_first_captured_source")
+    if not isinstance(qiuzhao_captured_sources, dict):
+        qiuzhao_captured_sources = state["qiuzhao_first_captured_source"] = dict(
+            qiuzhao_sources
+        )
     for row in qiuzhao:
         key = _qiuzhao_id(row)
         if not key:
             continue
-        if key not in qiuzhao_seen:
-            # A newly visible ID can be an old row revealed by a larger/full
-            # purchased-table snapshot.  Use its source date when available so
-            # a backfill is not reported as thousands of new jobs today.
-            qiuzhao_seen[key] = (_qiuzhao_source_date(row) or today).isoformat()
         current_source = _qiuzhao_source(row)
+        if key not in qiuzhao_captured:
+            qiuzhao_captured[key] = today.isoformat()
+        if qiuzhao_captured_sources.get(key) in {None, "", "wanqing", "xiaozhaoya", "other"}:
+            qiuzhao_captured_sources[key] = current_source
+        if key not in qiuzhao_seen:
+            # Keep the historic source-date ledger for retention and repair.
+            # The separate first-captured ledger above always records the real
+            # observation day, so a backfill is visible without being confused
+            # with its original publication date.
+            qiuzhao_seen[key] = (_qiuzhao_source_date(row) or today).isoformat()
         if qiuzhao_sources.get(key) in {None, "", "wanqing", "xiaozhaoya", "other"}:
             qiuzhao_sources[key] = current_source
 
     gongkao_report_keys = [
-        key for key, value in gongkao_seen.items() if _date(value) == report_date
+        key for key, value in gongkao_captured.items() if _date(value) == report_date
     ]
     active_qiuzhao_keys = {_qiuzhao_id(row) for row in qiuzhao}
     # The pre-source-breakdown state used ``other`` (or no value at all) and
@@ -512,16 +551,18 @@ def update_daily_volume(
     for key in legacy_orphans:
         qiuzhao_seen.pop(key, None)
         qiuzhao_sources.pop(key, None)
+        qiuzhao_captured.pop(key, None)
+        qiuzhao_captured_sources.pop(key, None)
     qiuzhao_report_keys = [
-        key for key, value in qiuzhao_seen.items() if _date(value) == report_date
+        key for key, value in qiuzhao_captured.items() if _date(value) == report_date
     ]
     active_qiuzhao_sources = {_qiuzhao_source(row) for row in qiuzhao}
     active_qiuzhao_sources.update(
-        qiuzhao_sources.get(key, "未标注来源") for key in qiuzhao_report_keys
+        qiuzhao_captured_sources.get(key, "未标注来源") for key in qiuzhao_report_keys
     )
     qiuzhao_counts_from_ledger = {
         source: sum(
-            qiuzhao_sources.get(key, "未标注来源") == source
+            qiuzhao_captured_sources.get(key, "未标注来源") == source
             for key in qiuzhao_report_keys
         )
         for source in sorted(
@@ -531,12 +572,12 @@ def update_daily_volume(
     }
     active_gongkao_sources = {_gongkao_source(row) for row in gongkao}
     active_gongkao_sources.update(
-        _normalized_gongkao_source(key, gongkao_sources.get(key))
+        _normalized_gongkao_source(key, gongkao_captured_sources.get(key))
         for key in gongkao_report_keys
     )
     gongkao_counts_from_ledger = {
         source: sum(
-            _normalized_gongkao_source(key, gongkao_sources.get(key)) == source
+            _normalized_gongkao_source(key, gongkao_captured_sources.get(key)) == source
             for key in gongkao_report_keys
         )
         for source in sorted(
@@ -579,7 +620,10 @@ def update_daily_volume(
         "window_start": window_start.isoformat(),
         "window_end": window_end.isoformat(),
         "count_basis": "public_sync_candidates",
-        "snapshot_note": "按本地公开表同步规则计算；不是飞书 API 回读的已同步行数",
+        "snapshot_note": (
+            "首次抓到取采集台账；源发布日期取当前导出经公开表映射/查重后的候选快照；"
+            "不是飞书 API 回读的已同步行数"
+        ),
         "gongkao_captured_new": len(gongkao_report_keys),
         "qiuzhao_captured_new": len(qiuzhao_report_keys),
         "gongkao_captured_source_new": _ordered_counts(gongkao_counts_from_ledger, GONGKAO_SOURCE_ORDER),
@@ -587,6 +631,8 @@ def update_daily_volume(
         "gongkao_public_stages": public["gongkao_public_stages"],
         "qiuzhao_public_stages": public["qiuzhao_public_stages"],
         "qiuzhao_source_new": qiuzhao_counts,
+        "qiuzhao_published_new": qiuzhao_new,
+        "qiuzhao_published_source_new": qiuzhao_counts,
         "qiuzhao_wanqing_new": qiuzhao_counts.get("婉清购买表", 0),
         "qiuzhao_xiaozhaoya_new": qiuzhao_counts.get("校招鸭home一次性回填", 0),
         "qiuzhao_other_new": sum(
@@ -594,6 +640,8 @@ def update_daily_volume(
             if source not in {"婉清购买表", "校招鸭home一次性回填"}
         ),
         "gongkao_source_new": gongkao_counts,
+        "gongkao_published_new": gongkao_new,
+        "gongkao_published_source_new": gongkao_counts,
         "gongkao_government_new": gongkao_counts.get("政府网站", 0),
         "gongkao_sheet_new": gongkao_counts.get("校招鸭事业单位购买表", 0),
         "gongkao_other_new": sum(
@@ -609,60 +657,80 @@ def update_daily_volume(
 
 
 def build_daily_broadcast(result: Mapping[str, Any]) -> str:
-    qiuzhao_note = "；低于20，请检查采集源" if int(result["qiuzhao_new"]) < 20 else ""
+    qiuzhao_captured = int(result.get("qiuzhao_captured_new", result["qiuzhao_new"]))
+    gongkao_captured = int(result.get("gongkao_captured_new", result["gongkao_new"]))
+    qiuzhao_published = int(result.get("qiuzhao_published_new", result["qiuzhao_new"]))
+    gongkao_published = int(result.get("gongkao_published_new", result["gongkao_new"]))
+    qiuzhao_note = "；低于20，请检查采集源" if qiuzhao_captured < 20 else ""
     gongkao_note = (
         "；低于3，事业编淡季可能正常，连续5天为0再重点处理"
-        if int(result["gongkao_new"]) < 3 else ""
+        if gongkao_captured < 3 else ""
     )
-    source_counts = result.get("qiuzhao_source_new")
-    if isinstance(source_counts, Mapping):
-        source_detail = " / ".join(f"{name} {count}" for name, count in source_counts.items())
+    captured_source_counts = result.get("qiuzhao_captured_source_new")
+    if isinstance(captured_source_counts, Mapping):
+        captured_source_detail = " / ".join(
+            f"{name} {count}" for name, count in captured_source_counts.items()
+        )
     else:
-        source_detail = (
+        captured_source_detail = (
             f"婉清购买表 {result['qiuzhao_wanqing_new']} / "
             f"校招鸭home一次性回填 {result['qiuzhao_xiaozhaoya_new']} / "
             f"未拆分来源 {result['qiuzhao_other_new']}"
         )
-    gongkao_source_counts = result.get("gongkao_source_new")
-    if isinstance(gongkao_source_counts, Mapping):
-        gongkao_source_detail = " / ".join(
-            f"{name} {count}" for name, count in gongkao_source_counts.items()
+    published_source_counts = result.get(
+        "qiuzhao_published_source_new", result.get("qiuzhao_source_new")
+    )
+    published_source_detail = " / ".join(
+        f"{name} {count}" for name, count in published_source_counts.items()
+    ) if isinstance(published_source_counts, Mapping) else captured_source_detail
+    gongkao_captured_source_counts = result.get("gongkao_captured_source_new")
+    if isinstance(gongkao_captured_source_counts, Mapping):
+        gongkao_captured_source_detail = " / ".join(
+            f"{name} {count}" for name, count in gongkao_captured_source_counts.items()
         )
     else:
-        gongkao_source_detail = (
+        gongkao_captured_source_detail = (
             f"政府源 {result['gongkao_government_new']} / "
             f"校招鸭事业单位表 {result['gongkao_sheet_new']} / "
             f"粉笔等补充源 {result['gongkao_other_new']}"
         )
+    gongkao_published_source_counts = result.get(
+        "gongkao_published_source_new", result.get("gongkao_source_new")
+    )
+    gongkao_published_source_detail = " / ".join(
+        f"{name} {count}" for name, count in gongkao_published_source_counts.items()
+    ) if isinstance(gongkao_published_source_counts, Mapping) else gongkao_captured_source_detail
     day = date.fromisoformat(str(result["date"]))
     lines = [
-        f"【每日采集播报】昨日（{day:%m-%d}）公开表汇总",
+        f"【每日采集播报】昨日（{day:%m-%d}）双口径汇总",
         f"统计窗口：{day:%Y-%m-%d} 00:00—{day + timedelta(days=1):%Y-%m-%d} 00:00（北京时间）",
-        f"秋招：公开表候选 {result['qiuzhao_new']}{qiuzhao_note}",
-        f"秋招来源：{source_detail}",
-        f"公考：公开表候选 {result['gongkao_new']}{gongkao_note}",
-        f"公考来源：{gongkao_source_detail}",
+        f"秋招·昨日首次抓到 {qiuzhao_captured} 条{qiuzhao_note}",
+        f"秋招首次抓到来源：{captured_source_detail}",
+        f"秋招·源发布日期为昨日 {qiuzhao_published} 条（映射/查重后公开表候选）",
+        f"秋招源发布日期来源：{published_source_detail}",
+        f"公考·昨日首次抓到 {gongkao_captured} 条{gongkao_note}",
+        f"公考首次抓到来源：{gongkao_captured_source_detail}",
+        f"公考·源发布日期为昨日 {gongkao_published} 条（分类/去噪/留存后公开表候选）",
+        f"公考源发布日期来源：{gongkao_published_source_detail}",
     ]
     qiuzhao_stages = result.get("qiuzhao_public_stages")
     if isinstance(qiuzhao_stages, Mapping):
         lines.append(
-            "秋招核对：采集台账 "
-            f"{result['qiuzhao_captured_new']}；当前导出昨日日期 "
+            "秋招处理链：当前导出源发布日期为昨日 "
             f"{qiuzhao_stages['current_export']}；合并公考分流 "
-            f"{qiuzhao_stages['after_routing_merge']}；映射/查重后可入表 {result['qiuzhao_new']}"
+            f"{qiuzhao_stages['after_routing_merge']}；映射/查重后可入表 {qiuzhao_published}"
         )
     gongkao_stages = result.get("gongkao_public_stages")
     if isinstance(gongkao_stages, Mapping):
         lines.append(
-            "公考核对：采集台账 "
-            f"{result['gongkao_captured_new']}；当前导出昨日首次收录 "
+            "公考处理链：当前导出源发布日期为昨日 "
             f"{gongkao_stages['current_export']}；分类/去噪 "
             f"{gongkao_stages['after_routing_filter']}；留存 "
-            f"{gongkao_stages['after_retention']}；映射/查重后可入表 {result['gongkao_new']}"
+            f"{gongkao_stages['after_retention']}；映射/查重后可入表 {gongkao_published}"
         )
     lines.append(
-        "口径：按本地公开表同步规则计算的候选快照，非飞书 API 回读；"
-        "台账和公开表的日期字段及范围不同，不能直接相减。"
+        "口径：首次抓到=采集台账第一次见到该记录的日期；源发布日期=记录自身日期，"
+        "并按公开表规则映射/查重。两者用途不同，不能直接相减；均非飞书 API 回读。"
     )
     return "\n".join(lines)
 

@@ -15,8 +15,9 @@ def test_normalize_jobs_payload_preserves_known_fields_without_inventing_deadlin
         "status": {"source": "jobs", "status": "ok", "item_count": 1},
         "items": [{
             "title_zh": "AI 研发工程师", "url": "https://example.com/apply",
-            "summary_zh": "负责模型研发", "extra": {
+            "summary_zh": "负责模型研发", "published_at": "2026-09-05", "extra": {
                 "company": "示例公司", "city": "北京", "keywords_hit": ["AI for Science", "生物信息"],
+                "source_label": "国家大学生就业服务平台",
             },
         }],
     }
@@ -27,8 +28,30 @@ def test_normalize_jobs_payload_preserves_known_fields_without_inventing_deadlin
         "company_name": "示例公司", "company_type": "", "industry": "AI for Science、生物信息",
         "position": "AI 研发工程师", "location": "北京", "education": "", "cohort": "",
         "deadline": "", "written_test": None, "apply_url": "https://example.com/apply",
-        "announcement_url": "https://example.com/apply", "notes": "负责模型研发", "upstream_source": "jobs",
+        "announcement_url": "https://example.com/apply", "notes": "负责模型研发",
+        "published_at": "2026-09-05", "upstream_source": "jobs",
+        "source_label": "国家大学生就业服务平台",
+        "published_source_label": "国家大学生就业服务平台",
     }]
+
+
+def test_normalize_jobs_payload_preserves_publication_date_for_every_website_source() -> None:
+    labels = ["国家大学生就业服务平台", "国聘", "高校就业网", "应届生求职网"]
+    payload = {
+        "items": [
+            {
+                "title": f"{label}岗位", "url": f"https://example.com/{index}",
+                "published_at": "2026-09-25",
+                "extra": {"company": f"公司{index}", "source_label": label},
+            }
+            for index, label in enumerate(labels)
+        ],
+    }
+
+    output = normalize_jobs_payload(payload)
+
+    assert [row["published_at"] for row in output["items"]] == ["2026-09-25"] * 4
+    assert [row["published_source_label"] for row in output["items"]] == labels
 
 
 def test_write_qiuzhao_creates_atomically_from_jobs_json(tmp_path) -> None:
