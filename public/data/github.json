@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-09-26T01:44:08.091932+00:00",
+  "generated_at": "2026-09-27T22:44:00.556569+00:00",
   "source": "github",
   "status": {
     "source": "github",
     "status": "ok",
-    "item_count": 16,
-    "duration_ms": 1965,
+    "item_count": 9,
+    "duration_ms": 1348,
     "error": null,
-    "run_at": "2026-09-26T01:44:08.091932+00:00"
+    "run_at": "2026-09-27T22:44:00.556569+00:00"
   },
   "items": [
     {
@@ -16,7 +16,7 @@
       "title": "paperclipai/paperclip",
       "title_zh": "paperclipai/paperclip",
       "url": "https://github.com/paperclipai/paperclip",
-      "hot_value": "2,109 stars today",
+      "hot_value": "2,527 stars today",
       "summary_zh": "开源AI代理管理工具，团队协作管理智能体首选。",
       "thumbnail": null,
       "published_at": null,
@@ -24,7 +24,7 @@
         "description": "The open-source app everyone uses to manage agents at work",
         "language": "TypeScript"
       },
-      "days_on_board": 2,
+      "days_on_board": 3,
       "is_new": false,
       "rank_delta": 0,
       "cluster_id": "f1a76c5351d5",
@@ -37,46 +37,20 @@
         {
           "run_at": "2026-09-26T01:44:08.091932+00:00",
           "rank": 1
+        },
+        {
+          "run_at": "2026-09-27T22:44:00.556569+00:00",
+          "rank": 1
         }
       ]
     },
     {
       "source": "github",
       "rank": 2,
-      "title": "anthropics/claude-plugins-official",
-      "title_zh": "anthropics/claude-plugins-official",
-      "url": "https://github.com/anthropics/claude-plugins-official",
-      "hot_value": "83 stars today",
-      "summary_zh": "Anthropic官方Claude代码插件目录，质量有保障。",
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "description": "Official, Anthropic-managed directory of high quality Claude Code Plugins.",
-        "language": "Python"
-      },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "927a1af9b4b4",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-25T13:44:22.330496+00:00",
-          "rank": 2
-        },
-        {
-          "run_at": "2026-09-26T01:44:08.091932+00:00",
-          "rank": 2
-        }
-      ]
-    },
-    {
-      "source": "github",
-      "rank": 3,
       "title": "vectorize-io/hindsight",
       "title_zh": "vectorize-io/hindsight",
       "url": "https://github.com/vectorize-io/hindsight",
-      "hot_value": "1,653 stars today",
+      "hot_value": "4,463 stars today",
       "summary_zh": "Hindsight：会学习的智能体记忆系统，让AI记住经验。",
       "thumbnail": null,
       "published_at": null,
@@ -84,9 +58,9 @@
         "description": "Hindsight: Agent Memory That Learns",
         "language": "Python"
       },
-      "days_on_board": 3,
+      "days_on_board": 4,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": 1,
       "cluster_id": "04905625bae0",
       "cluster_size": 1,
       "rank_history": [
@@ -101,43 +75,73 @@
         {
           "run_at": "2026-09-26T01:44:08.091932+00:00",
           "rank": 3
+        },
+        {
+          "run_at": "2026-09-27T22:44:00.556569+00:00",
+          "rank": 2
+        }
+      ]
+    },
+    {
+      "source": "github",
+      "rank": 3,
+      "title": "debpalash/VoiceStudio",
+      "title_zh": "debpalash/VoiceStudio",
+      "url": "https://github.com/debpalash/VoiceStudio",
+      "hot_value": "3,060 stars today",
+      "summary_zh": "开源本地语音克隆工具，支持646种语言，替代ElevenLabs。",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "description": "VoiceStudio is the open-source, fully-local ElevenLabs alternative — voice cloning, voice design, video dubbing, dictation, transcription & audiobook creation in 646 languages.",
+        "language": "Python"
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "bf2187938399",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-27T22:44:00.556569+00:00",
+          "rank": 3
         }
       ]
     },
     {
       "source": "github",
       "rank": 4,
-      "title": "obra/superpowers",
-      "title_zh": "obra/superpowers",
-      "url": "https://github.com/obra/superpowers",
-      "hot_value": "468 stars today",
-      "summary_zh": "obra/superpowers：代理技能框架，软件开发方法论。",
+      "title": "rohitg00/ai-engineering-from-scratch",
+      "title_zh": "rohitg00/ai-engineering-from-scratch",
+      "url": "https://github.com/rohitg00/ai-engineering-from-scratch",
+      "hot_value": "848 stars today",
+      "summary_zh": "AI工程从零到上线，完整学习实践路径。",
       "thumbnail": null,
       "published_at": null,
       "extra": {
-        "description": "An agentic skills framework & software development methodology that works.",
-        "language": "Shell"
+        "description": "Learn it. Build it. Ship it for others.",
+        "language": "Python"
       },
       "days_on_board": 4,
       "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "3d0d90fc2d2a",
+      "rank_delta": 7,
+      "cluster_id": "76156d53a2cb",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-23T16:44:31.496968+00:00",
-          "rank": 5
-        },
-        {
           "run_at": "2026-09-24T13:44:17.795322+00:00",
-          "rank": 10
+          "rank": 1
         },
         {
           "run_at": "2026-09-25T13:44:22.330496+00:00",
-          "rank": 4
+          "rank": 11
         },
         {
           "run_at": "2026-09-26T01:44:08.091932+00:00",
+          "rank": 11
+        },
+        {
+          "run_at": "2026-09-27T22:44:00.556569+00:00",
           "rank": 4
         }
       ]
@@ -145,29 +149,25 @@
     {
       "source": "github",
       "rank": 5,
-      "title": "mattpocock/skills",
-      "title_zh": "mattpocock/skills",
-      "url": "https://github.com/mattpocock/skills",
-      "hot_value": "583 stars today",
-      "summary_zh": "真实工程师技能集，直接可用。",
+      "title": "InfinityLoop1308/PipePipe",
+      "title_zh": "InfinityLoop1308/PipePipe",
+      "url": "https://github.com/InfinityLoop1308/PipePipe",
+      "hot_value": "274 stars today",
+      "summary_zh": "开源安卓应用，自由浏览YouTube等服务，值得关注。",
       "thumbnail": null,
       "published_at": null,
       "extra": {
-        "description": "Skills for Real Engineers. Straight from my .agents directory.",
+        "description": "An open-source Android app to let you browse YouTube and other services freely.",
         "language": "Shell"
       },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "5963f5c06b20",
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "78f63a6eecf4",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-25T13:44:22.330496+00:00",
-          "rank": 5
-        },
-        {
-          "run_at": "2026-09-26T01:44:08.091932+00:00",
+          "run_at": "2026-09-27T22:44:00.556569+00:00",
           "rank": 5
         }
       ]
@@ -175,10 +175,62 @@
     {
       "source": "github",
       "rank": 6,
+      "title": "vercel-labs/scriptc",
+      "title_zh": "vercel-labs/scriptc",
+      "url": "https://github.com/vercel-labs/scriptc",
+      "hot_value": "186 stars today",
+      "summary_zh": "TypeScript转原生编译器，提升性能，值得关注。",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "description": "TypeScript-to-Native Compiler",
+        "language": "TypeScript"
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "5740e112214e",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-27T22:44:00.556569+00:00",
+          "rank": 6
+        }
+      ]
+    },
+    {
+      "source": "github",
+      "rank": 7,
+      "title": "mvschwarz/openrig",
+      "title_zh": "mvschwarz/openrig",
+      "url": "https://github.com/mvschwarz/openrig",
+      "hot_value": "114 stars today",
+      "summary_zh": "多智能体框架，让Claude Code与Codex协同运行。",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "description": "Multi-agent harness that runs Claude Code and Codex together as one system",
+        "language": "TypeScript"
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "b8c787fad517",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-27T22:44:00.556569+00:00",
+          "rank": 7
+        }
+      ]
+    },
+    {
+      "source": "github",
+      "rank": 8,
       "title": "dream-num/univer",
       "title_zh": "dream-num/univer",
       "url": "https://github.com/dream-num/univer",
-      "hot_value": "1,050 stars today",
+      "hot_value": "920 stars today",
       "summary_zh": "Univer是AI代理办公套件，集成表格文档幻灯片于一体。",
       "thumbnail": null,
       "published_at": null,
@@ -186,9 +238,9 @@
         "description": "The Office Harness for AI Agents — Spreadsheets, Docs, Slides, Canvas, Relational Tables, and PDF in one runtime.",
         "language": "TypeScript"
       },
-      "days_on_board": 5,
+      "days_on_board": 6,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": -2,
       "cluster_id": "eb9db1e91cb5",
       "cluster_size": 1,
       "rank_history": [
@@ -211,65 +263,9 @@
         {
           "run_at": "2026-09-26T01:44:08.091932+00:00",
           "rank": 6
-        }
-      ]
-    },
-    {
-      "source": "github",
-      "rank": 7,
-      "title": "anthropics/skills",
-      "title_zh": "anthropics/skills",
-      "url": "https://github.com/anthropics/skills",
-      "hot_value": "189 stars today",
-      "summary_zh": "anthropics/skills：官方Agent技能库，权威参考。",
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "description": "Public repository for Agent Skills",
-        "language": "Python"
-      },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "96ee03c32965",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-25T13:44:22.330496+00:00",
-          "rank": 7
         },
         {
-          "run_at": "2026-09-26T01:44:08.091932+00:00",
-          "rank": 7
-        }
-      ]
-    },
-    {
-      "source": "github",
-      "rank": 8,
-      "title": "androoAGI/starnet",
-      "title_zh": "androoAGI/starnet",
-      "url": "https://github.com/androoAGI/starnet",
-      "hot_value": "93 stars today",
-      "summary_zh": "像素风AI代理工作站，本地运行，自带密钥看代理干活。",
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "description": "A living pixel-art station where real AI agents do real work. Local-first desktop agent harness - bring your own key, watch your crew actually run.",
-        "language": "JavaScript"
-      },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "66f19d1a190d",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-25T13:44:22.330496+00:00",
-          "rank": 8
-        },
-        {
-          "run_at": "2026-09-26T01:44:08.091932+00:00",
+          "run_at": "2026-09-27T22:44:00.556569+00:00",
           "rank": 8
         }
       ]
@@ -277,264 +273,26 @@
     {
       "source": "github",
       "rank": 9,
-      "title": "derv82/wifit3",
-      "title_zh": "derv82/wifit3",
-      "url": "https://github.com/derv82/wifit3",
-      "hot_value": "183 stars today",
-      "summary_zh": "USB专用跨平台WiFi破解工具，比Wifite更便携。",
+      "title": "willfaust/Madeira",
+      "title_zh": "willfaust/Madeira",
+      "url": "https://github.com/willfaust/Madeira",
+      "hot_value": "117 stars today",
+      "summary_zh": "在受限iOS上运行Windows游戏，技术突破。",
       "thumbnail": null,
       "published_at": null,
       "extra": {
-        "description": "Wifite but USB-only & cross-platform.",
-        "language": "Python"
+        "description": "Run x86-64 Windows PC games on jailed iOS via FEX-Emu + Wine + DXMT",
+        "language": "C"
       },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "ed24d3546eb5",
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "dfed7a18373c",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-25T13:44:22.330496+00:00",
+          "run_at": "2026-09-27T22:44:00.556569+00:00",
           "rank": 9
-        },
-        {
-          "run_at": "2026-09-26T01:44:08.091932+00:00",
-          "rank": 9
-        }
-      ]
-    },
-    {
-      "source": "github",
-      "rank": 10,
-      "title": "kelseyhightower/kubernetes-the-hard-way",
-      "title_zh": "kelseyhightower/kubernetes-the-hard-way",
-      "url": "https://github.com/kelseyhightower/kubernetes-the-hard-way",
-      "hot_value": "119 stars today",
-      "summary_zh": "无脚本手动搭建Kubernetes教程，深入理解集群原理。",
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "description": "Bootstrap Kubernetes the hard way. No scripts.",
-        "language": null
-      },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "a9c6a31839f0",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-25T13:44:22.330496+00:00",
-          "rank": 10
-        },
-        {
-          "run_at": "2026-09-26T01:44:08.091932+00:00",
-          "rank": 10
-        }
-      ]
-    },
-    {
-      "source": "github",
-      "rank": 11,
-      "title": "rohitg00/ai-engineering-from-scratch",
-      "title_zh": "rohitg00/ai-engineering-from-scratch",
-      "url": "https://github.com/rohitg00/ai-engineering-from-scratch",
-      "hot_value": "1,177 stars today",
-      "summary_zh": "AI工程从零到上线，完整学习实践路径。",
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "description": "Learn it. Build it. Ship it for others.",
-        "language": "Python"
-      },
-      "days_on_board": 3,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "76156d53a2cb",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-24T13:44:17.795322+00:00",
-          "rank": 1
-        },
-        {
-          "run_at": "2026-09-25T13:44:22.330496+00:00",
-          "rank": 11
-        },
-        {
-          "run_at": "2026-09-26T01:44:08.091932+00:00",
-          "rank": 11
-        }
-      ]
-    },
-    {
-      "source": "github",
-      "rank": 12,
-      "title": "shy3130/tick-stock-panel",
-      "title_zh": "shy3130/tick-stock-panel",
-      "url": "https://github.com/shy3130/tick-stock-panel",
-      "hot_value": "44 stars today",
-      "summary_zh": "自托管A股量化工作台，选股监控回测加LLM策略。",
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "description": "TSP自托管、零运维的 A 股「选股 + 监控 + 回测」量化工作台 | LLM能力驱使策略定制+个股分析+复盘 | 自由接入第三方数据源与个性化扩展数据 | 个人开源",
-        "language": "Python"
-      },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "8a4a31beb819",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-25T13:44:22.330496+00:00",
-          "rank": 12
-        },
-        {
-          "run_at": "2026-09-26T01:44:08.091932+00:00",
-          "rank": 12
-        }
-      ]
-    },
-    {
-      "source": "github",
-      "rank": 13,
-      "title": "google/ax",
-      "title_zh": "google/ax",
-      "url": "https://github.com/google/ax",
-      "hot_value": "1,379 stars today",
-      "summary_zh": "谷歌开源代理编排运行时，权威且值得研究。",
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "description": "Google's open agentic orchestration runtime",
-        "language": "Go"
-      },
-      "days_on_board": 5,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "9f2901a915a4",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-22T10:44:17.910298+00:00",
-          "rank": 5
-        },
-        {
-          "run_at": "2026-09-23T16:44:31.496968+00:00",
-          "rank": 2
-        },
-        {
-          "run_at": "2026-09-24T13:44:17.795322+00:00",
-          "rank": 4
-        },
-        {
-          "run_at": "2026-09-25T13:44:22.330496+00:00",
-          "rank": 13
-        },
-        {
-          "run_at": "2026-09-26T01:44:08.091932+00:00",
-          "rank": 13
-        }
-      ]
-    },
-    {
-      "source": "github",
-      "rank": 14,
-      "title": "NVIDIA/Model-Optimizer",
-      "title_zh": "NVIDIA/Model-Optimizer",
-      "url": "https://github.com/NVIDIA/Model-Optimizer",
-      "hot_value": "359 stars today",
-      "summary_zh": "NVIDIA模型优化库：量化蒸馏剪枝，加速大模型推理部署。",
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "description": "A unified library of SOTA model optimization techniques like quantization, distillation, pruning, neural architecture search, speculative decoding, etc. It compresses deep learning models for downstream deployment frameworks like TensorRT-LLM, TensorRT, vLLM, etc. to optimize inference speed.",
-        "language": "Python"
-      },
-      "days_on_board": 3,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "d354958554e8",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-24T13:44:17.795322+00:00",
-          "rank": 5
-        },
-        {
-          "run_at": "2026-09-25T13:44:22.330496+00:00",
-          "rank": 14
-        },
-        {
-          "run_at": "2026-09-26T01:44:08.091932+00:00",
-          "rank": 14
-        }
-      ]
-    },
-    {
-      "source": "github",
-      "rank": 15,
-      "title": "pbakaus/impeccable",
-      "title_zh": "pbakaus/impeccable",
-      "url": "https://github.com/pbakaus/impeccable",
-      "hot_value": "306 stars today",
-      "summary_zh": "让AI智能体更懂设计的语言规范。",
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "description": "The design language that makes your AI harness better at design.",
-        "language": "JavaScript"
-      },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "0d87ecfe7eff",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-23T16:44:31.496968+00:00",
-          "rank": 12
-        },
-        {
-          "run_at": "2026-09-25T13:44:22.330496+00:00",
-          "rank": 15
-        },
-        {
-          "run_at": "2026-09-26T01:44:08.091932+00:00",
-          "rank": 15
-        }
-      ]
-    },
-    {
-      "source": "github",
-      "rank": 16,
-      "title": "openbao/openbao",
-      "title_zh": "openbao/openbao",
-      "url": "https://github.com/openbao/openbao",
-      "hot_value": "49 stars today",
-      "summary_zh": "开源密钥证书管理分发方案，敏感数据安全存储。",
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "description": "OpenBao is a software solution to manage, store, and distribute sensitive data including secrets, certificates, and keys.",
-        "language": "Go"
-      },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "1b5d996a0200",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-25T13:44:22.330496+00:00",
-          "rank": 16
-        },
-        {
-          "run_at": "2026-09-26T01:44:08.091932+00:00",
-          "rank": 16
         }
       ]
     }
