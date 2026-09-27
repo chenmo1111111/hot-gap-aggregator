@@ -642,6 +642,11 @@ def update_daily_volume(
         "gongkao_source_new": gongkao_counts,
         "gongkao_published_new": gongkao_new,
         "gongkao_published_source_new": gongkao_counts,
+        # Gongkao's public table exposes ``首次收录`` rather than an upstream
+        # publication-date column.  Keep the legacy keys above for readers of
+        # older JSON, but give the metric its truthful name in new reports.
+        "gongkao_public_first_seen_new": gongkao_new,
+        "gongkao_public_first_seen_source_new": gongkao_counts,
         "gongkao_government_new": gongkao_counts.get("政府网站", 0),
         "gongkao_sheet_new": gongkao_counts.get("校招鸭事业单位购买表", 0),
         "gongkao_other_new": sum(
@@ -660,7 +665,10 @@ def build_daily_broadcast(result: Mapping[str, Any]) -> str:
     qiuzhao_captured = int(result.get("qiuzhao_captured_new", result["qiuzhao_new"]))
     gongkao_captured = int(result.get("gongkao_captured_new", result["gongkao_new"]))
     qiuzhao_published = int(result.get("qiuzhao_published_new", result["qiuzhao_new"]))
-    gongkao_published = int(result.get("gongkao_published_new", result["gongkao_new"]))
+    gongkao_public_first_seen = int(result.get(
+        "gongkao_public_first_seen_new",
+        result.get("gongkao_published_new", result["gongkao_new"]),
+    ))
     qiuzhao_note = "；低于20，请检查采集源" if qiuzhao_captured < 20 else ""
     gongkao_note = (
         "；低于3，事业编淡季可能正常，连续5天为0再重点处理"
@@ -694,24 +702,25 @@ def build_daily_broadcast(result: Mapping[str, Any]) -> str:
             f"校招鸭事业单位表 {result['gongkao_sheet_new']} / "
             f"粉笔等补充源 {result['gongkao_other_new']}"
         )
-    gongkao_published_source_counts = result.get(
-        "gongkao_published_source_new", result.get("gongkao_source_new")
+    gongkao_public_first_seen_source_counts = result.get(
+        "gongkao_public_first_seen_source_new",
+        result.get("gongkao_published_source_new", result.get("gongkao_source_new")),
     )
-    gongkao_published_source_detail = " / ".join(
-        f"{name} {count}" for name, count in gongkao_published_source_counts.items()
-    ) if isinstance(gongkao_published_source_counts, Mapping) else gongkao_captured_source_detail
+    gongkao_public_first_seen_source_detail = " / ".join(
+        f"{name} {count}" for name, count in gongkao_public_first_seen_source_counts.items()
+    ) if isinstance(gongkao_public_first_seen_source_counts, Mapping) else gongkao_captured_source_detail
     day = date.fromisoformat(str(result["date"]))
     lines = [
         f"【每日采集播报】昨日（{day:%m-%d}）双口径汇总",
         f"统计窗口：{day:%Y-%m-%d} 00:00—{day + timedelta(days=1):%Y-%m-%d} 00:00（北京时间）",
-        f"秋招·昨日首次抓到 {qiuzhao_captured} 条{qiuzhao_note}",
-        f"秋招首次抓到来源：{captured_source_detail}",
         f"秋招·源发布日期为昨日 {qiuzhao_published} 条（映射/查重后公开表候选）",
         f"秋招源发布日期来源：{published_source_detail}",
-        f"公考·昨日首次抓到 {gongkao_captured} 条{gongkao_note}",
-        f"公考首次抓到来源：{gongkao_captured_source_detail}",
-        f"公考·源发布日期为昨日 {gongkao_published} 条（分类/去噪/留存后公开表候选）",
-        f"公考源发布日期来源：{gongkao_published_source_detail}",
+        f"秋招·后台采集器昨日首次新见候选 {qiuzhao_captured} 条{qiuzhao_note}（不等于入表新增）",
+        f"秋招后台新见来源：{captured_source_detail}",
+        f"公考·公开表‘首次收录’为昨日 {gongkao_public_first_seen} 条（分类/去噪/留存后候选）",
+        f"公考公开表来源：{gongkao_public_first_seen_source_detail}",
+        f"公考·后台采集器昨日首次新见候选 {gongkao_captured} 条{gongkao_note}（不等于入表新增）",
+        f"公考后台新见来源：{gongkao_captured_source_detail}",
     ]
     qiuzhao_stages = result.get("qiuzhao_public_stages")
     if isinstance(qiuzhao_stages, Mapping):
@@ -723,14 +732,15 @@ def build_daily_broadcast(result: Mapping[str, Any]) -> str:
     gongkao_stages = result.get("gongkao_public_stages")
     if isinstance(gongkao_stages, Mapping):
         lines.append(
-            "公考处理链：当前导出源发布日期为昨日 "
+            "公考处理链：当前导出‘首次收录’为昨日 "
             f"{gongkao_stages['current_export']}；分类/去噪 "
             f"{gongkao_stages['after_routing_filter']}；留存 "
-            f"{gongkao_stages['after_retention']}；映射/查重后可入表 {gongkao_published}"
+            f"{gongkao_stages['after_retention']}；映射/查重后可入表 {gongkao_public_first_seen}"
         )
     lines.append(
-        "口径：首次抓到=采集台账第一次见到该记录的日期；源发布日期=记录自身日期，"
-        "并按公开表规则映射/查重。两者用途不同，不能直接相减；均非飞书 API 回读。"
+        "口径：后台新见=采集台账第一次见到候选，可能随后被过滤、分流、淘汰，"
+        "也不会改写记录自身日期；秋招按源发布日期、公考按飞书表‘首次收录’字段统计"
+        "最终公开候选。三者不能直接相减；均非飞书 API 回读。"
     )
     return "\n".join(lines)
 

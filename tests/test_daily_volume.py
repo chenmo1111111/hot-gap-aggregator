@@ -190,10 +190,10 @@ def test_broadcast_uses_public_candidates_not_ever_seen_ledger(tmp_path) -> None
     assert result["qiuzhao_public_stages"]["current_export"] == 2
     assert result["qiuzhao_public_stages"]["after_routing_merge"] == 2
     message = build_daily_broadcast(result)
-    assert "秋招·昨日首次抓到 1 条" in message
+    assert "秋招·后台采集器昨日首次新见候选 1 条" in message
     assert "秋招·源发布日期为昨日 2 条" in message
-    assert "公考·昨日首次抓到 1 条" in message
-    assert "公考·源发布日期为昨日 1 条" in message
+    assert "公考·后台采集器昨日首次新见候选 1 条" in message
+    assert "公考·公开表‘首次收录’为昨日 1 条" in message
 
 
 def test_wanqing_full_snapshot_uses_source_dates_instead_of_import_day(tmp_path) -> None:
@@ -296,7 +296,7 @@ def test_capture_day_and_publication_day_are_reported_separately(tmp_path) -> No
     assert result["qiuzhao_published_new"] == 0
     assert result["qiuzhao_published_source_new"]["国家大学生就业服务平台"] == 0
     message = build_daily_broadcast(result)
-    assert "秋招·昨日首次抓到 1 条" in message
+    assert "秋招·后台采集器昨日首次新见候选 1 条" in message
     assert "秋招·源发布日期为昨日 0 条" in message
 
 
@@ -434,10 +434,11 @@ def test_daily_broadcast_is_always_sent_once_and_includes_source_counts(monkeypa
         "【每日采集播报】昨日（09-11）双口径汇总\n"
         "统计窗口：2026-09-11 00:00—2026-09-12 00:00（北京时间）"
     )
-    assert "秋招·昨日首次抓到 30 条" in message
+    assert "秋招·后台采集器昨日首次新见候选 30 条" in message
     assert "秋招·源发布日期为昨日 30 条" in message
-    assert "公考·昨日首次抓到 8 条" in message
-    assert "公考·源发布日期为昨日 8 条" in message
+    assert "公考·后台采集器昨日首次新见候选 8 条" in message
+    assert "公考·公开表‘首次收录’为昨日 8 条" in message
+    assert "不等于入表新增" in message
     assert "非飞书 API 回读" in message
 
     low = {**result, "date": "2026-09-12", "qiuzhao_new": 19, "gongkao_new": 2}
@@ -470,6 +471,37 @@ def test_daily_broadcast_names_each_gongkao_purchase_and_web_source() -> None:
     assert "校招鸭home一次性基础层 42" in message
     assert "粉笔 60" in message
     assert "中公 1" in message
+
+
+def test_daily_broadcast_does_not_present_raw_gongkao_candidates_as_table_rows() -> None:
+    result = {
+        "date": "2026-09-26",
+        "qiuzhao_new": 89,
+        "gongkao_new": 0,
+        "qiuzhao_captured_new": 85,
+        "gongkao_captured_new": 10,
+        "qiuzhao_published_new": 89,
+        "gongkao_public_first_seen_new": 0,
+        "qiuzhao_captured_source_new": {"国家大学生就业服务平台": 43},
+        "qiuzhao_published_source_new": {"国家大学生就业服务平台": 40},
+        "gongkao_captured_source_new": {"粉笔": 10},
+        "gongkao_public_first_seen_source_new": {"粉笔": 0},
+        "qiuzhao_wanqing_new": 0,
+        "qiuzhao_xiaozhaoya_new": 0,
+        "qiuzhao_other_new": 89,
+        "gongkao_government_new": 0,
+        "gongkao_sheet_new": 0,
+        "gongkao_other_new": 0,
+    }
+
+    message = build_daily_broadcast(result)
+
+    public_line = "公考·公开表‘首次收录’为昨日 0 条"
+    raw_line = "公考·后台采集器昨日首次新见候选 10 条"
+    assert public_line in message
+    assert raw_line in message
+    assert message.index(public_line) < message.index(raw_line)
+    assert "可能随后被过滤、分流、淘汰" in message
 
 
 def test_two_daily_reports_cover_adjacent_complete_days(tmp_path) -> None:
