@@ -73,13 +73,27 @@ def schema_diff(expected: Mapping[str, Any], actual: Mapping[str, Any]) -> list[
         if int(wanted.get("type") or 0) in SELECT_TYPES:
             if list(wanted.get("options") or []) != list(live.get("options") or []):
                 differences.append(f"字段{name}选项列表变化")
-    expected_views = [(str(row.get("name")), str(row.get("type") or "grid")) for row in expected.get("views") or []]
-    actual_views = [(str(row.get("name")), str(row.get("type") or "grid")) for row in actual.get("views") or []]
-    if expected_views != actual_views:
-        differences.append(
-            "视图列表变化：线上=" + "、".join(name for name, _ in actual_views)
-            + "；基准=" + "、".join(name for name, _ in expected_views)
-        )
+    # Views are presentation-only filters.  Users may safely add personal or
+    # regional views without changing any writable field schema, so require
+    # every baseline view to remain present with its original type but allow
+    # additional live views.  Field names/types/select options above remain
+    # exact and blocking.
+    expected_views = {
+        str(row.get("name")): str(row.get("type") or "grid")
+        for row in expected.get("views") or []
+    }
+    actual_views = {
+        str(row.get("name")): str(row.get("type") or "grid")
+        for row in actual.get("views") or []
+    }
+    missing_views = sorted(expected_views.keys() - actual_views.keys())
+    if missing_views:
+        differences.append("缺少基准视图：" + "、".join(missing_views))
+    for name in sorted(expected_views.keys() & actual_views.keys()):
+        if expected_views[name] != actual_views[name]:
+            differences.append(
+                f"视图{name}类型 {actual_views[name]} != {expected_views[name]}"
+            )
     return differences
 
 
