@@ -28,31 +28,22 @@ def test_schema_diff_reports_field_type_option_and_view_changes() -> None:
     text = "；".join(schema_diff(BASELINE, actual))
     assert "新增字段：旧字段" in text
     assert "工作地点类型" in text
-    assert "缺少基准视图：全部" in text
+    assert "视图列表变化" in text
 
 
-def test_schema_diff_allows_additional_user_views() -> None:
+def test_schema_diff_blocks_additional_user_views_until_confirmed() -> None:
     actual = {
         **BASELINE,
         "views": [
             {"name": "全部", "type": "grid"},
             {"name": "江苏", "type": "grid"},
-            {"name": "无锡", "type": "grid"},
-            {"name": "苏州", "type": "grid"},
-            {"name": "南京", "type": "grid"},
-            {"name": "常州", "type": "grid"},
         ],
     }
 
-    assert schema_diff(BASELINE, actual) == []
-
-
-def test_schema_diff_still_blocks_missing_or_retyped_baseline_views() -> None:
-    missing = {**BASELINE, "views": []}
-    retyped = {**BASELINE, "views": [{"name": "全部", "type": "kanban"}]}
-
-    assert schema_diff(BASELINE, missing) == ["缺少基准视图：全部"]
-    assert schema_diff(BASELINE, retyped) == ["视图全部类型 kanban != grid"]
+    text = "；".join(schema_diff(BASELINE, actual))
+    assert "视图列表变化" in text
+    assert "线上=全部、江苏" in text
+    assert "基准=全部" in text
 
 
 def test_validate_live_schema_stops_before_write() -> None:

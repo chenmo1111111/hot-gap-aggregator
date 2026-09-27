@@ -2,9 +2,9 @@
 set -Eeuo pipefail
 
 project=/opt/hot-gap-aggregator
-archive=/home/deploy/hot-gap-schema-extra-views.tar.gz
+archive=/home/deploy/hot-gap-schema-strict-views.tar.gz
 stamp="$(date +%Y%m%d-%H%M%S)"
-backup="$project/.deploy-backups/${stamp}-before-schema-extra-views"
+backup="$project/.deploy-backups/${stamp}-before-schema-strict-views"
 
 mkdir -p "$backup/app"
 install -p "$project/app/feishu_schema_guard.py" "$backup/app/feishu_schema_guard.py"
@@ -37,12 +37,12 @@ actual = {
         {"name": "江苏", "type": "grid"},
     ],
 }
-assert schema_diff(expected, actual) == []
-assert schema_diff(expected, {**actual, "views": []}) == ["缺少基准视图：全部信息"]
-print("Verified extra views are allowed while required baseline views remain locked")
+differences = schema_diff(expected, actual)
+assert differences and "视图列表变化" in differences[0]
+print("Verified unexpected extra views remain blocking")
 PY
 
-echo "Installed schema guard support for additional user-created views"
-echo "Field names, field types, select options, and baseline views remain protected"
+echo "Restored strict Feishu view-list schema locking"
+echo "Any unconfirmed view addition, deletion, rename, reorder, or type change stops writes"
 echo "No cron schedule, refresh process, service, database, or container was changed"
 echo "Backup: $backup"
