@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-27T22:44:00.556569+00:00",
+  "generated_at": "2026-09-29T01:44:16.135502+00:00",
   "rising": [
     {
       "source": "gongkao",
@@ -840,65 +840,6 @@
       "rank_history": []
     },
     {
-      "source": "papers",
-      "rank": 20,
-      "title": "Do papers tell the whole story? A benchmark and framework for uncovering hidden implementation gaps in bioinformatics",
-      "title_zh": "论文能讲述全部故事吗？一个用于揭示生物信息学中隐藏实现差距的基准和框架",
-      "url": "https://doi.org/10.1093/bib/bbag509",
-      "hot_value": null,
-      "summary_zh": "摘要 随着生物信息学软件被应用于更广泛的场景，以及大语言模型（LLMs）的快速发展进一步降低了软件使用和开发的门槛，生物信息学研究社区的构成正在发生重大变化。因此，越来越多的研究人员需要更深入地理解方法细节和软件行为。在此背景下，系统分析论文描述与代码实现之间的关系正成为该领域一项重要的新挑战。为应对这一挑战，我们引入论文-代码一致性分析作为一种新的研究视角，并构建了 BioCon，这是生物信息学中首个用于论文-代码一致性分析的基准数据集。此外，我们开发了一个统一的跨模态分析框架，从三个角度系统研究这一问题：句子级检测、跨模态检索和项目级评估。实验结果表明，所提出的框架能够有效建模科学出版物与软件实现之间的语义关系。进一步的案例研究揭示，论文-代码不一致并非单一现象，而是由多种潜在原因造成，其中“作者认为非必要的细节”是最普遍的一类。这些发现表明，论文-代码一致性分析不仅是技术问题，还引发",
-      "thumbnail": null,
-      "published_at": "2026-09-01",
-      "extra": {
-        "subsource": "crossref",
-        "tier": "英文顶刊",
-        "journal": "Briefings in Bioinformatics",
-        "mode": "filter",
-        "issn": "1477-4054",
-        "doi": "10.1093/bib/bbag509",
-        "description": "Abstract As bioinformatics software is increasingly applied across a broader range of scenarios and the rapid development of large language models (LLMs) further lowers the barriers to software use and development, the composition of the bioinformatics research community is undergoing substantial change. Consequently, a growing number of researchers require a deeper understanding of methodological details and software behavior. In this context, systematically analyzing the relationship between paper descriptions and code implementations is emerging as an important new challenge in the field. To address this challenge, we introduce paper-code consistency analysis as a new research perspective and construct BioCon, the first benchmark dataset for paper-code consistency analysis in bioinformatics. Furthermore, we develop a unified cross-modal analysis framework to systematically investigate this problem from three perspectives: sentence-level detection, cross-modal retrieval, and project-level assessment. Experimental results demonstrate that the proposed framework can effectively model the semantic relationships between scientific publications and software implementations. Further case studies reveal that paper-code inconsistency is not a single phenomenon but arises from multiple underlying causes, among which Author-Perceived Non-Essential Details represents the most prevalent category. These findings suggest that paper-code consistency analysis is not merely a technical problem but also raises broader discussions regarding knowledge dissemination, the boundaries of code disclosure, and community norms. We hope that this work will encourage the bioinformatics community to re-examine the relationship between scientific publications and software implementations while providing a foundation for future research in paper-code consistency analysis.",
-        "dedupe_key": "doi:10.1093/bib/bbag509",
-        "topic_hit": [
-          "生物信息"
-        ],
-        "priority_rank": 2,
-        "keyword_hit": [
-          "benchmark"
-        ]
-      },
-      "days_on_board": 6,
-      "is_new": false,
-      "rank_delta": 39,
-      "cluster_id": "62f8011ef170",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-22T10:44:17.910298+00:00",
-          "rank": 18
-        },
-        {
-          "run_at": "2026-09-23T16:44:31.496968+00:00",
-          "rank": 20
-        },
-        {
-          "run_at": "2026-09-24T13:44:17.795322+00:00",
-          "rank": 19
-        },
-        {
-          "run_at": "2026-09-25T13:44:22.330496+00:00",
-          "rank": 20
-        },
-        {
-          "run_at": "2026-09-26T01:44:08.091932+00:00",
-          "rank": 59
-        },
-        {
-          "run_at": "2026-09-27T22:44:00.556569+00:00",
-          "rank": 20
-        }
-      ]
-    },
-    {
       "source": "gongkao",
       "rank": 476,
       "title": "宁都县2026年选调县直事业单位工作人员公告",
@@ -998,31 +939,86 @@
       "cluster_id": "7afc0649d4b0",
       "cluster_size": 1,
       "rank_history": []
+    },
+    {
+      "source": "jobs",
+      "rank": 106,
+      "title": "数据采集",
+      "title_zh": "数据采集",
+      "url": "https://www.iguopin.com/job/detail?id=217908938908108327&source=social",
+      "hot_value": null,
+      "summary_zh": "【工作职责】 1. 按照计划，完成自动驾驶相关数据采集任务，包含特定场景数据采集； 2. 对数据进行整理，完成数据归档、上传等例行工作，以及每日问题报告； 3. 数据采集过程中的应急处置，保证车辆及人员安全。 【任职要求】 1、大专及以上学历，普通话流利，具有良好的书面、口头表达能力； 2、熟悉车辆构造，具备一定的车辆异常举动判断能力； 3、主动学习，沟通顺畅，能快速熟练掌握各类判别标准（培训后）",
+      "thumbnail": null,
+      "published_at": "2026-09-12 14:58:54",
+      "extra": {
+        "subsource": "guopin",
+        "company": "智能汽车制造产业链专项引才计划",
+        "city": "北京-东城区",
+        "education": "大专",
+        "company_type": "其他",
+        "recruitment_type": "社会招聘",
+        "keywords_hit": [
+          "数据"
+        ],
+        "is_central_soe": false,
+        "is_state_owned": false
+      },
+      "days_on_board": 1,
+      "is_new": false,
+      "rank_delta": 11,
+      "cluster_id": "2938e15ae425",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-23T16:44:31.496968+00:00",
+          "rank": 121
+        },
+        {
+          "run_at": "2026-09-24T13:44:17.795322+00:00",
+          "rank": 112
+        },
+        {
+          "run_at": "2026-09-25T13:44:22.330496+00:00",
+          "rank": 109
+        },
+        {
+          "run_at": "2026-09-26T01:44:08.091932+00:00",
+          "rank": 124
+        },
+        {
+          "run_at": "2026-09-27T22:44:00.556569+00:00",
+          "rank": 117
+        },
+        {
+          "run_at": "2026-09-29T01:44:16.135502+00:00",
+          "rank": 106
+        }
+      ]
     }
   ],
   "new_today": [
     {
       "source": "bilibili",
       "rank": 1,
-      "title": "挑战自助餐最亏本的十类食物！通通吃一遍！",
-      "title_zh": "挑战自助餐最亏本的十类食物！通通吃一遍！",
-      "url": "https://b23.tv/BV1tNab65ECw",
-      "hot_value": "811416",
+      "title": "自学动画 爆肝俩月 自创一集《猫和老鼠》【手搓动画大赛】",
+      "title_zh": "自学动画 爆肝俩月 自创一集《猫和老鼠》【手搓动画大赛】",
+      "url": "https://b23.tv/BV1E6aq6pEKR",
+      "hot_value": "331525",
       "summary_zh": null,
-      "thumbnail": "http://i1.hdslb.com/bfs/archive/ec39b19bbf301718ecfd03823ad9f706676332a0.jpg",
-      "published_at": "2026-09-27T09:05:00+00:00",
+      "thumbnail": "http://i1.hdslb.com/bfs/archive/898e85b47826711b059bb112df176eff5f916886.jpg",
+      "published_at": "2026-09-28T10:00:00+00:00",
       "extra": {
-        "bvid": "BV1tNab65ECw",
-        "owner": "橙飞一下"
+        "bvid": "BV1E6aq6pEKR",
+        "owner": "小蒙古包卓拉"
       },
       "days_on_board": 1,
       "is_new": true,
       "rank_delta": "new",
-      "cluster_id": "4f69e8173958",
+      "cluster_id": "a7ae741ad469",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-27T22:44:00.556569+00:00",
+          "run_at": "2026-09-29T01:44:16.135502+00:00",
           "rank": 1
         }
       ]
@@ -1030,24 +1026,24 @@
     {
       "source": "douyin",
       "rank": 1,
-      "title": "国乒男双战胜日本夺冠",
-      "title_zh": "国乒男双战胜日本夺冠",
-      "url": "https://www.douyin.com/search/%E5%9B%BD%E4%B9%92%E7%94%B7%E5%8F%8C%E6%88%98%E8%83%9C%E6%97%A5%E6%9C%AC%E5%A4%BA%E5%86%A0",
-      "hot_value": "12108385",
+      "title": "中国队女子4×100米接力夺冠",
+      "title_zh": "中国队女子4×100米接力夺冠",
+      "url": "https://www.douyin.com/search/%E4%B8%AD%E5%9B%BD%E9%98%9F%E5%A5%B3%E5%AD%904%C3%97100%E7%B1%B3%E6%8E%A5%E5%8A%9B%E5%A4%BA%E5%86%A0",
+      "hot_value": "12114574",
       "summary_zh": null,
-      "thumbnail": "https://p3-sign.douyinpic.com/tos-cn-i-dy/86429fc236af4cddb536b78d2dfb382d~noop.jpeg?lk3s=bfd515bb&x-expires=1790568000&x-signature=mGvlPfXqdVqe66HStq%2Fbdz5YeOo%3D&from=3218412987",
+      "thumbnail": "https://p5-ex-gddgtc-sign.douyinpic.com/tos-cn-p-0015/ogWAnBizRGBCedgnSzSZil2Af2DD21IAaXIKrJ~noop.jpeg?lk3s=bfd515bb&x-expires=1790665200&x-signature=17Yz5soc9QFkGytwNaUVj0TiXUg%3D&from=3218412987",
       "published_at": null,
       "extra": {
-        "sentence_id": "2670203"
+        "sentence_id": "2671951"
       },
       "days_on_board": 1,
       "is_new": true,
       "rank_delta": "new",
-      "cluster_id": "fa9f27ff9000",
+      "cluster_id": "a4a9adfe9e28",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-27T22:44:00.556569+00:00",
+          "run_at": "2026-09-29T01:44:16.135502+00:00",
           "rank": 1
         }
       ]
@@ -1055,228 +1051,39 @@
     {
       "source": "feed",
       "rank": 1,
-      "title": "26-27赛季乒乓球德甲联赛，樊振东 3:1 维东斯霍特，如何评价本场比赛？",
-      "title_zh": "26-27赛季乒乓球德甲联赛，樊振东 3:1 维东斯霍特，如何评价本场比赛？",
-      "url": "https://www.zhihu.com/question/2087684300468654683",
+      "title": "三星电机宣布 6.78 万亿韩元投资，提升 AI 服务器用 FCBGA 半导体基板产能",
+      "title_zh": "三星电机宣布 6.78 万亿韩元投资，提升 AI 服务器用 FCBGA 半导体基板产能",
+      "url": "https://www.ithome.com/1/008/110.htm",
       "hot_value": null,
-      "summary_zh": null,
+      "summary_zh": "IT之家 9 月 29 日消息，三星电机 (Samsung Electro-Mechanics, SEM) 当地时间今日宣布 将在韩国和越南合计投资 6.78 万亿韩元 （IT之家注：现汇率约合 335.95 亿元人民币） ，提升 AI 服务器用 FCBGA 半导体基板产能。 ▲ 世宗生产基地新工厂建设模拟图 三星电机计划在韩国世宗生产基地投资 4.27 万亿韩元 （现汇率约合 211.58 亿元人民币） ，这也是其单一产品投资史上最大规模，投资期为 2026 年 9 月至 2028 年 5 月。这里将作为应对高附加值、高难度产品量产的核心据点，率先响应 AI 服务器基板需求增长。 另一方面，三星电机还将通过越南子公司投资 2.51 万亿韩元 （现汇率约合 124.37 亿元人民币） ，目标 2030 年 6 月完工并投产。其越南子公司将作为通过稳定供应体系应对全球订单及提升生产效率的战略",
       "thumbnail": null,
-      "published_at": "2026-09-27T15:25:24+00:00",
-      "extra": {
-        "feed_name": "知乎热榜",
-        "tab": "hot",
-        "route": "/zhihu/hot",
-        "translate": false,
-        "description": "",
-        "dedupe_key": "https://www.zhihu.com/question/2087684300468654683"
-      },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
-      "cluster_id": "49c023149248",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-27T22:44:00.556569+00:00",
-          "rank": 1
-        }
-      ]
-    },
-    {
-      "source": "nowcoder",
-      "rank": 1,
-      "title": "一个末九本同学的阶段性秋招总结",
-      "title_zh": "一个末九本同学的阶段性秋招总结",
-      "url": "https://www.nowcoder.com/feed/main/detail/af0b470046504a3b8340b535eefbd08e",
-      "hot_value": "命中 1 个关键词",
-      "summary_zh": null,
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "subsource": "rsshub",
-        "keyword_hit": [
-          "秋招"
-        ],
-        "description": ""
-      },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
-      "cluster_id": "3a1d91fa0f64",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-27T22:44:00.556569+00:00",
-          "rank": 1
-        }
-      ]
-    },
-    {
-      "source": "telegram",
-      "rank": 1,
-      "title": "🔴 CVE Digest — 27 Sep 2026 3 critical vulnerabilities 🔴 CVE-2026-101090 · CVSS 9.8 Nezha 2.2.3 contains a Host header injection regression in the OAuth2 redirect endpoint. When the new optional... 🔴 CVE-2026-101084 · CVSS 9.6 obot versions before v0.21.1 fail to enforce Access Control Rules on the /",
-      "title_zh": "🔴 CVE摘要 — 2026年9月27日 3个严重漏洞 🔴 CVE-2026-101090 · CVSS 9.8 Nezha 2.2.3在OAuth2重定向端点中存在Host头注入回归。当新的可选... 🔴 CVE-2026-101084 · CVSS 9.6 obot v0.21.1之前的版本未能对 / 强制执行访问控制规则",
-      "url": "https://t.me/cyber_security_feed/36102",
-      "hot_value": "2",
-      "summary_zh": null,
-      "thumbnail": null,
-      "published_at": "2026-09-27T22:07:14+00:00",
-      "extra": {
-        "channel": "cyber_security_feed",
-        "translate": true
-      },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
-      "cluster_id": "c40ecccee25e",
-      "cluster_size": 2,
-      "rank_history": [
-        {
-          "run_at": "2026-09-27T22:44:00.556569+00:00",
-          "rank": 1
-        }
-      ]
-    },
-    {
-      "source": "weibo",
-      "rank": 1,
-      "title": "贷款中介集体删除朋友圈",
-      "title_zh": "贷款中介集体删除朋友圈",
-      "url": "https://s.weibo.com/weibo?q=%23%E8%B4%B7%E6%AC%BE%E4%B8%AD%E4%BB%8B%E9%9B%86%E4%BD%93%E5%88%A0%E9%99%A4%E6%9C%8B%E5%8F%8B%E5%9C%88%23",
-      "hot_value": "532197",
-      "summary_zh": null,
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "category": null
-      },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
-      "cluster_id": "79604af09b80",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-27T22:44:00.556569+00:00",
-          "rank": 1
-        }
-      ]
-    },
-    {
-      "source": "youtube",
-      "rank": 1,
-      "title": "KATSEYE - Hootie Frutti (Live from Saturday Night Live)",
-      "title_zh": "KATSEYE - Hootie Frutti（周六夜现场直播）",
-      "url": "https://youtube.com/watch?v=uwfa-gyubSg",
-      "hot_value": "2535755",
-      "summary_zh": "KATSEYE新歌SNL现场，流行音乐表演。",
-      "thumbnail": "https://i.ytimg.com/vi/uwfa-gyubSg/hqdefault.jpg",
-      "published_at": "2026-09-27T06:57:47Z",
-      "extra": {
-        "video_id": "uwfa-gyubSg",
-        "region": "US",
-        "channel": "KATSEYEVEVO",
-        "description": "KATSEYE’s ‘WILD’ EP out now: https://KATSEYE.lnk.to/WILD   \nWatch the Hootie Frutti music video: https://katseye.lnk.to/HootieFruttiVideo \n\nShop KATSEYE: https://KATSEYE.lnk.to/Shop    \n\nFollow KATSEYE\nInstagram: https://www.instagram.com/katseyeworld/    \nTikTok: https://www.tiktok.com/@katseyeworl"
-      },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
-      "cluster_id": "68d8363ba46c",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-27T22:44:00.556569+00:00",
-          "rank": 1
-        }
-      ]
-    },
-    {
-      "source": "bilibili",
-      "rank": 2,
-      "title": "钓鱼被鱼揍了",
-      "title_zh": "钓鱼被鱼揍了",
-      "url": "https://b23.tv/BV1Usat6rEm1",
-      "hot_value": "604626",
-      "summary_zh": null,
-      "thumbnail": "http://i1.hdslb.com/bfs/archive/569bfea24ff8fe4a2fd60b434b18c95f8cbbe758.jpg",
-      "published_at": "2026-09-27T09:00:00+00:00",
-      "extra": {
-        "bvid": "BV1Usat6rEm1",
-        "owner": "徐大虾咯"
-      },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
-      "cluster_id": "ad21651e5025",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-27T22:44:00.556569+00:00",
-          "rank": 2
-        }
-      ]
-    },
-    {
-      "source": "douyin",
-      "rank": 2,
-      "title": "严子怡破纪录夺金",
-      "title_zh": "严子怡破纪录夺金",
-      "url": "https://www.douyin.com/search/%E4%B8%A5%E5%AD%90%E6%80%A1%E7%A0%B4%E7%BA%AA%E5%BD%95%E5%A4%BA%E9%87%91",
-      "hot_value": "11801287",
-      "summary_zh": null,
-      "thumbnail": "https://p5-ex-gddgtc-sign.douyinpic.com/tos-cn-p-0015c000-ce/oYV6I5FBAGILbgD6eDNCeLNelJ8w1ImB7hc0ED~noop.jpeg?lk3s=bfd515bb&x-expires=1790568000&x-signature=1SBnV%2BuLoQ%2FmosByORrkRP6VuXc%3D&from=3218412987",
-      "published_at": null,
-      "extra": {
-        "sentence_id": "2670348"
-      },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
-      "cluster_id": "193894bdd04f",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-27T22:44:00.556569+00:00",
-          "rank": 2
-        }
-      ]
-    },
-    {
-      "source": "feed",
-      "rank": 2,
-      "title": "爱奇艺回应网传“请勿眨眼”广告：大过节的，别恶搞造谣了",
-      "title_zh": "爱奇艺回应网传“请勿眨眼”广告：大过节的，别恶搞造谣了",
-      "url": "https://www.ithome.com/1/007/608.htm",
-      "hot_value": null,
-      "summary_zh": "感谢IT之家网友 Domado 的线索投递！ IT之家 9 月 27 日消息，近日，有一张带有爱奇艺播放界面的截图在网上流传，显示弹出“请勿眨眼”提示：“系统无法确定你眨眼时是否错过了广告。为确保广告完整播放，将从你上一次眨眼的位置重新开始。” IT之家注意到，今晚，爱奇艺公司官方发言人 @桃厂上线了 发文回应：“ 大过节的，别恶搞造谣了！ ”",
-      "thumbnail": null,
-      "published_at": "2026-09-27T14:23:39+00:00",
+      "published_at": "2026-09-29T01:31:59+00:00",
       "extra": {
         "feed_name": "IT之家",
         "tab": "ai",
         "route": "/ithome/it",
         "translate": false,
-        "description": "感谢IT之家网友 Domado 的线索投递！ IT之家 9 月 27 日消息，近日，有一张带有爱奇艺播放界面的截图在网上流传，显示弹出“请勿眨眼”提示：“系统无法确定你眨眼时是否错过了广告。为确保广告完整播放，将从你上一次眨眼的位置重新开始。” IT之家注意到，今晚，爱奇艺公司官方发言人 @桃厂上线了 发文回应：“ 大过节的，别恶搞造谣了！ ”",
-        "dedupe_key": "https://www.ithome.com/1/007/608.htm"
+        "description": "IT之家 9 月 29 日消息，三星电机 (Samsung Electro-Mechanics, SEM) 当地时间今日宣布 将在韩国和越南合计投资 6.78 万亿韩元 （IT之家注：现汇率约合 335.95 亿元人民币） ，提升 AI 服务器用 FCBGA 半导体基板产能。 ▲ 世宗生产基地新工厂建设模拟图 三星电机计划在韩国世宗生产基地投资 4.27 万亿韩元 （现汇率约合 211.58 亿元人民币） ，这也是其单一产品投资史上最大规模，投资期为 2026 年 9 月至 2028 年 5 月。这里将作为应对高附加值、高难度产品量产的核心据点，率先响应 AI 服务器基板需求增长。 另一方面，三星电机还将通过越南子公司投资 2.51 万亿韩元 （现汇率约合 124.37 亿元人民币） ，目标 2030 年 6 月完工并投产。其越南子公司将作为通过稳定供应体系应对全球订单及提升生产效率的战略",
+        "dedupe_key": "https://www.ithome.com/1/008/110.htm"
       },
       "days_on_board": 1,
       "is_new": true,
       "rank_delta": "new",
-      "cluster_id": "70a091f433d2",
+      "cluster_id": "2df8388593be",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-27T22:44:00.556569+00:00",
-          "rank": 2
+          "run_at": "2026-09-29T01:44:16.135502+00:00",
+          "rank": 1
         }
       ]
     },
     {
       "source": "nowcoder",
-      "rank": 2,
-      "title": "秋招太难了",
-      "title_zh": "秋招太难了",
-      "url": "https://www.nowcoder.com/feed/main/detail/dc3beeff499f43cebfcaabe93c2e5ba6",
+      "rank": 1,
+      "title": "中9本＋四段大厂实习的秋招进度",
+      "title_zh": "中9本＋四段大厂实习的秋招进度",
+      "url": "https://www.nowcoder.com/feed/main/detail/e295d73656a9413ebe09ef2d51c027dd",
       "hot_value": "命中 1 个关键词",
       "summary_zh": null,
       "thumbnail": null,
@@ -1291,25 +1098,25 @@
       "days_on_board": 1,
       "is_new": true,
       "rank_delta": "new",
-      "cluster_id": "332430e49c1a",
+      "cluster_id": "2bf3ca31c292",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-27T22:44:00.556569+00:00",
-          "rank": 2
+          "run_at": "2026-09-29T01:44:16.135502+00:00",
+          "rank": 1
         }
       ]
     },
     {
       "source": "telegram",
-      "rank": 2,
-      "title": "CISA amplified Citrix’s disclosure of 8 NetScaler ADC and Gateway flaws, including 2 critical zero-days enabling remote code execution. Active exploitation is worldwide. #Citrix #NetScalerADC #NetScalerGateway ➡️ https://www.hendryadrian.com/critical-zero-day-vulnerabilities-exploited-in-citrix-nets",
-      "title_zh": "CISA放大了Citrix披露的8个NetScaler ADC和Gateway漏洞，其中包括2个可实现远程代码执行的严重零日漏洞。全球范围内正在被积极利用。#Citrix #NetScalerADC #NetScalerGateway ➡️ https://www.hendryadrian.com/critical-zero-day-vulnerabilities-exploited-in-citrix-nets",
-      "url": "https://t.me/cybernotif/36475",
-      "hot_value": "4",
+      "rank": 1,
+      "title": "Ransomware group cry0 claims a hit on MinMor Industries, a manufacturing firm. Reported damage remains unclear, with details noted as \"Coming soon...\". #Manufacturing #Ransomware #MinMor ➡️ https://www.hendryadrian.com/ransom-minmor-industries-sep-2026/",
+      "title_zh": "勒索软件组织cry0声称攻击了制造企业MinMor Industries。报道的损失尚不清楚，细节标注为\"即将公布...\"。 #Manufacturing #Ransomware #MinMor ➡️ https://www.hendryadrian.com/ransom-minmor-industries-sep-2026/",
+      "url": "https://t.me/cybernotif/36535",
+      "hot_value": "1",
       "summary_zh": null,
       "thumbnail": null,
-      "published_at": "2026-09-27T21:45:06+00:00",
+      "published_at": "2026-09-29T01:30:07+00:00",
       "extra": {
         "channel": "cybernotif",
         "translate": true
@@ -1317,22 +1124,22 @@
       "days_on_board": 1,
       "is_new": true,
       "rank_delta": "new",
-      "cluster_id": "52b68b31d35d",
+      "cluster_id": "81321af32dd3",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-27T22:44:00.556569+00:00",
-          "rank": 2
+          "run_at": "2026-09-29T01:44:16.135502+00:00",
+          "rank": 1
         }
       ]
     },
     {
       "source": "weibo",
-      "rank": 2,
-      "title": "和情绪不稳定的人相处是折磨",
-      "title_zh": "和情绪不稳定的人相处是折磨",
-      "url": "https://s.weibo.com/weibo?q=%23%E5%92%8C%E6%83%85%E7%BB%AA%E4%B8%8D%E7%A8%B3%E5%AE%9A%E7%9A%84%E4%BA%BA%E7%9B%B8%E5%A4%84%E6%98%AF%E6%8A%98%E7%A3%A8%23",
-      "hot_value": "376248",
+      "rank": 1,
+      "title": "鲍师傅超长蛋挞被吐槽全是皮没蛋液",
+      "title_zh": "鲍师傅超长蛋挞被吐槽全是皮没蛋液",
+      "url": "https://s.weibo.com/weibo?q=%23%E9%B2%8D%E5%B8%88%E5%82%85%E8%B6%85%E9%95%BF%E8%9B%8B%E6%8C%9E%E8%A2%AB%E5%90%90%E6%A7%BD%E5%85%A8%E6%98%AF%E7%9A%AE%E6%B2%A1%E8%9B%8B%E6%B6%B2%23",
+      "hot_value": "1269143",
       "summary_zh": null,
       "thumbnail": null,
       "published_at": null,
@@ -1342,11 +1149,200 @@
       "days_on_board": 1,
       "is_new": true,
       "rank_delta": "new",
-      "cluster_id": "94524088d7f2",
+      "cluster_id": "6dd5926a5698",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-27T22:44:00.556569+00:00",
+          "run_at": "2026-09-29T01:44:16.135502+00:00",
+          "rank": 1
+        }
+      ]
+    },
+    {
+      "source": "youtube",
+      "rank": 1,
+      "title": "Why Would I (Unreleased)",
+      "title_zh": "为什么我会（未发行）",
+      "url": "https://youtube.com/watch?v=wbgiuOPZYsk",
+      "hot_value": "83243",
+      "summary_zh": "Brandon Lake未发布歌曲，分享信仰与鼓励。",
+      "thumbnail": "https://i.ytimg.com/vi/wbgiuOPZYsk/hqdefault.jpg",
+      "published_at": "2026-09-28T15:59:51Z",
+      "extra": {
+        "video_id": "wbgiuOPZYsk",
+        "region": "US",
+        "channel": "Brandon Lake",
+        "description": "This song has been on my heart lately, and even though I wasn’t planning on sharing it yet, something in me felt like it was time. Praying it encourages you in whatever season you’re walking through. 🙏🏽\n\n►Subscribe to Brandon Lake's YouTube:  \nhttps://www.youtube.com/channel/UCUvrv1Ox5rRwzG-SHCN7zrg"
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "1667ccf93aa5",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-29T01:44:16.135502+00:00",
+          "rank": 1
+        }
+      ]
+    },
+    {
+      "source": "bilibili",
+      "rank": 2,
+      "title": "《无敌超人》当你拥有无限增强的超能力，会做什么？【Hishorts! × updream AI短片大赛+剧情单元】",
+      "title_zh": "《无敌超人》当你拥有无限增强的超能力，会做什么？【Hishorts! × updream AI短片大赛+剧情单元】",
+      "url": "https://b23.tv/BV1aJa869EaJ",
+      "hot_value": "376763",
+      "summary_zh": null,
+      "thumbnail": "http://i0.hdslb.com/bfs/archive/d081cb7ff19707fe3a053f39300fdea7eb6830ee.jpg",
+      "published_at": "2026-09-27T11:14:43+00:00",
+      "extra": {
+        "bvid": "BV1aJa869EaJ",
+        "owner": "小黄导-烛制作AIGC"
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "789b26d57f90",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-29T01:44:16.135502+00:00",
+          "rank": 2
+        }
+      ]
+    },
+    {
+      "source": "douyin",
+      "rank": 2,
+      "title": "这个长假我与世界平分秋色",
+      "title_zh": "这个长假我与世界平分秋色",
+      "url": "https://www.douyin.com/search/%E8%BF%99%E4%B8%AA%E9%95%BF%E5%81%87%E6%88%91%E4%B8%8E%E4%B8%96%E7%95%8C%E5%B9%B3%E5%88%86%E7%A7%8B%E8%89%B2",
+      "hot_value": "10833998",
+      "summary_zh": null,
+      "thumbnail": "https://p3-sign.douyinpic.com/tos-cn-p-0015/okE67A8EVQEeBeBnBCdLda8IgKGzNIAwxAec79~noop.jpeg?lk3s=bfd515bb&x-expires=1790665200&x-signature=VGu8OXZ0Ow7sTFXPHQ5J9Beqa5E%3D&from=3218412987",
+      "published_at": null,
+      "extra": {
+        "sentence_id": "2671109"
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "c24fcacf6737",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-29T01:44:16.135502+00:00",
+          "rank": 2
+        }
+      ]
+    },
+    {
+      "source": "feed",
+      "rank": 2,
+      "title": "李飞飞创业公司被苏姿丰550亿收购！世界模型最大交易落地",
+      "title_zh": "李飞飞创业公司被苏姿丰550亿收购！世界模型最大交易落地",
+      "url": "https://www.qbitai.com/2026/09/499098.html",
+      "hot_value": null,
+      "summary_zh": "李飞飞创业公司被苏姿丰550亿收购！世界模型最大交易落地 梦晨 2026-09-29 08:49:30 来源： 量子位 李飞飞将入职AMD首席科学家 梦晨 发自 凹非寺 量子位 | 公众号 QbitAI 82亿美元，AMD全股票收购李飞飞的World Labs。 从2024年初创办到2026年中签署收购协议，空间智能公司World Labs练习时长一坤年。 △ 签约现场两人还交换了外套 交割完成后，李飞飞将加入AMD担任执行副总裁兼首席科学家，直接向董事长兼CEO苏姿丰汇报。 联合创始人Justin Johnson和Ben Mildenhall将继续带领World Labs团队并入AMD，组建前沿AI研究组织。 双方计划共同建设跨越硬件、软件、平台以及广泛可访问的开放模型的端到端AI生态。 自从9月初英伟达收购了HuggingFace，就有人猜AMD会如何应对，何时出手。 现在答案揭晓。",
+      "thumbnail": null,
+      "published_at": "2026-09-29T00:49:30+00:00",
+      "extra": {
+        "feed_name": "量子位",
+        "tab": "ai",
+        "route": "/qbitai/category/%E8%B5%84%E8%AE%AF",
+        "translate": false,
+        "description": "李飞飞创业公司被苏姿丰550亿收购！世界模型最大交易落地 梦晨 2026-09-29 08:49:30 来源： 量子位 李飞飞将入职AMD首席科学家 梦晨 发自 凹非寺 量子位 | 公众号 QbitAI 82亿美元，AMD全股票收购李飞飞的World Labs。 从2024年初创办到2026年中签署收购协议，空间智能公司World Labs练习时长一坤年。 △ 签约现场两人还交换了外套 交割完成后，李飞飞将加入AMD担任执行副总裁兼首席科学家，直接向董事长兼CEO苏姿丰汇报。 联合创始人Justin Johnson和Ben Mildenhall将继续带领World Labs团队并入AMD，组建前沿AI研究组织。 双方计划共同建设跨越硬件、软件、平台以及广泛可访问的开放模型的端到端AI生态。 自从9月初英伟达收购了HuggingFace，就有人猜AMD会如何应对，何时出手。 现在答案揭晓。 ",
+        "dedupe_key": "https://www.qbitai.com/2026/09/499098.html"
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "32350e571b69",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-29T01:44:16.135502+00:00",
+          "rank": 2
+        }
+      ]
+    },
+    {
+      "source": "nowcoder",
+      "rank": 2,
+      "title": "秋招现状",
+      "title_zh": "秋招现状",
+      "url": "https://www.nowcoder.com/feed/main/detail/1402708a5bc54f59b5def463fd93e778",
+      "hot_value": "命中 1 个关键词",
+      "summary_zh": null,
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "subsource": "rsshub",
+        "keyword_hit": [
+          "秋招"
+        ],
+        "description": ""
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "8e94d37fa0e0",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-29T01:44:16.135502+00:00",
+          "rank": 2
+        }
+      ]
+    },
+    {
+      "source": "telegram",
+      "rank": 2,
+      "title": "🇦🇺 Australia wants the heads of OpenAI and Anthropic to appear before an AI SENATE INQUIRY. The call comes days after a rogue OpenAI agent reportedly breached the country’s healthcare system. It’s one of the highest-profile cases of an AI agent accessing an external government system outside the U.S",
+      "title_zh": "🇦🇺 澳大利亚希望OpenAI和Anthropic的负责人出席AI参议院调查。这一呼吁是在一个失控的OpenAI代理据报入侵该国医疗系统几天后发出的。这是AI代理在美国境外访问外部政府系统的最高调案例之一",
+      "url": "https://t.me/aipost/8296",
+      "hot_value": "308",
+      "summary_zh": null,
+      "thumbnail": null,
+      "published_at": "2026-09-29T01:18:02+00:00",
+      "extra": {
+        "channel": "aipost",
+        "translate": true
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "85dc63a0af8a",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-29T01:44:16.135502+00:00",
+          "rank": 2
+        }
+      ]
+    },
+    {
+      "source": "weibo",
+      "rank": 2,
+      "title": "Tiffany散装桃酥致歉",
+      "title_zh": "Tiffany散装桃酥致歉",
+      "url": "https://s.weibo.com/weibo?q=%23Tiffany%E6%95%A3%E8%A3%85%E6%A1%83%E9%85%A5%E8%87%B4%E6%AD%89%23",
+      "hot_value": "1050315",
+      "summary_zh": null,
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "category": null
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "c024bfed762b",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-29T01:44:16.135502+00:00",
           "rank": 2
         }
       ]
@@ -1354,27 +1350,27 @@
     {
       "source": "youtube",
       "rank": 2,
-      "title": "WERWULF - Official Trailer 2 [HD] - Only In Theaters This Christmas",
-      "title_zh": "WERWULF - 官方预告片2 [HD] - 今年圣诞仅限影院",
-      "url": "https://youtube.com/watch?v=CL1EFACsWag",
-      "hot_value": "6058056",
-      "summary_zh": "罗伯特·艾格斯恐怖新片预告，影迷必看。",
-      "thumbnail": "https://i.ytimg.com/vi/CL1EFACsWag/hqdefault.jpg",
-      "published_at": "2026-09-26T15:00:07Z",
+      "title": "Lanterns Episode 8 Finale Trailer Breakdown & Easter Eggs",
+      "title_zh": "Lanterns 第 8 集大结局预告解析与彩蛋",
+      "url": "https://youtube.com/watch?v=4bZzhSl-wXU",
+      "hot_value": "193776",
+      "summary_zh": "《绿灯侠》大结局预告解析，揭秘彩蛋与剧情。",
+      "thumbnail": "https://i.ytimg.com/vi/4bZzhSl-wXU/hqdefault.jpg",
+      "published_at": "2026-09-28T19:22:28Z",
       "extra": {
-        "video_id": "CL1EFACsWag",
+        "video_id": "4bZzhSl-wXU",
         "region": "US",
-        "channel": "Focus Features",
-        "description": "𝑻𝒉𝒚 𝒔𝒐𝒖𝒍𝒆 𝒊𝒔 𝒄𝒖𝒓𝒔𝒊𝒅.\nWERWULF is only in theaters this Christmas.\nDevourethAllMankynde.com\n\nWitness Robert Eggers’ most visceral and haunting experience yet. Focus Features presents WERWULF, a harrowing tale of devotion, damnation and the devil within.\n\nhttps://werwulffilm.com/\nInstagram: https://www"
+        "channel": "Emergency Awesome",
+        "description": "Lanterns Episode 8 Finale Trailer. John Stewart vs Sinestro, Yellow Lanterns Explained, What Really Happend To Hal Jordan, Superman 2 Man of Tomorrow Crossover & Lanterns Season 2 Teaser ► https://bit.ly/AwesomeSubscribe\nLanterns Episode 7 https://www.youtube.com/watch?v=1eigTIOC8S4&list=PLOIeYdZ3Qc"
       },
       "days_on_board": 1,
       "is_new": true,
       "rank_delta": "new",
-      "cluster_id": "fe9bc3ce2cd5",
+      "cluster_id": "a932fa0fc3e5",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-27T22:44:00.556569+00:00",
+          "run_at": "2026-09-29T01:44:16.135502+00:00",
           "rank": 2
         }
       ]
@@ -1382,25 +1378,25 @@
     {
       "source": "bilibili",
       "rank": 3,
-      "title": "《纯粹の体育精神》",
-      "title_zh": "《纯粹の体育精神》",
-      "url": "https://b23.tv/BV1Kyas6wEuz",
-      "hot_value": "2191613",
+      "title": "三幻魔集结！超越神的力量！【水无月菌】",
+      "title_zh": "三幻魔集结！超越神的力量！【水无月菌】",
+      "url": "https://b23.tv/BV14Qah6DEBL",
+      "hot_value": "998365",
       "summary_zh": null,
-      "thumbnail": "http://i1.hdslb.com/bfs/archive/fcd6f6f437fc1b15960bf6df2535312f8a5cbade.jpg",
-      "published_at": "2026-09-27T04:00:00+00:00",
+      "thumbnail": "http://i1.hdslb.com/bfs/archive/e1c966d35be7a8b71a844d35d106ddbebf96e00b.jpg",
+      "published_at": "2026-09-28T11:30:00+00:00",
       "extra": {
-        "bvid": "BV1Kyas6wEuz",
-        "owner": "伤心欲茄222"
+        "bvid": "BV14Qah6DEBL",
+        "owner": "水无月菌"
       },
       "days_on_board": 1,
       "is_new": true,
       "rank_delta": "new",
-      "cluster_id": "c715d9a00f17",
+      "cluster_id": "5295bc694a04",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-27T22:44:00.556569+00:00",
+          "run_at": "2026-09-29T01:44:16.135502+00:00",
           "rank": 3
         }
       ]
@@ -1408,24 +1404,24 @@
     {
       "source": "douyin",
       "rank": 3,
-      "title": "大熊猫 “平平”“福双”抵达美国",
-      "title_zh": "大熊猫 “平平”“福双”抵达美国",
-      "url": "https://www.douyin.com/search/%E5%A4%A7%E7%86%8A%E7%8C%AB%20%E2%80%9C%E5%B9%B3%E5%B9%B3%E2%80%9D%E2%80%9C%E7%A6%8F%E5%8F%8C%E2%80%9D%E6%8A%B5%E8%BE%BE%E7%BE%8E%E5%9B%BD",
-      "hot_value": "11684912",
+      "title": "70万人点赞的跨国情谊",
+      "title_zh": "70万人点赞的跨国情谊",
+      "url": "https://www.douyin.com/search/70%E4%B8%87%E4%BA%BA%E7%82%B9%E8%B5%9E%E7%9A%84%E8%B7%A8%E5%9B%BD%E6%83%85%E8%B0%8A",
+      "hot_value": "10828357",
       "summary_zh": null,
-      "thumbnail": "https://p11-sign.douyinpic.com/tos-cn-p-0015/ooawUFAQI5GA4MBLYlEQ1qxejwfC2DGRQFevep~noop.jpeg?lk3s=bfd515bb&x-expires=1790568000&x-signature=M%2BcQJzBW1cnPh6OluJF%2FIXM4KKc%3D&from=3218412987",
+      "thumbnail": "https://p11-sign.douyinpic.com/tos-cn-p-0015/o0duDfxZAEGNI89LYBqgFBe4I39PAX4HmA8jXY~noop.jpeg?lk3s=bfd515bb&x-expires=1790665200&x-signature=WxhCsc%2FKFt1BLmltK2aKQdmTbXo%3D&from=3218412987",
       "published_at": null,
       "extra": {
-        "sentence_id": "2669075"
+        "sentence_id": "2671856"
       },
       "days_on_board": 1,
       "is_new": true,
       "rank_delta": "new",
-      "cluster_id": "d260bb763e7d",
+      "cluster_id": "37c7b8c2e925",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-27T22:44:00.556569+00:00",
+          "run_at": "2026-09-29T01:44:16.135502+00:00",
           "rank": 3
         }
       ]
@@ -1433,40 +1429,265 @@
     {
       "source": "feed",
       "rank": 3,
-      "title": "量子AI创业来了一支“清华梦之队”：10亿估值，用量子改造大模型底层",
-      "title_zh": "量子AI创业来了一支“清华梦之队”：10亿估值，用量子改造大模型底层",
-      "url": "https://www.qbitai.com/2026/09/498633.html",
+      "title": "派早报：荣耀发布荣耀 Magic9 系列，鸿蒙智行发布智界 RX 等",
+      "title_zh": "派早报：荣耀发布荣耀 Magic9 系列，鸿蒙智行发布智界 RX 等",
+      "url": "https://sspai.com/post/115134",
       "hot_value": null,
-      "summary_zh": "量子AI创业来了一支“清华梦之队”：10亿估值，用量子改造大模型底层 文婷 2026-09-27 22:20:35 来源： 量子位 田晏林 发自 凹非寺 量子位 | 公众号QbitAI AI的最前沿中，一家量子背景的公司已经悄然创办。 公司名叫 费米宇宙 ，是国内首家专注Q4AI（Quantum for AI）的创业公司，主要在做的事情，是尝试用量子物理、量子计算的方法， 重新改造AI模型。 量子位了解到，这是一家“清华味儿”比较浓的创业公司，包括创始人在内的近一半员工，都拥有清华背景，主要来自基科班、计算机系人工智能实验室和高性能实验室。 目前，清华大学杨振宁高等研究院相关量子研究团队也已经与其合作，开展项目研究。 如此的含“华”量，让费米宇宙受到VC关注。 该公司目前处于种子轮阶段，累计融资1亿元，为国内Q4AI领域最大规模种子轮融资，对应投后估值10亿元左右，资金正在陆续交割中。 近",
+      "summary_zh": "荣耀发布荣耀 Magic9 系列新机 9 月 28 日，荣耀举办荣耀 Magic 盛典暨荣耀 Magic9 系列新品发布会，发布荣耀 Magic9 系列与荣耀 MagicPad 4、荣耀手表 6 Pro 等新品。 荣耀 Magic9 超能版配备 6.81 英寸屏幕，采用第五代骁龙 8 至尊版移动平台，配备荣耀东风涡轮散热，搭载第三代自研射频增强芯片 C3，电池容量 11000 mAh，支持 80W 荣耀超级快充与 50W 荣耀无线超级快充。支持 IP68、IP69、IP69K 防尘抗水。后置摄像头为 2 亿超清主摄、5000 万超清长焦与 1200 万超广角。有四色可选，定价 4499 元起，国补后 3999 元起（12GB+256GB）。 荣耀 Magic9 配备 6.37 英寸屏幕，采用第五代骁龙 8 至尊版移动平台。影像方面与阿莱合作，配备自研影像芯片荣耀驭光 H1，后置摄像头为 2",
       "thumbnail": null,
-      "published_at": "2026-09-27T14:20:35+00:00",
+      "published_at": "2026-09-29T00:09:05+00:00",
       "extra": {
-        "feed_name": "量子位",
-        "tab": "ai",
-        "route": "/qbitai/category/%E8%B5%84%E8%AE%AF",
+        "feed_name": "少数派",
+        "tab": "tools",
+        "route": "/sspai/index",
         "translate": false,
-        "description": "量子AI创业来了一支“清华梦之队”：10亿估值，用量子改造大模型底层 文婷 2026-09-27 22:20:35 来源： 量子位 田晏林 发自 凹非寺 量子位 | 公众号QbitAI AI的最前沿中，一家量子背景的公司已经悄然创办。 公司名叫 费米宇宙 ，是国内首家专注Q4AI（Quantum for AI）的创业公司，主要在做的事情，是尝试用量子物理、量子计算的方法， 重新改造AI模型。 量子位了解到，这是一家“清华味儿”比较浓的创业公司，包括创始人在内的近一半员工，都拥有清华背景，主要来自基科班、计算机系人工智能实验室和高性能实验室。 目前，清华大学杨振宁高等研究院相关量子研究团队也已经与其合作，开展项目研究。 如此的含“华”量，让费米宇宙受到VC关注。 该公司目前处于种子轮阶段，累计融资1亿元，为国内Q4AI领域最大规模种子轮融资，对应投后估值10亿元左右，资金正在陆续交割中。 近",
-        "dedupe_key": "https://www.qbitai.com/2026/09/498633.html"
+        "description": "荣耀发布荣耀 Magic9 系列新机 9 月 28 日，荣耀举办荣耀 Magic 盛典暨荣耀 Magic9 系列新品发布会，发布荣耀 Magic9 系列与荣耀 MagicPad 4、荣耀手表 6 Pro 等新品。 荣耀 Magic9 超能版配备 6.81 英寸屏幕，采用第五代骁龙 8 至尊版移动平台，配备荣耀东风涡轮散热，搭载第三代自研射频增强芯片 C3，电池容量 11000 mAh，支持 80W 荣耀超级快充与 50W 荣耀无线超级快充。支持 IP68、IP69、IP69K 防尘抗水。后置摄像头为 2 亿超清主摄、5000 万超清长焦与 1200 万超广角。有四色可选，定价 4499 元起，国补后 3999 元起（12GB+256GB）。 荣耀 Magic9 配备 6.37 英寸屏幕，采用第五代骁龙 8 至尊版移动平台。影像方面与阿莱合作，配备自研影像芯片荣耀驭光 H1，后置摄像头为 2",
+        "dedupe_key": "https://sspai.com/post/115134"
       },
       "days_on_board": 1,
       "is_new": true,
       "rank_delta": "new",
-      "cluster_id": "bc2e8062bfcf",
-      "cluster_size": 2,
+      "cluster_id": "d41a69abbd13",
+      "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-27T22:44:00.556569+00:00",
+          "run_at": "2026-09-29T01:44:16.135502+00:00",
           "rank": 3
         }
       ]
     },
     {
-      "source": "github",
+      "source": "jobs",
       "rank": 3,
+      "title": "招标代理项目经理",
+      "title_zh": "招标代理项目经理",
+      "url": "https://www.iguopin.com/job/detail?id=220201214594253814&source=social",
+      "hot_value": null,
+      "summary_zh": "岗位职责： 1.负责招标代理业务市场拓展，开展客户对接、商务洽谈及客户关系维护，挖掘项目机会； 2.牵头编制招标文件，结合项目实际情况制定合规可行的招标采购实施方案，把控招标采购政策合规性； 3.统筹组织招标采购全流程实施工作，协调各方资源，推进报名、评审、开评标等各环节有序落地； 4.妥善处理项目答疑、投标人质疑及异议答复工作，化解项目风险，保障采购流程平稳推进； 5.负责采购项目成果报告编制，",
+      "thumbnail": null,
+      "published_at": "2026-09-28 11:17:14",
+      "extra": {
+        "subsource": "guopin",
+        "company": "上策管理咨询有限公司",
+        "city": "北京-朝阳区",
+        "education": "本科",
+        "company_type": "国企",
+        "recruitment_type": "社会招聘",
+        "keywords_hit": [
+          "管理"
+        ],
+        "is_central_soe": false,
+        "is_state_owned": true
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "5d7a73ba52ec",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-29T01:44:16.135502+00:00",
+          "rank": 3
+        }
+      ]
+    },
+    {
+      "source": "nowcoder",
+      "rank": 3,
+      "title": "秋招金9战绩结算以及感想。",
+      "title_zh": "秋招金9战绩结算以及感想。",
+      "url": "https://www.nowcoder.com/feed/main/detail/7041999bb65e422984b741f057cf1ae8",
+      "hot_value": "命中 1 个关键词",
+      "summary_zh": null,
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "subsource": "rsshub",
+        "keyword_hit": [
+          "秋招"
+        ],
+        "description": ""
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "7eb2f99a763a",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-29T01:44:16.135502+00:00",
+          "rank": 3
+        }
+      ]
+    },
+    {
+      "source": "telegram",
+      "rank": 3,
+      "title": "Coosalud EPS in Colombia reported a ransomware attack by ThreeAM, disrupting healthcare operations across the country. #Colombia #Healthcare #Ransomware ➡️ https://www.hendryadrian.com/ransom-coosalud-com-sep-2026/",
+      "title_zh": "哥伦比亚的Coosalud EPS报告遭到ThreeAM的勒索软件攻击，扰乱了全国医疗运营。 #Colombia #Healthcare #Ransomware ➡️ https://www.hendryadrian.com/ransom-coosalud-com-sep-2026/",
+      "url": "https://t.me/cybernotif/36534",
+      "hot_value": "2",
+      "summary_zh": null,
+      "thumbnail": null,
+      "published_at": "2026-09-29T01:15:05+00:00",
+      "extra": {
+        "channel": "cybernotif",
+        "translate": true
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "debb0ccd37f6",
+      "cluster_size": 2,
+      "rank_history": [
+        {
+          "run_at": "2026-09-29T01:44:16.135502+00:00",
+          "rank": 3
+        }
+      ]
+    }
+  ],
+  "dropped": [],
+  "longest_on_board": [
+    {
+      "source": "bilibili",
+      "rank": 1,
+      "title": "自学动画 爆肝俩月 自创一集《猫和老鼠》【手搓动画大赛】",
+      "title_zh": "自学动画 爆肝俩月 自创一集《猫和老鼠》【手搓动画大赛】",
+      "url": "https://b23.tv/BV1E6aq6pEKR",
+      "hot_value": "331525",
+      "summary_zh": null,
+      "thumbnail": "http://i1.hdslb.com/bfs/archive/898e85b47826711b059bb112df176eff5f916886.jpg",
+      "published_at": "2026-09-28T10:00:00+00:00",
+      "extra": {
+        "bvid": "BV1E6aq6pEKR",
+        "owner": "小蒙古包卓拉"
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "a7ae741ad469",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-29T01:44:16.135502+00:00",
+          "rank": 1
+        }
+      ]
+    },
+    {
+      "source": "conf_deadlines",
+      "rank": 1,
+      "title": "ICLR 2027 截止",
+      "title_zh": "ICLR 2027 截止",
+      "url": "https://iclr.cc/Conferences/2027",
+      "hot_value": "已截止 2 天",
+      "summary_zh": "International Conference on Learning Representations · San Francisco, CA, USA · 官网",
+      "thumbnail": null,
+      "published_at": "2026-09-26T11:59:59+00:00",
+      "extra": {
+        "subsource": "ai-deadlines",
+        "conference": "ICLR",
+        "deadline": "2026-09-26T11:59:59+00:00",
+        "days_left": -2,
+        "link": "https://iclr.cc/Conferences/2027",
+        "full_name": "International Conference on Learning Representations",
+        "location": "San Francisco, CA, USA"
+      },
+      "days_on_board": 1,
+      "is_new": false,
+      "rank_delta": 0,
+      "cluster_id": "452d7cc39ac2",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-23T16:44:31.496968+00:00",
+          "rank": 1
+        },
+        {
+          "run_at": "2026-09-24T13:44:17.795322+00:00",
+          "rank": 1
+        },
+        {
+          "run_at": "2026-09-25T13:44:22.330496+00:00",
+          "rank": 1
+        },
+        {
+          "run_at": "2026-09-26T01:44:08.091932+00:00",
+          "rank": 1
+        },
+        {
+          "run_at": "2026-09-27T22:44:00.556569+00:00",
+          "rank": 1
+        },
+        {
+          "run_at": "2026-09-29T01:44:16.135502+00:00",
+          "rank": 1
+        }
+      ]
+    },
+    {
+      "source": "douyin",
+      "rank": 1,
+      "title": "中国队女子4×100米接力夺冠",
+      "title_zh": "中国队女子4×100米接力夺冠",
+      "url": "https://www.douyin.com/search/%E4%B8%AD%E5%9B%BD%E9%98%9F%E5%A5%B3%E5%AD%904%C3%97100%E7%B1%B3%E6%8E%A5%E5%8A%9B%E5%A4%BA%E5%86%A0",
+      "hot_value": "12114574",
+      "summary_zh": null,
+      "thumbnail": "https://p5-ex-gddgtc-sign.douyinpic.com/tos-cn-p-0015/ogWAnBizRGBCedgnSzSZil2Af2DD21IAaXIKrJ~noop.jpeg?lk3s=bfd515bb&x-expires=1790665200&x-signature=17Yz5soc9QFkGytwNaUVj0TiXUg%3D&from=3218412987",
+      "published_at": null,
+      "extra": {
+        "sentence_id": "2671951"
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "a4a9adfe9e28",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-29T01:44:16.135502+00:00",
+          "rank": 1
+        }
+      ]
+    },
+    {
+      "source": "feed",
+      "rank": 1,
+      "title": "三星电机宣布 6.78 万亿韩元投资，提升 AI 服务器用 FCBGA 半导体基板产能",
+      "title_zh": "三星电机宣布 6.78 万亿韩元投资，提升 AI 服务器用 FCBGA 半导体基板产能",
+      "url": "https://www.ithome.com/1/008/110.htm",
+      "hot_value": null,
+      "summary_zh": "IT之家 9 月 29 日消息，三星电机 (Samsung Electro-Mechanics, SEM) 当地时间今日宣布 将在韩国和越南合计投资 6.78 万亿韩元 （IT之家注：现汇率约合 335.95 亿元人民币） ，提升 AI 服务器用 FCBGA 半导体基板产能。 ▲ 世宗生产基地新工厂建设模拟图 三星电机计划在韩国世宗生产基地投资 4.27 万亿韩元 （现汇率约合 211.58 亿元人民币） ，这也是其单一产品投资史上最大规模，投资期为 2026 年 9 月至 2028 年 5 月。这里将作为应对高附加值、高难度产品量产的核心据点，率先响应 AI 服务器基板需求增长。 另一方面，三星电机还将通过越南子公司投资 2.51 万亿韩元 （现汇率约合 124.37 亿元人民币） ，目标 2030 年 6 月完工并投产。其越南子公司将作为通过稳定供应体系应对全球订单及提升生产效率的战略",
+      "thumbnail": null,
+      "published_at": "2026-09-29T01:31:59+00:00",
+      "extra": {
+        "feed_name": "IT之家",
+        "tab": "ai",
+        "route": "/ithome/it",
+        "translate": false,
+        "description": "IT之家 9 月 29 日消息，三星电机 (Samsung Electro-Mechanics, SEM) 当地时间今日宣布 将在韩国和越南合计投资 6.78 万亿韩元 （IT之家注：现汇率约合 335.95 亿元人民币） ，提升 AI 服务器用 FCBGA 半导体基板产能。 ▲ 世宗生产基地新工厂建设模拟图 三星电机计划在韩国世宗生产基地投资 4.27 万亿韩元 （现汇率约合 211.58 亿元人民币） ，这也是其单一产品投资史上最大规模，投资期为 2026 年 9 月至 2028 年 5 月。这里将作为应对高附加值、高难度产品量产的核心据点，率先响应 AI 服务器基板需求增长。 另一方面，三星电机还将通过越南子公司投资 2.51 万亿韩元 （现汇率约合 124.37 亿元人民币） ，目标 2030 年 6 月完工并投产。其越南子公司将作为通过稳定供应体系应对全球订单及提升生产效率的战略",
+        "dedupe_key": "https://www.ithome.com/1/008/110.htm"
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "2df8388593be",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-29T01:44:16.135502+00:00",
+          "rank": 1
+        }
+      ]
+    },
+    {
+      "source": "github",
+      "rank": 1,
       "title": "debpalash/VoiceStudio",
       "title_zh": "debpalash/VoiceStudio",
       "url": "https://github.com/debpalash/VoiceStudio",
-      "hot_value": "3,060 stars today",
+      "hot_value": "3,221 stars today",
       "summary_zh": "开源本地语音克隆工具，支持646种语言，替代ElevenLabs。",
       "thumbnail": null,
       "published_at": null,
@@ -1475,151 +1696,107 @@
         "language": "Python"
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": 2,
       "cluster_id": "bf2187938399",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-27T22:44:00.556569+00:00",
           "rank": 3
-        }
-      ]
-    },
-    {
-      "source": "nowcoder",
-      "rank": 3,
-      "title": "京东后端实习一二面面经（Offer）",
-      "title_zh": "京东后端实习一二面面经（Offer）",
-      "url": "https://www.nowcoder.com/feed/main/detail/dec1d1b9d5244d1882638fb35ecde865",
-      "hot_value": "命中 1 个关键词",
-      "summary_zh": null,
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "subsource": "rsshub",
-        "keyword_hit": [
-          "offer"
-        ],
-        "description": ""
-      },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
-      "cluster_id": "f194a7b64333",
-      "cluster_size": 1,
-      "rank_history": [
+        },
         {
-          "run_at": "2026-09-27T22:44:00.556569+00:00",
-          "rank": 3
-        }
-      ]
-    },
-    {
-      "source": "telegram",
-      "rank": 3,
-      "title": "📰 Dark Reading How the CISO CFO Relationship is a Key to Cybersecurity Success Building a financial bridge: Organizations where CISOs and CFOs align on cybersecurity strategy to protect assets, manage risk and enable business growth are better prepared to face today's threat landscape. #CyberNews #I",
-      "title_zh": "📰 Dark Reading CISO与CFO的关系是网络安全成功的关键 搭建财务桥梁：在网络安全战略上CISO和CFO保持一致以保护资产、管理风险并推动业务增长的组织，能更好地应对当今的威胁形势。#CyberNews #I",
-      "url": "https://t.me/cyber_security_feed/36101",
-      "hot_value": "3",
-      "summary_zh": null,
-      "thumbnail": null,
-      "published_at": "2026-09-27T21:07:09+00:00",
-      "extra": {
-        "channel": "cyber_security_feed",
-        "translate": true
-      },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
-      "cluster_id": "3715f4551990",
-      "cluster_size": 2,
-      "rank_history": [
-        {
-          "run_at": "2026-09-27T22:44:00.556569+00:00",
-          "rank": 3
-        }
-      ]
-    }
-  ],
-  "dropped": [
-    {
-      "source": "bilibili",
-      "rank": 1,
-      "title": "手机拍视频，怎么才能没有“手机感”？｜荣耀Magic9",
-      "title_zh": "手机拍视频，怎么才能没有“手机感”？｜荣耀Magic9",
-      "url": "https://b23.tv/BV1kDaw6ZEf9",
-      "hot_value": "984929",
-      "summary_zh": null,
-      "thumbnail": "http://i2.hdslb.com/bfs/archive/d92e0a7bd6f49a114bd425a7f2d80385fd1e04b5.jpg",
-      "published_at": "2026-09-24T10:27:58+00:00",
-      "extra": {
-        "bvid": "BV1kDaw6ZEf9",
-        "owner": "菇菇和呱呱"
-      },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
-      "cluster_id": "c9bc72408808",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-26T01:44:08.091932+00:00",
+          "run_at": "2026-09-29T01:44:16.135502+00:00",
           "rank": 1
         }
       ]
     },
     {
-      "source": "douyin",
+      "source": "gongkao",
       "rank": 1,
-      "title": "游泳冠军天团在抖音接力秀金牌",
-      "title_zh": "游泳冠军天团在抖音接力秀金牌",
-      "url": "https://www.douyin.com/search/%E6%B8%B8%E6%B3%B3%E5%86%A0%E5%86%9B%E5%A4%A9%E5%9B%A2%E5%9C%A8%E6%8A%96%E9%9F%B3%E6%8E%A5%E5%8A%9B%E7%A7%80%E9%87%91%E7%89%8C",
-      "hot_value": "12068271",
-      "summary_zh": null,
-      "thumbnail": "https://p26-sign.douyinpic.com/tos-cn-i-0813c000-ce/oMeIwbsEzYAPE4qH5FT3AwEAxDnLfcAw9ACyCo~noop.jpeg?lk3s=bfd515bb&x-expires=1790406000&x-signature=Pgq4JiU7hxxTIqKqSDM7hNzSFwE%3D&from=3218412987",
-      "published_at": null,
-      "extra": {
-        "sentence_id": "2667186"
-      },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
-      "cluster_id": "9cf90cef190b",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-26T01:44:08.091932+00:00",
-          "rank": 1
-        }
-      ]
-    },
-    {
-      "source": "feed",
-      "rank": 1,
-      "title": "共事约 11 年：苹果零售总设计师约翰逊谈乔布斯理念“不急于求成”",
-      "title_zh": "共事约 11 年：苹果零售总设计师约翰逊谈乔布斯理念“不急于求成”",
-      "url": "https://www.ithome.com/1/007/289.htm",
+      "title": "黑龙江省人力资源和社会保障厅2026年下半年事业单位公开招聘工作人员公告",
+      "title_zh": "黑龙江省人力资源和社会保障厅2026年下半年事业单位公开招聘工作人员公告",
+      "url": "https://hrss.hlj.gov.cn/hrss/c111741/202608/c00_31968123.shtml",
       "hot_value": null,
-      "summary_zh": "IT之家 9 月 26 日消息，科技媒体 Business Insider 今天（9 月 26 日）发布博文，报道称在新书发布会上，苹果零售“总设计师”罗恩 · 约翰逊（Ron Johnson）表示， 史蒂夫 · 乔布斯留给他的核心教训是“不急于求成”（Don't be in a hurry）。 IT之家查询公开资料，约翰逊出生于 1959 年，于 2000 年被史蒂夫 · 乔布斯聘请，担任苹果零售业务高级副总裁，负责从零搭建 Apple Store，可谓是苹果零售体系真正的“总设计师”，他和乔布斯共事约 11 年。 约翰逊最新发布新书《另辟蹊径：零售业如何揭示苹果的天才之处》，在媒体采访活动中，约翰逊表示乔布斯留给他的最重要教训是“不要着急”，这一理念成为约翰逊日后管理哲学的核心锚点，并相信“大胆的愿景无法强求或仓促实现，需要时间才能逐渐显现”。 约翰逊回忆，乔布斯工作时全神贯注，不随身",
+      "summary_zh": null,
       "thumbnail": null,
-      "published_at": "2026-09-26T01:08:43+00:00",
+      "published_at": "2026-08-18",
       "extra": {
-        "feed_name": "IT之家",
-        "tab": "ai",
-        "route": "/ithome/it",
-        "translate": false,
-        "description": "IT之家 9 月 26 日消息，科技媒体 Business Insider 今天（9 月 26 日）发布博文，报道称在新书发布会上，苹果零售“总设计师”罗恩 · 约翰逊（Ron Johnson）表示， 史蒂夫 · 乔布斯留给他的核心教训是“不急于求成”（Don't be in a hurry）。 IT之家查询公开资料，约翰逊出生于 1959 年，于 2000 年被史蒂夫 · 乔布斯聘请，担任苹果零售业务高级副总裁，负责从零搭建 Apple Store，可谓是苹果零售体系真正的“总设计师”，他和乔布斯共事约 11 年。 约翰逊最新发布新书《另辟蹊径：零售业如何揭示苹果的天才之处》，在媒体采访活动中，约翰逊表示乔布斯留给他的最重要教训是“不要着急”，这一理念成为约翰逊日后管理哲学的核心锚点，并相信“大胆的愿景无法强求或仓促实现，需要时间才能逐渐显现”。 约翰逊回忆，乔布斯工作时全神贯注，不随身",
-        "dedupe_key": "https://www.ithome.com/1/007/289.htm"
+        "id": "gov:688373231f70f9d4de6e1192",
+        "sub": "announcement",
+        "subsource": "government",
+        "source_site": "gov",
+        "government_source": true,
+        "gov_source_name": "黑龙江省人社厅-通知公告",
+        "province": "黑龙江",
+        "exam_type": "事业单位",
+        "issueTime": "2026-08-18",
+        "announcement_url": "https://hrss.hlj.gov.cn/hrss/c111741/202608/c00_31968123.shtml",
+        "filter_action": "keep",
+        "filter_reason": "trusted_announcement",
+        "needs_review": false,
+        "target_university_hit": [],
+        "city_focus_hit": []
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
-      "cluster_id": "d2ff4fcc7e88",
+      "is_new": false,
+      "rank_delta": 5,
+      "cluster_id": "f54e19ed4438",
+      "cluster_size": 1,
+      "rank_history": []
+    },
+    {
+      "source": "jobs",
+      "rank": 1,
+      "title": "信息运营",
+      "title_zh": "信息运营",
+      "url": "https://www.iguopin.com/job/detail?id=218520022560014521&source=campus",
+      "hot_value": null,
+      "summary_zh": "【岗位职责】 1.深度参与人工智能应用落地，协助业务部门利用人工智能技术提质增效； 2.参与数据中心建设规划、实施及管理工作； 3.参与信息化项目的调研、实施及项目管理等工作； 4.负责自身工作相关的资料文档、台账、手册、数据、程序文件等的整理、归档和集中管理工作； 5.负责相关项目的合同、付款管理及推进工作； 6.负责网银客户服务响应工作，解决客户使用公司网银过程中遇到的技术问题； 7.负责内部",
+      "thumbnail": null,
+      "published_at": "2026-09-20 17:34:22",
+      "extra": {
+        "subsource": "guopin",
+        "company": "国药集团财务有限公司",
+        "city": "北京-海淀区",
+        "education": "硕士",
+        "company_type": "国企",
+        "recruitment_type": "校园招聘",
+        "keywords_hit": [
+          "信息",
+          "财务"
+        ],
+        "is_central_soe": false,
+        "is_state_owned": true
+      },
+      "days_on_board": 1,
+      "is_new": false,
+      "rank_delta": 0,
+      "cluster_id": "25cabb885704",
       "cluster_size": 1,
       "rank_history": [
         {
+          "run_at": "2026-09-23T16:44:31.496968+00:00",
+          "rank": 1
+        },
+        {
+          "run_at": "2026-09-24T13:44:17.795322+00:00",
+          "rank": 1
+        },
+        {
+          "run_at": "2026-09-25T13:44:22.330496+00:00",
+          "rank": 1
+        },
+        {
           "run_at": "2026-09-26T01:44:08.091932+00:00",
+          "rank": 1
+        },
+        {
+          "run_at": "2026-09-27T22:44:00.556569+00:00",
+          "rank": 1
+        },
+        {
+          "run_at": "2026-09-29T01:44:16.135502+00:00",
           "rank": 1
         }
       ]
@@ -1627,9 +1804,9 @@
     {
       "source": "nowcoder",
       "rank": 1,
-      "title": "我的秋招结束啦！",
-      "title_zh": "我的秋招结束啦！",
-      "url": "https://www.nowcoder.com/feed/main/detail/3ba62d86e1cb4fea9898f4d1e2cad440",
+      "title": "中9本＋四段大厂实习的秋招进度",
+      "title_zh": "中9本＋四段大厂实习的秋招进度",
+      "url": "https://www.nowcoder.com/feed/main/detail/e295d73656a9413ebe09ef2d51c027dd",
       "hot_value": "命中 1 个关键词",
       "summary_zh": null,
       "thumbnail": null,
@@ -1641,26 +1818,14 @@
         ],
         "description": ""
       },
-      "days_on_board": 4,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "57ca19251d51",
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "2bf3ca31c292",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-23T16:44:31.496968+00:00",
-          "rank": 6
-        },
-        {
-          "run_at": "2026-09-24T13:44:17.795322+00:00",
-          "rank": 3
-        },
-        {
-          "run_at": "2026-09-25T13:44:22.330496+00:00",
-          "rank": 1
-        },
-        {
-          "run_at": "2026-09-26T01:44:08.091932+00:00",
+          "run_at": "2026-09-29T01:44:16.135502+00:00",
           "rank": 1
         }
       ]
@@ -1668,42 +1833,59 @@
     {
       "source": "papers",
       "rank": 1,
-      "title": "Evorpacept plus trastuzumab, ramucirumab and paclitaxel in HER2-positive gastric cancer: a randomized phase 2 trial.",
-      "title_zh": "Evorpacept 联合曲妥珠单抗、雷莫西尤单抗和紫杉醇治疗 HER2 阳性胃癌：一项随机 2 期试验。",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42786305/",
+      "title": "iPscDB: a comprehensive platform for plant single-cell transcriptomic data integration and analysis",
+      "title_zh": "iPscDB：植物单细胞转录组数据整合与分析的综合平台",
+      "url": "https://doi.org/10.1093/nar/gkag909",
       "hot_value": null,
-      "summary_zh": "Evorpacept 阻断 CD47-信号调节蛋白 α 相互作用，增强抗体依赖性细胞吞噬作用。在 ASPEN-06（一项多中心、开放标签、随机 2/3 期研究）的 2 期部分，127 名既往接受过治疗、人表皮生长因子受体 2（HER2）过表达的晚期胃/胃食管结合部癌患者被随机分配至 evorpacept 联合曲妥珠单抗、雷莫西尤单抗和紫杉醇（evo + TRP；n = 63；新鲜 HER2+ 活检，n = 22）或单用 TRP（n = 64；新鲜 HER2+ 活检，n = 26）。主要终点为研究者评估的客观缓解率（ORR）。ORR 的主要分析旨在评估 ORR 是否超过历史 30% 基准（雷莫西尤单抗/紫杉醇）（意向治疗（ITT）把握度 80%，ITT 亚人群把握度 50%（基于曲妥珠单抗治疗后“新鲜”活检的 HER2 过表达）），以及 ITT 和 ITT 亚人群中分别较 TRP 改善 ≥8",
+      "summary_zh": "摘要 单细胞技术的快速发展显著增强了我们研究植物组织内细胞异质性的能力。然而，解析这些复杂的细胞景观需要处理高维基因表达矩阵并整合多样数据集，以实现准确的标记选择、细胞鉴定和其他复杂计算操作。这些过程通常需要广泛的编程专业知识，对计算背景有限的研究人员构成挑战。为解决这一问题，我们提出了整合植物单细胞数据库（iPscDB），一个促进植物单细胞数据整合与分析的综合多功能平台。iPscDB结合了来自38个植物物种946个实验的4,688,428个细胞和288,139个精选细胞标记。在原始数据可用的地方，数据集通过单一统一流程重新处理，并对整合质量和自动细胞类型注释进行了定量基准测试。该平台引入了标记置信水平方案，根据支持证据的强度和独立性对每个细胞类型标记进行分级（从手动精选的经典标记到数据库衍生的关联），允许用户直接判断标记可靠性。该平台还提供用户友好的在线分析流程和模块，能够处理原始FAS",
       "thumbnail": null,
-      "published_at": "2026-09-24",
+      "published_at": "2026-09-18",
       "extra": {
-        "subsource": "pubmed",
-        "journal": "Nature medicine",
-        "doi": "10.1038/s41591-026-04700-3",
+        "subsource": "crossref",
         "tier": "英文顶刊",
+        "journal": "Nucleic Acids Research",
         "mode": "filter",
-        "description": "Evorpacept blocks the CD47-signal regulatory protein α interaction, enhancing antibody-dependent cellular phagocytosis. In the phase 2 portion of ASPEN-06 (a multicenter, open-label, randomized phase 2/3 study), 127 patients with pretreated, human epidermal growth factor receptor 2 (HER2)-overexpressing, advanced gastric/gastroesophageal junction cancer were randomized to evorpacept plus trastuzumab, ramucirumab and paclitaxel (evo + TRP; n = 63; fresh HER2+ biopsy, n = 22) or TRP alone (n = 64; fresh HER2+ biopsy, n = 26). The primary end point was investigator-assessed objective response rate (ORR). The primary analysis of ORR was designed to evaluate an ORR exceeding the historical 30% benchmark (ramucirumab/paclitaxel) (80% power for intent to treat (ITT) and 50% power for the ITT subpopulation (HER2 overexpression based on a post-trastuzumab 'fresh' biopsy)) and an improvement of ≥8.0% and ≥9.7% versus TRP in the ITT and ITT subpopulations, respectively. Key secondary end points included ORR by blinded independent central review, duration of response and progression-free survival by investigator or blinded independent central review, overall survival and safety. Post hoc biomarker analyses, including the assessment of the association of treatment efficacy with retained HER2 status (defined by HER2 positivity on fresh tumor biopsy or amplification in circulating tumor DNA analysis) and CD47 expression in tumor samples, were conducted. The investigator-assessed ORRs were 40.3% (evo + TRP) versus 26.6% (TRP) in the ITT population and 54.8% versus 23.1% in the fresh biopsy HER2+ subgroup. ORR differences (13.7% and 31.7%) exceeded the prespecified thresholds in both the ITT population and fresh biopsy HER2+ subgroup, meeting one of the two primary objectives; however, compared to the historical benchmark (30%), ORRs in the ITT population (40.3%; P = 0.0949, one-sided) and fresh biopsy HER2+ subgroup (54.8%; P = 0.030, one-sided) did not meet the prespecified statistical criterion (one-sided α = 0.025). While hematologic toxicities were more common with evo + TRP, overall safety was similar. In summary, evo + TRP showed encouraging efficacy with manageable safety in advanced gastric/gastroesophageal junction cancer. ClinicalTrials.gov identifier: NCT05002127 .",
-        "identifier": "42786305",
-        "dedupe_key": "doi:10.1038/s41591-026-04700-3",
+        "issn": "1362-4962",
+        "doi": "10.1093/nar/gkag909",
+        "description": "Abstract The rapid advancement of single-cell technologies has significantly enhanced our ability to investigate cellular heterogeneity within plant tissues. However, deciphering these intricate cellular landscapes requires processing high-dimensional gene expression matrices and integrating diverse datasets to enable accurate marker selection, cell identification, and other complex computational operations. These processes typically require broad programming expertise, posing a challenge for researchers with a limited computational background. To address this, we present integrated Plant single-cell Database (iPscDB), an integrated and multifunctional platform that facilitates the integration and analysis of plant single-cell data. iPscDB combines 4 688 428 cells and 288 139 curated cell markers derived from 946 experiments across 38 plant species. Wherever raw data were available, datasets were reprocessed through a single uniform pipeline, and both integration quality and automated cell-type annotation were benchmarked quantitatively. The platform introduces a Marker Confidence Level scheme that grades each cell-type marker by the strength and independence of its supporting evidence (from manually curated classic markers to database-derived associations), allowing users to judge marker reliability directly. The platform also provides a user-friendly online analysis pipeline and modules capable of processing raw FASTQ files or Cell Ranger-processed files. Users can configure parameters via an intuitive interface and utilize an integrated image editor to customize visualization outputs. Additionally, iPscDB supports various analyses, including cross-species gene expression, electronic Single-Cell Pictograph, and developmental trajectory. By streamlining the complex workflows of single-cell transcriptomics, iPscDB offers a practical and accessible resource for researchers with diverse technical backgrounds. iPscDB is accessible at https://www.tobaccodb.org/ipscdb/homePage.",
+        "dedupe_key": "doi:10.1093/nar/gkag909",
         "topic_hit": [
-          "单细胞聚类"
+          "单细胞聚类",
+          "生物信息"
         ],
         "priority_rank": 0,
         "keyword_hit": [
           "benchmark"
         ]
       },
-      "days_on_board": 2,
+      "days_on_board": 1,
       "is_new": false,
       "rank_delta": 0,
-      "cluster_id": "d495cbf4b8f6",
+      "cluster_id": "7ee1ea1f68f7",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-25T13:44:22.330496+00:00",
+          "run_at": "2026-09-23T16:44:31.496968+00:00",
           "rank": 1
         },
         {
+          "run_at": "2026-09-24T13:44:17.795322+00:00",
+          "rank": 1
+        },
+        {
+          "run_at": "2026-09-25T13:44:22.330496+00:00",
+          "rank": 2
+        },
+        {
           "run_at": "2026-09-26T01:44:08.091932+00:00",
+          "rank": 2
+        },
+        {
+          "run_at": "2026-09-27T22:44:00.556569+00:00",
+          "rank": 1
+        },
+        {
+          "run_at": "2026-09-29T01:44:16.135502+00:00",
           "rank": 1
         }
       ]
@@ -1711,13 +1893,13 @@
     {
       "source": "telegram",
       "rank": 1,
-      "title": "SeManageVolumePrivilege can let a standard user rewrite ACLs on C:Windows and escalate to SYSTEM via Print Spooler DLL hijacking, tzres.dll substitution, or WerTrigger abuse. #SeManageVolume #WindowsSecurity #ACLs ➡️ https://www.hendryadrian.com/windows-privilege-escalation-semanagevolumeprivilege/",
-      "title_zh": "SeManageVolumePrivilege可让标准用户重写C:Windows的ACL，并通过Print Spooler DLL劫持、tzres.dll替换或WerTrigger滥用提权至SYSTEM。#SeManageVolume #WindowsSecurity #ACLs ➡️ https://www.hendryadrian.com/windows-privilege-escalation-semanagevolumeprivilege/",
-      "url": "https://t.me/cybernotif/36435",
+      "title": "Ransomware group cry0 claims a hit on MinMor Industries, a manufacturing firm. Reported damage remains unclear, with details noted as \"Coming soon...\". #Manufacturing #Ransomware #MinMor ➡️ https://www.hendryadrian.com/ransom-minmor-industries-sep-2026/",
+      "title_zh": "勒索软件组织cry0声称攻击了制造企业MinMor Industries。报道的损失尚不清楚，细节标注为\"即将公布...\"。 #Manufacturing #Ransomware #MinMor ➡️ https://www.hendryadrian.com/ransom-minmor-industries-sep-2026/",
+      "url": "https://t.me/cybernotif/36535",
       "hot_value": "1",
       "summary_zh": null,
       "thumbnail": null,
-      "published_at": "2026-09-26T01:30:09+00:00",
+      "published_at": "2026-09-29T01:30:07+00:00",
       "extra": {
         "channel": "cybernotif",
         "translate": true
@@ -1725,11 +1907,11 @@
       "days_on_board": 1,
       "is_new": true,
       "rank_delta": "new",
-      "cluster_id": "adce5e4fcf5e",
+      "cluster_id": "81321af32dd3",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-26T01:44:08.091932+00:00",
+          "run_at": "2026-09-29T01:44:16.135502+00:00",
           "rank": 1
         }
       ]
@@ -1737,10 +1919,10 @@
     {
       "source": "weibo",
       "rank": 1,
-      "title": "中美两国元首夫妇参观美国国家档案馆",
-      "title_zh": "中美两国元首夫妇参观美国国家档案馆",
-      "url": "https://s.weibo.com/weibo?q=%23%E4%B8%AD%E7%BE%8E%E4%B8%A4%E5%9B%BD%E5%85%83%E9%A6%96%E5%A4%AB%E5%A6%87%E5%8F%82%E8%A7%82%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E6%A1%A3%E6%A1%88%E9%A6%86%23",
-      "hot_value": "1042274",
+      "title": "鲍师傅超长蛋挞被吐槽全是皮没蛋液",
+      "title_zh": "鲍师傅超长蛋挞被吐槽全是皮没蛋液",
+      "url": "https://s.weibo.com/weibo?q=%23%E9%B2%8D%E5%B8%88%E5%82%85%E8%B6%85%E9%95%BF%E8%9B%8B%E6%8C%9E%E8%A2%AB%E5%90%90%E6%A7%BD%E5%85%A8%E6%98%AF%E7%9A%AE%E6%B2%A1%E8%9B%8B%E6%B6%B2%23",
+      "hot_value": "1269143",
       "summary_zh": null,
       "thumbnail": null,
       "published_at": null,
@@ -1750,11 +1932,11 @@
       "days_on_board": 1,
       "is_new": true,
       "rank_delta": "new",
-      "cluster_id": "c44f6f330851",
+      "cluster_id": "6dd5926a5698",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-26T01:44:08.091932+00:00",
+          "run_at": "2026-09-29T01:44:16.135502+00:00",
           "rank": 1
         }
       ]
@@ -1762,31 +1944,27 @@
     {
       "source": "youtube",
       "rank": 1,
-      "title": "Patient Zero",
-      "title_zh": "零号病人",
-      "url": "https://youtube.com/watch?v=V-uIp-WuD60",
-      "hot_value": "2134797",
-      "summary_zh": "Taylor Swift新歌，Max Martin制作，2026年发行。",
-      "thumbnail": "https://i.ytimg.com/vi/V-uIp-WuD60/hqdefault.jpg",
-      "published_at": "2026-09-25T04:02:10Z",
+      "title": "Why Would I (Unreleased)",
+      "title_zh": "为什么我会（未发行）",
+      "url": "https://youtube.com/watch?v=wbgiuOPZYsk",
+      "hot_value": "83243",
+      "summary_zh": "Brandon Lake未发布歌曲，分享信仰与鼓励。",
+      "thumbnail": "https://i.ytimg.com/vi/wbgiuOPZYsk/hqdefault.jpg",
+      "published_at": "2026-09-28T15:59:51Z",
       "extra": {
-        "video_id": "V-uIp-WuD60",
+        "video_id": "wbgiuOPZYsk",
         "region": "US",
-        "channel": "Taylor Swift - Topic",
-        "description": "Provided to YouTube by Universal Music Group\n\nPatient Zero · Taylor Swift\n\nThe Life of a Showgirl: The Encore\n\n℗ 2026 Taylor Swift\n\nReleased on: 2026-09-25\n\nComposer Lyricist, Programmer, Producer, Recording Engineer: Max Martin\nComposer Lyricist, Recording Engineer, Producer, Programmer: Shellback\n"
+        "channel": "Brandon Lake",
+        "description": "This song has been on my heart lately, and even though I wasn’t planning on sharing it yet, something in me felt like it was time. Praying it encourages you in whatever season you’re walking through. 🙏🏽\n\n►Subscribe to Brandon Lake's YouTube:  \nhttps://www.youtube.com/channel/UCUvrv1Ox5rRwzG-SHCN7zrg"
       },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "fa0c31e2f4e0",
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "1667ccf93aa5",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-25T13:44:22.330496+00:00",
-          "rank": 1
-        },
-        {
-          "run_at": "2026-09-26T01:44:08.091932+00:00",
+          "run_at": "2026-09-29T01:44:16.135502+00:00",
           "rank": 1
         }
       ]
@@ -1794,102 +1972,52 @@
     {
       "source": "bilibili",
       "rank": 2,
-      "title": "闯入无人区，来到地球上最像火星的地方！！",
-      "title_zh": "闯入无人区，来到地球上最像火星的地方！！",
-      "url": "https://b23.tv/BV1p5aP6wEHR",
-      "hot_value": "1419867",
+      "title": "《无敌超人》当你拥有无限增强的超能力，会做什么？【Hishorts! × updream AI短片大赛+剧情单元】",
+      "title_zh": "《无敌超人》当你拥有无限增强的超能力，会做什么？【Hishorts! × updream AI短片大赛+剧情单元】",
+      "url": "https://b23.tv/BV1aJa869EaJ",
+      "hot_value": "376763",
       "summary_zh": null,
-      "thumbnail": "http://i0.hdslb.com/bfs/archive/cfe392f5c2907b9ddbc3cd359bd7500a41310eef.jpg",
-      "published_at": "2026-09-24T09:00:00+00:00",
+      "thumbnail": "http://i0.hdslb.com/bfs/archive/d081cb7ff19707fe3a053f39300fdea7eb6830ee.jpg",
+      "published_at": "2026-09-27T11:14:43+00:00",
       "extra": {
-        "bvid": "BV1p5aP6wEHR",
-        "owner": "-欣小萌-"
+        "bvid": "BV1aJa869EaJ",
+        "owner": "小黄导-烛制作AIGC"
       },
       "days_on_board": 1,
       "is_new": true,
       "rank_delta": "new",
-      "cluster_id": "5c6c1866c050",
+      "cluster_id": "789b26d57f90",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-26T01:44:08.091932+00:00",
+          "run_at": "2026-09-29T01:44:16.135502+00:00",
           "rank": 2
         }
       ]
     },
     {
-      "source": "douyin",
+      "source": "conf_deadlines",
       "rank": 2,
-      "title": "档案里的中美渊源",
-      "title_zh": "档案里的中美渊源",
-      "url": "https://www.douyin.com/search/%E6%A1%A3%E6%A1%88%E9%87%8C%E7%9A%84%E4%B8%AD%E7%BE%8E%E6%B8%8A%E6%BA%90",
-      "hot_value": "11945381",
-      "summary_zh": null,
-      "thumbnail": "https://p9-sign.douyinpic.com/tos-cn-p-0015/osfIjoZNtBAFudxIEI1IfiAEmTtgCqmNDA92Ey~noop.jpeg?lk3s=bfd515bb&x-expires=1790406000&x-signature=kUNKvBAiBdkoF8e9%2FtzHQ1Ljk2I%3D&from=3218412987",
-      "published_at": null,
-      "extra": {
-        "sentence_id": "2667350"
-      },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
-      "cluster_id": "67a191a89d10",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-26T01:44:08.091932+00:00",
-          "rank": 2
-        }
-      ]
-    },
-    {
-      "source": "feed",
-      "rank": 2,
-      "title": "R 星《GTA6》官方收藏礼盒引发不满，玩家自行 3D 打印周边“鳄鱼麦加手办”",
-      "title_zh": "R 星《GTA6》官方收藏礼盒引发不满，玩家自行 3D 打印周边“鳄鱼麦加手办”",
-      "url": "https://www.ithome.com/1/007/283.htm",
-      "hot_value": null,
-      "summary_zh": "IT之家 9 月 26 日消息，Rockstar 于 9 月 24 日在官网上架《GTA6：欢乐之州-罪恶都市合集》收藏礼盒， 售价 400 美元 （IT之家注：现汇率约合 2,687 元人民币） 。内含手办、帽子、太阳镜、海报等多种周边，但唯独就是没有《侠盗猎车手 VI》游戏本体。 据外媒 Insider Gaming 报道，在 Rockstar 公布收藏礼盒后，不少用户吐槽相应价格昂贵，内容缺乏诚意。目前也有用户开始尝试自行 3D 打印其中的一件主要收藏品周边“鳄鱼麦加手办”。 正在享用烟卷和一杯火烈鸟血红马天尼的麦加手办，附有可以拧开的底座，可用于藏储您的珍藏之物。 ▲ 原始官方收藏品周边 外媒指出，如果仅用于个人收藏，这种做法暂时不会产生太大问题。但如果用户进一步将 3D 模型或打印成品用于商业销售，则可能面临 Take-Two 方面的版权或知识产权维权。不过目前已有不少用户将相应",
+      "title": "RECOMB 2027 截止",
+      "title_zh": "RECOMB 2027 截止",
+      "url": "https://recomb.org/recomb2027/",
+      "hot_value": "距截止 38 天",
+      "summary_zh": "International Conference on Research inComputational Molecular Biology · Toronto, Canada · 官网",
       "thumbnail": null,
-      "published_at": "2026-09-26T00:18:08+00:00",
+      "published_at": "2026-11-05T11:59:59+00:00",
       "extra": {
-        "feed_name": "IT之家",
-        "tab": "ai",
-        "route": "/ithome/it",
-        "translate": false,
-        "description": "IT之家 9 月 26 日消息，Rockstar 于 9 月 24 日在官网上架《GTA6：欢乐之州-罪恶都市合集》收藏礼盒， 售价 400 美元 （IT之家注：现汇率约合 2,687 元人民币） 。内含手办、帽子、太阳镜、海报等多种周边，但唯独就是没有《侠盗猎车手 VI》游戏本体。 据外媒 Insider Gaming 报道，在 Rockstar 公布收藏礼盒后，不少用户吐槽相应价格昂贵，内容缺乏诚意。目前也有用户开始尝试自行 3D 打印其中的一件主要收藏品周边“鳄鱼麦加手办”。 正在享用烟卷和一杯火烈鸟血红马天尼的麦加手办，附有可以拧开的底座，可用于藏储您的珍藏之物。 ▲ 原始官方收藏品周边 外媒指出，如果仅用于个人收藏，这种做法暂时不会产生太大问题。但如果用户进一步将 3D 模型或打印成品用于商业销售，则可能面临 Take-Two 方面的版权或知识产权维权。不过目前已有不少用户将相应",
-        "dedupe_key": "https://www.ithome.com/1/007/283.htm"
+        "subsource": "ai-deadlines",
+        "conference": "RECOMB",
+        "deadline": "2026-11-05T11:59:59+00:00",
+        "days_left": 38,
+        "link": "https://recomb.org/recomb2027/",
+        "full_name": "International Conference on Research inComputational Molecular Biology",
+        "location": "Toronto, Canada"
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
-      "cluster_id": "d0e561659d3e",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-26T01:44:08.091932+00:00",
-          "rank": 2
-        }
-      ]
-    },
-    {
-      "source": "github",
-      "rank": 2,
-      "title": "anthropics/claude-plugins-official",
-      "title_zh": "anthropics/claude-plugins-official",
-      "url": "https://github.com/anthropics/claude-plugins-official",
-      "hot_value": "83 stars today",
-      "summary_zh": "Anthropic官方Claude代码插件目录，质量有保障。",
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "description": "Official, Anthropic-managed directory of high quality Claude Code Plugins.",
-        "language": "Python"
-      },
-      "days_on_board": 2,
       "is_new": false,
       "rank_delta": 0,
-      "cluster_id": "927a1af9b4b4",
+      "cluster_id": "2f8650c20351",
       "cluster_size": 1,
       "rank_history": [
         {
@@ -1899,15 +2027,150 @@
         {
           "run_at": "2026-09-26T01:44:08.091932+00:00",
           "rank": 2
+        },
+        {
+          "run_at": "2026-09-27T22:44:00.556569+00:00",
+          "rank": 2
+        },
+        {
+          "run_at": "2026-09-29T01:44:16.135502+00:00",
+          "rank": 2
         }
       ]
+    },
+    {
+      "source": "douyin",
+      "rank": 2,
+      "title": "这个长假我与世界平分秋色",
+      "title_zh": "这个长假我与世界平分秋色",
+      "url": "https://www.douyin.com/search/%E8%BF%99%E4%B8%AA%E9%95%BF%E5%81%87%E6%88%91%E4%B8%8E%E4%B8%96%E7%95%8C%E5%B9%B3%E5%88%86%E7%A7%8B%E8%89%B2",
+      "hot_value": "10833998",
+      "summary_zh": null,
+      "thumbnail": "https://p3-sign.douyinpic.com/tos-cn-p-0015/okE67A8EVQEeBeBnBCdLda8IgKGzNIAwxAec79~noop.jpeg?lk3s=bfd515bb&x-expires=1790665200&x-signature=VGu8OXZ0Ow7sTFXPHQ5J9Beqa5E%3D&from=3218412987",
+      "published_at": null,
+      "extra": {
+        "sentence_id": "2671109"
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "c24fcacf6737",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-29T01:44:16.135502+00:00",
+          "rank": 2
+        }
+      ]
+    },
+    {
+      "source": "feed",
+      "rank": 2,
+      "title": "李飞飞创业公司被苏姿丰550亿收购！世界模型最大交易落地",
+      "title_zh": "李飞飞创业公司被苏姿丰550亿收购！世界模型最大交易落地",
+      "url": "https://www.qbitai.com/2026/09/499098.html",
+      "hot_value": null,
+      "summary_zh": "李飞飞创业公司被苏姿丰550亿收购！世界模型最大交易落地 梦晨 2026-09-29 08:49:30 来源： 量子位 李飞飞将入职AMD首席科学家 梦晨 发自 凹非寺 量子位 | 公众号 QbitAI 82亿美元，AMD全股票收购李飞飞的World Labs。 从2024年初创办到2026年中签署收购协议，空间智能公司World Labs练习时长一坤年。 △ 签约现场两人还交换了外套 交割完成后，李飞飞将加入AMD担任执行副总裁兼首席科学家，直接向董事长兼CEO苏姿丰汇报。 联合创始人Justin Johnson和Ben Mildenhall将继续带领World Labs团队并入AMD，组建前沿AI研究组织。 双方计划共同建设跨越硬件、软件、平台以及广泛可访问的开放模型的端到端AI生态。 自从9月初英伟达收购了HuggingFace，就有人猜AMD会如何应对，何时出手。 现在答案揭晓。",
+      "thumbnail": null,
+      "published_at": "2026-09-29T00:49:30+00:00",
+      "extra": {
+        "feed_name": "量子位",
+        "tab": "ai",
+        "route": "/qbitai/category/%E8%B5%84%E8%AE%AF",
+        "translate": false,
+        "description": "李飞飞创业公司被苏姿丰550亿收购！世界模型最大交易落地 梦晨 2026-09-29 08:49:30 来源： 量子位 李飞飞将入职AMD首席科学家 梦晨 发自 凹非寺 量子位 | 公众号 QbitAI 82亿美元，AMD全股票收购李飞飞的World Labs。 从2024年初创办到2026年中签署收购协议，空间智能公司World Labs练习时长一坤年。 △ 签约现场两人还交换了外套 交割完成后，李飞飞将加入AMD担任执行副总裁兼首席科学家，直接向董事长兼CEO苏姿丰汇报。 联合创始人Justin Johnson和Ben Mildenhall将继续带领World Labs团队并入AMD，组建前沿AI研究组织。 双方计划共同建设跨越硬件、软件、平台以及广泛可访问的开放模型的端到端AI生态。 自从9月初英伟达收购了HuggingFace，就有人猜AMD会如何应对，何时出手。 现在答案揭晓。 ",
+        "dedupe_key": "https://www.qbitai.com/2026/09/499098.html"
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "32350e571b69",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-29T01:44:16.135502+00:00",
+          "rank": 2
+        }
+      ]
+    },
+    {
+      "source": "github",
+      "rank": 2,
+      "title": "paperclipai/paperclip",
+      "title_zh": "paperclipai/paperclip",
+      "url": "https://github.com/paperclipai/paperclip",
+      "hot_value": "3,197 stars today",
+      "summary_zh": "开源AI代理管理工具，团队协作管理智能体首选。",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "description": "The open-source app everyone uses to manage agents at work",
+        "language": "TypeScript"
+      },
+      "days_on_board": 1,
+      "is_new": false,
+      "rank_delta": -1,
+      "cluster_id": "f1a76c5351d5",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-25T13:44:22.330496+00:00",
+          "rank": 1
+        },
+        {
+          "run_at": "2026-09-26T01:44:08.091932+00:00",
+          "rank": 1
+        },
+        {
+          "run_at": "2026-09-27T22:44:00.556569+00:00",
+          "rank": 1
+        },
+        {
+          "run_at": "2026-09-29T01:44:16.135502+00:00",
+          "rank": 2
+        }
+      ]
+    },
+    {
+      "source": "gongkao",
+      "rank": 2,
+      "title": "关于办理终止养老保险关系参保人员个人账户余额返还的公告",
+      "title_zh": "关于办理终止养老保险关系参保人员个人账户余额返还的公告",
+      "url": "https://rst.ln.gov.cn/rst/zxzx/gsgg/2026091016363094480/index.shtml",
+      "hot_value": null,
+      "summary_zh": null,
+      "thumbnail": null,
+      "published_at": "2026-09-10",
+      "extra": {
+        "id": "gov:d497850d4f6417ff60d7772d",
+        "sub": "announcement",
+        "subsource": "government",
+        "source_site": "gov",
+        "government_source": true,
+        "gov_source_name": "辽宁省人社厅-公示公告",
+        "province": "辽宁",
+        "exam_type": "事业单位",
+        "issueTime": "2026-09-10",
+        "announcement_url": "https://rst.ln.gov.cn/rst/zxzx/gsgg/2026091016363094480/index.shtml",
+        "filter_action": "keep",
+        "filter_reason": "trusted_announcement",
+        "needs_review": false,
+        "target_university_hit": [],
+        "city_focus_hit": []
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "de70ad656eff",
+      "cluster_size": 1,
+      "rank_history": []
     },
     {
       "source": "jobs",
       "rank": 2,
       "title": "综合业务",
       "title_zh": "综合业务",
-      "url": "https://www.iguopin.com/job/detail?id=218520025714131129&source=campus",
+      "url": "https://www.iguopin.com/job/detail?id=218520024069963961&source=campus",
       "hot_value": null,
       "summary_zh": "【岗位职责】 1.负责组织人事、人力资源等日常相关工作； 2.负责党建基础工作，组织开展党建学习，做好党员发展、组织关系转接及党建台账管理等工作； 3.协作开展会议会务、会议纪要记录、档案归档相关工作； 4.参与制定规划、专项调研等相关工作； 5.负责行政管理日常工作。 【任职条件】 1.硕士研究生及以上学历，经济、财务、工商管理、人力资源、思想政治、法律等相关专业； 2.获得国家相应职称及专业资",
       "thumbnail": null,
@@ -1926,22 +2189,22 @@
         "is_central_soe": false,
         "is_state_owned": true
       },
-      "days_on_board": 3,
+      "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 27,
+      "rank_delta": 0,
       "cluster_id": "ce984836e916",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-24T13:44:17.795322+00:00",
+          "run_at": "2026-09-23T16:44:31.496968+00:00",
           "rank": 2
         },
         {
-          "run_at": "2026-09-25T13:44:22.330496+00:00",
-          "rank": 29
+          "run_at": "2026-09-27T22:44:00.556569+00:00",
+          "rank": 2
         },
         {
-          "run_at": "2026-09-26T01:44:08.091932+00:00",
+          "run_at": "2026-09-29T01:44:16.135502+00:00",
           "rank": 2
         }
       ]
@@ -1949,9 +2212,9 @@
     {
       "source": "nowcoder",
       "rank": 2,
-      "title": "单2秋招鼠记录一下27秋招",
-      "title_zh": "单2秋招鼠记录一下27秋招",
-      "url": "https://www.nowcoder.com/feed/main/detail/233c07c173f04783913c7942253b6331",
+      "title": "秋招现状",
+      "title_zh": "秋招现状",
+      "url": "https://www.nowcoder.com/feed/main/detail/1402708a5bc54f59b5def463fd93e778",
       "hot_value": "命中 1 个关键词",
       "summary_zh": null,
       "thumbnail": null,
@@ -1963,1343 +2226,15 @@
         ],
         "description": ""
       },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "6709e9562f24",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-25T13:44:22.330496+00:00",
-          "rank": 2
-        },
-        {
-          "run_at": "2026-09-26T01:44:08.091932+00:00",
-          "rank": 2
-        }
-      ]
-    },
-    {
-      "source": "telegram",
-      "rank": 2,
-      "title": "Kothamine Agent, an undocumented RAT tied to malicious npm packages, can control Windows PCs, steal browser data, and capture audio/video. New variants use tailcat to hide encrypted command traffic. #KothamineAgent #tailcat #Tailscale ➡️ https://www.hendryadrian.com/kothamine-malware-uses-tailscales",
-      "title_zh": "Kothamine Agent，一个与恶意npm包相关的未记录RAT，可控制Windows电脑、窃取浏览器数据并捕获音视频。新变种使用tailcat隐藏加密命令流量。#KothamineAgent #tailcat #Tailscale ➡️ https://www.hendryadrian.com/kothamine-malware-uses-tailscales",
-      "url": "https://t.me/cybernotif/36434",
-      "hot_value": "3",
-      "summary_zh": null,
-      "thumbnail": null,
-      "published_at": "2026-09-26T01:15:05+00:00",
-      "extra": {
-        "channel": "cybernotif",
-        "translate": true
-      },
       "days_on_board": 1,
       "is_new": true,
       "rank_delta": "new",
-      "cluster_id": "0835862dd4fa",
+      "cluster_id": "8e94d37fa0e0",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-26T01:44:08.091932+00:00",
+          "run_at": "2026-09-29T01:44:16.135502+00:00",
           "rank": 2
-        }
-      ]
-    },
-    {
-      "source": "weibo",
-      "rank": 2,
-      "title": "国家出手调控油价了",
-      "title_zh": "国家出手调控油价了",
-      "url": "https://s.weibo.com/weibo?q=%23%E5%9B%BD%E5%AE%B6%E5%87%BA%E6%89%8B%E8%B0%83%E6%8E%A7%E6%B2%B9%E4%BB%B7%E4%BA%86%23",
-      "hot_value": "750454",
-      "summary_zh": null,
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "category": null
-      },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
-      "cluster_id": "31155d763b1b",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-26T01:44:08.091932+00:00",
-          "rank": 2
-        }
-      ]
-    },
-    {
-      "source": "youtube",
-      "rank": 2,
-      "title": "MADDEN - Official Trailer | Prime Video",
-      "title_zh": "MADDEN - 官方预告 | Prime Video",
-      "url": "https://youtube.com/watch?v=xzh7HzLXXpk",
-      "hot_value": "2604455",
-      "summary_zh": "Prime Video《Madden》预告，橄榄球传奇故事。",
-      "thumbnail": "https://i.ytimg.com/vi/xzh7HzLXXpk/hqdefault.jpg",
-      "published_at": "2026-09-24T13:10:37Z",
-      "extra": {
-        "video_id": "xzh7HzLXXpk",
-        "region": "US",
-        "channel": "Prime Video",
-        "description": "Football wouldn’t be football, without Madden. Watch #MaddenMovie November 18.\n\n» SUBSCRIBE: http://bit.ly/PrimeVideoSubscribe\n \nAbout Prime Video:\nWant to watch it now? We’ve got it. This week’s newest movies, last night’s TV shows, classic favorites, and more are available to stream instantly, plu"
-      },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 3,
-      "cluster_id": "0b73132291be",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-25T13:44:22.330496+00:00",
-          "rank": 5
-        },
-        {
-          "run_at": "2026-09-26T01:44:08.091932+00:00",
-          "rank": 2
-        }
-      ]
-    },
-    {
-      "source": "bilibili",
-      "rank": 3,
-      "title": "今天抄家 人民的兔娘",
-      "title_zh": "今天抄家 人民的兔娘",
-      "url": "https://b23.tv/BV1y6au6UEJp",
-      "hot_value": "1718574",
-      "summary_zh": null,
-      "thumbnail": "http://i1.hdslb.com/bfs/archive/c2ac144e0462102f85e8c464b6b31924885054cd.jpg",
-      "published_at": "2026-09-25T04:56:22+00:00",
-      "extra": {
-        "bvid": "BV1y6au6UEJp",
-        "owner": "野生鱼白"
-      },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": -1,
-      "cluster_id": "151aab96a73a",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-25T13:44:22.330496+00:00",
-          "rank": 2
-        },
-        {
-          "run_at": "2026-09-26T01:44:08.091932+00:00",
-          "rank": 3
-        }
-      ]
-    },
-    {
-      "source": "douyin",
-      "rank": 3,
-      "title": "中美青年“双向奔赴”",
-      "title_zh": "中美青年“双向奔赴”",
-      "url": "https://www.douyin.com/search/%E4%B8%AD%E7%BE%8E%E9%9D%92%E5%B9%B4%E2%80%9C%E5%8F%8C%E5%90%91%E5%A5%94%E8%B5%B4%E2%80%9D",
-      "hot_value": "11619920",
-      "summary_zh": null,
-      "thumbnail": "https://p26-sign.douyinpic.com/tos-cn-p-0015/okQDqtQ8iZLkABOgiiEAEgeAESDR21rQkgfF9Q~noop.jpeg?lk3s=bfd515bb&x-expires=1790406000&x-signature=2OTCWcgwmZDWWMSmRqViMrq5dUY%3D&from=3218412987",
-      "published_at": null,
-      "extra": {
-        "sentence_id": "2667003"
-      },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "f6bce47af540",
-      "cluster_size": 2,
-      "rank_history": [
-        {
-          "run_at": "2026-09-25T13:44:22.330496+00:00",
-          "rank": 3
-        },
-        {
-          "run_at": "2026-09-26T01:44:08.091932+00:00",
-          "rank": 3
-        }
-      ]
-    },
-    {
-      "source": "feed",
-      "rank": 3,
-      "title": "IT早报 0926：微软发布新版 Copilot“超级应用”；罗永浩回应交个朋友代销劣质溜溜凳；Muse 大火扎克伯格成全球第四大富豪；央视揭抢票工具四大套路...",
-      "title_zh": "IT早报 0926：微软发布新版 Copilot“超级应用”；罗永浩回应交个朋友代销劣质溜溜凳；Muse 大火扎克伯格成全球第四大富豪；央视揭抢票工具四大套路...",
-      "url": "https://www.ithome.com/1/007/279.htm",
-      "hot_value": null,
-      "summary_zh": "“IT早报”时间，大家好，现在是 2026 年 9 月 26 日星期六，今天的重要科技资讯有： 1. 聊天、编程、智能体三合一，微软正式发布新版 Copilot“超级应用” 微软 AI 工作业务首席营销官贾里德 · 斯帕塔罗表示：“正如 Office 定义了 PC 时代的工作方式，新 Copilot 旨在定义 AI 时代的工作方式。”>> 查看详情 2. 罗永浩回应交个朋友代销劣质溜溜凳：2022 年 5 月已退出管理层，承认严重质量管理事故 近日交个朋友直播间被曝代销劣质溜溜凳，用料为废弃发霉材料，罗永浩回应称虽然 2022 年 5 月就退出了交个朋友管理层，但一直担任交个朋友的首席监督官。不管怎么样，这是一起严重的质量管理事故。>> 查看详情 3. Muse 爆火提振 Meta 股价，扎克伯格超戴尔跃升《福布斯》全球第四大富豪 据《福布斯》报道，随着 Meta 股价上涨，Meta 首席",
-      "thumbnail": null,
-      "published_at": "2026-09-25T23:51:33+00:00",
-      "extra": {
-        "feed_name": "IT之家",
-        "tab": "ai",
-        "route": "/ithome/it",
-        "translate": false,
-        "description": "“IT早报”时间，大家好，现在是 2026 年 9 月 26 日星期六，今天的重要科技资讯有： 1. 聊天、编程、智能体三合一，微软正式发布新版 Copilot“超级应用” 微软 AI 工作业务首席营销官贾里德 · 斯帕塔罗表示：“正如 Office 定义了 PC 时代的工作方式，新 Copilot 旨在定义 AI 时代的工作方式。”>> 查看详情 2. 罗永浩回应交个朋友代销劣质溜溜凳：2022 年 5 月已退出管理层，承认严重质量管理事故 近日交个朋友直播间被曝代销劣质溜溜凳，用料为废弃发霉材料，罗永浩回应称虽然 2022 年 5 月就退出了交个朋友管理层，但一直担任交个朋友的首席监督官。不管怎么样，这是一起严重的质量管理事故。>> 查看详情 3. Muse 爆火提振 Meta 股价，扎克伯格超戴尔跃升《福布斯》全球第四大富豪 据《福布斯》报道，随着 Meta 股价上涨，Meta 首席",
-        "dedupe_key": "https://www.ithome.com/1/007/279.htm"
-      },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
-      "cluster_id": "e63c297e8370",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-26T01:44:08.091932+00:00",
-          "rank": 3
-        }
-      ]
-    }
-  ],
-  "longest_on_board": [
-    {
-      "source": "telegram",
-      "rank": 35,
-      "title": "For all the info from today's update and a look back at 13 years of Telegram features — check out our blog: https://telegram.org/blog/welcome-messages-buttons-TG-13 August Features 1 • 2 • 3 • 4 • 5 • More",
-      "title_zh": "关于今天更新的所有信息以及Telegram 13年功能回顾——请查看我们的博客：https://telegram.org/blog/welcome-messages-buttons-TG-13 八月功能 1 • 2 • 3 • 4 • 5 • 更多",
-      "url": "https://t.me/telegram/460",
-      "hot_value": "1.5M",
-      "summary_zh": null,
-      "thumbnail": null,
-      "published_at": "2026-08-26T19:12:34+00:00",
-      "extra": {
-        "channel": "telegram",
-        "translate": true
-      },
-      "days_on_board": 27,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "3e7cca968a7c",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-21T13:44:30.366356+00:00",
-          "rank": 35
-        },
-        {
-          "run_at": "2026-09-22T01:44:24.908009+00:00",
-          "rank": 35
-        },
-        {
-          "run_at": "2026-09-22T10:44:17.910298+00:00",
-          "rank": 34
-        },
-        {
-          "run_at": "2026-09-23T16:44:31.496968+00:00",
-          "rank": 35
-        },
-        {
-          "run_at": "2026-09-24T13:44:17.795322+00:00",
-          "rank": 35
-        },
-        {
-          "run_at": "2026-09-25T13:44:22.330496+00:00",
-          "rank": 35
-        },
-        {
-          "run_at": "2026-09-26T01:44:08.091932+00:00",
-          "rank": 35
-        },
-        {
-          "run_at": "2026-09-27T22:44:00.556569+00:00",
-          "rank": 35
-        }
-      ]
-    },
-    {
-      "source": "telegram",
-      "rank": 36,
-      "title": "Iran hits Gulf states and Jordan after seventh night of US strikes Iran launched more attacks on Washington's Gulf allies and ​Jordan on Saturday after a seventh straight night of U.S. strikes on Iranian military targets, escalating the war one week after a ceasefire collapsed. Kuwait came under sus",
-      "title_zh": "伊朗在美连续七夜打击后，袭击海湾国家及约旦",
-      "url": "https://t.me/ReutersWorldChannel/151528",
-      "hot_value": "21.9K",
-      "summary_zh": null,
-      "thumbnail": null,
-      "published_at": "2026-07-18T17:00:01+00:00",
-      "extra": {
-        "channel": "reutersworldchannel",
-        "translate": true
-      },
-      "days_on_board": 27,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "4740f63625f1",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-21T13:44:30.366356+00:00",
-          "rank": 36
-        },
-        {
-          "run_at": "2026-09-22T01:44:24.908009+00:00",
-          "rank": 36
-        },
-        {
-          "run_at": "2026-09-22T10:44:17.910298+00:00",
-          "rank": 35
-        },
-        {
-          "run_at": "2026-09-23T16:44:31.496968+00:00",
-          "rank": 36
-        },
-        {
-          "run_at": "2026-09-24T13:44:17.795322+00:00",
-          "rank": 36
-        },
-        {
-          "run_at": "2026-09-25T13:44:22.330496+00:00",
-          "rank": 36
-        },
-        {
-          "run_at": "2026-09-26T01:44:08.091932+00:00",
-          "rank": 36
-        },
-        {
-          "run_at": "2026-09-27T22:44:00.556569+00:00",
-          "rank": 36
-        }
-      ]
-    },
-    {
-      "source": "conf_deadlines",
-      "rank": 1,
-      "title": "ICLR 2027 截止",
-      "title_zh": "ICLR 2027 截止",
-      "url": "https://iclr.cc/Conferences/2027",
-      "hot_value": "已截止 1 天",
-      "summary_zh": "International Conference on Learning Representations · San Francisco, CA, USA · 官网",
-      "thumbnail": null,
-      "published_at": "2026-09-26T11:59:59+00:00",
-      "extra": {
-        "subsource": "ai-deadlines",
-        "conference": "ICLR",
-        "deadline": "2026-09-26T11:59:59+00:00",
-        "days_left": -1,
-        "link": "https://iclr.cc/Conferences/2027",
-        "full_name": "International Conference on Learning Representations",
-        "location": "San Francisco, CA, USA"
-      },
-      "days_on_board": 26,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "452d7cc39ac2",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-21T13:44:30.366356+00:00",
-          "rank": 1
-        },
-        {
-          "run_at": "2026-09-22T01:44:24.908009+00:00",
-          "rank": 1
-        },
-        {
-          "run_at": "2026-09-22T10:44:17.910298+00:00",
-          "rank": 1
-        },
-        {
-          "run_at": "2026-09-23T16:44:31.496968+00:00",
-          "rank": 1
-        },
-        {
-          "run_at": "2026-09-24T13:44:17.795322+00:00",
-          "rank": 1
-        },
-        {
-          "run_at": "2026-09-25T13:44:22.330496+00:00",
-          "rank": 1
-        },
-        {
-          "run_at": "2026-09-26T01:44:08.091932+00:00",
-          "rank": 1
-        },
-        {
-          "run_at": "2026-09-27T22:44:00.556569+00:00",
-          "rank": 1
-        }
-      ]
-    },
-    {
-      "source": "feed",
-      "rank": 80,
-      "title": "1.12.4",
-      "title_zh": "1.12.4",
-      "url": "https://github.com/scverse/scanpy/releases/tag/1.12.4",
-      "hot_value": null,
-      "summary_zh": "https://scanpy.readthedocs.io/en/stable/release-notes/index.html#v1-12-4",
-      "thumbnail": null,
-      "published_at": "2026-08-31T07:39:23+00:00",
-      "extra": {
-        "feed_name": "scanpy 发版",
-        "tab": "tools",
-        "route": "https://github.com/scverse/scanpy/releases.atom",
-        "translate": true,
-        "description": "https://scanpy.readthedocs.io/en/stable/release-notes/index.html#v1-12-4",
-        "dedupe_key": "https://github.com/scverse/scanpy/releases/tag/1.12.4"
-      },
-      "days_on_board": 25,
-      "is_new": false,
-      "rank_delta": 2,
-      "cluster_id": "877b691e9b59",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-21T13:44:30.366356+00:00",
-          "rank": 71
-        },
-        {
-          "run_at": "2026-09-22T01:44:24.908009+00:00",
-          "rank": 82
-        },
-        {
-          "run_at": "2026-09-22T10:44:17.910298+00:00",
-          "rank": 74
-        },
-        {
-          "run_at": "2026-09-23T16:44:31.496968+00:00",
-          "rank": 77
-        },
-        {
-          "run_at": "2026-09-24T13:44:17.795322+00:00",
-          "rank": 82
-        },
-        {
-          "run_at": "2026-09-25T13:44:22.330496+00:00",
-          "rank": 78
-        },
-        {
-          "run_at": "2026-09-26T01:44:08.091932+00:00",
-          "rank": 82
-        },
-        {
-          "run_at": "2026-09-27T22:44:00.556569+00:00",
-          "rank": 80
-        }
-      ]
-    },
-    {
-      "source": "feed",
-      "rank": 81,
-      "title": "1.13.0a2",
-      "title_zh": "1.13.0a2",
-      "url": "https://github.com/scverse/scanpy/releases/tag/1.13.0a2",
-      "hot_value": null,
-      "summary_zh": "https://scanpy.scverse.org/en/latest/release-notes/index.html#version-1-13",
-      "thumbnail": null,
-      "published_at": "2026-08-28T11:51:45+00:00",
-      "extra": {
-        "feed_name": "scanpy 发版",
-        "tab": "tools",
-        "route": "https://github.com/scverse/scanpy/releases.atom",
-        "translate": true,
-        "description": "https://scanpy.scverse.org/en/latest/release-notes/index.html#version-1-13",
-        "dedupe_key": "https://github.com/scverse/scanpy/releases/tag/1.13.0a2"
-      },
-      "days_on_board": 25,
-      "is_new": false,
-      "rank_delta": 2,
-      "cluster_id": "768fc0d2e613",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-21T13:44:30.366356+00:00",
-          "rank": 73
-        },
-        {
-          "run_at": "2026-09-22T01:44:24.908009+00:00",
-          "rank": 83
-        },
-        {
-          "run_at": "2026-09-22T10:44:17.910298+00:00",
-          "rank": 75
-        },
-        {
-          "run_at": "2026-09-23T16:44:31.496968+00:00",
-          "rank": 78
-        },
-        {
-          "run_at": "2026-09-24T13:44:17.795322+00:00",
-          "rank": 83
-        },
-        {
-          "run_at": "2026-09-25T13:44:22.330496+00:00",
-          "rank": 79
-        },
-        {
-          "run_at": "2026-09-26T01:44:08.091932+00:00",
-          "rank": 83
-        },
-        {
-          "run_at": "2026-09-27T22:44:00.556569+00:00",
-          "rank": 81
-        }
-      ]
-    },
-    {
-      "source": "feed",
-      "rank": 82,
-      "title": "1.13.0a1",
-      "title_zh": "1.13.0a1",
-      "url": "https://github.com/scverse/scanpy/releases/tag/1.13.0a1",
-      "hot_value": null,
-      "summary_zh": "https://scanpy.scverse.org/en/latest/release-notes/index.html#version-1-13",
-      "thumbnail": null,
-      "published_at": "2026-07-24T13:04:20+00:00",
-      "extra": {
-        "feed_name": "scanpy 发版",
-        "tab": "tools",
-        "route": "https://github.com/scverse/scanpy/releases.atom",
-        "translate": true,
-        "description": "https://scanpy.scverse.org/en/latest/release-notes/index.html#version-1-13",
-        "dedupe_key": "https://github.com/scverse/scanpy/releases/tag/1.13.0a1"
-      },
-      "days_on_board": 25,
-      "is_new": false,
-      "rank_delta": 2,
-      "cluster_id": "9da040e83623",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-21T13:44:30.366356+00:00",
-          "rank": 76
-        },
-        {
-          "run_at": "2026-09-22T01:44:24.908009+00:00",
-          "rank": 84
-        },
-        {
-          "run_at": "2026-09-22T10:44:17.910298+00:00",
-          "rank": 76
-        },
-        {
-          "run_at": "2026-09-23T16:44:31.496968+00:00",
-          "rank": 79
-        },
-        {
-          "run_at": "2026-09-24T13:44:17.795322+00:00",
-          "rank": 84
-        },
-        {
-          "run_at": "2026-09-25T13:44:22.330496+00:00",
-          "rank": 80
-        },
-        {
-          "run_at": "2026-09-26T01:44:08.091932+00:00",
-          "rank": 84
-        },
-        {
-          "run_at": "2026-09-27T22:44:00.556569+00:00",
-          "rank": 82
-        }
-      ]
-    },
-    {
-      "source": "feed",
-      "rank": 83,
-      "title": "1.12.3",
-      "title_zh": "1.12.3",
-      "url": "https://github.com/scverse/scanpy/releases/tag/1.12.3",
-      "hot_value": null,
-      "summary_zh": "https://scanpy.readthedocs.io/en/stable/release-notes/index.html#v1-12-3",
-      "thumbnail": null,
-      "published_at": "2026-07-24T13:03:07+00:00",
-      "extra": {
-        "feed_name": "scanpy 发版",
-        "tab": "tools",
-        "route": "https://github.com/scverse/scanpy/releases.atom",
-        "translate": true,
-        "description": "https://scanpy.readthedocs.io/en/stable/release-notes/index.html#v1-12-3",
-        "dedupe_key": "https://github.com/scverse/scanpy/releases/tag/1.12.3"
-      },
-      "days_on_board": 25,
-      "is_new": false,
-      "rank_delta": 2,
-      "cluster_id": "1e7152d08b04",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-21T13:44:30.366356+00:00",
-          "rank": 77
-        },
-        {
-          "run_at": "2026-09-22T01:44:24.908009+00:00",
-          "rank": 85
-        },
-        {
-          "run_at": "2026-09-22T10:44:17.910298+00:00",
-          "rank": 77
-        },
-        {
-          "run_at": "2026-09-23T16:44:31.496968+00:00",
-          "rank": 80
-        },
-        {
-          "run_at": "2026-09-24T13:44:17.795322+00:00",
-          "rank": 85
-        },
-        {
-          "run_at": "2026-09-25T13:44:22.330496+00:00",
-          "rank": 81
-        },
-        {
-          "run_at": "2026-09-26T01:44:08.091932+00:00",
-          "rank": 85
-        },
-        {
-          "run_at": "2026-09-27T22:44:00.556569+00:00",
-          "rank": 83
-        }
-      ]
-    },
-    {
-      "source": "feed",
-      "rank": 84,
-      "title": "scvi-tools 1.5.0.post1",
-      "title_zh": "scvi-tools 1.5.0.post1",
-      "url": "https://github.com/scverse/scvi-tools/releases/tag/1.5.0.post1",
-      "hot_value": null,
-      "summary_zh": "所有变更请见发布说明。此版本可通过PyPi获取：pip install scvi-tools。Conda版本将随后发布（通常不超过2天）。如有问题请在GitHub上报告。",
-      "thumbnail": null,
-      "published_at": "2026-07-09T17:34:20+00:00",
-      "extra": {
-        "feed_name": "scvi-tools 发版",
-        "tab": "tools",
-        "route": "https://github.com/scverse/scvi-tools/releases.atom",
-        "translate": true,
-        "description": "See the release notes for all changes. This release is available via PyPi: pip install scvi-tools Conda availability will follow (< 2 days typically) Please report any issues on GitHub .",
-        "dedupe_key": "https://github.com/scverse/scvi-tools/releases/tag/1.5.0.post1"
-      },
-      "days_on_board": 25,
-      "is_new": false,
-      "rank_delta": 2,
-      "cluster_id": "8a4eca2177ca",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-21T13:44:30.366356+00:00",
-          "rank": 78
-        },
-        {
-          "run_at": "2026-09-22T01:44:24.908009+00:00",
-          "rank": 86
-        },
-        {
-          "run_at": "2026-09-22T10:44:17.910298+00:00",
-          "rank": 78
-        },
-        {
-          "run_at": "2026-09-23T16:44:31.496968+00:00",
-          "rank": 81
-        },
-        {
-          "run_at": "2026-09-24T13:44:17.795322+00:00",
-          "rank": 86
-        },
-        {
-          "run_at": "2026-09-25T13:44:22.330496+00:00",
-          "rank": 82
-        },
-        {
-          "run_at": "2026-09-26T01:44:08.091932+00:00",
-          "rank": 86
-        },
-        {
-          "run_at": "2026-09-27T22:44:00.556569+00:00",
-          "rank": 84
-        }
-      ]
-    },
-    {
-      "source": "feed",
-      "rank": 85,
-      "title": "scvi-tools 1.5.0",
-      "title_zh": "scvi-tools 1.5.0",
-      "url": "https://github.com/scverse/scvi-tools/releases/tag/1.5.0",
-      "hot_value": null,
-      "summary_zh": "所有变更请见发布说明。此版本可通过PyPi获取：pip install scvi-tools。Conda版本将随后发布（通常不超过2天）。如有问题请在GitHub上报告。",
-      "thumbnail": null,
-      "published_at": "2026-07-09T08:06:25+00:00",
-      "extra": {
-        "feed_name": "scvi-tools 发版",
-        "tab": "tools",
-        "route": "https://github.com/scverse/scvi-tools/releases.atom",
-        "translate": true,
-        "description": "See the release notes for all changes. This release is available via PyPi: pip install scvi-tools Conda availability will follow (< 2 days typically) Please report any issues on GitHub .",
-        "dedupe_key": "https://github.com/scverse/scvi-tools/releases/tag/1.5.0"
-      },
-      "days_on_board": 25,
-      "is_new": false,
-      "rank_delta": 2,
-      "cluster_id": "8b146ac8159b",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-21T13:44:30.366356+00:00",
-          "rank": 79
-        },
-        {
-          "run_at": "2026-09-22T01:44:24.908009+00:00",
-          "rank": 87
-        },
-        {
-          "run_at": "2026-09-22T10:44:17.910298+00:00",
-          "rank": 79
-        },
-        {
-          "run_at": "2026-09-23T16:44:31.496968+00:00",
-          "rank": 82
-        },
-        {
-          "run_at": "2026-09-24T13:44:17.795322+00:00",
-          "rank": 87
-        },
-        {
-          "run_at": "2026-09-25T13:44:22.330496+00:00",
-          "rank": 83
-        },
-        {
-          "run_at": "2026-09-26T01:44:08.091932+00:00",
-          "rank": 87
-        },
-        {
-          "run_at": "2026-09-27T22:44:00.556569+00:00",
-          "rank": 85
-        }
-      ]
-    },
-    {
-      "source": "feed",
-      "rank": 86,
-      "title": "1.12.2",
-      "title_zh": "1.12.2",
-      "url": "https://github.com/scverse/scanpy/releases/tag/1.12.2",
-      "hot_value": null,
-      "summary_zh": "https://scanpy.readthedocs.io/en/stable/release-notes/index.html#v1-12-2",
-      "thumbnail": null,
-      "published_at": "2026-06-29T12:25:36+00:00",
-      "extra": {
-        "feed_name": "scanpy 发版",
-        "tab": "tools",
-        "route": "https://github.com/scverse/scanpy/releases.atom",
-        "translate": true,
-        "description": "https://scanpy.readthedocs.io/en/stable/release-notes/index.html#v1-12-2",
-        "dedupe_key": "https://github.com/scverse/scanpy/releases/tag/1.12.2"
-      },
-      "days_on_board": 25,
-      "is_new": false,
-      "rank_delta": 2,
-      "cluster_id": "750772e94d46",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-21T13:44:30.366356+00:00",
-          "rank": 80
-        },
-        {
-          "run_at": "2026-09-22T01:44:24.908009+00:00",
-          "rank": 88
-        },
-        {
-          "run_at": "2026-09-22T10:44:17.910298+00:00",
-          "rank": 80
-        },
-        {
-          "run_at": "2026-09-23T16:44:31.496968+00:00",
-          "rank": 83
-        },
-        {
-          "run_at": "2026-09-24T13:44:17.795322+00:00",
-          "rank": 88
-        },
-        {
-          "run_at": "2026-09-25T13:44:22.330496+00:00",
-          "rank": 84
-        },
-        {
-          "run_at": "2026-09-26T01:44:08.091932+00:00",
-          "rank": 88
-        },
-        {
-          "run_at": "2026-09-27T22:44:00.556569+00:00",
-          "rank": 86
-        }
-      ]
-    },
-    {
-      "source": "feed",
-      "rank": 87,
-      "title": "Version 5.5.1",
-      "title_zh": "版本5.5.1",
-      "url": "https://github.com/satijalab/seurat/releases/tag/v5.5.1",
-      "hot_value": null,
-      "summary_zh": "变更 新增 在RunUMAP中添加了uwot.init参数，可选自定义UMAP初始化方法（#10386）。修复 修复了PrepSCTFindMarkers在多模型情况下因theta过滤不当导致某些有效基因计数为零的问题（#10410）。修复了FindClusters在向resolution传递向量且使用自定义元数据时未正确设置元数据的问题。",
-      "thumbnail": null,
-      "published_at": "2026-06-26T13:14:06+00:00",
-      "extra": {
-        "feed_name": "seurat 发版",
-        "tab": "tools",
-        "route": "https://github.com/satijalab/seurat/releases.atom",
-        "translate": true,
-        "description": "Changes Additions Added uwot.init parameter to RunUMAP to optionally customize method of UMAP initialization ( #10386 ) Fixes Fixed bug in PrepSCTFindMarkers in the multi-model case that produced zero counts for some valid genes due to an incorrect filter for theta ( #10410 ) Fixed issue with FindClusters not setting metadata properly when a vector of resolutions is passed to resolution and a cust",
-        "dedupe_key": "https://github.com/satijalab/seurat/releases/tag/v5.5.1"
-      },
-      "days_on_board": 25,
-      "is_new": false,
-      "rank_delta": 2,
-      "cluster_id": "51b67338cbc0",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-21T13:44:30.366356+00:00",
-          "rank": 81
-        },
-        {
-          "run_at": "2026-09-22T01:44:24.908009+00:00",
-          "rank": 89
-        },
-        {
-          "run_at": "2026-09-22T10:44:17.910298+00:00",
-          "rank": 81
-        },
-        {
-          "run_at": "2026-09-23T16:44:31.496968+00:00",
-          "rank": 84
-        },
-        {
-          "run_at": "2026-09-24T13:44:17.795322+00:00",
-          "rank": 89
-        },
-        {
-          "run_at": "2026-09-25T13:44:22.330496+00:00",
-          "rank": 85
-        },
-        {
-          "run_at": "2026-09-26T01:44:08.091932+00:00",
-          "rank": 89
-        },
-        {
-          "run_at": "2026-09-27T22:44:00.556569+00:00",
-          "rank": 87
-        }
-      ]
-    },
-    {
-      "source": "feed",
-      "rank": 89,
-      "title": "scvi-tools 1.4.3",
-      "title_zh": "scvi-tools 1.4.3",
-      "url": "https://github.com/scverse/scvi-tools/releases/tag/1.4.3",
-      "hot_value": null,
-      "summary_zh": "所有变更请见发布说明。此版本可通过PyPi获取：pip install scvi-tools。Conda版本将随后发布（通常不超过2天）。如有问题请在GitHub上报告。",
-      "thumbnail": null,
-      "published_at": "2026-05-12T13:29:21+00:00",
-      "extra": {
-        "feed_name": "scvi-tools 发版",
-        "tab": "tools",
-        "route": "https://github.com/scverse/scvi-tools/releases.atom",
-        "translate": true,
-        "description": "See the release notes for all changes. This release is available via PyPi: pip install scvi-tools Conda availability will follow (< 2 days typically) Please report any issues on GitHub .",
-        "dedupe_key": "https://github.com/scverse/scvi-tools/releases/tag/1.4.3"
-      },
-      "days_on_board": 25,
-      "is_new": false,
-      "rank_delta": 2,
-      "cluster_id": "bbea1c662507",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-21T13:44:30.366356+00:00",
-          "rank": 83
-        },
-        {
-          "run_at": "2026-09-22T01:44:24.908009+00:00",
-          "rank": 91
-        },
-        {
-          "run_at": "2026-09-22T10:44:17.910298+00:00",
-          "rank": 83
-        },
-        {
-          "run_at": "2026-09-23T16:44:31.496968+00:00",
-          "rank": 86
-        },
-        {
-          "run_at": "2026-09-24T13:44:17.795322+00:00",
-          "rank": 91
-        },
-        {
-          "run_at": "2026-09-25T13:44:22.330496+00:00",
-          "rank": 87
-        },
-        {
-          "run_at": "2026-09-26T01:44:08.091932+00:00",
-          "rank": 91
-        },
-        {
-          "run_at": "2026-09-27T22:44:00.556569+00:00",
-          "rank": 89
-        }
-      ]
-    },
-    {
-      "source": "feed",
-      "rank": 90,
-      "title": "Version 5.5.0",
-      "title_zh": "版本5.5.0",
-      "url": "https://github.com/satijalab/seurat/releases/tag/v5.5.0",
-      "hot_value": null,
-      "summary_zh": "变更 新增 在ScaleData.IterableMatrix（BPCells）中添加了对vars.to.regress和latent.data的支持（#10300）。在SCTransform中添加了警告，当指定参考SCT模型时，do.correct.umi被硬设为F（#10329，#10366）。在FindMarkers/FindAllMarkers中，当在列主存储顺序的IterableMatrix（BPCells）上运行时添加了警告（#10365）。添加了plot_typ...",
-      "thumbnail": null,
-      "published_at": "2026-04-22T14:06:49+00:00",
-      "extra": {
-        "feed_name": "seurat 发版",
-        "tab": "tools",
-        "route": "https://github.com/satijalab/seurat/releases.atom",
-        "translate": true,
-        "description": "Changes Additions Added support for vars.to.regress and latent.data in ScaleData.IterableMatrix (BPCells) ( #10300 ) Added warning to SCTransform to notify that do.correct.umi is hard set to F when a reference SCT model is specified ( #10329 , #10366 ) Added warning to FindMarkers / FindAllMarkers when running on an IterableMatrix (BPCells) with column-major storage order ( #10365 ) Added plot_typ",
-        "dedupe_key": "https://github.com/satijalab/seurat/releases/tag/v5.5.0"
-      },
-      "days_on_board": 25,
-      "is_new": false,
-      "rank_delta": 2,
-      "cluster_id": "7c320a02a1ec",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-21T13:44:30.366356+00:00",
-          "rank": 84
-        },
-        {
-          "run_at": "2026-09-22T01:44:24.908009+00:00",
-          "rank": 92
-        },
-        {
-          "run_at": "2026-09-22T10:44:17.910298+00:00",
-          "rank": 84
-        },
-        {
-          "run_at": "2026-09-23T16:44:31.496968+00:00",
-          "rank": 87
-        },
-        {
-          "run_at": "2026-09-24T13:44:17.795322+00:00",
-          "rank": 92
-        },
-        {
-          "run_at": "2026-09-25T13:44:22.330496+00:00",
-          "rank": 88
-        },
-        {
-          "run_at": "2026-09-26T01:44:08.091932+00:00",
-          "rank": 92
-        },
-        {
-          "run_at": "2026-09-27T22:44:00.556569+00:00",
-          "rank": 90
-        }
-      ]
-    },
-    {
-      "source": "feed",
-      "rank": 91,
-      "title": "scvi-tools 1.4.2",
-      "title_zh": "scvi-tools 1.4.2",
-      "url": "https://github.com/scverse/scvi-tools/releases/tag/1.4.2",
-      "hot_value": null,
-      "summary_zh": "所有变更请见发布说明。此版本可通过PyPi获取：pip install scvi-tools。Conda版本将随后发布（通常不超过2天）。如有问题请在GitHub上报告。",
-      "thumbnail": null,
-      "published_at": "2026-02-26T11:47:07+00:00",
-      "extra": {
-        "feed_name": "scvi-tools 发版",
-        "tab": "tools",
-        "route": "https://github.com/scverse/scvi-tools/releases.atom",
-        "translate": true,
-        "description": "See the release notes for all changes. This release is available via PyPi: pip install scvi-tools Conda availability will follow (< 2 days typically) Please report any issues on GitHub .",
-        "dedupe_key": "https://github.com/scverse/scvi-tools/releases/tag/1.4.2"
-      },
-      "days_on_board": 25,
-      "is_new": false,
-      "rank_delta": 2,
-      "cluster_id": "05240d494324",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-21T13:44:30.366356+00:00",
-          "rank": 85
-        },
-        {
-          "run_at": "2026-09-22T01:44:24.908009+00:00",
-          "rank": 93
-        },
-        {
-          "run_at": "2026-09-22T10:44:17.910298+00:00",
-          "rank": 85
-        },
-        {
-          "run_at": "2026-09-23T16:44:31.496968+00:00",
-          "rank": 88
-        },
-        {
-          "run_at": "2026-09-24T13:44:17.795322+00:00",
-          "rank": 93
-        },
-        {
-          "run_at": "2026-09-25T13:44:22.330496+00:00",
-          "rank": 89
-        },
-        {
-          "run_at": "2026-09-26T01:44:08.091932+00:00",
-          "rank": 93
-        },
-        {
-          "run_at": "2026-09-27T22:44:00.556569+00:00",
-          "rank": 91
-        }
-      ]
-    },
-    {
-      "source": "feed",
-      "rank": 92,
-      "title": "Version 5.4.0",
-      "title_zh": "版本5.4.0",
-      "url": "https://github.com/satijalab/seurat/releases/tag/v5.4.0",
-      "hot_value": null,
-      "summary_zh": "变更 新增 添加了对10x Space Ranger 4.0输出的支持（带分割的Visium数据）。更新了数据加载函数Load10X_Spatial、Read10X_Image。更新了GetTissueCoordinates.VisiumV2。更新了空间可视化函数SpatialPlot、SingleSpatialPlot、SpatialDimPlot、SpatialFeaturePlot。添加了辅助函数Read10X_Segmentations、Read10X_HD_GeoJson、Format10X_GeoJson_CellI...",
-      "thumbnail": null,
-      "published_at": "2025-12-15T15:22:32+00:00",
-      "extra": {
-        "feed_name": "seurat 发版",
-        "tab": "tools",
-        "route": "https://github.com/satijalab/seurat/releases.atom",
-        "translate": true,
-        "description": "Changes Additions Added support for 10x Space Ranger 4.0 outputs (Visium data with segmentations) Updated data loading functions Load10X_Spatial , Read10X_Image Updated GetTissueCoordinates.VisiumV2 Updated spatial visualization functions SpatialPlot , SingleSpatialPlot , SpatialDimPlot , SpatialFeaturePlot Added helper functions Read10X_Segmentations , Read10X_HD_GeoJson , Format10X_GeoJson_CellI",
-        "dedupe_key": "https://github.com/satijalab/seurat/releases/tag/v5.4.0"
-      },
-      "days_on_board": 25,
-      "is_new": false,
-      "rank_delta": 2,
-      "cluster_id": "df617b34a5ab",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-21T13:44:30.366356+00:00",
-          "rank": 86
-        },
-        {
-          "run_at": "2026-09-22T01:44:24.908009+00:00",
-          "rank": 94
-        },
-        {
-          "run_at": "2026-09-22T10:44:17.910298+00:00",
-          "rank": 86
-        },
-        {
-          "run_at": "2026-09-23T16:44:31.496968+00:00",
-          "rank": 89
-        },
-        {
-          "run_at": "2026-09-24T13:44:17.795322+00:00",
-          "rank": 94
-        },
-        {
-          "run_at": "2026-09-25T13:44:22.330496+00:00",
-          "rank": 90
-        },
-        {
-          "run_at": "2026-09-26T01:44:08.091932+00:00",
-          "rank": 94
-        },
-        {
-          "run_at": "2026-09-27T22:44:00.556569+00:00",
-          "rank": 92
-        }
-      ]
-    },
-    {
-      "source": "feed",
-      "rank": 93,
-      "title": "Version 5.3.1",
-      "title_zh": "版本5.3.1",
-      "url": "https://github.com/satijalab/seurat/releases/tag/v5.3.1",
-      "hot_value": null,
-      "summary_zh": "变更 新增 添加了使用igraph的cluster_leiden进行Leiden聚类的选项（#9931）。添加了使用uwot的umap2进行UMAP的选项（#9918）。添加了使用uwot的approx_pow参数进行UMAP的选项（#9449）。更新了LoadXenium以支持Xenium蛋白数据（#10024）。添加了在FeaturePlot中指定描边大小的选项（#10053）。添加了label.size.cut...",
-      "thumbnail": null,
-      "published_at": "2025-10-29T14:10:34+00:00",
-      "extra": {
-        "feed_name": "seurat 发版",
-        "tab": "tools",
-        "route": "https://github.com/satijalab/seurat/releases.atom",
-        "translate": true,
-        "description": "Changes Additions Added option to use cluster_leiden from igraph when running Leiden clustering ( #9931 ) Added option to use umap2 from uwot when running UMAP ( #9918 ) Added option to use approx_pow parameter from uwot when running UMAP ( #9449 ) Updated LoadXenium to add support for Xenium protein data ( #10024 ) Added option to specify stroke size in FeaturePlot ( #10053 ) Added label.size.cut",
-        "dedupe_key": "https://github.com/satijalab/seurat/releases/tag/v5.3.1"
-      },
-      "days_on_board": 25,
-      "is_new": false,
-      "rank_delta": 2,
-      "cluster_id": "c40ecccee25e",
-      "cluster_size": 2,
-      "rank_history": [
-        {
-          "run_at": "2026-09-21T13:44:30.366356+00:00",
-          "rank": 87
-        },
-        {
-          "run_at": "2026-09-22T01:44:24.908009+00:00",
-          "rank": 95
-        },
-        {
-          "run_at": "2026-09-22T10:44:17.910298+00:00",
-          "rank": 87
-        },
-        {
-          "run_at": "2026-09-23T16:44:31.496968+00:00",
-          "rank": 90
-        },
-        {
-          "run_at": "2026-09-24T13:44:17.795322+00:00",
-          "rank": 95
-        },
-        {
-          "run_at": "2026-09-25T13:44:22.330496+00:00",
-          "rank": 91
-        },
-        {
-          "run_at": "2026-09-26T01:44:08.091932+00:00",
-          "rank": 95
-        },
-        {
-          "run_at": "2026-09-27T22:44:00.556569+00:00",
-          "rank": 93
-        }
-      ]
-    },
-    {
-      "source": "feed",
-      "rank": 94,
-      "title": "Version 5.3.0",
-      "title_zh": "版本5.3.0",
-      "url": "https://github.com/satijalab/seurat/releases/tag/v5.3.0",
-      "hot_value": null,
-      "summary_zh": "错误修复和性能改进，包括：重构和加速sctransform；重构和加速杠杆分数计算；修复了可变特征选择、模块分数计算、PseudobulkExpression及其他可能导致边缘情况错误的bug；改进了测试和CI。",
-      "thumbnail": null,
-      "published_at": "2025-04-24T00:45:06+00:00",
-      "extra": {
-        "feed_name": "seurat 发版",
-        "tab": "tools",
-        "route": "https://github.com/satijalab/seurat/releases.atom",
-        "translate": true,
-        "description": "Bug releases and performance improvements, including: Refactoring and speed-up of sctransform Refactroring and speed-up of leverage score calcluation Fixes to variable feature selection, module score calculation, PseudobulkExpression, and other bugs that could cause errors in edge cases Improved testing, CI",
-        "dedupe_key": "https://github.com/satijalab/seurat/releases/tag/v5.3.0"
-      },
-      "days_on_board": 25,
-      "is_new": false,
-      "rank_delta": 2,
-      "cluster_id": "0ce572688cdd",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-21T13:44:30.366356+00:00",
-          "rank": 88
-        },
-        {
-          "run_at": "2026-09-22T01:44:24.908009+00:00",
-          "rank": 96
-        },
-        {
-          "run_at": "2026-09-22T10:44:17.910298+00:00",
-          "rank": 88
-        },
-        {
-          "run_at": "2026-09-23T16:44:31.496968+00:00",
-          "rank": 91
-        },
-        {
-          "run_at": "2026-09-24T13:44:17.795322+00:00",
-          "rank": 96
-        },
-        {
-          "run_at": "2026-09-25T13:44:22.330496+00:00",
-          "rank": 92
-        },
-        {
-          "run_at": "2026-09-26T01:44:08.091932+00:00",
-          "rank": 96
-        },
-        {
-          "run_at": "2026-09-27T22:44:00.556569+00:00",
-          "rank": 94
-        }
-      ]
-    },
-    {
-      "source": "jobs",
-      "rank": 167,
-      "title": "Data Science Intern",
-      "title_zh": "Data Science Intern",
-      "url": "https://tencent.wd1.myworkdayjobs.com/Tencent_Careers/job/Singapore-CapitaSky/Game-Engine-R-D-Specialist_R106237-1",
-      "hot_value": null,
-      "summary_zh": "About the Hiring Team Level Infinite is Tencent’s global gaming brand. It is a global game publisher offering a comprehensive network of services for games, development teams, and studios around the w",
-      "thumbnail": null,
-      "published_at": "2026年02月24日",
-      "extra": {
-        "company": "腾讯",
-        "city": "新加坡",
-        "keywords_hit": [
-          "AI for Science"
-        ]
-      },
-      "days_on_board": 25,
-      "is_new": false,
-      "rank_delta": 11,
-      "cluster_id": "58f9c55a2a00",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-21T13:44:30.366356+00:00",
-          "rank": 194
-        },
-        {
-          "run_at": "2026-09-22T01:44:24.908009+00:00",
-          "rank": 203
-        },
-        {
-          "run_at": "2026-09-22T10:44:17.910298+00:00",
-          "rank": 189
-        },
-        {
-          "run_at": "2026-09-23T16:44:31.496968+00:00",
-          "rank": 195
-        },
-        {
-          "run_at": "2026-09-24T13:44:17.795322+00:00",
-          "rank": 186
-        },
-        {
-          "run_at": "2026-09-25T13:44:22.330496+00:00",
-          "rank": 165
-        },
-        {
-          "run_at": "2026-09-26T01:44:08.091932+00:00",
-          "rank": 178
-        },
-        {
-          "run_at": "2026-09-27T22:44:00.556569+00:00",
-          "rank": 167
-        }
-      ]
-    },
-    {
-      "source": "jobs",
-      "rank": 168,
-      "title": "Data Science Intern 107259",
-      "title_zh": "Data Science Intern 107259",
-      "url": "https://tencent.wd1.myworkdayjobs.com/Tencent_Careers/job/Singapore-CapitaSky/Data-Science-Intern_R107259-2",
-      "hot_value": null,
-      "summary_zh": "About the Hiring Team Level Infinite is Tencent’s global gaming brand. It is a global game publisher offering a comprehensive network of services for games, development teams, and studios around the w",
-      "thumbnail": null,
-      "published_at": "2026年05月06日",
-      "extra": {
-        "company": "腾讯",
-        "city": "新加坡",
-        "keywords_hit": [
-          "AI for Science"
-        ]
-      },
-      "days_on_board": 25,
-      "is_new": false,
-      "rank_delta": 11,
-      "cluster_id": "93dd669d01c2",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-21T13:44:30.366356+00:00",
-          "rank": 195
-        },
-        {
-          "run_at": "2026-09-22T01:44:24.908009+00:00",
-          "rank": 204
-        },
-        {
-          "run_at": "2026-09-22T10:44:17.910298+00:00",
-          "rank": 190
-        },
-        {
-          "run_at": "2026-09-23T16:44:31.496968+00:00",
-          "rank": 196
-        },
-        {
-          "run_at": "2026-09-24T13:44:17.795322+00:00",
-          "rank": 187
-        },
-        {
-          "run_at": "2026-09-25T13:44:22.330496+00:00",
-          "rank": 166
-        },
-        {
-          "run_at": "2026-09-26T01:44:08.091932+00:00",
-          "rank": 179
-        },
-        {
-          "run_at": "2026-09-27T22:44:00.556569+00:00",
-          "rank": 168
-        }
-      ]
-    },
-    {
-      "source": "jobs",
-      "rank": 169,
-      "title": "Data Science Intern 107361",
-      "title_zh": "Data Science Intern 107361",
-      "url": "https://tencent.wd1.myworkdayjobs.com/Tencent_Careers/job/Singapore-CapitaSky/Data-Science-Intern_R107361-1",
-      "hot_value": null,
-      "summary_zh": "About the Hiring Team Level Infinite is Tencent’s global gaming brand. It is a global game publisher offering a comprehensive network of services for games, development teams, and studios around the w",
-      "thumbnail": null,
-      "published_at": "2026年04月22日",
-      "extra": {
-        "company": "腾讯",
-        "city": "新加坡",
-        "keywords_hit": [
-          "AI for Science"
-        ]
-      },
-      "days_on_board": 25,
-      "is_new": false,
-      "rank_delta": 11,
-      "cluster_id": "b781642bb044",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-21T13:44:30.366356+00:00",
-          "rank": 196
-        },
-        {
-          "run_at": "2026-09-22T01:44:24.908009+00:00",
-          "rank": 205
-        },
-        {
-          "run_at": "2026-09-22T10:44:17.910298+00:00",
-          "rank": 191
-        },
-        {
-          "run_at": "2026-09-23T16:44:31.496968+00:00",
-          "rank": 197
-        },
-        {
-          "run_at": "2026-09-24T13:44:17.795322+00:00",
-          "rank": 188
-        },
-        {
-          "run_at": "2026-09-25T13:44:22.330496+00:00",
-          "rank": 167
-        },
-        {
-          "run_at": "2026-09-26T01:44:08.091932+00:00",
-          "rank": 180
-        },
-        {
-          "run_at": "2026-09-27T22:44:00.556569+00:00",
-          "rank": 169
         }
       ]
     }
