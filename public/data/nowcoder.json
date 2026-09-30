@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-09-29T01:44:16.135502+00:00",
+  "generated_at": "2026-09-30T01:44:15.788983+00:00",
   "source": "nowcoder",
   "status": {
     "source": "nowcoder",
     "status": "ok",
     "item_count": 20,
-    "duration_ms": 2255,
+    "duration_ms": 3770,
     "error": null,
-    "run_at": "2026-09-29T01:44:16.135502+00:00"
+    "run_at": "2026-09-30T01:44:15.788983+00:00"
   },
   "items": [
     {
@@ -27,14 +27,18 @@
         ],
         "description": ""
       },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "days_on_board": 2,
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "2bf3ca31c292",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-29T01:44:16.135502+00:00",
+          "rank": 1
+        },
+        {
+          "run_at": "2026-09-30T01:44:15.788983+00:00",
           "rank": 1
         }
       ]
@@ -42,35 +46,6 @@
     {
       "source": "nowcoder",
       "rank": 2,
-      "title": "秋招现状",
-      "title_zh": "秋招现状",
-      "url": "https://www.nowcoder.com/feed/main/detail/1402708a5bc54f59b5def463fd93e778",
-      "hot_value": "命中 1 个关键词",
-      "summary_zh": null,
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "subsource": "rsshub",
-        "keyword_hit": [
-          "秋招"
-        ],
-        "description": ""
-      },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
-      "cluster_id": "8e94d37fa0e0",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-29T01:44:16.135502+00:00",
-          "rank": 2
-        }
-      ]
-    },
-    {
-      "source": "nowcoder",
-      "rank": 3,
       "title": "秋招金9战绩结算以及感想。",
       "title_zh": "秋招金9战绩结算以及感想。",
       "url": "https://www.nowcoder.com/feed/main/detail/7041999bb65e422984b741f057cf1ae8",
@@ -85,14 +60,48 @@
         ],
         "description": ""
       },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "days_on_board": 2,
+      "is_new": false,
+      "rank_delta": 1,
       "cluster_id": "7eb2f99a763a",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-29T01:44:16.135502+00:00",
+          "rank": 3
+        },
+        {
+          "run_at": "2026-09-30T01:44:15.788983+00:00",
+          "rank": 2
+        }
+      ]
+    },
+    {
+      "source": "nowcoder",
+      "rank": 3,
+      "title": "9本后端秋招金9进度：终于有offer了",
+      "title_zh": "9本后端秋招金9进度：终于有offer了",
+      "url": "https://www.nowcoder.com/feed/main/detail/f167d284a04347c4a96b42239aadb791",
+      "hot_value": "命中 2 个关键词",
+      "summary_zh": null,
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "subsource": "rsshub",
+        "keyword_hit": [
+          "秋招",
+          "offer"
+        ],
+        "description": ""
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "9ca1ec2674e5",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-30T01:44:15.788983+00:00",
           "rank": 3
         }
       ]
@@ -100,6 +109,68 @@
     {
       "source": "nowcoder",
       "rank": 4,
+      "title": "9本前端秋招两个月进度",
+      "title_zh": "9本前端秋招两个月进度",
+      "url": "https://www.nowcoder.com/feed/main/detail/42de5ba6d2e7468baffafdc6f7bfa397",
+      "hot_value": "命中 1 个关键词",
+      "summary_zh": null,
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "subsource": "rsshub",
+        "keyword_hit": [
+          "秋招"
+        ],
+        "description": ""
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "654a15139bcc",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-30T01:44:15.788983+00:00",
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "source": "nowcoder",
+      "rank": 5,
+      "title": "秋招现状",
+      "title_zh": "秋招现状",
+      "url": "https://www.nowcoder.com/feed/main/detail/1402708a5bc54f59b5def463fd93e778",
+      "hot_value": "命中 1 个关键词",
+      "summary_zh": null,
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "subsource": "rsshub",
+        "keyword_hit": [
+          "秋招"
+        ],
+        "description": ""
+      },
+      "days_on_board": 2,
+      "is_new": false,
+      "rank_delta": -3,
+      "cluster_id": "8e94d37fa0e0",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-29T01:44:16.135502+00:00",
+          "rank": 2
+        },
+        {
+          "run_at": "2026-09-30T01:44:15.788983+00:00",
+          "rank": 5
+        }
+      ]
+    },
+    {
+      "source": "nowcoder",
+      "rank": 6,
       "title": "放弃保研名额秋招真的对吗",
       "title_zh": "放弃保研名额秋招真的对吗",
       "url": "https://www.nowcoder.com/feed/main/detail/ef66e165365a4ae19cbe68e5e42165b5",
@@ -114,21 +185,55 @@
         ],
         "description": ""
       },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "days_on_board": 2,
+      "is_new": false,
+      "rank_delta": -2,
       "cluster_id": "c164c866cef6",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-29T01:44:16.135502+00:00",
           "rank": 4
+        },
+        {
+          "run_at": "2026-09-30T01:44:15.788983+00:00",
+          "rank": 6
         }
       ]
     },
     {
       "source": "nowcoder",
-      "rank": 5,
+      "rank": 7,
+      "title": "秋招快结束了，还是0offer",
+      "title_zh": "秋招快结束了，还是0offer",
+      "url": "https://www.nowcoder.com/feed/main/detail/74f223dc4dd3420d8d27aee797686108",
+      "hot_value": "命中 2 个关键词",
+      "summary_zh": null,
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "subsource": "rsshub",
+        "keyword_hit": [
+          "秋招",
+          "offer"
+        ],
+        "description": ""
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "1e5373b82eb0",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-30T01:44:15.788983+00:00",
+          "rank": 7
+        }
+      ]
+    },
+    {
+      "source": "nowcoder",
+      "rank": 8,
       "title": "联影秋招你们大家都投了吗？",
       "title_zh": "联影秋招你们大家都投了吗？",
       "url": "https://www.nowcoder.com/feed/main/detail/1ae96fd0c05143f3be3a3b0626a9240d",
@@ -143,105 +248,18 @@
         ],
         "description": ""
       },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "days_on_board": 2,
+      "is_new": false,
+      "rank_delta": -3,
       "cluster_id": "132134c9029a",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-29T01:44:16.135502+00:00",
           "rank": 5
-        }
-      ]
-    },
-    {
-      "source": "nowcoder",
-      "rank": 6,
-      "title": "秋招太难了",
-      "title_zh": "秋招太难了",
-      "url": "https://www.nowcoder.com/feed/main/detail/dc3beeff499f43cebfcaabe93c2e5ba6",
-      "hot_value": "命中 1 个关键词",
-      "summary_zh": null,
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "subsource": "rsshub",
-        "keyword_hit": [
-          "秋招"
-        ],
-        "description": ""
-      },
-      "days_on_board": 1,
-      "is_new": false,
-      "rank_delta": -4,
-      "cluster_id": "332430e49c1a",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-27T22:44:00.556569+00:00",
-          "rank": 2
         },
         {
-          "run_at": "2026-09-29T01:44:16.135502+00:00",
-          "rank": 6
-        }
-      ]
-    },
-    {
-      "source": "nowcoder",
-      "rank": 7,
-      "title": "xhs秋招笔试",
-      "title_zh": "xhs秋招笔试",
-      "url": "https://www.nowcoder.com/feed/main/detail/91a5674e39174dda83e2d5f1a8933096",
-      "hot_value": "命中 1 个关键词",
-      "summary_zh": null,
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "subsource": "rsshub",
-        "keyword_hit": [
-          "秋招"
-        ],
-        "description": ""
-      },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
-      "cluster_id": "eefdc530e286",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-29T01:44:16.135502+00:00",
-          "rank": 7
-        }
-      ]
-    },
-    {
-      "source": "nowcoder",
-      "rank": 8,
-      "title": "offer帮选腾讯wxg转正 or 南瑞研发中心",
-      "title_zh": "offer帮选腾讯wxg转正 or 南瑞研发中心",
-      "url": "https://www.nowcoder.com/feed/main/detail/e56bd8a8fdb74c178fd523b8346d2b3b",
-      "hot_value": "命中 1 个关键词",
-      "summary_zh": null,
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "subsource": "rsshub",
-        "keyword_hit": [
-          "offer"
-        ],
-        "description": ""
-      },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
-      "cluster_id": "bc71b03f5cac",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-29T01:44:16.135502+00:00",
+          "run_at": "2026-09-30T01:44:15.788983+00:00",
           "rank": 8
         }
       ]
@@ -249,9 +267,9 @@
     {
       "source": "nowcoder",
       "rank": 9,
-      "title": "今年秋招是不是很看学历呀？",
-      "title_zh": "今年秋招是不是很看学历呀？",
-      "url": "https://www.nowcoder.com/feed/main/detail/241155f064214dc3849633a256ebf09b",
+      "title": "家人们，秋招貌似迎来转机！！！",
+      "title_zh": "家人们，秋招貌似迎来转机！！！",
+      "url": "https://www.nowcoder.com/feed/main/detail/e143cffbb2bd4eb6b2f38bc77d18ef7f",
       "hot_value": "命中 1 个关键词",
       "summary_zh": null,
       "thumbnail": null,
@@ -266,11 +284,11 @@
       "days_on_board": 1,
       "is_new": true,
       "rank_delta": "new",
-      "cluster_id": "5765a721813b",
+      "cluster_id": "20b39ad332bf",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-29T01:44:16.135502+00:00",
+          "run_at": "2026-09-30T01:44:15.788983+00:00",
           "rank": 9
         }
       ]
@@ -290,14 +308,18 @@
         "keyword_hit": [],
         "description": ""
       },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "days_on_board": 2,
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "c2b2b5b0fcf1",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-29T01:44:16.135502+00:00",
+          "rank": 10
+        },
+        {
+          "run_at": "2026-09-30T01:44:15.788983+00:00",
           "rank": 10
         }
       ]
@@ -305,6 +327,33 @@
     {
       "source": "nowcoder",
       "rank": 11,
+      "title": "我靠，这就是大厂三面吗(预定字节三面凉经)",
+      "title_zh": "我靠，这就是大厂三面吗(预定字节三面凉经)",
+      "url": "https://www.nowcoder.com/feed/main/detail/b8767316f1124006812b1e1a441f1efc",
+      "hot_value": null,
+      "summary_zh": null,
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "subsource": "rsshub",
+        "keyword_hit": [],
+        "description": ""
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "0e99e2035a3c",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-30T01:44:15.788983+00:00",
+          "rank": 11
+        }
+      ]
+    },
+    {
+      "source": "nowcoder",
+      "rank": 12,
       "title": "失败的9月和失败的我",
       "title_zh": "失败的9月和失败的我",
       "url": "https://www.nowcoder.com/feed/main/detail/5204078778574f3e875b4fa777a55abf",
@@ -317,24 +366,28 @@
         "keyword_hit": [],
         "description": ""
       },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "days_on_board": 2,
+      "is_new": false,
+      "rank_delta": -1,
       "cluster_id": "1dfa1e91daf2",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-29T01:44:16.135502+00:00",
           "rank": 11
+        },
+        {
+          "run_at": "2026-09-30T01:44:15.788983+00:00",
+          "rank": 12
         }
       ]
     },
     {
       "source": "nowcoder",
-      "rank": 12,
-      "title": "又又又失业了，4年半经验，开启新社招之旅。",
-      "title_zh": "又又又失业了，4年半经验，开启新社招之旅。",
-      "url": "https://www.nowcoder.com/feed/main/detail/2c0fc450ce104bb490fc2a57c9c5e159",
+      "rank": 13,
+      "title": "腾讯意向书",
+      "title_zh": "腾讯意向书",
+      "url": "https://www.nowcoder.com/feed/main/detail/8b39a21cdb7046c59c9b4e5d67f3ae21",
       "hot_value": null,
       "summary_zh": null,
       "thumbnail": null,
@@ -345,24 +398,20 @@
         "description": ""
       },
       "days_on_board": 1,
-      "is_new": false,
-      "rank_delta": -5,
-      "cluster_id": "baa3afe59de1",
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "bf8113c88cd0",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-27T22:44:00.556569+00:00",
-          "rank": 7
-        },
-        {
-          "run_at": "2026-09-29T01:44:16.135502+00:00",
-          "rank": 12
+          "run_at": "2026-09-30T01:44:15.788983+00:00",
+          "rank": 13
         }
       ]
     },
     {
       "source": "nowcoder",
-      "rank": 13,
+      "rank": 14,
       "title": "22届过来人说下，应届生第一份工作怎么选？",
       "title_zh": "22届过来人说下，应届生第一份工作怎么选？",
       "url": "https://www.nowcoder.com/feed/main/detail/5b60156ec02c483a9acf3788a48ca5ab",
@@ -375,24 +424,28 @@
         "keyword_hit": [],
         "description": ""
       },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "days_on_board": 2,
+      "is_new": false,
+      "rank_delta": -1,
       "cluster_id": "f1e15367badc",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-29T01:44:16.135502+00:00",
           "rank": 13
+        },
+        {
+          "run_at": "2026-09-30T01:44:15.788983+00:00",
+          "rank": 14
         }
       ]
     },
     {
       "source": "nowcoder",
-      "rank": 14,
-      "title": "9.26京东笔试",
-      "title_zh": "9.26京东笔试",
-      "url": "https://www.nowcoder.com/feed/main/detail/1270160b2ca44fc79e81ef22fd722fda",
+      "rank": 15,
+      "title": "我找了2个对象我应该和谁在一起呢",
+      "title_zh": "我找了2个对象我应该和谁在一起呢",
+      "url": "https://www.nowcoder.com/feed/main/detail/9012dda5d9ff4148ac336655c3da0b7f",
       "hot_value": null,
       "summary_zh": null,
       "thumbnail": null,
@@ -403,24 +456,20 @@
         "description": ""
       },
       "days_on_board": 1,
-      "is_new": false,
-      "rank_delta": -5,
-      "cluster_id": "50618470a17c",
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "2baa67265905",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-27T22:44:00.556569+00:00",
-          "rank": 9
-        },
-        {
-          "run_at": "2026-09-29T01:44:16.135502+00:00",
-          "rank": 14
+          "run_at": "2026-09-30T01:44:15.788983+00:00",
+          "rank": 15
         }
       ]
     },
     {
       "source": "nowcoder",
-      "rank": 15,
+      "rank": 16,
       "title": "第一次当面试官有感",
       "title_zh": "第一次当面试官有感",
       "url": "https://www.nowcoder.com/feed/main/detail/6b21090f8c57452886987f59ccc8a9c3",
@@ -433,21 +482,52 @@
         "keyword_hit": [],
         "description": ""
       },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "days_on_board": 2,
+      "is_new": false,
+      "rank_delta": -1,
       "cluster_id": "905fe5e244ca",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-29T01:44:16.135502+00:00",
           "rank": 15
+        },
+        {
+          "run_at": "2026-09-30T01:44:15.788983+00:00",
+          "rank": 16
         }
       ]
     },
     {
       "source": "nowcoder",
-      "rank": 16,
+      "rank": 17,
+      "title": "9月双非面试进度",
+      "title_zh": "9月双非面试进度",
+      "url": "https://www.nowcoder.com/feed/main/detail/92662a9b8b8943d8a1661fd068171077",
+      "hot_value": null,
+      "summary_zh": null,
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "subsource": "rsshub",
+        "keyword_hit": [],
+        "description": ""
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "86dca9e0f90a",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-30T01:44:15.788983+00:00",
+          "rank": 17
+        }
+      ]
+    },
+    {
+      "source": "nowcoder",
+      "rank": 18,
       "title": "关于现在校招形势的困难程度",
       "title_zh": "关于现在校招形势的困难程度",
       "url": "https://www.nowcoder.com/feed/main/detail/0d70ac902692491babee4ea77230dba8",
@@ -460,68 +540,18 @@
         "keyword_hit": [],
         "description": ""
       },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "days_on_board": 2,
+      "is_new": false,
+      "rank_delta": -2,
       "cluster_id": "dd154bd498e4",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-09-29T01:44:16.135502+00:00",
           "rank": 16
-        }
-      ]
-    },
-    {
-      "source": "nowcoder",
-      "rank": 17,
-      "title": "字节三面问什么",
-      "title_zh": "字节三面问什么",
-      "url": "https://www.nowcoder.com/feed/main/detail/fe91af5c66da4b4f8d44849ca3570e53",
-      "hot_value": null,
-      "summary_zh": null,
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "subsource": "rsshub",
-        "keyword_hit": [],
-        "description": ""
-      },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
-      "cluster_id": "a0a684c1d826",
-      "cluster_size": 1,
-      "rank_history": [
+        },
         {
-          "run_at": "2026-09-29T01:44:16.135502+00:00",
-          "rank": 17
-        }
-      ]
-    },
-    {
-      "source": "nowcoder",
-      "rank": 18,
-      "title": "其实很多人的归宿都是中小厂",
-      "title_zh": "其实很多人的归宿都是中小厂",
-      "url": "https://www.nowcoder.com/feed/main/detail/8cb23a699cab4f5592122bd7a391b6bd",
-      "hot_value": null,
-      "summary_zh": null,
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "subsource": "rsshub",
-        "keyword_hit": [],
-        "description": ""
-      },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
-      "cluster_id": "17fc5184fb8a",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-29T01:44:16.135502+00:00",
+          "run_at": "2026-09-30T01:44:15.788983+00:00",
           "rank": 18
         }
       ]
@@ -529,9 +559,9 @@
     {
       "source": "nowcoder",
       "rank": 19,
-      "title": "腾讯pcg日常实习timeline",
-      "title_zh": "腾讯pcg日常实习timeline",
-      "url": "https://www.nowcoder.com/feed/main/detail/af0926100cdb4f92ad5fcd58ac526673",
+      "title": "传说中的“金九”",
+      "title_zh": "传说中的“金九”",
+      "url": "https://www.nowcoder.com/feed/main/detail/9ba3ba2fe65544239a0e2c8dd3c16b16",
       "hot_value": null,
       "summary_zh": null,
       "thumbnail": null,
@@ -544,11 +574,11 @@
       "days_on_board": 1,
       "is_new": true,
       "rank_delta": "new",
-      "cluster_id": "a6280b27c27d",
+      "cluster_id": "0566e5ec0fbd",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-29T01:44:16.135502+00:00",
+          "run_at": "2026-09-30T01:44:15.788983+00:00",
           "rank": 19
         }
       ]
@@ -556,9 +586,9 @@
     {
       "source": "nowcoder",
       "rank": 20,
-      "title": "拼多多服务端开发二面",
-      "title_zh": "拼多多服务端开发二面",
-      "url": "https://www.nowcoder.com/feed/main/detail/90d51c37f0c14aa0aa850c18b424ddc9",
+      "title": "字节业务中台一面丨八股盛宴，没招了",
+      "title_zh": "字节业务中台一面丨八股盛宴，没招了",
+      "url": "https://www.nowcoder.com/feed/main/detail/1ace05ccc5084c07a77a2bebf1c1eef8",
       "hot_value": null,
       "summary_zh": null,
       "thumbnail": null,
@@ -571,11 +601,11 @@
       "days_on_board": 1,
       "is_new": true,
       "rank_delta": "new",
-      "cluster_id": "69882ec331d9",
+      "cluster_id": "eaf7db829407",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-29T01:44:16.135502+00:00",
+          "run_at": "2026-09-30T01:44:15.788983+00:00",
           "rank": 20
         }
       ]

@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-09-29T01:44:16.135502+00:00",
+  "generated_at": "2026-09-30T01:44:15.788983+00:00",
   "source": "github",
   "status": {
     "source": "github",
     "status": "ok",
-    "item_count": 8,
-    "duration_ms": 1878,
+    "item_count": 14,
+    "duration_ms": 1668,
     "error": null,
-    "run_at": "2026-09-29T01:44:16.135502+00:00"
+    "run_at": "2026-09-30T01:44:15.788983+00:00"
   },
   "items": [
     {
@@ -16,7 +16,7 @@
       "title": "debpalash/VoiceStudio",
       "title_zh": "debpalash/VoiceStudio",
       "url": "https://github.com/debpalash/VoiceStudio",
-      "hot_value": "3,221 stars today",
+      "hot_value": "4,758 stars today",
       "summary_zh": "开源本地语音克隆工具，支持646种语言，替代ElevenLabs。",
       "thumbnail": null,
       "published_at": null,
@@ -24,9 +24,9 @@
         "description": "VoiceStudio is the open-source, fully-local ElevenLabs alternative — voice cloning, voice design, video dubbing, dictation, transcription & audiobook creation in 646 languages.",
         "language": "Python"
       },
-      "days_on_board": 1,
+      "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 2,
+      "rank_delta": 0,
       "cluster_id": "bf2187938399",
       "cluster_size": 1,
       "rank_history": [
@@ -37,43 +37,35 @@
         {
           "run_at": "2026-09-29T01:44:16.135502+00:00",
           "rank": 1
+        },
+        {
+          "run_at": "2026-09-30T01:44:15.788983+00:00",
+          "rank": 1
         }
       ]
     },
     {
       "source": "github",
       "rank": 2,
-      "title": "paperclipai/paperclip",
-      "title_zh": "paperclipai/paperclip",
-      "url": "https://github.com/paperclipai/paperclip",
-      "hot_value": "3,197 stars today",
-      "summary_zh": "开源AI代理管理工具，团队协作管理智能体首选。",
+      "title": "NVIDIA/OpenShell",
+      "title_zh": "NVIDIA/OpenShell",
+      "url": "https://github.com/NVIDIA/OpenShell",
+      "hot_value": "990 stars today",
+      "summary_zh": "NVIDIA开源AI智能体安全运行环境，保障自主代理隐私与安全。",
       "thumbnail": null,
       "published_at": null,
       "extra": {
-        "description": "The open-source app everyone uses to manage agents at work",
-        "language": "TypeScript"
+        "description": "OpenShell is the safe, private runtime for autonomous AI agents.",
+        "language": "Rust"
       },
       "days_on_board": 1,
-      "is_new": false,
-      "rank_delta": -1,
-      "cluster_id": "f1a76c5351d5",
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "2d2f13cd6173",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-25T13:44:22.330496+00:00",
-          "rank": 1
-        },
-        {
-          "run_at": "2026-09-26T01:44:08.091932+00:00",
-          "rank": 1
-        },
-        {
-          "run_at": "2026-09-27T22:44:00.556569+00:00",
-          "rank": 1
-        },
-        {
-          "run_at": "2026-09-29T01:44:16.135502+00:00",
+          "run_at": "2026-09-30T01:44:15.788983+00:00",
           "rank": 2
         }
       ]
@@ -84,7 +76,7 @@
       "title": "vectorize-io/hindsight",
       "title_zh": "vectorize-io/hindsight",
       "url": "https://github.com/vectorize-io/hindsight",
-      "hot_value": "4,561 stars today",
+      "hot_value": "2,575 stars today",
       "summary_zh": "Hindsight：会学习的智能体记忆系统，让AI记住经验。",
       "thumbnail": null,
       "published_at": null,
@@ -92,9 +84,9 @@
         "description": "Hindsight: Agent Memory That Learns",
         "language": "Python"
       },
-      "days_on_board": 1,
+      "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": 0,
       "cluster_id": "04905625bae0",
       "cluster_size": 1,
       "rank_history": [
@@ -117,31 +109,51 @@
         {
           "run_at": "2026-09-29T01:44:16.135502+00:00",
           "rank": 3
+        },
+        {
+          "run_at": "2026-09-30T01:44:15.788983+00:00",
+          "rank": 3
         }
       ]
     },
     {
       "source": "github",
       "rank": 4,
-      "title": "NawfalMotii79/PLFM_RADAR",
-      "title_zh": "NawfalMotii79/PLFM_RADAR",
-      "url": "https://github.com/NawfalMotii79/PLFM_RADAR",
-      "hot_value": "158 stars today",
-      "summary_zh": "开源低成本10.5GHz相控阵雷达，适合学习雷达技术。",
+      "title": "paperclipai/paperclip",
+      "title_zh": "paperclipai/paperclip",
+      "url": "https://github.com/paperclipai/paperclip",
+      "hot_value": "2,458 stars today",
+      "summary_zh": "开源AI代理管理工具，团队协作管理智能体首选。",
       "thumbnail": null,
       "published_at": null,
       "extra": {
-        "description": "Open-source, low-cost 10.5 GHz PLFM phased array RADAR system",
-        "language": "PLSQL"
+        "description": "The open-source app everyone uses to manage agents at work",
+        "language": "TypeScript"
       },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
-      "cluster_id": "6e2d07ed2de3",
+      "days_on_board": 2,
+      "is_new": false,
+      "rank_delta": -2,
+      "cluster_id": "f1a76c5351d5",
       "cluster_size": 1,
       "rank_history": [
         {
+          "run_at": "2026-09-25T13:44:22.330496+00:00",
+          "rank": 1
+        },
+        {
+          "run_at": "2026-09-26T01:44:08.091932+00:00",
+          "rank": 1
+        },
+        {
+          "run_at": "2026-09-27T22:44:00.556569+00:00",
+          "rank": 1
+        },
+        {
           "run_at": "2026-09-29T01:44:16.135502+00:00",
+          "rank": 2
+        },
+        {
+          "run_at": "2026-09-30T01:44:15.788983+00:00",
           "rank": 4
         }
       ]
@@ -149,25 +161,25 @@
     {
       "source": "github",
       "rank": 5,
-      "title": "cs341-illinois/coursebook",
-      "title_zh": "cs341-illinois/coursebook",
-      "url": "https://github.com/cs341-illinois/coursebook",
-      "hot_value": "195 stars today",
-      "summary_zh": "伊利诺伊大学开源系统编程教材，免费学习系统编程。",
+      "title": "t8y2/dbx",
+      "title_zh": "t8y2/dbx",
+      "url": "https://github.com/t8y2/dbx",
+      "hot_value": "232 stars today",
+      "summary_zh": "轻量跨平台数据库客户端，支持百种数据库并内置AI助手。",
       "thumbnail": null,
       "published_at": null,
       "extra": {
-        "description": "Open Source Introductory Systems Programming Textbook for the University of Illinois",
-        "language": "TeX"
+        "description": "25 MB lightweight cross-platform database client for 100+ databases, including MySQL, PostgreSQL, SQLite, Redis, MongoDB, DuckDB, SQL Server, and Dameng. Built-in AI, MCP Server, CLI, desktop and Docker. | 轻量级跨平台数据库管理工具，支持 MySQL、PostgreSQL、SQLite、Redis、MongoDB、达梦等 100+ 数据库，提供桌面端、Docker、CLI、内置 AI 助手和 MCP。",
+        "language": "Rust"
       },
       "days_on_board": 1,
       "is_new": true,
       "rank_delta": "new",
-      "cluster_id": "b4ad2bcb985e",
+      "cluster_id": "a46bcab1a0da",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-09-29T01:44:16.135502+00:00",
+          "run_at": "2026-09-30T01:44:15.788983+00:00",
           "rank": 5
         }
       ]
@@ -175,36 +187,10 @@
     {
       "source": "github",
       "rank": 6,
-      "title": "byoungd/up",
-      "title_zh": "byoungd/up",
-      "url": "https://github.com/byoungd/up",
-      "hot_value": "327 stars today",
-      "summary_zh": "韩先凯的人生进阶与AI学习指南，助你成长。",
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "description": "An advanced guide which might benefit you a lot 🎉 . 韩先凯的人生进阶指南 人生进阶指南 离谱的人生 人生进阶 AI学习 AI指南 韩先凯的AI学习指南 英语学习指南/英语学习教程/英语学习/学英语",
-        "language": "JavaScript"
-      },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
-      "cluster_id": "97a20324fb53",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-29T01:44:16.135502+00:00",
-          "rank": 6
-        }
-      ]
-    },
-    {
-      "source": "github",
-      "rank": 7,
       "title": "mvschwarz/openrig",
       "title_zh": "mvschwarz/openrig",
       "url": "https://github.com/mvschwarz/openrig",
-      "hot_value": "734 stars today",
+      "hot_value": "737 stars today",
       "summary_zh": "多智能体框架，让Claude Code与Codex协同运行。",
       "thumbnail": null,
       "published_at": null,
@@ -212,9 +198,9 @@
         "description": "Multi-agent harness that runs Claude Code and Codex together as one system",
         "language": "TypeScript"
       },
-      "days_on_board": 1,
+      "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": 1,
       "cluster_id": "b8c787fad517",
       "cluster_size": 1,
       "rank_history": [
@@ -225,16 +211,196 @@
         {
           "run_at": "2026-09-29T01:44:16.135502+00:00",
           "rank": 7
+        },
+        {
+          "run_at": "2026-09-30T01:44:15.788983+00:00",
+          "rank": 6
+        }
+      ]
+    },
+    {
+      "source": "github",
+      "rank": 7,
+      "title": "oblien/openship",
+      "title_zh": "oblien/openship",
+      "url": "https://github.com/oblien/openship",
+      "hot_value": "437 stars today",
+      "summary_zh": "自托管部署平台，方便用户私有化部署应用。",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "description": "Self-hosted deployment platform",
+        "language": "TypeScript"
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "269f62624937",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-30T01:44:15.788983+00:00",
+          "rank": 7
         }
       ]
     },
     {
       "source": "github",
       "rank": 8,
+      "title": "averygan/reclip",
+      "title_zh": "averygan/reclip",
+      "url": "https://github.com/averygan/reclip",
+      "hot_value": "113 stars today",
+      "summary_zh": "轻量自托管视频下载器，界面简洁。",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "description": "Download videos from almost any website. Lightweight, self-hosted media downloader with a clean web UI.",
+        "language": "HTML"
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "22e58a5e588c",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-30T01:44:15.788983+00:00",
+          "rank": 8
+        }
+      ]
+    },
+    {
+      "source": "github",
+      "rank": 9,
+      "title": "cs341-illinois/coursebook",
+      "title_zh": "cs341-illinois/coursebook",
+      "url": "https://github.com/cs341-illinois/coursebook",
+      "hot_value": "572 stars today",
+      "summary_zh": "伊利诺伊大学开源系统编程教材，免费学习系统编程。",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "description": "Open Source Introductory Systems Programming Textbook for the University of Illinois",
+        "language": "TeX"
+      },
+      "days_on_board": 2,
+      "is_new": false,
+      "rank_delta": -4,
+      "cluster_id": "b4ad2bcb985e",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-29T01:44:16.135502+00:00",
+          "rank": 5
+        },
+        {
+          "run_at": "2026-09-30T01:44:15.788983+00:00",
+          "rank": 9
+        }
+      ]
+    },
+    {
+      "source": "github",
+      "rank": 10,
+      "title": "rohitg00/ai-engineering-from-scratch",
+      "title_zh": "rohitg00/ai-engineering-from-scratch",
+      "url": "https://github.com/rohitg00/ai-engineering-from-scratch",
+      "hot_value": "786 stars today",
+      "summary_zh": "AI工程从零到上线，完整学习实践路径。",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "description": "Learn it. Build it. Ship it for others.",
+        "language": "Python"
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "76156d53a2cb",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-25T13:44:22.330496+00:00",
+          "rank": 11
+        },
+        {
+          "run_at": "2026-09-26T01:44:08.091932+00:00",
+          "rank": 11
+        },
+        {
+          "run_at": "2026-09-27T22:44:00.556569+00:00",
+          "rank": 4
+        },
+        {
+          "run_at": "2026-09-30T01:44:15.788983+00:00",
+          "rank": 10
+        }
+      ]
+    },
+    {
+      "source": "github",
+      "rank": 11,
+      "title": "VectifyAI/PageIndex",
+      "title_zh": "VectifyAI/PageIndex",
+      "url": "https://github.com/VectifyAI/PageIndex",
+      "hot_value": "835 stars today",
+      "summary_zh": "基于推理的无向量RAG文档索引，提升检索准确性。",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "description": "📑 PageIndex: Document Index for Vectorless, Reasoning-based RAG",
+        "language": "Python"
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "7276377ecc3f",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-30T01:44:15.788983+00:00",
+          "rank": 11
+        }
+      ]
+    },
+    {
+      "source": "github",
+      "rank": 12,
+      "title": "willfaust/Madeira",
+      "title_zh": "willfaust/Madeira",
+      "url": "https://github.com/willfaust/Madeira",
+      "hot_value": "81 stars today",
+      "summary_zh": "在受限iOS上运行Windows游戏，技术突破。",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "description": "Run x86-64 Windows PC games on jailed iOS via FEX-Emu + Wine + DXMT",
+        "language": "C"
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "dfed7a18373c",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-27T22:44:00.556569+00:00",
+          "rank": 9
+        },
+        {
+          "run_at": "2026-09-30T01:44:15.788983+00:00",
+          "rank": 12
+        }
+      ]
+    },
+    {
+      "source": "github",
+      "rank": 13,
       "title": "dream-num/univer",
       "title_zh": "dream-num/univer",
       "url": "https://github.com/dream-num/univer",
-      "hot_value": "1,099 stars today",
+      "hot_value": "696 stars today",
       "summary_zh": "Univer是AI代理办公套件，集成表格文档幻灯片于一体。",
       "thumbnail": null,
       "published_at": null,
@@ -242,16 +408,12 @@
         "description": "The Office Harness for AI Agents — Spreadsheets, Docs, Slides, Canvas, Relational Tables, and PDF in one runtime.",
         "language": "TypeScript"
       },
-      "days_on_board": 1,
+      "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": -5,
       "cluster_id": "eb9db1e91cb5",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-23T16:44:31.496968+00:00",
-          "rank": 6
-        },
         {
           "run_at": "2026-09-24T13:44:17.795322+00:00",
           "rank": 3
@@ -271,6 +433,36 @@
         {
           "run_at": "2026-09-29T01:44:16.135502+00:00",
           "rank": 8
+        },
+        {
+          "run_at": "2026-09-30T01:44:15.788983+00:00",
+          "rank": 13
+        }
+      ]
+    },
+    {
+      "source": "github",
+      "rank": 14,
+      "title": "rakyll/hey",
+      "title_zh": "rakyll/hey",
+      "url": "https://github.com/rakyll/hey",
+      "hot_value": "34 stars today",
+      "summary_zh": "HTTP负载测试工具，是ApacheBench的替代品。",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "description": "HTTP load generator, ApacheBench (ab) replacement",
+        "language": "Go"
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "9921a09eabe5",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-09-30T01:44:15.788983+00:00",
+          "rank": 14
         }
       ]
     }
