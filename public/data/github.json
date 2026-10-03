@@ -1,37 +1,37 @@
 {
-  "generated_at": "2026-10-02T01:44:27.290836+00:00",
+  "generated_at": "2026-10-03T01:44:54.795737+00:00",
   "source": "github",
   "status": {
     "source": "github",
     "status": "ok",
-    "item_count": 15,
-    "duration_ms": 2169,
+    "item_count": 17,
+    "duration_ms": 750,
     "error": null,
-    "run_at": "2026-10-02T01:44:27.290836+00:00"
+    "run_at": "2026-10-03T01:44:54.795737+00:00"
   },
   "items": [
     {
       "source": "github",
       "rank": 1,
-      "title": "DietrichGebert/ponytail",
-      "title_zh": "DietrichGebert/ponytail",
-      "url": "https://github.com/DietrichGebert/ponytail",
-      "hot_value": "1,194 stars today",
-      "summary_zh": "让AI像懒程序员，少写代码更高效。",
+      "title": "Panniantong/Agent-Reach",
+      "title_zh": "Panniantong/Agent-Reach",
+      "url": "https://github.com/Panniantong/Agent-Reach",
+      "hot_value": "696 stars today",
+      "summary_zh": "Agent-Reach：让AI用命令行读搜全网，零API费，扩展视野利器。",
       "thumbnail": null,
       "published_at": null,
       "extra": {
-        "description": "Makes your AI agent think like the laziest senior dev in the room. The best code is the code you never wrote.",
-        "language": "JavaScript"
+        "description": "Give your AI agent eyes to see the entire internet. Read & search Twitter, Reddit, YouTube, GitHub, Bilibili, XiaoHongShu — one CLI, zero API fees.",
+        "language": "Python"
       },
       "days_on_board": 1,
       "is_new": true,
       "rank_delta": "new",
-      "cluster_id": "34631a444fa3",
+      "cluster_id": "8dd87a9fef63",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-10-02T01:44:27.290836+00:00",
+          "run_at": "2026-10-03T01:44:54.795737+00:00",
           "rank": 1
         }
       ]
@@ -39,25 +39,25 @@
     {
       "source": "github",
       "rank": 2,
-      "title": "mattpocock/skills",
-      "title_zh": "mattpocock/skills",
-      "url": "https://github.com/mattpocock/skills",
-      "hot_value": "883 stars today",
-      "summary_zh": "真实工程师技能集，直接可用。",
+      "title": "JuliusBrussee/caveman",
+      "title_zh": "JuliusBrussee/caveman",
+      "url": "https://github.com/JuliusBrussee/caveman",
+      "hot_value": "209 stars today",
+      "summary_zh": "用穴居人式说话为编程代理省65%令牌，病毒式技能。",
       "thumbnail": null,
       "published_at": null,
       "extra": {
-        "description": "Skills for Real Engineers. Straight from my .agents directory.",
-        "language": "Shell"
+        "description": "🪨 why use many token when few token do trick. Viral skill + proxy for coding agents that cuts 65% of tokens by talking like a caveman.",
+        "language": "Go"
       },
       "days_on_board": 1,
       "is_new": true,
       "rank_delta": "new",
-      "cluster_id": "5963f5c06b20",
+      "cluster_id": "295ed2c3eede",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-10-02T01:44:27.290836+00:00",
+          "run_at": "2026-10-03T01:44:54.795737+00:00",
           "rank": 2
         }
       ]
@@ -65,10 +65,130 @@
     {
       "source": "github",
       "rank": 3,
+      "title": "obra/superpowers",
+      "title_zh": "obra/superpowers",
+      "url": "https://github.com/obra/superpowers",
+      "hot_value": "556 stars today",
+      "summary_zh": "obra/superpowers：代理技能框架，软件开发方法论。",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "description": "An agentic skills framework & software development methodology that works.",
+        "language": "Shell"
+      },
+      "days_on_board": 2,
+      "is_new": false,
+      "rank_delta": 4,
+      "cluster_id": "3d0d90fc2d2a",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-10-02T01:44:27.290836+00:00",
+          "rank": 7
+        },
+        {
+          "run_at": "2026-10-03T01:44:54.795737+00:00",
+          "rank": 3
+        }
+      ]
+    },
+    {
+      "source": "github",
+      "rank": 4,
+      "title": "DietrichGebert/ponytail",
+      "title_zh": "DietrichGebert/ponytail",
+      "url": "https://github.com/DietrichGebert/ponytail",
+      "hot_value": "1,435 stars today",
+      "summary_zh": "让AI像懒程序员，少写代码更高效。",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "description": "Makes your AI agent think like the laziest senior dev in the room. The best code is the code you never wrote.",
+        "language": "JavaScript"
+      },
+      "days_on_board": 2,
+      "is_new": false,
+      "rank_delta": -3,
+      "cluster_id": "34631a444fa3",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-10-02T01:44:27.290836+00:00",
+          "rank": 1
+        },
+        {
+          "run_at": "2026-10-03T01:44:54.795737+00:00",
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "source": "github",
+      "rank": 5,
+      "title": "pbakaus/impeccable",
+      "title_zh": "pbakaus/impeccable",
+      "url": "https://github.com/pbakaus/impeccable",
+      "hot_value": "722 stars today",
+      "summary_zh": "让AI智能体更懂设计的语言规范。",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "description": "The design language that makes your AI harness better at design.",
+        "language": "JavaScript"
+      },
+      "days_on_board": 2,
+      "is_new": false,
+      "rank_delta": 9,
+      "cluster_id": "0d87ecfe7eff",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-10-02T01:44:27.290836+00:00",
+          "rank": 14
+        },
+        {
+          "run_at": "2026-10-03T01:44:54.795737+00:00",
+          "rank": 5
+        }
+      ]
+    },
+    {
+      "source": "github",
+      "rank": 6,
+      "title": "mattpocock/skills",
+      "title_zh": "mattpocock/skills",
+      "url": "https://github.com/mattpocock/skills",
+      "hot_value": "955 stars today",
+      "summary_zh": "真实工程师技能集，直接可用。",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "description": "Skills for Real Engineers. Straight from my .agents directory.",
+        "language": "Shell"
+      },
+      "days_on_board": 2,
+      "is_new": false,
+      "rank_delta": -4,
+      "cluster_id": "5963f5c06b20",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-10-02T01:44:27.290836+00:00",
+          "rank": 2
+        },
+        {
+          "run_at": "2026-10-03T01:44:54.795737+00:00",
+          "rank": 6
+        }
+      ]
+    },
+    {
+      "source": "github",
+      "rank": 7,
       "title": "NVIDIA/OpenShell",
       "title_zh": "NVIDIA/OpenShell",
       "url": "https://github.com/NVIDIA/OpenShell",
-      "hot_value": "2,456 stars today",
+      "hot_value": "594 stars today",
       "summary_zh": "NVIDIA开源AI智能体安全运行环境，保障自主代理隐私与安全。",
       "thumbnail": null,
       "published_at": null,
@@ -76,9 +196,9 @@
         "description": "OpenShell is the safe, private runtime for autonomous AI agents.",
         "language": "Rust"
       },
-      "days_on_board": 1,
+      "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -1,
+      "rank_delta": -4,
       "cluster_id": "2d2f13cd6173",
       "cluster_size": 1,
       "rank_history": [
@@ -89,42 +209,214 @@
         {
           "run_at": "2026-10-02T01:44:27.290836+00:00",
           "rank": 3
+        },
+        {
+          "run_at": "2026-10-03T01:44:54.795737+00:00",
+          "rank": 7
         }
       ]
     },
     {
       "source": "github",
-      "rank": 4,
-      "title": "firebase/firebase-ios-sdk",
-      "title_zh": "firebase/firebase-ios-sdk",
-      "url": "https://github.com/firebase/firebase-ios-sdk",
-      "hot_value": "112 stars today",
-      "summary_zh": "Firebase苹果开发SDK，官方出品，iOS后端首选。",
+      "rank": 8,
+      "title": "coreyhaines31/marketingskills",
+      "title_zh": "coreyhaines31/marketingskills",
+      "url": "https://github.com/coreyhaines31/marketingskills",
+      "hot_value": "140 stars today",
+      "summary_zh": "面向AI代理的营销技能集。",
       "thumbnail": null,
       "published_at": null,
       "extra": {
-        "description": "Firebase SDK for Apple App Development",
-        "language": "C++"
+        "description": "Marketing skills for Claude Code and AI agents. CRO, copywriting, SEO, analytics, and growth engineering.",
+        "language": "JavaScript"
       },
       "days_on_board": 1,
       "is_new": true,
       "rank_delta": "new",
-      "cluster_id": "ca09476cfec9",
+      "cluster_id": "fc96136e64d7",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-10-02T01:44:27.290836+00:00",
-          "rank": 4
+          "run_at": "2026-10-03T01:44:54.795737+00:00",
+          "rank": 8
         }
       ]
     },
     {
       "source": "github",
-      "rank": 5,
+      "rank": 9,
+      "title": "heygen-com/hyperframes",
+      "title_zh": "heygen-com/hyperframes",
+      "url": "https://github.com/heygen-com/hyperframes",
+      "hot_value": "580 stars today",
+      "summary_zh": "超快HTML视频渲染，专为AI代理打造。",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "description": "Write HTML. Render video. Built for agents.",
+        "language": "TypeScript"
+      },
+      "days_on_board": 2,
+      "is_new": false,
+      "rank_delta": 0,
+      "cluster_id": "15051747095d",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-10-02T01:44:27.290836+00:00",
+          "rank": 9
+        },
+        {
+          "run_at": "2026-10-03T01:44:54.795737+00:00",
+          "rank": 9
+        }
+      ]
+    },
+    {
+      "source": "github",
+      "rank": 10,
+      "title": "mksglu/context-mode",
+      "title_zh": "mksglu/context-mode",
+      "url": "https://github.com/mksglu/context-mode",
+      "hot_value": "282 stars today",
+      "summary_zh": "压缩工具输出98%，跨17平台路由，AI编程上下文优化。",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "description": "Context window optimization for AI coding agents. Sandboxes tool output (98% reduction), persists session memory, and enforces routing across 17 platforms via MCP + hooks.",
+        "language": "TypeScript"
+      },
+      "days_on_board": 2,
+      "is_new": false,
+      "rank_delta": -2,
+      "cluster_id": "cfa894e51a51",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-10-02T01:44:27.290836+00:00",
+          "rank": 8
+        },
+        {
+          "run_at": "2026-10-03T01:44:54.795737+00:00",
+          "rank": 10
+        }
+      ]
+    },
+    {
+      "source": "github",
+      "rank": 11,
+      "title": "google/skills",
+      "title_zh": "google/skills",
+      "url": "https://github.com/google/skills",
+      "hot_value": "39 stars today",
+      "summary_zh": "谷歌官方代理技能，覆盖谷歌产品与技术。",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "description": "Agent Skills for Google products and technologies",
+        "language": "Python"
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "537aa762aeae",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-10-03T01:44:54.795737+00:00",
+          "rank": 11
+        }
+      ]
+    },
+    {
+      "source": "github",
+      "rank": 12,
+      "title": "getsentry/sentry",
+      "title_zh": "getsentry/sentry",
+      "url": "https://github.com/getsentry/sentry",
+      "hot_value": "16 stars today",
+      "summary_zh": "开发者优先的错误追踪与性能监控平台。",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "description": "Developer-first error tracking and performance monitoring",
+        "language": "Python"
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "ddf06b623999",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-10-03T01:44:54.795737+00:00",
+          "rank": 12
+        }
+      ]
+    },
+    {
+      "source": "github",
+      "rank": 13,
+      "title": "colbymchenry/codegraph",
+      "title_zh": "colbymchenry/codegraph",
+      "url": "https://github.com/colbymchenry/codegraph",
+      "hot_value": "98 stars today",
+      "summary_zh": "预索引代码知识图谱，本地省令牌少调用。",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "description": "Pre-indexed code knowledge graph, auto syncs on code changes, for Claude Code, Codex, Gemini, Cursor, OpenCode, AntiGravity, Kiro, CoPilot, and Hermes Agent — fewer tokens, fewer tool calls, 100% local",
+        "language": "C"
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "75d48a38d93f",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-10-03T01:44:54.795737+00:00",
+          "rank": 13
+        }
+      ]
+    },
+    {
+      "source": "github",
+      "rank": 14,
+      "title": "cursor/plugins",
+      "title_zh": "cursor/plugins",
+      "url": "https://github.com/cursor/plugins",
+      "hot_value": "163 stars today",
+      "summary_zh": "Cursor插件规范与官方插件，扩展编辑器能力。",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "description": "Cursor plugin specification and official plugins",
+        "language": "TypeScript"
+      },
+      "days_on_board": 2,
+      "is_new": false,
+      "rank_delta": -8,
+      "cluster_id": "fb7f8e976cb0",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-10-02T01:44:27.290836+00:00",
+          "rank": 6
+        },
+        {
+          "run_at": "2026-10-03T01:44:54.795737+00:00",
+          "rank": 14
+        }
+      ]
+    },
+    {
+      "source": "github",
+      "rank": 15,
       "title": "mvschwarz/openrig",
       "title_zh": "mvschwarz/openrig",
       "url": "https://github.com/mvschwarz/openrig",
-      "hot_value": "642 stars today",
+      "hot_value": "683 stars today",
       "summary_zh": "开源多AI代理协作框架，角色分工共享上下文。",
       "thumbnail": null,
       "published_at": null,
@@ -132,9 +424,9 @@
         "description": "Build your own network of agents from Claude Code, Codex and Pi: persistent teams with roles, shared context and owned work.",
         "language": "TypeScript"
       },
-      "days_on_board": 1,
+      "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 1,
+      "rank_delta": -10,
       "cluster_id": "b8c787fad517",
       "cluster_size": 1,
       "rank_history": [
@@ -153,172 +445,46 @@
         {
           "run_at": "2026-10-02T01:44:27.290836+00:00",
           "rank": 5
+        },
+        {
+          "run_at": "2026-10-03T01:44:54.795737+00:00",
+          "rank": 15
         }
       ]
     },
     {
       "source": "github",
-      "rank": 6,
-      "title": "cursor/plugins",
-      "title_zh": "cursor/plugins",
-      "url": "https://github.com/cursor/plugins",
-      "hot_value": "150 stars today",
-      "summary_zh": "Cursor插件规范与官方插件，扩展编辑器能力。",
+      "rank": 16,
+      "title": "Effect-TS/effect",
+      "title_zh": "Effect-TS/effect",
+      "url": "https://github.com/Effect-TS/effect",
+      "hot_value": "80 stars today",
+      "summary_zh": "用TypeScript构建生产级应用的框架。",
       "thumbnail": null,
       "published_at": null,
       "extra": {
-        "description": "Cursor plugin specification and official plugins",
+        "description": "Build production-ready applications in TypeScript",
         "language": "TypeScript"
       },
       "days_on_board": 1,
       "is_new": true,
       "rank_delta": "new",
-      "cluster_id": "fb7f8e976cb0",
+      "cluster_id": "5fd5ff9475de",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-10-02T01:44:27.290836+00:00",
-          "rank": 6
+          "run_at": "2026-10-03T01:44:54.795737+00:00",
+          "rank": 16
         }
       ]
     },
     {
       "source": "github",
-      "rank": 7,
-      "title": "obra/superpowers",
-      "title_zh": "obra/superpowers",
-      "url": "https://github.com/obra/superpowers",
-      "hot_value": "455 stars today",
-      "summary_zh": "obra/superpowers：代理技能框架，软件开发方法论。",
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "description": "An agentic skills framework & software development methodology that works.",
-        "language": "Shell"
-      },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
-      "cluster_id": "3d0d90fc2d2a",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-10-02T01:44:27.290836+00:00",
-          "rank": 7
-        }
-      ]
-    },
-    {
-      "source": "github",
-      "rank": 8,
-      "title": "mksglu/context-mode",
-      "title_zh": "mksglu/context-mode",
-      "url": "https://github.com/mksglu/context-mode",
-      "hot_value": "362 stars today",
-      "summary_zh": "压缩工具输出98%，跨17平台路由，AI编程上下文优化。",
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "description": "Context window optimization for AI coding agents. Sandboxes tool output (98% reduction), persists session memory, and enforces routing across 17 platforms via MCP + hooks.",
-        "language": "TypeScript"
-      },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
-      "cluster_id": "cfa894e51a51",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-10-02T01:44:27.290836+00:00",
-          "rank": 8
-        }
-      ]
-    },
-    {
-      "source": "github",
-      "rank": 9,
-      "title": "heygen-com/hyperframes",
-      "title_zh": "heygen-com/hyperframes",
-      "url": "https://github.com/heygen-com/hyperframes",
-      "hot_value": "627 stars today",
-      "summary_zh": "超快HTML视频渲染，专为AI代理打造。",
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "description": "Write HTML. Render video. Built for agents.",
-        "language": "TypeScript"
-      },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
-      "cluster_id": "15051747095d",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-10-02T01:44:27.290836+00:00",
-          "rank": 9
-        }
-      ]
-    },
-    {
-      "source": "github",
-      "rank": 10,
-      "title": "earendil-works/pi",
-      "title_zh": "earendil-works/pi",
-      "url": "https://github.com/earendil-works/pi",
-      "hot_value": "298 stars today",
-      "summary_zh": "pi是AI代理工具包，统一LLM接口与编码代理CLI。",
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "description": "AI agent toolkit: unified LLM API, agent loop, TUI, coding agent CLI",
-        "language": "TypeScript"
-      },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
-      "cluster_id": "418af53a0ed4",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-10-02T01:44:27.290836+00:00",
-          "rank": 10
-        }
-      ]
-    },
-    {
-      "source": "github",
-      "rank": 11,
-      "title": "tile-ai/tilelang",
-      "title_zh": "tile-ai/tilelang",
-      "url": "https://github.com/tile-ai/tilelang",
-      "hot_value": "163 stars today",
-      "summary_zh": "GPU/CPU内核开发专用语言，简化高性能计算。",
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "description": "Domain-specific language designed to streamline the development of high-performance GPU/CPU/Accelerators kernels",
-        "language": "Python"
-      },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
-      "cluster_id": "b286645856b4",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-10-02T01:44:27.290836+00:00",
-          "rank": 11
-        }
-      ]
-    },
-    {
-      "source": "github",
-      "rank": 12,
+      "rank": 17,
       "title": "pablostanley/yoinks",
       "title_zh": "pablostanley/yoinks",
       "url": "https://github.com/pablostanley/yoinks",
-      "hot_value": "361 stars today",
+      "hot_value": "623 stars today",
       "summary_zh": "终端下载任意视频，无广告，干净利落。",
       "thumbnail": null,
       "published_at": null,
@@ -326,93 +492,19 @@
         "description": "yoink any video from your terminal. no shady ads.",
         "language": "TypeScript"
       },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "days_on_board": 2,
+      "is_new": false,
+      "rank_delta": -5,
       "cluster_id": "c0a3d045a1ba",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-10-02T01:44:27.290836+00:00",
           "rank": 12
-        }
-      ]
-    },
-    {
-      "source": "github",
-      "rank": 13,
-      "title": "HunxByts/GhostTrack",
-      "title_zh": "HunxByts/GhostTrack",
-      "url": "https://github.com/HunxByts/GhostTrack",
-      "hot_value": "368 stars today",
-      "summary_zh": "追踪手机号或位置，实用定位工具。",
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "description": "Useful tool to track location or mobile number",
-        "language": "Python"
-      },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
-      "cluster_id": "3583c8fbd84f",
-      "cluster_size": 1,
-      "rank_history": [
+        },
         {
-          "run_at": "2026-10-02T01:44:27.290836+00:00",
-          "rank": 13
-        }
-      ]
-    },
-    {
-      "source": "github",
-      "rank": 14,
-      "title": "pbakaus/impeccable",
-      "title_zh": "pbakaus/impeccable",
-      "url": "https://github.com/pbakaus/impeccable",
-      "hot_value": "495 stars today",
-      "summary_zh": "让AI智能体更懂设计的语言规范。",
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "description": "The design language that makes your AI harness better at design.",
-        "language": "JavaScript"
-      },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
-      "cluster_id": "0d87ecfe7eff",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-10-02T01:44:27.290836+00:00",
-          "rank": 14
-        }
-      ]
-    },
-    {
-      "source": "github",
-      "rank": 15,
-      "title": "Friedrich-M/UniMate",
-      "title_zh": "Friedrich-M/UniMate",
-      "url": "https://github.com/Friedrich-M/UniMate",
-      "hot_value": "217 stars today",
-      "summary_zh": "统一模型动画各种骨架，SIGGRAPH论文。",
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "description": "[SIGGRAPH Asia 2026] UniMate: One Unified Model to Animate Diverse Skeletons",
-        "language": "Python"
-      },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
-      "cluster_id": "bb3930334855",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-10-02T01:44:27.290836+00:00",
-          "rank": 15
+          "run_at": "2026-10-03T01:44:54.795737+00:00",
+          "rank": 17
         }
       ]
     }
