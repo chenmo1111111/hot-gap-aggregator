@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-10-03T01:44:54.795737+00:00",
+  "generated_at": "2026-10-03T04:45:25.104795+00:00",
   "source": "papers",
   "status": {
     "source": "papers",
     "status": "ok",
     "item_count": 83,
-    "duration_ms": 17509,
+    "duration_ms": 17902,
     "error": null,
-    "run_at": "2026-10-03T01:44:54.795737+00:00"
+    "run_at": "2026-10-03T04:45:25.104795+00:00"
   },
   "items": [
     {
@@ -63,6 +63,10 @@
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
           "rank": 1
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
+          "rank": 1
         }
       ]
     },
@@ -93,7 +97,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 2,
+      "rank_delta": 0,
       "cluster_id": "ae9534df89c0",
       "cluster_size": 1,
       "rank_history": [
@@ -115,6 +119,10 @@
         },
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
+          "rank": 2
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
           "rank": 2
         }
       ]
@@ -146,7 +154,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 2,
+      "rank_delta": 0,
       "cluster_id": "850fbe258d06",
       "cluster_size": 1,
       "rank_history": [
@@ -168,6 +176,10 @@
         },
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
+          "rank": 3
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
           "rank": 3
         }
       ]
@@ -201,7 +213,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 2,
+      "rank_delta": 0,
       "cluster_id": "ca6d3bb87bb6",
       "cluster_size": 1,
       "rank_history": [
@@ -224,12 +236,133 @@
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
           "rank": 4
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
+          "rank": 4
         }
       ]
     },
     {
       "source": "papers",
       "rank": 5,
+      "title": "Information Leakage in Enzyme Substrate Prediction.",
+      "title_zh": "酶底物预测中的信息泄漏。",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42826513/",
+      "hot_value": null,
+      "summary_zh": "酶是许多细胞过程中必不可少的催化剂。理解它们与小分子的相互作用，如调节剂、辅因子，以及最重要的底物，对于理解细胞中发生的生化过程至关重要。正确解读与酶相互作用的小分子的角色是阐明酶功能的关键。近年来，酶-小分子相互作用预测引起了计算方法尤其是深度学习的越来越多的关注。因此，研究人员发布了若干数据集和众多性能卓越的模型。在这项工作中，我们批判性地审查了其中一个最流行的数据集以及在其上训练的四个模型，发现了相似性诱导的信息泄漏，这可能在分布外应用中夸大了所报告的模型性能。我们表明，所审查的模型容易受到信息泄漏的影响，当泄漏被消除后，其性能并不优于统计基线。此外，仅控制蛋白质序列相似性导致的泄漏仍能产生较高的预测性能，而当训练集和测试集之间共享的常见底物从其中一个中移除时，性能大幅下降，当结构相似的配体被分到不同拆分中时，性能接近随机预测。因此，所研究的模型在酶序列空间中的泛化能力远好于在配体化",
+      "thumbnail": null,
+      "published_at": "2026-10-01",
+      "extra": {
+        "subsource": "pubmed",
+        "journal": "Bioinformatics (Oxford, England)",
+        "doi": "10.1093/bioinformatics/btag733",
+        "tier": "英文顶刊",
+        "mode": "filter",
+        "description": "Enzymes are essential catalysts in many cellular processes. Understanding their interactions with small molecules, such as regulators, cofactors, and most importantly, substrates, is crucial for understanding the biochemical processes that occur in cells. Correctly interpreting the roles of small molecules that interact with enzymes is key to elucidating enzyme function. Recently, enzyme-small molecule interaction prediction has attracted growing interest from computational methods, especially deep learning. As a result, researchers have published several datasets and numerous models with remarkable performance. In this work, we critically examine one of the most popular datasets and four models trained on it, identifying similarity-induced information leakage that may overinflate reported model performance in out-of-distribution applications. We show that the inspected models are susceptible to information leakage, and their performance is not better than statistical baselines when the leakage is removed. Furthermore, controlling for leakage due to protein sequence similarity alone still yields high predictive performance, whereas performance decreases substantially when common substrates shared between training and test sets are removed from one of them, and approaches random prediction when structurally similar ligands are separated between splits. Thus, the investigated models generalize considerably better across enzyme sequence space than across ligand chemical space, indicating that their reported performance depends strongly on the small-molecule similarity between training and evaluation data. All data splits we calculated in this study are available on Zenodo (DOI: 10.5281/zenodo.18786394). The code is available on GitHub and backed up on Zenodo (DOI: 10.5281/zenodo.18788609). Supplementary information is available at Bioinformatics online.",
+        "identifier": "42826513",
+        "dedupe_key": "doi:10.1093/bioinformatics/btag733",
+        "topic_hit": [
+          "生物信息"
+        ],
+        "priority_rank": 2,
+        "keyword_hit": [
+          "deep learning"
+        ]
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "f81ca393e4e8",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
+          "rank": 5
+        }
+      ]
+    },
+    {
+      "source": "papers",
+      "rank": 6,
+      "title": "Multi-Objective-Conditioned-Return-Blocks Decision Transformer: A Novel Approach for Multi-Objective De Novo Drug Design.",
+      "title_zh": "多目标条件化回报块决策Transformer：一种用于多目标从头药物设计的新方法。",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42826505/",
+      "hot_value": null,
+      "summary_zh": "设计同时满足多个（通常相互冲突的）性质的新分子是药物设计中长期存在的挑战。虽然最近的深度学习进展能有效优化单一目标，但驾驭多目标所需的权衡仍然是一个难题。我们介绍了多目标条件化回报块决策Transformer（M-GoRT），一种用于多靶点从头药物设计的新架构，融合了以目标嵌入为条件的回报块。M-GoRT无需探索、奖励加权或在线微调即可训练，能高效优化多个目标。M-GoRT在多个目标上实现了与最先进基线相比具有竞争力的成功率，同时保持卓越的结构多样性和新颖性，即使在包含生物靶点（DRD2、JNK3）的高维任务中也是如此。在这些高维任务中，M-GoRT保持卓越的结构多样性和新颖性，使其成为多性质分子生成的实用工具。M-GoRT以MIT许可证在GitHub上免费开源：https://github.com/eyalmazuz/MolGen/tree/GCRB-DT。如需更多信息，请联系mazuz",
+      "thumbnail": null,
+      "published_at": "2026-10-01",
+      "extra": {
+        "subsource": "pubmed",
+        "journal": "Bioinformatics (Oxford, England)",
+        "doi": "10.1093/bioinformatics/btag731",
+        "tier": "英文顶刊",
+        "mode": "filter",
+        "description": "Designing novel molecules that simultaneously satisfy several, often conflicting, properties is a long-standing challenge in drug design. While recent deep learning advances optimize single targets effectively, navigating the trade-offs required for multiple objectives remains a difficult problem. We introduce the Multi-Objective-Conditioned-Return-Blocks Decision Transformer (M-GoRT), a novel architecture for multi-target de-novo drug design incorporating return-to-go blocks conditioned on goal embeddings. Trained without exploration, reward weighting or online fine-tuning, M-GoRT efficiently optimizes for multiple targets. M-GoRT achieves competitive multi-objective success rates against state-of-the-art baselines while maintaining superior structural diversity and novelty, even in high-dimensional tasks incorporating biological targets (DRD2, JNK3). In these high-dimensional tasks, M-GoRT maintains superior structural diversity and novelty establishing it as a practical tool for multi-property molecular generation. M-GoRT is freely available as an open-source software under the MIT license at GitHub https://github.com/eyalmazuz/MolGen/tree/GCRB-DT. For further information, please contact mazuze@post.bgu.ac.il. Supplementary data associated with this research are available at Bioinformatics online.",
+        "identifier": "42826505",
+        "dedupe_key": "doi:10.1093/bioinformatics/btag731",
+        "topic_hit": [
+          "生物信息"
+        ],
+        "priority_rank": 2,
+        "keyword_hit": [
+          "deep learning"
+        ]
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "2d8ba0498459",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
+          "rank": 6
+        }
+      ]
+    },
+    {
+      "source": "papers",
+      "rank": 7,
+      "title": "RAGCell: Retrieval-Augmented Generation as Supervision for Versatile Single-cell Analysis.",
+      "title_zh": "RAGCell：检索增强生成作为多功能单细胞分析的监督。",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42826496/",
+      "hot_value": null,
+      "summary_zh": "单细胞基础模型（scFMs）正在通过为多功能单细胞分析提供可泛化、任务无关的表示来改变计算生物学。尽管它们在促进下游任务快速部署方面取得了进展，但现成的scFMs仍有一些被忽视的问题：（I）（预训练成本。）基于预训练的scFMs需要在大量细胞上进行预训练，导致应用中资源消耗巨大。（II）（异质性鸿沟。）基于大语言模型（LLM）的scFMs忽略了LLM文本空间与原始细胞空间之间的巨大异质性鸿沟，导致面对下游任务时能力不足。为此，我们介绍了RAGCell，一个在成本效益和高性能方面实现双赢的多功能单细胞分析框架。RAGCell的成功在于两个关键方面：利用LLM构建细胞级和特征级知识数据库，作为训练细胞模型的监督信号，显著降低训练成本（>基于预训练的scFMs）。将细胞表示与双层知识数据库中的文本嵌入对齐，实现从文本空间到细胞空间的知识迁移，有效弥合异质性鸿沟（>基于LLM的scFMs）。通过在",
+      "thumbnail": null,
+      "published_at": "2026-10-01",
+      "extra": {
+        "subsource": "pubmed",
+        "journal": "Bioinformatics (Oxford, England)",
+        "doi": "10.1093/bioinformatics/btag732",
+        "tier": "英文顶刊",
+        "mode": "filter",
+        "description": "Single-cell foundation models (scFMs) are transforming computational biology by enabling generalizable, task-agnostic representations for versatile single-cell analysis. Despite their progress in facilitating rapid deployment for downstream tasks, off-the-shelf scFMs still have some overlooked concerns: (I) (Pretraining Cost.) Pretrain-based scFMs necessitate pretraining on a vast volume of cells, rendering it draining resources in applications. (II) (Heterogeneous Gap.) Large Language Models (LLM)-based scFMs ignore the tremendous heterogeneous gap between LLM textual and raw cellular spaces, leading to insufficient capability when facing downstream tasks. To this end, we introduce RAGCell, a versatile single-cell analysis framework that achieves a double-win in both cost-effectiveness and high performance. The success of RAGCell lies in two key aspects: Leveraging LLMs to construct cell-level and feature-level knowledge databases, which serve as supervision signals for training the cell model and significantly reduce the training cost (>pretrain-based scFMs). Aligning cell representations with text embeddings from the bi-level knowledge databases, enabling knowledge transfer from textual spaces to cellular spaces and effectively mitigating the heterogeneous gap (>LLM-based scFMs). Through extensive experiments on six downstream single-cell analysis tasks, we demonstrate that RAGCell achieves outstanding performance compared to state-of-the-art scFMs while operating at less than ∼1/10 the cost of pretrain-based scFMs. The source code is available at our supplementary file. Embeddings can be found in https://sites.google.com/yale.edu/scelmolib/home. Supplementary data are available at Bioinformatics online.",
+        "identifier": "42826496",
+        "dedupe_key": "doi:10.1093/bioinformatics/btag732",
+        "topic_hit": [
+          "生物信息"
+        ],
+        "priority_rank": 2,
+        "keyword_hit": [
+          "foundation model"
+        ]
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "19a14ed02917",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
+          "rank": 7
+        }
+      ]
+    },
+    {
+      "source": "papers",
+      "rank": 8,
       "title": "meth-SemiCancer2: a cancer subtyping framework leveraging domain adaptation with contrastive learning for batch effect correction in DNA methylation profiles",
       "title_zh": "meth-SemiCancer2：一个利用域适应与对比学习进行 DNA 甲基化谱批次效应校正的癌症亚型分型框架",
       "url": "https://doi.org/10.1186/s12859-026-06656-0",
@@ -256,7 +389,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 2,
+      "rank_delta": -3,
       "cluster_id": "fa1faf7ccbee",
       "cluster_size": 1,
       "rank_history": [
@@ -275,12 +408,16 @@
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
           "rank": 5
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
+          "rank": 8
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 6,
+      "rank": 9,
       "title": "Spatial cell-cell communication inference based on cell-spot-ligand-receptor heterogeneous graphs",
       "title_zh": "基于细胞-斑点-配体-受体异构图的空间细胞-细胞通讯推断",
       "url": "https://doi.org/10.1371/journal.pcbi.1014835",
@@ -307,7 +444,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 2,
+      "rank_delta": -3,
       "cluster_id": "4bb2ed23afa0",
       "cluster_size": 1,
       "rank_history": [
@@ -326,12 +463,16 @@
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
           "rank": 6
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
+          "rank": 9
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 7,
+      "rank": 10,
       "title": "RMGAT: a Relational Multi-Scale Graph Attention Network for spatial transcriptomics domain identification with systematic component ablation",
       "title_zh": "RMGAT：一种用于空间转录组学域识别的关系多尺度图注意力网络及系统性组件消融",
       "url": "https://doi.org/10.1186/s12859-026-06641-7",
@@ -362,7 +503,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 2,
+      "rank_delta": -3,
       "cluster_id": "6379261bb78f",
       "cluster_size": 1,
       "rank_history": [
@@ -385,12 +526,16 @@
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
           "rank": 7
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
+          "rank": 10
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 8,
+      "rank": 11,
       "title": "spMosaic: multi-sample integration for scalable spatial domain discovery based on spatial transcriptomics",
       "title_zh": "spMosaic：基于空间转录组学的多样本整合，用于可扩展空间域发现",
       "url": "https://doi.org/10.1093/bib/bbag527",
@@ -418,7 +563,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 2,
+      "rank_delta": -3,
       "cluster_id": "e5310c50f90e",
       "cluster_size": 1,
       "rank_history": [
@@ -429,12 +574,16 @@
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
           "rank": 8
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
+          "rank": 11
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 9,
+      "rank": 12,
       "title": "ELISA (Embedding-Linked Interactive Single-cell Agent): an interpretable hybrid generative Artificial Intelligence agent for expression-grounded discovery in single-cell genomics",
       "title_zh": "ELISA（嵌入链接交互式单细胞代理）：一种用于单细胞基因组学中表达基础发现的可解释混合生成人工智能代理",
       "url": "https://doi.org/10.1093/bib/bbag501",
@@ -462,7 +611,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 2,
+      "rank_delta": -3,
       "cluster_id": "136809dd224b",
       "cluster_size": 1,
       "rank_history": [
@@ -485,12 +634,16 @@
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
           "rank": 9
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
+          "rank": 12
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 10,
+      "rank": 13,
       "title": "BOMIFA: biologically informed multi-omics integration with graph contrastive learning for cancer prognosis in women",
       "title_zh": "BOMIFA：基于生物学信息的多组学整合与图对比学习用于女性癌症预后",
       "url": "https://doi.org/10.1093/bib/bbag500",
@@ -520,7 +673,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 2,
+      "rank_delta": -3,
       "cluster_id": "ad48db2d2cb2",
       "cluster_size": 1,
       "rank_history": [
@@ -543,12 +696,16 @@
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
           "rank": 10
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
+          "rank": 13
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 11,
+      "rank": 14,
       "title": "Single-cell-level perturbation-induced and condition-related signal estimation with batch effect removal using NDreamer",
       "title_zh": "使用NDreamer进行单细胞级扰动诱导和条件相关信号估计并去除批次效应",
       "url": "https://doi.org/10.1093/bib/bbag485",
@@ -576,7 +733,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 2,
+      "rank_delta": -3,
       "cluster_id": "e96c01a7ed53",
       "cluster_size": 1,
       "rank_history": [
@@ -599,12 +756,16 @@
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
           "rank": 11
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
+          "rank": 14
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 12,
+      "rank": 15,
       "title": "scASprofiler: profiling single-cell RNA splicing with a deep convolutional generative network",
       "title_zh": "scASprofiler：用深度卷积生成网络分析单细胞RNA剪接",
       "url": "https://doi.org/10.1093/bib/bbag497",
@@ -633,7 +794,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 2,
+      "rank_delta": -3,
       "cluster_id": "4404fbeaf2f6",
       "cluster_size": 1,
       "rank_history": [
@@ -656,12 +817,16 @@
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
           "rank": 12
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
+          "rank": 15
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 13,
+      "rank": 16,
       "title": "Decoding cell–cell communication in spatial transcriptomics: mechanistic insights, modeling constraints, and analytical caveats",
       "title_zh": "解码空间转录组中的细胞间通讯：机制洞见、建模约束和分析陷阱",
       "url": "https://doi.org/10.1093/bib/bbag477",
@@ -688,7 +853,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 2,
+      "rank_delta": -3,
       "cluster_id": "92a61889e1c9",
       "cluster_size": 1,
       "rank_history": [
@@ -711,12 +876,16 @@
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
           "rank": 13
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
+          "rank": 16
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 14,
+      "rank": 17,
       "title": "AResKGLM: a graph-grounded language-model framework for interpretable multi-hop antimicrobial resistance reasoning",
       "title_zh": "AResKGLM：一种图接地语言模型框架，用于可解释的多跳抗菌素耐药性推理",
       "url": "https://doi.org/10.1093/bib/bbag456",
@@ -743,7 +912,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 2,
+      "rank_delta": -3,
       "cluster_id": "89124a9a4ebc",
       "cluster_size": 1,
       "rank_history": [
@@ -762,12 +931,16 @@
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
           "rank": 14
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
+          "rank": 17
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 15,
+      "rank": 18,
       "title": "Stepwise multi-scale reconstruction of cell spatial organization from single-cell RNA sequencing data with Cell2space",
       "title_zh": "使用Cell2space从单细胞RNA测序数据逐步多尺度重建细胞空间组织",
       "url": "https://doi.org/10.1093/bib/bbag531",
@@ -794,7 +967,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 2,
+      "rank_delta": -3,
       "cluster_id": "ec913fcda3d6",
       "cluster_size": 1,
       "rank_history": [
@@ -805,12 +978,16 @@
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
           "rank": 15
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
+          "rank": 18
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 16,
+      "rank": 19,
       "title": "SpaHDSRL: hierarchical dual-graph self-supervised representation learning for integrating spatially resolved multi-omics data",
       "title_zh": "SpaHDSRL：用于整合空间分辨多组学数据的分层双图自监督表示学习",
       "url": "https://doi.org/10.1093/bib/bbag517",
@@ -838,7 +1015,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 2,
+      "rank_delta": -3,
       "cluster_id": "37a69742cb49",
       "cluster_size": 1,
       "rank_history": [
@@ -857,12 +1034,16 @@
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
           "rank": 16
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
+          "rank": 19
         }
       ]
     },
     {
       "source": "papers",
-      "rank": 17,
+      "rank": 20,
       "title": "Interpretable deep neural network identifies robust biomarkers for diseases with mechanistic insights from omics data",
       "title_zh": "可解释深度神经网络识别疾病稳健生物标志物，并带组学数据机制洞见",
       "url": "https://doi.org/10.1093/bib/bbag476",
@@ -889,7 +1070,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": 2,
+      "rank_delta": -3,
       "cluster_id": "8245ef758f13",
       "cluster_size": 1,
       "rank_history": [
@@ -904,127 +1085,9 @@
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
           "rank": 17
-        }
-      ]
-    },
-    {
-      "source": "papers",
-      "rank": 18,
-      "title": "DPAS-Graph: adaptive spatial-feature relation learning for spatial RNA-to-protein prediction and virtual protein profiling",
-      "title_zh": "DPAS-Graph：用于空间RNA到蛋白质预测和虚拟蛋白质谱的自适应空间特征关系学习",
-      "url": "https://doi.org/10.1093/bib/bbag480",
-      "hot_value": null,
-      "summary_zh": "摘要 配对空间多组学为原位学习RNA-蛋白质对应关系提供了监督基础，但仅从空间转录组数据预测蛋白质丰度在不同组织背景和蛋白质面板中仍具挑战。在此，我们提出DPAS-Graph，一个用于空间RNA到蛋白质预测的自适应关系学习框架。DPAS-Graph不是将空间邻近性和转录组相似性作为固定图先验直接合并，而是将它们表示为共享边支持上的两个关系通道，并在蛋白质预测的表征学习过程中更新其贡献。其Niche-Coupled Field Encoder结合逐层边关系建模、分支内关系精炼和跨分支残差校正，学习用于蛋白质丰度预测的点表征。在七个配对空间多组学数据集的留一数据集基准测试中，DPAS-Graph实现了更低的总体预测误差和改善的蛋白质表达谱点级一致性，增益主要体现在基于误差的指标和PCC-Spot上。进一步使用空间自相关和蛋白质衍生域一致性分析来表征预测蛋白质图谱的空间行为。当应用于外部仅RNA",
-      "thumbnail": null,
-      "published_at": "2026-09-01",
-      "extra": {
-        "subsource": "crossref",
-        "tier": "英文顶刊",
-        "journal": "Briefings in Bioinformatics",
-        "mode": "filter",
-        "issn": "1477-4054",
-        "doi": "10.1093/bib/bbag480",
-        "description": "Abstract Paired spatial multi-omics provides a supervised basis for learning RNA–protein correspondence in situ, but predicting protein abundance from spatial transcriptomic data alone remains challenging across tissue contexts and protein panels. Here, we present DPAS-Graph, an adaptive relation-learning framework for spatial RNA-to-protein prediction. Rather than directly merging spatial proximity and transcriptomic similarity as fixed graph priors, DPAS-Graph represents them as two relation channels on a shared edge support and updates their contributions during representation learning for protein prediction. Its Niche-Coupled Field Encoder combines layer-wise edge-relation modeling, intra-branch relation refinement, and cross-branch residual correction to learn spot representations for protein abundance prediction. In a leave-one-dataset-out benchmark across seven paired spatial multi-omics datasets, DPAS-Graph achieved lower aggregate prediction errors and improved spot-level agreement of protein expression profiles, with gains mainly reflected in error-based metrics and PCC-Spot. Spatial autocorrelation and protein-derived domain agreement analyses were further used to characterize the spatial behavior of the predicted protein maps. When applied to external RNA-only spatial sections, DPAS-Graph generated qualitatively interpretable marker-level virtual protein maps, illustrating its use as a complementary tool for protein-level interpretation of transcriptomics-only spatial data.",
-        "dedupe_key": "doi:10.1093/bib/bbag480",
-        "topic_hit": [
-          "生物信息"
-        ],
-        "priority_rank": 2,
-        "keyword_hit": [
-          "representation learning",
-          "benchmark"
-        ]
-      },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 2,
-      "cluster_id": "db6b2fdb94a1",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-09-27T22:44:00.556569+00:00",
-          "rank": 18
         },
         {
-          "run_at": "2026-10-02T01:44:27.290836+00:00",
-          "rank": 20
-        },
-        {
-          "run_at": "2026-10-03T01:44:54.795737+00:00",
-          "rank": 18
-        }
-      ]
-    },
-    {
-      "source": "papers",
-      "rank": 19,
-      "title": "Single-cell RNA sequencing analysis reveals new insights for intersex gonad initiation and early sex differentiation of dairy goats",
-      "title_zh": "单细胞 RNA 测序分析揭示奶山羊间性腺启动和早期性别分化的新见解",
-      "url": "https://doi.org/10.1186/s12864-026-13404-4",
-      "hot_value": null,
-      "summary_zh": null,
-      "thumbnail": null,
-      "published_at": "2026-10-02",
-      "extra": {
-        "subsource": "crossref",
-        "tier": "英文顶刊",
-        "journal": "BMC Genomics",
-        "mode": "filter",
-        "issn": "1471-2164",
-        "doi": "10.1186/s12864-026-13404-4",
-        "description": "",
-        "dedupe_key": "doi:10.1186/s12864-026-13404-4",
-        "topic_hit": [
-          "生物信息"
-        ],
-        "priority_rank": 2,
-        "keyword_hit": []
-      },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
-      "cluster_id": "3bbb0e143c5f",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-10-03T01:44:54.795737+00:00",
-          "rank": 19
-        }
-      ]
-    },
-    {
-      "source": "papers",
-      "rank": 20,
-      "title": "Effects of semaglutide on kidney disease in type 2 diabetes: a randomized placebo-controlled trial.",
-      "title_zh": "司美格鲁肽对 2 型糖尿病肾病的影响：一项随机安慰剂对照试验。",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42823485/",
-      "hot_value": null,
-      "summary_zh": "GLP-1 受体激动剂司美格鲁肽可保护 2 型糖尿病和慢性肾病患者的肾功能，但其潜在机制尚不清楚。在此，我们报告一项为期 52 周的随机试验，比较每周一次皮下注射司美格鲁肽 1 mg 与安慰剂（n = 106（n = 25 名女性，n = 81 名男性））在 2 型糖尿病和慢性肾病患者中的效果。为确定司美格鲁肽的肾脏特异性作用机制，我们对肾脏进行了整合多参数磁共振成像和组织学活检（n = 33），同时对配对样本进行了单核（n = 22）和空间转录组学（n = 13）分析，并进行了治疗前后测量。共同主要磁共振成像结果（通过 R2* 测定的氧合、整体灌注和通过 T1 mapping 测定的组织炎症）在司美格鲁肽与安慰剂治疗之间没有显著改变。次要结果显示，与安慰剂相比，司美格鲁肽治疗与肾动脉阻力指数显著降低和表观扩散系数稳定相关，表明预防纤维化进展。此外，次要转录组学结果显示司美格鲁肽对肾小球内",
-      "thumbnail": null,
-      "published_at": "2026-10-01",
-      "extra": {
-        "subsource": "pubmed",
-        "journal": "Nature medicine",
-        "doi": "10.1038/s41591-026-04674-2",
-        "tier": "英文顶刊",
-        "mode": "filter",
-        "description": "The GLP-1 receptor agonist semaglutide preserves kidney function in people with type 2 diabetes and chronic kidney disease, but the underlying mechanisms are unclear. Here we report a 52-week randomized trial of subcutaneous semaglutide 1 mg once weekly versus placebo (n = 106 (n = 25 women, n = 81 men)) in participants with type 2 diabetes and chronic kidney disease. To identify kidney-specific mechanisms of action for semaglutide, we performed integrated multiparametric magnetic resonance imaging of the kidney and biopsy for histology (n = 33), alongside single-nucleus (n = 22) and spatial transcriptomics (n = 13) on paired samples with before- and after-treatment measurements. Coprimary magnetic resonance imaging outcomes (oxygenation by R2*, global perfusion and tissue inflammation by T1 mapping) were not significantly altered by semaglutide versus placebo treatment. Secondary outcomes revealed that semaglutide treatment, as compared to placebo, was associated with a significantly reduced renal artery resistive index and stabilization of the apparent diffusion coefficient, indicating prevention of fibrosis progression. Moreover, secondary transcriptomic outcomes revealed pronounced effects of semaglutide on glomerular endothelial cells, consistent with the results of spatial analyses indicating reduced numbers of immune cells in the proximity of these endothelial cells. The results from this trial indicate that mechanisms of kidney protection by semaglutide may include reduced vascular resistance, prevention of fibrosis and improved underlying molecular programs promoting endothelial cell health. ClinicalTrials.gov identifier: NCT04865770 .",
-        "identifier": "42823485",
-        "dedupe_key": "doi:10.1038/s41591-026-04674-2",
-        "topic_hit": [
-          "生物信息"
-        ],
-        "priority_rank": 2,
-        "keyword_hit": []
-      },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
-      "cluster_id": "313b2a5cae34",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-10-03T01:44:54.795737+00:00",
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
           "rank": 20
         }
       ]
@@ -1082,6 +1145,10 @@
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
           "rank": 21
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
+          "rank": 21
         }
       ]
     },
@@ -1134,6 +1201,10 @@
         },
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
+          "rank": 22
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
           "rank": 22
         }
       ]
@@ -1191,6 +1262,10 @@
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
           "rank": 23
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
+          "rank": 23
         }
       ]
     },
@@ -1240,6 +1315,10 @@
         },
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
+          "rank": 24
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
           "rank": 24
         }
       ]
@@ -1295,6 +1374,10 @@
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
           "rank": 25
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
+          "rank": 25
         }
       ]
     },
@@ -1349,6 +1432,10 @@
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
           "rank": 26
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
+          "rank": 26
         }
       ]
     },
@@ -1401,6 +1488,10 @@
         },
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
+          "rank": 27
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
           "rank": 27
         }
       ]
@@ -1455,6 +1546,10 @@
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
           "rank": 28
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
+          "rank": 28
         }
       ]
     },
@@ -1508,6 +1603,10 @@
         },
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
+          "rank": 29
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
           "rank": 29
         }
       ]
@@ -1564,6 +1663,10 @@
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
           "rank": 30
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
+          "rank": 30
         }
       ]
     },
@@ -1619,6 +1722,10 @@
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
           "rank": 31
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
+          "rank": 31
         }
       ]
     },
@@ -1672,6 +1779,10 @@
         },
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
+          "rank": 32
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
           "rank": 32
         }
       ]
@@ -1728,6 +1839,10 @@
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
           "rank": 33
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
+          "rank": 33
         }
       ]
     },
@@ -1783,6 +1898,10 @@
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
           "rank": 34
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
+          "rank": 34
         }
       ]
     },
@@ -1837,6 +1956,10 @@
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
           "rank": 35
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
+          "rank": 35
         }
       ]
     },
@@ -1890,6 +2013,10 @@
         },
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
+          "rank": 36
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
           "rank": 36
         }
       ]
@@ -1946,6 +2073,10 @@
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
           "rank": 37
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
+          "rank": 37
         }
       ]
     },
@@ -2000,6 +2131,10 @@
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
           "rank": 38
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
+          "rank": 38
         }
       ]
     },
@@ -2052,6 +2187,10 @@
         },
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
+          "rank": 39
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
           "rank": 39
         }
       ]
@@ -2106,6 +2245,10 @@
         },
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
+          "rank": 40
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
           "rank": 40
         }
       ]
@@ -2163,6 +2306,10 @@
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
           "rank": 41
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
+          "rank": 41
         }
       ]
     },
@@ -2196,13 +2343,17 @@
         ]
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "664ec890feba",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
+          "rank": 42
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
           "rank": 42
         }
       ]
@@ -2247,6 +2398,10 @@
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
           "rank": 43
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
+          "rank": 43
         }
       ]
     },
@@ -2276,13 +2431,17 @@
         "keyword_hit": []
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "5fa18691e543",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
+          "rank": 44
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
           "rank": 44
         }
       ]
@@ -2328,6 +2487,10 @@
         },
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
+          "rank": 45
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
           "rank": 45
         }
       ]
@@ -2384,6 +2547,10 @@
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
           "rank": 46
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
+          "rank": 46
         }
       ]
     },
@@ -2439,6 +2606,10 @@
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
           "rank": 47
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
+          "rank": 47
         }
       ]
     },
@@ -2479,6 +2650,10 @@
         },
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
+          "rank": 48
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
           "rank": 48
         }
       ]
@@ -2524,6 +2699,10 @@
         },
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
+          "rank": 49
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
           "rank": 49
         }
       ]
@@ -2578,6 +2757,10 @@
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
           "rank": 50
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
+          "rank": 50
         }
       ]
     },
@@ -2630,6 +2813,10 @@
         },
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
+          "rank": 51
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
           "rank": 51
         }
       ]
@@ -2684,6 +2871,10 @@
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
           "rank": 52
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
+          "rank": 52
         }
       ]
     },
@@ -2713,13 +2904,17 @@
         ]
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "14ea195d09c7",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
+          "rank": 53
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
           "rank": 53
         }
       ]
@@ -2750,13 +2945,17 @@
         ]
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "2195b64f76d6",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
+          "rank": 54
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
           "rank": 54
         }
       ]
@@ -2787,13 +2986,17 @@
         ]
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "5eca3cce6ed2",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
+          "rank": 55
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
           "rank": 55
         }
       ]
@@ -2824,13 +3027,17 @@
         ]
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "b9afbfcfe038",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
+          "rank": 56
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
           "rank": 56
         }
       ]
@@ -2861,13 +3068,17 @@
         ]
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "82b8b0d7473f",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
+          "rank": 57
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
           "rank": 57
         }
       ]
@@ -2897,13 +3108,17 @@
         ]
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "5327d674c426",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
+          "rank": 58
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
           "rank": 58
         }
       ]
@@ -2931,13 +3146,17 @@
         "keyword_hit": []
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "35a020c58692",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
+          "rank": 59
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
           "rank": 59
         }
       ]
@@ -2965,20 +3184,24 @@
         "keyword_hit": []
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": 0,
       "cluster_id": "da25566f696e",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
           "rank": 60
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
+          "rank": 60
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 25,
+      "rank": 27,
       "title": "Location, location, location: how to edit genes only in the cells you want",
       "title_zh": "位置，位置，位置：如何只在想要的细胞中编辑基因",
       "url": "https://www.nature.com/articles/d41586-026-03037-8",
@@ -2995,20 +3218,24 @@
         "dedupe_key": "https://www.nature.com/articles/d41586-026-03037-8"
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": -2,
       "cluster_id": "124a3a34c9ae",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
           "rank": 25
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
+          "rank": 27
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 26,
+      "rank": 28,
       "title": "‘Learning about physics changed my life’: author Hernan Diaz on his new novel Ply",
       "title_zh": "“学习物理改变了我的人生”：作家Hernan Diaz谈他的新小说《Ply》",
       "url": "https://www.nature.com/articles/d41586-026-03057-4",
@@ -3025,20 +3252,24 @@
         "dedupe_key": "https://www.nature.com/articles/d41586-026-03057-4"
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": -2,
       "cluster_id": "de4b890690b7",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
           "rank": 26
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
+          "rank": 28
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 27,
+      "rank": 29,
       "title": "How to respond to hate speech without fuelling it further",
       "title_zh": "如何回应仇恨言论而不进一步助长它",
       "url": "https://www.nature.com/articles/d41586-026-03058-3",
@@ -3055,20 +3286,24 @@
         "dedupe_key": "https://www.nature.com/articles/d41586-026-03058-3"
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": -2,
       "cluster_id": "c12592a01e46",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
           "rank": 27
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
+          "rank": 29
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 28,
+      "rank": 30,
       "title": "Stunning fossil shows dinosaurs’ distinctive path to flight",
       "title_zh": "惊人化石显示恐龙独特的飞行之路",
       "url": "https://www.nature.com/articles/d41586-026-03126-8",
@@ -3085,20 +3320,24 @@
         "dedupe_key": "https://www.nature.com/articles/d41586-026-03126-8"
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": -2,
       "cluster_id": "36f2abb3d5e7",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
           "rank": 28
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
+          "rank": 30
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 29,
+      "rank": 31,
       "title": "Nature has rights — it is time the world recognized them",
       "title_zh": "自然拥有权利——是时候世界承认它们了",
       "url": "https://www.nature.com/articles/d41586-026-03145-5",
@@ -3115,20 +3354,24 @@
         "dedupe_key": "https://www.nature.com/articles/d41586-026-03145-5"
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": -2,
       "cluster_id": "1d5b5e695ff0",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
           "rank": 29
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
+          "rank": 31
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 30,
+      "rank": 32,
       "title": "Can you name the women who have won a science Nobel prize?",
       "title_zh": "你能说出获得科学诺贝尔奖的女性吗？",
       "url": "https://www.nature.com/articles/d41586-026-03133-9",
@@ -3145,20 +3388,24 @@
         "dedupe_key": "https://www.nature.com/articles/d41586-026-03133-9"
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": -2,
       "cluster_id": "8f3dc5d4ddee",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
           "rank": 30
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
+          "rank": 32
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 31,
+      "rank": 33,
       "title": "Von Neumann’s party",
       "title_zh": "冯·诺依曼的派对",
       "url": "https://www.nature.com/articles/d41586-026-02976-6",
@@ -3175,20 +3422,24 @@
         "dedupe_key": "https://www.nature.com/articles/d41586-026-02976-6"
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": -2,
       "cluster_id": "c620993e4cc5",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
           "rank": 31
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
+          "rank": 33
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 32,
+      "rank": 34,
       "title": "Prozac use for childhood depression skewed by single flawed medical trial",
       "title_zh": "儿童抑郁症使用百忧解受一项有缺陷的医学试验影响而偏斜",
       "url": "https://www.nature.com/articles/d41586-026-02769-x",
@@ -3205,20 +3456,24 @@
         "dedupe_key": "https://www.nature.com/articles/d41586-026-02769-x"
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": -2,
       "cluster_id": "e4c759410370",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
           "rank": 32
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
+          "rank": 34
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 33,
+      "rank": 35,
       "title": "Can we have class outside? Seven tips to breeze through outdoor lectures",
       "title_zh": "我们能在户外上课吗？轻松进行户外讲座的七个技巧",
       "url": "https://www.nature.com/articles/d41586-026-02564-8",
@@ -3235,20 +3490,24 @@
         "dedupe_key": "https://www.nature.com/articles/d41586-026-02564-8"
       },
       "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
+      "is_new": false,
+      "rank_delta": -2,
       "cluster_id": "73920fe5f383",
       "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
           "rank": 33
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
+          "rank": 35
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 38,
+      "rank": 40,
       "title": "Retraction Note: Ribosomal frameshifting in the CCR5 mRNA is regulated by miRNAs and the NMD pathway",
       "title_zh": "撤稿说明：CCR5 mRNA中的核糖体移码受miRNA和NMD通路调控",
       "url": "https://www.nature.com/articles/s41586-026-11149-4",
@@ -3266,7 +3525,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -14,
+      "rank_delta": -2,
       "cluster_id": "b1a6e38347a2",
       "cluster_size": 1,
       "rank_history": [
@@ -3277,12 +3536,16 @@
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
           "rank": 38
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
+          "rank": 40
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 39,
+      "rank": 41,
       "title": "A black hole’s jets have a halo effect",
       "title_zh": "黑洞喷流具有晕效应",
       "url": "https://www.nature.com/articles/d41586-026-03036-9",
@@ -3300,7 +3563,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -14,
+      "rank_delta": -2,
       "cluster_id": "1086c4b1a0c8",
       "cluster_size": 1,
       "rank_history": [
@@ -3311,12 +3574,16 @@
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
           "rank": 39
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
+          "rank": 41
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 40,
+      "rank": 42,
       "title": "Can pancreatic cancer be stopped in its tracks? Radical tactic raises hopes",
       "title_zh": "胰腺癌能被阻止吗？激进策略带来希望",
       "url": "https://www.nature.com/articles/d41586-026-03119-7",
@@ -3334,7 +3601,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -14,
+      "rank_delta": -2,
       "cluster_id": "09ac07bffa5b",
       "cluster_size": 1,
       "rank_history": [
@@ -3345,12 +3612,16 @@
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
           "rank": 40
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
+          "rank": 42
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 41,
+      "rank": 43,
       "title": "‘Vibe coding’ makes the dictionary: AI terms recognized by Merriam-Webster",
       "title_zh": "“氛围编程”进入词典：Merriam-Webster认可的AI术语",
       "url": "https://www.nature.com/articles/d41586-026-03044-9",
@@ -3368,7 +3639,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -14,
+      "rank_delta": -2,
       "cluster_id": "3e3845a2f168",
       "cluster_size": 1,
       "rank_history": [
@@ -3379,12 +3650,16 @@
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
           "rank": 41
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
+          "rank": 43
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 42,
+      "rank": 44,
       "title": "The ‘missed disease’ that affects 190 million: endometriosis drug shows early promise",
       "title_zh": "影响1.9亿人的“被忽视疾病”：子宫内膜异位症药物显示早期前景",
       "url": "https://www.nature.com/articles/d41586-026-03042-x",
@@ -3402,7 +3677,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -14,
+      "rank_delta": -2,
       "cluster_id": "7984d82b55b8",
       "cluster_size": 1,
       "rank_history": [
@@ -3413,12 +3688,16 @@
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
           "rank": 42
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
+          "rank": 44
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 43,
+      "rank": 45,
       "title": "Gaze into the cosmos and through the eyes of a bee — September’s best science images",
       "title_zh": "凝视宇宙，并通过蜜蜂的眼睛看世界——九月最佳科学图片",
       "url": "https://www.nature.com/articles/d41586-026-03101-3",
@@ -3436,7 +3715,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -14,
+      "rank_delta": -2,
       "cluster_id": "49072a4bc635",
       "cluster_size": 1,
       "rank_history": [
@@ -3447,12 +3726,16 @@
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
           "rank": 43
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
+          "rank": 45
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 44,
+      "rank": 46,
       "title": "Times are changing but order matters: transferable prediction of small-molecule liquid chromatography retention times",
       "title_zh": "时代在变但顺序很重要：小分子液相色谱保留时间的可迁移预测",
       "url": "https://www.nature.com/articles/s41592-026-03243-2",
@@ -3470,7 +3753,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -13,
+      "rank_delta": -2,
       "cluster_id": "27f9a8e82d35",
       "cluster_size": 1,
       "rank_history": [
@@ -3481,12 +3764,16 @@
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
           "rank": 44
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
+          "rank": 46
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 57,
+      "rank": 58,
       "title": "CytoVI: deep generative modeling of antibody-based single cell data",
       "title_zh": "CytoVI：基于抗体的单细胞数据的深度生成建模",
       "url": "https://www.nature.com/articles/s41592-026-03224-5",
@@ -3504,7 +3791,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -4,
+      "rank_delta": -1,
       "cluster_id": "696133f7df56",
       "cluster_size": 1,
       "rank_history": [
@@ -3515,12 +3802,16 @@
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
           "rank": 57
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
+          "rank": 58
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 73,
+      "rank": 72,
       "title": "Spatially resolved chromatin architectures in mammalian brain tissues",
       "title_zh": "哺乳动物脑组织中的空间分辨染色质结构",
       "url": "https://www.nature.com/articles/s41592-026-03218-3",
@@ -3538,7 +3829,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -5,
+      "rank_delta": 1,
       "cluster_id": "9278842c5bf1",
       "cluster_size": 1,
       "rank_history": [
@@ -3561,12 +3852,16 @@
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
           "rank": 73
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
+          "rank": 72
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 74,
+      "rank": 73,
       "title": "Control of ice thickness in cryo-EM via confinement",
       "title_zh": "通过限域控制冷冻电镜中的冰厚度",
       "url": "https://www.nature.com/articles/s41592-026-03244-1",
@@ -3584,7 +3879,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -5,
+      "rank_delta": 1,
       "cluster_id": "23c6d03dd226",
       "cluster_size": 1,
       "rank_history": [
@@ -3607,12 +3902,16 @@
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
           "rank": 74
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
+          "rank": 73
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 75,
+      "rank": 74,
       "title": "ResolVI: addressing noise and bias in spatial transcriptomics",
       "title_zh": "ResolVI：解决空间转录组学中的噪声和偏差",
       "url": "https://www.nature.com/articles/s41592-026-03212-9",
@@ -3630,7 +3929,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -4,
+      "rank_delta": 1,
       "cluster_id": "0361a0975426",
       "cluster_size": 1,
       "rank_history": [
@@ -3653,12 +3952,16 @@
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
           "rank": 75
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
+          "rank": 74
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 76,
+      "rank": 75,
       "title": "Solid-state nanopore sensing: the next workhorse of biophysical characterization",
       "title_zh": "固态纳米孔传感：生物物理表征的下一个主力",
       "url": "https://www.nature.com/articles/s41592-026-03222-7",
@@ -3676,7 +3979,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -4,
+      "rank_delta": 1,
       "cluster_id": "1ddf2dfda9f1",
       "cluster_size": 1,
       "rank_history": [
@@ -3699,12 +4002,16 @@
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
           "rank": 76
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
+          "rank": 75
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 78,
+      "rank": 77,
       "title": "NanoTS: a deep learning tool for accurate SNP calling in nanopore long-read transcriptome data",
       "title_zh": "NanoTS：一种在纳米孔长读长转录组数据中准确调用SNP的深度学习工具",
       "url": "https://www.nature.com/articles/s41592-026-03225-4",
@@ -3722,7 +4029,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -5,
+      "rank_delta": 1,
       "cluster_id": "cc370a8590b1",
       "cluster_size": 1,
       "rank_history": [
@@ -3745,6 +4052,10 @@
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
           "rank": 78
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
+          "rank": 77
         }
       ]
     },
@@ -3768,7 +4079,7 @@
       },
       "days_on_board": 2,
       "is_new": false,
-      "rank_delta": -5,
+      "rank_delta": 0,
       "cluster_id": "1b21f43db01d",
       "cluster_size": 1,
       "rank_history": [
@@ -3790,6 +4101,10 @@
         },
         {
           "run_at": "2026-10-03T01:44:54.795737+00:00",
+          "rank": 79
+        },
+        {
+          "run_at": "2026-10-03T04:45:25.104795+00:00",
           "rank": 79
         }
       ]
