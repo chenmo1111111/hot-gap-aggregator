@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-10-06T16:45:23.211195+00:00",
+  "generated_at": "2026-10-07T01:45:04.910198+00:00",
   "source": "conf_deadlines",
   "status": {
     "source": "conf_deadlines",
     "status": "ok",
     "item_count": 3,
-    "duration_ms": 5062,
+    "duration_ms": 4210,
     "error": null,
-    "run_at": "2026-10-06T16:45:23.211195+00:00"
+    "run_at": "2026-10-07T01:45:04.910198+00:00"
   },
   "items": [
     {
@@ -29,16 +29,12 @@
         "full_name": "International Conference on Research inComputational Molecular Biology",
         "location": "Toronto, Canada"
       },
-      "days_on_board": 1,
+      "days_on_board": 2,
       "is_new": false,
       "rank_delta": 0,
       "cluster_id": "2f8650c20351",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-30T01:44:15.788983+00:00",
-          "rank": 2
-        },
         {
           "run_at": "2026-10-02T01:44:27.290836+00:00",
           "rank": 2
@@ -65,6 +61,10 @@
         },
         {
           "run_at": "2026-10-06T16:45:23.211195+00:00",
+          "rank": 1
+        },
+        {
+          "run_at": "2026-10-07T01:45:04.910198+00:00",
           "rank": 1
         }
       ]
@@ -88,16 +88,12 @@
         "full_name": "IEEE/CVF Conference on Computer Vision and Pattern Recognition",
         "location": "Seattle, WA, United States"
       },
-      "days_on_board": 1,
+      "days_on_board": 2,
       "is_new": false,
       "rank_delta": 0,
       "cluster_id": "02b7349cee7a",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-09-30T01:44:15.788983+00:00",
-          "rank": 3
-        },
         {
           "run_at": "2026-10-02T01:44:27.290836+00:00",
           "rank": 3
@@ -125,6 +121,10 @@
         {
           "run_at": "2026-10-06T16:45:23.211195+00:00",
           "rank": 2
+        },
+        {
+          "run_at": "2026-10-07T01:45:04.910198+00:00",
+          "rank": 2
         }
       ]
     },
@@ -147,7 +147,7 @@
         "full_name": "Annual Meeting of the Association for Computational Linguistics",
         "location": "Kyoto, Japan"
       },
-      "days_on_board": 1,
+      "days_on_board": 2,
       "is_new": false,
       "rank_delta": 0,
       "cluster_id": "416521fdefd2",
@@ -179,6 +179,10 @@
         },
         {
           "run_at": "2026-10-06T16:45:23.211195+00:00",
+          "rank": 3
+        },
+        {
+          "run_at": "2026-10-07T01:45:04.910198+00:00",
           "rank": 3
         }
       ]
