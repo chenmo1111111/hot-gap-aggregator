@@ -1,158 +1,18 @@
 {
-  "generated_at": "2026-10-07T10:45:19.993440+00:00",
+  "generated_at": "2026-10-08T04:45:23.032721+00:00",
   "source": "tools",
   "status": {
     "source": "tools",
     "status": "ok",
-    "item_count": 25,
-    "duration_ms": 14371,
+    "item_count": 15,
+    "duration_ms": 6870,
     "error": null,
-    "run_at": "2026-10-07T10:45:19.993440+00:00"
+    "run_at": "2026-10-08T04:45:23.032721+00:00"
   },
   "items": [
     {
       "source": "feed",
-      "rank": 7,
-      "title": "罗马：永恒之城，永恒于世",
-      "title_zh": "罗马：永恒之城，永恒于世",
-      "url": "https://sspai.com/post/114845",
-      "hot_value": null,
-      "summary_zh": "Matrix 首页推荐 Matrix 是少数派的写作社区，我们主张分享真实的产品体验，有实用价值的经验与思考。我们会不定期挑选 Matrix 最优质的文章，展示来自用户的最真实的体验和观点。 文章代表作者个人观点，少数派仅对标题和排版略作修改。 书接 上回 。来到意大利，就不可能不来罗马。作为我意大利旅行的第一站，罗马代表了我对意大利最初的期待与印象。我在傍晚六点半落地罗马，迎接我的是地中海地区夏季独有的蓝天、热情又浪漫的 Uber 司机以及遍地田园的意大利城郊公路。坐在 Uber 上，司机见我是第一次来到罗马，就开始滔滔不绝地跟我讲述罗马的历史、遗迹、以及诸多美食，让我趁着这个游客还没有开始大量涌入罗马的时候，好好发掘这座「永恒之城」。于是，我的罗马之旅，就围绕着「Urbs Aeterna」而慢慢展开。 建筑：秩序、空间、罗马精神 提到罗马，一定绕不过罗马的建筑。罗马建筑既有鲜明的纪念性",
-      "thumbnail": null,
-      "published_at": "2026-10-07T03:00:00+00:00",
-      "extra": {
-        "feed_name": "少数派",
-        "tab": "tools",
-        "route": "/sspai/index",
-        "translate": false,
-        "description": "Matrix 首页推荐 Matrix 是少数派的写作社区，我们主张分享真实的产品体验，有实用价值的经验与思考。我们会不定期挑选 Matrix 最优质的文章，展示来自用户的最真实的体验和观点。 文章代表作者个人观点，少数派仅对标题和排版略作修改。 书接 上回 。来到意大利，就不可能不来罗马。作为我意大利旅行的第一站，罗马代表了我对意大利最初的期待与印象。我在傍晚六点半落地罗马，迎接我的是地中海地区夏季独有的蓝天、热情又浪漫的 Uber 司机以及遍地田园的意大利城郊公路。坐在 Uber 上，司机见我是第一次来到罗马，就开始滔滔不绝地跟我讲述罗马的历史、遗迹、以及诸多美食，让我趁着这个游客还没有开始大量涌入罗马的时候，好好发掘这座「永恒之城」。于是，我的罗马之旅，就围绕着「Urbs Aeterna」而慢慢展开。 建筑：秩序、空间、罗马精神 提到罗马，一定绕不过罗马的建筑。罗马建筑既有鲜明的纪念性",
-        "dedupe_key": "https://sspai.com/post/114845"
-      },
-      "days_on_board": 1,
-      "is_new": true,
-      "rank_delta": "new",
-      "cluster_id": "527348a52e28",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-10-07T10:45:19.993440+00:00",
-          "rank": 7
-        }
-      ]
-    },
-    {
-      "source": "feed",
-      "rank": 24,
-      "title": "基于 Vaultwarden 和 Keyguard 的自托管密码管理实践",
-      "title_zh": "基于 Vaultwarden 和 Keyguard 的自托管密码管理实践",
-      "url": "https://sspai.com/post/115416",
-      "hot_value": null,
-      "summary_zh": "注：题图使用 Gemini 生成。 几年来我一直在市面上的主流密码管理方案间游走，上一个让我暂时安顿下来的是 Enpass。倒不是它体验有多出色，纯粹是因为「家人们」订阅了 Google Play Pass 能直接解锁高级版。直到前段时间订阅涨价，我们一致决定不再续费。我需要给手里这三四百个密码再次搬个家。 此时环顾一圈各家产品，可选项依然各有各的堵心：1Password 虽好，错过拼车好价就只能支付高昂的订阅费用；LastPass 安全丑闻频出，让人多少有些望而却步；KeePass 硬核且开放，但跨平台体验碎片化严重——最终选择回到 Bitwarden 算不上是最优解，但使用 TOTP 无需多装一个 2FA 应用这事儿也得额外付费，并且一直以来它们的客户端体验在上述产品中也并不算拔尖。 但 Bitwarden 另有所长——碰巧家里有一台 24 小时开机的 NAS，自托管一个 Vaultw",
-      "thumbnail": null,
-      "published_at": "2026-10-06T10:00:00+00:00",
-      "extra": {
-        "feed_name": "少数派",
-        "tab": "tools",
-        "route": "/sspai/index",
-        "translate": false,
-        "description": "注：题图使用 Gemini 生成。 几年来我一直在市面上的主流密码管理方案间游走，上一个让我暂时安顿下来的是 Enpass。倒不是它体验有多出色，纯粹是因为「家人们」订阅了 Google Play Pass 能直接解锁高级版。直到前段时间订阅涨价，我们一致决定不再续费。我需要给手里这三四百个密码再次搬个家。 此时环顾一圈各家产品，可选项依然各有各的堵心：1Password 虽好，错过拼车好价就只能支付高昂的订阅费用；LastPass 安全丑闻频出，让人多少有些望而却步；KeePass 硬核且开放，但跨平台体验碎片化严重——最终选择回到 Bitwarden 算不上是最优解，但使用 TOTP 无需多装一个 2FA 应用这事儿也得额外付费，并且一直以来它们的客户端体验在上述产品中也并不算拔尖。 但 Bitwarden 另有所长——碰巧家里有一台 24 小时开机的 NAS，自托管一个 Vaultw",
-        "dedupe_key": "https://sspai.com/post/115416"
-      },
-      "days_on_board": 1,
-      "is_new": false,
-      "rank_delta": -11,
-      "cluster_id": "706b28693799",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-10-07T01:45:04.910198+00:00",
-          "rank": 13
-        },
-        {
-          "run_at": "2026-10-07T10:45:19.993440+00:00",
-          "rank": 24
-        }
-      ]
-    },
-    {
-      "source": "feed",
-      "rank": 51,
-      "title": "十个案例助你轻松上手 iOS 27 通知自动化",
-      "title_zh": "十个案例助你轻松上手 iOS 27 通知自动化",
-      "url": "https://sspai.com/post/114536",
-      "hot_value": null,
-      "summary_zh": "正值 iOS 27 发布之际，聊聊这次新增加的「通知自动化」。 当初 Mac 上快捷指令新增文件的自动化时，很自然地联想到 Mac 上「自动操作」中的文件夹操作，当时希望其中的日程提醒也能整合到快捷指令自动化中，根据日程或者提醒事项自动执行快捷指令。 没想到苹果直接一步到位，增加了通知自动化，不再局限于日历、提醒事项、邮件、信息等系统内容，任何能发送通知的 App 都能够作为快捷指令的触发器。这意味着除了信息和邮件之外，甚至可以使用微信这样的高频 App 通知作为自动化入口。更重要的是，通知和信息邮件一样，本身还携带了可以参与筛选和处理的自定义内容，可以根据 App 传递过来的不同内容执行不同的操作。 不同 App 可以有不同的提醒方式。不同联系人可以有不同的紧急状态。不同通知内容也可以执行完全不同的操作。 所以通知自动化本身，看起来只是增加了一个触发条件，实际上多了一整层可以利用的「输入",
-      "thumbnail": null,
-      "published_at": "2026-10-05T02:59:24+00:00",
-      "extra": {
-        "feed_name": "少数派",
-        "tab": "tools",
-        "route": "/sspai/index",
-        "translate": false,
-        "description": "正值 iOS 27 发布之际，聊聊这次新增加的「通知自动化」。 当初 Mac 上快捷指令新增文件的自动化时，很自然地联想到 Mac 上「自动操作」中的文件夹操作，当时希望其中的日程提醒也能整合到快捷指令自动化中，根据日程或者提醒事项自动执行快捷指令。 没想到苹果直接一步到位，增加了通知自动化，不再局限于日历、提醒事项、邮件、信息等系统内容，任何能发送通知的 App 都能够作为快捷指令的触发器。这意味着除了信息和邮件之外，甚至可以使用微信这样的高频 App 通知作为自动化入口。更重要的是，通知和信息邮件一样，本身还携带了可以参与筛选和处理的自定义内容，可以根据 App 传递过来的不同内容执行不同的操作。 不同 App 可以有不同的提醒方式。不同联系人可以有不同的紧急状态。不同通知内容也可以执行完全不同的操作。 所以通知自动化本身，看起来只是增加了一个触发条件，实际上多了一整层可以利用的「输入",
-        "dedupe_key": "https://sspai.com/post/114536"
-      },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": -3,
-      "cluster_id": "90861dbce1ea",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-10-06T01:45:25.842668+00:00",
-          "rank": 23
-        },
-        {
-          "run_at": "2026-10-07T01:45:04.910198+00:00",
-          "rank": 48
-        },
-        {
-          "run_at": "2026-10-07T10:45:19.993440+00:00",
-          "rank": 51
-        }
-      ]
-    },
-    {
-      "source": "feed",
-      "rank": 54,
-      "title": "方方面面都熟悉，方方面面都更好：iPhone 18 Pro 体验",
-      "title_zh": "方方面面都熟悉，方方面面都更好：iPhone 18 Pro 体验",
-      "url": "https://sspai.com/post/115308",
-      "hot_value": null,
-      "summary_zh": "经历了去年 iPhone 17 Pro 的全面改款之后，今年的 iPhone 18 Pro 毫不意外地转向「查缺补漏」：既把已有体验打磨得更为扎实，也弥补了上一代产品留下的一些遗憾。 如果只看外观，iPhone 18 Pro 的诸多变化并不容易在第一时间被察觉，只有更小的灵动岛和全新的配色提醒着我们，这确实是一台新的 iPhone。但与我们熟悉的「小改款」似乎又有所不同，这一代产品更像是对 iPhone 的 Pro 级体验做了一次重新梳理：更大的可变主摄光圈、更强的首款 2nm 制程 A 系列芯片、甚至还有面积增大到此前三倍的新一代 VC 均热板。 因此，iPhone 18 Pro 也许不会让你有像前代产品一样焕然一新的感觉，却在许多地方都变得更加完整了。 熟悉的外观，却有新的分量 外观方面，iPhone 18 Pro 与 iPhone 17 Pro 并无二致：熟悉的铝金属一体成型机身、横",
-      "thumbnail": null,
-      "published_at": "2026-10-04T07:58:39+00:00",
-      "extra": {
-        "feed_name": "少数派",
-        "tab": "tools",
-        "route": "/sspai/index",
-        "translate": false,
-        "description": "经历了去年 iPhone 17 Pro 的全面改款之后，今年的 iPhone 18 Pro 毫不意外地转向「查缺补漏」：既把已有体验打磨得更为扎实，也弥补了上一代产品留下的一些遗憾。 如果只看外观，iPhone 18 Pro 的诸多变化并不容易在第一时间被察觉，只有更小的灵动岛和全新的配色提醒着我们，这确实是一台新的 iPhone。但与我们熟悉的「小改款」似乎又有所不同，这一代产品更像是对 iPhone 的 Pro 级体验做了一次重新梳理：更大的可变主摄光圈、更强的首款 2nm 制程 A 系列芯片、甚至还有面积增大到此前三倍的新一代 VC 均热板。 因此，iPhone 18 Pro 也许不会让你有像前代产品一样焕然一新的感觉，却在许多地方都变得更加完整了。 熟悉的外观，却有新的分量 外观方面，iPhone 18 Pro 与 iPhone 17 Pro 并无二致：熟悉的铝金属一体成型机身、横",
-        "dedupe_key": "https://sspai.com/post/115308"
-      },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "94887123cb83",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-10-06T01:45:25.842668+00:00",
-          "rank": 34
-        },
-        {
-          "run_at": "2026-10-07T01:45:04.910198+00:00",
-          "rank": 54
-        },
-        {
-          "run_at": "2026-10-07T10:45:19.993440+00:00",
-          "rank": 54
-        }
-      ]
-    },
-    {
-      "source": "feed",
-      "rank": 56,
+      "rank": 39,
       "title": "Version 5.6.0",
       "title_zh": "版本5.6.0",
       "url": "https://github.com/satijalab/seurat/releases/tag/v5.6.0",
@@ -168,9 +28,9 @@
         "description": "Changes Additions Added setThreads and getThreads to control threading in supported C++ kernels and uwot UMAP backends Updated NormalizeData to use threaded sparse log-normalization and reduce matrix-copying overhead Updated FindVariableFeatures to share a sparse VST implementation across assay versions with threaded standardized-variance calculations Updated ScaleData to center, scale, and clip d",
         "dedupe_key": "https://github.com/satijalab/seurat/releases/tag/v5.6.0"
       },
-      "days_on_board": 2,
+      "days_on_board": 3,
       "is_new": false,
-      "rank_delta": 2,
+      "rank_delta": 17,
       "cluster_id": "bf128c562147",
       "cluster_size": 1,
       "rank_history": [
@@ -193,328 +53,16 @@
         {
           "run_at": "2026-10-07T10:45:19.993440+00:00",
           "rank": 56
+        },
+        {
+          "run_at": "2026-10-08T04:45:23.032721+00:00",
+          "rank": 39
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 57,
-      "title": "TDS REVIEW | CMF Clip Pro 耳夹式无线耳机体验",
-      "title_zh": "TDS REVIEW | CMF Clip Pro 耳夹式无线耳机体验",
-      "url": "https://sspai.com/post/114922",
-      "hot_value": null,
-      "summary_zh": "这篇文章是 TDS Studio 在少数派上的第 31 篇文章，依然是全平台首发。 Nothing 大体系下的第一个 OWS 产品其实是 Nothing Ear (Open)，我们其实也是首发期就入手了的，至少从精致程度以及调音的平衡性考虑，那还是个不错的产品，只是声音素质会跟千元价位当时的优秀档次状态有些差距而已。Clip Pro 则是他们的第一款耳夹，既然是 CMF 子品牌负责，显然设计语言和定位都会与主品牌有明显不同。考虑到它的售价，我们会以审视中档耳夹的角度来体验它。 包装与配件 | Package & Accessories CMF Clip Pro 的包装还是非常小巧的，也没有什么其他配件，开箱处有一如既往的胶贴，可以帮助你判断它是否是第一次启封。 设计、佩戴表现与声学结构 | Design, Fit & Acoustic Structure Clip Pro 共有三种配色可选",
-      "thumbnail": null,
-      "published_at": "2026-10-03T07:00:00+00:00",
-      "extra": {
-        "feed_name": "少数派",
-        "tab": "tools",
-        "route": "/sspai/index",
-        "translate": false,
-        "description": "这篇文章是 TDS Studio 在少数派上的第 31 篇文章，依然是全平台首发。 Nothing 大体系下的第一个 OWS 产品其实是 Nothing Ear (Open)，我们其实也是首发期就入手了的，至少从精致程度以及调音的平衡性考虑，那还是个不错的产品，只是声音素质会跟千元价位当时的优秀档次状态有些差距而已。Clip Pro 则是他们的第一款耳夹，既然是 CMF 子品牌负责，显然设计语言和定位都会与主品牌有明显不同。考虑到它的售价，我们会以审视中档耳夹的角度来体验它。 包装与配件 | Package & Accessories CMF Clip Pro 的包装还是非常小巧的，也没有什么其他配件，开箱处有一如既往的胶贴，可以帮助你判断它是否是第一次启封。 设计、佩戴表现与声学结构 | Design, Fit & Acoustic Structure Clip Pro 共有三种配色可选",
-        "dedupe_key": "https://sspai.com/post/114922"
-      },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 2,
-      "cluster_id": "201045b60423",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-10-03T07:44:44.181094+00:00",
-          "rank": 4
-        },
-        {
-          "run_at": "2026-10-04T01:45:07.652365+00:00",
-          "rank": 20
-        },
-        {
-          "run_at": "2026-10-06T01:45:25.842668+00:00",
-          "rank": 43
-        },
-        {
-          "run_at": "2026-10-07T01:45:04.910198+00:00",
-          "rank": 59
-        },
-        {
-          "run_at": "2026-10-07T10:45:19.993440+00:00",
-          "rank": 57
-        }
-      ]
-    },
-    {
-      "source": "feed",
-      "rank": 58,
-      "title": "本周看什么 | 最近值得一看的 8 部作品",
-      "title_zh": "本周看什么 | 最近值得一看的 8 部作品",
-      "url": "https://sspai.com/post/115211",
-      "hot_value": null,
-      "summary_zh": "👀 N 部作品推荐 近期佳作推荐： [英剧] 万物生灵 第七季、[英剧] 黑帮领地 第二季、[国产] 交锋、[动画] 飙马野郎 JOJO 的奇妙冒险 2nd & 3rd STAGE、[电影] 剧场版 物怪 蛇神、[动画] 登登登邓氏三宝、[真人秀] 旗安 84 的奇趣民宿 第二季、[纪录片] 若泽·穆里尼奥：特立之道 几则精彩预告： 《泥面人》终极预告、《白日酒徒》首支预告、《附带伤亡》首支预告、《药师少女的独语 第三季》新预告 几则影视资讯： 《生化危机：爆发夜》内地定档 10 月 5 日、《疾速追杀》内地定档 10 月 30 日、《复仇者联盟 5》确认引进、《沙丘 3》确认引进 往期推荐可 点此 或点击文末 tag #本周看什么，更多主题片单可 点此 查看；想要查看更多深度影视内容，可以关注我们的衍生栏目「 看什么 Café 」。如有其他建议也欢迎在评论区提出，感谢大家对「看什么」栏目",
-      "thumbnail": null,
-      "published_at": "2026-10-02T09:30:00+00:00",
-      "extra": {
-        "feed_name": "少数派",
-        "tab": "tools",
-        "route": "/sspai/index",
-        "translate": false,
-        "description": "👀 N 部作品推荐 近期佳作推荐： [英剧] 万物生灵 第七季、[英剧] 黑帮领地 第二季、[国产] 交锋、[动画] 飙马野郎 JOJO 的奇妙冒险 2nd & 3rd STAGE、[电影] 剧场版 物怪 蛇神、[动画] 登登登邓氏三宝、[真人秀] 旗安 84 的奇趣民宿 第二季、[纪录片] 若泽·穆里尼奥：特立之道 几则精彩预告： 《泥面人》终极预告、《白日酒徒》首支预告、《附带伤亡》首支预告、《药师少女的独语 第三季》新预告 几则影视资讯： 《生化危机：爆发夜》内地定档 10 月 5 日、《疾速追杀》内地定档 10 月 30 日、《复仇者联盟 5》确认引进、《沙丘 3》确认引进 往期推荐可 点此 或点击文末 tag #本周看什么，更多主题片单可 点此 查看；想要查看更多深度影视内容，可以关注我们的衍生栏目「 看什么 Café 」。如有其他建议也欢迎在评论区提出，感谢大家对「看什么」栏目",
-        "dedupe_key": "https://sspai.com/post/115211"
-      },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 2,
-      "cluster_id": "a5c73e402d74",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-10-03T01:44:54.795737+00:00",
-          "rank": 12
-        },
-        {
-          "run_at": "2026-10-03T04:45:25.104795+00:00",
-          "rank": 16
-        },
-        {
-          "run_at": "2026-10-03T07:44:44.181094+00:00",
-          "rank": 21
-        },
-        {
-          "run_at": "2026-10-04T01:45:07.652365+00:00",
-          "rank": 35
-        },
-        {
-          "run_at": "2026-10-06T01:45:25.842668+00:00",
-          "rank": 49
-        },
-        {
-          "run_at": "2026-10-07T01:45:04.910198+00:00",
-          "rank": 60
-        },
-        {
-          "run_at": "2026-10-07T10:45:19.993440+00:00",
-          "rank": 58
-        }
-      ]
-    },
-    {
-      "source": "feed",
-      "rank": 60,
-      "title": "从玩家的世界掠过：Bungie 的「列车」如何驶向终焉",
-      "title_zh": "从玩家的世界掠过：Bungie 的「列车」如何驶向终焉",
-      "url": "https://sspai.com/post/115070",
-      "hot_value": null,
-      "summary_zh": "Matrix 首页推荐 Matrix 是少数派的写作社区，我们主张分享真实的产品体验，有实用价值的经验与思考。我们会不定期挑选 Matrix 最优质的文章，展示来自用户的最真实的体验和观点。 文章代表作者个人观点，少数派仅对标题和排版略作修改。 故人往事 逝去，但从未被遗忘。 ——浪客 2026 年 9 月 22 日凌晨，距离《命运 2》发布凯旋纪念碑赛季更新、宣布游戏进入持续维护状态开始，已经过去了 104 天。这天凌晨 1:00 点，Bungie 发布了一则不同于往常更新的公告。公告中，Bungie 写明工作室已深刻反思了自己的错误——多年来一直忽视玩家的想法且特立独行地更新低质量内容，导致玩家不断流失——在做出一大堆近似空头支票的承诺之后，他们继续承诺会在未来的几个月内为《命运 2》补上更多可游玩内容，并公布更多内容恢复的细节 1 。 传承《命运》的辉煌，共创其未来。 在《命运 2》",
-      "thumbnail": null,
-      "published_at": "2026-09-30T14:32:58+00:00",
-      "extra": {
-        "feed_name": "少数派",
-        "tab": "tools",
-        "route": "/sspai/index",
-        "translate": false,
-        "description": "Matrix 首页推荐 Matrix 是少数派的写作社区，我们主张分享真实的产品体验，有实用价值的经验与思考。我们会不定期挑选 Matrix 最优质的文章，展示来自用户的最真实的体验和观点。 文章代表作者个人观点，少数派仅对标题和排版略作修改。 故人往事 逝去，但从未被遗忘。 ——浪客 2026 年 9 月 22 日凌晨，距离《命运 2》发布凯旋纪念碑赛季更新、宣布游戏进入持续维护状态开始，已经过去了 104 天。这天凌晨 1:00 点，Bungie 发布了一则不同于往常更新的公告。公告中，Bungie 写明工作室已深刻反思了自己的错误——多年来一直忽视玩家的想法且特立独行地更新低质量内容，导致玩家不断流失——在做出一大堆近似空头支票的承诺之后，他们继续承诺会在未来的几个月内为《命运 2》补上更多可游玩内容，并公布更多内容恢复的细节 1 。 传承《命运》的辉煌，共创其未来。 在《命运 2》",
-        "dedupe_key": "https://sspai.com/post/115070"
-      },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 4,
-      "cluster_id": "17b1bd715630",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-10-03T01:44:54.795737+00:00",
-          "rank": 45
-        },
-        {
-          "run_at": "2026-10-03T04:45:25.104795+00:00",
-          "rank": 48
-        },
-        {
-          "run_at": "2026-10-03T07:44:44.181094+00:00",
-          "rank": 50
-        },
-        {
-          "run_at": "2026-10-04T01:45:07.652365+00:00",
-          "rank": 59
-        },
-        {
-          "run_at": "2026-10-06T01:45:25.842668+00:00",
-          "rank": 65
-        },
-        {
-          "run_at": "2026-10-07T01:45:04.910198+00:00",
-          "rank": 64
-        },
-        {
-          "run_at": "2026-10-07T10:45:19.993440+00:00",
-          "rank": 60
-        }
-      ]
-    },
-    {
-      "source": "feed",
-      "rank": 61,
-      "title": "经典任务管理软件的现代重构：新版 2Do 详解",
-      "title_zh": "经典任务管理软件的现代重构：新版 2Do 详解",
-      "url": "https://sspai.com/post/115166",
-      "hot_value": null,
-      "summary_zh": "Matrix 首页推荐 Matrix 是少数派的写作社区，我们主张分享真实的产品体验，有实用价值的经验与思考。我们会不定期挑选 Matrix 最优质的文章，展示来自用户的最真实的体验和观点。 文章代表作者个人观点，少数派仅对标题和排版略作修改。 2Do 于今年 8 月推出了全新版本，新版本的 2Do 并没有抛弃之前版本高自由度这个特点，甚至自由度更高了；同时还彻底换上了现代化的界面设计，并加入了诸多顺应时代潮流的实用功能。 在经历了一个多月的深度使用后，我想借这篇文章，与大家聊聊现代重构后的 2Do。本文将以 macOS 版本为主，并简单提及部分 iOS、iPadOS 上的特色功能，希望可以带大家了解我心目中最佳的任务管理工具。 不只 UI 升级，2Do 交互里还有这些新变化 作为一款诞生已有十余年的老牌 macOS 原生效率工具，2Do 在重构之前带有非常明显的拟物和早期扁平时代的设计风",
-      "thumbnail": null,
-      "published_at": "2026-09-30T07:00:00+00:00",
-      "extra": {
-        "feed_name": "少数派",
-        "tab": "tools",
-        "route": "/sspai/index",
-        "translate": false,
-        "description": "Matrix 首页推荐 Matrix 是少数派的写作社区，我们主张分享真实的产品体验，有实用价值的经验与思考。我们会不定期挑选 Matrix 最优质的文章，展示来自用户的最真实的体验和观点。 文章代表作者个人观点，少数派仅对标题和排版略作修改。 2Do 于今年 8 月推出了全新版本，新版本的 2Do 并没有抛弃之前版本高自由度这个特点，甚至自由度更高了；同时还彻底换上了现代化的界面设计，并加入了诸多顺应时代潮流的实用功能。 在经历了一个多月的深度使用后，我想借这篇文章，与大家聊聊现代重构后的 2Do。本文将以 macOS 版本为主，并简单提及部分 iOS、iPadOS 上的特色功能，希望可以带大家了解我心目中最佳的任务管理工具。 不只 UI 升级，2Do 交互里还有这些新变化 作为一款诞生已有十余年的老牌 macOS 原生效率工具，2Do 在重构之前带有非常明显的拟物和早期扁平时代的设计风",
-        "dedupe_key": "https://sspai.com/post/115166"
-      },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 4,
-      "cluster_id": "9311a0571133",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-10-03T01:44:54.795737+00:00",
-          "rank": 53
-        },
-        {
-          "run_at": "2026-10-03T04:45:25.104795+00:00",
-          "rank": 54
-        },
-        {
-          "run_at": "2026-10-03T07:44:44.181094+00:00",
-          "rank": 56
-        },
-        {
-          "run_at": "2026-10-04T01:45:07.652365+00:00",
-          "rank": 62
-        },
-        {
-          "run_at": "2026-10-06T01:45:25.842668+00:00",
-          "rank": 66
-        },
-        {
-          "run_at": "2026-10-07T01:45:04.910198+00:00",
-          "rank": 65
-        },
-        {
-          "run_at": "2026-10-07T10:45:19.993440+00:00",
-          "rank": 61
-        }
-      ]
-    },
-    {
-      "source": "feed",
-      "rank": 62,
-      "title": "别再把攻略全甩给 AI：国庆七天河南自驾，我是这样用 Agent 的",
-      "title_zh": "别再把攻略全甩给 AI：国庆七天河南自驾，我是这样用 Agent 的",
-      "url": "https://sspai.com/post/114945",
-      "hot_value": null,
-      "summary_zh": "Matrix 首页推荐 Matrix 是少数派的写作社区，我们主张分享真实的产品体验，有实用价值的经验与思考。我们会不定期挑选 Matrix 最优质的文章，展示来自用户的最真实的体验和观点。 文章代表作者个人观点，少数派仅对标题和排版略作修改。 注：全文思路与实践操作均原创，使用Zcode等工具生成路书，以及规整和校对文字。 我是典型的 J 人，出行前不做攻略，心里就没底。说走就走听着潇洒，放到国庆这种大日子，往往会变成灾难：酒店价格临时翻倍，热门演出早就无票，博物馆根本约不上号……除非你愿意用金钱为这份潇洒买单，我可是舍不得。 往年做攻略最烦两件事。 一是信息太乱，十几个标签页开着来回切，同一个地方不同笔记的说法对不上，营业时间、门票政策各说各的，只能一条条点进去核对，遇到说法矛盾的时候尤其耗费心力。二是我一直用 Notion 记行程，重要节点没有问题，但细节的呈现始终不够理想。 今年国",
-      "thumbnail": null,
-      "published_at": "2026-09-30T03:02:18+00:00",
-      "extra": {
-        "feed_name": "少数派",
-        "tab": "tools",
-        "route": "/sspai/index",
-        "translate": false,
-        "description": "Matrix 首页推荐 Matrix 是少数派的写作社区，我们主张分享真实的产品体验，有实用价值的经验与思考。我们会不定期挑选 Matrix 最优质的文章，展示来自用户的最真实的体验和观点。 文章代表作者个人观点，少数派仅对标题和排版略作修改。 注：全文思路与实践操作均原创，使用Zcode等工具生成路书，以及规整和校对文字。 我是典型的 J 人，出行前不做攻略，心里就没底。说走就走听着潇洒，放到国庆这种大日子，往往会变成灾难：酒店价格临时翻倍，热门演出早就无票，博物馆根本约不上号……除非你愿意用金钱为这份潇洒买单，我可是舍不得。 往年做攻略最烦两件事。 一是信息太乱，十几个标签页开着来回切，同一个地方不同笔记的说法对不上，营业时间、门票政策各说各的，只能一条条点进去核对，遇到说法矛盾的时候尤其耗费心力。二是我一直用 Notion 记行程，重要节点没有问题，但细节的呈现始终不够理想。 今年国",
-        "dedupe_key": "https://sspai.com/post/114945"
-      },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 4,
-      "cluster_id": "f87d99148624",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-10-03T01:44:54.795737+00:00",
-          "rank": 56
-        },
-        {
-          "run_at": "2026-10-03T04:45:25.104795+00:00",
-          "rank": 57
-        },
-        {
-          "run_at": "2026-10-03T07:44:44.181094+00:00",
-          "rank": 58
-        },
-        {
-          "run_at": "2026-10-04T01:45:07.652365+00:00",
-          "rank": 63
-        },
-        {
-          "run_at": "2026-10-06T01:45:25.842668+00:00",
-          "rank": 67
-        },
-        {
-          "run_at": "2026-10-07T01:45:04.910198+00:00",
-          "rank": 66
-        },
-        {
-          "run_at": "2026-10-07T10:45:19.993440+00:00",
-          "rank": 62
-        }
-      ]
-    },
-    {
-      "source": "feed",
-      "rank": 64,
-      "title": "派早报：OpenAI 发布 Dot 智能体、Apple 移动睡眠呼吸暂停迹象提示软件国内获批等",
-      "title_zh": "派早报：OpenAI 发布 Dot 智能体、Apple 移动睡眠呼吸暂停迹象提示软件国内获批等",
-      "url": "https://sspai.com/post/115197",
-      "hot_value": null,
-      "summary_zh": "OpenAI DevDay 2026 资讯汇总 9 月 29 日， OpenAI 举行 DevDay 2026 并发布超过 20 项更新。 其中 OpenAI Dot 定位为全天候自主智能体，由 GPT‑6 Astra 驱动并运行于独立的云端电脑，配备专属浏览器与独立访问身份，支持自主编写、测试代码及处理多任务；支持跨 ChatGPT（包括网页端、桌面端和移动端）、短信、Slack 和 Teams 同步交互与语音通话，并可通过插件生态接入 4000 多款应用。安全与架构方面，Dot 默认开启恶意指令防护与操作自动审核，敏感操作需人工确认，主动研究阶段仅限受限工具且不直接使用其内容训练模型；企业端正联合微软将其与 Agent 365 治理及访问控制集成，开放专职 Dot 试点。发售与定价方面，Dot 即日起在符合条件的市场逐步面向 Pro 与 Business Premium 用户开放，首个",
-      "thumbnail": null,
-      "published_at": "2026-09-29T23:39:21+00:00",
-      "extra": {
-        "feed_name": "少数派",
-        "tab": "tools",
-        "route": "/sspai/index",
-        "translate": false,
-        "description": "OpenAI DevDay 2026 资讯汇总 9 月 29 日， OpenAI 举行 DevDay 2026 并发布超过 20 项更新。 其中 OpenAI Dot 定位为全天候自主智能体，由 GPT‑6 Astra 驱动并运行于独立的云端电脑，配备专属浏览器与独立访问身份，支持自主编写、测试代码及处理多任务；支持跨 ChatGPT（包括网页端、桌面端和移动端）、短信、Slack 和 Teams 同步交互与语音通话，并可通过插件生态接入 4000 多款应用。安全与架构方面，Dot 默认开启恶意指令防护与操作自动审核，敏感操作需人工确认，主动研究阶段仅限受限工具且不直接使用其内容训练模型；企业端正联合微软将其与 Agent 365 治理及访问控制集成，开放专职 Dot 试点。发售与定价方面，Dot 即日起在符合条件的市场逐步面向 Pro 与 Business Premium 用户开放，首个",
-        "dedupe_key": "https://sspai.com/post/115197"
-      },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 4,
-      "cluster_id": "6079029bf261",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-10-03T01:44:54.795737+00:00",
-          "rank": 58
-        },
-        {
-          "run_at": "2026-10-03T04:45:25.104795+00:00",
-          "rank": 59
-        },
-        {
-          "run_at": "2026-10-03T07:44:44.181094+00:00",
-          "rank": 60
-        },
-        {
-          "run_at": "2026-10-04T01:45:07.652365+00:00",
-          "rank": 65
-        },
-        {
-          "run_at": "2026-10-06T01:45:25.842668+00:00",
-          "rank": 69
-        },
-        {
-          "run_at": "2026-10-07T01:45:04.910198+00:00",
-          "rank": 68
-        },
-        {
-          "run_at": "2026-10-07T10:45:19.993440+00:00",
-          "rank": 64
-        }
-      ]
-    },
-    {
-      "source": "feed",
-      "rank": 70,
+      "rank": 43,
       "title": "scvi-tools 1.5.1",
       "title_zh": "scvi-tools 1.5.1",
       "url": "https://github.com/scverse/scvi-tools/releases/tag/1.5.1",
@@ -530,9 +78,9 @@
         "description": "See the release notes for all changes. This release is available via PyPi: pip install scvi-tools Conda availability will follow (< 2 days typically) Please report any issues on GitHub .",
         "dedupe_key": "https://github.com/scverse/scvi-tools/releases/tag/1.5.1"
       },
-      "days_on_board": 2,
+      "days_on_board": 3,
       "is_new": false,
-      "rank_delta": 9,
+      "rank_delta": 27,
       "cluster_id": "92de253c91a7",
       "cluster_size": 1,
       "rank_history": [
@@ -571,12 +119,16 @@
         {
           "run_at": "2026-10-07T10:45:19.993440+00:00",
           "rank": 70
+        },
+        {
+          "run_at": "2026-10-08T04:45:23.032721+00:00",
+          "rank": 43
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 72,
+      "rank": 45,
       "title": "1.12.4",
       "title_zh": "1.12.4",
       "url": "https://github.com/scverse/scanpy/releases/tag/1.12.4",
@@ -592,9 +144,9 @@
         "description": "https://scanpy.readthedocs.io/en/stable/release-notes/index.html#v1-12-4",
         "dedupe_key": "https://github.com/scverse/scanpy/releases/tag/1.12.4"
       },
-      "days_on_board": 2,
+      "days_on_board": 3,
       "is_new": false,
-      "rank_delta": 11,
+      "rank_delta": 27,
       "cluster_id": "877b691e9b59",
       "cluster_size": 1,
       "rank_history": [
@@ -633,12 +185,16 @@
         {
           "run_at": "2026-10-07T10:45:19.993440+00:00",
           "rank": 72
+        },
+        {
+          "run_at": "2026-10-08T04:45:23.032721+00:00",
+          "rank": 45
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 74,
+      "rank": 46,
       "title": "1.13.0a2",
       "title_zh": "1.13.0a2",
       "url": "https://github.com/scverse/scanpy/releases/tag/1.13.0a2",
@@ -654,9 +210,9 @@
         "description": "https://scanpy.scverse.org/en/latest/release-notes/index.html#version-1-13",
         "dedupe_key": "https://github.com/scverse/scanpy/releases/tag/1.13.0a2"
       },
-      "days_on_board": 2,
+      "days_on_board": 3,
       "is_new": false,
-      "rank_delta": 10,
+      "rank_delta": 28,
       "cluster_id": "768fc0d2e613",
       "cluster_size": 1,
       "rank_history": [
@@ -695,12 +251,16 @@
         {
           "run_at": "2026-10-07T10:45:19.993440+00:00",
           "rank": 74
+        },
+        {
+          "run_at": "2026-10-08T04:45:23.032721+00:00",
+          "rank": 46
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 75,
+      "rank": 48,
       "title": "1.13.0a1",
       "title_zh": "1.13.0a1",
       "url": "https://github.com/scverse/scanpy/releases/tag/1.13.0a1",
@@ -716,9 +276,9 @@
         "description": "https://scanpy.scverse.org/en/latest/release-notes/index.html#version-1-13",
         "dedupe_key": "https://github.com/scverse/scanpy/releases/tag/1.13.0a1"
       },
-      "days_on_board": 2,
+      "days_on_board": 3,
       "is_new": false,
-      "rank_delta": 10,
+      "rank_delta": 27,
       "cluster_id": "9da040e83623",
       "cluster_size": 1,
       "rank_history": [
@@ -757,12 +317,16 @@
         {
           "run_at": "2026-10-07T10:45:19.993440+00:00",
           "rank": 75
+        },
+        {
+          "run_at": "2026-10-08T04:45:23.032721+00:00",
+          "rank": 48
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 76,
+      "rank": 49,
       "title": "1.12.3",
       "title_zh": "1.12.3",
       "url": "https://github.com/scverse/scanpy/releases/tag/1.12.3",
@@ -778,11 +342,11 @@
         "description": "https://scanpy.readthedocs.io/en/stable/release-notes/index.html#v1-12-3",
         "dedupe_key": "https://github.com/scverse/scanpy/releases/tag/1.12.3"
       },
-      "days_on_board": 2,
+      "days_on_board": 3,
       "is_new": false,
-      "rank_delta": 10,
-      "cluster_id": "80c599d66caf",
-      "cluster_size": 2,
+      "rank_delta": 27,
+      "cluster_id": "1e7152d08b04",
+      "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-10-02T01:44:27.290836+00:00",
@@ -819,12 +383,16 @@
         {
           "run_at": "2026-10-07T10:45:19.993440+00:00",
           "rank": 76
+        },
+        {
+          "run_at": "2026-10-08T04:45:23.032721+00:00",
+          "rank": 49
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 77,
+      "rank": 50,
       "title": "scvi-tools 1.5.0.post1",
       "title_zh": "scvi-tools 1.5.0.post1",
       "url": "https://github.com/scverse/scvi-tools/releases/tag/1.5.0.post1",
@@ -840,9 +408,9 @@
         "description": "See the release notes for all changes. This release is available via PyPi: pip install scvi-tools Conda availability will follow (< 2 days typically) Please report any issues on GitHub .",
         "dedupe_key": "https://github.com/scverse/scvi-tools/releases/tag/1.5.0.post1"
       },
-      "days_on_board": 2,
+      "days_on_board": 3,
       "is_new": false,
-      "rank_delta": 10,
+      "rank_delta": 27,
       "cluster_id": "8a4eca2177ca",
       "cluster_size": 1,
       "rank_history": [
@@ -881,12 +449,16 @@
         {
           "run_at": "2026-10-07T10:45:19.993440+00:00",
           "rank": 77
+        },
+        {
+          "run_at": "2026-10-08T04:45:23.032721+00:00",
+          "rank": 50
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 78,
+      "rank": 51,
       "title": "scvi-tools 1.5.0",
       "title_zh": "scvi-tools 1.5.0",
       "url": "https://github.com/scverse/scvi-tools/releases/tag/1.5.0",
@@ -902,9 +474,9 @@
         "description": "See the release notes for all changes. This release is available via PyPi: pip install scvi-tools Conda availability will follow (< 2 days typically) Please report any issues on GitHub .",
         "dedupe_key": "https://github.com/scverse/scvi-tools/releases/tag/1.5.0"
       },
-      "days_on_board": 2,
+      "days_on_board": 3,
       "is_new": false,
-      "rank_delta": 10,
+      "rank_delta": 27,
       "cluster_id": "8b146ac8159b",
       "cluster_size": 1,
       "rank_history": [
@@ -943,12 +515,16 @@
         {
           "run_at": "2026-10-07T10:45:19.993440+00:00",
           "rank": 78
+        },
+        {
+          "run_at": "2026-10-08T04:45:23.032721+00:00",
+          "rank": 51
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 80,
+      "rank": 52,
       "title": "1.12.2",
       "title_zh": "1.12.2",
       "url": "https://github.com/scverse/scanpy/releases/tag/1.12.2",
@@ -964,11 +540,11 @@
         "description": "https://scanpy.readthedocs.io/en/stable/release-notes/index.html#v1-12-2",
         "dedupe_key": "https://github.com/scverse/scanpy/releases/tag/1.12.2"
       },
-      "days_on_board": 2,
+      "days_on_board": 3,
       "is_new": false,
-      "rank_delta": 9,
-      "cluster_id": "80c599d66caf",
-      "cluster_size": 2,
+      "rank_delta": 28,
+      "cluster_id": "750772e94d46",
+      "cluster_size": 1,
       "rank_history": [
         {
           "run_at": "2026-10-02T01:44:27.290836+00:00",
@@ -1005,12 +581,16 @@
         {
           "run_at": "2026-10-07T10:45:19.993440+00:00",
           "rank": 80
+        },
+        {
+          "run_at": "2026-10-08T04:45:23.032721+00:00",
+          "rank": 52
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 81,
+      "rank": 53,
       "title": "Version 5.5.1",
       "title_zh": "版本5.5.1",
       "url": "https://github.com/satijalab/seurat/releases/tag/v5.5.1",
@@ -1026,9 +606,9 @@
         "description": "Changes Additions Added uwot.init parameter to RunUMAP to optionally customize method of UMAP initialization ( #10386 ) Fixes Fixed bug in PrepSCTFindMarkers in the multi-model case that produced zero counts for some valid genes due to an incorrect filter for theta ( #10410 ) Fixed issue with FindClusters not setting metadata properly when a vector of resolutions is passed to resolution and a cust",
         "dedupe_key": "https://github.com/satijalab/seurat/releases/tag/v5.5.1"
       },
-      "days_on_board": 2,
+      "days_on_board": 3,
       "is_new": false,
-      "rank_delta": 9,
+      "rank_delta": 28,
       "cluster_id": "51b67338cbc0",
       "cluster_size": 1,
       "rank_history": [
@@ -1067,12 +647,16 @@
         {
           "run_at": "2026-10-07T10:45:19.993440+00:00",
           "rank": 81
+        },
+        {
+          "run_at": "2026-10-08T04:45:23.032721+00:00",
+          "rank": 53
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 82,
+      "rank": 54,
       "title": "scvi-tools 1.4.3",
       "title_zh": "scvi-tools 1.4.3",
       "url": "https://github.com/scverse/scvi-tools/releases/tag/1.4.3",
@@ -1088,9 +672,9 @@
         "description": "See the release notes for all changes. This release is available via PyPi: pip install scvi-tools Conda availability will follow (< 2 days typically) Please report any issues on GitHub .",
         "dedupe_key": "https://github.com/scverse/scvi-tools/releases/tag/1.4.3"
       },
-      "days_on_board": 2,
+      "days_on_board": 3,
       "is_new": false,
-      "rank_delta": 10,
+      "rank_delta": 28,
       "cluster_id": "bbea1c662507",
       "cluster_size": 1,
       "rank_history": [
@@ -1129,12 +713,16 @@
         {
           "run_at": "2026-10-07T10:45:19.993440+00:00",
           "rank": 82
+        },
+        {
+          "run_at": "2026-10-08T04:45:23.032721+00:00",
+          "rank": 54
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 83,
+      "rank": 55,
       "title": "Version 5.5.0",
       "title_zh": "版本5.5.0",
       "url": "https://github.com/satijalab/seurat/releases/tag/v5.5.0",
@@ -1150,9 +738,9 @@
         "description": "Changes Additions Added support for vars.to.regress and latent.data in ScaleData.IterableMatrix (BPCells) ( #10300 ) Added warning to SCTransform to notify that do.correct.umi is hard set to F when a reference SCT model is specified ( #10329 , #10366 ) Added warning to FindMarkers / FindAllMarkers when running on an IterableMatrix (BPCells) with column-major storage order ( #10365 ) Added plot_typ",
         "dedupe_key": "https://github.com/satijalab/seurat/releases/tag/v5.5.0"
       },
-      "days_on_board": 2,
+      "days_on_board": 3,
       "is_new": false,
-      "rank_delta": 10,
+      "rank_delta": 28,
       "cluster_id": "7c320a02a1ec",
       "cluster_size": 1,
       "rank_history": [
@@ -1191,12 +779,16 @@
         {
           "run_at": "2026-10-07T10:45:19.993440+00:00",
           "rank": 83
+        },
+        {
+          "run_at": "2026-10-08T04:45:23.032721+00:00",
+          "rank": 55
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 84,
+      "rank": 56,
       "title": "scvi-tools 1.4.2",
       "title_zh": "scvi-tools 1.4.2",
       "url": "https://github.com/scverse/scvi-tools/releases/tag/1.4.2",
@@ -1212,9 +804,9 @@
         "description": "See the release notes for all changes. This release is available via PyPi: pip install scvi-tools Conda availability will follow (< 2 days typically) Please report any issues on GitHub .",
         "dedupe_key": "https://github.com/scverse/scvi-tools/releases/tag/1.4.2"
       },
-      "days_on_board": 2,
+      "days_on_board": 3,
       "is_new": false,
-      "rank_delta": 10,
+      "rank_delta": 28,
       "cluster_id": "05240d494324",
       "cluster_size": 1,
       "rank_history": [
@@ -1253,12 +845,16 @@
         {
           "run_at": "2026-10-07T10:45:19.993440+00:00",
           "rank": 84
+        },
+        {
+          "run_at": "2026-10-08T04:45:23.032721+00:00",
+          "rank": 56
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 85,
+      "rank": 57,
       "title": "Version 5.4.0",
       "title_zh": "版本5.4.0",
       "url": "https://github.com/satijalab/seurat/releases/tag/v5.4.0",
@@ -1274,9 +870,9 @@
         "description": "Changes Additions Added support for 10x Space Ranger 4.0 outputs (Visium data with segmentations) Updated data loading functions Load10X_Spatial , Read10X_Image Updated GetTissueCoordinates.VisiumV2 Updated spatial visualization functions SpatialPlot , SingleSpatialPlot , SpatialDimPlot , SpatialFeaturePlot Added helper functions Read10X_Segmentations , Read10X_HD_GeoJson , Format10X_GeoJson_CellI",
         "dedupe_key": "https://github.com/satijalab/seurat/releases/tag/v5.4.0"
       },
-      "days_on_board": 2,
+      "days_on_board": 3,
       "is_new": false,
-      "rank_delta": 10,
+      "rank_delta": 28,
       "cluster_id": "df617b34a5ab",
       "cluster_size": 1,
       "rank_history": [
@@ -1315,12 +911,16 @@
         {
           "run_at": "2026-10-07T10:45:19.993440+00:00",
           "rank": 85
+        },
+        {
+          "run_at": "2026-10-08T04:45:23.032721+00:00",
+          "rank": 57
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 86,
+      "rank": 58,
       "title": "Version 5.3.1",
       "title_zh": "版本5.3.1",
       "url": "https://github.com/satijalab/seurat/releases/tag/v5.3.1",
@@ -1336,11 +936,11 @@
         "description": "Changes Additions Added option to use cluster_leiden from igraph when running Leiden clustering ( #9931 ) Added option to use umap2 from uwot when running UMAP ( #9918 ) Added option to use approx_pow parameter from uwot when running UMAP ( #9449 ) Updated LoadXenium to add support for Xenium protein data ( #10024 ) Added option to specify stroke size in FeaturePlot ( #10053 ) Added label.size.cut",
         "dedupe_key": "https://github.com/satijalab/seurat/releases/tag/v5.3.1"
       },
-      "days_on_board": 2,
+      "days_on_board": 3,
       "is_new": false,
-      "rank_delta": 10,
-      "cluster_id": "8235b0bff662",
-      "cluster_size": 1,
+      "rank_delta": 28,
+      "cluster_id": "edd3c855d9d6",
+      "cluster_size": 2,
       "rank_history": [
         {
           "run_at": "2026-10-02T01:44:27.290836+00:00",
@@ -1377,6 +977,10 @@
         {
           "run_at": "2026-10-07T10:45:19.993440+00:00",
           "rank": 86
+        },
+        {
+          "run_at": "2026-10-08T04:45:23.032721+00:00",
+          "rank": 58
         }
       ]
     }

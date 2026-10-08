@@ -1,49 +1,49 @@
 {
-  "generated_at": "2026-10-07T10:45:19.993440+00:00",
+  "generated_at": "2026-10-08T04:45:23.032721+00:00",
   "source": "github",
   "status": {
     "source": "github",
     "status": "ok",
-    "item_count": 12,
-    "duration_ms": 913,
+    "item_count": 13,
+    "duration_ms": 909,
     "error": null,
-    "run_at": "2026-10-07T10:45:19.993440+00:00"
+    "run_at": "2026-10-08T04:45:23.032721+00:00"
   },
   "items": [
     {
       "source": "github",
       "rank": 1,
-      "title": "tester-army/e2e",
-      "title_zh": "tester-army/e2e",
-      "url": "https://github.com/tester-army/e2e",
-      "hot_value": "1,725 stars today",
-      "summary_zh": "新一代端到端测试框架，支持网页与移动应用。",
+      "title": "morluto/rea",
+      "title_zh": "morluto/rea",
+      "url": "https://github.com/morluto/rea",
+      "hot_value": "4,655 stars today",
+      "summary_zh": "用智能体逆向工程应用行为到原生二进制，值得看。",
       "thumbnail": null,
       "published_at": null,
       "extra": {
-        "description": "Next generation e2e testing framework for web and mobile apps.",
+        "description": "Reverse engineer anything with agents, from app behavior down to native binaries.",
         "language": "TypeScript"
       },
-      "days_on_board": 2,
+      "days_on_board": 3,
       "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "c793f6b97a50",
+      "rank_delta": 7,
+      "cluster_id": "85347f276c40",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-10-06T01:45:25.842668+00:00",
-          "rank": 1
-        },
-        {
           "run_at": "2026-10-06T16:45:23.211195+00:00",
-          "rank": 1
+          "rank": 8
         },
         {
           "run_at": "2026-10-07T01:45:04.910198+00:00",
-          "rank": 1
+          "rank": 8
         },
         {
           "run_at": "2026-10-07T10:45:19.993440+00:00",
+          "rank": 8
+        },
+        {
+          "run_at": "2026-10-08T04:45:23.032721+00:00",
           "rank": 1
         }
       ]
@@ -54,7 +54,7 @@
       "title": "mattpocock/skills",
       "title_zh": "mattpocock/skills",
       "url": "https://github.com/mattpocock/skills",
-      "hot_value": "889 stars today",
+      "hot_value": "1,403 stars today",
       "summary_zh": "真实工程师技能集，直接可用。",
       "thumbnail": null,
       "published_at": null,
@@ -62,7 +62,7 @@
         "description": "Skills for Real Engineers. Straight from my .agents directory.",
         "language": "Shell"
       },
-      "days_on_board": 2,
+      "days_on_board": 3,
       "is_new": false,
       "rank_delta": 0,
       "cluster_id": "5963f5c06b20",
@@ -95,54 +95,20 @@
         {
           "run_at": "2026-10-07T10:45:19.993440+00:00",
           "rank": 2
+        },
+        {
+          "run_at": "2026-10-08T04:45:23.032721+00:00",
+          "rank": 2
         }
       ]
     },
     {
       "source": "github",
       "rank": 3,
-      "title": "earthtojake/text-to-cad",
-      "title_zh": "earthtojake/text-to-cad",
-      "url": "https://github.com/earthtojake/text-to-cad",
-      "hot_value": "619 stars today",
-      "summary_zh": "让AI助手获得CAD建模能力，文本直接生成设计。",
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "description": "Give your agent CAD superpowers.",
-        "language": "Python"
-      },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "4e99b0ee9803",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-10-06T01:45:25.842668+00:00",
-          "rank": 3
-        },
-        {
-          "run_at": "2026-10-06T16:45:23.211195+00:00",
-          "rank": 3
-        },
-        {
-          "run_at": "2026-10-07T01:45:04.910198+00:00",
-          "rank": 3
-        },
-        {
-          "run_at": "2026-10-07T10:45:19.993440+00:00",
-          "rank": 3
-        }
-      ]
-    },
-    {
-      "source": "github",
-      "rank": 4,
       "title": "boykopovar/AnyPS5",
       "title_zh": "boykopovar/AnyPS5",
       "url": "https://github.com/boykopovar/AnyPS5",
-      "hot_value": "949 stars today",
+      "hot_value": "2,716 stars today",
       "summary_zh": "自动把PS5游戏移植到Linux和Windows的工具。",
       "thumbnail": null,
       "published_at": null,
@@ -150,9 +116,9 @@
         "description": "Tool for automatic PS5 executables porting to Linux and Windows",
         "language": "C++"
       },
-      "days_on_board": 2,
+      "days_on_board": 3,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": 1,
       "cluster_id": "2054e0f42ff7",
       "cluster_size": 1,
       "rank_history": [
@@ -171,55 +137,85 @@
         {
           "run_at": "2026-10-07T10:45:19.993440+00:00",
           "rank": 4
+        },
+        {
+          "run_at": "2026-10-08T04:45:23.032721+00:00",
+          "rank": 3
+        }
+      ]
+    },
+    {
+      "source": "github",
+      "rank": 4,
+      "title": "ayghri/i-have-adhd",
+      "title_zh": "ayghri/i-have-adhd",
+      "url": "https://github.com/ayghri/i-have-adhd",
+      "hot_value": "619 stars today",
+      "summary_zh": "防止AI过早收尾，输出更友好。",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "description": "A skill to stop your coding agent from burying the answer. ADHD-friendly output.",
+        "language": "Python"
+      },
+      "days_on_board": 3,
+      "is_new": false,
+      "rank_delta": 3,
+      "cluster_id": "c50f49f16c58",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-10-06T16:45:23.211195+00:00",
+          "rank": 7
+        },
+        {
+          "run_at": "2026-10-07T01:45:04.910198+00:00",
+          "rank": 7
+        },
+        {
+          "run_at": "2026-10-07T10:45:19.993440+00:00",
+          "rank": 7
+        },
+        {
+          "run_at": "2026-10-08T04:45:23.032721+00:00",
+          "rank": 4
         }
       ]
     },
     {
       "source": "github",
       "rank": 5,
-      "title": "pbakaus/impeccable",
-      "title_zh": "pbakaus/impeccable",
-      "url": "https://github.com/pbakaus/impeccable",
-      "hot_value": "616 stars today",
-      "summary_zh": "让AI智能体更懂设计的语言规范。",
+      "title": "cathrynlavery/diagram-design",
+      "title_zh": "cathrynlavery/diagram-design",
+      "url": "https://github.com/cathrynlavery/diagram-design",
+      "hot_value": "825 stars today",
+      "summary_zh": "为AI编程工具设计42种编辑图表，纯HTML+SVG，值得看。",
       "thumbnail": null,
       "published_at": null,
       "extra": {
-        "description": "The design language that makes your AI harness better at design.",
-        "language": "JavaScript"
+        "description": "Editorial diagram design for Claude Code, Codex, GitHub Copilot, Factory Droid, and Pi. 42 diagram types. Self-contained HTML + SVG. No shadows. No Mermaid slop.",
+        "language": "HTML"
       },
-      "days_on_board": 2,
+      "days_on_board": 3,
       "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "0d87ecfe7eff",
+      "rank_delta": 7,
+      "cluster_id": "d8c839d8efba",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-10-03T01:44:54.795737+00:00",
-          "rank": 5
-        },
-        {
-          "run_at": "2026-10-03T04:45:25.104795+00:00",
-          "rank": 5
-        },
-        {
-          "run_at": "2026-10-03T07:44:44.181094+00:00",
-          "rank": 5
-        },
-        {
-          "run_at": "2026-10-04T01:45:07.652365+00:00",
-          "rank": 2
-        },
-        {
           "run_at": "2026-10-06T16:45:23.211195+00:00",
-          "rank": 5
+          "rank": 12
         },
         {
           "run_at": "2026-10-07T01:45:04.910198+00:00",
-          "rank": 5
+          "rank": 12
         },
         {
           "run_at": "2026-10-07T10:45:19.993440+00:00",
+          "rank": 12
+        },
+        {
+          "run_at": "2026-10-08T04:45:23.032721+00:00",
           "rank": 5
         }
       ]
@@ -227,10 +223,66 @@
     {
       "source": "github",
       "rank": 6,
+      "title": "addyosmani/agent-skills",
+      "title_zh": "addyosmani/agent-skills",
+      "url": "https://github.com/addyosmani/agent-skills",
+      "hot_value": "677 stars today",
+      "summary_zh": "addyosmani/agent-skills：AI编码代理实战技能，工程级质量",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "description": "Production-grade engineering skills for AI coding agents.",
+        "language": "JavaScript"
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "329fbfc6a667",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-10-04T01:45:07.652365+00:00",
+          "rank": 10
+        },
+        {
+          "run_at": "2026-10-08T04:45:23.032721+00:00",
+          "rank": 6
+        }
+      ]
+    },
+    {
+      "source": "github",
+      "rank": 7,
+      "title": "EpicGames/raddebugger",
+      "title_zh": "EpicGames/raddebugger",
+      "url": "https://github.com/EpicGames/raddebugger",
+      "hot_value": "90 stars today",
+      "summary_zh": "Epic开源原生多进程图形调试器，开发者调试利器。",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "description": "A native, user-mode, multi-process, graphical debugger.",
+        "language": "C"
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "fb6e30f7d9d2",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-10-08T04:45:23.032721+00:00",
+          "rank": 7
+        }
+      ]
+    },
+    {
+      "source": "github",
+      "rank": 8,
       "title": "thedotmack/claude-mem",
       "title_zh": "thedotmack/claude-mem",
       "url": "https://github.com/thedotmack/claude-mem",
-      "hot_value": "534 stars today",
+      "hot_value": "578 stars today",
       "summary_zh": "Claude-mem为AI代理提供跨会话记忆，自动压缩并注入上下文。",
       "thumbnail": null,
       "published_at": null,
@@ -238,9 +290,9 @@
         "description": "Persistent Context Across Sessions for Every Agent – Captures everything your agent does during sessions, compresses it with AI, and injects relevant context back into future sessions. Works with Claude Code, OpenClaw, Codex, Gemini, Hermes, Copilot, OpenCode + More",
         "language": "TypeScript"
       },
-      "days_on_board": 2,
+      "days_on_board": 3,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": -2,
       "cluster_id": "fc8e4c4271c2",
       "cluster_size": 1,
       "rank_history": [
@@ -263,73 +315,9 @@
         {
           "run_at": "2026-10-07T10:45:19.993440+00:00",
           "rank": 6
-        }
-      ]
-    },
-    {
-      "source": "github",
-      "rank": 7,
-      "title": "ayghri/i-have-adhd",
-      "title_zh": "ayghri/i-have-adhd",
-      "url": "https://github.com/ayghri/i-have-adhd",
-      "hot_value": "326 stars today",
-      "summary_zh": "防止AI过早收尾，输出更友好。",
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "description": "A skill to stop your coding agent from burying the answer. ADHD-friendly output.",
-        "language": "Python"
-      },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "c50f49f16c58",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-10-06T16:45:23.211195+00:00",
-          "rank": 7
         },
         {
-          "run_at": "2026-10-07T01:45:04.910198+00:00",
-          "rank": 7
-        },
-        {
-          "run_at": "2026-10-07T10:45:19.993440+00:00",
-          "rank": 7
-        }
-      ]
-    },
-    {
-      "source": "github",
-      "rank": 8,
-      "title": "morluto/rea",
-      "title_zh": "morluto/rea",
-      "url": "https://github.com/morluto/rea",
-      "hot_value": "2,956 stars today",
-      "summary_zh": "用智能体逆向工程应用行为到原生二进制，值得看。",
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "description": "Reverse engineer anything with agents, from app behavior down to native binaries.",
-        "language": "TypeScript"
-      },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "85347f276c40",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-10-06T16:45:23.211195+00:00",
-          "rank": 8
-        },
-        {
-          "run_at": "2026-10-07T01:45:04.910198+00:00",
-          "rank": 8
-        },
-        {
-          "run_at": "2026-10-07T10:45:19.993440+00:00",
+          "run_at": "2026-10-08T04:45:23.032721+00:00",
           "rank": 8
         }
       ]
@@ -337,33 +325,25 @@
     {
       "source": "github",
       "rank": 9,
-      "title": "deepseek-ai/DeepGEMM",
-      "title_zh": "deepseek-ai/DeepGEMM",
-      "url": "https://github.com/deepseek-ai/DeepGEMM",
-      "hot_value": "199 stars today",
-      "summary_zh": "DeepSeek开源高效GPU BLAS内核库，值得看。",
+      "title": "manaflow-ai/cmux",
+      "title_zh": "manaflow-ai/cmux",
+      "url": "https://github.com/manaflow-ai/cmux",
+      "hot_value": "44 stars today",
+      "summary_zh": "开源macOS终端，支持AI编程代理，多任务可编程。",
       "thumbnail": null,
       "published_at": null,
       "extra": {
-        "description": "DeepGEMM: clean and efficient BLAS kernel library on GPU",
-        "language": "Cuda"
+        "description": "Open source Ghostty-based macOS terminal with vertical tabs and notifications for AI coding agents. Built for multitasking, organization, and programmability.",
+        "language": "Swift"
       },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "fb4d17b665a3",
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "d325bfaefd93",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-10-06T16:45:23.211195+00:00",
-          "rank": 9
-        },
-        {
-          "run_at": "2026-10-07T01:45:04.910198+00:00",
-          "rank": 9
-        },
-        {
-          "run_at": "2026-10-07T10:45:19.993440+00:00",
+          "run_at": "2026-10-08T04:45:23.032721+00:00",
           "rank": 9
         }
       ]
@@ -371,37 +351,25 @@
     {
       "source": "github",
       "rank": 10,
-      "title": "msitarzewski/agency-agents",
-      "title_zh": "msitarzewski/agency-agents",
-      "url": "https://github.com/msitarzewski/agency-agents",
-      "hot_value": "623 stars today",
-      "summary_zh": "一站式AI代理团队，各司其职完成专业任务。",
+      "title": "trycua/cua",
+      "title_zh": "trycua/cua",
+      "url": "https://github.com/trycua/cua",
+      "hot_value": "228 stars today",
+      "summary_zh": "开源计算机使用驱动，跨系统集群与评测，助训练评估数据生成。",
       "thumbnail": null,
       "published_at": null,
       "extra": {
-        "description": "A complete AI agency at your fingertips - From frontend wizards to Reddit community ninjas, from whimsy injectors to reality checkers. Each agent is a specialized expert with personality, processes, and proven deliverables.",
-        "language": "Shell"
+        "description": "Scale computer-use 2.0 with open-source drivers, cross-OS fleets, and benchmarks for training, evaluation, and data generation.",
+        "language": "Rust"
       },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "967867f58381",
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "a3b57743d803",
       "cluster_size": 1,
       "rank_history": [
         {
-          "run_at": "2026-10-06T01:45:25.842668+00:00",
-          "rank": 12
-        },
-        {
-          "run_at": "2026-10-06T16:45:23.211195+00:00",
-          "rank": 10
-        },
-        {
-          "run_at": "2026-10-07T01:45:04.910198+00:00",
-          "rank": 10
-        },
-        {
-          "run_at": "2026-10-07T10:45:19.993440+00:00",
+          "run_at": "2026-10-08T04:45:23.032721+00:00",
           "rank": 10
         }
       ]
@@ -409,10 +377,78 @@
     {
       "source": "github",
       "rank": 11,
+      "title": "cloudflare/security-audit-skill",
+      "title_zh": "cloudflare/security-audit-skill",
+      "url": "https://github.com/cloudflare/security-audit-skill",
+      "hot_value": "576 stars today",
+      "summary_zh": "Cloudflare安全审计技能，多阶段审计并输出可验证机器可读结果。",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "description": "A coding-agent skill for multi-phase security audits with independently verified, machine-readable findings",
+        "language": "JavaScript"
+      },
+      "days_on_board": 1,
+      "is_new": true,
+      "rank_delta": "new",
+      "cluster_id": "18b811ab0d7d",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-10-08T04:45:23.032721+00:00",
+          "rank": 11
+        }
+      ]
+    },
+    {
+      "source": "github",
+      "rank": 12,
+      "title": "tester-army/e2e",
+      "title_zh": "tester-army/e2e",
+      "url": "https://github.com/tester-army/e2e",
+      "hot_value": "1,390 stars today",
+      "summary_zh": "新一代端到端测试框架，支持网页与移动应用。",
+      "thumbnail": null,
+      "published_at": null,
+      "extra": {
+        "description": "Next generation e2e testing framework for web and mobile apps.",
+        "language": "TypeScript"
+      },
+      "days_on_board": 3,
+      "is_new": false,
+      "rank_delta": -11,
+      "cluster_id": "c793f6b97a50",
+      "cluster_size": 1,
+      "rank_history": [
+        {
+          "run_at": "2026-10-06T01:45:25.842668+00:00",
+          "rank": 1
+        },
+        {
+          "run_at": "2026-10-06T16:45:23.211195+00:00",
+          "rank": 1
+        },
+        {
+          "run_at": "2026-10-07T01:45:04.910198+00:00",
+          "rank": 1
+        },
+        {
+          "run_at": "2026-10-07T10:45:19.993440+00:00",
+          "rank": 1
+        },
+        {
+          "run_at": "2026-10-08T04:45:23.032721+00:00",
+          "rank": 12
+        }
+      ]
+    },
+    {
+      "source": "github",
+      "rank": 13,
       "title": "DuarteSantos8/openGym",
       "title_zh": "DuarteSantos8/openGym",
       "url": "https://github.com/DuarteSantos8/openGym",
-      "hot_value": "1,419 stars today",
+      "hot_value": "1,493 stars today",
       "summary_zh": "自托管健身追踪器，记录训练、肌肉状态并导入数据。",
       "thumbnail": null,
       "published_at": null,
@@ -420,9 +456,9 @@
         "description": "Self-hosted gym & body-weight tracker — plan routines, log workouts (supersets, warm-ups, cardio), see which muscles are trained, fatigued or detrained, import from FitNotes/Strong/Hevy, passkey login. Your data, your server.",
         "language": "JavaScript"
       },
-      "days_on_board": 2,
+      "days_on_board": 3,
       "is_new": false,
-      "rank_delta": 0,
+      "rank_delta": -2,
       "cluster_id": "1968c0aa78b7",
       "cluster_size": 1,
       "rank_history": [
@@ -441,40 +477,10 @@
         {
           "run_at": "2026-10-07T10:45:19.993440+00:00",
           "rank": 11
-        }
-      ]
-    },
-    {
-      "source": "github",
-      "rank": 12,
-      "title": "cathrynlavery/diagram-design",
-      "title_zh": "cathrynlavery/diagram-design",
-      "url": "https://github.com/cathrynlavery/diagram-design",
-      "hot_value": "228 stars today",
-      "summary_zh": "为AI编程工具设计42种编辑图表，纯HTML+SVG，值得看。",
-      "thumbnail": null,
-      "published_at": null,
-      "extra": {
-        "description": "Editorial diagram design for Claude Code, Codex, GitHub Copilot, Factory Droid, and Pi. 42 diagram types. Self-contained HTML + SVG. No shadows. No Mermaid slop.",
-        "language": "HTML"
-      },
-      "days_on_board": 2,
-      "is_new": false,
-      "rank_delta": 0,
-      "cluster_id": "d8c839d8efba",
-      "cluster_size": 1,
-      "rank_history": [
-        {
-          "run_at": "2026-10-06T16:45:23.211195+00:00",
-          "rank": 12
         },
         {
-          "run_at": "2026-10-07T01:45:04.910198+00:00",
-          "rank": 12
-        },
-        {
-          "run_at": "2026-10-07T10:45:19.993440+00:00",
-          "rank": 12
+          "run_at": "2026-10-08T04:45:23.032721+00:00",
+          "rank": 13
         }
       ]
     }
