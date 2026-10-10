@@ -1,18 +1,18 @@
 {
-  "generated_at": "2026-10-08T04:45:23.032721+00:00",
+  "generated_at": "2026-10-10T01:45:27.562959+00:00",
   "source": "tools",
   "status": {
     "source": "tools",
     "status": "ok",
     "item_count": 15,
-    "duration_ms": 6870,
+    "duration_ms": 8004,
     "error": null,
-    "run_at": "2026-10-08T04:45:23.032721+00:00"
+    "run_at": "2026-10-10T01:45:27.562959+00:00"
   },
   "items": [
     {
       "source": "feed",
-      "rank": 39,
+      "rank": 35,
       "title": "Version 5.6.0",
       "title_zh": "版本5.6.0",
       "url": "https://github.com/satijalab/seurat/releases/tag/v5.6.0",
@@ -28,11 +28,11 @@
         "description": "Changes Additions Added setThreads and getThreads to control threading in supported C++ kernels and uwot UMAP backends Updated NormalizeData to use threaded sparse log-normalization and reduce matrix-copying overhead Updated FindVariableFeatures to share a sparse VST implementation across assay versions with threaded standardized-variance calculations Updated ScaleData to center, scale, and clip d",
         "dedupe_key": "https://github.com/satijalab/seurat/releases/tag/v5.6.0"
       },
-      "days_on_board": 3,
+      "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 17,
-      "cluster_id": "bf128c562147",
-      "cluster_size": 1,
+      "rank_delta": 4,
+      "cluster_id": "d6a87bc72389",
+      "cluster_size": 3,
       "rank_history": [
         {
           "run_at": "2026-10-04T01:45:07.652365+00:00",
@@ -57,12 +57,16 @@
         {
           "run_at": "2026-10-08T04:45:23.032721+00:00",
           "rank": 39
+        },
+        {
+          "run_at": "2026-10-10T01:45:27.562959+00:00",
+          "rank": 35
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 43,
+      "rank": 42,
       "title": "scvi-tools 1.5.1",
       "title_zh": "scvi-tools 1.5.1",
       "url": "https://github.com/scverse/scvi-tools/releases/tag/1.5.1",
@@ -78,28 +82,12 @@
         "description": "See the release notes for all changes. This release is available via PyPi: pip install scvi-tools Conda availability will follow (< 2 days typically) Please report any issues on GitHub .",
         "dedupe_key": "https://github.com/scverse/scvi-tools/releases/tag/1.5.1"
       },
-      "days_on_board": 3,
+      "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 27,
+      "rank_delta": 1,
       "cluster_id": "92de253c91a7",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-10-02T01:44:27.290836+00:00",
-          "rank": 78
-        },
-        {
-          "run_at": "2026-10-03T01:44:54.795737+00:00",
-          "rank": 80
-        },
-        {
-          "run_at": "2026-10-03T04:45:25.104795+00:00",
-          "rank": 80
-        },
-        {
-          "run_at": "2026-10-03T07:44:44.181094+00:00",
-          "rank": 80
-        },
         {
           "run_at": "2026-10-04T01:45:07.652365+00:00",
           "rank": 81
@@ -123,12 +111,16 @@
         {
           "run_at": "2026-10-08T04:45:23.032721+00:00",
           "rank": 43
+        },
+        {
+          "run_at": "2026-10-10T01:45:27.562959+00:00",
+          "rank": 42
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 45,
+      "rank": 44,
       "title": "1.12.4",
       "title_zh": "1.12.4",
       "url": "https://github.com/scverse/scanpy/releases/tag/1.12.4",
@@ -144,28 +136,12 @@
         "description": "https://scanpy.readthedocs.io/en/stable/release-notes/index.html#v1-12-4",
         "dedupe_key": "https://github.com/scverse/scanpy/releases/tag/1.12.4"
       },
-      "days_on_board": 3,
+      "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 27,
+      "rank_delta": 1,
       "cluster_id": "877b691e9b59",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-10-02T01:44:27.290836+00:00",
-          "rank": 80
-        },
-        {
-          "run_at": "2026-10-03T01:44:54.795737+00:00",
-          "rank": 82
-        },
-        {
-          "run_at": "2026-10-03T04:45:25.104795+00:00",
-          "rank": 82
-        },
-        {
-          "run_at": "2026-10-03T07:44:44.181094+00:00",
-          "rank": 82
-        },
         {
           "run_at": "2026-10-04T01:45:07.652365+00:00",
           "rank": 83
@@ -189,12 +165,16 @@
         {
           "run_at": "2026-10-08T04:45:23.032721+00:00",
           "rank": 45
+        },
+        {
+          "run_at": "2026-10-10T01:45:27.562959+00:00",
+          "rank": 44
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 46,
+      "rank": 45,
       "title": "1.13.0a2",
       "title_zh": "1.13.0a2",
       "url": "https://github.com/scverse/scanpy/releases/tag/1.13.0a2",
@@ -210,28 +190,12 @@
         "description": "https://scanpy.scverse.org/en/latest/release-notes/index.html#version-1-13",
         "dedupe_key": "https://github.com/scverse/scanpy/releases/tag/1.13.0a2"
       },
-      "days_on_board": 3,
+      "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 28,
+      "rank_delta": 1,
       "cluster_id": "768fc0d2e613",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-10-02T01:44:27.290836+00:00",
-          "rank": 81
-        },
-        {
-          "run_at": "2026-10-03T01:44:54.795737+00:00",
-          "rank": 83
-        },
-        {
-          "run_at": "2026-10-03T04:45:25.104795+00:00",
-          "rank": 83
-        },
-        {
-          "run_at": "2026-10-03T07:44:44.181094+00:00",
-          "rank": 83
-        },
         {
           "run_at": "2026-10-04T01:45:07.652365+00:00",
           "rank": 84
@@ -255,12 +219,16 @@
         {
           "run_at": "2026-10-08T04:45:23.032721+00:00",
           "rank": 46
+        },
+        {
+          "run_at": "2026-10-10T01:45:27.562959+00:00",
+          "rank": 45
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 48,
+      "rank": 47,
       "title": "1.13.0a1",
       "title_zh": "1.13.0a1",
       "url": "https://github.com/scverse/scanpy/releases/tag/1.13.0a1",
@@ -276,28 +244,12 @@
         "description": "https://scanpy.scverse.org/en/latest/release-notes/index.html#version-1-13",
         "dedupe_key": "https://github.com/scverse/scanpy/releases/tag/1.13.0a1"
       },
-      "days_on_board": 3,
+      "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 27,
+      "rank_delta": 1,
       "cluster_id": "9da040e83623",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-10-02T01:44:27.290836+00:00",
-          "rank": 82
-        },
-        {
-          "run_at": "2026-10-03T01:44:54.795737+00:00",
-          "rank": 84
-        },
-        {
-          "run_at": "2026-10-03T04:45:25.104795+00:00",
-          "rank": 84
-        },
-        {
-          "run_at": "2026-10-03T07:44:44.181094+00:00",
-          "rank": 84
-        },
         {
           "run_at": "2026-10-04T01:45:07.652365+00:00",
           "rank": 85
@@ -321,12 +273,16 @@
         {
           "run_at": "2026-10-08T04:45:23.032721+00:00",
           "rank": 48
+        },
+        {
+          "run_at": "2026-10-10T01:45:27.562959+00:00",
+          "rank": 47
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 49,
+      "rank": 48,
       "title": "1.12.3",
       "title_zh": "1.12.3",
       "url": "https://github.com/scverse/scanpy/releases/tag/1.12.3",
@@ -342,28 +298,12 @@
         "description": "https://scanpy.readthedocs.io/en/stable/release-notes/index.html#v1-12-3",
         "dedupe_key": "https://github.com/scverse/scanpy/releases/tag/1.12.3"
       },
-      "days_on_board": 3,
+      "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 27,
+      "rank_delta": 1,
       "cluster_id": "1e7152d08b04",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-10-02T01:44:27.290836+00:00",
-          "rank": 83
-        },
-        {
-          "run_at": "2026-10-03T01:44:54.795737+00:00",
-          "rank": 85
-        },
-        {
-          "run_at": "2026-10-03T04:45:25.104795+00:00",
-          "rank": 85
-        },
-        {
-          "run_at": "2026-10-03T07:44:44.181094+00:00",
-          "rank": 85
-        },
         {
           "run_at": "2026-10-04T01:45:07.652365+00:00",
           "rank": 86
@@ -387,12 +327,16 @@
         {
           "run_at": "2026-10-08T04:45:23.032721+00:00",
           "rank": 49
+        },
+        {
+          "run_at": "2026-10-10T01:45:27.562959+00:00",
+          "rank": 48
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 50,
+      "rank": 49,
       "title": "scvi-tools 1.5.0.post1",
       "title_zh": "scvi-tools 1.5.0.post1",
       "url": "https://github.com/scverse/scvi-tools/releases/tag/1.5.0.post1",
@@ -408,28 +352,12 @@
         "description": "See the release notes for all changes. This release is available via PyPi: pip install scvi-tools Conda availability will follow (< 2 days typically) Please report any issues on GitHub .",
         "dedupe_key": "https://github.com/scverse/scvi-tools/releases/tag/1.5.0.post1"
       },
-      "days_on_board": 3,
+      "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 27,
-      "cluster_id": "8a4eca2177ca",
-      "cluster_size": 1,
+      "rank_delta": 1,
+      "cluster_id": "d6a87bc72389",
+      "cluster_size": 3,
       "rank_history": [
-        {
-          "run_at": "2026-10-02T01:44:27.290836+00:00",
-          "rank": 84
-        },
-        {
-          "run_at": "2026-10-03T01:44:54.795737+00:00",
-          "rank": 86
-        },
-        {
-          "run_at": "2026-10-03T04:45:25.104795+00:00",
-          "rank": 86
-        },
-        {
-          "run_at": "2026-10-03T07:44:44.181094+00:00",
-          "rank": 86
-        },
         {
           "run_at": "2026-10-04T01:45:07.652365+00:00",
           "rank": 87
@@ -453,12 +381,16 @@
         {
           "run_at": "2026-10-08T04:45:23.032721+00:00",
           "rank": 50
+        },
+        {
+          "run_at": "2026-10-10T01:45:27.562959+00:00",
+          "rank": 49
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 51,
+      "rank": 50,
       "title": "scvi-tools 1.5.0",
       "title_zh": "scvi-tools 1.5.0",
       "url": "https://github.com/scverse/scvi-tools/releases/tag/1.5.0",
@@ -474,28 +406,12 @@
         "description": "See the release notes for all changes. This release is available via PyPi: pip install scvi-tools Conda availability will follow (< 2 days typically) Please report any issues on GitHub .",
         "dedupe_key": "https://github.com/scverse/scvi-tools/releases/tag/1.5.0"
       },
-      "days_on_board": 3,
+      "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 27,
-      "cluster_id": "8b146ac8159b",
-      "cluster_size": 1,
+      "rank_delta": 1,
+      "cluster_id": "d6a87bc72389",
+      "cluster_size": 3,
       "rank_history": [
-        {
-          "run_at": "2026-10-02T01:44:27.290836+00:00",
-          "rank": 85
-        },
-        {
-          "run_at": "2026-10-03T01:44:54.795737+00:00",
-          "rank": 87
-        },
-        {
-          "run_at": "2026-10-03T04:45:25.104795+00:00",
-          "rank": 87
-        },
-        {
-          "run_at": "2026-10-03T07:44:44.181094+00:00",
-          "rank": 87
-        },
         {
           "run_at": "2026-10-04T01:45:07.652365+00:00",
           "rank": 88
@@ -519,12 +435,16 @@
         {
           "run_at": "2026-10-08T04:45:23.032721+00:00",
           "rank": 51
+        },
+        {
+          "run_at": "2026-10-10T01:45:27.562959+00:00",
+          "rank": 50
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 52,
+      "rank": 51,
       "title": "1.12.2",
       "title_zh": "1.12.2",
       "url": "https://github.com/scverse/scanpy/releases/tag/1.12.2",
@@ -540,28 +460,12 @@
         "description": "https://scanpy.readthedocs.io/en/stable/release-notes/index.html#v1-12-2",
         "dedupe_key": "https://github.com/scverse/scanpy/releases/tag/1.12.2"
       },
-      "days_on_board": 3,
+      "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 28,
+      "rank_delta": 1,
       "cluster_id": "750772e94d46",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-10-02T01:44:27.290836+00:00",
-          "rank": 86
-        },
-        {
-          "run_at": "2026-10-03T01:44:54.795737+00:00",
-          "rank": 88
-        },
-        {
-          "run_at": "2026-10-03T04:45:25.104795+00:00",
-          "rank": 88
-        },
-        {
-          "run_at": "2026-10-03T07:44:44.181094+00:00",
-          "rank": 88
-        },
         {
           "run_at": "2026-10-04T01:45:07.652365+00:00",
           "rank": 89
@@ -585,12 +489,16 @@
         {
           "run_at": "2026-10-08T04:45:23.032721+00:00",
           "rank": 52
+        },
+        {
+          "run_at": "2026-10-10T01:45:27.562959+00:00",
+          "rank": 51
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 53,
+      "rank": 52,
       "title": "Version 5.5.1",
       "title_zh": "版本5.5.1",
       "url": "https://github.com/satijalab/seurat/releases/tag/v5.5.1",
@@ -606,28 +514,12 @@
         "description": "Changes Additions Added uwot.init parameter to RunUMAP to optionally customize method of UMAP initialization ( #10386 ) Fixes Fixed bug in PrepSCTFindMarkers in the multi-model case that produced zero counts for some valid genes due to an incorrect filter for theta ( #10410 ) Fixed issue with FindClusters not setting metadata properly when a vector of resolutions is passed to resolution and a cust",
         "dedupe_key": "https://github.com/satijalab/seurat/releases/tag/v5.5.1"
       },
-      "days_on_board": 3,
+      "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 28,
+      "rank_delta": 1,
       "cluster_id": "51b67338cbc0",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-10-02T01:44:27.290836+00:00",
-          "rank": 87
-        },
-        {
-          "run_at": "2026-10-03T01:44:54.795737+00:00",
-          "rank": 89
-        },
-        {
-          "run_at": "2026-10-03T04:45:25.104795+00:00",
-          "rank": 89
-        },
-        {
-          "run_at": "2026-10-03T07:44:44.181094+00:00",
-          "rank": 89
-        },
         {
           "run_at": "2026-10-04T01:45:07.652365+00:00",
           "rank": 90
@@ -651,12 +543,16 @@
         {
           "run_at": "2026-10-08T04:45:23.032721+00:00",
           "rank": 53
+        },
+        {
+          "run_at": "2026-10-10T01:45:27.562959+00:00",
+          "rank": 52
         }
       ]
     },
     {
       "source": "feed",
-      "rank": 54,
+      "rank": 53,
       "title": "scvi-tools 1.4.3",
       "title_zh": "scvi-tools 1.4.3",
       "url": "https://github.com/scverse/scvi-tools/releases/tag/1.4.3",
@@ -672,28 +568,12 @@
         "description": "See the release notes for all changes. This release is available via PyPi: pip install scvi-tools Conda availability will follow (< 2 days typically) Please report any issues on GitHub .",
         "dedupe_key": "https://github.com/scverse/scvi-tools/releases/tag/1.4.3"
       },
-      "days_on_board": 3,
+      "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 28,
+      "rank_delta": 1,
       "cluster_id": "bbea1c662507",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-10-02T01:44:27.290836+00:00",
-          "rank": 89
-        },
-        {
-          "run_at": "2026-10-03T01:44:54.795737+00:00",
-          "rank": 91
-        },
-        {
-          "run_at": "2026-10-03T04:45:25.104795+00:00",
-          "rank": 91
-        },
-        {
-          "run_at": "2026-10-03T07:44:44.181094+00:00",
-          "rank": 91
-        },
         {
           "run_at": "2026-10-04T01:45:07.652365+00:00",
           "rank": 92
@@ -717,6 +597,10 @@
         {
           "run_at": "2026-10-08T04:45:23.032721+00:00",
           "rank": 54
+        },
+        {
+          "run_at": "2026-10-10T01:45:27.562959+00:00",
+          "rank": 53
         }
       ]
     },
@@ -738,28 +622,12 @@
         "description": "Changes Additions Added support for vars.to.regress and latent.data in ScaleData.IterableMatrix (BPCells) ( #10300 ) Added warning to SCTransform to notify that do.correct.umi is hard set to F when a reference SCT model is specified ( #10329 , #10366 ) Added warning to FindMarkers / FindAllMarkers when running on an IterableMatrix (BPCells) with column-major storage order ( #10365 ) Added plot_typ",
         "dedupe_key": "https://github.com/satijalab/seurat/releases/tag/v5.5.0"
       },
-      "days_on_board": 3,
+      "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 28,
-      "cluster_id": "7c320a02a1ec",
-      "cluster_size": 1,
+      "rank_delta": 0,
+      "cluster_id": "d6a87bc72389",
+      "cluster_size": 3,
       "rank_history": [
-        {
-          "run_at": "2026-10-02T01:44:27.290836+00:00",
-          "rank": 90
-        },
-        {
-          "run_at": "2026-10-03T01:44:54.795737+00:00",
-          "rank": 92
-        },
-        {
-          "run_at": "2026-10-03T04:45:25.104795+00:00",
-          "rank": 92
-        },
-        {
-          "run_at": "2026-10-03T07:44:44.181094+00:00",
-          "rank": 92
-        },
         {
           "run_at": "2026-10-04T01:45:07.652365+00:00",
           "rank": 93
@@ -783,6 +651,10 @@
         {
           "run_at": "2026-10-08T04:45:23.032721+00:00",
           "rank": 55
+        },
+        {
+          "run_at": "2026-10-10T01:45:27.562959+00:00",
+          "rank": 55
         }
       ]
     },
@@ -804,28 +676,12 @@
         "description": "See the release notes for all changes. This release is available via PyPi: pip install scvi-tools Conda availability will follow (< 2 days typically) Please report any issues on GitHub .",
         "dedupe_key": "https://github.com/scverse/scvi-tools/releases/tag/1.4.2"
       },
-      "days_on_board": 3,
+      "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 28,
+      "rank_delta": 0,
       "cluster_id": "05240d494324",
       "cluster_size": 1,
       "rank_history": [
-        {
-          "run_at": "2026-10-02T01:44:27.290836+00:00",
-          "rank": 91
-        },
-        {
-          "run_at": "2026-10-03T01:44:54.795737+00:00",
-          "rank": 93
-        },
-        {
-          "run_at": "2026-10-03T04:45:25.104795+00:00",
-          "rank": 93
-        },
-        {
-          "run_at": "2026-10-03T07:44:44.181094+00:00",
-          "rank": 93
-        },
         {
           "run_at": "2026-10-04T01:45:07.652365+00:00",
           "rank": 94
@@ -849,6 +705,10 @@
         {
           "run_at": "2026-10-08T04:45:23.032721+00:00",
           "rank": 56
+        },
+        {
+          "run_at": "2026-10-10T01:45:27.562959+00:00",
+          "rank": 56
         }
       ]
     },
@@ -870,28 +730,12 @@
         "description": "Changes Additions Added support for 10x Space Ranger 4.0 outputs (Visium data with segmentations) Updated data loading functions Load10X_Spatial , Read10X_Image Updated GetTissueCoordinates.VisiumV2 Updated spatial visualization functions SpatialPlot , SingleSpatialPlot , SpatialDimPlot , SpatialFeaturePlot Added helper functions Read10X_Segmentations , Read10X_HD_GeoJson , Format10X_GeoJson_CellI",
         "dedupe_key": "https://github.com/satijalab/seurat/releases/tag/v5.4.0"
       },
-      "days_on_board": 3,
+      "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 28,
-      "cluster_id": "df617b34a5ab",
-      "cluster_size": 1,
+      "rank_delta": 0,
+      "cluster_id": "d6a87bc72389",
+      "cluster_size": 3,
       "rank_history": [
-        {
-          "run_at": "2026-10-02T01:44:27.290836+00:00",
-          "rank": 92
-        },
-        {
-          "run_at": "2026-10-03T01:44:54.795737+00:00",
-          "rank": 94
-        },
-        {
-          "run_at": "2026-10-03T04:45:25.104795+00:00",
-          "rank": 94
-        },
-        {
-          "run_at": "2026-10-03T07:44:44.181094+00:00",
-          "rank": 94
-        },
         {
           "run_at": "2026-10-04T01:45:07.652365+00:00",
           "rank": 95
@@ -915,6 +759,10 @@
         {
           "run_at": "2026-10-08T04:45:23.032721+00:00",
           "rank": 57
+        },
+        {
+          "run_at": "2026-10-10T01:45:27.562959+00:00",
+          "rank": 57
         }
       ]
     },
@@ -936,28 +784,12 @@
         "description": "Changes Additions Added option to use cluster_leiden from igraph when running Leiden clustering ( #9931 ) Added option to use umap2 from uwot when running UMAP ( #9918 ) Added option to use approx_pow parameter from uwot when running UMAP ( #9449 ) Updated LoadXenium to add support for Xenium protein data ( #10024 ) Added option to specify stroke size in FeaturePlot ( #10053 ) Added label.size.cut",
         "dedupe_key": "https://github.com/satijalab/seurat/releases/tag/v5.3.1"
       },
-      "days_on_board": 3,
+      "days_on_board": 1,
       "is_new": false,
-      "rank_delta": 28,
-      "cluster_id": "edd3c855d9d6",
-      "cluster_size": 2,
+      "rank_delta": 0,
+      "cluster_id": "d6a87bc72389",
+      "cluster_size": 3,
       "rank_history": [
-        {
-          "run_at": "2026-10-02T01:44:27.290836+00:00",
-          "rank": 93
-        },
-        {
-          "run_at": "2026-10-03T01:44:54.795737+00:00",
-          "rank": 95
-        },
-        {
-          "run_at": "2026-10-03T04:45:25.104795+00:00",
-          "rank": 95
-        },
-        {
-          "run_at": "2026-10-03T07:44:44.181094+00:00",
-          "rank": 95
-        },
         {
           "run_at": "2026-10-04T01:45:07.652365+00:00",
           "rank": 96
@@ -980,6 +812,10 @@
         },
         {
           "run_at": "2026-10-08T04:45:23.032721+00:00",
+          "rank": 58
+        },
+        {
+          "run_at": "2026-10-10T01:45:27.562959+00:00",
           "rank": 58
         }
       ]
